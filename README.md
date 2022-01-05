@@ -1,0 +1,2 @@
+# pyvizzu
+Vizzu Jupyter integration
