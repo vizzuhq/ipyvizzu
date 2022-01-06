@@ -33,3 +33,12 @@ notebook therefore `notebook` project has to be installed.
 pip install -e .
 pip install notebook
 ```
+
+## Documentation
+
+The documentation at the moment is a simple notebook (docs/ipyvizzu.ipybn)
+which is converted into a static html by the doc make target.
+
+```sh
+make doc
+```
