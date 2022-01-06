@@ -18,4 +18,4 @@ clean:
 	-rm -rf $(VIRTUAL_ENV)
 
 doc: dev docs/ipyvizzu.html
-	$(VIRTUAL_ENV)/bin/jupyter nbconvert --to html docs/ipyvizzu.ipynb
+	$(VIRTUAL_ENV)/bin/jupyter nbconvert --to html docs/index.ipynb

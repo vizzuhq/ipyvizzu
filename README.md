@@ -36,9 +36,10 @@ pip install notebook
 
 ## Documentation
 
-The documentation at the moment is a simple notebook (docs/ipyvizzu.ipybn)
-which is converted into a static html by the doc make target.
+Documentation can be build with the `doc` make target.
 
 ```sh
 make doc
 ```
+
+Online version can be read at [vizzuhq.github.io/ipyvizzu](https://vizzuhq.github.io/ipyvizzu/index.html).
