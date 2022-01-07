@@ -30,7 +30,7 @@ ipyvizzu requires only `IPython` package, but you can use it only in jupyter
 notebook therefore `notebook` project has to be installed.
 
 ```sh
-pip install -e .
+pip install ipyvizzu
 pip install notebook
 ```
 
