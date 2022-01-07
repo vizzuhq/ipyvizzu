@@ -9,11 +9,11 @@ from IPython.display import HTML, display_html
 
 
 _HEAD = """
-<div id="myVizzu" style="width:800px; height:480px;" />
+<div id="myVizzu_{div_id}" style="width:800px; height:480px;" />
 <script type="module">
 import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js';
 
-let chart = new Vizzu('myVizzu');
+let chart = new Vizzu('myVizzu_{div_id}');
 """
 
 
@@ -73,7 +73,7 @@ class Chart:
         Generate a javascript code from the issued animations.
         """
 
-        script = [_HEAD]
+        script = [_HEAD.format(div_id=id(self))]
 
         for animation in self._animations:
             data = json.dumps(animation)
