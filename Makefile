@@ -1,7 +1,8 @@
-.PHONY: install dev clean doc
+.PHONY: install dev clean
 
 VIRTUAL_ENV = .venv
 DEV_BUILD_FLAG = $(VIRTUAL_ENV)/DEV_BUILD_FLAG
+NOTEBOOKS = $(shell find docs -type f -name '*.ipynb')
 
 install:
 	python3 setup.py install
@@ -17,5 +18,7 @@ $(DEV_BUILD_FLAG):
 clean:
 	-rm -rf $(VIRTUAL_ENV)
 
-doc: dev docs/ipyvizzu.html
-	$(VIRTUAL_ENV)/bin/jupyter nbconvert --to html docs/index.ipynb
+doc: $(NOTEBOOKS:.ipynb=.html)
+
+%.html: %.ipynb dev
+	$(VIRTUAL_ENV)/bin/jupyter nbconvert --to html $<
