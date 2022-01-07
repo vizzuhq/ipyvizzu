@@ -3,7 +3,6 @@ Jupyter notebook integration for vizzu.
 """
 
 import json
-import enum
 
 from IPython.display import HTML, display_html
 
@@ -14,6 +13,7 @@ _HEAD = """
 import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js';
 
 let chart = new Vizzu('myVizzu_{div_id}');
+chart.initializing.then( chart => {{
 """
 
 
@@ -46,27 +46,63 @@ class Data(dict):
         self.setdefault(dest, []).append(value)
 
 
+class Method:
+    def dump(self):
+        raise NotImplementedError
+
+
+class Animate(Method):
+    def __init__(self, data):
+        self._data = data
+
+    def dump(self):
+        data = json.dumps(self._data)
+        return f"chart.animate({data});"
+
+
+
+class Feature(Method):
+    def __init__(self, name, value):
+        self._name = name
+        self._value = value
+
+    def dump(self):
+        name = json.dumps(self._name)
+        value = json.dumps(self._value)
+        return f"chart.feature({name}, {value});"
+
+
 class Chart:
     """
     Wrapper over vizzu Chart
     """
 
     def __init__(self, **data):
-        self._animations = []
+        self._calls = []
 
     def set_data(self, data: Data):
         """
         Set new data for animation.
         """
 
-        self._animations.append({"data": data})
+        self._calls.append(Animate({"data": data}))
+
+    def set_config(self, config):
+        """
+        Set new configuration.
+        """
+
+        self._calls.append(Animate({"config": config}))
+
+    def set_feature(self, name, value):
+        self._calls.append(Feature(name, value))
 
     def animate(self, **config):
         """
         Change the animation config.
         """
 
-        self._animations.append(config)
+        self._calls.append(Animate(config))
 
     def show(self):
         """
@@ -74,11 +110,8 @@ class Chart:
         """
 
         script = [_HEAD.format(div_id=id(self))]
-
-        for animation in self._animations:
-            data = json.dumps(animation)
-            script.append(f"chart.animate({data});")
-
+        script.extend(call.dump() for call in self._calls)
+        script.append("} );")
         script.append("</script>")
 
         display_html("\n".join(script), raw=True)
