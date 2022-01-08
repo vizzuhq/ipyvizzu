@@ -102,7 +102,7 @@ class Chart:
     def __init__(self, **data):
         self._calls = []
 
-    def set_feature(self, name, value):
+    def feature(self, name, value):
         self._calls.append(Feature(name, value))
 
     def animate(self, animation: typing.Optional[Animation]=None, **config):
