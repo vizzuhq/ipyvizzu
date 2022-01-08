@@ -20,5 +20,5 @@ clean:
 
 doc: $(NOTEBOOKS:.ipynb=.html)
 
-%.html: %.ipynb dev
+%.html: %.ipynb $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/jupyter nbconvert --to html $<
