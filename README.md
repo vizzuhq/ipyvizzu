@@ -6,14 +6,14 @@ ipyvizzu only works in jupiter notebook environment. A notebook cell may
 contain the following code snippet.
 
 ```python
-import ipyvizzu
+from ipyvizzu import Chart, Data, Config
 
-data = ipyvizzu.Data()
+data = Data()
 data.add_serie("Foo", ["Alice", "Bob", "Ted"])
 data.add_serie("Bar", [15, 32, 12])
 data.add_serie("Baz", [5, 2, 2])
 
-chart = ipyvizzu.Chart()
+chart = Chart()
 chart.set_data(data)
 
 chart.animate(x="Foo", y="Bar", color="Foo")
