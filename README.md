@@ -14,7 +14,7 @@ data.add_serie("Bar", [15, 32, 12])
 data.add_serie("Baz", [5, 2, 2])
 
 chart = Chart()
-chart.set_data(data)
+chart.animate(data)
 
 chart.animate(x="Foo", y="Bar", color="Foo")
 chart.animate(geometry="circle")
