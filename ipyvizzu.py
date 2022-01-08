@@ -3,6 +3,8 @@ Jupyter notebook integration for vizzu.
 """
 
 import json
+import abc
+import typing
 
 from IPython.display import HTML, display_html
 
@@ -17,7 +19,18 @@ chart.initializing.then( chart => {{
 """
 
 
-class Data(dict):
+class Animation:
+    @abc.abstractmethod
+    def dump():
+        pass
+
+
+class PlainAnimation(dict, Animation):
+    def dump(self):
+        return json.dumps(self)
+
+
+class Data(dict, Animation):
     """
     Vizzu data with the required keys: records, series, dimensions or measures.
     """
@@ -45,10 +58,19 @@ class Data(dict):
     def _add_value(self, dest, value):
         self.setdefault(dest, []).append(value)
 
+    def dump(self):
+        return json.dumps({"data": self})
+
+
+class Config(dict, Animation):
+    def dump(self):
+        return json.dumps({"config": self})
+
 
 class Method:
+    @abc.abstractmethod
     def dump(self):
-        raise NotImplementedError
+        pass
 
 
 class Animate(Method):
@@ -56,7 +78,7 @@ class Animate(Method):
         self._data = data
 
     def dump(self):
-        data = json.dumps(self._data)
+        data = self._data.dump()
         return f"chart.animate({data});"
 
 
@@ -80,29 +102,26 @@ class Chart:
     def __init__(self, **data):
         self._calls = []
 
-    def set_data(self, data: Data):
-        """
-        Set new data for animation.
-        """
-
-        self._calls.append(Animate({"data": data}))
-
-    def set_config(self, config):
-        """
-        Set new configuration.
-        """
-
-        self._calls.append(Animate({"config": config}))
-
-    def set_feature(self, name, value):
+    def feature(self, name, value):
         self._calls.append(Feature(name, value))
 
-    def animate(self, **config):
+    def animate(self, animation: typing.Optional[Animation]=None, **config):
         """
-        Change the animation config.
+        Register new animation.
         """
 
-        self._calls.append(Animate(config))
+        if animation is not None and config:
+            raise ValueError(
+                "`animation` parameter cannot be updated with keyword arguments."
+            )
+
+        if animation is None and not config:
+            raise ValueError("No animation was set.")
+
+        if config:
+            animation = PlainAnimation(config)
+
+        self._calls.append(Animate(animation))
 
     def show(self):
         """
