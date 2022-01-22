@@ -1,3 +1,5 @@
+[![Makefile CI](https://github.com/nyirog/ipyvizzu/actions/workflows/makefile.yml/badge.svg?branch=main)](https://github.com/nyirog/ipyvizzu/actions/workflows/makefile.yml)
+
 # ipyvizzu
 
 Jupyter notebook integration for vizzu.
