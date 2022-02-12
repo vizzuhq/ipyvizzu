@@ -67,6 +67,11 @@ class Config(dict, Animation):
         return json.dumps({"config": self})
 
 
+class Style(dict, Animation):
+    def dump(self):
+        return json.dumps({"style": self})
+
+
 class Method:
     @abc.abstractmethod
     def dump(self):
@@ -80,7 +85,6 @@ class Animate(Method):
     def dump(self):
         data = self._data.dump()
         return f"chart.animate({data});"
-
 
 
 class Feature(Method):
@@ -105,23 +109,40 @@ class Chart:
     def feature(self, name, value):
         self._calls.append(Feature(name, value))
 
-    def animate(self, animation: typing.Optional[Animation]=None, **config):
+    def animate(self, *animations: typing.Optional[Animation], **options):
         """
         Register new animation.
         """
 
-        if animation is not None and config:
+        if animations and options:
             raise ValueError(
-                "`animation` parameter cannot be updated with keyword arguments."
+                "`animations` and `options` cannot be used together."
             )
 
-        if animation is None and not config:
-            raise ValueError("No animation was set.")
+        if options:
+            self._calls.append(Animate(PlainAnimation(options)))
+        else:
+            if len(animations) == 1:
+                self._calls.append(Animate(*animations))
+            else:
+                anim = {}
+                for item in animations:
+                    anim = self._merge_anims(anim, json.loads(item.dump()))
+                self._calls.append(Animate(PlainAnimation(anim)))
 
-        if config:
-            animation = PlainAnimation(config)
-
-        self._calls.append(Animate(animation))
+    def _merge_anims(self, a, b, path=None):
+        if path is None: path = []
+        for key in b:
+            if key in a:
+                if isinstance(a[key], dict) and isinstance(b[key], dict):
+                    self._merge_anims(a[key], b[key], path + [str(key)])
+                elif a[key] == b[key]:
+                    pass
+                else:
+                    raise ValueError(f"Conflict at `{'.'.join(path + [str(key)])}`.")
+            else:
+                a[key] = b[key]
+        return a
 
     def show(self):
         """
@@ -132,5 +153,4 @@ class Chart:
         script.extend(call.dump() for call in self._calls)
         script.append("} );")
         script.append("</script>")
-
         display_html("\n".join(script), raw=True)
