@@ -153,4 +153,4 @@ class Chart:
         script.extend(call.dump() for call in self._calls)
         script.append("} );")
         script.append("</script>")
-        display_html("\n".join(script).replace('"null"', "null"), raw=True)
+        display_html("\n".join(script), raw=True)
