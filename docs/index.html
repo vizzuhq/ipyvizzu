@@ -14454,6 +14454,11 @@ all of MD as it is not optimized for dense, information rich UIs.
 </style>
 
 <style type="text/css">
+/* Force rendering true colors when outputing to pdf */
+* {
+  -webkit-print-color-adjust: exact;
+}
+
 /* Misc */
 a.anchor-link {
   display: none;
@@ -14470,6 +14475,11 @@ a.anchor-link {
 
 .jp-InputArea-editor {
   overflow: hidden;
+}
+
+.CodeMirror pre {
+  margin: 0;
+  padding: 0;
 }
 
 /* Using table instead of flexbox so that we can use break-inside property */
@@ -14510,11 +14520,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
   width: 100%;
 }
 
-@media print {
-  .jp-Collapser {
-    display: none;
-  }
+/* Hiding the collapser by default */
+.jp-Collapser {
+  display: none;
+}
 
+@media print {
   .jp-Cell-inputWrapper,
   .jp-Cell-outputWrapper {
     display: block;
@@ -14562,12 +14573,16 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     <!-- End of mathjax configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h1 id="vizzu">vizzu<a class="anchor-link" href="#vizzu">&#182;</a></h1><p><a href="https://lib.vizzuhq.com/">Vizzu</a> is a free, open-source Javascript/C++ library utilizing a generic dataviz engine that generates many types of charts and seamlessly animates between them. It can be used to create static charts but more importantly it is designed for building animated data stories and interactive explorers as Vizzu enables showing different perspectives of the data that the viewers can easily follow due to the animation.</p>
 <h1 id="ipyvizzu">ipyvizzu<a class="anchor-link" href="#ipyvizzu">&#182;</a></h1><p>ipyvizzu is a <a href="https://jupyter.org/">jupyter notebook</a> integration for the vizzu project. ipyvizzu works only in the jupyter notebook environment.</p>
 
+</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14640,7 +14655,10 @@ chart.animate({"geometry": "rectangle"});
 </div>
 
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>Note:</strong> <code>Chart.show(...)</code> only generates a javascript code. The vizzu calls are evaulated by the browser. Therefore if the vizzu figure is blank you should check the console of your browser where the javascript reports its errors.</p>
@@ -14648,6 +14666,7 @@ chart.animate({"geometry": "rectangle"});
 <ul>
 <li><a href="examples/data.html">Data</a></li>
 <li><a href="examples/axes.html">Axes, title, tooltip</a></li>
+<li><a href="examples/geometry.html">Geometry</a></li>
 <li><a href="examples/channels.html">Channels &amp; legend</a></li>
 <li><a href="examples/group.html">Group/stack</a></li>
 <li><a href="examples/sorting.html">Sorting</a></li>
@@ -14655,8 +14674,11 @@ chart.animate({"geometry": "rectangle"});
 <li><a href="examples/aggregate.html">Aggregate/drill-down</a></li>
 <li><a href="examples/orientation.html">Orientation, split &amp; polar</a></li>
 <li><a href="examples/without_coordinates.html">Without coordinates</a></li>
+<li><a href="examples/palette_font.html">Color palette &amp; fonts</a></li>
+<li><a href="examples/layout.html">Chart layout</a></li>
 </ul>
 
+</div>
 </div>
 </div>
 </div>

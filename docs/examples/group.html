@@ -14454,6 +14454,11 @@ all of MD as it is not optimized for dense, information rich UIs.
 </style>
 
 <style type="text/css">
+/* Force rendering true colors when outputing to pdf */
+* {
+  -webkit-print-color-adjust: exact;
+}
+
 /* Misc */
 a.anchor-link {
   display: none;
@@ -14470,6 +14475,11 @@ a.anchor-link {
 
 .jp-InputArea-editor {
   overflow: hidden;
+}
+
+.CodeMirror pre {
+  margin: 0;
+  padding: 0;
 }
 
 /* Using table instead of flexbox so that we can use break-inside property */
@@ -14510,11 +14520,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
   width: 100%;
 }
 
-@media print {
-  .jp-Collapser {
-    display: none;
-  }
+/* Hiding the collapser by default */
+.jp-Collapser {
+  display: none;
+}
 
+@media print {
   .jp-Cell-inputWrapper,
   .jp-Cell-outputWrapper {
     display: block;
@@ -14562,12 +14573,16 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     <!-- End of mathjax configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Group/stack">Group/stack<a class="anchor-link" href="#Group/stack">&#182;</a></h2><p>When you add dimensions to the channels, there is a simple rule to keep in mind in the current beta phase of Vizzu. The following example also shows how to group and stack elements of a bar chart.</p>
 <p>The rule: When you add a dimension (Type) to a channel (x-axis) with only dimensions on it, Vizzu will fade between the states, as shown here. Thus, you get a grouped bar chart, but the connection between the original state and this one will be unclear for the viewer because of the fading.</p>
 
+</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14650,11 +14665,15 @@ chart.animate({"config": {"channels": {"x": {"set": ["Genres", "Types"]}, "color
 </div>
 
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Let’s get back to the original state by removing the extra dimension - Vizzu will also simply fade between these states.</p>
 
+</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14745,11 +14764,15 @@ chart.animate({"config": {"channels": {"x": {"detach": ["Types"]}, "color": {"se
 </div>
 
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>The right way is to add the new dimension to the same channel where the measure is: the y-axis. However, since doing only this would result in multiple column chart elements with the same color stacked on top of each other, we also add the same dimension (Type) to the color channel.</p>
 
+</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14833,11 +14856,15 @@ chart.animate({"config": {"channels": {"y": {"attach": ["Types"]}, "color": {"at
 </div>
 
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>By detaching this newly added dimension from the y-axis and attaching it to the x-axis, you get to the same grouped bar chart as in the first step but in a way that is easy to follow for the viewer.</p>
 
+</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14928,11 +14955,15 @@ chart.animate({"config": {"channels": {"y": {"detach": ["Types"]}, "x": {"attach
 </div>
 
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>To stack a grouped chart, you just have to do the same thing the other way around: detach the dimension from the x-axis and attach it to the y-axis.</p>
 
+</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">

@@ -14454,6 +14454,11 @@ all of MD as it is not optimized for dense, information rich UIs.
 </style>
 
 <style type="text/css">
+/* Force rendering true colors when outputing to pdf */
+* {
+  -webkit-print-color-adjust: exact;
+}
+
 /* Misc */
 a.anchor-link {
   display: none;
@@ -14470,6 +14475,11 @@ a.anchor-link {
 
 .jp-InputArea-editor {
   overflow: hidden;
+}
+
+.CodeMirror pre {
+  margin: 0;
+  padding: 0;
 }
 
 /* Using table instead of flexbox so that we can use break-inside property */
@@ -14510,11 +14520,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
   width: 100%;
 }
 
-@media print {
-  .jp-Collapser {
-    display: none;
-  }
+/* Hiding the collapser by default */
+.jp-Collapser {
+  display: none;
+}
 
+@media print {
   .jp-Cell-inputWrapper,
   .jp-Cell-outputWrapper {
     display: block;
@@ -14562,12 +14573,16 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     <!-- End of mathjax configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Aggregate/drill-down">Aggregate/drill-down<a class="anchor-link" href="#Aggregate/drill-down">&#182;</a></h2><p>These features basically mean that you add or remove an additional dimension to/from an axis or another channel. As you can see below, there are some important things to keep in mind when you use them.</p>
 <p>Let’s stack together the elements by putting the Genres dimension from the x-axis to the y-axis. At the end of this phase, there are chart elements with the same color stacked on top of each other, which is something you would want to avoid.</p>
 
+</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14657,12 +14672,16 @@ chart.animate({"config": {"channels": {"y": {"attach": ["Genres"]}, "x": {"set":
 </div>
 
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>By taking the Genres off of the y-axis, only one chart element remains for every color, and Vizzu automatically calculates and shows the aggregate value of the elements.</p>
 <p>Note: Instead of taking the unwanted dimension down from the chart, Genres could have been added to the lightness channel to differentiate the chart elements.</p>
 
+</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14760,11 +14779,15 @@ chart.animate({"config": {"channels": {"y": {"detach": ["Genres"]}}}});
 </div>
 
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>To drill-down, the same dimension is put back on the y-axis, which results in a state that we suggest you to only use temporarily when in transition.</p>
 
+</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14870,11 +14893,15 @@ chart.animate({"config": {"channels": {"y": {"attach": ["Genres"]}}}});
 </div>
 
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>We group the elements by putting once again the Genres dimension on the x-axis.</p>
 
+</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
