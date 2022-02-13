@@ -20,14 +20,19 @@ chart.initializing.then( chart => {{
 
 
 class Animation:
+    def dump(self):
+        return json.dumps(self.build())
+
     @abc.abstractmethod
-    def dump():
-        pass
+    def build(self) -> typing.Mapping:
+        """
+        Return a dict with native python values that can be converted into json.
+        """
 
 
 class PlainAnimation(dict, Animation):
-    def dump(self):
-        return json.dumps(self)
+    def build(self):
+        return self
 
 
 class Data(dict, Animation):
@@ -58,13 +63,28 @@ class Data(dict, Animation):
     def _add_value(self, dest, value):
         self.setdefault(dest, []).append(value)
 
-    def dump(self):
-        return json.dumps({"data": self})
+    def build(self):
+        return {"data": self}
 
 
 class Config(dict, Animation):
-    def dump(self):
-        return json.dumps({"config": self})
+    def build(self):
+        return {"config": self}
+
+
+class AnimationMerger(dict, Animation):
+    def build(self):
+        return self
+
+    def merge(self, animation: Animation):
+        data = self._validate(animation)
+        self.update(data)
+
+    def _validate(self, animation):
+        data = animation.build()
+        common_keys = set(data).intersection(self)
+        assert not common_keys, f"Animation is already merged: {common_keys}"
+        return data
 
 
 class Method:
@@ -105,23 +125,33 @@ class Chart:
     def feature(self, name, value):
         self._calls.append(Feature(name, value))
 
-    def animate(self, animation: typing.Optional[Animation]=None, **config):
+    def animate(self, *animations: Animation, **config):
         """
         Register new animation.
         """
-
-        if animation is not None and config:
+        if animations and config:
             raise ValueError(
-                "`animation` parameter cannot be updated with keyword arguments."
+                "`animations` parameter cannot be updated with keyword arguments."
             )
 
-        if animation is None and not config:
+        if not animations and not config:
             raise ValueError("No animation was set.")
 
         if config:
             animation = PlainAnimation(config)
 
+        else:
+            animation = self._merge_animations(animations)
+
         self._calls.append(Animate(animation))
+
+    def _merge_animations(self, animations):
+        merger = AnimationMerger()
+
+        for animation in animations:
+            merger.merge(animation)
+
+        return merger
 
     def show(self):
         """
