@@ -6,7 +6,7 @@ import json
 import abc
 import typing
 
-from IPython.display import HTML, display_html
+from IPython.display import display_html
 
 
 _HEAD = """
@@ -119,7 +119,7 @@ class Chart:
     Wrapper over vizzu Chart
     """
 
-    def __init__(self, **data):
+    def __init__(self):
         self._calls = []
 
     def feature(self, name, value):
