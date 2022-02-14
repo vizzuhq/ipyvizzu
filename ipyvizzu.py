@@ -88,8 +88,8 @@ class AnimationMerger(dict, Animation):
 
 
 class Style(dict, Animation):
-    def dump(self):
-        return json.dumps({"style": self})
+    def build(self):
+        return {"style": self}
 
 
 class Method:
