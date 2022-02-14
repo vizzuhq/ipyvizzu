@@ -6,7 +6,7 @@ import json
 import abc
 import typing
 
-from IPython.display import HTML, display_html
+from IPython.display import display_html
 
 
 _HEAD = """
@@ -20,14 +20,19 @@ chart.initializing.then( chart => {{
 
 
 class Animation:
+    def dump(self):
+        return json.dumps(self.build())
+
     @abc.abstractmethod
-    def dump():
-        pass
+    def build(self) -> typing.Mapping:
+        """
+        Return a dict with native python values that can be converted into json.
+        """
 
 
 class PlainAnimation(dict, Animation):
-    def dump(self):
-        return json.dumps(self)
+    def build(self):
+        return self
 
 
 class Data(dict, Animation):
@@ -58,13 +63,28 @@ class Data(dict, Animation):
     def _add_value(self, dest, value):
         self.setdefault(dest, []).append(value)
 
-    def dump(self):
-        return json.dumps({"data": self})
+    def build(self):
+        return {"data": self}
 
 
 class Config(dict, Animation):
-    def dump(self):
-        return json.dumps({"config": self})
+    def build(self):
+        return {"config": self}
+
+
+class AnimationMerger(dict, Animation):
+    def build(self):
+        return self
+
+    def merge(self, animation: Animation):
+        data = self._validate(animation)
+        self.update(data)
+
+    def _validate(self, animation):
+        data = animation.build()
+        common_keys = set(data).intersection(self)
+        assert not common_keys, f"Animation is already merged: {common_keys}"
+        return data
 
 
 class Style(dict, Animation):
@@ -103,46 +123,39 @@ class Chart:
     Wrapper over vizzu Chart
     """
 
-    def __init__(self, **data):
+    def __init__(self):
         self._calls = []
 
     def feature(self, name, value):
         self._calls.append(Feature(name, value))
 
-    def animate(self, *animations: typing.Optional[Animation], **options):
+    def animate(self, *animations: Animation, **config):
         """
         Register new animation.
         """
-
-        if animations and options:
+        if animations and config:
             raise ValueError(
-                "`animations` and `options` cannot be used together."
+                "`animations` parameter cannot be updated with keyword arguments."
             )
 
-        if options:
-            self._calls.append(Animate(PlainAnimation(options)))
-        else:
-            if len(animations) == 1:
-                self._calls.append(Animate(*animations))
-            else:
-                anim = {}
-                for item in animations:
-                    anim = self._merge_anims(anim, json.loads(item.dump()))
-                self._calls.append(Animate(PlainAnimation(anim)))
+        if not animations and not config:
+            raise ValueError("No animation was set.")
 
-    def _merge_anims(self, a, b, path=None):
-        if path is None: path = []
-        for key in b:
-            if key in a:
-                if isinstance(a[key], dict) and isinstance(b[key], dict):
-                    self._merge_anims(a[key], b[key], path + [str(key)])
-                elif a[key] == b[key]:
-                    pass
-                else:
-                    raise ValueError(f"Conflict at `{'.'.join(path + [str(key)])}`.")
-            else:
-                a[key] = b[key]
-        return a
+        if config:
+            animation = PlainAnimation(config)
+
+        else:
+            animation = self._merge_animations(animations)
+
+        self._calls.append(Animate(animation))
+
+    def _merge_animations(self, animations):
+        merger = AnimationMerger()
+
+        for animation in animations:
+            merger.merge(animation)
+
+        return merger
 
     def show(self):
         """
