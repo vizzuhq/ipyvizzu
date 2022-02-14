@@ -14454,6 +14454,11 @@ all of MD as it is not optimized for dense, information rich UIs.
 </style>
 
 <style type="text/css">
+/* Force rendering true colors when outputing to pdf */
+* {
+  -webkit-print-color-adjust: exact;
+}
+
 /* Misc */
 a.anchor-link {
   display: none;
@@ -14470,6 +14475,11 @@ a.anchor-link {
 
 .jp-InputArea-editor {
   overflow: hidden;
+}
+
+.CodeMirror pre {
+  margin: 0;
+  padding: 0;
 }
 
 /* Using table instead of flexbox so that we can use break-inside property */
@@ -14510,11 +14520,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
   width: 100%;
 }
 
-@media print {
-  .jp-Collapser {
-    display: none;
-  }
+/* Hiding the collapser by default */
+.jp-Collapser {
+  display: none;
+}
 
+@media print {
   .jp-Cell-inputWrapper,
   .jp-Cell-outputWrapper {
     display: block;
@@ -14562,15 +14573,19 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     <!-- End of mathjax configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Axes,-title,-tooltip">Axes, title, tooltip<a class="anchor-link" href="#Axes,-title,-tooltip">&#182;</a></h2><p>To build a chart with Vizzu, you have to add data series to the channels.</p>
 <p>The first step is to create a simple column chart, adding one of the dimensions (Genre) to the x-axis and the measure (Popularity) to the y-axis using the set property.</p>
 <p>In the next step, the chart is rearranged by putting both series on the y-axis using once again the set property, resulting in a single column chart. Vizzu automatically animates between the initial state and this one.</p>
 <p>Or instead of set, you can use attach and detach to add or remove series to/from the channels.</p>
-<p>Using attach &amp; detach makes it easier to build your animated charts step-by-step, however you either have to keep in mind what you had on which channel in the previous step or add the following code to access the actual configuration of the chart.</p>
+<p>Using attach &amp; detach makes it easier to build your animated charts step-by-step, however you either have to keep in mind what you had on which channel in the previous step.</p>
 
+</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14648,11 +14663,15 @@ chart.animate({"config": {"channels": {"y": {"detach": "Popularity"}, "x": {"att
 </div>
 
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Setting the chart title with the title command.</p>
 
+</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14728,11 +14747,15 @@ chart.animate({"title": "My first chart"});
 </div>
 
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Switching on the tooltips that appear on the chart elements when the user hovers over them with their mouse by adding the (tooltip, true) parameters to the chart.feature method.</p>
 
+</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14797,92 +14820,6 @@ chart.initializing.then( chart => {
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
 chart.animate({"config": {"channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}}}});
 chart.feature("tooltip", true);
-} );
-</script>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Geometry">Geometry<a class="anchor-link" href="#Geometry">&#182;</a></h2><p>In Vizzu you can set the geometric elements used to represent your data by the geometry property within the config object.</p>
-
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Config</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Genres&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Pop&#39;</span><span class="p">,</span> <span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Jazz&#39;</span><span class="p">,</span> <span class="s1">&#39;Metal&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Types&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Hard&#39;</span><span class="p">,</span> <span class="s1">&#39;Smooth&#39;</span><span class="p">,</span> <span class="s1">&#39;Experimental&#39;</span> <span class="p">])</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_measure</span><span class="p">(</span>
-    <span class="s1">&#39;Popularity&#39;</span><span class="p">,</span>
-    <span class="p">[</span>
-        <span class="p">[</span><span class="mi">114</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">52</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">121</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">127</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">58</span><span class="p">],</span>
-    <span class="p">]</span>
-<span class="p">)</span>
-
-<span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span><span class="p">},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;area&quot;</span><span class="p">}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;line&quot;</span><span class="p">}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span><span class="p">}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;rectangle&quot;</span><span class="p">}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-
-<div id="myVizzu_140437467056304" style="width:800px; height:480px;" />
-<script type="module">
-import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js';
-
-let chart = new Vizzu('myVizzu_140437467056304');
-chart.initializing.then( chart => {
-
-chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}}}});
-chart.animate({"config": {"geometry": "area"}});
-chart.animate({"config": {"geometry": "line"}});
-chart.animate({"config": {"geometry": "circle"}});
-chart.animate({"config": {"geometry": "rectangle"}});
 } );
 </script>
 </div>

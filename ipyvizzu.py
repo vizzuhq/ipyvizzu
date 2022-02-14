@@ -87,6 +87,11 @@ class AnimationMerger(dict, Animation):
         return data
 
 
+class Style(dict, Animation):
+    def dump(self):
+        return json.dumps({"style": self})
+
+
 class Method:
     @abc.abstractmethod
     def dump(self):
@@ -100,7 +105,6 @@ class Animate(Method):
     def dump(self):
         data = self._data.dump()
         return f"chart.animate({data});"
-
 
 
 class Feature(Method):
@@ -162,5 +166,4 @@ class Chart:
         script.extend(call.dump() for call in self._calls)
         script.append("} );")
         script.append("</script>")
-
         display_html("\n".join(script), raw=True)

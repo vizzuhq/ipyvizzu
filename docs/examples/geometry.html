@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>sorting</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>geometry</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14579,8 +14579,11 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Sorting">Sorting<a class="anchor-link" href="#Sorting">&#182;</a></h2><p>Vizzu provides multiple options to sort data. By default, the data is sorted by the order it is added to Vizzu. This is why we suggest to add temporal data such as dates in chronological order - from oldest to newest.</p>
-<p>You can also sort the elements by value, which will provide you with an ascending order.</p>
+<h2 id="Geometry">Geometry<a class="anchor-link" href="#Geometry">&#182;</a></h2><p>In Vizzu you can set the geometric elements used to represent your data by the geometry property within the config object.</p>
+<p>The first step is switching the geometry to area.</p>
+<p>The second step is drawing a line chart.</p>
+<p>The third step is switching the geometry to circle. This setting is the most useful when used together with the size channel, as shown in the next chapter of the tutorial.</p>
+<p>The last step is switching the geometry to rectangle. Rectangle geometry is the default setting in Vizzu, used for most common charts like bar and column charts.</p>
 
 </div>
 </div>
@@ -14590,7 +14593,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Config</span>
@@ -14612,12 +14615,10 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span><span class="p">},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Genres&quot;</span><span class="p">]}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
-    <span class="s2">&quot;sort&quot;</span><span class="p">:</span> <span class="s2">&quot;byValue&quot;</span><span class="p">,</span>
-<span class="p">}))</span>
-
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;area&quot;</span><span class="p">}))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;line&quot;</span><span class="p">}))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span><span class="p">}))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;rectangle&quot;</span><span class="p">}))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -14642,401 +14643,19 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
 
-<div id="myVizzu_140290295992080" style="width:800px; height:480px;" />
+<div id="myVizzu_140447183101088" style="width:800px; height:480px;" />
 <script type="module">
 import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js';
 
-let chart = new Vizzu('myVizzu_140290295992080');
+let chart = new Vizzu('myVizzu_140447183101088');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
 chart.animate({"config": {"channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}}}});
-chart.animate({"config": {"channels": {"label": {"attach": ["Popularity"]}}}});
-chart.animate({"config": {"color": {"set": ["Genres"]}}});
-chart.animate({"config": {"sort": "byValue"}});
-} );
-</script>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>If you want descending order instead, you have to set the reverse parameter to true. When used without setting the sorting to byValue, the elements will be in the opposite order than they are in the data set added to Vizzu.</p>
-
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Config</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Genres&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Pop&#39;</span><span class="p">,</span> <span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Jazz&#39;</span><span class="p">,</span> <span class="s1">&#39;Metal&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Types&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Hard&#39;</span><span class="p">,</span> <span class="s1">&#39;Smooth&#39;</span><span class="p">,</span> <span class="s1">&#39;Experimental&#39;</span> <span class="p">])</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_measure</span><span class="p">(</span>
-    <span class="s1">&#39;Popularity&#39;</span><span class="p">,</span>
-    <span class="p">[</span>
-        <span class="p">[</span><span class="mi">114</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">52</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">121</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">127</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">58</span><span class="p">],</span>
-    <span class="p">]</span>
-<span class="p">)</span>
-
-<span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span><span class="p">},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Genres&quot;</span><span class="p">]}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
-    <span class="s2">&quot;sort&quot;</span><span class="p">:</span> <span class="s2">&quot;byValue&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;reverse&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-<span class="p">}))</span>
-
-<span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-
-<div id="myVizzu_140290296249024" style="width:800px; height:480px;" />
-<script type="module">
-import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js';
-
-let chart = new Vizzu('myVizzu_140290296249024');
-chart.initializing.then( chart => {
-
-chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}}}});
-chart.animate({"config": {"channels": {"label": {"attach": ["Popularity"]}}}});
-chart.animate({"config": {"color": {"set": ["Genres"]}}});
-chart.animate({"config": {"sort": "byValue", "reverse": true}});
-} );
-</script>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>This is how to switch back to the default sorting.</p>
-
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Config</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Genres&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Pop&#39;</span><span class="p">,</span> <span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Jazz&#39;</span><span class="p">,</span> <span class="s1">&#39;Metal&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Types&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Hard&#39;</span><span class="p">,</span> <span class="s1">&#39;Smooth&#39;</span><span class="p">,</span> <span class="s1">&#39;Experimental&#39;</span> <span class="p">])</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_measure</span><span class="p">(</span>
-    <span class="s1">&#39;Popularity&#39;</span><span class="p">,</span>
-    <span class="p">[</span>
-        <span class="p">[</span><span class="mi">114</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">52</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">121</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">127</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">58</span><span class="p">],</span>
-    <span class="p">]</span>
-<span class="p">)</span>
-
-<span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span><span class="p">},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Genres&quot;</span><span class="p">]}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
-    <span class="s2">&quot;sort&quot;</span><span class="p">:</span> <span class="s2">&quot;byValue&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;reverse&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-<span class="p">}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
-    <span class="s2">&quot;sort&quot;</span><span class="p">:</span> <span class="s2">&quot;none&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;reverse&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-<span class="p">}))</span>
-
-<span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-
-<div id="myVizzu_140290295989344" style="width:800px; height:480px;" />
-<script type="module">
-import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js';
-
-let chart = new Vizzu('myVizzu_140290295989344');
-chart.initializing.then( chart => {
-
-chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}}}});
-chart.animate({"config": {"channels": {"label": {"attach": ["Popularity"]}}}});
-chart.animate({"config": {"color": {"set": ["Genres"]}}});
-chart.animate({"config": {"sort": "byValue", "reverse": true}});
-chart.animate({"config": {"sort": "none", "reverse": false}});
-} );
-</script>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>When you have more than one dimension on a channel, their order determines how the elements are grouped.</p>
-
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Config</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Genres&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Pop&#39;</span><span class="p">,</span> <span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Jazz&#39;</span><span class="p">,</span> <span class="s1">&#39;Metal&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Types&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Hard&#39;</span><span class="p">,</span> <span class="s1">&#39;Smooth&#39;</span><span class="p">,</span> <span class="s1">&#39;Experimental&#39;</span> <span class="p">])</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_measure</span><span class="p">(</span>
-    <span class="s1">&#39;Popularity&#39;</span><span class="p">,</span>
-    <span class="p">[</span>
-        <span class="p">[</span><span class="mi">114</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">52</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">121</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">127</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">58</span><span class="p">],</span>
-    <span class="p">]</span>
-<span class="p">)</span>
-
-<span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span><span class="p">},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Genres&quot;</span><span class="p">]}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
-    <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;detach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Types&quot;</span><span class="p">]},</span>
-        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Genres&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]},</span>
-    <span class="p">}</span>
-<span class="p">}))</span>
-
-<span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-
-<div id="myVizzu_140290296249120" style="width:800px; height:480px;" />
-<script type="module">
-import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js';
-
-let chart = new Vizzu('myVizzu_140290296249120');
-chart.initializing.then( chart => {
-
-chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}}}});
-chart.animate({"config": {"channels": {"label": {"attach": ["Popularity"]}}}});
-chart.animate({"config": {"color": {"set": ["Genres"]}}});
-chart.animate({"config": {"channels": {"y": {"detach": ["Types"]}, "x": {"set": ["Genres", "Types"]}}}});
-} );
-</script>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>When switching the order of dimensions on the x-axis Vizzu will rearrange the elements according to this new logic.</p>
-
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Config</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Genres&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Pop&#39;</span><span class="p">,</span> <span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Jazz&#39;</span><span class="p">,</span> <span class="s1">&#39;Metal&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Types&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Hard&#39;</span><span class="p">,</span> <span class="s1">&#39;Smooth&#39;</span><span class="p">,</span> <span class="s1">&#39;Experimental&#39;</span> <span class="p">])</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_measure</span><span class="p">(</span>
-    <span class="s1">&#39;Popularity&#39;</span><span class="p">,</span>
-    <span class="p">[</span>
-        <span class="p">[</span><span class="mi">114</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">52</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">121</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">127</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">58</span><span class="p">],</span>
-    <span class="p">]</span>
-<span class="p">)</span>
-
-<span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span><span class="p">},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Genres&quot;</span><span class="p">]}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
-    <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;detach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Types&quot;</span><span class="p">]},</span>
-        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Genres&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]},</span>
-    <span class="p">}</span>
-<span class="p">}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
-    <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Types&quot;</span><span class="p">,</span> <span class="s2">&quot;Genres&quot;</span><span class="p">]},</span>
-    <span class="p">}</span>
-<span class="p">}))</span>
-
-<span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output " data-mime-type="text/html">
-
-<div id="myVizzu_140290295993664" style="width:800px; height:480px;" />
-<script type="module">
-import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js';
-
-let chart = new Vizzu('myVizzu_140290295993664');
-chart.initializing.then( chart => {
-
-chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}}}});
-chart.animate({"config": {"channels": {"label": {"attach": ["Popularity"]}}}});
-chart.animate({"config": {"color": {"set": ["Genres"]}}});
-chart.animate({"config": {"channels": {"y": {"detach": ["Types"]}, "x": {"set": ["Genres", "Types"]}}}});
-chart.animate({"config": {"channels": {"x": {"set": ["Types", "Genres"]}}}});
+chart.animate({"config": {"geometry": "area"}});
+chart.animate({"config": {"geometry": "line"}});
+chart.animate({"config": {"geometry": "circle"}});
+chart.animate({"config": {"geometry": "rectangle"}});
 } );
 </script>
 </div>

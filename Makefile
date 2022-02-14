@@ -10,7 +10,7 @@ install:
 dev: $(DEV_BUILD_FLAG)
 
 $(DEV_BUILD_FLAG):
-	python -m venv $(VIRTUAL_ENV)
+	python3 -m venv $(VIRTUAL_ENV)
 	$(VIRTUAL_ENV)/bin/pip install -e .
 	$(VIRTUAL_ENV)/bin/pip install notebook
 	touch $(DEV_BUILD_FLAG)
