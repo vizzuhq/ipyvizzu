@@ -43,7 +43,7 @@ class Data(dict, Animation):
     def add_record(self, record):
         self._add_value("records", record)
 
-    def add_serie(self, name, values=None, **kwargs):
+    def add_series(self, name, values=None, **kwargs):
         self._add_named_value("series", name, values, **kwargs)
 
     def add_dimension(self, name, values=None, **kwargs):
