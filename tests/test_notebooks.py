@@ -14,6 +14,7 @@ class TestNotebook(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.div_pattern = re.compile(r"myVizzu_\d+", flags=re.MULTILINE)
+        cls.project_dir = pathlib.Path(__file__).parent.parent
 
     @classmethod
     def normalize_div_id(cls, output):
@@ -22,7 +23,9 @@ class TestNotebook(unittest.TestCase):
 
     @patch("ipyvizzu.display_html")
     def test(self, display_html):
-        for path in pathlib.Path("docs/examples").glob("*.ipynb"):
+        examples_dir = self.project_dir / "docs/examples"
+
+        for path in examples_dir.glob("*.ipynb"):
             if path.name in self.exclude_list:
                 continue
 
