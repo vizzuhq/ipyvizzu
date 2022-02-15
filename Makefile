@@ -1,4 +1,4 @@
-.PHONY: install dev clean
+.PHONY: install dev clean test
 
 VIRTUAL_ENV = .venv
 DEV_BUILD_FLAG = $(VIRTUAL_ENV)/DEV_BUILD_FLAG
@@ -22,3 +22,6 @@ doc: $(NOTEBOOKS:.ipynb=.html)
 
 %.html: %.ipynb $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/jupyter nbconvert --to html $<
+
+test: $(DEV_BUILD_FLAG)
+	$(VIRTUAL_ENV)/bin/python -m unittest discover tests/
