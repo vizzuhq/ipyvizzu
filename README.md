@@ -45,3 +45,12 @@ make doc
 ```
 
 Online version can be read at [vizzuhq.github.io/ipyvizzu](https://vizzuhq.github.io/ipyvizzu/index.html).
+
+## Testing
+
+Tests can be run with the `test` make target. The notebooks under the
+`docs/examples` are executed by the tests.
+
+```
+make test
+```

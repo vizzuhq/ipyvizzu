@@ -14,5 +14,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
           
-    - name: Build documentation
-      run: make doc
+    - name: Run tests
+      run: make test
