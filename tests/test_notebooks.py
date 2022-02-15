@@ -29,7 +29,7 @@ class TestNotebook(unittest.TestCase):
             with self.subTest(path=path):
                 notebook = parse_notebook(path)
                 for source, output in notebook:
-                    exec(source)
+                    exec(source)  # pylint: disable=exec-used
                     self.assertEqual(
                         self.normalize_div_id(display_html.call_args.args[0]),
                         self.normalize_div_id(output),
@@ -37,8 +37,8 @@ class TestNotebook(unittest.TestCase):
 
 
 def parse_notebook(path):
-    with path.open() as fp:
-        notebook = json.load(fp)
+    with path.open() as file_desc:
+        notebook = json.load(file_desc)
 
     return [
         (

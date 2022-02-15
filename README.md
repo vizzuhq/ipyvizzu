@@ -78,3 +78,11 @@ make check-format
 ```sh
 make format
 ```
+
+### Linter
+
+The `lint` target runs `pylint` over the ipyvizzu project.
+
+```sh
+make lint
+```

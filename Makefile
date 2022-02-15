@@ -13,7 +13,7 @@ $(DEV_BUILD_FLAG):
 	python3 -m venv $(VIRTUAL_ENV)
 	$(VIRTUAL_ENV)/bin/pip install -e .
 	$(VIRTUAL_ENV)/bin/pip install notebook
-	$(VIRTUAL_ENV)/bin/pip install black==22.1.0
+	$(VIRTUAL_ENV)/bin/pip install black==22.1.0 pylint
 	touch $(DEV_BUILD_FLAG)
 
 clean:
@@ -24,7 +24,7 @@ doc: $(NOTEBOOKS:.ipynb=.html)
 %.html: %.ipynb $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/jupyter nbconvert --to html $<
 
-check: check-format test
+check: check-format test lint
 
 test: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/python -m unittest discover tests/
@@ -34,3 +34,11 @@ format: $(DEV_BUILD_FLAG)
 
 check-format: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/black --check ipyvizzu.py tests
+
+lint: $(DEV_BUILD_FLAG)
+	$(VIRTUAL_ENV)/bin/pylint \
+		--disable missing-function-docstring \
+		--disable missing-class-docstring \
+		--disable missing-module-docstring \
+		--disable too-few-public-methods \
+		ipyvizzu.py tests

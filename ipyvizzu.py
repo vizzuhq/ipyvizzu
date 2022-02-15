@@ -149,7 +149,8 @@ class Chart:
 
         self._calls.append(Animate(animation))
 
-    def _merge_animations(self, animations):
+    @staticmethod
+    def _merge_animations(animations):
         merger = AnimationMerger()
 
         for animation in animations:
