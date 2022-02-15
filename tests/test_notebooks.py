@@ -20,7 +20,6 @@ class TestNotebook(unittest.TestCase):
         normalized_output = cls.div_pattern.sub("myVizzu", output, count=2)
         return normalized_output
 
-
     @patch("ipyvizzu.display_html")
     def test(self, display_html):
         for path in pathlib.Path("docs/examples").glob("*.ipynb"):
@@ -33,9 +32,9 @@ class TestNotebook(unittest.TestCase):
                     exec(source)
                     self.assertEqual(
                         self.normalize_div_id(display_html.call_args.args[0]),
-                        self.normalize_div_id(output)
+                        self.normalize_div_id(output),
                     )
-        
+
 
 def parse_notebook(path):
     with path.open() as fp:
@@ -52,9 +51,7 @@ def parse_notebook(path):
 
 
 def parse_outputs(cell):
-    outputs =  "".join(
-        parse_output(output) for output in cell["outputs"]
-    )
+    outputs = "".join(parse_output(output) for output in cell["outputs"])
     return outputs
 
 

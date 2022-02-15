@@ -46,11 +46,35 @@ make doc
 
 Online version can be read at [vizzuhq.github.io/ipyvizzu](https://vizzuhq.github.io/ipyvizzu/index.html).
 
-## Testing
+## CI check
 
-Tests can be run with the `test` make target. The notebooks under the
-`docs/examples` are executed by the tests.
+The `check` make target collects the targets which are run by the CI server.
 
+```sh
+make check
 ```
+
+### Testing
+
+The unit tests can be run with the `test` make target. As part of the unit
+tests the notebooks under the `docs/examples` are executed, too.
+
+```sh
 make test
+```
+
+### Formatting
+
+The ipyvizzu project is formatted with `black`. The CI check invokes the
+`check-format` target to ensure that the python files are formatted with
+`black`.
+
+```sh
+make check-format
+```
+
+`black` can be run with the `format` make target.
+
+```sh
+make format
 ```
