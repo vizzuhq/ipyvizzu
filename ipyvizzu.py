@@ -12,7 +12,7 @@ from IPython.display import display_html
 _HEAD = """
 <div id="myVizzu_{div_id}" style="width:800px; height:480px;" />
 <script type="module">
-import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js';
+import Vizzu from '{vizzu_url}';
 
 let chart = new Vizzu('myVizzu_{div_id}');
 chart.initializing.then( chart => {{
@@ -72,6 +72,11 @@ class Config(dict, Animation):
         return {"config": self}
 
 
+class Style(dict, Animation):
+    def build(self):
+        return {"style": self}
+
+
 class AnimationMerger(dict, Animation):
     def build(self):
         return self
@@ -85,11 +90,6 @@ class AnimationMerger(dict, Animation):
         common_keys = set(data).intersection(self)
         assert not common_keys, f"Animation is already merged: {common_keys}"
         return data
-
-
-class Style(dict, Animation):
-    def build(self):
-        return {"style": self}
 
 
 class Method:
@@ -123,7 +123,8 @@ class Chart:
     Wrapper over vizzu Chart
     """
 
-    def __init__(self):
+    def __init__(self, vizzu_url='https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js'):
+        self._vizzu_url = vizzu_url
         self._calls = []
 
     def feature(self, name, value):
@@ -162,7 +163,7 @@ class Chart:
         Generate a javascript code from the issued animations.
         """
 
-        script = [_HEAD.format(div_id=id(self))]
+        script = [_HEAD.format(div_id=id(self), vizzu_url=self._vizzu_url)]
         script.extend(call.dump() for call in self._calls)
         script.append("} );")
         script.append("</script>")
