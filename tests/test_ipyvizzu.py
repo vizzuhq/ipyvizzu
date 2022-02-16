@@ -1,4 +1,6 @@
 import unittest
+import pathlib
+import re
 
 from ipyvizzu import (
     PlainAnimation,
@@ -8,6 +10,7 @@ from ipyvizzu import (
     Animate,
     Feature,
     AnimationMerger,
+    Chart,
 )
 
 
@@ -108,4 +111,94 @@ class TestData(unittest.TestCase):
                 }
             },
             self.data.build(),
+        )
+
+
+class TestChart(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.asset_dir = pathlib.Path(__file__).parent / "assets"
+        cls.div_pattern = re.compile(r"myVizzu_\d+", flags=re.MULTILINE)
+
+    @classmethod
+    def normalize_div_id(cls, output):
+        normalized_output = cls.div_pattern.sub("myVizzu", output, count=2)
+        return normalized_output
+
+    def setUp(self):
+        self.patch = unittest.mock.patch("ipyvizzu.display_html")
+        self.display_html = self.patch.start()
+        self.chart = Chart()
+
+    def tearDown(self):
+        self.patch.stop()
+
+    def test_animate(self):
+        data = Data()
+        data.add_serie("Foo", ["Alice", "Bob", "Ted"])
+        data.add_serie("Bar", [15, 32, 12])
+
+        self.chart.animate(data)
+        self.chart.animate(x="Foo", y="Bar", color="Foo")
+
+        self.chart.show()
+        self._assert_display("animate.html")
+
+    def test_feature(self):
+        data = Data()
+        data.add_serie("Foo", ["Alice", "Bob", "Ted"])
+        data.add_serie("Bar", [15, 32, 12])
+
+        self.chart.animate(data)
+        self.chart.animate(x="Foo", y="Bar", color="Foo")
+        self.chart.feature("tooltip", True)
+
+        self.chart.show()
+        self._assert_display("feature.html")
+
+    def test_style(self):
+        data = Data()
+        data.add_serie("Foo", ["Alice", "Bob", "Ted"])
+        data.add_serie("Bar", [15, 32, 12])
+
+        self.chart.animate(data)
+        self.chart.animate(x="Foo", y="Bar", color="Foo")
+        self.chart.animate(Style({"legend": {"width": 50}}))
+
+        self.chart.show()
+        self._assert_display("style.html")
+
+    def test_animation_merge(self):
+        data = Data()
+        data.add_serie("Foo", ["Alice", "Bob", "Ted"])
+        data.add_serie("Bar", [15, 32, 12])
+
+        self.chart.animate(data)
+        self.chart.animate(
+            Config({"color": {"set": ["Genres"]}}), Style({"legend": {"width": 50}})
+        )
+
+        self.chart.show()
+        self._assert_display("merge.html")
+
+    def test_animate_does_not_accept_args_and_kwargs_together(self):
+        with self.assertRaises(ValueError):
+            self.chart.animate(Config({"color": {"set": ["Genres"]}}), x="Foo")
+
+    def test_args_or_kwargs_has_to_be_passed_to_animate(self):
+        with self.assertRaises(ValueError):
+            self.chart.animate()
+
+    def test_ony_different_type_of_animation_can_be_merged(self):
+        with self.assertRaises(ValueError):
+            self.chart.animate(
+                Config({"channels": {"label": {"attach": ["Popularity"]}}}),
+                Config({"color": {"set": ["Genres"]}}),
+            )
+
+    def _assert_display(self, asset_name):
+        asset_path = self.asset_dir / asset_name
+        self.assertEqual(
+            self.normalize_div_id(self.display_html.call_args.args[0]).strip(),
+            asset_path.read_text().strip(),
         )
