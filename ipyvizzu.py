@@ -83,7 +83,10 @@ class AnimationMerger(dict, Animation):
     def _validate(self, animation):
         data = animation.build()
         common_keys = set(data).intersection(self)
-        assert not common_keys, f"Animation is already merged: {common_keys}"
+
+        if common_keys:
+            raise ValueError(f"Animation is already merged: {common_keys}")
+
         return data
 
 
