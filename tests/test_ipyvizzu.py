@@ -71,7 +71,7 @@ class TestData(unittest.TestCase):
         )
 
     def test_serie(self):
-        self.data.add_serie("Genres", ["Pop", "Rock", "Metal"])
+        self.data.add_series("Genres", ["Pop", "Rock", "Metal"])
         self.assertEqual(
             {
                 "data": {
