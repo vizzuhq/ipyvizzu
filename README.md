@@ -11,9 +11,9 @@ contain the following code snippet.
 from ipyvizzu import Chart, Data, Config
 
 data = Data()
-data.add_serie("Foo", ["Alice", "Bob", "Ted"])
-data.add_serie("Bar", [15, 32, 12])
-data.add_serie("Baz", [5, 2, 2])
+data.add_series("Foo", ["Alice", "Bob", "Ted"])
+data.add_series("Bar", [15, 32, 12])
+data.add_series("Baz", [5, 2, 2])
 
 chart = Chart()
 chart.animate(data)
