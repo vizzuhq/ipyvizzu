@@ -126,7 +126,9 @@ class Chart:
     Wrapper over vizzu Chart
     """
 
-    def __init__(self, vizzu_url='https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js'):
+    def __init__(
+        self, vizzu_url="https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js"
+    ):
         self._vizzu_url = vizzu_url
         self._calls = []
 
