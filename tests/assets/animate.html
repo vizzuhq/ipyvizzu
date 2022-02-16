@@ -1,0 +1,11 @@
+<div id="myVizzu" style="width:800px; height:480px;" />
+<script type="module">
+import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js';
+
+let chart = new Vizzu('myVizzu');
+chart.initializing.then( chart => {
+
+chart.animate({"data": {"series": [{"name": "Foo", "values": ["Alice", "Bob", "Ted"]}, {"name": "Bar", "values": [15, 32, 12]}]}});
+chart.animate({"x": "Foo", "y": "Bar", "color": "Foo"});
+} );
+</script>
