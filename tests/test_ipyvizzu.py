@@ -135,8 +135,8 @@ class TestChart(unittest.TestCase):
 
     def test_animate(self):
         data = Data()
-        data.add_serie("Foo", ["Alice", "Bob", "Ted"])
-        data.add_serie("Bar", [15, 32, 12])
+        data.add_series("Foo", ["Alice", "Bob", "Ted"])
+        data.add_series("Bar", [15, 32, 12])
 
         self.chart.animate(data)
         self.chart.animate(x="Foo", y="Bar", color="Foo")
@@ -146,8 +146,8 @@ class TestChart(unittest.TestCase):
 
     def test_feature(self):
         data = Data()
-        data.add_serie("Foo", ["Alice", "Bob", "Ted"])
-        data.add_serie("Bar", [15, 32, 12])
+        data.add_series("Foo", ["Alice", "Bob", "Ted"])
+        data.add_series("Bar", [15, 32, 12])
 
         self.chart.animate(data)
         self.chart.animate(x="Foo", y="Bar", color="Foo")
@@ -158,8 +158,8 @@ class TestChart(unittest.TestCase):
 
     def test_style(self):
         data = Data()
-        data.add_serie("Foo", ["Alice", "Bob", "Ted"])
-        data.add_serie("Bar", [15, 32, 12])
+        data.add_series("Foo", ["Alice", "Bob", "Ted"])
+        data.add_series("Bar", [15, 32, 12])
 
         self.chart.animate(data)
         self.chart.animate(x="Foo", y="Bar", color="Foo")
@@ -170,8 +170,8 @@ class TestChart(unittest.TestCase):
 
     def test_animation_merge(self):
         data = Data()
-        data.add_serie("Foo", ["Alice", "Bob", "Ted"])
-        data.add_serie("Bar", [15, 32, 12])
+        data.add_series("Foo", ["Alice", "Bob", "Ted"])
+        data.add_series("Bar", [15, 32, 12])
 
         self.chart.animate(data)
         self.chart.animate(
