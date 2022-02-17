@@ -2,7 +2,6 @@
 
 VIRTUAL_ENV = .venv
 DEV_BUILD_FLAG = $(VIRTUAL_ENV)/DEV_BUILD_FLAG
-NOTEBOOKS = $(shell find docs -type f -name '*.ipynb')
 
 install:
 	python3 setup.py install
@@ -13,13 +12,14 @@ $(DEV_BUILD_FLAG):
 	python3 -m venv $(VIRTUAL_ENV)
 	$(VIRTUAL_ENV)/bin/pip install -e .
 	$(VIRTUAL_ENV)/bin/pip install notebook
-	$(VIRTUAL_ENV)/bin/pip install black==22.1.0 pylint
+	$(VIRTUAL_ENV)/bin/pip install black==22.1.0 pylint sphinx myst-nb
 	touch $(DEV_BUILD_FLAG)
 
 clean:
 	-rm -rf $(VIRTUAL_ENV)
 
-doc: $(NOTEBOOKS:.ipynb=.html)
+doc:
+	. .venv/bin/activate && $(MAKE) -C docs html
 
 %.html: %.ipynb $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/jupyter nbconvert --to html $<
