@@ -14615,10 +14615,10 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span><span class="p">},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;area&quot;</span><span class="p">}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;line&quot;</span><span class="p">}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span><span class="p">}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;rectangle&quot;</span><span class="p">}))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;area&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Geometry: area&quot;</span><span class="p">}))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;line&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Geometry: line&quot;</span><span class="p">}))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Geometry: circle&quot;</span><span class="p">}))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;rectangle&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Geometry: rectangle - default&quot;</span><span class="p">}))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -14652,10 +14652,10 @@ chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
 chart.animate({"config": {"channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}}}});
-chart.animate({"config": {"geometry": "area"}});
-chart.animate({"config": {"geometry": "line"}});
-chart.animate({"config": {"geometry": "circle"}});
-chart.animate({"config": {"geometry": "rectangle"}});
+chart.animate({"config": {"geometry": "area", "title": "Geometry: area"}});
+chart.animate({"config": {"geometry": "line", "title": "Geometry: line"}});
+chart.animate({"config": {"geometry": "circle", "title": "Geometry: circle"}});
+chart.animate({"config": {"geometry": "rectangle", "title": "Geometry: rectangle - default"}});
 } );
 </script>
 </div>

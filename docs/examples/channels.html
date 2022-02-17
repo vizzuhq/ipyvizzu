@@ -14454,6 +14454,11 @@ all of MD as it is not optimized for dense, information rich UIs.
 </style>
 
 <style type="text/css">
+/* Force rendering true colors when outputing to pdf */
+* {
+  -webkit-print-color-adjust: exact;
+}
+
 /* Misc */
 a.anchor-link {
   display: none;
@@ -14470,6 +14475,11 @@ a.anchor-link {
 
 .jp-InputArea-editor {
   overflow: hidden;
+}
+
+.CodeMirror pre {
+  margin: 0;
+  padding: 0;
 }
 
 /* Using table instead of flexbox so that we can use break-inside property */
@@ -14510,11 +14520,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
   width: 100%;
 }
 
-@media print {
-  .jp-Collapser {
-    display: none;
-  }
+/* Hiding the collapser by default */
+.jp-Collapser {
+  display: none;
+}
 
+@media print {
   .jp-Cell-inputWrapper,
   .jp-Cell-outputWrapper {
     display: block;
@@ -14562,12 +14573,16 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     <!-- End of mathjax configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="Channels-&amp;-legend">Channels &amp; legend<a class="anchor-link" href="#Channels-&amp;-legend">&#182;</a></h2><p>Besides the x-axis and the y-axis, there are five more channels in Vizzu you can use to visualize your data. Similarly to the axes you can put any number of dimensions and/or one measure to a channel. In the following example the four most commonly used channels are shown. The fifth, noop channel is introduced later in the Without coordinates &amp; noop channel chapter.</p>
 <p>Data on the label channel will be written on the markers on the chart. Vizzu automatically determines the best way to position these labels, but you can set them differently with the style object introduced in the Color palette &amp; fonts chapter.</p>
 
+</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14597,7 +14612,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span><span class="p">},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]}}}))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]}},</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Label&quot;</span><span class="p">}))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -14631,7 +14646,7 @@ chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
 chart.animate({"config": {"channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}}}});
-chart.animate({"config": {"channels": {"label": {"attach": ["Popularity"]}}}});
+chart.animate({"config": {"channels": {"label": {"attach": ["Popularity"]}}, "title": "Label"}});
 } );
 </script>
 </div>
@@ -14643,12 +14658,16 @@ chart.animate({"config": {"channels": {"label": {"attach": ["Popularity"]}}}});
 </div>
 
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>The lightness channel sets the lightness of the markers. In this case the same measure (Popularity) is added to it that is on the y-axis, meaning that columns’ height and lightness represent the same values. The legend for the lightness channel is turned on using the legend property.</p>
 <p>Note: This is an example when we explicitly instruct Vizzu to show the legend. By default Vizzu automatically shows/hides the legend when it's necessary. You can also turn it off with the legend : null command or set back to automatic mode with legend : 'auto'.</p>
 
+</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14677,10 +14696,25 @@ chart.animate({"config": {"channels": {"label": {"attach": ["Popularity"]}}}});
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span><span class="p">},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}}}))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;lightness&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]}</span>
+        <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Lightness - legend on&quot;</span>
+<span class="p">}))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
+    <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;lightness&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
     <span class="p">},</span>
     <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="s2">&quot;lightness&quot;</span>
 <span class="p">}))</span>
@@ -14716,7 +14750,7 @@ let chart = new Vizzu('myVizzu_139935484678288');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}}}});
+chart.animate({"config": {"channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}, "label": {"attach": ["Popularity"]}}, "title": "Lightness - legend on"}});
 chart.animate({"config": {"channels": {"lightness": {"attach": ["Popularity"]}}, "legend": "lightness"}});
 } );
 </script>
@@ -14729,12 +14763,16 @@ chart.animate({"config": {"channels": {"lightness": {"attach": ["Popularity"]}},
 </div>
 
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>The color channel sets the color of the markers. The same dimension (Genres) is put on it that is on the x-axis resulting in each bar having a different color. If a measure is put on the color channel, a color range will be used.</p>
 <p>Note: The value on the lightness channel is removed in this step as it doesn’t make sense to use it together with the color channel in this case.</p>
 
+</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14763,8 +14801,24 @@ chart.animate({"config": {"channels": {"lightness": {"attach": ["Popularity"]}},
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span><span class="p">},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]}}}))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
+    <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;lightness&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="s2">&quot;lightness&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Color&quot;</span>
+<span class="p">}))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Genres&quot;</span><span class="p">]}</span>
@@ -14803,8 +14857,7 @@ let chart = new Vizzu('myVizzu_139935484685152');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}}}});
-chart.animate({"config": {"channels": {"label": {"attach": ["Popularity"]}}}});
+chart.animate({"config": {"channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}, "label": {"attach": ["Popularity"]}, "lightness": {"attach": ["Popularity"]}}, "legend": "lightness", "title": "Color"}});
 chart.animate({"config": {"channels": {"color": {"attach": ["Genres"]}}, "legend": "color"}});
 } );
 </script>
@@ -14817,11 +14870,15 @@ chart.animate({"config": {"channels": {"color": {"attach": ["Genres"]}}, "legend
 </div>
 
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>The size channel sets the size of the markers if the geometry is circle - where size sets the radius of the circles - or line - where size determines line width. It is ignored when using rectangle or area geometry. This is why we change the geometry to circle in the example.</p>
 
+</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14850,11 +14907,29 @@ chart.animate({"config": {"channels": {"color": {"attach": ["Genres"]}}, "legend
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span><span class="p">},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]}}}))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]}</span>
+        <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Genres&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Size - change of geometry required&quot;</span>
+<span class="p">}))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
+    <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]</span>
+        <span class="p">}</span>
     <span class="p">},</span>
     <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span>
 <span class="p">}))</span>
@@ -14890,8 +14965,7 @@ let chart = new Vizzu('myVizzu_139935484689376');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}}}});
-chart.animate({"config": {"channels": {"label": {"attach": ["Popularity"]}}}});
+chart.animate({"config": {"channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}, "label": {"attach": ["Popularity"]}, "color": {"attach": ["Genres"]}}, "legend": "color", "title": "Size - change of geometry required"}});
 chart.animate({"config": {"channels": {"size": {"set": ["Popularity"]}}, "geometry": "circle"}});
 } );
 </script>
