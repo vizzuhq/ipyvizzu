@@ -14611,9 +14611,24 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Genres&quot;</span><span class="p">]}}))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
+    <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Switch the orientation = arrange by other axis&quot;</span>
+<span class="p">}))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -14624,8 +14639,6 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}))</span>
-
-
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -14658,9 +14671,7 @@ let chart = new Vizzu('myVizzu_140673884109072');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}}});
-chart.animate({"config": {"channels": {"label": {"attach": ["Popularity"]}}}});
-chart.animate({"config": {"color": {"set": ["Genres"]}}});
+chart.animate({"config": {"channels": {"y": {"set": "Popularity", "attach": "Types"}, "x": {"set": "Genres"}, "label": {"attach": "Popularity"}}, "color": {"attach": "Types"}, "title": "Switch the orientation = arrange by other axis"}});
 chart.animate({"config": {"channels": {"y": {"detach": ["Popularity"]}, "x": {"attach": ["Popularity"]}}}});
 } );
 </script>
@@ -14710,24 +14721,27 @@ chart.animate({"config": {"channels": {"y": {"detach": ["Popularity"]}, "x": {"a
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Genres&quot;</span><span class="p">]}}))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;detach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">],</span>
-        <span class="p">},</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
+        <span class="p">},</span> 
         <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
         <span class="p">}</span>
-    <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Split stacked values = show side-by-side&quot;</span>
 <span class="p">}))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;split&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">}))</span>
-
-
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -14760,10 +14774,7 @@ let chart = new Vizzu('myVizzu_140673884104320');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}}});
-chart.animate({"config": {"channels": {"label": {"attach": ["Popularity"]}}}});
-chart.animate({"config": {"color": {"set": ["Genres"]}}});
-chart.animate({"config": {"channels": {"y": {"detach": ["Popularity"]}, "x": {"attach": ["Popularity"]}}}});
+chart.animate({"config": {"channels": {"y": {"attach": "Types"}, "x": {"set": "Genres", "attach": "Popularity"}, "label": {"attach": "Popularity"}}, "color": {"attach": "Types"}, "title": "Split stacked values = show side-by-side"}});
 chart.animate({"config": {"split": true}});
 } );
 </script>
@@ -14813,27 +14824,28 @@ chart.animate({"config": {"split": true}});
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Genres&quot;</span><span class="p">]}}))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;detach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">],</span>
-        <span class="p">},</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
+        <span class="p">},</span> 
         <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
         <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
+    <span class="p">},</span>
     <span class="s2">&quot;split&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Merge&quot;</span>
 <span class="p">}))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;split&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">}))</span>
-
-
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -14866,11 +14878,7 @@ let chart = new Vizzu('myVizzu_140673883864272');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}}});
-chart.animate({"config": {"channels": {"label": {"attach": ["Popularity"]}}}});
-chart.animate({"config": {"color": {"set": ["Genres"]}}});
-chart.animate({"config": {"channels": {"y": {"detach": ["Popularity"]}, "x": {"attach": ["Popularity"]}}}});
-chart.animate({"config": {"split": true}});
+chart.animate({"config": {"channels": {"y": {"attach": "Types"}, "x": {"set": "Genres", "attach": "Popularity"}, "label": {"attach": "Popularity"}}, "color": {"attach": "Types"}, "split": true, "title": "Merge"}});
 chart.animate({"config": {"split": false}});
 } );
 </script>
@@ -14920,18 +14928,23 @@ chart.animate({"config": {"split": false}});
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Genres&quot;</span><span class="p">]}}))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;detach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">],</span>
-        <span class="p">},</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
+        <span class="p">},</span> 
         <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
         <span class="p">}</span>
-    <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Aggregate&quot;</span>
 <span class="p">}))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -14940,8 +14953,6 @@ chart.animate({"config": {"split": false}});
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}))</span>
-
-
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -14974,10 +14985,7 @@ let chart = new Vizzu('myVizzu_140673884107152');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}}});
-chart.animate({"config": {"channels": {"label": {"attach": ["Popularity"]}}}});
-chart.animate({"config": {"color": {"set": ["Genres"]}}});
-chart.animate({"config": {"channels": {"y": {"detach": ["Popularity"]}, "x": {"attach": ["Popularity"]}}}});
+chart.animate({"config": {"channels": {"y": {"attach": "Types"}, "x": {"set": "Genres", "attach": "Popularity"}, "label": {"attach": "Popularity"}}, "color": {"attach": "Types"}, "title": "Aggregate"}});
 chart.animate({"config": {"channels": {"x": {"detach": ["Genres"]}}}});
 } );
 </script>
@@ -15028,18 +15036,22 @@ chart.animate({"config": {"channels": {"x": {"detach": ["Genres"]}}}});
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]}}}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Genres&quot;</span><span class="p">]}}))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;detach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">],</span>
-        <span class="p">},</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
+        <span class="p">},</span> 
         <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
         <span class="p">}</span>
-    <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Polar coordinates&quot;</span>
 <span class="p">}))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -15052,8 +15064,6 @@ chart.animate({"config": {"channels": {"x": {"detach": ["Genres"]}}}});
     <span class="s2">&quot;coordSystem&quot;</span><span class="p">:</span> <span class="s2">&quot;polar&quot;</span><span class="p">,</span>
 
 <span class="p">}))</span>
-
-
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -15086,10 +15096,7 @@ let chart = new Vizzu('myVizzu_140673883851792');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}}});
-chart.animate({"config": {"channels": {"label": {"attach": ["Popularity"]}}}});
-chart.animate({"config": {"color": {"set": ["Genres"]}}});
-chart.animate({"config": {"channels": {"y": {"detach": ["Popularity"]}, "x": {"attach": ["Popularity"]}}}});
+chart.animate({"config": {"channels": {"y": {"attach": "Types"}, "x": {"attach": "Popularity"}, "label": {"attach": "Popularity"}}, "color": {"attach": "Types"}, "title": "Polar coordinates"}});
 chart.animate({"config": {"channels": {"y": {"range": {"min": "-30%"}}}, "coordSystem": "polar"}});
 } );
 </script>

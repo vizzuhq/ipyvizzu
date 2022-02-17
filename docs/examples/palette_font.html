@@ -14713,7 +14713,7 @@ chart.animate({"style": {"plot": {"marker": {"colorPalette": "#9355e8FF #123456F
         <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}},</span> 
         <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]},</span>
         <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Types&quot;</span><span class="p">]},</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Color palette&quot;</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Title font size&quot;</span>
     <span class="p">}),</span>
     <span class="n">Style</span><span class="p">({</span>
         <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -14759,7 +14759,7 @@ let chart = new Vizzu('myVizzu_140020301109472');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": ["Popularity"]}, "color": {"set": ["Types"]}, "title": "Color palette"}, "style": {"plot": {"marker": {"colorPalette": "#9355e8FF #123456FF #BDAF10FF"}}}});
+chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": ["Popularity"]}, "color": {"set": ["Types"]}, "title": "Title font size"}, "style": {"plot": {"marker": {"colorPalette": "#9355e8FF #123456FF #BDAF10FF"}}}});
 chart.animate({"style": {"title": {"fontSize": 50}}});
 } );
 </script>
@@ -14814,7 +14814,7 @@ chart.animate({"style": {"title": {"fontSize": 50}}});
         <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}},</span> 
         <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]},</span>
         <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Types&quot;</span><span class="p">]},</span>
-        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Title font size&quot;</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Title font size - back to default&quot;</span>
     <span class="p">}),</span>
     <span class="n">Style</span><span class="p">({</span>
         <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -14825,13 +14825,11 @@ chart.animate({"style": {"title": {"fontSize": 50}}});
         <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;fontSize&quot;</span><span class="p">:</span> <span class="mi">50</span>
         <span class="p">}</span>
-    <span class="p">}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
-    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Title font size - back to default&quot;</span>
-<span class="p">}))</span>
+    <span class="p">})</span>
+<span class="p">)</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Style</span><span class="p">({</span>
     <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;fontSize&quot;</span><span class="p">:</span> <span class="s2">&quot;null&quot;</span>
+        <span class="s2">&quot;fontSize&quot;</span><span class="p">:</span> <span class="kc">None</span>
     <span class="p">}</span>
 <span class="p">}))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -14866,8 +14864,7 @@ let chart = new Vizzu('myVizzu_140020301109808');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": ["Popularity"]}, "color": {"set": ["Types"]}, "title": "Title font size"}, "style": {"plot": {"marker": {"colorPalette": "#9355e8FF #123456FF #BDAF10FF"}}, "title": {"fontSize": 50}}});
-chart.animate({"config": {"title": "Title font size - back to default"}});
+chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": ["Popularity"]}, "color": {"set": ["Types"]}, "title": "Title font size - back to default"}, "style": {"plot": {"marker": {"colorPalette": "#9355e8FF #123456FF #BDAF10FF"}}, "title": {"fontSize": 50}}});
 chart.animate({"style": {"title": {"fontSize": null}}});
 } );
 </script>
@@ -15029,7 +15026,7 @@ chart.animate({"style": {"fontSize": 20}});
         <span class="p">},</span>
         <span class="s2">&quot;fontSize&quot;</span><span class="p">:</span> <span class="mi">20</span>
     <span class="p">}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;null&quot;</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
