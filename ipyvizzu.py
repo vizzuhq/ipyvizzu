@@ -72,9 +72,12 @@ class Config(dict, Animation):
         return {"config": self}
 
 
-class Style(dict, Animation):
+class Style(Animation):
+    def __init__(self, data: typing.Optional[dict]):
+        self._data = data
+
     def build(self):
-        return {"style": self}
+        return {"style": self._data}
 
 
 class AnimationMerger(dict, Animation):

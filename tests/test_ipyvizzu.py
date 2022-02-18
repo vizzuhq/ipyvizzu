@@ -29,6 +29,10 @@ class TestAnimation(unittest.TestCase):
             {"style": {"title": {"backgroundColor": "#A0A0A0"}}}, animation.build()
         )
 
+    def test_style_can_be_none(self):
+        animation = Style(None)
+        self.assertEqual({"style": None}, animation.build())
+
 
 class TestMethod(unittest.TestCase):
     def test_animate(self):
@@ -61,6 +65,10 @@ class TestMerger(unittest.TestCase):
         self.assertRaises(
             ValueError, self.merger.merge, Config({"color": {"set": ["Genres"]}})
         )
+
+    def test_merge_none(self):
+        self.merger.merge(Config({"channels": {"label": {"attach": ["Popularity"]}}}))
+        self.merger.merge(Style(None))
 
 
 class TestData(unittest.TestCase):
