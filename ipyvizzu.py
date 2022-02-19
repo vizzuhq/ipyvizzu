@@ -105,11 +105,14 @@ class Method:
 
 
 class Animate(Method):
-    def __init__(self, data):
+    def __init__(self, data, option=None):
         self._data = data
+        self._option = option
 
     def dump(self):
         data = self._data.dump()
+        if self._option:
+            data += ", " + PlainAnimation(self._option).dump()
         return f"chart.animate({data});"
 
 
@@ -138,25 +141,15 @@ class Chart:
     def feature(self, name, value):
         self._calls.append(Feature(name, value))
 
-    def animate(self, *animations: Animation, **config):
+    def animate(self, *animations: Animation, **options):
         """
         Register new animation.
         """
-        if animations and config:
-            raise ValueError(
-                "`animations` parameter cannot be updated with keyword arguments."
-            )
-
-        if not animations and not config:
+        if not animations:
             raise ValueError("No animation was set.")
 
-        if config:
-            animation = PlainAnimation(config)
-
-        else:
-            animation = self._merge_animations(animations)
-
-        self._calls.append(Animate(animation))
+        animation = self._merge_animations(animations)
+        self._calls.append(Animate(animation, options))
 
     @staticmethod
     def _merge_animations(animations):
