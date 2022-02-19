@@ -32,7 +32,9 @@ class TestNotebook(unittest.TestCase):
             with self.subTest(path=path):
                 notebook = parse_notebook(path)
                 for source, output in notebook:
-                    exec(source)  # pylint: disable=exec-used
+                    exec(  # pylint: disable=exec-used
+                        "import sys\nsys.path.append('./docs/examples')\n" + source
+                    )
                     self.assertEqual(
                         self.normalize_div_id(display_html.call_args.args[0]),
                         self.normalize_div_id(output),
