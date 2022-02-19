@@ -14711,7 +14711,7 @@ chart.animate({"config": {"channels": {"y": {"detach": "Popularity"}, "x": {"att
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}))</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;My first chart&quot;</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;My first chart&quot;</span><span class="p">}))</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -14745,7 +14745,7 @@ chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
 chart.animate({"config": {"channels": {"y": {"detach": "Popularity", "set": ["Genres"]}, "x": {"attach": "Popularity"}}}});
-chart.animate({"title": "My first chart"});
+chart.animate({"config": {"title": "My first chart"}});
 } );
 </script>
 </div>
