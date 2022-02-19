@@ -14593,24 +14593,13 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Config</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Genres&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Pop&#39;</span><span class="p">,</span> <span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Jazz&#39;</span><span class="p">,</span> <span class="s1">&#39;Metal&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Types&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Hard&#39;</span><span class="p">,</span> <span class="s1">&#39;Smooth&#39;</span><span class="p">,</span> <span class="s1">&#39;Experimental&#39;</span> <span class="p">])</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_measure</span><span class="p">(</span>
-    <span class="s1">&#39;Popularity&#39;</span><span class="p">,</span>
-    <span class="p">[</span>
-        <span class="p">[</span><span class="mi">114</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">52</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">121</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">127</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">58</span><span class="p">]</span>
-    <span class="p">]</span>
-<span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">data_examples</span> <span class="kn">import</span> <span class="n">music_example_data</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">Config</span><span class="p">({</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">music_example_data</span><span class="p">)</span>
+
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Types&quot;</span><span class="p">,</span> <span class="s2">&quot;Popularity&quot;</span><span class="p">]</span>
@@ -14619,14 +14608,15 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
             <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Types&quot;</span><span class="p">]</span>
+        <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
     <span class="p">},</span>
     <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Treemap&quot;</span>
 <span class="p">}))</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -14640,6 +14630,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}))</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -14671,7 +14662,8 @@ import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js';
 let chart = new Vizzu('myVizzu_140155633354640');
 chart.initializing.then( chart => {
 
-chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}, "config": {"channels": {"y": {"set": ["Types", "Popularity"]}, "x": {"set": "Genres"}, "label": {"attach": ["Popularity"]}}, "color": {"set": ["Types"]}, "title": "Treemap"}});
+chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
+chart.animate({"config": {"channels": {"y": {"set": ["Types", "Popularity"]}, "x": {"set": "Genres"}, "label": {"attach": "Popularity"}}, "color": {"set": "Types"}, "title": "Treemap"}});
 chart.animate({"config": {"channels": {"y": {"set": null}, "x": {"set": null}, "size": {"attach": ["Genres", "Popularity"]}}}});
 } );
 </script>
@@ -14703,24 +14695,13 @@ chart.animate({"config": {"channels": {"y": {"set": null}, "x": {"set": null}, "
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Config</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Genres&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Pop&#39;</span><span class="p">,</span> <span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Jazz&#39;</span><span class="p">,</span> <span class="s1">&#39;Metal&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Types&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Hard&#39;</span><span class="p">,</span> <span class="s1">&#39;Smooth&#39;</span><span class="p">,</span> <span class="s1">&#39;Experimental&#39;</span> <span class="p">])</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_measure</span><span class="p">(</span>
-    <span class="s1">&#39;Popularity&#39;</span><span class="p">,</span>
-    <span class="p">[</span>
-        <span class="p">[</span><span class="mi">114</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">52</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">121</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">127</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">58</span><span class="p">]</span>
-    <span class="p">]</span>
-<span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">data_examples</span> <span class="kn">import</span> <span class="n">music_example_data</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">Config</span><span class="p">({</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">music_example_data</span><span class="p">)</span>
+
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -14729,20 +14710,22 @@ chart.animate({"config": {"channels": {"y": {"set": null}, "x": {"set": null}, "
             <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="p">},</span>
         <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Genres&quot;</span><span class="p">,</span> <span class="s2">&quot;Popularity&quot;</span><span class="p">],</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Types&quot;</span><span class="p">]</span>
+        <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
     <span class="p">},</span>
     <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Bubble chart - stacked&quot;</span>
 <span class="p">}))</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span>
 <span class="p">}))</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -14774,7 +14757,8 @@ import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js';
 let chart = new Vizzu('myVizzu_140155633366352');
 chart.initializing.then( chart => {
 
-chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}, "config": {"channels": {"y": {"set": null}, "x": {"set": null}, "label": {"attach": ["Popularity"]}, "size": {"attach": ["Genres", "Popularity"]}}, "color": {"set": ["Types"]}, "title": "Bubble chart - stacked"}});
+chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
+chart.animate({"config": {"channels": {"y": {"set": null}, "x": {"set": null}, "label": {"attach": "Popularity"}, "size": {"attach": ["Genres", "Popularity"]}}, "color": {"set": "Types"}, "title": "Bubble chart - stacked"}});
 chart.animate({"config": {"geometry": "circle"}});
 } );
 </script>
@@ -14806,24 +14790,13 @@ chart.animate({"config": {"geometry": "circle"}});
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Config</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Genres&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Pop&#39;</span><span class="p">,</span> <span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Jazz&#39;</span><span class="p">,</span> <span class="s1">&#39;Metal&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Types&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Hard&#39;</span><span class="p">,</span> <span class="s1">&#39;Smooth&#39;</span><span class="p">,</span> <span class="s1">&#39;Experimental&#39;</span> <span class="p">])</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_measure</span><span class="p">(</span>
-    <span class="s1">&#39;Popularity&#39;</span><span class="p">,</span>
-    <span class="p">[</span>
-        <span class="p">[</span><span class="mi">114</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">52</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">121</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">127</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">58</span><span class="p">]</span>
-    <span class="p">]</span>
-<span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">data_examples</span> <span class="kn">import</span> <span class="n">music_example_data</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">Config</span><span class="p">({</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">music_example_data</span><span class="p">)</span>
+
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="s2">&quot;circle&quot;</span><span class="p">,</span>
     <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -14833,7 +14806,7 @@ chart.animate({"config": {"geometry": "circle"}});
             <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="p">},</span>
         <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
         <span class="p">},</span>
         <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Genres&quot;</span><span class="p">,</span> <span class="s2">&quot;Popularity&quot;</span><span class="p">],</span>
@@ -14844,16 +14817,18 @@ chart.animate({"config": {"geometry": "circle"}});
     <span class="p">},</span>
     <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Bubble chart - grouped - using the noop channel&quot;</span>
 <span class="p">}))</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
     <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;detach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Genres&#39;</span><span class="p">]</span>
+            <span class="s2">&quot;detach&quot;</span><span class="p">:</span> <span class="s1">&#39;Genres&#39;</span>
         <span class="p">},</span>
         <span class="s2">&quot;noop&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Genres&#39;</span><span class="p">]</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s1">&#39;Genres&#39;</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}))</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -14885,8 +14860,9 @@ import Vizzu from 'https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js';
 let chart = new Vizzu('myVizzu_139950997402720');
 chart.initializing.then( chart => {
 
-chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}, "config": {"geometry": "circle", "channels": {"y": {"set": null}, "x": {"set": null}, "label": {"attach": ["Popularity"]}, "size": {"attach": ["Genres", "Popularity"]}}, "color": {"set": ["Types"]}, "title": "Bubble chart - grouped - using the noop channel"}});
-chart.animate({"config": {"channels": {"size": {"detach": ["Genres"]}, "noop": {"set": ["Genres"]}}}});
+chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
+chart.animate({"config": {"geometry": "circle", "channels": {"y": {"set": null}, "x": {"set": null}, "label": {"attach": "Popularity"}, "size": {"attach": ["Genres", "Popularity"]}}, "color": {"set": ["Types"]}, "title": "Bubble chart - grouped - using the noop channel"}});
+chart.animate({"config": {"channels": {"size": {"detach": "Genres"}, "noop": {"set": "Genres"}}}});
 } );
 </script>
 </div>

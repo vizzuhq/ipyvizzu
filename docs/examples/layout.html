@@ -14593,35 +14593,42 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Style</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Genres&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Pop&#39;</span><span class="p">,</span> <span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Jazz&#39;</span><span class="p">,</span> <span class="s1">&#39;Metal&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Types&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Hard&#39;</span><span class="p">,</span> <span class="s1">&#39;Smooth&#39;</span><span class="p">,</span> <span class="s1">&#39;Experimental&#39;</span> <span class="p">])</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_measure</span><span class="p">(</span>
-    <span class="s1">&#39;Popularity&#39;</span><span class="p">,</span>
-    <span class="p">[</span>
-        <span class="p">[</span><span class="mi">114</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">52</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">121</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">127</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">58</span><span class="p">],</span>
-    <span class="p">]</span>
-<span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Style</span>
+<span class="kn">from</span> <span class="nn">data_examples</span> <span class="kn">import</span> <span class="n">music_example_data</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">music_example_data</span><span class="p">)</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Config</span><span class="p">({</span>
-    <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}},</span> 
-    <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]},</span>
-    <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Types&quot;</span><span class="p">]},</span>
+    <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span> 
+    <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
+    <span class="p">},</span>
     <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Plot, title and legend background&quot;</span>
 <span class="p">}))</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Style</span><span class="p">({</span>
-    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#A0A0A0&#39;</span> <span class="p">},</span>
-    <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#D2D2D2&#39;</span> <span class="p">},</span>
-    <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#808080&#39;</span> <span class="p">}</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span> 
+        <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#A0A0A0&#39;</span> 
+    <span class="p">},</span>
+    <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span> 
+        <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#D2D2D2&#39;</span> 
+    <span class="p">},</span>
+    <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span> 
+        <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#808080&#39;</span> 
+    <span class="p">}</span>
 <span class="p">}))</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -14654,7 +14661,7 @@ let chart = new Vizzu('myVizzu_139983459274560');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": ["Popularity"]}, "color": {"set": ["Types"]}, "title": "Plot, title and legend background"}});
+chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": "Popularity"}, "color": {"set": "Types"}, "title": "Plot, title and legend background"}});
 chart.animate({"style": {"title": {"backgroundColor": "#A0A0A0"}, "plot": {"backgroundColor": "#D2D2D2"}, "legend": {"backgroundColor": "#808080"}}});
 } );
 </script>
@@ -14686,39 +14693,49 @@ chart.animate({"style": {"title": {"backgroundColor": "#A0A0A0"}, "plot": {"back
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Style</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Genres&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Pop&#39;</span><span class="p">,</span> <span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Jazz&#39;</span><span class="p">,</span> <span class="s1">&#39;Metal&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Types&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Hard&#39;</span><span class="p">,</span> <span class="s1">&#39;Smooth&#39;</span><span class="p">,</span> <span class="s1">&#39;Experimental&#39;</span> <span class="p">])</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_measure</span><span class="p">(</span>
-    <span class="s1">&#39;Popularity&#39;</span><span class="p">,</span>
-    <span class="p">[</span>
-        <span class="p">[</span><span class="mi">114</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">52</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">121</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">127</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">58</span><span class="p">],</span>
-    <span class="p">]</span>
-<span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Style</span>
+<span class="kn">from</span> <span class="nn">data_examples</span> <span class="kn">import</span> <span class="n">music_example_data</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">music_example_data</span><span class="p">)</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span>
     <span class="n">Config</span><span class="p">({</span>
-        <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}},</span> 
-        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]},</span>
-        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Types&quot;</span><span class="p">]},</span>
+        <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
+        <span class="p">},</span>
         <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Legend width&quot;</span>
     <span class="p">}),</span>
     <span class="n">Style</span><span class="p">({</span>
-    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#A0A0A0&#39;</span> <span class="p">},</span>
-    <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#D2D2D2&#39;</span> <span class="p">},</span>
-    <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#808080&#39;</span> <span class="p">}</span>
-    <span class="p">}))</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span> 
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#A0A0A0&#39;</span> 
+        <span class="p">},</span>
+        <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span> 
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#D2D2D2&#39;</span> 
+        <span class="p">},</span>
+        <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span> 
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#808080&#39;</span> 
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">)</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Style</span><span class="p">({</span>
-    <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">50</span> <span class="p">}</span>
+    <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span> 
+        <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">50</span> 
+    <span class="p">}</span>
 <span class="p">}))</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -14751,7 +14768,7 @@ let chart = new Vizzu('myVizzu_139983459271680');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": ["Popularity"]}, "color": {"set": ["Types"]}, "title": "Legend width"}, "style": {"title": {"backgroundColor": "#A0A0A0"}, "plot": {"backgroundColor": "#D2D2D2"}, "legend": {"backgroundColor": "#808080"}}});
+chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": "Popularity"}, "color": {"set": "Types"}, "title": "Legend width"}, "style": {"title": {"backgroundColor": "#A0A0A0"}, "plot": {"backgroundColor": "#D2D2D2"}, "legend": {"backgroundColor": "#808080"}}});
 chart.animate({"style": {"legend": {"width": 50}}});
 } );
 </script>
@@ -14783,41 +14800,50 @@ chart.animate({"style": {"legend": {"width": 50}}});
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Style</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Genres&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Pop&#39;</span><span class="p">,</span> <span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Jazz&#39;</span><span class="p">,</span> <span class="s1">&#39;Metal&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Types&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Hard&#39;</span><span class="p">,</span> <span class="s1">&#39;Smooth&#39;</span><span class="p">,</span> <span class="s1">&#39;Experimental&#39;</span> <span class="p">])</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_measure</span><span class="p">(</span>
-    <span class="s1">&#39;Popularity&#39;</span><span class="p">,</span>
-    <span class="p">[</span>
-        <span class="p">[</span><span class="mi">114</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">52</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">121</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">127</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">58</span><span class="p">],</span>
-    <span class="p">]</span>
-<span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Style</span>
+<span class="kn">from</span> <span class="nn">data_examples</span> <span class="kn">import</span> <span class="n">music_example_data</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">music_example_data</span><span class="p">)</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span>
     <span class="n">Config</span><span class="p">({</span>
-        <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}},</span> 
-        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]},</span>
-        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Types&quot;</span><span class="p">]},</span>
+        <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
+        <span class="p">},</span>
         <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Legend width&quot;</span>
     <span class="p">}),</span>
     <span class="n">Style</span><span class="p">({</span>
-    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#A0A0A0&#39;</span> <span class="p">},</span>
-    <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#D2D2D2&#39;</span> <span class="p">},</span>
-    <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#808080&#39;</span><span class="p">,</span>
-        <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">50</span>
-    <span class="p">}}))</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span> 
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#A0A0A0&#39;</span> 
+        <span class="p">},</span>
+        <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span> 
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#D2D2D2&#39;</span> 
+        <span class="p">},</span>
+        <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#808080&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">50</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">)</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Style</span><span class="p">({</span>
-    <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;null&quot;</span> <span class="p">}</span>
+    <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span> 
+        <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="kc">None</span> 
+    <span class="p">}</span>
 <span class="p">}))</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -14850,7 +14876,7 @@ let chart = new Vizzu('myVizzu_139983459363760');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": ["Popularity"]}, "color": {"set": ["Types"]}, "title": "Legend width"}, "style": {"title": {"backgroundColor": "#A0A0A0"}, "plot": {"backgroundColor": "#D2D2D2"}, "legend": {"backgroundColor": "#808080", "width": 50}}});
+chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": "Popularity"}, "color": {"set": "Types"}, "title": "Legend width"}, "style": {"title": {"backgroundColor": "#A0A0A0"}, "plot": {"backgroundColor": "#D2D2D2"}, "legend": {"backgroundColor": "#808080", "width": 50}}});
 chart.animate({"style": {"legend": {"width": null}}});
 } );
 </script>
@@ -14882,35 +14908,43 @@ chart.animate({"style": {"legend": {"width": null}}});
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Style</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Genres&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Pop&#39;</span><span class="p">,</span> <span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Jazz&#39;</span><span class="p">,</span> <span class="s1">&#39;Metal&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Types&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Hard&#39;</span><span class="p">,</span> <span class="s1">&#39;Smooth&#39;</span><span class="p">,</span> <span class="s1">&#39;Experimental&#39;</span> <span class="p">])</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_measure</span><span class="p">(</span>
-    <span class="s1">&#39;Popularity&#39;</span><span class="p">,</span>
-    <span class="p">[</span>
-        <span class="p">[</span><span class="mi">114</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">52</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">121</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">127</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">58</span><span class="p">],</span>
-    <span class="p">]</span>
-<span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Style</span>
+<span class="kn">from</span> <span class="nn">data_examples</span> <span class="kn">import</span> <span class="n">music_example_data</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">music_example_data</span><span class="p">)</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span>
     <span class="n">Config</span><span class="p">({</span>
-        <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}},</span> 
-        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]},</span>
-        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Types&quot;</span><span class="p">]},</span>
+        <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
+        <span class="p">},</span>
         <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Title padding&quot;</span>
     <span class="p">}),</span>
     <span class="n">Style</span><span class="p">({</span>
-    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#A0A0A0&#39;</span> <span class="p">},</span>
-    <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#D2D2D2&#39;</span> <span class="p">},</span>
-    <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#808080&#39;</span><span class="p">}}))</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span> 
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#A0A0A0&#39;</span> 
+        <span class="p">},</span>
+        <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span> 
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#D2D2D2&#39;</span> 
+        <span class="p">},</span>
+        <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span> 
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#808080&#39;</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">)</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Style</span><span class="p">({</span>
     <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;paddingTop&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
@@ -14918,6 +14952,7 @@ chart.animate({"style": {"legend": {"width": null}}});
         <span class="s2">&quot;paddingLeft&quot;</span><span class="p">:</span> <span class="mi">200</span>
     <span class="p">}</span>
 <span class="p">}))</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -14950,7 +14985,7 @@ let chart = new Vizzu('myVizzu_139983459273552');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": ["Popularity"]}, "color": {"set": ["Types"]}, "title": "Title padding"}, "style": {"title": {"backgroundColor": "#A0A0A0"}, "plot": {"backgroundColor": "#D2D2D2"}, "legend": {"backgroundColor": "#808080"}}});
+chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": "Popularity"}, "color": {"set": "Types"}, "title": "Title padding"}, "style": {"title": {"backgroundColor": "#A0A0A0"}, "plot": {"backgroundColor": "#D2D2D2"}, "legend": {"backgroundColor": "#808080"}}});
 chart.animate({"style": {"title": {"paddingTop": 20, "paddingBottom": 20, "paddingLeft": 200}}});
 } );
 </script>
@@ -14982,46 +15017,54 @@ chart.animate({"style": {"title": {"paddingTop": 20, "paddingBottom": 20, "paddi
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Style</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Genres&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Pop&#39;</span><span class="p">,</span> <span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Jazz&#39;</span><span class="p">,</span> <span class="s1">&#39;Metal&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Types&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Hard&#39;</span><span class="p">,</span> <span class="s1">&#39;Smooth&#39;</span><span class="p">,</span> <span class="s1">&#39;Experimental&#39;</span> <span class="p">])</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_measure</span><span class="p">(</span>
-    <span class="s1">&#39;Popularity&#39;</span><span class="p">,</span>
-    <span class="p">[</span>
-        <span class="p">[</span><span class="mi">114</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">52</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">121</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">127</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">58</span><span class="p">],</span>
-    <span class="p">]</span>
-<span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Style</span>
+<span class="kn">from</span> <span class="nn">data_examples</span> <span class="kn">import</span> <span class="n">music_example_data</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">music_example_data</span><span class="p">)</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span>
     <span class="n">Config</span><span class="p">({</span>
-        <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}},</span> 
-        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]},</span>
-        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Types&quot;</span><span class="p">]},</span>
+        <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
+        <span class="p">},</span>
         <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Title padding&quot;</span>
     <span class="p">}),</span>
     <span class="n">Style</span><span class="p">({</span>
-    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#A0A0A0&#39;</span><span class="p">,</span>
-        <span class="s2">&quot;paddingTop&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
-        <span class="s2">&quot;paddingBottom&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
-        <span class="s2">&quot;paddingLeft&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">},</span>
-    <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#D2D2D2&#39;</span> <span class="p">},</span>
-    <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#808080&#39;</span><span class="p">}}))</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#A0A0A0&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;paddingTop&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="s2">&quot;paddingBottom&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="s2">&quot;paddingLeft&quot;</span><span class="p">:</span> <span class="mi">200</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span> 
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#D2D2D2&#39;</span> 
+        <span class="p">},</span>
+        <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span> 
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#808080&#39;</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">)</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Style</span><span class="p">({</span>
     <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;paddingTop&quot;</span><span class="p">:</span> <span class="s2">&quot;null&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;paddingBottom&quot;</span><span class="p">:</span> <span class="s2">&quot;null&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;paddingLeft&quot;</span><span class="p">:</span> <span class="s2">&quot;null&quot;</span>
+        <span class="s2">&quot;paddingTop&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;paddingBottom&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;paddingLeft&quot;</span><span class="p">:</span> <span class="kc">None</span>
     <span class="p">}</span>
 <span class="p">}))</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -15054,7 +15097,7 @@ let chart = new Vizzu('myVizzu_139983459623840');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": ["Popularity"]}, "color": {"set": ["Types"]}, "title": "Title padding"}, "style": {"title": {"backgroundColor": "#A0A0A0", "paddingTop": 20, "paddingBottom": 20, "paddingLeft": 200}, "plot": {"backgroundColor": "#D2D2D2"}, "legend": {"backgroundColor": "#808080"}}});
+chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": "Popularity"}, "color": {"set": "Types"}, "title": "Title padding"}, "style": {"title": {"backgroundColor": "#A0A0A0", "paddingTop": 20, "paddingBottom": 20, "paddingLeft": 200}, "plot": {"backgroundColor": "#D2D2D2"}, "legend": {"backgroundColor": "#808080"}}});
 chart.animate({"style": {"title": {"paddingTop": null, "paddingBottom": null, "paddingLeft": null}}});
 } );
 </script>
@@ -15086,42 +15129,50 @@ chart.animate({"style": {"title": {"paddingTop": null, "paddingBottom": null, "p
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Style</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Genres&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Pop&#39;</span><span class="p">,</span> <span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Jazz&#39;</span><span class="p">,</span> <span class="s1">&#39;Metal&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Types&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Hard&#39;</span><span class="p">,</span> <span class="s1">&#39;Smooth&#39;</span><span class="p">,</span> <span class="s1">&#39;Experimental&#39;</span> <span class="p">])</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_measure</span><span class="p">(</span>
-    <span class="s1">&#39;Popularity&#39;</span><span class="p">,</span>
-    <span class="p">[</span>
-        <span class="p">[</span><span class="mi">114</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">52</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">121</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">127</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">58</span><span class="p">],</span>
-    <span class="p">]</span>
-<span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Style</span>
+<span class="kn">from</span> <span class="nn">data_examples</span> <span class="kn">import</span> <span class="n">music_example_data</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">music_example_data</span><span class="p">)</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span>
     <span class="n">Config</span><span class="p">({</span>
-        <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}},</span> 
-        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]},</span>
-        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Types&quot;</span><span class="p">]},</span>
+        <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
+        <span class="p">},</span>
         <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Plot padding&quot;</span>
     <span class="p">}),</span>
     <span class="n">Style</span><span class="p">({</span>
-    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#A0A0A0&#39;</span><span class="p">},</span>
-    <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#D2D2D2&#39;</span> <span class="p">},</span>
-    <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#808080&#39;</span><span class="p">}}))</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#A0A0A0&#39;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span> 
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#D2D2D2&#39;</span> 
+        <span class="p">},</span>
+        <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span> 
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#808080&#39;</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">)</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Style</span><span class="p">({</span>
     <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="s2">&quot;paddingLeft&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
         <span class="s2">&quot;paddingRight&quot;</span><span class="p">:</span> <span class="mi">100</span>
     <span class="p">}</span>
 <span class="p">}))</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -15154,7 +15205,7 @@ let chart = new Vizzu('myVizzu_139983459363280');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": ["Popularity"]}, "color": {"set": ["Types"]}, "title": "Plot padding"}, "style": {"title": {"backgroundColor": "#A0A0A0"}, "plot": {"backgroundColor": "#D2D2D2"}, "legend": {"backgroundColor": "#808080"}}});
+chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": "Popularity"}, "color": {"set": "Types"}, "title": "Plot padding"}, "style": {"title": {"backgroundColor": "#A0A0A0"}, "plot": {"backgroundColor": "#D2D2D2"}, "legend": {"backgroundColor": "#808080"}}});
 chart.animate({"style": {"plot": {"paddingLeft": 100, "paddingRight": 100}}});
 } );
 </script>
@@ -15186,45 +15237,52 @@ chart.animate({"style": {"plot": {"paddingLeft": 100, "paddingRight": 100}}});
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Style</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">()</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Genres&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Pop&#39;</span><span class="p">,</span> <span class="s1">&#39;Rock&#39;</span><span class="p">,</span> <span class="s1">&#39;Jazz&#39;</span><span class="p">,</span> <span class="s1">&#39;Metal&#39;</span><span class="p">])</span>
-<span class="n">data</span><span class="o">.</span><span class="n">add_dimension</span><span class="p">(</span><span class="s1">&#39;Types&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;Hard&#39;</span><span class="p">,</span> <span class="s1">&#39;Smooth&#39;</span><span class="p">,</span> <span class="s1">&#39;Experimental&#39;</span> <span class="p">])</span>
-
-<span class="n">data</span><span class="o">.</span><span class="n">add_measure</span><span class="p">(</span>
-    <span class="s1">&#39;Popularity&#39;</span><span class="p">,</span>
-    <span class="p">[</span>
-        <span class="p">[</span><span class="mi">114</span><span class="p">,</span> <span class="mi">96</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">52</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">56</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">174</span><span class="p">,</span> <span class="mi">121</span><span class="p">],</span>
-        <span class="p">[</span><span class="mi">127</span><span class="p">,</span> <span class="mi">83</span><span class="p">,</span> <span class="mi">94</span><span class="p">,</span> <span class="mi">58</span><span class="p">],</span>
-    <span class="p">]</span>
-<span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ipyvizzu</span> <span class="kn">import</span> <span class="n">Chart</span><span class="p">,</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Style</span>
+<span class="kn">from</span> <span class="nn">data_examples</span> <span class="kn">import</span> <span class="n">music_example_data</span>
 
 <span class="n">chart</span> <span class="o">=</span> <span class="n">Chart</span><span class="p">()</span>
-<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">music_example_data</span><span class="p">)</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span>
     <span class="n">Config</span><span class="p">({</span>
-        <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]},</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span><span class="p">}},</span> 
-        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">]},</span>
-        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Types&quot;</span><span class="p">]},</span>
+        <span class="s2">&quot;channels&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Popularity&quot;</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">]</span>
+            <span class="p">},</span> 
+            <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Genres&quot;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> 
+        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;attach&quot;</span><span class="p">:</span> <span class="s2">&quot;Popularity&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;set&quot;</span><span class="p">:</span> <span class="s2">&quot;Types&quot;</span>
+        <span class="p">},</span>
         <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Plot padding&quot;</span>
     <span class="p">}),</span>
     <span class="n">Style</span><span class="p">({</span>
-    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#A0A0A0&#39;</span><span class="p">},</span>
-    <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#D2D2D2&#39;</span><span class="p">,</span>
-        <span class="s2">&quot;paddingLeft&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-        <span class="s2">&quot;paddingRight&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span>
-    <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#808080&#39;</span><span class="p">}}))</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#A0A0A0&#39;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#D2D2D2&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;paddingLeft&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+            <span class="s2">&quot;paddingRight&quot;</span><span class="p">:</span> <span class="mi">100</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;legend&quot;</span><span class="p">:</span> <span class="p">{</span> 
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="p">:</span> <span class="s1">&#39;#808080&#39;</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">)</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="n">Style</span><span class="p">({</span>
     <span class="s2">&quot;plot&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;paddingLeft&quot;</span><span class="p">:</span> <span class="s2">&quot;null&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;paddingRight&quot;</span><span class="p">:</span> <span class="s2">&quot;null&quot;</span>
+        <span class="s2">&quot;paddingLeft&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;paddingRight&quot;</span><span class="p">:</span> <span class="kc">None</span>
     <span class="p">}</span>
 <span class="p">}))</span>
+
 <span class="n">chart</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -15257,7 +15315,7 @@ let chart = new Vizzu('myVizzu_139983459625136');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"dimensions": [{"name": "Genres", "values": ["Pop", "Rock", "Jazz", "Metal"]}, {"name": "Types", "values": ["Hard", "Smooth", "Experimental"]}], "measures": [{"name": "Popularity", "values": [[114, 96, 78, 52], [56, 36, 174, 121], [127, 83, 94, 58]]}]}});
-chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": ["Popularity"]}, "color": {"set": ["Types"]}, "title": "Plot padding"}, "style": {"title": {"backgroundColor": "#A0A0A0"}, "plot": {"backgroundColor": "#D2D2D2", "paddingLeft": 100, "paddingRight": 100}, "legend": {"backgroundColor": "#808080"}}});
+chart.animate({"config": {"channels": {"y": {"set": ["Popularity", "Types"]}, "x": {"set": "Genres"}}, "label": {"attach": "Popularity"}, "color": {"set": "Types"}, "title": "Plot padding"}, "style": {"title": {"backgroundColor": "#A0A0A0"}, "plot": {"backgroundColor": "#D2D2D2", "paddingLeft": 100, "paddingRight": 100}, "legend": {"backgroundColor": "#808080"}}});
 chart.animate({"style": {"plot": {"paddingLeft": null, "paddingRight": null}}});
 } );
 </script>
