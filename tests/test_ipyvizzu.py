@@ -147,7 +147,7 @@ class TestChart(unittest.TestCase):
         data.add_series("Bar", [15, 32, 12])
 
         self.chart.animate(data)
-        self.chart.animate(x="Foo", y="Bar", color="Foo")
+        self.chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
 
         self.chart.show()
         self._assert_display("animate.html")
@@ -158,7 +158,7 @@ class TestChart(unittest.TestCase):
         data.add_series("Bar", [15, 32, 12])
 
         self.chart.animate(data)
-        self.chart.animate(x="Foo", y="Bar", color="Foo")
+        self.chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
         self.chart.feature("tooltip", True)
 
         self.chart.show()
@@ -170,7 +170,7 @@ class TestChart(unittest.TestCase):
         data.add_series("Bar", [15, 32, 12])
 
         self.chart.animate(data)
-        self.chart.animate(x="Foo", y="Bar", color="Foo")
+        self.chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
         self.chart.animate(Style({"legend": {"width": 50}}))
 
         self.chart.show()
@@ -189,9 +189,9 @@ class TestChart(unittest.TestCase):
         self.chart.show()
         self._assert_display("merge.html")
 
-    def test_animate_does_not_accept_args_and_kwargs_together(self):
-        with self.assertRaises(ValueError):
-            self.chart.animate(Config({"color": {"set": ["Genres"]}}), x="Foo")
+    # def test_animate_does_not_accept_args_and_kwargs_together(self):
+    #    with self.assertRaises(ValueError):
+    #        self.chart.animate(Config({"color": {"set": ["Genres"]}}), x="Foo")
 
     def test_args_or_kwargs_has_to_be_passed_to_animate(self):
         with self.assertRaises(ValueError):
