@@ -35,10 +35,19 @@ class TestAnimation(unittest.TestCase):
 
 
 class TestMethod(unittest.TestCase):
-    def test_animate(self):
+    def test_animate_without_option(self):
         animation = Config({"color": {"set": ["Genres"]}})
         method = Animate(animation)
         self.assertEqual(f"chart.animate({animation.dump()});", method.dump())
+
+    def test_animate_with_option(self):
+        animation = Config({"color": {"set": ["Genres"]}})
+        option = {"duration": 1, "easing": "linear"}
+        method = Animate(animation, option)
+        self.assertEqual(
+            f"chart.animate({animation.dump()}, {PlainAnimation(option).dump()});",
+            method.dump(),
+        )
 
     def test_feature(self):
         method = Feature("tooltip", True)
@@ -81,7 +90,7 @@ class TestData(unittest.TestCase):
             {"data": {"records": [["Pop", "Hard", 114]]}}, self.data.build()
         )
 
-    def test_serie(self):
+    def test_series(self):
         self.data.add_series("Genres", ["Pop", "Rock", "Metal"])
         self.assertEqual(
             {
@@ -152,6 +161,19 @@ class TestChart(unittest.TestCase):
         self.chart.show()
         self._assert_display("animate.html")
 
+    def test_animate_options(self):
+        data = Data()
+        data.add_series("Foo", ["Alice", "Bob", "Ted"])
+        data.add_series("Bar", [15, 32, 12])
+
+        self.chart.animate(data)
+        self.chart.animate(
+            Config({"x": "Foo", "y": "Bar", "color": "Foo"}), duration="4s"
+        )
+
+        self.chart.show()
+        self._assert_display("animate_options.html")
+
     def test_feature(self):
         data = Data()
         data.add_series("Foo", ["Alice", "Bob", "Ted"])
@@ -189,13 +211,13 @@ class TestChart(unittest.TestCase):
         self.chart.show()
         self._assert_display("merge.html")
 
-    # def test_animate_does_not_accept_args_and_kwargs_together(self):
-    #    with self.assertRaises(ValueError):
-    #        self.chart.animate(Config({"color": {"set": ["Genres"]}}), x="Foo")
-
-    def test_args_or_kwargs_has_to_be_passed_to_animate(self):
+    def test_args_has_to_be_passed_to_animate(self):
         with self.assertRaises(ValueError):
             self.chart.animate()
+
+    def test_animate_does_not_accept_kwargs_without_args(self):
+        with self.assertRaises(ValueError):
+            self.chart.animate(duration="500ms")
 
     def test_ony_different_type_of_animation_can_be_merged(self):
         with self.assertRaises(ValueError):
