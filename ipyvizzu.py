@@ -1,5 +1,5 @@
 """
-Jupyter notebook integration for vizzu.
+Jupyter notebook integration for Vizzu.
 """
 
 import json
@@ -10,9 +10,9 @@ from IPython.display import display_html
 
 
 _HEAD = """
-<div id="myVizzu_{div_id}" style="width:800px; height:480px;" />
+<div id="myVizzu_{div_id}" style="{div_style}" />
 <script type="module">
-import Vizzu from '{vizzu_url}';
+import Vizzu from '{vizzu}';
 
 let chart = new Vizzu('myVizzu_{div_id}');
 chart.initializing.then( chart => {{
@@ -126,14 +126,35 @@ class Feature(Method):
 
 class Chart:
     """
-    Wrapper over vizzu Chart
+    Wrapper over Vizzu Chart
     """
 
-    def __init__(
-        self, vizzu_url="https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js"
-    ):
-        self._vizzu_url = vizzu_url
+    def __init__(self):
+        self._vizzu = "https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js"
+        self._div_style = "width:800px; height:480px;"
         self._calls = []
+
+    @property
+    def vizzu(self):
+        """
+        Url of Vizzu
+        """
+        return self._vizzu
+
+    @vizzu.setter
+    def vizzu(self, url):
+        self._vizzu = url
+
+    @property
+    def div_style(self):
+        """
+        Style attribute of the div which displays Vizzu Chart
+        """
+        return self._div_style
+
+    @div_style.setter
+    def div_style(self, div_style):
+        self._div_style = div_style
 
     def feature(self, name, value):
         self._calls.append(Feature(name, value))
@@ -172,7 +193,9 @@ class Chart:
         Generate a javascript code from the issued animations.
         """
 
-        script = [_HEAD.format(div_id=id(self), vizzu_url=self._vizzu_url)]
+        script = [
+            _HEAD.format(div_id=id(self), vizzu=self.vizzu, div_style=self.div_style)
+        ]
         script.extend(call.dump() for call in self._calls)
         script.append("} );")
         script.append("</script>")
