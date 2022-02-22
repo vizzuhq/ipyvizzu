@@ -129,12 +129,12 @@ class Chart:
     Wrapper over Vizzu Chart
     """
 
-    def __init__(self, **kwargs):
-        self._vizzu = kwargs.get(
-            "vizzu", "https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js"
-        )
-        self._div_width = kwargs.get("vizzu", "800px")
-        self._div_height = kwargs.get("vizzu", "480px")
+    VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js"
+
+    def __init__(self, vizzu=VIZZU, width="800px", height="480px"):
+        self._vizzu = vizzu
+        self._div_width = width
+        self._div_height = height
         self._calls = []
 
     def feature(self, name, value):
