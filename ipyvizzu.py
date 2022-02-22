@@ -10,7 +10,7 @@ from IPython.display import display_html
 
 
 _HEAD = """
-<div id="myVizzu_{div_id}" style="{div_style}" />
+<div id="myVizzu_{div_id}" style="width:{div_width}; height:{div_height};" />
 <script type="module">
 import Vizzu from '{vizzu}';
 
@@ -129,32 +129,13 @@ class Chart:
     Wrapper over Vizzu Chart
     """
 
-    def __init__(self):
-        self._vizzu = "https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js"
-        self._div_style = "width:800px; height:480px;"
+    def __init__(self, **kwargs):
+        self._vizzu = kwargs.get(
+            "vizzu", "https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js"
+        )
+        self._div_width = kwargs.get("vizzu", "800px")
+        self._div_height = kwargs.get("vizzu", "480px")
         self._calls = []
-
-    @property
-    def vizzu(self):
-        """
-        Url of Vizzu
-        """
-        return self._vizzu
-
-    @vizzu.setter
-    def vizzu(self, url):
-        self._vizzu = url
-
-    @property
-    def div_style(self):
-        """
-        Style attribute of the div which displays Vizzu Chart
-        """
-        return self._div_style
-
-    @div_style.setter
-    def div_style(self, div_style):
-        self._div_style = div_style
 
     def feature(self, name, value):
         self._calls.append(Feature(name, value))
@@ -194,7 +175,12 @@ class Chart:
         """
 
         script = [
-            _HEAD.format(div_id=id(self), vizzu=self.vizzu, div_style=self.div_style)
+            _HEAD.format(
+                div_id=id(self),
+                vizzu=self._vizzu,
+                div_width=self._div_width,
+                div_height=self._div_height,
+            )
         ]
         script.extend(call.dump() for call in self._calls)
         script.append("} );")
