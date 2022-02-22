@@ -1,5 +1,5 @@
 """
-Jupyter notebook integration for vizzu.
+Jupyter notebook integration for Vizzu.
 """
 
 import json
@@ -10,9 +10,9 @@ from IPython.display import display_html
 
 
 _HEAD = """
-<div id="myVizzu_{div_id}" style="width:800px; height:480px;" />
+<div id="myVizzu_{div_id}" style="width:{div_width}; height:{div_height};" />
 <script type="module">
-import Vizzu from '{vizzu_url}';
+import Vizzu from '{vizzu}';
 
 let chart = new Vizzu('myVizzu_{div_id}');
 chart.initializing.then( chart => {{
@@ -126,13 +126,15 @@ class Feature(Method):
 
 class Chart:
     """
-    Wrapper over vizzu Chart
+    Wrapper over Vizzu Chart
     """
 
-    def __init__(
-        self, vizzu_url="https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js"
-    ):
-        self._vizzu_url = vizzu_url
+    def __init__(self, **kwargs):
+        self._vizzu = kwargs.get(
+            "vizzu", "https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js"
+        )
+        self._div_width = kwargs.get("vizzu", "800px")
+        self._div_height = kwargs.get("vizzu", "480px")
         self._calls = []
 
     def feature(self, name, value):
@@ -172,7 +174,14 @@ class Chart:
         Generate a javascript code from the issued animations.
         """
 
-        script = [_HEAD.format(div_id=id(self), vizzu_url=self._vizzu_url)]
+        script = [
+            _HEAD.format(
+                div_id=id(self),
+                vizzu=self._vizzu,
+                div_width=self._div_width,
+                div_height=self._div_height,
+            )
+        ]
         script.extend(call.dump() for call in self._calls)
         script.append("} );")
         script.append("</script>")
