@@ -145,17 +145,31 @@ class TestChart(unittest.TestCase):
     def setUp(self):
         self.patch = unittest.mock.patch("ipyvizzu.display_html")
         self.display_html = self.patch.start()
+
+        self.data = Data()
+        self.data.add_series("Foo", ["Alice", "Bob", "Ted"])
+        self.data.add_series("Bar", [15, 32, 12])
+
         self.chart = Chart()
 
     def tearDown(self):
         self.patch.stop()
 
-    def test_animate(self):
-        data = Data()
-        data.add_series("Foo", ["Alice", "Bob", "Ted"])
-        data.add_series("Bar", [15, 32, 12])
+    def test_init(self):
+        chart = Chart(
+            vizzu="https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js",
+            width="400px",
+            height="240px",
+        )
 
-        self.chart.animate(data)
+        chart.animate(self.data)
+        chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
+
+        chart.show()
+        self._assert_display("init.html")
+
+    def test_animate(self):
+        self.chart.animate(self.data)
         self.chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
 
         self.chart.show()
@@ -175,11 +189,7 @@ class TestChart(unittest.TestCase):
         self._assert_display("animate_options.html")
 
     def test_feature(self):
-        data = Data()
-        data.add_series("Foo", ["Alice", "Bob", "Ted"])
-        data.add_series("Bar", [15, 32, 12])
-
-        self.chart.animate(data)
+        self.chart.animate(self.data)
         self.chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
         self.chart.feature("tooltip", True)
 
@@ -187,11 +197,7 @@ class TestChart(unittest.TestCase):
         self._assert_display("feature.html")
 
     def test_style(self):
-        data = Data()
-        data.add_series("Foo", ["Alice", "Bob", "Ted"])
-        data.add_series("Bar", [15, 32, 12])
-
-        self.chart.animate(data)
+        self.chart.animate(self.data)
         self.chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
         self.chart.animate(Style({"legend": {"width": 50}}))
 
@@ -199,11 +205,7 @@ class TestChart(unittest.TestCase):
         self._assert_display("style.html")
 
     def test_animation_merge(self):
-        data = Data()
-        data.add_series("Foo", ["Alice", "Bob", "Ted"])
-        data.add_series("Bar", [15, 32, 12])
-
-        self.chart.animate(data)
+        self.chart.animate(self.data)
         self.chart.animate(
             Config({"color": {"set": ["Genres"]}}), Style({"legend": {"width": 50}})
         )
