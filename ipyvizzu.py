@@ -40,6 +40,11 @@ class Data(dict, Animation):
     Vizzu data with the required keys: records, series, dimensions or measures.
     """
 
+    @classmethod
+    def from_json(cls, filename):
+        with open(filename, "r", encoding="utf8") as file_desc:
+            return cls(json.load(file_desc))
+
     def add_record(self, record):
         self._add_value("records", record)
 

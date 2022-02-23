@@ -2,6 +2,7 @@ import unittest
 import pathlib
 import json
 import re
+import os
 
 from unittest.mock import patch
 
@@ -30,6 +31,7 @@ class TestNotebook(unittest.TestCase):
                 continue
 
             with self.subTest(path=path):
+                os.chdir(examples_dir)
                 notebook = parse_notebook(path)
                 for source, output in notebook:
                     exec(  # pylint: disable=exec-used
