@@ -34,9 +34,7 @@ class TestNotebook(unittest.TestCase):
                 os.chdir(examples_dir)
                 notebook = parse_notebook(path)
                 for source, output in notebook:
-                    exec(  # pylint: disable=exec-used
-                        "import sys\nsys.path.append('./docs/examples')\n" + source
-                    )
+                    exec(source)  # pylint: disable=exec-used
                     self.assertEqual(
                         self.normalize_div_id(display_html.call_args.args[0]),
                         self.normalize_div_id(output),
