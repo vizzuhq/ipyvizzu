@@ -6,7 +6,7 @@ let chart = new Vizzu('myVizzu');
 chart.initializing.then( chart => {
 
 chart.animate({"data": {"series": [{"name": "Foo", "values": ["Alice", "Bob", "Ted"]}, {"name": "Bar", "values": [15, 32, 12]}]}});
-chart.animate({"x": "Foo", "y": "Bar", "color": "Foo"});
+chart.animate({"config": {"x": "Foo", "y": "Bar", "color": "Foo"}});
 chart.animate({"style": {"legend": {"width": 50}}});
 } );
 </script>
