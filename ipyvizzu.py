@@ -5,6 +5,7 @@ Jupyter notebook integration for Vizzu.
 import json
 import abc
 import typing
+import uuid
 
 from IPython.display import display_html
 
@@ -108,7 +109,7 @@ class Animate(Method):
         data = self._data.dump()
         if self._option:
             data += ", " + PlainAnimation(self._option).dump()
-        return f"chart.animate({data});"
+        return f"chart.animate({data})"
 
 
 class Feature(Method):
@@ -119,7 +120,7 @@ class Feature(Method):
     def dump(self):
         name = json.dumps(self._name)
         value = json.dumps(self._value)
-        return f"chart.feature({name}, {value});"
+        return f"chart.feature({name}, {value})"
 
 
 class Chart:
@@ -137,9 +138,13 @@ class Chart:
         </script>
     """
 
-    _ANIMATE = """
+    _SHOW = """
         <script type="module">
-        document.chart_{id}.then( chart => {{{animation}}});
+        document.chart_{id}.then(chart => {{
+            {show}.then(chart => {{
+                document.snapshot_{snapshot_id} = chart.store();
+            }});
+        }});
         </script>
     """
 
@@ -147,7 +152,6 @@ class Chart:
         self._vizzu = vizzu
         self._div_width = width
         self._div_height = height
-        self._calls = []
 
         display_html(
             self._INITIALIZE.format(
@@ -160,7 +164,7 @@ class Chart:
         )
 
     def feature(self, name, value):
-        self._calls.append(Feature(name, value))
+        return self._show(Feature(name, value).dump())
 
     def animate(self, *animations: Animation, **options):
         """
@@ -170,12 +174,10 @@ class Chart:
             raise ValueError("No animation was set.")
 
         animation = self._merge_animations(animations)
-        display_html(
-            self._ANIMATE.format(
-                id=id(self), animation=Animate(animation, options).dump()
-            ),
-            raw=True,
-        )
+        return self._show(Animate(animation, options).dump())
+
+    def restore(self, restore_id):
+        return self._show("chart.animate(document.snapshot_{})".format(restore_id))
 
     @staticmethod
     def _merge_animations(animations):
@@ -185,3 +187,15 @@ class Chart:
             merger.merge(animation)
 
         return merger
+
+    def _show(self, show):
+        snapshot_id = uuid.uuid4().hex
+        display_html(
+            self._SHOW.format(
+                id=id(self),
+                show=show,
+                snapshot_id=snapshot_id,
+            ),
+            raw=True,
+        )
+        return snapshot_id
