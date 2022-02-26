@@ -9,16 +9,6 @@ import typing
 from IPython.display import display_html
 
 
-_HEAD = """
-<div id="myVizzu_{div_id}" style="width:{div_width}; height:{div_height};" />
-<script type="module">
-import Vizzu from '{vizzu}';
-
-let chart = new Vizzu('myVizzu_{div_id}');
-chart.initializing.then( chart => {{
-"""
-
-
 class Animation:
     def dump(self):
         return json.dumps(self.build())
@@ -139,24 +129,53 @@ class Chart:
 
     VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js"
 
+    _INITIALIZE = """
+        <div id="myVizzu_{id}" style="width:{div_width}; height:{div_height};"/>
+        <script type="module">
+        import Vizzu from '{vizzu}';
+        document.chart_{id} = new Vizzu('myVizzu_{id}').initializing;
+        </script>
+    """
+
+    _ANIMATE = """
+        <script type="module">
+        document.chart_{id}.then( chart => {{{animation}}});
+        </script>
+    """
+
     def __init__(self, vizzu=VIZZU, width="800px", height="480px"):
         self._vizzu = vizzu
         self._div_width = width
         self._div_height = height
         self._calls = []
 
+        display_html(
+            self._INITIALIZE.format(
+                id=id(self),
+                vizzu=self._vizzu,
+                div_width=self._div_width,
+                div_height=self._div_height,
+            ),
+            raw=True,
+        )
+
     def feature(self, name, value):
         self._calls.append(Feature(name, value))
 
     def animate(self, *animations: Animation, **options):
         """
-        Register new animation.
+        Show new animation.
         """
         if not animations:
             raise ValueError("No animation was set.")
 
         animation = self._merge_animations(animations)
-        self._calls.append(Animate(animation, options))
+        display_html(
+            self._ANIMATE.format(
+                id=id(self), animation=Animate(animation, options).dump()
+            ),
+            raw=True,
+        )
 
     @staticmethod
     def _merge_animations(animations):
@@ -166,21 +185,3 @@ class Chart:
             merger.merge(animation)
 
         return merger
-
-    def show(self):
-        """
-        Generate a javascript code from the issued animations.
-        """
-
-        script = [
-            _HEAD.format(
-                div_id=id(self),
-                vizzu=self._vizzu,
-                div_width=self._div_width,
-                div_height=self._div_height,
-            )
-        ]
-        script.extend(call.dump() for call in self._calls)
-        script.append("} );")
-        script.append("</script>")
-        display_html("\n".join(script), raw=True)
