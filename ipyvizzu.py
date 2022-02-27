@@ -85,6 +85,17 @@ class Style(Animation):
         return {"style": self._data}
 
 
+class Snapshot(Animation):
+    def __init__(self, name: str):
+        self._name = name
+
+    def dump(self):
+        return self._name
+
+    def build(self):
+        raise NotImplementedError("Snapshot cannot be merged with other Animations")
+
+
 class AnimationMerger(dict, Animation):
     def build(self):
         return self
@@ -132,6 +143,14 @@ class Feature(Method):
         return f"chart.feature({name}, {value});"
 
 
+class Store(Method):
+    def __init__(self, snapshot_name: str):
+        self._snaphot_name = snapshot_name
+
+    def dump(self):
+        return f"{self._snaphot_name} = chart.store();"
+
+
 class Chart:
     """
     Wrapper over Vizzu Chart
@@ -140,6 +159,7 @@ class Chart:
     VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js"
 
     def __init__(self, vizzu=VIZZU, width="800px", height="480px"):
+        self._snapshot_counter = 0
         self._vizzu = vizzu
         self._div_width = width
         self._div_height = height
@@ -160,12 +180,21 @@ class Chart:
 
     @staticmethod
     def _merge_animations(animations):
+        if len(animations) == 1:
+            return animations[0]
+
         merger = AnimationMerger()
 
         for animation in animations:
             merger.merge(animation)
 
         return merger
+
+    def store(self) -> Snapshot:
+        self._snapshot_counter += 1
+        snapshot_name = f"snapshot_{self._snapshot_counter}"
+        self._calls.append(Store(snapshot_name))
+        return Snapshot(snapshot_name)
 
     def show(self):
         """
