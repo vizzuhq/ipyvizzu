@@ -130,21 +130,10 @@ class Chart:
 
     VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js"
 
-    _INITIALIZE = """
+    _INIT = """
         <div id="myVizzu_{id}" style="width:{div_width}; height:{div_height};"/>
-        <script type="module">
-        import Vizzu from '{vizzu}';
-        document.chart_{id} = new Vizzu('myVizzu_{id}').initializing;
-        </script>
-    """
-
-    _SHOW = """
-        <script type="module">
-        document.chart_{id}.then(chart => {{
-            {show}.then(chart => {{
-                document.snapshot_{snapshot_id} = chart.store();
-            }});
-        }});
+        <script>
+        var chart_{id} = import('{vizzu}').then(Vizzu => new Vizzu.default('myVizzu_{id}').initializing);
         </script>
     """
 
@@ -152,9 +141,8 @@ class Chart:
         self._vizzu = vizzu
         self._div_width = width
         self._div_height = height
-
         display_html(
-            self._INITIALIZE.format(
+            self._INIT.format(
                 id=id(self),
                 vizzu=self._vizzu,
                 div_width=self._div_width,
@@ -163,8 +151,29 @@ class Chart:
             raw=True,
         )
 
+    _FEATURE = """
+        <script>
+        chart_{id}.then(chart => {{ {feature} }});
+        }});
+        </script>
+    """
+
     def feature(self, name, value):
-        return self._show(Feature(name, value).dump())
+        feature = Feature(name, value).dump()
+        display_html(
+            self._FEATURE.format(id=id(self), feature=feature),
+            raw=True,
+        )
+
+    _ANIMATE = """
+        <script type="module">
+        chart_{id}.then(chart => {{
+            {animation}.then(chart => {{
+                document.snapshot_{snapshot} = chart.store();
+            }});
+        }});
+        </script>
+    """
 
     def animate(self, *animations: Animation, **options):
         """
@@ -174,10 +183,29 @@ class Chart:
             raise ValueError("No animation was set.")
 
         animation = self._merge_animations(animations)
-        return self._show(Animate(animation, options).dump())
+        animation = Animate(animation, options).dump()
+        snapshot = uuid.uuid4().hex
+        display_html(
+            self._ANIMATE.format(
+                id=id(self),
+                animation=animation,
+                snapshot=snapshot,
+            ),
+            raw=True,
+        )
+        return snapshot
 
-    def restore(self, restore_id):
-        return self._show("chart.animate(document.snapshot_{})".format(restore_id))
+    _RESTORE = """
+        <script>
+        chart_{id}.then(chart => chart.animate(document.snapshot_{snapshot}));
+        </script>
+    """
+
+    def restore(self, snapshot):
+        display_html(
+            self._RESTORE.format(id=id(self), snapshot=snapshot),
+            raw=True,
+        )
 
     @staticmethod
     def _merge_animations(animations):
@@ -187,15 +215,3 @@ class Chart:
             merger.merge(animation)
 
         return merger
-
-    def _show(self, show):
-        snapshot_id = uuid.uuid4().hex
-        display_html(
-            self._SHOW.format(
-                id=id(self),
-                show=show,
-                snapshot_id=snapshot_id,
-            ),
-            raw=True,
-        )
-        return snapshot_id
