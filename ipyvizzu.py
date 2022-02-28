@@ -76,6 +76,17 @@ class Style(Animation):
         return {"style": self._data}
 
 
+class Snapshot(Animation):
+    def __init__(self, name: str):
+        self._name = name
+
+    def dump(self):
+        return self._name
+
+    def build(self):
+        raise NotImplementedError("Snapshot cannot be merged with other Animations")
+
+
 class AnimationMerger(dict, Animation):
     def build(self):
         return self
@@ -138,6 +149,7 @@ class Chart:
     """
 
     def __init__(self, vizzu=VIZZU, width="800px", height="480px"):
+        self._snapshot_name = None
         self._vizzu = vizzu
         self._div_width = width
         self._div_height = height
@@ -166,10 +178,10 @@ class Chart:
         )
 
     _ANIMATE = """
-        <script type="module">
+        <script>
         chart_{id}.then(chart => {{
             {animation}.then(chart => {{
-                document.snapshot_{snapshot} = chart.store();
+                {snapshot_name} = chart.store()
             }});
         }});
         </script>
@@ -184,34 +196,27 @@ class Chart:
 
         animation = self._merge_animations(animations)
         animation = Animate(animation, options).dump()
-        snapshot = uuid.uuid4().hex
+        self._snapshot_name = "snapshot_" + uuid.uuid4().hex
         display_html(
             self._ANIMATE.format(
                 id=id(self),
                 animation=animation,
-                snapshot=snapshot,
+                snapshot_name=self._snapshot_name
             ),
-            raw=True,
-        )
-        return snapshot
-
-    _RESTORE = """
-        <script>
-        chart_{id}.then(chart => chart.animate(document.snapshot_{snapshot}));
-        </script>
-    """
-
-    def restore(self, snapshot):
-        display_html(
-            self._RESTORE.format(id=id(self), snapshot=snapshot),
             raw=True,
         )
 
     @staticmethod
     def _merge_animations(animations):
+        if len(animations) == 1:
+            return animations[0]
+
         merger = AnimationMerger()
 
         for animation in animations:
             merger.merge(animation)
 
         return merger
+
+    def store(self) -> Snapshot:
+        return Snapshot(self._snapshot_name)
