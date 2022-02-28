@@ -1,4 +1,5 @@
 import unittest
+import unittest.mock
 import pathlib
 import re
 
@@ -11,6 +12,7 @@ from ipyvizzu import (
     Feature,
     AnimationMerger,
     Chart,
+    Store,
 )
 
 
@@ -52,6 +54,10 @@ class TestMethod(unittest.TestCase):
     def test_feature(self):
         method = Feature("tooltip", True)
         self.assertEqual('chart.feature("tooltip", true);', method.dump())
+
+    def test_store(self):
+        method = Store("snapshot_1")
+        self.assertEqual("snapshot_1 = chart.store();", method.dump())
 
 
 class TestMerger(unittest.TestCase):
@@ -227,6 +233,18 @@ class TestChart(unittest.TestCase):
                 Config({"channels": {"label": {"attach": ["Popularity"]}}}),
                 Config({"color": {"set": ["Genres"]}}),
             )
+
+    def test_store(self):
+        self.chart.animate(self.data)
+        snapshot_a = self.chart.store()
+        self.chart.animate(
+            Config({"color": {"set": ["Genres"]}}), Style({"legend": {"width": 50}})
+        )
+        snapshot_b = self.chart.store()
+        self.chart.animate(snapshot_a)
+        self.chart.animate(snapshot_b)
+        self.chart.show()
+        self._assert_display("store.html")
 
     def _assert_display(self, asset_name):
         asset_path = self.asset_dir / asset_name
