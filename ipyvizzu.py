@@ -144,12 +144,11 @@ class Chart:
     _INIT = """
         <div id="myVizzu_{id}" style="width:{div_width}; height:{div_height};"/>
         <script>
-        var chart_{id} = import('{vizzu}').then(Vizzu => new Vizzu.default('myVizzu_{id}').initializing);
+        let chart_{id} = import('{vizzu}').then(Vizzu => new Vizzu.default('myVizzu_{id}').initializing);
         </script>
     """
 
     def __init__(self, vizzu=VIZZU, width="800px", height="480px"):
-        self._snapshot_name = None
         self._vizzu = vizzu
         self._div_width = width
         self._div_height = height
@@ -165,7 +164,10 @@ class Chart:
 
     _FEATURE = """
         <script>
-        chart_{id}.then(chart => {{ {feature} }});
+        chart_{id} = chart_{id}.then(chart => {{ 
+            {feature};
+            return chart;
+            }});
         }});
         </script>
     """
@@ -179,11 +181,7 @@ class Chart:
 
     _ANIMATE = """
         <script>
-        chart_{id}.then(chart => {{
-            {animation}.then(chart => {{
-                {snapshot_name} = chart.store()
-            }});
-        }});
+        chart_{id} = chart_{id}.then(chart => {animation});
         </script>
     """
 
@@ -196,12 +194,11 @@ class Chart:
 
         animation = self._merge_animations(animations)
         animation = Animate(animation, options).dump()
-        self._snapshot_name = "snapshot_" + uuid.uuid4().hex
+        
         display_html(
             self._ANIMATE.format(
                 id=id(self),
-                animation=animation,
-                snapshot_name=self._snapshot_name
+                animation=animation
             ),
             raw=True,
         )
@@ -218,5 +215,23 @@ class Chart:
 
         return merger
 
+    _STORE = """
+        <script>
+        let {snapshot_name};
+        chart_{id} = chart_{id}.then(chart => {{
+            {snapshot_name} = chart.store();
+            return chart;
+        }});
+        </script>
+    """
+
     def store(self) -> Snapshot:
-        return Snapshot(self._snapshot_name)
+        snapshot_name = "snapshot_" + uuid.uuid4().hex
+        display_html(
+            self._STORE.format(
+                id=id(self),
+                snapshot_name=snapshot_name
+            ),
+            raw=True,
+        )
+        return Snapshot(snapshot_name)
