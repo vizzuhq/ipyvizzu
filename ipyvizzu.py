@@ -149,12 +149,15 @@ class Chart:
     """
 
     def __init__(self, vizzu=VIZZU, width="800px", height="480px"):
+        self._id = uuid.uuid4().hex[:7]
+
         self._vizzu = vizzu
         self._div_width = width
         self._div_height = height
+
         display_html(
             self._INIT.format(
-                id=id(self),
+                id=self._id,
                 vizzu=self._vizzu,
                 div_width=self._div_width,
                 div_height=self._div_height,
@@ -175,7 +178,7 @@ class Chart:
     def feature(self, name, value):
         feature = Feature(name, value).dump()
         display_html(
-            self._FEATURE.format(id=id(self), feature=feature),
+            self._FEATURE.format(id=self._id, feature=feature),
             raw=True,
         )
 
@@ -194,12 +197,9 @@ class Chart:
 
         animation = self._merge_animations(animations)
         animation = Animate(animation, options).dump()
-        
+
         display_html(
-            self._ANIMATE.format(
-                id=id(self),
-                animation=animation
-            ),
+            self._ANIMATE.format(id=self._id, animation=animation),
             raw=True,
         )
 
@@ -226,12 +226,9 @@ class Chart:
     """
 
     def store(self) -> Snapshot:
-        snapshot_name = "snapshot_" + uuid.uuid4().hex
+        snapshot_name = "snapshot_" + uuid.uuid4().hex[:7]
         display_html(
-            self._STORE.format(
-                id=id(self),
-                snapshot_name=snapshot_name
-            ),
+            self._STORE.format(id=self._id, snapshot_name=snapshot_name),
             raw=True,
         )
         return Snapshot(snapshot_name)
