@@ -141,12 +141,10 @@ class Chart:
 
     VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js"
 
-    _INIT = """
-        <div id="myVizzu_{id}" style="width:{div_width}; height:{div_height};"/>
+    _INIT = """<div id="myVizzu_{id}" style="width:{div_width}; height:{div_height};"/>
         <script>
         let chart_{id} = import('{vizzu}').then(Vizzu => new Vizzu.default('myVizzu_{id}').initializing);
-        </script>
-    """
+        </script>"""
 
     def __init__(self, vizzu=VIZZU, width="800px", height="480px"):
         self._id = uuid.uuid4().hex[:7]
@@ -165,15 +163,12 @@ class Chart:
             raw=True,
         )
 
-    _FEATURE = """
-        <script>
+    _FEATURE = """<script>
         chart_{id} = chart_{id}.then(chart => {{ 
             {feature};
             return chart;
-            }});
         }});
-        </script>
-    """
+        </script>"""
 
     def feature(self, name, value):
         feature = Feature(name, value).dump()
@@ -182,11 +177,9 @@ class Chart:
             raw=True,
         )
 
-    _ANIMATE = """
-        <script>
+    _ANIMATE = """<script>
         chart_{id} = chart_{id}.then(chart => {animation});
-        </script>
-    """
+        </script>"""
 
     def animate(self, *animations: Animation, **options):
         """
@@ -215,15 +208,13 @@ class Chart:
 
         return merger
 
-    _STORE = """
-        <script>
+    _STORE = """<script>
         let {snapshot_name};
         chart_{id} = chart_{id}.then(chart => {{
             {snapshot_name} = chart.store();
             return chart;
         }});
-        </script>
-    """
+        </script>"""
 
     def store(self) -> Snapshot:
         snapshot_name = "snapshot_" + uuid.uuid4().hex[:7]

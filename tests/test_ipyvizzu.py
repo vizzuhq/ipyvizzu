@@ -3,6 +3,7 @@ import unittest.mock
 import pathlib
 import re
 
+
 from ipyvizzu import (
     PlainAnimation,
     Data,
@@ -12,7 +13,6 @@ from ipyvizzu import (
     Feature,
     AnimationMerger,
     Chart,
-    Store,
 )
 
 
@@ -40,24 +40,20 @@ class TestMethod(unittest.TestCase):
     def test_animate_without_option(self):
         animation = Config({"color": {"set": ["Genres"]}})
         method = Animate(animation)
-        self.assertEqual(f"chart.animate({animation.dump()});", method.dump())
+        self.assertEqual(f"chart.animate({animation.dump()})", method.dump())
 
     def test_animate_with_option(self):
         animation = Config({"color": {"set": ["Genres"]}})
         option = {"duration": 1, "easing": "linear"}
         method = Animate(animation, option)
         self.assertEqual(
-            f"chart.animate({animation.dump()}, {PlainAnimation(option).dump()});",
+            f"chart.animate({animation.dump()}, {PlainAnimation(option).dump()})",
             method.dump(),
         )
 
     def test_feature(self):
         method = Feature("tooltip", True)
-        self.assertEqual('chart.feature("tooltip", true);', method.dump())
-
-    def test_store(self):
-        method = Store("snapshot_1")
-        self.assertEqual("snapshot_1 = chart.store();", method.dump())
+        self.assertEqual('chart.feature("tooltip", true)', method.dump())
 
 
 class TestMerger(unittest.TestCase):
@@ -141,11 +137,16 @@ class TestChart(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.asset_dir = pathlib.Path(__file__).parent / "assets"
-        cls.div_pattern = re.compile(r"myVizzu_\d+", flags=re.MULTILINE)
+        cls.vizzu_pattern = re.compile(r"myVizzu_[a-f0-9]{7}", flags=re.MULTILINE)
+        cls.chart_pattern = re.compile(r"chart_[a-f0-9]{7}", flags=re.MULTILINE)
+        cls.snaphot_pattern = re.compile(r"snapshot_[a-f0-9]{7}", flags=re.MULTILINE)
 
     @classmethod
-    def normalize_div_id(cls, output):
-        normalized_output = cls.div_pattern.sub("myVizzu", output, count=2)
+    def normalize_id(cls, output):
+        normalized_output = output
+        normalized_output = cls.vizzu_pattern.sub("myVizzu", normalized_output)
+        normalized_output = cls.chart_pattern.sub("chart", normalized_output)
+        normalized_output = cls.snaphot_pattern.sub("snaphot", normalized_output)
         return normalized_output
 
     def setUp(self):
@@ -167,47 +168,35 @@ class TestChart(unittest.TestCase):
             width="400px",
             height="240px",
         )
-
         chart.animate(self.data)
         chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
-
-        chart.show()
         self._assert_display("init.html")
 
     def test_animate(self):
         self.chart.animate(self.data)
         self.chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
-
-        self.chart.show()
         self._assert_display("animate.html")
 
     def test_animate_options(self):
         data = Data()
         data.add_series("Foo", ["Alice", "Bob", "Ted"])
         data.add_series("Bar", [15, 32, 12])
-
         self.chart.animate(data)
         self.chart.animate(
             Config({"x": "Foo", "y": "Bar", "color": "Foo"}), duration="4s"
         )
-
-        self.chart.show()
         self._assert_display("animate_options.html")
 
     def test_feature(self):
         self.chart.animate(self.data)
         self.chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
         self.chart.feature("tooltip", True)
-
-        self.chart.show()
         self._assert_display("feature.html")
 
     def test_style(self):
         self.chart.animate(self.data)
         self.chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
         self.chart.animate(Style({"legend": {"width": 50}}))
-
-        self.chart.show()
         self._assert_display("style.html")
 
     def test_animation_merge(self):
@@ -215,8 +204,6 @@ class TestChart(unittest.TestCase):
         self.chart.animate(
             Config({"color": {"set": ["Genres"]}}), Style({"legend": {"width": 50}})
         )
-
-        self.chart.show()
         self._assert_display("merge.html")
 
     def test_args_has_to_be_passed_to_animate(self):
@@ -243,12 +230,14 @@ class TestChart(unittest.TestCase):
         snapshot_b = self.chart.store()
         self.chart.animate(snapshot_a)
         self.chart.animate(snapshot_b)
-        self.chart.show()
         self._assert_display("store.html")
 
     def _assert_display(self, asset_name):
         asset_path = self.asset_dir / asset_name
+        display_out = ""
+        for block in self.display_html.call_args_list:
+            for line in block.args[0].split("\n"):
+                display_out += line.strip() + "\n"
         self.assertEqual(
-            self.normalize_div_id(self.display_html.call_args.args[0]).strip(),
-            asset_path.read_text().strip(),
+            self.normalize_id(display_out).strip(), asset_path.read_text().strip()
         )
