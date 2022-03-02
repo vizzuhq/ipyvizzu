@@ -13,6 +13,7 @@ from ipyvizzu import (
     Feature,
     AnimationMerger,
     Chart,
+    Snapshot,
 )
 
 
@@ -76,6 +77,11 @@ class TestMerger(unittest.TestCase):
         self.assertRaises(
             ValueError, self.merger.merge, Config({"color": {"set": ["Genres"]}})
         )
+
+    def test_snapshot_can_not_be_merged(self):
+        snapshot = Snapshot("snapshot_a")
+        self.merger.merge(Config({"channels": {"label": {"attach": ["Popularity"]}}}))
+        self.assertRaises(NotImplementedError, self.merger.merge, snapshot)
 
     def test_merge_none(self):
         self.merger.merge(Config({"channels": {"label": {"attach": ["Popularity"]}}}))
@@ -218,7 +224,7 @@ class TestChart(unittest.TestCase):
             Config({"color": {"set": ["Genres"]}}), Style({"legend": {"width": 50}})
         )
         snapshot_b = self.chart.store()
-        self.chart.animate(snapshot_a)
+        self.chart.animate(snapshot_a, duration="4s")
         self.chart.animate(snapshot_b)
         self._assert_display("store.html")
 
