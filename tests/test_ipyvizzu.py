@@ -1,9 +1,9 @@
 import unittest
 import unittest.mock
 import pathlib
-import re
 
 
+from normalizer import Normalizer
 from ipyvizzu import (
     PlainAnimation,
     Data,
@@ -137,17 +137,7 @@ class TestChart(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.asset_dir = pathlib.Path(__file__).parent / "assets"
-        cls.vizzu_pattern = re.compile(r"myVizzu_[a-f0-9]{7}", flags=re.MULTILINE)
-        cls.chart_pattern = re.compile(r"chart_[a-f0-9]{7}", flags=re.MULTILINE)
-        cls.snaphot_pattern = re.compile(r"snapshot_[a-f0-9]{7}", flags=re.MULTILINE)
-
-    @classmethod
-    def normalize_id(cls, output):
-        normalized_output = output
-        normalized_output = cls.vizzu_pattern.sub("myVizzu", normalized_output)
-        normalized_output = cls.chart_pattern.sub("chart", normalized_output)
-        normalized_output = cls.snaphot_pattern.sub("snaphot", normalized_output)
-        return normalized_output
+        cls.normalizer = Normalizer()
 
     def setUp(self):
         self.patch = unittest.mock.patch("ipyvizzu.display_html")
@@ -239,5 +229,6 @@ class TestChart(unittest.TestCase):
             for line in block.args[0].split("\n"):
                 display_out += line.strip() + "\n"
         self.assertEqual(
-            self.normalize_id(display_out).strip(), asset_path.read_text().strip()
+            self.normalizer.normalize_id(display_out).strip(),
+            asset_path.read_text().strip(),
         )
