@@ -56,6 +56,10 @@ class TestMethod(unittest.TestCase):
         method = Feature("tooltip", True)
         self.assertEqual('chart.feature("tooltip", true)', method.dump())
 
+    def test_store(self):
+        method = Store("snapshot_1")
+        self.assertEqual("snapshot_1 = chart.store();", method.dump())
+
 
 class TestMerger(unittest.TestCase):
     def setUp(self):

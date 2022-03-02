@@ -134,6 +134,14 @@ class Feature(Method):
         return f"chart.feature({name}, {value})"
 
 
+class Store(Method):
+    def __init__(self, snapshot_name: str):
+        self._snaphot_name = snapshot_name
+
+    def dump(self):
+        return f"{self._snaphot_name} = chart.store();"
+
+
 class Chart:
     """
     Wrapper over Vizzu Chart
@@ -148,7 +156,6 @@ class Chart:
 
     def __init__(self, vizzu=VIZZU, width="800px", height="480px"):
         self._id = uuid.uuid4().hex[:7]
-
         self._vizzu = vizzu
         self._div_width = width
         self._div_height = height
