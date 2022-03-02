@@ -5,18 +5,9 @@ Jupyter notebook integration for Vizzu.
 import json
 import abc
 import typing
+import uuid
 
 from IPython.display import display_html
-
-
-_HEAD = """
-<div id="myVizzu_{div_id}" style="width:{div_width}; height:{div_height};" />
-<script type="module">
-import Vizzu from '{vizzu}';
-
-let chart = new Vizzu('myVizzu_{div_id}');
-chart.initializing.then( chart => {{
-"""
 
 
 class Animation:
@@ -129,7 +120,7 @@ class Animate(Method):
         data = self._data.dump()
         if self._option:
             data += ", " + PlainAnimation(self._option).dump()
-        return f"chart.animate({data});"
+        return f"chart.animate({data})"
 
 
 class Feature(Method):
@@ -140,7 +131,7 @@ class Feature(Method):
     def dump(self):
         name = json.dumps(self._name)
         value = json.dumps(self._value)
-        return f"chart.feature({name}, {value});"
+        return f"chart.feature({name}, {value})"
 
 
 class Store(Method):
@@ -158,25 +149,59 @@ class Chart:
 
     VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js"
 
+    _INIT = """<div id="myVizzu_{id}" style="width:{div_width}; height:{div_height};"/>
+        <script>
+        let chart_{id} = import('{vizzu}').then(Vizzu => new Vizzu.default('myVizzu_{id}').initializing);
+        </script>"""
+
     def __init__(self, vizzu=VIZZU, width="800px", height="480px"):
-        self._snapshot_counter = 0
+        self._id = uuid.uuid4().hex[:7]
         self._vizzu = vizzu
         self._div_width = width
         self._div_height = height
-        self._calls = []
+
+        display_html(
+            self._INIT.format(
+                id=self._id,
+                vizzu=self._vizzu,
+                div_width=self._div_width,
+                div_height=self._div_height,
+            ),
+            raw=True,
+        )
+
+    _FEATURE = """<script>
+        chart_{id} = chart_{id}.then(chart => {{ 
+            {feature};
+            return chart;
+        }});
+        </script>"""
 
     def feature(self, name, value):
-        self._calls.append(Feature(name, value))
+        feature = Feature(name, value).dump()
+        display_html(
+            self._FEATURE.format(id=self._id, feature=feature),
+            raw=True,
+        )
+
+    _ANIMATE = """<script>
+        chart_{id} = chart_{id}.then(chart => {animation});
+        </script>"""
 
     def animate(self, *animations: Animation, **options):
         """
-        Register new animation.
+        Show new animation.
         """
         if not animations:
             raise ValueError("No animation was set.")
 
         animation = self._merge_animations(animations)
-        self._calls.append(Animate(animation, options))
+        animation = Animate(animation, options).dump()
+
+        display_html(
+            self._ANIMATE.format(id=self._id, animation=animation),
+            raw=True,
+        )
 
     @staticmethod
     def _merge_animations(animations):
@@ -190,26 +215,18 @@ class Chart:
 
         return merger
 
+    _STORE = """<script>
+        let {snapshot_name};
+        chart_{id} = chart_{id}.then(chart => {{
+            {snapshot_name} = chart.store();
+            return chart;
+        }});
+        </script>"""
+
     def store(self) -> Snapshot:
-        self._snapshot_counter += 1
-        snapshot_name = f"snapshot_{self._snapshot_counter}"
-        self._calls.append(Store(snapshot_name))
+        snapshot_name = "snapshot_" + uuid.uuid4().hex[:7]
+        display_html(
+            self._STORE.format(id=self._id, snapshot_name=snapshot_name),
+            raw=True,
+        )
         return Snapshot(snapshot_name)
-
-    def show(self):
-        """
-        Generate a javascript code from the issued animations.
-        """
-
-        script = [
-            _HEAD.format(
-                div_id=id(self),
-                vizzu=self._vizzu,
-                div_width=self._div_width,
-                div_height=self._div_height,
-            )
-        ]
-        script.extend(call.dump() for call in self._calls)
-        script.append("} );")
-        script.append("</script>")
-        display_html("\n".join(script), raw=True)

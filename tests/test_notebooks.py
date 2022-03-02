@@ -1,10 +1,11 @@
 import unittest
 import pathlib
 import json
-import re
 import os
 
+
 from unittest.mock import patch
+from normalizer import Normalizer
 
 
 class TestNotebook(unittest.TestCase):
@@ -14,16 +15,10 @@ class TestNotebook(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.div_pattern = re.compile(r"myVizzu_\d+", flags=re.MULTILINE)
         cls.project_dir = pathlib.Path(__file__).parent.parent
+        cls.normalizer = Normalizer()
 
-    @classmethod
-    def normalize_div_id(cls, output):
-        normalized_output = cls.div_pattern.sub("myVizzu", output, count=2)
-        return normalized_output
-
-    @patch("ipyvizzu.display_html")
-    def test(self, display_html):
+    def test(self):
         examples_dir = self.project_dir / "docs/examples"
 
         for path in examples_dir.glob("*.ipynb"):
@@ -34,10 +29,15 @@ class TestNotebook(unittest.TestCase):
                 os.chdir(examples_dir)
                 notebook = parse_notebook(path)
                 for source, output in notebook:
+                    display_html = patch("ipyvizzu.display_html").start()
                     exec(source)  # pylint: disable=exec-used
+                    display_out = ""
+                    for block in display_html.call_args_list:
+                        for line in block.args[0].split("\n"):
+                            display_out += line.strip() + "\n"
                     self.assertEqual(
-                        self.normalize_div_id(display_html.call_args.args[0]),
-                        self.normalize_div_id(output),
+                        self.normalizer.normalize_id(display_out).strip(),
+                        self.normalizer.normalize_id(output).strip(),
                     )
 
 
@@ -61,7 +61,10 @@ def parse_outputs(cell):
 
 
 def parse_output(output):
-    return "".join(output["data"].get("text/html", []))
+    out = ""
+    for line in output["data"].get("text/html", []):
+        out += line.strip() + "\n"
+    return out
 
 
 def parse_source(cell):
