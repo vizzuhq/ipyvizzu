@@ -31,12 +31,12 @@ class TestNotebook(unittest.TestCase):
                 for source, output in notebook:
                     display_html = patch("ipyvizzu.display_html").start()
                     exec(source)  # pylint: disable=exec-used
-                    display_out = ""
+                    display_out = []
                     for block in display_html.call_args_list:
                         for line in block.args[0].split("\n"):
-                            display_out += line.strip() + "\n"
+                            display_out.append(line.strip())
                     self.assertEqual(
-                        self.normalizer.normalize_id(display_out).strip(),
+                        self.normalizer.normalize_id("\n".join(display_out)).strip(),
                         self.normalizer.normalize_id(output).strip(),
                     )
 
