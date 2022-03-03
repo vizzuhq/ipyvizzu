@@ -230,11 +230,11 @@ class TestChart(unittest.TestCase):
 
     def _assert_display(self, asset_name):
         asset_path = self.asset_dir / asset_name
-        display_out = ""
+        display_out = []
         for block in self.display_html.call_args_list:
             for line in block.args[0].split("\n"):
-                display_out += line.strip() + "\n"
+                display_out.append(line.strip())
         self.assertEqual(
-            self.normalizer.normalize_id(display_out).strip(),
+            self.normalizer.normalize_id("\n".join(display_out)).strip(),
             asset_path.read_text().strip(),
         )
