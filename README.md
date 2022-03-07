@@ -2,7 +2,7 @@
 
 # ipyvizzu
 
-Jupyter notebook integration for vizzu.
+Jupyter notebook integration for [Vizzu](https://lib.vizzuhq.com/).
 
 ipyvizzu only works in jupiter notebook environment. A notebook cell may
 contain the following code snippet.
@@ -22,8 +22,6 @@ chart.animate(x="Foo", y="Bar", color="Foo")
 chart.animate(geometry="circle")
 chart.animate(x="Foo", y="Baz", color="Foo")
 chart.animate(geometry="rectangle")
-
-chart.show()
 ```
 
 ## Installation
@@ -34,6 +32,22 @@ notebook therefore `notebook` project has to be installed.
 ```sh
 pip install ipyvizzu
 pip install notebook
+```
+
+ipyvizzu loads Vizzu from [jsDelivr](https://www.jsdelivr.com/package/npm/vizzu) by default, but a local copy of it can be used.
+
+Install a local copy of Vizzu.
+
+```sh
+npm install vizzu@~0.4.0
+```
+
+Set up Vizzu in the constructor of the Chart class.
+
+```python
+from ipyvizzu import Chart
+
+chart = Chart(vizzu="./node_modules/vizzu/dist/vizzu.min.js")
 ```
 
 ## Documentation
