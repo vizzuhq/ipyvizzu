@@ -86,3 +86,9 @@ The `lint` target runs `pylint` over the ipyvizzu project.
 ```sh
 make lint
 ```
+
+## Development
+
+### Release
+
+Plese read the [release guide](RELEASE.md).
