@@ -1,5 +1,5 @@
 {
-    "name": "ipyvizzu",
+    "name": "@vizzu/ipyvizzu",
     "description": "Jupyter notebook integration for vizzu.",
     "keywords": [
         "chart",
@@ -27,6 +27,6 @@
         "test": "make check"
     },
     "dependencies": {
-        "vizzu": "0.4.3"
+        "vizzu": "~0.4.0"
     }
 }

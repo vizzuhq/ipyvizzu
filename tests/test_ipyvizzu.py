@@ -160,7 +160,7 @@ class TestChart(unittest.TestCase):
 
     def test_init(self):
         chart = Chart(
-            vizzu="https://cdn.jsdelivr.net/npm/vizzu@0.4.3/dist/vizzu.min.js",
+            vizzu="https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js",
             width="400px",
             height="240px",
         )
