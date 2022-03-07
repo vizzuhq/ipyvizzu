@@ -15,8 +15,8 @@
         "datavisualization"
     ],
     "homepage": "https://vizzuhq.github.io/ipyvizzu/",
-    "url" : "https://github.com/vizzuhq/ipyvizzu/issues",
-    "email" : "hello@vizzuhq.com",
+    "url": "https://github.com/vizzuhq/ipyvizzu/issues",
+    "email": "hello@vizzuhq.com",
     "license": "Apache-2.0",
     "author": "Vizzu Kft.",
     "repository": {
