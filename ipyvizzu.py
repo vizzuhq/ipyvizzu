@@ -154,11 +154,12 @@ class Chart:
         let chart_{id} = import('{vizzu}').then(Vizzu => new Vizzu.default('myVizzu_{id}').initializing);
         </script>"""
 
-    def __init__(self, vizzu=VIZZU, width="800px", height="480px"):
+    def __init__(self, vizzu=VIZZU, width="800px", height="480px", display="every"):
         self._id = uuid.uuid4().hex[:7]
         self._vizzu = vizzu
         self._div_width = width
         self._div_height = height
+        self._display = display
 
         display_html(
             self._INIT.format(
@@ -184,8 +185,18 @@ class Chart:
             raw=True,
         )
 
-    _ANIMATE = """<script>
-        chart_{id} = chart_{id}.then(chart => {animation});
+    _NEW_CHART = """<div id="myVizzu_{new_id}"/>"""
+
+    _MOVE_CHART = """let new_div_{new_id} = document.getElementById("myVizzu_{new_id}");
+        new_div_{new_id}.appendChild(document.getElementById("myVizzu_{id}"));"""
+
+    _ANIMATE = """{new_chart}
+        <script>
+        {move_last}
+        chart_{id} = chart_{id}.then(chart => {{
+            {move_every}
+            return {animation}
+        }});
         </script>"""
 
     def animate(self, *animations: Animation, **options):
@@ -199,7 +210,7 @@ class Chart:
         animation = Animate(animation, options).dump()
 
         display_html(
-            self._ANIMATE.format(id=self._id, animation=animation),
+            self._assemble_animate(animation),
             raw=True,
         )
 
@@ -214,6 +225,18 @@ class Chart:
             merger.merge(animation)
 
         return merger
+
+    def _assemble_animate(self, animation):
+        if (self._display == "first"):
+            return self._ANIMATE.format(id=self._id, new_chart="", move_last="", move_every="", animation=animation)
+        else:
+            new_id = uuid.uuid4().hex[:7]
+            new_chart = self._NEW_CHART.format(new_id=new_id)
+            move_chart = self._MOVE_CHART.format(id=self._id, new_id=new_id)
+            if (self._display == "last"):
+                return self._ANIMATE.format(id=self._id, new_chart=new_chart, move_last=move_chart, move_every="", animation=animation)
+            else:
+                return self._ANIMATE.format(id=self._id, new_chart=new_chart, move_last="", move_every=move_chart, animation=animation)
 
     _STORE = """<script>
         let {snapshot_name};
