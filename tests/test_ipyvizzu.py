@@ -158,7 +158,7 @@ class TestChart(unittest.TestCase):
     def tearDown(self):
         self.patch.stop()
 
-    def test_init(self):
+    def test_init_div(self):
         chart = Chart(
             vizzu="https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js",
             width="400px",
@@ -167,6 +167,28 @@ class TestChart(unittest.TestCase):
         chart.animate(self.data)
         chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
         self._assert_display("init.html")
+
+    def test_init_display_begin(self):
+        chart = Chart(display="begin")
+        chart.animate(self.data)
+        chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
+        self._assert_display("init_begin.html")
+
+    def test_init_display_end(self):
+        chart = Chart(display="end")
+        chart.animate(self.data)
+        chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
+        self._assert_display("init_end.html")
+
+    def test_init_display_actual(self):
+        chart = Chart(display="actual")
+        chart.animate(self.data)
+        chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
+        self._assert_display("init_actual.html")
+
+    def test_init_display_invalid_enum(self):
+        with self.assertRaises(ValueError):
+            Chart(display="invalid_enum")
 
     def test_animate(self):
         self.chart.animate(self.data)
