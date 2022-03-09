@@ -6,6 +6,7 @@ import json
 import abc
 import typing
 import uuid
+import enum
 
 from IPython.display import display_html
 
@@ -142,6 +143,12 @@ class Store(Method):
         return f"{self._snaphot_name} = chart.store();"
 
 
+class DisplayTarget(str, enum.Enum):
+    begin = "begin"
+    end = "end"
+    actual = "actual"
+
+
 class Chart:
     """
     Wrapper over Vizzu Chart
@@ -154,12 +161,18 @@ class Chart:
         let chart_{id} = import('{vizzu}').then(Vizzu => new Vizzu.default('myVizzu_{id}').initializing);
         </script>"""
 
-    def __init__(self, vizzu=VIZZU, width="800px", height="480px", display="every"):
+    def __init__(
+        self,
+        vizzu=VIZZU,
+        width="800px",
+        height="480px",
+        display: DisplayTarget = DisplayTarget("actual"),
+    ):
         self._id = uuid.uuid4().hex[:7]
         self._vizzu = vizzu
         self._div_width = width
         self._div_height = height
-        self._display = display
+        self._display = DisplayTarget(display)
 
         display_html(
             self._INIT.format(
@@ -187,14 +200,13 @@ class Chart:
 
     _NEW_CHART = """<div id="myVizzu_{new_id}"/>"""
 
-    _MOVE_CHART = """let new_div_{new_id} = document.getElementById("myVizzu_{new_id}");
-        new_div_{new_id}.appendChild(document.getElementById("myVizzu_{id}"));"""
+    _MOVE_CHART = """document.getElementById("myVizzu_{new_id}").appendChild(document.getElementById("myVizzu_{id}"));"""
 
     _ANIMATE = """{new_chart}
         <script>
-        {move_last}
+        {move_end}
         chart_{id} = chart_{id}.then(chart => {{
-            {move_every}
+            {move_actual}
             return {animation}
         }});
         </script>"""
@@ -227,16 +239,34 @@ class Chart:
         return merger
 
     def _assemble_animate(self, animation):
-        if (self._display == "first"):
-            return self._ANIMATE.format(id=self._id, new_chart="", move_last="", move_every="", animation=animation)
+        if self._display == DisplayTarget.begin:
+            return self._ANIMATE.format(
+                id=self._id,
+                new_chart="",
+                move_end="",
+                move_actual="",
+                animation=animation,
+            )
         else:
             new_id = uuid.uuid4().hex[:7]
             new_chart = self._NEW_CHART.format(new_id=new_id)
             move_chart = self._MOVE_CHART.format(id=self._id, new_id=new_id)
-            if (self._display == "last"):
-                return self._ANIMATE.format(id=self._id, new_chart=new_chart, move_last=move_chart, move_every="", animation=animation)
+            if self._display == DisplayTarget.end:
+                return self._ANIMATE.format(
+                    id=self._id,
+                    new_chart=new_chart,
+                    move_end=move_chart,
+                    move_actual="",
+                    animation=animation,
+                )
             else:
-                return self._ANIMATE.format(id=self._id, new_chart=new_chart, move_last="", move_every=move_chart, animation=animation)
+                return self._ANIMATE.format(
+                    id=self._id,
+                    new_chart=new_chart,
+                    move_end="",
+                    move_actual=move_chart,
+                    animation=animation,
+                )
 
     _STORE = """<script>
         let {snapshot_name};
