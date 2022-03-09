@@ -158,7 +158,8 @@ class Chart:
 
     _INIT = """<div id="myVizzu_{id}" style="width:{div_width}; height:{div_height};"/>
         <script>
-        let chart_{id} = import('{vizzu}').then(Vizzu => new Vizzu.default('myVizzu_{id}').initializing);
+        let myVizzu_{id} = document.getElementById("myVizzu_{id}")
+        let chart_{id} = import("{vizzu}").then(Vizzu => new Vizzu.default("myVizzu_{id}").initializing);
         </script>"""
 
     def __init__(
@@ -174,14 +175,13 @@ class Chart:
         self._div_height = height
         self._display = DisplayTarget(display)
 
-        display_html(
+        self._show(
             self._INIT.format(
                 id=self._id,
                 vizzu=self._vizzu,
                 div_width=self._div_width,
                 div_height=self._div_height,
-            ),
-            raw=True,
+            )
         )
 
     _FEATURE = """<script>
@@ -193,14 +193,13 @@ class Chart:
 
     def feature(self, name, value):
         feature = Feature(name, value).dump()
-        display_html(
-            self._FEATURE.format(id=self._id, feature=feature),
-            raw=True,
-        )
+        self._show(self._FEATURE.format(id=self._id, feature=feature))
 
     _NEW_CHART = """<div id="myVizzu_{new_id}"/>"""
 
-    _MOVE_CHART = """document.getElementById("myVizzu_{new_id}").appendChild(document.getElementById("myVizzu_{id}"));"""
+    _MOVE_CHART = (
+        """document.getElementById("myVizzu_{new_id}").appendChild(myVizzu_{id});"""
+    )
 
     _ANIMATE = """{new_chart}
         <script>
@@ -220,11 +219,7 @@ class Chart:
 
         animation = self._merge_animations(animations)
         animation = Animate(animation, options).dump()
-
-        display_html(
-            self._assemble_animate(animation),
-            raw=True,
-        )
+        self._show(self._assemble_animation(animation))
 
     @staticmethod
     def _merge_animations(animations):
@@ -238,7 +233,7 @@ class Chart:
 
         return merger
 
-    def _assemble_animate(self, animation):
+    def _assemble_animation(self, animation):
         new_id = uuid.uuid4().hex[:7]
         new_chart = self._NEW_CHART.format(new_id=new_id)
         move_chart = self._MOVE_CHART.format(id=self._id, new_id=new_id)
@@ -260,8 +255,13 @@ class Chart:
 
     def store(self) -> Snapshot:
         snapshot_name = "snapshot_" + uuid.uuid4().hex[:7]
-        display_html(
-            self._STORE.format(id=self._id, snapshot_name=snapshot_name),
-            raw=True,
-        )
+        self._show(self._STORE.format(id=self._id, snapshot_name=snapshot_name))
         return Snapshot(snapshot_name)
+
+    _SHOW = """<script id="myVizzu_{show_id}">
+        document.getElementById("myVizzu_{show_id}").parentNode.style.padding = "0px";
+        </script>"""
+
+    def _show(self, html):
+        html = self._SHOW.format(show_id=uuid.uuid4().hex[:7]) + "\n" + html
+        display_html(html, raw=True)
