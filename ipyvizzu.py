@@ -144,9 +144,9 @@ class Store(Method):
 
 
 class DisplayTarget(str, enum.Enum):
-    begin = "begin"
-    end = "end"
-    actual = "actual"
+    BEGIN = "begin"
+    END = "end"
+    ACTUAL = "actual"
 
 
 class Chart:
@@ -239,9 +239,9 @@ class Chart:
         move_chart = self._MOVE_CHART.format(id=self._id, new_id=new_id)
         return self._ANIMATE.format(
             id=self._id,
-            new_chart="" if self._display == DisplayTarget.begin else new_chart,
-            move_chart_end=move_chart if self._display == DisplayTarget.end else "",
-            move_chart_act=move_chart if self._display == DisplayTarget.actual else "",
+            new_chart="" if self._display == DisplayTarget.BEGIN else new_chart,
+            move_chart_end=move_chart if self._display == DisplayTarget.END else "",
+            move_chart_act=move_chart if self._display == DisplayTarget.ACTUAL else "",
             animation=animation,
         )
 
