@@ -1,0 +1,32 @@
+{
+    "name": "@vizzu/ipyvizzu",
+    "description": "Jupyter notebook integration for vizzu.",
+    "keywords": [
+        "chart",
+        "charts",
+        "dataviz",
+        "charting-library",
+        "dashboard",
+        "animation",
+        "storytelling",
+        "data-visualization",
+        "data-analysis",
+        "charting",
+        "datavisualization"
+    ],
+    "homepage": "https://vizzuhq.github.io/ipyvizzu/",
+    "url": "https://github.com/vizzuhq/ipyvizzu/issues",
+    "email": "hello@vizzuhq.com",
+    "license": "Apache-2.0",
+    "author": "Vizzu Kft.",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vizzuhq/ipyvizzu.git"
+    },
+    "scripts": {
+        "test": "make check"
+    },
+    "dependencies": {
+        "vizzu": "~0.4.0"
+    }
+}

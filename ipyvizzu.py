@@ -147,7 +147,7 @@ class Chart:
     Wrapper over Vizzu Chart
     """
 
-    VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@latest/dist/vizzu.min.js"
+    VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js"
 
     _INIT = """<div id="myVizzu_{id}" style="width:{div_width}; height:{div_height};"/>
         <script>
