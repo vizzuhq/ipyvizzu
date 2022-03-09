@@ -204,9 +204,9 @@ class Chart:
 
     _ANIMATE = """{new_chart}
         <script>
-        {move_end}
+        {move_chart_end}
         chart_{id} = chart_{id}.then(chart => {{
-            {move_actual}
+            {move_chart_act}
             return {animation}
         }});
         </script>"""
@@ -239,34 +239,16 @@ class Chart:
         return merger
 
     def _assemble_animate(self, animation):
-        if self._display == DisplayTarget.begin:
-            return self._ANIMATE.format(
-                id=self._id,
-                new_chart="",
-                move_end="",
-                move_actual="",
-                animation=animation,
-            )
-        else:
-            new_id = uuid.uuid4().hex[:7]
-            new_chart = self._NEW_CHART.format(new_id=new_id)
-            move_chart = self._MOVE_CHART.format(id=self._id, new_id=new_id)
-            if self._display == DisplayTarget.end:
-                return self._ANIMATE.format(
-                    id=self._id,
-                    new_chart=new_chart,
-                    move_end=move_chart,
-                    move_actual="",
-                    animation=animation,
-                )
-            else:
-                return self._ANIMATE.format(
-                    id=self._id,
-                    new_chart=new_chart,
-                    move_end="",
-                    move_actual=move_chart,
-                    animation=animation,
-                )
+        new_id = uuid.uuid4().hex[:7]
+        new_chart = self._NEW_CHART.format(new_id=new_id)
+        move_chart = self._MOVE_CHART.format(id=self._id, new_id=new_id)
+        return self._ANIMATE.format(
+            id=self._id,
+            new_chart="" if self._display == DisplayTarget.begin else new_chart,
+            move_chart_end=move_chart if self._display == DisplayTarget.end else "",
+            move_chart_act=move_chart if self._display == DisplayTarget.actual else "",
+            animation=animation,
+        )
 
     _STORE = """<script>
         let {snapshot_name};
