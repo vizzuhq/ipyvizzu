@@ -1,12 +1,33 @@
+<script id="myVizzu">
+document.getElementById("myVizzu").parentNode.style.padding = "0px";
+</script>
 <div id="myVizzu" style="width:800px; height:480px;"/>
 <script>
-let chart = import('https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js').then(Vizzu => new Vizzu.default('myVizzu').initializing);
+let myVizzu = document.getElementById("myVizzu")
+let chart = import("https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js").then(Vizzu => new Vizzu.default("myVizzu").initializing);
 </script>
-<script>
-chart = chart.then(chart => chart.animate({"data": {"series": [{"name": "Foo", "values": ["Alice", "Bob", "Ted"]}, {"name": "Bar", "values": [15, 32, 12]}]}}));
+<script id="myVizzu">
+document.getElementById("myVizzu").parentNode.style.padding = "0px";
 </script>
+<div id="myVizzu"/>
 <script>
-chart = chart.then(chart => chart.animate({"config": {"x": "Foo", "y": "Bar", "color": "Foo"}}));
+chart = chart.then(chart => {
+document.getElementById("myVizzu").appendChild(myVizzu);
+return chart.animate({"data": {"series": [{"name": "Foo", "values": ["Alice", "Bob", "Ted"]}, {"name": "Bar", "values": [15, 32, 12]}]}})
+});
+</script>
+<script id="myVizzu">
+document.getElementById("myVizzu").parentNode.style.padding = "0px";
+</script>
+<div id="myVizzu"/>
+<script>
+chart = chart.then(chart => {
+document.getElementById("myVizzu").appendChild(myVizzu);
+return chart.animate({"config": {"x": "Foo", "y": "Bar", "color": "Foo"}})
+});
+</script>
+<script id="myVizzu">
+document.getElementById("myVizzu").parentNode.style.padding = "0px";
 </script>
 <script>
 chart = chart.then(chart => {
