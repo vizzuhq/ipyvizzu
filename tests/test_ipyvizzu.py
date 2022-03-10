@@ -254,10 +254,7 @@ class TestChart(unittest.TestCase):
         asset_path = self.asset_dir / asset_name
         display_out = []
         for block in self.display_html.call_args_list:
-            for line in block.args[0].split("\n"):
-                line = line.strip()
-                if line != "":
-                    display_out.append(line)
+            display_out.append(block.args[0])
         self.assertEqual(
             self.normalizer.normalize_id("\n".join(display_out)).strip(),
             asset_path.read_text().strip(),
