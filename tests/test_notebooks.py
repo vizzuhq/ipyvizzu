@@ -33,8 +33,7 @@ class TestNotebook(unittest.TestCase):
                     exec(source)  # pylint: disable=exec-used
                     display_out = []
                     for block in display_html.call_args_list:
-                        for line in block.args[0].split("\n"):
-                            display_out.append(line.strip())
+                        display_out.append(block.args[0])
                     self.assertEqual(
                         self.normalizer.normalize_id("\n".join(display_out)).strip(),
                         self.normalizer.normalize_id(output).strip(),
@@ -56,15 +55,12 @@ def parse_notebook(path):
 
 
 def parse_outputs(cell):
-    outputs = "".join(parse_output(output) for output in cell["outputs"])
+    outputs = "\n".join(parse_output(output) for output in cell["outputs"])
     return outputs
 
 
 def parse_output(output):
-    out = ""
-    for line in output["data"].get("text/html", []):
-        out += line.strip() + "\n"
-    return out
+    return "".join(output["data"].get("text/html", []))
 
 
 def parse_source(cell):
