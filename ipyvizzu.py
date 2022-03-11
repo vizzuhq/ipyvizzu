@@ -21,35 +21,40 @@ class DisplayTarget(str, enum.Enum):
 
 class DisplayTemplate:
 
-    DISPLAY = """<script id="myVizzu_{display_id}">
-            document.getElementById("myVizzu_{display_id}").parentNode.style.padding = "0px";
-        </script>
-        {html}"""
-
-    INIT = """<div id="myVizzu_{id}" style="width:{div_width}; height:{div_height};"/>
-        <script>
-            let myVizzu_{id} = document.getElementById("myVizzu_{id}")
-            let chart_{id} = import("{vizzu}").then(Vizzu => new Vizzu.default("myVizzu_{id}").initializing);
+    INIT = """<script>
+            let myVizzu_{id} = document.createElement("div");
+            myVizzu_{id}.style.cssText = "width: {div_width}; height: {div_height};";
+            let chart_{id} = import("{vizzu}").then(Vizzu => new Vizzu.default(myVizzu_{id}).initializing);
         </script>"""
 
     ANIMATE = {
         DisplayTarget.BEGIN: """<script>
             chart_{id} = chart_{id}.then(chart => {{
-                return {animation}
+                return {animation};
             }});
         </script>""",
-        DisplayTarget.ACTUAL: """<div id="myVizzu_{new_id}"/>
-        <script>
+        DisplayTarget.ACTUAL: """<script id="myVizzu_{new_id}">
             chart_{id} = chart_{id}.then(chart => {{
-                document.getElementById("myVizzu_{new_id}").appendChild(myVizzu_{id});
-                return {animation}
+                let script = document.getElementById("myVizzu_{new_id}");
+                if (myVizzu_{id}.parentNode && myVizzu_{id}.parentNode.parentNode) {{
+                    let display = myVizzu_{id}.parentNode.parentNode.style.display;
+                    myVizzu_{id}.parentNode.parentNode.style.display = "none";
+                    script.parentNode.parentNode.style.display = display;
+                }}
+                script.parentNode.insertBefore(myVizzu_{id}, script);
+                return {animation};
             }});
         </script>""",
-        DisplayTarget.END: """<div id="myVizzu_{new_id}"/>
-        <script>
-            document.getElementById("myVizzu_{new_id}").appendChild(myVizzu_{id});
+        DisplayTarget.END: """<script id="myVizzu_{new_id}">
+            script = document.getElementById("myVizzu_{new_id}");
+            if (myVizzu_{id}.parentNode && myVizzu_{id}.parentNode.parentNode) {{
+                let display = myVizzu_{id}.parentNode.parentNode.style.display;
+                myVizzu_{id}.parentNode.parentNode.style.display = "none";
+                script.parentNode.parentNode.style.display = display;
+            }}
+            script.parentNode.insertBefore(myVizzu_{id}, script);
             chart_{id} = chart_{id}.then(chart => {{
-                return {animation}
+                return {animation};
             }});
         </script>""",
     }
@@ -275,10 +280,6 @@ class Chart:
     @staticmethod
     def _display(html):
         display_html(
-            cleandoc(
-                DisplayTemplate.DISPLAY.format(
-                    display_id=uuid.uuid4().hex[:7], html=html
-                )
-            ),
+            cleandoc(html),
             raw=True,
         )
