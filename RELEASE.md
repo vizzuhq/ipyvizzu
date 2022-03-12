@@ -35,7 +35,7 @@ Tag this commit and push the tag to `upstream`:
 
 ```sh
 git tag 0.9.8
-git push --tags upstream
+git push --tags upstream main
 ```
 
 In the above exmaple the `vizzuhq/ipyvizzu.git` remote was named to `upstream`.
@@ -54,5 +54,5 @@ python setup.py sdist
 ## Release
 
 ```sh
-python -m twine upload dist/dist/ipyvizzu-0.9.8.tar.gz
+python -m twine upload dist/ipyvizzu-0.9.8.tar.gz
 ```
