@@ -7,7 +7,7 @@ import abc
 import typing
 import uuid
 import enum
-from inspect import cleandoc
+from textwrap import indent, dedent
 
 from IPython.display import display_html
 
@@ -21,75 +21,98 @@ class DisplayTarget(str, enum.Enum):
 
 class DisplayTemplate:
 
-    INIT_BASE = """<script id="myVizzu_{id}">
-            myVizzu_{id}.parentNode.parentNode.style.display = "none";
-            let myVizzu_{c_id} = document.createElement("div");
-            myVizzu_{c_id}.style.cssText = "width: {div_width}; height: {div_height};";
-            let chart_{c_id} = import("{vizzu}").then(Vizzu => new Vizzu.default(myVizzu_{c_id}).initializing);
-        </script>"""
+    _SCRIPT = """
+        <script id="myVizzu_{{id}}">
+            {}
+        </script>
+        """
 
-    INIT_BEGIN = """<script id="myVizzu_{id}">
+    _NEW_CHART = """
             let myVizzu_{c_id} = document.createElement("div");
             myVizzu_{c_id}.style.cssText = "width: {div_width}; height: {div_height};";
             let chart_{c_id} = import("{vizzu}").then(Vizzu => new Vizzu.default(myVizzu_{c_id}).initializing);
-            myVizzu_{id}.parentNode.insertBefore(myVizzu_{c_id}, myVizzu_{id});
-        </script>"""
+            """
 
     INIT = {
-        DisplayTarget.BEGIN: INIT_BEGIN,
-        DisplayTarget.ACTUAL: INIT_BASE,
-        DisplayTarget.END: INIT_BASE,
+        DisplayTarget.BEGIN: _SCRIPT.format(
+            f"""
+            {_NEW_CHART}
+            myVizzu_{{id}}.parentNode.insertBefore(myVizzu_{{c_id}}, myVizzu_{{id}});
+            """
+        ),
+        DisplayTarget.ACTUAL: _SCRIPT.format(
+            f"""
+            myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
+            {_NEW_CHART}
+            """
+        ),
+        DisplayTarget.END: _SCRIPT.format(
+            f"""
+            myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
+            {_NEW_CHART}
+            """
+        ),
     }
 
-    ANIMATE = {
-        DisplayTarget.BEGIN: """<script id="myVizzu_{id}">
-            myVizzu_{id}.parentNode.parentNode.style.display = "none";
-            chart_{c_id} = chart_{c_id}.then(chart => {{
-                return {animation};
-            }});
-        </script>""",
-        DisplayTarget.ACTUAL: """<script id="myVizzu_{id}">
-            let display_{id} = myVizzu_{id}.parentNode.parentNode.style.display;
-            myVizzu_{id}.parentNode.parentNode.style.display = "none";
-            chart_{c_id} = chart_{c_id}.then(chart => {{
-                if (myVizzu_{c_id}.parentNode && myVizzu_{c_id}.parentNode.parentNode) {{
-                    myVizzu_{c_id}.parentNode.parentNode.style.display = "none";
-                }}
-                myVizzu_{id}.parentNode.parentNode.style.display = display_{id};
-                myVizzu_{id}.parentNode.insertBefore(myVizzu_{c_id}, myVizzu_{id});
-                return {animation};
-            }});
-        </script>""",
-        DisplayTarget.END: """<script id="myVizzu_{id}">
-            let display_{id} = myVizzu_{id}.parentNode.parentNode.style.display;
-            myVizzu_{id}.parentNode.parentNode.style.display = "none";
+    _MOVE_CHART = """
             if (myVizzu_{c_id}.parentNode && myVizzu_{c_id}.parentNode.parentNode) {{
                 myVizzu_{c_id}.parentNode.parentNode.style.display = "none";
             }}
             myVizzu_{id}.parentNode.parentNode.style.display = display_{id};
             myVizzu_{id}.parentNode.insertBefore(myVizzu_{c_id}, myVizzu_{id});
+            """
+
+    ANIMATE = {
+        DisplayTarget.BEGIN: _SCRIPT.format(
+            """
+            myVizzu_{id}.parentNode.parentNode.style.display = "none";
             chart_{c_id} = chart_{c_id}.then(chart => {{
                 return {animation};
             }});
-        </script>""",
+            """
+        ),
+        DisplayTarget.ACTUAL: _SCRIPT.format(
+            f"""
+            let display_{{id}} = myVizzu_{{id}}.parentNode.parentNode.style.display;
+            myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
+            chart_{{c_id}} = chart_{{c_id}}.then(chart => {{{{
+                {indent(_MOVE_CHART, '    ', lambda line: True)}
+                return {{animation}};
+            }}}});
+            """
+        ),
+        DisplayTarget.END: _SCRIPT.format(
+            f"""
+            let display_{{id}} = myVizzu_{{id}}.parentNode.parentNode.style.display;
+            myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
+            {_MOVE_CHART}
+            chart_{{c_id}} = chart_{{c_id}}.then(chart => {{{{
+                return {{animation}};
+            }}}});
+            """
+        ),
     }
 
-    STORE = """<script id="myVizzu_{id}">
+    STORE = _SCRIPT.format(
+        """
             myVizzu_{id}.parentNode.parentNode.style.display = "none";
             let {snapshot};
             chart_{c_id} = chart_{c_id}.then(chart => {{
                 {snapshot} = chart.store();
                 return chart;
             }});
-        </script>"""
+            """
+    )
 
-    FEATURE = """<script id="myVizzu_{id}">
+    FEATURE = _SCRIPT.format(
+        """
             myVizzu_{id}.parentNode.parentNode.style.display = "none";
             chart_{c_id} = chart_{c_id}.then(chart => {{
                 {feature};
                 return chart;
             }});
-        </script>"""
+            """
+    )
 
 
 class Animation:
@@ -302,6 +325,8 @@ class Chart:
     @staticmethod
     def _display(html):
         display_html(
-            cleandoc(html),
+            "\n".join(
+                [line for line in dedent(html).split("\n") if line.strip() != ""]
+            ),
             raw=True,
         )
