@@ -1,34 +1,36 @@
-<script>
-    let myVizzu = document.createElement("div");
-    myVizzu.style.cssText = "width: 800px; height: 480px;";
-    let chart = import("https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js").then(Vizzu => new Vizzu.default(myVizzu).initializing);
-</script>
-<script>
+<script id="myVizzu">
+    myVizzu.parentNode.parentNode.style.display = "none";
     let myVizzu = document.createElement("div");
     myVizzu.style.cssText = "width: 800px; height: 480px;";
     let chart = import("https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js").then(Vizzu => new Vizzu.default(myVizzu).initializing);
 </script>
 <script id="myVizzu">
+    myVizzu.parentNode.parentNode.style.display = "none";
+    let myVizzu = document.createElement("div");
+    myVizzu.style.cssText = "width: 800px; height: 480px;";
+    let chart = import("https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js").then(Vizzu => new Vizzu.default(myVizzu).initializing);
+</script>
+<script id="myVizzu">
+    let display = myVizzu.parentNode.parentNode.style.display;
+    myVizzu.parentNode.parentNode.style.display = "none";
     chart = chart.then(chart => {
-        let script = document.getElementById("myVizzu");
         if (myVizzu.parentNode && myVizzu.parentNode.parentNode) {
-            let display = myVizzu.parentNode.parentNode.style.display;
             myVizzu.parentNode.parentNode.style.display = "none";
-            script.parentNode.parentNode.style.display = display;
         }
-        script.parentNode.insertBefore(myVizzu, script);
+        myVizzu.parentNode.parentNode.style.display = display;
+        myVizzu.parentNode.insertBefore(myVizzu, myVizzu);
         return chart.animate({"data": {"series": [{"name": "Foo", "values": ["Alice", "Bob", "Ted"]}, {"name": "Bar", "values": [15, 32, 12]}]}});
     });
 </script>
 <script id="myVizzu">
+    let display = myVizzu.parentNode.parentNode.style.display;
+    myVizzu.parentNode.parentNode.style.display = "none";
     chart = chart.then(chart => {
-        let script = document.getElementById("myVizzu");
         if (myVizzu.parentNode && myVizzu.parentNode.parentNode) {
-            let display = myVizzu.parentNode.parentNode.style.display;
             myVizzu.parentNode.parentNode.style.display = "none";
-            script.parentNode.parentNode.style.display = display;
         }
-        script.parentNode.insertBefore(myVizzu, script);
+        myVizzu.parentNode.parentNode.style.display = display;
+        myVizzu.parentNode.insertBefore(myVizzu, myVizzu);
         return chart.animate({"config": {"x": "Foo", "y": "Bar", "color": "Foo"}});
     });
 </script>

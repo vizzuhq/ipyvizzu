@@ -24,7 +24,7 @@ doc: $(NOTEBOOKS:.ipynb=.html)
 %.html: %.ipynb $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/jupyter nbconvert --to html $<
 
-check: check-format test lint
+check: check-format lint test
 
 test: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/python -m unittest discover tests/
