@@ -37,6 +37,20 @@ class TestAnimation(unittest.TestCase):
         animation = Style(None)
         self.assertEqual({"style": None}, animation.build())
 
+    def test_filter(self):
+        animation = Filter("filter_expression")
+        self.assertEqual(
+            '{"data": {"filter": filter_expression}}',
+            animation.dump(),
+        )
+
+    def test_filter_can_be_none(self):
+        animation = Filter(None)
+        self.assertEqual(
+            '{"data": {"filter": null}}',
+            animation.dump(),
+        )
+
 
 class TestMethod(unittest.TestCase):
     def test_animate_without_option(self):
