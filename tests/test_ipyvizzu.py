@@ -7,6 +7,7 @@ from normalizer import Normalizer
 from ipyvizzu import (
     PlainAnimation,
     Data,
+    Filter,
     Config,
     Style,
     Animate,
@@ -71,6 +72,45 @@ class TestMerger(unittest.TestCase):
             },
             self.merger.build(),
         )
+
+    def test_merge_data_and_filter(self):
+        data = Data()
+        records = [
+            ["Soul", "Hard", 91],
+            ["Soul", "Smooth", 57],
+            ["Soul", "Experimental", 115],
+        ]
+        data.add_records(records)
+        self.merger.merge(data)
+        self.merger.merge(Filter(None))
+
+    def test_only_one_data_can_be_merged(self):
+        data1 = Data()
+        records = [
+            ["Soul", "Hard", 91],
+            ["Soul", "Smooth", 57],
+            ["Soul", "Experimental", 115],
+        ]
+        data1.add_records(records)
+        self.merger.merge(data1)
+        self.merger.merge(Filter(None))
+
+        data2 = Data()
+        record = ["Rock", "Hard", 96]
+        data2.add_record(record)
+        self.assertRaises(ValueError, self.merger.merge, data2)
+
+    def test_only_one_filter_can_be_merged(self):
+        data1 = Data()
+        records = [
+            ["Soul", "Hard", 91],
+            ["Soul", "Smooth", 57],
+            ["Soul", "Experimental", 115],
+        ]
+        data1.add_records(records)
+        self.merger.merge(data1)
+        self.merger.merge(Filter(None))
+        self.assertRaises(ValueError, self.merger.merge, Filter(None))
 
     def test_only_different_type_of_animation_can_be_merged(self):
         self.merger.merge(Config({"channels": {"label": {"attach": ["Popularity"]}}}))
