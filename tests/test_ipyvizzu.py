@@ -72,7 +72,7 @@ class TestMerger(unittest.TestCase):
             self.merger.build(),
         )
 
-    def test_ony_different_type_of_animation_can_be_merged(self):
+    def test_only_different_type_of_animation_can_be_merged(self):
         self.merger.merge(Config({"channels": {"label": {"attach": ["Popularity"]}}}))
         self.assertRaises(
             ValueError, self.merger.merge, Config({"color": {"set": ["Genres"]}})
