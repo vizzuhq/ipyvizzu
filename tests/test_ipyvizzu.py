@@ -98,6 +98,13 @@ class TestData(unittest.TestCase):
             {"data": {"records": [["Pop", "Hard", 114]]}}, self.data.build()
         )
 
+    def test_records(self):
+        self.data.add_records([["Rock", "Hard", 96], ["Pop", "Hard", 114]])
+        self.assertEqual(
+            {"data": {"records": [["Rock", "Hard", 96], ["Pop", "Hard", 114]]}},
+            self.data.build(),
+        )
+
     def test_series(self):
         self.data.add_series("Genres", ["Pop", "Rock", "Metal"])
         self.assertEqual(
