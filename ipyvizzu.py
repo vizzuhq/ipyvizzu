@@ -76,7 +76,7 @@ class DisplayTemplate:
             let display_{{id}} = myVizzu_{{id}}.parentNode.parentNode.style.display;
             myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
             chart_{{c_id}} = chart_{{c_id}}.then(chart => {{{{
-                {indent(_MOVE_CHART, '    ', lambda line: True)}
+                {indent(_MOVE_CHART, "    ", lambda line: True)}
                 return {{animation}};
             }}}});
             """
@@ -143,6 +143,9 @@ class Data(dict, Animation):
 
     def add_record(self, record):
         self._add_value("records", record)
+
+    def add_records(self, records):
+        list(map(self.add_record, records))
 
     def add_series(self, name, values=None, **kwargs):
         self._add_named_value("series", name, values, **kwargs)
@@ -306,7 +309,6 @@ class Chart:
             return animations[0]
 
         merger = AnimationMerger()
-
         for animation in animations:
             merger.merge(animation)
 
