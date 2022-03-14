@@ -40,7 +40,7 @@ class TestAnimation(unittest.TestCase):
     def test_filter(self):
         animation = Filter("filter_expression")
         self.assertEqual(
-            '{"data": {"filter": filter_expression}}',
+            '{"data": {"filter": record => { return (filter_expression) }}}',
             animation.dump(),
         )
 
