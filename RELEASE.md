@@ -44,7 +44,7 @@ In the above exmaple the `vizzuhq/ipyvizzu.git` remote was named to `upstream`.
 ## Create release notes
 
 New release can be created on [github](https://github.com/vizzuhq/ipyvizzu/releases/new).
-Where you can create release notes too.
+Where you can create release notes from [CHANGELOG](https://github.com/vizzuhq/ipyvizzu/blob/main/CHANGELOG.md)
 
 ## Create package
 
