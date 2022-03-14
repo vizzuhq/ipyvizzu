@@ -28,7 +28,7 @@ pip install notebook
 ipyvizzu downloads Vizzu from [jsDelivr](https://www.jsdelivr.com/package/npm/vizzu?version=~0.4.0) CDN by default,
 but a local copy of it can be used.
 
-Install Vizzu.
+Install a local copy of Vizzu.
 
 ```sh
 npm install vizzu@~0.4.0
