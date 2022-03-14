@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fixed code snippet in the README.
+- Fixed `Publish documentation` workflow, pull requests skip push step.
 
 ### Added
 
