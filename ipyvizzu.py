@@ -118,8 +118,6 @@ class DisplayTemplate:
 class RawJavaScript:
     def __init__(self, raw: typing.Optional[str]):
         self._raw = raw
-        if self._raw is None:
-            self._raw = "null"
 
     def dump(self):
         return self._raw
@@ -140,7 +138,7 @@ class RawJavaScriptEncoder(json.JSONEncoder):
     def encode(self, o):
         result = json.JSONEncoder.encode(self, o)
         for key, val in self._raw_replacements.items():
-            result = result.replace(f'"{key}"', val)
+            result = result.replace(f'"{key}"', val if val else "null")
         return result
 
 
