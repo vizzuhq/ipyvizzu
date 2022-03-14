@@ -200,7 +200,11 @@ class Data(dict, Animation):
 
 class Filter(Animation):
     def __init__(self, data: typing.Optional[str]):
-        self._data = RawJavaScript(data)
+        self._data = (
+            RawJavaScript(f"record => {{ return ({data}) }}")
+            if data is not None
+            else RawJavaScript(data)
+        )
 
     def build(self):
         return {"data": {"filter": self._data}}
