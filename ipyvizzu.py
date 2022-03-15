@@ -122,7 +122,7 @@ class Data(dict, Animation):
                 t=infer_types[name]
             # push to df
             if t == "measure":
-                self.add_measure(name, [int(i) for i in df[name].fillna(default_measure_value).values])
+                self.add_measure(name, [float(i) for i in df[name].fillna(default_measure_value).values])
             else:
                 self.add_dimension(name, list(df[name].fillna(default_dimension_value).values))
 
