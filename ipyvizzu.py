@@ -9,6 +9,7 @@ import uuid
 import enum
 import numpy as np
 from inspect import cleandoc
+from textwrap import indent, dedent
 
 from IPython.display import display_html
 
@@ -22,53 +23,98 @@ class DisplayTarget(str, enum.Enum):
 
 class DisplayTemplate:
 
-    DISPLAY = """<script id="myVizzu_{display_id}">
-            document.getElementById("myVizzu_{display_id}").parentNode.style.padding = "0px";
+    _SCRIPT = """
+        <script id="myVizzu_{{id}}">
+            {}
         </script>
-        {html}"""
+        """
 
-    INIT = """<div id="myVizzu_{id}" style="width:{div_width}; height:{div_height};"/>
-        <script>
-            let myVizzu_{id} = document.getElementById("myVizzu_{id}")
-            let chart_{id} = import("{vizzu}").then(Vizzu => new Vizzu.default("myVizzu_{id}").initializing);
-        </script>"""
+    _NEW_CHART = """
+            let myVizzu_{c_id} = document.createElement("div");
+            myVizzu_{c_id}.style.cssText = "width: {div_width}; height: {div_height};";
+            let chart_{c_id} = import("{vizzu}").then(Vizzu => new Vizzu.default(myVizzu_{c_id}).initializing);
+            """
 
-    ANIMATE = {
-        DisplayTarget.BEGIN: """<script>
-            chart_{id} = chart_{id}.then(chart => {{
-                return {animation}
-            }});
-        </script>""",
-        DisplayTarget.ACTUAL: """<div id="myVizzu_{new_id}"/>
-        <script>
-            chart_{id} = chart_{id}.then(chart => {{
-                document.getElementById("myVizzu_{new_id}").appendChild(myVizzu_{id});
-                return {animation}
-            }});
-        </script>""",
-        DisplayTarget.END: """<div id="myVizzu_{new_id}"/>
-        <script>
-            document.getElementById("myVizzu_{new_id}").appendChild(myVizzu_{id});
-            chart_{id} = chart_{id}.then(chart => {{
-                return {animation}
-            }});
-        </script>""",
+    INIT = {
+        DisplayTarget.BEGIN: _SCRIPT.format(
+            f"""
+            {_NEW_CHART}
+            myVizzu_{{id}}.parentNode.insertBefore(myVizzu_{{c_id}}, myVizzu_{{id}});
+            """
+        ),
+        DisplayTarget.ACTUAL: _SCRIPT.format(
+            f"""
+            myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
+            {_NEW_CHART}
+            """
+        ),
+        DisplayTarget.END: _SCRIPT.format(
+            f"""
+            myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
+            {_NEW_CHART}
+            """
+        ),
     }
 
-    STORE = """<script>
+    _MOVE_CHART = """
+            if (myVizzu_{c_id}.parentNode && myVizzu_{c_id}.parentNode.parentNode) {{
+                myVizzu_{c_id}.parentNode.parentNode.style.display = "none";
+            }}
+            myVizzu_{id}.parentNode.parentNode.style.display = display_{id};
+            myVizzu_{id}.parentNode.insertBefore(myVizzu_{c_id}, myVizzu_{id});
+            """
+
+    ANIMATE = {
+        DisplayTarget.BEGIN: _SCRIPT.format(
+            """
+            myVizzu_{id}.parentNode.parentNode.style.display = "none";
+            chart_{c_id} = chart_{c_id}.then(chart => {{
+                return {animation};
+            }});
+            """
+        ),
+        DisplayTarget.ACTUAL: _SCRIPT.format(
+            f"""
+            let display_{{id}} = myVizzu_{{id}}.parentNode.parentNode.style.display;
+            myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
+            chart_{{c_id}} = chart_{{c_id}}.then(chart => {{{{
+                {indent(_MOVE_CHART, '    ', lambda line: True)}
+                return {{animation}};
+            }}}});
+            """
+        ),
+        DisplayTarget.END: _SCRIPT.format(
+            f"""
+            let display_{{id}} = myVizzu_{{id}}.parentNode.parentNode.style.display;
+            myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
+            {_MOVE_CHART}
+            chart_{{c_id}} = chart_{{c_id}}.then(chart => {{{{
+                return {{animation}};
+            }}}});
+            """
+        ),
+    }
+
+    STORE = _SCRIPT.format(
+        """
+            myVizzu_{id}.parentNode.parentNode.style.display = "none";
             let {snapshot};
-            chart_{id} = chart_{id}.then(chart => {{
+            chart_{c_id} = chart_{c_id}.then(chart => {{
                 {snapshot} = chart.store();
                 return chart;
             }});
-        </script>"""
+            """
+    )
 
-    FEATURE = """<script>
-            chart_{id} = chart_{id}.then(chart => {{
+    FEATURE = _SCRIPT.format(
+        """
+            myVizzu_{id}.parentNode.parentNode.style.display = "none";
+            chart_{c_id} = chart_{c_id}.then(chart => {{
                 {feature};
                 return chart;
             }});
-        </script>"""
+            """
+    )
 
 
 class Animation:
@@ -234,15 +280,16 @@ class Chart:
         height="480px",
         display: DisplayTarget = DisplayTarget("actual"),
     ):
-        self._id = uuid.uuid4().hex[:7]
+        self._c_id = uuid.uuid4().hex[:7]
         self._vizzu = vizzu
         self._div_width = width
         self._div_height = height
         self._display_target = DisplayTarget(display)
 
         self._display(
-            DisplayTemplate.INIT.format(
-                id=self._id,
+            DisplayTemplate.INIT[self._display_target].format(
+                id=uuid.uuid4().hex[:7],
+                c_id=self._c_id,
                 vizzu=self._vizzu,
                 div_width=self._div_width,
                 div_height=self._div_height,
@@ -251,7 +298,11 @@ class Chart:
 
     def feature(self, name, value):
         feature = Feature(name, value).dump()
-        self._display(DisplayTemplate.FEATURE.format(id=self._id, feature=feature))
+        self._display(
+            DisplayTemplate.FEATURE.format(
+                id=uuid.uuid4().hex[:7], c_id=self._c_id, feature=feature
+            )
+        )
 
     def animate(self, *animations: Animation, **options):
         """
@@ -262,14 +313,9 @@ class Chart:
 
         animation = self._merge_animations(animations)
         animation = Animate(animation, options).dump()
-        new_id = (
-            None
-            if self._display_target == DisplayTarget.BEGIN
-            else uuid.uuid4().hex[:7]
-        )
         self._display(
             DisplayTemplate.ANIMATE[self._display_target].format(
-                id=self._id, new_id=new_id, animation=animation
+                id=uuid.uuid4().hex[:7], c_id=self._c_id, animation=animation
             )
         )
 
@@ -286,17 +332,20 @@ class Chart:
         return merger
 
     def store(self) -> Snapshot:
-        snapshot = "snapshot_" + uuid.uuid4().hex[:7]
-        self._display(DisplayTemplate.STORE.format(id=self._id, snapshot=snapshot))
+        snapshot_id = uuid.uuid4().hex[:7]
+        snapshot = "snapshot_" + snapshot_id
+        self._display(
+            DisplayTemplate.STORE.format(
+                id=snapshot_id, c_id=self._c_id, snapshot=snapshot
+            )
+        )
         return Snapshot(snapshot)
 
     @staticmethod
     def _display(html):
         display_html(
-            cleandoc(
-                DisplayTemplate.DISPLAY.format(
-                    display_id=uuid.uuid4().hex[:7], html=html
-                )
+            "\n".join(
+                [line for line in dedent(html).split("\n") if line.strip() != ""]
             ),
             raw=True,
         )
