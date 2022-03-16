@@ -138,7 +138,7 @@ class RawJavaScriptEncoder(json.JSONEncoder):
     def encode(self, o):
         result = json.JSONEncoder.encode(self, o)
         for key, val in self._raw_replacements.items():
-            result = result.replace(f'"{key}"', val if val else "null")
+            result = result.replace(f'"{key}"', val)
         return result
 
 
@@ -203,7 +203,7 @@ class Filter(Animation):
         self._data = (
             RawJavaScript(f"record => {{ return ({data}) }}")
             if data is not None
-            else RawJavaScript(data)
+            else data
         )
 
     def build(self):
