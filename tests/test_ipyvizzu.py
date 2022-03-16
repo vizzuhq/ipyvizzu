@@ -97,6 +97,10 @@ class TestMerger(unittest.TestCase):
         data.add_records(records)
         self.merger.merge(data)
         self.merger.merge(Filter(None))
+        self.assertEqual(
+            """{"data": {"records": [["Soul", "Hard", 91], ["Soul", "Smooth", 57], ["Soul", "Experimental", 115]], "filter": null}}""",  # pylint: disable=line-too-long
+            self.merger.dump(),
+        )
 
     def test_only_one_data_can_be_merged(self):
         data1 = Data()
@@ -140,6 +144,10 @@ class TestMerger(unittest.TestCase):
     def test_merge_none(self):
         self.merger.merge(Config({"channels": {"label": {"attach": ["Popularity"]}}}))
         self.merger.merge(Style(None))
+        self.assertEqual(
+            """{"config": {"channels": {"label": {"attach": ["Popularity"]}}}, "style": null}""",
+            self.merger.dump(),
+        )
 
 
 class TestData(unittest.TestCase):
