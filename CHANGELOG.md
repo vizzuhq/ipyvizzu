@@ -9,9 +9,10 @@
 
 ### Added
 
-- Added CONTRIBUTING.md.
 - Added `Data.filter()` and `Data().set_filter()` methods.
 - Added `Data.add_records()` function to add records' list in one step.
+- Added CONTRIBUTING.md.
+- Added `Release ipyvizzu` workflow.
 
 ## [0.5.0] - 2022-03-12
 

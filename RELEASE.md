@@ -1,26 +1,14 @@
 # Releasing ipyvizzu
 
-ipyvizzu is distributed on [pypi](https://pypi.org).
-For account setup please read the [packaging guide](https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/#create-an-account).
+ipyvizzu is distributed on [pypi](https://pypi.org/project/ipyvizzu/).
 
 ## Prerequisites
 
-We assume that:
+We assume that the `vizzuhq/ipyvizzu.git` remote is already added to your repository as `upstream`:
 
-- a [pypi API token](https://pypi.org/help/#apitoken) is already
-configured in your `.pypirc` file,
-
-- [twine](https://pypi.org/project/twine/) is installed in your development environment:
-
-    ```sh
-    pip install twine
-    ```
-
-- the `vizzuhq/ipyvizzu.git` remote is already added to your repository as `upstream`:
-
-    ```sh
-    git remote add upstream git@github.com:vizzuhq/ipyvizzu.git
-    ```
+```sh
+git remote add upstream git@github.com:vizzuhq/ipyvizzu.git
+```
 
 ## Increase version number
 
@@ -44,16 +32,6 @@ In the above exmaple the `vizzuhq/ipyvizzu.git` remote was named to `upstream`.
 ## Create release notes
 
 New release can be created on [github](https://github.com/vizzuhq/ipyvizzu/releases/new).
-Where you can create release notes from [CHANGELOG](https://github.com/vizzuhq/ipyvizzu/blob/main/CHANGELOG.md)
+Where you can create release notes from [CHANGELOG](https://github.com/vizzuhq/ipyvizzu/blob/main/CHANGELOG.md).
 
-## Create package
-
-```sh
-python setup.py sdist
-```
-
-## Release
-
-```sh
-python -m twine upload dist/ipyvizzu-0.9.8.tar.gz
-```
+ **Note:** Publishing a new release will automatically trigger the [Release ipyvizzu](https://github.com/vizzuhq/ipyvizzu/blob/main/.github/workflows/release.yml) workflow which builds and uploads the ipyvizzu package to [pypi](https://pypi.org/project/ipyvizzu/).
