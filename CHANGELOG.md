@@ -10,6 +10,8 @@
 ### Added
 
 - Added CONTRIBUTING.md.
+- Added `Data.filter()` and `Data().set_filter()` methods.
+- Added `Data.add_records()` function to add records' list in one step.
 
 ## [0.5.0] - 2022-03-12
 

@@ -76,7 +76,7 @@ class DisplayTemplate:
             let display_{{id}} = myVizzu_{{id}}.parentNode.parentNode.style.display;
             myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
             chart_{{c_id}} = chart_{{c_id}}.then(chart => {{{{
-                {indent(_MOVE_CHART, '    ', lambda line: True)}
+                {indent(_MOVE_CHART, "    ", lambda line: True)}
                 return {{animation}};
             }}}});
             """
@@ -115,9 +115,37 @@ class DisplayTemplate:
     )
 
 
+class RawJavaScript:
+    def __init__(self, raw: typing.Optional[str]):
+        self._raw = raw
+
+    @property
+    def raw(self):
+        return self._raw
+
+
+class RawJavaScriptEncoder(json.JSONEncoder):
+    def __init__(self, *args, **kwargs):
+        json.JSONEncoder.__init__(self, *args, **kwargs)
+        self._raw_replacements = {}
+
+    def default(self, o):
+        if isinstance(o, RawJavaScript):
+            key = uuid.uuid4().hex
+            self._raw_replacements[key] = o.raw
+            return key
+        return json.JSONEncoder.default(self, o)
+
+    def encode(self, o):
+        result = json.JSONEncoder.encode(self, o)
+        for key, val in self._raw_replacements.items():
+            result = result.replace(f'"{key}"', val)
+        return result
+
+
 class Animation:
     def dump(self):
-        return json.dumps(self.build())
+        return json.dumps(self.build(), cls=RawJavaScriptEncoder)
 
     @abc.abstractmethod
     def build(self) -> typing.Mapping:
@@ -137,12 +165,29 @@ class Data(dict, Animation):
     """
 
     @classmethod
+    def filter(cls, filter_expr):
+        data = cls()
+        data.set_filter(filter_expr)
+        return data
+
+    def set_filter(self, filter_expr):
+        filter_expr = (
+            RawJavaScript(f"record => {{ return ({filter_expr}) }}")
+            if filter_expr is not None
+            else filter_expr
+        )
+        self.update({"filter": filter_expr})
+
+    @classmethod
     def from_json(cls, filename):
         with open(filename, "r", encoding="utf8") as file_desc:
             return cls(json.load(file_desc))
 
     def add_record(self, record):
         self._add_value("records", record)
+
+    def add_records(self, records):
+        list(map(self.add_record, records))
 
     def add_series(self, name, values=None, **kwargs):
         self._add_named_value("series", name, values, **kwargs)
@@ -306,7 +351,6 @@ class Chart:
             return animations[0]
 
         merger = AnimationMerger()
-
         for animation in animations:
             merger.merge(animation)
 

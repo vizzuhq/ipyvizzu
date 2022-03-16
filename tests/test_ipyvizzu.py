@@ -72,7 +72,7 @@ class TestMerger(unittest.TestCase):
             self.merger.build(),
         )
 
-    def test_ony_different_type_of_animation_can_be_merged(self):
+    def test_only_different_type_of_animation_can_be_merged(self):
         self.merger.merge(Config({"channels": {"label": {"attach": ["Popularity"]}}}))
         self.assertRaises(
             ValueError, self.merger.merge, Config({"color": {"set": ["Genres"]}})
@@ -86,16 +86,41 @@ class TestMerger(unittest.TestCase):
     def test_merge_none(self):
         self.merger.merge(Config({"channels": {"label": {"attach": ["Popularity"]}}}))
         self.merger.merge(Style(None))
+        self.assertEqual(
+            """{"config": {"channels": {"label": {"attach": ["Popularity"]}}}, "style": null}""",
+            self.merger.dump(),
+        )
 
 
 class TestData(unittest.TestCase):
     def setUp(self):
         self.data = Data()
 
+    def test_filter(self):
+        data = Data.filter("filter_expression")
+        self.assertEqual(
+            '{"data": {"filter": record => { return (filter_expression) }}}',
+            data.dump(),
+        )
+
+    def test_filter_can_be_none(self):
+        data = Data.filter(None)
+        self.assertEqual(
+            '{"data": {"filter": null}}',
+            data.dump(),
+        )
+
     def test_record(self):
         self.data.add_record(["Pop", "Hard", 114])
         self.assertEqual(
             {"data": {"records": [["Pop", "Hard", 114]]}}, self.data.build()
+        )
+
+    def test_records(self):
+        self.data.add_records([["Rock", "Hard", 96], ["Pop", "Hard", 114]])
+        self.assertEqual(
+            {"data": {"records": [["Rock", "Hard", 96], ["Pop", "Hard", 114]]}},
+            self.data.build(),
         )
 
     def test_series(self):
