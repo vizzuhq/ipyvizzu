@@ -119,7 +119,8 @@ class RawJavaScript:
     def __init__(self, raw: typing.Optional[str]):
         self._raw = raw
 
-    def dump(self):
+    @property
+    def raw(self):
         return self._raw
 
 
@@ -131,7 +132,7 @@ class RawJavaScriptEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, RawJavaScript):
             key = uuid.uuid4().hex
-            self._raw_replacements[key] = o.dump()
+            self._raw_replacements[key] = o.raw
             return key
         return json.JSONEncoder.default(self, o)
 
@@ -162,6 +163,20 @@ class Data(dict, Animation):
     """
     Vizzu data with the required keys: records, series, dimensions or measures.
     """
+
+    @classmethod
+    def filter(cls, filter_expr):
+        data = cls()
+        data.set_filter(filter_expr)
+        return data
+
+    def set_filter(self, filter_expr):
+        filter_expr = (
+            RawJavaScript(f"record => {{ return ({filter_expr}) }}")
+            if filter_expr is not None
+            else filter_expr
+        )
+        self.update({"filter": filter_expr})
 
     @classmethod
     def from_json(cls, filename):
@@ -196,18 +211,6 @@ class Data(dict, Animation):
 
     def build(self):
         return {"data": self}
-
-
-class Filter(Animation):
-    def __init__(self, data: typing.Optional[str]):
-        self._data = (
-            RawJavaScript(f"record => {{ return ({data}) }}")
-            if data is not None
-            else data
-        )
-
-    def build(self):
-        return {"data": {"filter": self._data}}
 
 
 class Config(dict, Animation):
@@ -247,21 +250,9 @@ class AnimationMerger(dict, Animation):
         common_keys = set(data).intersection(self)
 
         if common_keys:
-            if common_keys == {"data"}:
-                return self._validate_data(data)
             raise ValueError(f"Animation is already merged: {common_keys}")
 
         return data
-
-    def _validate_data(self, data):
-        self_keys = self["data"].keys()
-        data_keys = data["data"].keys()
-        if (not "filter" in self_keys and data_keys == {"filter"}) or (
-            self_keys == {"filter"} and data_keys != {"filter"}
-        ):
-            return {"data": {**self["data"], **data["data"]}}
-        common_keys = "filter" if data_keys == {"filter"} else "data"
-        raise ValueError(f"Animation is already merged: {common_keys}")
 
 
 class Method:
