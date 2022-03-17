@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed image url in the README.
+
 ## [0.6.0] - 2022-03-17
 
 ### Fixed
