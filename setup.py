@@ -7,7 +7,7 @@ with open("README.md") as fp:
 setup(
     name="ipyvizzu",
     version="0.5.0",
-    description="Jupyter notebook integration for vizzu",
+    description="Jupyter Notebook integration for Vizzu.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="Apache 2",
