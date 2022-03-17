@@ -30,4 +30,4 @@ jobs:
       run: python -m twine check dist/*
 
     - name: Release package
-      run: python -m twine upload -u "__token__" -p "::add-mask::${{ secrets.PYPI_API_TOKEN }}" dist/*
+      run: python -m twine upload -u "__token__" -p "${{ secrets.PYPI_API_TOKEN }}" dist/*
