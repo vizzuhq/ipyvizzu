@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.6.0] - 2022-03-17
+
 ### Fixed
 
 - Fixed code snippet in the README.
