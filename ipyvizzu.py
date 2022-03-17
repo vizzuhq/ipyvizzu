@@ -7,6 +7,8 @@ import abc
 import typing
 import uuid
 import enum
+import numpy as np
+from inspect import cleandoc
 from textwrap import indent, dedent
 
 from IPython.display import display_html
@@ -197,6 +199,23 @@ class Data(dict, Animation):
 
     def add_measure(self, name, values=None, **kwargs):
         self._add_named_value("measures", name, values, **kwargs)
+
+    def add_df(self, df, infer_types={}, default_measure_value=0, default_dimension_value=''):
+        for name in df.columns:
+            # infer types
+            if name not in infer_types: infer_types[name]=''
+            if ((infer_types[name]!='measure')&(infer_types[name]!='dimension')):
+                if (type(df[name].values[0]) == np.int64) | (type(df[name].values[0]) == np.float64):
+                    t = "measure"
+                else:
+                    t = "dimension"
+            else:
+                t=infer_types[name]
+            # push to df
+            if t == "measure":
+                self.add_measure(name, [float(i) for i in df[name].fillna(default_measure_value).values])
+            else:
+                self.add_dimension(name, list(df[name].fillna(default_dimension_value).values))
 
     def _add_named_value(self, dest, name, values=None, **kwargs):
         value = {"name": name, **kwargs}
