@@ -17,7 +17,7 @@ ipyvizzu provides Jupyter Notebook integration for [Vizzu](https://github.com/vi
 
 # Installation
 
-ipyvizzu requires only `IPython` package.
+ipyvizzu requires `IPython` and `NumPy` packages.
 However you can use it only in Jupyter Notebook therefore `notebook` project has to be installed.
 
 ```sh
