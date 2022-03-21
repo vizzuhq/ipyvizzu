@@ -209,7 +209,7 @@ class Data(dict, Animation):
         for name in data_frame.columns:
             if infer_types is None:
                 infer_types = {}
-            infer_types_name = infer_types.get("name", default="")
+            infer_types_name = infer_types.get("name", "")
             if (infer_types_name != "measure") & (infer_types_name != "dimension"):
                 if (isinstance(data_frame[name].values[0], np.int64)) | (
                     isinstance(data_frame[name].values[0], np.float64)
