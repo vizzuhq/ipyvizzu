@@ -206,32 +206,34 @@ class Data(dict, Animation):
         default_measure_value=0,
         default_dimension_value="",
     ):
+        if infer_types is None:
+            infer_types = {}
         for name in data_frame.columns:
-            if infer_types is None:
-                infer_types = {}
-            infer_types_name = infer_types.get("name", "")
-            if (infer_types_name != "measure") & (infer_types_name != "dimension"):
+            infer_type = infer_types.get(name, None)
+            if infer_type is None:
                 if (isinstance(data_frame[name].values[0], np.int64)) | (
                     isinstance(data_frame[name].values[0], np.float64)
                 ):
-                    data_type = "measure"
+                    infer_type = "measure"
                 else:
-                    data_type = "dimension"
-            else:
-                data_type = infer_types_name
+                    infer_type = "dimension"
 
-            if data_type == "measure":
-                self.add_measure(
-                    name,
-                    [
-                        float(i)
-                        for i in data_frame[name].fillna(default_measure_value).values
-                    ],
-                )
+            values = []
+            if infer_type == "measure":
+                values = [
+                    float(i)
+                    for i in data_frame[name].fillna(default_measure_value).values
+                ]
+            elif infer_type == "dimension":
+                values = list(data_frame[name].fillna(default_dimension_value).values)
             else:
-                self.add_dimension(
-                    name, list(data_frame[name].fillna(default_dimension_value).values)
-                )
+                raise ValueError(f"Not supported infer type: {infer_type}")
+
+            self.add_series(
+                name,
+                values,
+                type=infer_type,
+            )
 
     def _add_named_value(self, dest, name, values=None, **kwargs):
         value = {"name": name, **kwargs}
