@@ -4,7 +4,7 @@
   </a>
   <p align="center"><b>ipyvizzu</b> - Jupyter notebook integration for Vizzu.</p>
   <p align="center">
-    <a href="https://vizzuhq.github.io/ipyvizzu/index.html">Tutorial & Examples</a>
+    <a href="https://vizzuhq.github.io/ipyvizzu/index.html">Tutorial</a>
     · <a href="https://github.com/vizzuhq/ipyvizzu">Repository</a>
   </p>
 </p>
@@ -24,6 +24,8 @@ However you can use it only in Jupyter Notebook therefore `notebook` project has
 pip install ipyvizzu
 pip install notebook
 ```
+
+## [Optional] Using locally installed Vizzu 
 
 ipyvizzu downloads Vizzu from [jsDelivr](https://www.jsdelivr.com/package/npm/vizzu?version=~0.4.0) CDN by default,
 but a local copy of it can be used.
