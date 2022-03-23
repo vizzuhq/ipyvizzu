@@ -27,32 +27,14 @@ class DisplayTemplate:
         </script>
         """
 
-    _NEW_CHART = """
+    INIT = _SCRIPT.format(
+        """
             let myVizzu_{c_id} = document.createElement("div");
             myVizzu_{c_id}.style.cssText = "width: {div_width}; height: {div_height};";
             let chart_{c_id} = import("{vizzu}").then(Vizzu => new Vizzu.default(myVizzu_{c_id}).initializing);
-            """
-
-    INIT = {
-        DisplayTarget.BEGIN: _SCRIPT.format(
-            f"""
-            {_NEW_CHART}
-            myVizzu_{{id}}.parentNode.insertBefore(myVizzu_{{c_id}}, myVizzu_{{id}});
-            """
-        ),
-        DisplayTarget.ACTUAL: _SCRIPT.format(
-            f"""
-            myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
-            {_NEW_CHART}
-            """
-        ),
-        DisplayTarget.END: _SCRIPT.format(
-            f"""
-            myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
-            {_NEW_CHART}
-            """
-        ),
-    }
+            myVizzu_{id}.parentNode.insertBefore(myVizzu_{c_id}, myVizzu_{id});
+            """  # pylint: disable=line-too-long
+    )
 
     _MOVE_CHART = """
             if (myVizzu_{c_id}.parentNode && myVizzu_{c_id}.parentNode.parentNode) {{
@@ -313,7 +295,7 @@ class Chart:
         self._display_target = DisplayTarget(display)
 
         self._display(
-            DisplayTemplate.INIT[self._display_target].format(
+            DisplayTemplate.INIT.format(
                 id=uuid.uuid4().hex[:7],
                 c_id=self._c_id,
                 vizzu=self._vizzu,
