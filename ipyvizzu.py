@@ -164,7 +164,7 @@ class InferType(enum.Enum):
 
     DIMENSION = "dimension"
     MEASURE = "measure"
-    NONE = None
+    AUTO = None
 
 
 class Data(dict, Animation):
@@ -216,8 +216,8 @@ class Data(dict, Animation):
         if infer_types is None:
             infer_types = {}
         for name in data_frame.columns:
-            infer_type = InferType(infer_types.get(name, None))
-            if infer_type == InferType.NONE:
+            infer_type = InferType(infer_types.get(name, InferType.AUTO))
+            if infer_type == InferType.AUTO:
                 if isinstance(data_frame[name].values[0], (np.float64, np.int64)):
                     infer_type = InferType.MEASURE
                 else:
