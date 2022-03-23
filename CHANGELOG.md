@@ -2,9 +2,15 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed image url in the README.
+- Fixed animation display when the first animation is not just Data.
+
 ### Added
 
 - Added `Data.add_data_frame()` function to support `pandas.DataFrame`.
+- Added `scroll_into_view` chart property.
 
 ## [0.6.0] - 2022-03-17
 

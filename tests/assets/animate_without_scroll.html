@@ -13,7 +13,6 @@
         }
         myVizzu.parentNode.parentNode.style.display = display;
         myVizzu.parentNode.insertBefore(myVizzu, myVizzu);
-        myVizzu.scrollIntoView({behavior: "auto", block: "center"});
         return chart.animate({"data": {"series": [{"name": "Foo", "values": ["Alice", "Bob", "Ted"]}, {"name": "Bar", "values": [15, 32, 12]}]}});
     });
 </script>
@@ -26,7 +25,6 @@
         }
         myVizzu.parentNode.parentNode.style.display = display;
         myVizzu.parentNode.insertBefore(myVizzu, myVizzu);
-        myVizzu.scrollIntoView({behavior: "auto", block: "center"});
-        return chart.animate({"config": {"color": {"set": ["Genres"]}}, "style": {"legend": {"width": 50}}});
+        return chart.animate({"config": {"x": "Foo", "y": "Bar", "color": "Foo"}});
     });
 </script>
