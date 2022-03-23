@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Added `Data.add_data_frame()` function to support `pandas.DataFrame`.
+
 ## [0.6.0] - 2022-03-17
 
 ### Fixed
