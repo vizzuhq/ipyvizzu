@@ -13,6 +13,7 @@ $(DEV_BUILD_FLAG):
 	python3 -m venv $(VIRTUAL_ENV)
 	$(VIRTUAL_ENV)/bin/pip install -e .
 	$(VIRTUAL_ENV)/bin/pip install notebook
+	$(VIRTUAL_ENV)/bin/pip install pandas
 	$(VIRTUAL_ENV)/bin/pip install black==22.1.0 pylint
 	touch $(DEV_BUILD_FLAG)
 

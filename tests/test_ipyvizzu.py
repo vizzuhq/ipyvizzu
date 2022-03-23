@@ -1,6 +1,8 @@
 import unittest
 import unittest.mock
 import pathlib
+import json
+import pandas as pd
 
 
 from normalizer import Normalizer
@@ -161,6 +163,23 @@ class TestData(unittest.TestCase):
                 }
             },
             self.data.build(),
+        )
+
+    def test_data_frame(self):
+        asset_dir = pathlib.Path(__file__).parent / "assets"
+
+        with open(asset_dir / "data_frame_in.json", encoding="UTF-8") as fh_in:
+            fc_in = json.load(fh_in)
+        with open(asset_dir / "data_frame_out.json", encoding="UTF-8") as fh_out:
+            fc_out = json.load(fh_out)
+
+        data_frame = pd.DataFrame(fc_in)
+
+        data = Data()
+        data.add_data_frame(data_frame, {"PopularityD": "dimension"})
+        self.assertEqual(
+            fc_out,
+            data.build(),
         )
 
 
