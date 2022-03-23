@@ -160,6 +160,13 @@ class PlainAnimation(dict, Animation):
         return self
 
 
+class InferType(enum.Enum):
+
+    DIMENSION = "dimension"
+    MEASURE = "measure"
+    NONE = None
+
+
 class Data(dict, Animation):
     """
     Vizzu data with the required keys: records, series, dimensions or measures.
@@ -209,30 +216,26 @@ class Data(dict, Animation):
         if infer_types is None:
             infer_types = {}
         for name in data_frame.columns:
-            infer_type = infer_types.get(name, None)
-            if infer_type is None:
-                if (isinstance(data_frame[name].values[0], np.int64)) | (
-                    isinstance(data_frame[name].values[0], np.float64)
-                ):
-                    infer_type = "measure"
+            infer_type = InferType(infer_types.get(name, None))
+            if infer_type == InferType.NONE:
+                if isinstance(data_frame[name].values[0], (np.float64, np.int64)):
+                    infer_type = InferType.MEASURE
                 else:
-                    infer_type = "dimension"
+                    infer_type = InferType.DIMENSION
 
             values = []
-            if infer_type == "measure":
+            if infer_type == InferType.MEASURE:
                 values = [
                     float(i)
                     for i in data_frame[name].fillna(default_measure_value).values
                 ]
-            elif infer_type == "dimension":
-                values = list(data_frame[name].fillna(default_dimension_value).values)
             else:
-                raise ValueError(f"Not supported infer type: {infer_type}")
+                values = list(data_frame[name].fillna(default_dimension_value).values)
 
             self.add_series(
                 name,
                 values,
-                type=infer_type,
+                type=infer_type.value,
             )
 
     def _add_named_value(self, dest, name, values=None, **kwargs):
