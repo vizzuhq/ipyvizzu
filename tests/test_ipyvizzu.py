@@ -220,6 +220,12 @@ class TestChart(unittest.TestCase):
         self.chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
         self._assert_display("animate.html")
 
+    def test_animate_without_scroll(self):
+        self.chart.scroll_into_view = False
+        self.chart.animate(self.data)
+        self.chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
+        self._assert_display("animate_without_scroll.html")
+
     def test_animate_options(self):
         data = Data()
         data.add_series("Foo", ["Alice", "Bob", "Ted"])

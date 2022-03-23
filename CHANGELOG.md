@@ -7,6 +7,10 @@
 - Fixed image url in the README.
 - Fixed animation display when the first animation is not just Data.
 
+### Added
+
+- Added `scroll_into_view` chart property.
+
 ## [0.6.0] - 2022-03-17
 
 ### Fixed

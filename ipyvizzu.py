@@ -44,11 +44,14 @@ class DisplayTemplate:
             myVizzu_{id}.parentNode.insertBefore(myVizzu_{c_id}, myVizzu_{id});
             """
 
+    SCROLL = """myVizzu_{c_id}.scrollIntoView({{behavior: "auto", block: "center"}});"""
+
     ANIMATE = {
         DisplayTarget.BEGIN: _SCRIPT.format(
             """
             myVizzu_{id}.parentNode.parentNode.style.display = "none";
             chart_{c_id} = chart_{c_id}.then(chart => {{
+                {scroll}
                 return {animation};
             }});
             """
@@ -59,6 +62,7 @@ class DisplayTemplate:
             myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
             chart_{{c_id}} = chart_{{c_id}}.then(chart => {{{{
                 {indent(_MOVE_CHART, "    ", lambda line: True)}
+                {{scroll}}
                 return {{animation}};
             }}}});
             """
@@ -69,6 +73,7 @@ class DisplayTemplate:
             myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
             {_MOVE_CHART}
             chart_{{c_id}} = chart_{{c_id}}.then(chart => {{{{
+                {{scroll}}
                 return {{animation}};
             }}}});
             """
@@ -293,6 +298,7 @@ class Chart:
         self._div_width = width
         self._div_height = height
         self._display_target = DisplayTarget(display)
+        self._scroll_into_view = True
 
         self._display(
             DisplayTemplate.INIT.format(
@@ -303,6 +309,14 @@ class Chart:
                 div_height=self._div_height,
             )
         )
+
+    @property
+    def scroll_into_view(self):
+        return self._scroll_into_view
+
+    @scroll_into_view.setter
+    def scroll_into_view(self, scroll_into_view):
+        self._scroll_into_view = bool(scroll_into_view)
 
     def feature(self, name, value):
         feature = Feature(name, value).dump()
@@ -321,9 +335,19 @@ class Chart:
 
         animation = self._merge_animations(animations)
         animation = Animate(animation, options).dump()
+
+        scroll = (
+            DisplayTemplate.SCROLL.format(c_id=self._c_id)
+            if self._scroll_into_view
+            else ""
+        )
+
         self._display(
             DisplayTemplate.ANIMATE[self._display_target].format(
-                id=uuid.uuid4().hex[:7], c_id=self._c_id, animation=animation
+                id=uuid.uuid4().hex[:7],
+                c_id=self._c_id,
+                animation=animation,
+                scroll=scroll,
             )
         )
 
