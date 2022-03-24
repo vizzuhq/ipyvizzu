@@ -15,6 +15,7 @@ $(DEV_BUILD_FLAG):
 	$(VIRTUAL_ENV)/bin/pip install notebook
 	$(VIRTUAL_ENV)/bin/pip install pandas
 	$(VIRTUAL_ENV)/bin/pip install black==22.1.0 pylint
+	$(VIRTUAL_ENV)/bin/ipython kernel install --name ".venv" --user
 	touch $(DEV_BUILD_FLAG)
 
 clean:
