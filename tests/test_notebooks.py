@@ -11,7 +11,7 @@ from normalizer import Normalizer
 class TestNotebook(unittest.TestCase):
     maxDiff = None
 
-    exclude_list = {"data.ipynb"}
+    exclude_list = {}
 
     @classmethod
     def setUpClass(cls):
@@ -19,14 +19,16 @@ class TestNotebook(unittest.TestCase):
         cls.normalizer = Normalizer()
 
     def test(self):
-        examples_dir = self.project_dir / "docs/examples"
+        docs_dir = self.project_dir / "docs"
 
-        for path in examples_dir.glob("*.ipynb"):
+        for path in filter(
+            lambda x: not str(x).endswith("checkpoint.ipynb"), docs_dir.rglob("*.ipynb")
+        ):
             if path.name in self.exclude_list:
                 continue
 
             with self.subTest(path=path):
-                os.chdir(examples_dir)
+                os.chdir(path.parent)
                 notebook = parse_notebook(path)
                 for source, output in notebook:
                     display_html = patch("ipyvizzu.display_html").start()
