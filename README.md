@@ -66,7 +66,7 @@ chart.animate(Config({"x": "Foo", "y": "Baz", "color": "Foo"}))
 chart.animate(Config({"geometry": "rectangle"}))
 ```
 
-Visit our [documentation](https://vizzuhq.github.io/ipyvizzu/index.html) site for more tutorials and examples.
+Visit our [documentation](https://vizzuhq.github.io/ipyvizzu/index.html) site for more tutorials.
 
 # Contributing
 
