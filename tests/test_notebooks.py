@@ -11,7 +11,7 @@ from normalizer import Normalizer
 class TestNotebook(unittest.TestCase):
     maxDiff = None
 
-    exclude_list = {"data.ipynb"}
+    exclude_list = {}
 
     @classmethod
     def setUpClass(cls):
@@ -21,7 +21,9 @@ class TestNotebook(unittest.TestCase):
     def test(self):
         docs_dir = self.project_dir / "docs"
 
-        for path in docs_dir.rglob("*[!checkpoint].ipynb"):
+        for path in filter(
+            lambda x: not str(x).endswith("checkpoint.ipynb"), docs_dir.rglob("*.ipynb")
+        ):
             if path.name in self.exclude_list:
                 continue
 
