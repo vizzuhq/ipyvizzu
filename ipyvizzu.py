@@ -217,7 +217,10 @@ class Data(dict, Animation):
                     for i in data_frame[name].fillna(default_measure_value).values
                 ]
             else:
-                values = list(data_frame[name].fillna(default_dimension_value).values)
+                values = [
+                    str(i)
+                    for i in data_frame[name].fillna(default_dimension_value).values
+                ]
 
             self.add_series(
                 name,
