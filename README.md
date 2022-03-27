@@ -13,7 +13,7 @@
 
 # About The Project
 
-ipyvizzu provides Jupyter Notebook integration for [Vizzu](https://github.com/vizzuhq/vizzu-lib).
+ipyvizzu is the [Jupyter Notebook](https://jupyter.org/) integration of [Vizzu](https://github.com/vizzuhq/vizzu-lib).
 
 # Installation
 
