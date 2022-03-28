@@ -1,10 +1,18 @@
 <script id="myVizzu">
+    document.inhibitScroll = false;
+    document.addEventListener('wheel', function (evt) { document.inhibitScroll = true }, true);
+    document.addEventListener('keydown', function (evt) { document.inhibitScroll = true }, true);
+    document.addEventListener('touchstart', function (evt) { document.inhibitScroll = true }, true);
     let myVizzu = document.createElement("div");
     myVizzu.style.cssText = "width: 800px; height: 480px;";
     let chart = import("https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js").then(Vizzu => new Vizzu.default(myVizzu).initializing);
     myVizzu.parentNode.insertBefore(myVizzu, myVizzu);
 </script>
 <script id="myVizzu">
+    document.inhibitScroll = false;
+    document.addEventListener('wheel', function (evt) { document.inhibitScroll = true }, true);
+    document.addEventListener('keydown', function (evt) { document.inhibitScroll = true }, true);
+    document.addEventListener('touchstart', function (evt) { document.inhibitScroll = true }, true);
     let myVizzu = document.createElement("div");
     myVizzu.style.cssText = "width: 800px; height: 480px;";
     let chart = import("https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js").then(Vizzu => new Vizzu.default(myVizzu).initializing);
@@ -13,14 +21,18 @@
 <script id="myVizzu">
     myVizzu.parentNode.parentNode.style.display = "none";
     chart = chart.then(chart => {
-        myVizzu.scrollIntoView({behavior: "auto", block: "center"});
+        if (!document.inhibitScroll && true) {
+            myVizzu.scrollIntoView({behavior: "auto", block: "center"});
+        }
         return chart.animate({"data": {"series": [{"name": "Foo", "values": ["Alice", "Bob", "Ted"]}, {"name": "Bar", "values": [15, 32, 12]}]}});
     });
 </script>
 <script id="myVizzu">
     myVizzu.parentNode.parentNode.style.display = "none";
     chart = chart.then(chart => {
-        myVizzu.scrollIntoView({behavior: "auto", block: "center"});
+        if (!document.inhibitScroll && true) {
+            myVizzu.scrollIntoView({behavior: "auto", block: "center"});
+        }
         return chart.animate({"config": {"x": "Foo", "y": "Bar", "color": "Foo"}});
     });
 </script>
