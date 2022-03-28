@@ -30,6 +30,7 @@ jobs:
       - name: 'Checkout vizzu-lib'
         uses: actions/checkout@v2
         with:
+          repository: vizzuhq/vizzu-lib
           path: tools/example-generator/vizzu-lib
 
       - name: Build documentation
