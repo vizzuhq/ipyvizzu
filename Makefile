@@ -1,11 +1,11 @@
-.PHONY: install dev clean test check format check-format
+.PHONY: install dev clean check test format check-format lint
 
 VIRTUAL_ENV = .venv
 DEV_BUILD_FLAG = $(VIRTUAL_ENV)/DEV_BUILD_FLAG
 NOTEBOOKS = $(shell find docs -type f -name '*.ipynb')
 
 install:
-	python3 setup.py install
+	$(VIRTUAL_ENV)/bin/python setup.py install
 
 dev: $(DEV_BUILD_FLAG)
 
@@ -14,7 +14,7 @@ $(DEV_BUILD_FLAG):
 	$(VIRTUAL_ENV)/bin/pip install -e .
 	$(VIRTUAL_ENV)/bin/pip install notebook
 	$(VIRTUAL_ENV)/bin/pip install pandas
-	$(VIRTUAL_ENV)/bin/pip install black==22.1.0 pylint
+	$(VIRTUAL_ENV)/bin/pip install click==8.0.4 black==22.1.0 tokenize-rt pylint jupytext==1.13.7
 	$(VIRTUAL_ENV)/bin/ipython kernel install --name ".venv" --user
 	touch $(DEV_BUILD_FLAG)
 
