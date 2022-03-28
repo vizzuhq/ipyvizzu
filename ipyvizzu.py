@@ -31,6 +31,7 @@ class DisplayTemplate:
 
     INIT = _SCRIPT.format(
         """
+            document.inhibitScroll = false;
             document.addEventListener('wheel', function (evt) {{ document.inhibitScroll = true }}, true);
             document.addEventListener('keydown', function (evt) {{ document.inhibitScroll = true }}, true);
             document.addEventListener('touchstart', function (evt) {{ document.inhibitScroll = true }}, true);
