@@ -40,5 +40,5 @@ for example in $animatedExamples; do
   ./mjs2ipynb.sh ${venv} $example ${examplesDir}/animated/$(basename ${example%.mjs}.ipynb)
 done
 
-${venv}/bin/jupytext --update --to ipynb -o ${examplesDir}/examples.ipynb examples.md 
+${venv}/bin/jupytext --update --to ipynb -o ${examplesDir}/examples.ipynb ${examplesDir}/examples.md 
 #rm examples.md 
