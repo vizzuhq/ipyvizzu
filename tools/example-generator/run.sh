@@ -25,7 +25,7 @@ done
 echo "## Static examples" > ${examplesDir}/examples.md
 
 for example in $staticExamples; do
-  echo "<a href=\"examples/static/$(basename ${example%.mjs}.html)\">" >> ${examplesDir}/examples.md
+  echo "<a href=\"static/$(basename ${example%.mjs}.html)\">" >> ${examplesDir}/examples.md
   echo "<img src=\"${thumbUrl}/static/$(basename ${example%.mjs}.png)\">" >> ${examplesDir}/examples.md
   echo "</a>" >> ${examplesDir}/examples.md
   ./mjs2ipynb.sh ${venv} $example ${examplesDir}/static/$(basename ${example%.mjs}.ipynb)
@@ -34,7 +34,7 @@ done
 echo "## Animated examples" >> ${examplesDir}/examples.md
 
 for example in $animatedExamples; do
-  echo "<a href=\"examples/animated/$(basename ${example%.mjs}.html)\">" >> ${examplesDir}/examples.md
+  echo "<a href=\"animated/$(basename ${example%.mjs}.html)\">" >> ${examplesDir}/examples.md
   echo "<video autoplay loop src=\"${thumbUrl}/animated/$(basename ${example%.mjs}.mp4)\" type=\"video/mp4\"></video>" >> ${examplesDir}/examples.md
   echo "</a>" >> ${examplesDir}/examples.md
   ./mjs2ipynb.sh ${venv} $example ${examplesDir}/animated/$(basename ${example%.mjs}.ipynb)
