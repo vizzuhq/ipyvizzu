@@ -16,6 +16,10 @@
 
 ipyvizzu provides Jupyter Notebook integration for [Vizzu](https://github.com/vizzuhq/vizzu-lib).
 
+<p align="center">
+  <img src="https://github.com/vizzuhq/ipyvizzu/raw/main/docs/assets/ipyvizzu-promo.gif" alt="ipyvizzu" />
+</p>
+
 Features:
 - Comprehensive support for Vizzu API (see [Vizzu features](https://github.com/vizzuhq/vizzu-lib#about-the-project));
 - Pandas dataframe, JSon and inline data input;
