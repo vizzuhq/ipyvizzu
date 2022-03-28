@@ -27,11 +27,15 @@ jobs:
       - name: Build dev environment
         run: make dev
 
-      - name: 'Checkout vizzu-lib'
+      - name: Checkout vizzu-lib
         uses: actions/checkout@v2
         with:
           repository: vizzuhq/vizzu-lib
           path: tools/example-generator/vizzu-lib
+
+      - name: Generate ipynbs
+        run: ./run.sh ../../.venv
+        working-directory: tools/example-generator
 
       - name: Build documentation
         run: make doc

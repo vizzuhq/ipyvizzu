@@ -1,11 +1,11 @@
-.PHONY: install dev clean test check format check-format
+.PHONY: install dev clean check test format check-format lint
 
 VIRTUAL_ENV = .venv
 DEV_BUILD_FLAG = $(VIRTUAL_ENV)/DEV_BUILD_FLAG
 NOTEBOOKS = $(shell find docs -type f -name '*.ipynb')
 
 install:
-	python3 setup.py install
+	$(VIRTUAL_ENV)/bin/python setup.py install
 
 dev: $(DEV_BUILD_FLAG)
 
@@ -21,10 +21,7 @@ $(DEV_BUILD_FLAG):
 clean:
 	-rm -rf $(VIRTUAL_ENV)
 
-doc:
-	cd tools/example-generator; npm install
-	cd tools/example-generator; ./run.sh ../../$(VIRTUAL_ENV)
-	$(NOTEBOOKS:.ipynb=.html)
+doc: $(NOTEBOOKS:.ipynb=.html)
 
 %.html: %.ipynb $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/jupyter nbconvert --to html $<
