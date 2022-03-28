@@ -369,7 +369,9 @@ class Chart:
         )
 
     def _pre_run_cell(self):
-        self._display(DisplayTemplate.CLEAR_INHIBITSCROLL)
+        self._display(
+            DisplayTemplate.CLEAR_INHIBITSCROLL.format(id=uuid.uuid4().hex[:7])
+        )
 
     @property
     def scroll_into_view(self):
