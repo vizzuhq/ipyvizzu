@@ -5,6 +5,7 @@
   <p align="center"><b>ipyvizzu</b> - Jupyter notebook integration for Vizzu.</p>
   <p align="center">
     <a href="https://vizzuhq.github.io/ipyvizzu/index.html">Tutorial</a>
+    · <a href="https://vizzuhq.github.io/ipyvizzu/examples/examples.html">Examples</a>
     · <a href="https://github.com/vizzuhq/ipyvizzu">Repository</a>
   </p>
 </p>
@@ -71,7 +72,8 @@ chart.animate(Config({"x": "Foo", "y": "Baz", "color": "Foo"}))
 chart.animate(Config({"geometry": "rectangle"}))
 ```
 
-Visit our [documentation](https://vizzuhq.github.io/ipyvizzu/index.html) site for more tutorials.
+Visit our [documentation](https://vizzuhq.github.io/ipyvizzu/index.html) site for more tutorials,
+or check out our [example gallery](https://vizzuhq.github.io/ipyvizzu/examples/examples.html).
 
 # Contributing
 
