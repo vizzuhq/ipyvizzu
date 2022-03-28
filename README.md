@@ -15,6 +15,11 @@
 
 ipyvizzu provides Jupyter Notebook integration for [Vizzu](https://github.com/vizzuhq/vizzu-lib).
 
+Features:
+- Comprehensive support for Vizzu API (see [Vizzu features](https://github.com/vizzuhq/vizzu-lib#about-the-project));
+- Pandas dataframe, JSon and inline data input;
+- Auto scrolling for keeping the actual chart in position during multiple cell execution.
+
 # Installation
 
 ipyvizzu requires `IPython` and `NumPy` packages.
