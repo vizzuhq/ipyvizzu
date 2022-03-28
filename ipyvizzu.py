@@ -11,6 +11,7 @@ from textwrap import indent, dedent
 import numpy as np
 
 from IPython.display import display_html
+from IPython import get_ipython
 
 
 class DisplayTarget(str, enum.Enum):
@@ -30,6 +31,10 @@ class DisplayTemplate:
 
     INIT = _SCRIPT.format(
         """
+            document.addEventListener('wheel', function (evt) {{ document.inhibitScroll = true }}, true);
+            document.addEventListener('keydown', function (evt) {{ document.inhibitScroll = true }}, true);
+            document.addEventListener('touchstart', function (evt) {{ document.inhibitScroll = true }}, true);
+
             let myVizzu_{c_id} = document.createElement("div");
             myVizzu_{c_id}.style.cssText = "width: {div_width}; height: {div_height};";
             let chart_{c_id} = import("{vizzu}").then(Vizzu => new Vizzu.default(myVizzu_{c_id}).initializing);
@@ -45,16 +50,22 @@ class DisplayTemplate:
             myVizzu_{id}.parentNode.insertBefore(myVizzu_{c_id}, myVizzu_{id});
             """
 
-    SCROLL = """myVizzu_{c_id}.scrollIntoView({{behavior: "auto", block: "center"}});"""
+    _SCROLL = """
+            if (!document.inhibitScroll && {scroll}) {{
+                myVizzu_{c_id}.scrollIntoView({{behavior: "auto", block: "center"}});
+            }}
+            """
+
+    CLEAR_INHIBITSCROLL = _SCRIPT.format("document.inhibitScroll = false;")
 
     ANIMATE = {
         DisplayTarget.BEGIN: _SCRIPT.format(
-            """
-            myVizzu_{id}.parentNode.parentNode.style.display = "none";
-            chart_{c_id} = chart_{c_id}.then(chart => {{
-                {scroll}
-                return {animation};
-            }});
+            f"""
+            myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
+            chart_{{c_id}} = chart_{{c_id}}.then(chart => {{{{
+                {indent(_SCROLL, "    ", lambda line: True)}
+                return {{animation}};
+            }}}});
             """
         ),
         DisplayTarget.ACTUAL: _SCRIPT.format(
@@ -63,7 +74,7 @@ class DisplayTemplate:
             myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
             chart_{{c_id}} = chart_{{c_id}}.then(chart => {{{{
                 {indent(_MOVE_CHART, "    ", lambda line: True)}
-                {{scroll}}
+                {indent(_SCROLL, "    ", lambda line: True)}
                 return {{animation}};
             }}}});
             """
@@ -74,7 +85,7 @@ class DisplayTemplate:
             myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
             {_MOVE_CHART}
             chart_{{c_id}} = chart_{{c_id}}.then(chart => {{{{
-                {{scroll}}
+                {indent(_SCROLL, "    ", lambda line: True)}
                 return {{animation}};
             }}}});
             """
@@ -343,6 +354,10 @@ class Chart:
         self._display_target = DisplayTarget(display)
         self._scroll_into_view = True
 
+        ipy = get_ipython()
+        if ipy is not None:
+            ipy.events.register("pre_run_cell", self._pre_run_cell)
+
         self._display(
             DisplayTemplate.INIT.format(
                 id=uuid.uuid4().hex[:7],
@@ -352,6 +367,9 @@ class Chart:
                 div_height=self._div_height,
             )
         )
+
+    def _pre_run_cell(self):
+        self._display(DisplayTemplate.CLEAR_INHIBITSCROLL)
 
     @property
     def scroll_into_view(self):
@@ -379,18 +397,12 @@ class Chart:
         animation = self._merge_animations(animations)
         animation = Animate(animation, options).dump()
 
-        scroll = (
-            DisplayTemplate.SCROLL.format(c_id=self._c_id)
-            if self._scroll_into_view
-            else ""
-        )
-
         self._display(
             DisplayTemplate.ANIMATE[self._display_target].format(
                 id=uuid.uuid4().hex[:7],
                 c_id=self._c_id,
                 animation=animation,
-                scroll=scroll,
+                scroll=str(self._scroll_into_view).lower(),
             )
         )
 
