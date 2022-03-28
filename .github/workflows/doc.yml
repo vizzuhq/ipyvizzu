@@ -27,6 +27,11 @@ jobs:
       - name: Build dev environment
         run: make dev
 
+      - name: 'Checkout vizzu-lib'
+        uses: actions/checkout@v2
+        with:
+          path: tools/example-generator/vizzu-lib
+
       - name: Build documentation
         run: make doc
 

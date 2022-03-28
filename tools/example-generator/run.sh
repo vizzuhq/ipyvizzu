@@ -1,7 +1,7 @@
 #!/bin/bash
 venv="$1"
 
-./sparse-clone-vizzu-lib.sh
+#./sparse-clone-vizzu-lib.sh
 
 docsDir=../../docs
 examplesDir=${docsDir}/examples
