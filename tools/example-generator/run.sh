@@ -1,4 +1,5 @@
 #!/bin/bash
+venv="$1"
 
 ./sparse-clone-vizzu-lib.sh
 
@@ -27,7 +28,7 @@ for example in $staticExamples; do
   echo "<a href=\"examples/static/$(basename ${example%.mjs}.html)\">" >> ${examplesDir}/examples.md
   echo "<img src=\"${thumbUrl}/static/$(basename ${example%.mjs}.png)\"></img>" >> ${examplesDir}/examples.md
   echo "</a>" >> ${examplesDir}/examples.md
-  ./mjs2ipynb.sh $example ${examplesDir}/static/$(basename ${example%.mjs}.ipynb)
+  ./mjs2ipynb.sh ${venv} $example ${examplesDir}/static/$(basename ${example%.mjs}.ipynb)
 done
 
 echo "## Animated examples" >> ${examplesDir}/examples.md
@@ -36,8 +37,8 @@ for example in $animatedExamples; do
   echo "<a href=\"examples/animated/$(basename ${example%.mjs}.html)\">" >> ${examplesDir}/examples.md
   echo "<video autoplay loop src=\"${thumbUrl}/animated/$(basename ${example%.mjs}.mp4)\" type=\"video/mp4\"></video>" >> ${examplesDir}/examples.md
   echo "</a>" >> ${examplesDir}/examples.md
-  ./mjs2ipynb.sh $example ${examplesDir}/animated/$(basename ${example%.mjs}.ipynb)
+  ./mjs2ipynb.sh ${venv} $example ${examplesDir}/animated/$(basename ${example%.mjs}.ipynb)
 done
 
-jupytext --update --to ipynb -o ${examplesDir}/examples.ipynb examples.md 
+${venv}/bin/jupytext --update --to ipynb -o ${examplesDir}/examples.ipynb examples.md 
 #rm examples.md 

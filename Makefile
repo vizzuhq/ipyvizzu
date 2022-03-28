@@ -14,7 +14,7 @@ $(DEV_BUILD_FLAG):
 	$(VIRTUAL_ENV)/bin/pip install -e .
 	$(VIRTUAL_ENV)/bin/pip install notebook
 	$(VIRTUAL_ENV)/bin/pip install pandas
-	$(VIRTUAL_ENV)/bin/pip install click==8.0.4 black==22.1.0 pylint
+	$(VIRTUAL_ENV)/bin/pip install click==8.0.4 black==22.1.0 pylint jupytext==1.13.7
 	$(VIRTUAL_ENV)/bin/ipython kernel install --name ".venv" --user
 	touch $(DEV_BUILD_FLAG)
 
@@ -23,8 +23,7 @@ clean:
 
 doc:
 	cd tools/example-generator; npm install
-	$(VIRTUAL_ENV)/bin/pip install -r tools/example-generator/requirements.txt
-	cd tools/example-generator; ./run.sh
+	cd tools/example-generator; ./run.sh ../../$(VIRTUAL_ENV)
 	$(NOTEBOOKS:.ipynb=.html)
 
 %.html: %.ipynb $(DEV_BUILD_FLAG)
