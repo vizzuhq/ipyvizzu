@@ -26,7 +26,7 @@ echo "## Static examples" > ${examplesDir}/examples.md
 
 for example in $staticExamples; do
   echo "<a href=\"examples/static/$(basename ${example%.mjs}.html)\">" >> ${examplesDir}/examples.md
-  echo "<img src=\"${thumbUrl}/static/$(basename ${example%.mjs}.png)\"></img>" >> ${examplesDir}/examples.md
+  echo "<img src=\"${thumbUrl}/static/$(basename ${example%.mjs}.png)\">" >> ${examplesDir}/examples.md
   echo "</a>" >> ${examplesDir}/examples.md
   ./mjs2ipynb.sh ${venv} $example ${examplesDir}/static/$(basename ${example%.mjs}.ipynb)
 done
