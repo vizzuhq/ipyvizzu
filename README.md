@@ -2,7 +2,7 @@
   <a href="https://github.com/vizzuhq/vizzu-lib">
     <img src="https://github.com/vizzuhq/vizzu-lib-doc/raw/main/docs/readme/infinite-60.gif" alt="Vizzu" />
   </a>
-  <p align="center"><b>ipyvizzu</b> - Jupyter notebook integration for Vizzu.</p>
+  <p align="center"><b>ipyvizzu</b> - Jupyter notebook integration of Vizzu.</p>
   <p align="center">
     <a href="https://vizzuhq.github.io/ipyvizzu/index.html">Tutorial</a>
     · <a href="https://vizzuhq.github.io/ipyvizzu/examples/examples.html">Examples</a>
@@ -14,16 +14,15 @@
 
 # About The Project
 
-ipyvizzu is the [Jupyter Notebook](https://jupyter.org/) integration of [Vizzu](https://github.com/vizzuhq/vizzu-lib).
+ipyvizzu is the [Jupyter Notebook](https://jupyter.org/) integration of [Vizzu](https://github.com/vizzuhq/vizzu-lib). ipyvizzu enables data scientists and analysts to utilize animation for storytelling with data using Python.
 
-<p align="center">
-  <img src="https://github.com/vizzuhq/ipyvizzu/raw/main/docs/assets/ipyvizzu-promo.gif" alt="ipyvizzu" />
-</p>
+Similar to Vizzu, which is a free, open-source Javascript/C++ library, ipyvizzu also utilizes a generic dataviz engine that generates many types of charts and seamlessly animates between them. It is designed for building animated data stories as it enables showing different perspectives of the data that the viewers can easily follow.
 
-Features:
-- Comprehensive support for Vizzu API (see [Vizzu features](https://github.com/vizzuhq/vizzu-lib#about-the-project));
-- Pandas dataframe, JSon and inline data input;
-- Auto scrolling for keeping the actual chart in position during multiple cell execution.
+Main features:
+- Designed with animation in focus;
+- Defaults based on data visualization guidelines;
+- Works with Pandas dataframe, also JSON and inline data input is available;
+- Auto scrolling to keep the actual chart in position while executing multiple cells.
 
 # Installation
 
@@ -34,50 +33,36 @@ However you can use it only in Jupyter Notebook therefore `notebook` project has
 pip install ipyvizzu
 pip install notebook
 ```
-
-## [Optional] Using locally installed Vizzu 
-
-ipyvizzu downloads Vizzu from [jsDelivr](https://www.jsdelivr.com/package/npm/vizzu?version=~0.4.0) CDN by default,
-but a local copy of it can be used.
-
-Install a local copy of Vizzu.
-
-```sh
-npm install vizzu@~0.4.0
-```
-
-Change Vizzu's url in the constructor of the Chart class.
-
-```python
-from ipyvizzu import Chart
-
-chart = Chart(vizzu="./node_modules/vizzu/dist/vizzu.min.js")
-```
+You can also use ipyvizzu by locally install Vizzu, you can find more info about this in the [documentation](https://vizzuhq.github.io/ipyvizzu/index.html)
 
 # Usage
 
 ipyvizzu only works in Jupiter Notebook environment.
-A notebook cell may contain the following code snippet.
+A notebook cell may contain the following code snippet resulting in the animation below.
 
 ```python
-from ipyvizzu import Chart, Data, Config
+import pandas as pd
+from ipyvizzu import Chart, Data, Config, Style
 
+data_frame = pd.read_csv('./titanic.csv')
 data = Data()
-data.add_series("Foo", ['Alice', 'Bob', 'Ted'])
-data.add_series("Bar", [15, 32, 12])
-data.add_series("Baz", [5, 2, 2])
+data.add_data_frame(data_frame)
 
-chart = Chart()
+chart = Chart(width="640px", height="360px")
+
 chart.animate(data)
 
-chart.animate(Config({"x": "Foo", "y": "Bar", "color": "Foo"}))
-chart.animate(Config({"geometry": "circle"}))
-chart.animate(Config({"x": "Foo", "y": "Baz", "color": "Foo"}))
-chart.animate(Config({"geometry": "rectangle"}))
+chart.animate(Config({"x": "Count", "y": "Sex", "label": "Count","title":"Passengers of the Titanic"}))
+chart.animate(Config({"x": ["Count","Survived"], "label": ["Count","Survived"], "color": "Survived"}))
+chart.animate(Config({"x": "Count", "y": ["Sex","Survived"]}))
 ```
 
-Visit our [documentation](https://vizzuhq.github.io/ipyvizzu/index.html) site for more tutorials,
-or check out our [example gallery](https://vizzuhq.github.io/ipyvizzu/examples/examples.html).
+<p align="center">
+  <img src="https://github.com/vizzuhq/ipyvizzu/raw/main/docs/assets/ipyvizzu-promo.gif" alt="ipyvizzu" />
+</p>
+
+Visit our [documentation](https://vizzuhq.github.io/ipyvizzu/index.html) site for more details and a step-by-step tutorial into ipyvizzu,
+or check out the [example gallery](https://vizzuhq.github.io/ipyvizzu/examples/examples.html).
 
 # Contributing
 
@@ -85,7 +70,7 @@ We welcome contributions to the project, visit our [contributing guide](https://
 
 # Contact
 
-* Join our Slack: [vizzu-community.slack.com](https://join.slack.com/t/vizzu-community/shared_invite/zt-w2nqhq44-2CCWL4o7qn2Ns1EFSf9kEg)
+* Join our Slack if you have any questions or comments: [vizzu-community.slack.com](https://join.slack.com/t/vizzu-community/shared_invite/zt-w2nqhq44-2CCWL4o7qn2Ns1EFSf9kEg)
 * Drop us a line at hello@vizzuhq.com
 * Follow us on twitter: [https://twitter.com/VizzuHQ](https://twitter.com/VizzuHQ)
 
