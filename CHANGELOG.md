@@ -11,6 +11,7 @@
 
 - Added `Data.add_data_frame()` function to support `pandas.DataFrame`.
 - Added `scroll_into_view` chart property.
+- Added example gallery.
 
 ## [0.6.0] - 2022-03-17
 
