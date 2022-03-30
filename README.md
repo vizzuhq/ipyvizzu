@@ -33,7 +33,7 @@ However you can use it only in Jupyter Notebook therefore `notebook` project has
 pip install ipyvizzu
 pip install notebook
 ```
-You can also use ipyvizzu by locally install Vizzu, you can find more info about this in the [documentation](https://vizzuhq.github.io/ipyvizzu/index.html)
+You can also use ipyvizzu by locally installing Vizzu, you can find more info about this in the [documentation](https://vizzuhq.github.io/ipyvizzu/index.html)
 
 # Usage
 
