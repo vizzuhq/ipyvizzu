@@ -31,87 +31,32 @@ class DisplayTemplate:
 
     INIT = _SCRIPT.format(
         """
-            document.inhibitScroll = false;
-            document.addEventListener('wheel', function (evt) {{ document.inhibitScroll = true }}, true);
-            document.addEventListener('keydown', function (evt) {{ document.inhibitScroll = true }}, true);
-            document.addEventListener('touchstart', function (evt) {{ document.inhibitScroll = true }}, true);
-
-            let myVizzu_{c_id} = document.createElement("div");
-            myVizzu_{c_id}.style.cssText = "width: {div_width}; height: {div_height};";
-            let chart_{c_id} = import("{vizzu}").then(Vizzu => new Vizzu.default(myVizzu_{c_id}).initializing);
-            myVizzu_{id}.parentNode.insertBefore(myVizzu_{c_id}, myVizzu_{id});
-            """  # pylint: disable=line-too-long
+        document.ipyvizzu = new IpyVizzu("{{id}}", "{{c_id}}", "{{vizzu}}", {{div_width}}, {{div_height}});
+        """  # pylint: disable=line-too-long
     )
 
-    _MOVE_CHART = """
-            if (myVizzu_{c_id}.parentNode && myVizzu_{c_id}.parentNode.parentNode) {{
-                myVizzu_{c_id}.parentNode.parentNode.style.display = "none";
-            }}
-            myVizzu_{id}.parentNode.parentNode.style.display = display_{id};
-            myVizzu_{id}.parentNode.insertBefore(myVizzu_{c_id}, myVizzu_{id});
-            """
+    CLEAR_INHIBITSCROLL = _SCRIPT.format(
+        """
+            document.ipyvizzu.clearInhibitScroll();
+        """
+    )
 
-    _SCROLL = """
-            if (!document.inhibitScroll && {scroll}) {{
-                myVizzu_{c_id}.scrollIntoView({{behavior: "auto", block: "center"}});
-            }}
-            """
-
-    CLEAR_INHIBITSCROLL = _SCRIPT.format("document.inhibitScroll = false;")
-
-    ANIMATE = {
-        DisplayTarget.BEGIN: _SCRIPT.format(
-            f"""
-            myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
-            chart_{{c_id}} = chart_{{c_id}}.then(chart => {{{{
-                {indent(_SCROLL, "    ", lambda line: True)}
-                return {{animation}};
-            }}}});
-            """
-        ),
-        DisplayTarget.ACTUAL: _SCRIPT.format(
-            f"""
-            let display_{{id}} = myVizzu_{{id}}.parentNode.parentNode.style.display;
-            myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
-            chart_{{c_id}} = chart_{{c_id}}.then(chart => {{{{
-                {indent(_MOVE_CHART, "    ", lambda line: True)}
-                {indent(_SCROLL, "    ", lambda line: True)}
-                return {{animation}};
-            }}}});
-            """
-        ),
-        DisplayTarget.END: _SCRIPT.format(
-            f"""
-            let display_{{id}} = myVizzu_{{id}}.parentNode.parentNode.style.display;
-            myVizzu_{{id}}.parentNode.parentNode.style.display = "none";
-            {_MOVE_CHART}
-            chart_{{c_id}} = chart_{{c_id}}.then(chart => {{{{
-                {indent(_SCROLL, "    ", lambda line: True)}
-                return {{animation}};
-            }}}});
-            """
-        ),
-    }
+    ANIMATE = _SCRIPT.format(
+        """
+            document.ipyvizzu.animate("{{display_target}}", "{{id}}", "{{c_id}}", {{scroll}}, {{chartTarget}}, {{chartAnimOpts}});
+        """
+    )
 
     STORE = _SCRIPT.format(
         """
-            myVizzu_{id}.parentNode.parentNode.style.display = "none";
-            let {snapshot};
-            chart_{c_id} = chart_{c_id}.then(chart => {{
-                {snapshot} = chart.store();
-                return chart;
-            }});
-            """
+            document.ipyvizzu.store("{{id}}", "{{c_id}}");
+        """
     )
 
     FEATURE = _SCRIPT.format(
         """
-            myVizzu_{id}.parentNode.parentNode.style.display = "none";
-            chart_{c_id} = chart_{c_id}.then(chart => {{
-                {feature};
-                return chart;
-            }});
-            """
+            document.ipyvizzu.feature("{{id}}", "{{c_id}}", "{{name}}", {{enabled}});
+        """
     )
 
 
@@ -308,11 +253,14 @@ class Animate(Method):
         self._data = data
         self._option = option
 
-    def dump(self):
-        data = self._data.dump()
+    def dumpConfig(self):
+        return self._data.dump()
+
+    def dumpAnimOpts(self):
         if self._option:
-            data += ", " + PlainAnimation(self._option).dump()
-        return f"chart.animate({data})"
+            return PlainAnimation(self._option).dump()
+        else:
+            return "undefined"
 
 
 class Feature(Method):
@@ -320,10 +268,11 @@ class Feature(Method):
         self._name = name
         self._value = value
 
-    def dump(self):
-        name = json.dumps(self._name)
-        value = json.dumps(self._value)
-        return f"chart.feature({name}, {value})"
+    def dumpName(self):
+        return json.dumps(self._name)
+
+    def dumpValue(self):
+        return json.dumps(self._value)
 
 
 class Store(Method):
@@ -383,10 +332,13 @@ class Chart:
         self._scroll_into_view = bool(scroll_into_view)
 
     def feature(self, name, value):
-        feature = Feature(name, value).dump()
+        feature = Feature(name, value)
         self._display(
             DisplayTemplate.FEATURE.format(
-                id=uuid.uuid4().hex[:7], c_id=self._c_id, feature=feature
+                id=uuid.uuid4().hex[:7], 
+                c_id=self._c_id, 
+                name=feature.dumpName(),
+                enabled=feature.dumpValue(),
             )
         )
 
@@ -398,14 +350,20 @@ class Chart:
             raise ValueError("No animation was set.")
 
         animation = self._merge_animations(animations)
-        animation = Animate(animation, options).dump()
+        animate = Animate(animation, options)
+
+        chartTarget = animate.dumpConfig()
+        chartAnimOpts = animate.dumpAnimOpts()
 
         self._display(
-            DisplayTemplate.ANIMATE[self._display_target].format(
+            DisplayTemplate.ANIMATE.format(
+                display_target=self._display_target,
                 id=uuid.uuid4().hex[:7],
                 c_id=self._c_id,
                 animation=animation,
                 scroll=str(self._scroll_into_view).lower(),
+                chartTarget=chartTarget,
+                chartAnimOpts=chartAnimOpts
             )
         )
 
@@ -422,13 +380,12 @@ class Chart:
 
     def store(self) -> Snapshot:
         snapshot_id = uuid.uuid4().hex[:7]
-        snapshot = "snapshot_" + snapshot_id
         self._display(
             DisplayTemplate.STORE.format(
-                id=snapshot_id, c_id=self._c_id, snapshot=snapshot
+                id=snapshot_id, c_id=self._c_id
             )
         )
-        return Snapshot(snapshot)
+        return Snapshot(snapshot_id)
 
     @staticmethod
     def _display(html):
