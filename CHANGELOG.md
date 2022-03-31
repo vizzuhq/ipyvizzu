@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.7.0] - 2022-03-29
+
 ### Fixed
 
 - Fixed image url in the README.
@@ -11,6 +13,7 @@
 
 - Added `Data.add_data_frame()` function to support `pandas.DataFrame`.
 - Added `scroll_into_view` chart property.
+- Added example gallery.
 
 ## [0.6.0] - 2022-03-17
 
