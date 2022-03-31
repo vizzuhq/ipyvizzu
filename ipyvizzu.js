@@ -12,6 +12,7 @@ class IpyVizzu
 		this.elements[c_id].style.cssText = `width: ${div_width}; height: ${div_height};`;
 
 		this.charts = {};
+        this.elements[id] = document.getElementById(id);
 		this.charts[c_id] = import(vizzulib).then(Vizzu => new Vizzu.default(this.elements[c_id]).initializing);
 		this.elements[id].parentNode.insertBefore(this.elements[c_id], this.elements[id]);
 
@@ -35,7 +36,7 @@ class IpyVizzu
 		}
 	}
 
-	clearInhibitScroll()
+	static clearInhibitScroll()
 	{
 		this.inhibitScroll = false;
 	}
@@ -55,11 +56,11 @@ class IpyVizzu
 		});
 	}
 
-	store(s_id, c_id)
+	store(id, c_id)
 	{
-		this.elements[s_id].parentNode.parentNode.style.display = "none";
+		this.elements[id].parentNode.parentNode.style.display = "none";
 		this.charts[c_id] = this.charts[c_id].then(chart => {
-			snapshot[s_id] = chart.store();
+			this.snapshots[id] = chart.store();
 			return chart;
 		});
 	}

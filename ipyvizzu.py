@@ -31,31 +31,31 @@ class DisplayTemplate:
 
     INIT = _SCRIPT.format(
         """
-        document.ipyvizzu = new IpyVizzu("{{id}}", "{{c_id}}", "{{vizzu}}", {{div_width}}, {{div_height}});
+        var ipyvizzu = new IpyVizzu("{id}", "{c_id}", "{vizzu}", "{div_width}", "{div_height}");
         """  # pylint: disable=line-too-long
     )
 
     CLEAR_INHIBITSCROLL = _SCRIPT.format(
         """
-            document.ipyvizzu.clearInhibitScroll();
+            ipyvizzu.clearInhibitScroll();
         """
     )
 
     ANIMATE = _SCRIPT.format(
         """
-            document.ipyvizzu.animate("{{display_target}}", "{{id}}", "{{c_id}}", {{scroll}}, {{chartTarget}}, {{chartAnimOpts}});
+            ipyvizzu.animate("{display_target}", "{id}", "{c_id}", {scroll}, {chartTarget});
         """
     )
 
     STORE = _SCRIPT.format(
         """
-            document.ipyvizzu.store("{{id}}", "{{c_id}}");
+            ipyvizzu.store("{id}", "{c_id}");
         """
     )
 
     FEATURE = _SCRIPT.format(
         """
-            document.ipyvizzu.feature("{{id}}", "{{c_id}}", "{{name}}", {{enabled}});
+            ipyvizzu.feature("{id}", "{c_id}", "{name}", {enabled});
         """
     )
 
