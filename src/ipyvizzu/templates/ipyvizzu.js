@@ -34,8 +34,7 @@ window.IpyVizzu = class
         this.charts[chartId] = this.charts[chartId].then(chart => {
             if (displayTarget !== 'actual') this._move(id, chartId);
             this._scroll(chartId, scrollEnabled);
-            chart.animate(chartTarget, chartAnimOpts);
-            return chart;
+            return chart.animate(chartTarget, chartAnimOpts);
         });
     }
 
