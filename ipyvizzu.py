@@ -88,6 +88,10 @@ class DisplayTemplate:
                     this.charts[c_id] = this.charts[c_id].then(chart => {{
                         if (displayTarget !== 'actual') this.move(id, c_id);
                         this.scroll(c_id, scrollEnabled);
+                        if (typeof chartTarget === 'string') {{
+                            let snapshot = this.snapshots[chartTarget];
+                            chartTarget = snapshot;
+                        }}
                         chart.animate(chartTarget, chartAnimOpts);
                         return chart;
                     }});
@@ -97,7 +101,7 @@ class DisplayTemplate:
                 {{
                     this._getElement(id).parentNode.parentNode.style.display = "none";
                     this.charts[c_id] = this.charts[c_id].then(chart => {{
-                        snapshot[id] = chart.store();
+                        this.snapshots[id] = chart.store();
                         return chart;
                     }});
                 }}
@@ -299,7 +303,7 @@ class Snapshot(Animation):
         self._name = name
 
     def dump(self):
-        return self._name
+        return f"\"{self._name}\""
 
     def build(self):
         raise NotImplementedError("Snapshot cannot be merged with other Animations")
@@ -356,14 +360,6 @@ class Feature(Method):
         return json.dumps(self._value)
 
 
-class Store(Method):
-    def __init__(self, snapshot_name: str):
-        self._snaphot_name = snapshot_name
-
-    def dump(self):
-        return f"{self._snaphot_name} = chart.store();"
-
-
 class Chart:
     """
     Wrapper over Vizzu Chart
@@ -416,8 +412,8 @@ class Chart:
         feature = Feature(name, value)
         self._display(
             DisplayTemplate.FEATURE.format(
-                id=uuid.uuid4().hex[:7], 
-                c_id=self._c_id, 
+                id=uuid.uuid4().hex[:7],
+                c_id=self._c_id,
                 name=feature.dumpName(),
                 enabled=feature.dumpValue(),
             )
@@ -444,7 +440,7 @@ class Chart:
                 animation=animation,
                 scroll=str(self._scroll_into_view).lower(),
                 chartTarget=chartTarget,
-                chartAnimOpts=chartAnimOpts
+                chartAnimOpts=chartAnimOpts,
             )
         )
 
@@ -461,11 +457,7 @@ class Chart:
 
     def store(self) -> Snapshot:
         snapshot_id = uuid.uuid4().hex[:7]
-        self._display(
-            DisplayTemplate.STORE.format(
-                id=snapshot_id, c_id=self._c_id
-            )
-        )
+        self._display(DisplayTemplate.STORE.format(id=snapshot_id, c_id=self._c_id))
         return Snapshot(snapshot_id)
 
     @staticmethod
