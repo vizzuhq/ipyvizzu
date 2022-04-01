@@ -61,6 +61,8 @@ class DisplayTemplate:
         """
     )
 
+    STORED = "window.ipyvizzu.stored('{id}')";
+
 
 class RawJavaScript:
     def __init__(self, raw: typing.Optional[str]):
@@ -220,7 +222,7 @@ class Snapshot(Animation):
         self._name = name
 
     def dump(self):
-        return f"\"{self._name}\""
+        return DisplayTemplate.STORED.format(id=self._name)
 
     def build(self):
         raise NotImplementedError("Snapshot cannot be merged with other Animations")

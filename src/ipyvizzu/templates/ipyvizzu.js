@@ -1,6 +1,6 @@
 window.IpyVizzu = class 
 {
-    constructor(id, c_id, vizzulib, div_width, div_height)
+    constructor(id, chartId, vizzulib, divWidth, divHeight)
     {
         this.inhibitScroll = false;
         document.addEventListener('wheel', function (evt) { this.inhibitScroll = true }, true);
@@ -8,36 +8,15 @@ window.IpyVizzu = class
         document.addEventListener('touchstart', function (evt) { this.inhibitScroll = true }, true);
 
         this.elements = {};
-        this.elements[c_id] = document.createElement("div");
-        this.elements[c_id].style.cssText = `width: ${div_width}; height: ${div_height};`;
+        this.elements[chartId] = document.createElement("div");
+        this.elements[chartId].style.cssText = `width: ${divWidth}; height: ${divHeight};`;
 
         this.charts = {};
-        this.charts[c_id] = import(vizzulib).then(Vizzu => new Vizzu.default(this.elements[c_id]).initializing);
-        this._getElement(id).parentNode.insertBefore(this.elements[c_id], this._getElement(id));
+        this.charts[chartId] = import(vizzulib).then(Vizzu => new Vizzu.default(this.elements[chartId]).initializing);
+        this._getElement(id).parentNode.insertBefore(this.elements[chartId], this._getElement(id));
 
         this.snapshots = {};
         this.displays = {};
-    }
-
-    _getElement(id)
-    {
-        return document.getElementById(`vizzu_${id}`);
-    }
-
-    move(id, c_id)
-    {
-        if (this.elements[c_id].parentNode && this.elements[c_id].parentNode.parentNode) {
-            this.elements[c_id].parentNode.parentNode.style.display = "none";
-        }
-        this._getElement(id).parentNode.parentNode.style.display = this.displays[id];
-        this._getElement(id).parentNode.insertBefore(this.elements[c_id], this._getElement(id));
-    }
-
-    scroll(c_id, enabled)
-    {
-        if (!this.inhibitScroll && enabled) {
-            this.elements[c_id].scrollIntoView({ behavior: "auto", block: "center" });
-        }
     }
 
     static clearInhibitScroll()
@@ -45,40 +24,62 @@ window.IpyVizzu = class
         this.inhibitScroll = false;
     }
 
-    animate(displayTarget, id, c_id, scrollEnabled, chartTarget, chartAnimOpts)
+    animate(displayTarget, id, chartId, scrollEnabled, chartTarget, chartAnimOpts)
     {
         if (displayTarget !== 'begin') {
             this.displays[id] = this._getElement(id).parentNode.parentNode.style.display;
         }
         this._getElement(id).parentNode.parentNode.style.display = "none";
-        if (displayTarget !== 'end') this.move(id, c_id);
-        this.charts[c_id] = this.charts[c_id].then(chart => {
-            if (displayTarget !== 'actual') this.move(id, c_id);
-            this.scroll(c_id, scrollEnabled);
-            if (typeof chartTarget === 'string') {
-                let snapshot = this.snapshots[chartTarget];
-                chartTarget = snapshot;
-            }
+        if (displayTarget !== 'end') this._move(id, chartId);
+        this.charts[chartId] = this.charts[chartId].then(chart => {
+            if (displayTarget !== 'actual') this._move(id, chartId);
+            this._scroll(chartId, scrollEnabled);
             chart.animate(chartTarget, chartAnimOpts);
             return chart;
         });
     }
 
-    store(id, c_id)
+    store(id, chartId)
     {
         this._getElement(id).parentNode.parentNode.style.display = "none";
-        this.charts[c_id] = this.charts[c_id].then(chart => {
+        this.charts[chartId] = this.charts[chartId].then(chart => {
             this.snapshots[id] = chart.store();
             return chart;
         });
     }
 
-    feature(id, c_id, name, enabled)
+    stored(id)
+    {
+        return this.snapshots[id];
+    }
+
+    feature(id, chartId, name, enabled)
     {
         this._getElement(id).parentNode.parentNode.style.display = "none";
-        this.charts[c_id] = this.charts[c_id].then(chart => {
+        this.charts[chartId] = this.charts[chartId].then(chart => {
             chart.feature(name, enabled);
             return chart;
         });
+    }
+
+    _getElement(id)
+    {
+        return document.getElementById(`vizzu_${id}`);
+    }
+
+    _move(id, chartId)
+    {
+        if (this.elements[chartId].parentNode && this.elements[chartId].parentNode.parentNode) {
+            this.elements[chartId].parentNode.parentNode.style.display = "none";
+        }
+        this._getElement(id).parentNode.parentNode.style.display = this.displays[id];
+        this._getElement(id).parentNode.insertBefore(this.elements[chartId], this._getElement(id));
+    }
+
+    _scroll(chartId, enabled)
+    {
+        if (!this.inhibitScroll && enabled) {
+            this.elements[chartId].scrollIntoView({ behavior: "auto", block: "center" });
+        }
     }
 }
