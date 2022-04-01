@@ -1,6 +1,6 @@
-window.IpyVizzu = class 
+class IpyVizzu 
 {
-    constructor(id, chartId, vizzulib, divWidth, divHeight)
+    constructor(element, chartId, vizzulib, divWidth, divHeight)
     {
         this.inhibitScroll = false;
         document.addEventListener('wheel', function (evt) { this.inhibitScroll = true }, true);
@@ -13,7 +13,6 @@ window.IpyVizzu = class
 
         this.charts = {};
         this.charts[chartId] = import(vizzulib).then(Vizzu => new Vizzu.default(this.elements[chartId]).initializing);
-        this._getElement(id).parentNode.insertBefore(this.elements[chartId], this._getElement(id));
 
         this.snapshots = {};
         this.displays = {};
@@ -24,15 +23,11 @@ window.IpyVizzu = class
         this.inhibitScroll = false;
     }
 
-    animate(displayTarget, id, chartId, scrollEnabled, chartTarget, chartAnimOpts)
+    animate(element, displayTarget, chartId, scrollEnabled, chartTarget, chartAnimOpts)
     {
-        if (displayTarget !== 'begin') {
-            this.displays[id] = this._getElement(id).parentNode.parentNode.style.display;
-        }
-        this._getElement(id).parentNode.parentNode.style.display = "none";
-        if (displayTarget !== 'end') this._move(id, chartId);
+        if (displayTarget !== 'end') this._moveHere(chartId, element);
         this.charts[chartId] = this.charts[chartId].then(chart => {
-            if (displayTarget !== 'actual') this._move(id, chartId);
+            if (displayTarget !== 'actual') this._moveHere(chartId, element);
             this._scroll(chartId, scrollEnabled);
             return chart.animate(chartTarget, chartAnimOpts);
         });
@@ -40,7 +35,6 @@ window.IpyVizzu = class
 
     store(id, chartId)
     {
-        this._getElement(id).parentNode.parentNode.style.display = "none";
         this.charts[chartId] = this.charts[chartId].then(chart => {
             this.snapshots[id] = chart.store();
             return chart;
@@ -52,27 +46,17 @@ window.IpyVizzu = class
         return this.snapshots[id];
     }
 
-    feature(id, chartId, name, enabled)
+    feature(chartId, name, enabled)
     {
-        this._getElement(id).parentNode.parentNode.style.display = "none";
         this.charts[chartId] = this.charts[chartId].then(chart => {
             chart.feature(name, enabled);
             return chart;
         });
     }
 
-    _getElement(id)
+    _moveHere(chartId, element)
     {
-        return document.getElementById(`vizzu_${id}`);
-    }
-
-    _move(id, chartId)
-    {
-        if (this.elements[chartId].parentNode && this.elements[chartId].parentNode.parentNode) {
-            this.elements[chartId].parentNode.parentNode.style.display = "none";
-        }
-        this._getElement(id).parentNode.parentNode.style.display = this.displays[id];
-        this._getElement(id).parentNode.insertBefore(this.elements[chartId], this._getElement(id));
+        element.append(this.elements[chartId]);
     }
 
     _scroll(chartId, enabled)
@@ -82,3 +66,5 @@ window.IpyVizzu = class
         }
     }
 }
+
+window.IpyVizzu = IpyVizzu;

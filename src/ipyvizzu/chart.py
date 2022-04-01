@@ -11,7 +11,7 @@ import pkgutil
 from textwrap import indent, dedent
 import numpy as np
 
-from IPython.display import display_html
+from IPython.display import display_html, display_javascript
 from IPython import get_ipython
 
 
@@ -24,43 +24,15 @@ class DisplayTarget(str, enum.Enum):
 
 class DisplayTemplate:
 
-    _SCRIPT = """
-        <script id="vizzu_{{id}}">
-            {}
-        </script>
-        """
-
-    INIT = _SCRIPT.format(
-        """
+    INIT ="""
             {ipyjs}
-            window.ipyvizzu = new window.IpyVizzu("{id}", "{c_id}", "{vizzu}", "{div_width}", "{div_height}");
+            window.ipyvizzu = new window.IpyVizzu(element, "{c_id}", "{vizzu}", "{div_width}", "{div_height}");
         """
-    )
 
-    CLEAR_INHIBITSCROLL = _SCRIPT.format(
-        """
-            window.IpyVizzu.clearInhibitScroll();
-        """
-    )
-
-    ANIMATE = _SCRIPT.format(
-        """
-            window.ipyvizzu.animate("{display_target}", "{id}", "{c_id}", {scroll}, {chartTarget}, {chartAnimOpts});
-        """
-    )
-
-    STORE = _SCRIPT.format(
-        """
-            window.ipyvizzu.store("{id}", "{c_id}");
-        """
-    )
-
-    FEATURE = _SCRIPT.format(
-        """
-            window.ipyvizzu.feature("{id}", "{c_id}", {name}, {enabled});
-        """
-    )
-
+    CLEAR_INHIBITSCROLL = "window.IpyVizzu.clearInhibitScroll();"
+    ANIMATE = "window.ipyvizzu.animate(element, '{display_target}','{c_id}', {scroll}, {chartTarget}, {chartAnimOpts});"
+    STORE = "window.ipyvizzu.store('{id}', '{c_id}');"
+    FEATURE = "window.ipyvizzu.feature('{c_id}', {name}, {enabled});"
     STORED = "window.ipyvizzu.stored('{id}')";
 
 
@@ -309,7 +281,6 @@ class Chart:
         self._display(
             DisplayTemplate.INIT.format(
                 ipyjs = ipyjs,
-                id=uuid.uuid4().hex[:7],
                 c_id=self._c_id,
                 vizzu=self._vizzu,
                 div_width=self._div_width,
@@ -318,9 +289,7 @@ class Chart:
         )
 
     def _pre_run_cell(self):
-        self._display(
-            DisplayTemplate.CLEAR_INHIBITSCROLL.format(id=uuid.uuid4().hex[:7])
-        )
+        self._display(DisplayTemplate.CLEAR_INHIBITSCROLL.format())
 
     @property
     def scroll_into_view(self):
@@ -334,7 +303,6 @@ class Chart:
         feature = Feature(name, value)
         self._display(
             DisplayTemplate.FEATURE.format(
-                id=uuid.uuid4().hex[:7],
                 c_id=self._c_id,
                 name=feature.dumpName(),
                 enabled=feature.dumpValue(),
@@ -357,7 +325,6 @@ class Chart:
         self._display(
             DisplayTemplate.ANIMATE.format(
                 display_target=self._display_target,
-                id=uuid.uuid4().hex[:7],
                 c_id=self._c_id,
                 animation=animation,
                 scroll=str(self._scroll_into_view).lower(),
@@ -383,10 +350,5 @@ class Chart:
         return Snapshot(snapshot_id)
 
     @staticmethod
-    def _display(html):
-        display_html(
-            "\n".join(
-                [line for line in dedent(html).split("\n") if line.strip() != ""]
-            ),
-            raw=True,
-        )
+    def _display(code):
+        display_javascript(code, raw=True)
