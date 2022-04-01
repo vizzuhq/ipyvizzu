@@ -57,7 +57,7 @@ class DisplayTemplate:
 
     FEATURE = _SCRIPT.format(
         """
-            window.ipyvizzu.feature("{id}", "{c_id}", "{name}", {enabled});
+            window.ipyvizzu.feature("{id}", "{c_id}", {name}, {enabled});
         """
     )
 
