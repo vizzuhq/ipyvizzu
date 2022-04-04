@@ -54,26 +54,31 @@ class Chart:
         self._display_target = DisplayTarget(display)
         self._scroll_into_view = True
 
-        ipy = get_ipython()
-        if ipy is not None:
-            ipy.events.register("pre_run_cell", self._pre_run_cell)
+        self._register_events()
 
         ipyvizzu_js = pkgutil.get_data(__name__, "templates/ipyvizzu.js").decode(
             "utf-8"
         )
-
-        self._display(
+        display_javascript(
             DisplayTemplate.INIT.format(
                 ipyvizzu_js=ipyvizzu_js,
                 chart_id=self._chart_id,
                 vizzu=self._vizzu,
                 div_width=self._div_width,
                 div_height=self._div_height,
-            )
+            ),
+            raw=True,
         )
 
-    def _pre_run_cell(self):
-        self._display(DisplayTemplate.CLEAR_INHIBITSCROLL.format())
+    @staticmethod
+    def _register_events():
+        ipy = get_ipython()
+        if ipy is not None:
+            ipy.events.register("pre_run_cell", Chart._register_pre_run_cell)
+
+    @staticmethod
+    def _register_pre_run_cell():
+        display_javascript(DisplayTemplate.CLEAR_INHIBITSCROLL, raw=True)
 
     @property
     def scroll_into_view(self):
@@ -93,13 +98,14 @@ class Chart:
         animation = self._merge_animations(animations)
         animate = Animate(animation, options)
 
-        self._display(
+        display_javascript(
             DisplayTemplate.ANIMATE.format(
                 display_target=self._display_target,
                 chart_id=self._chart_id,
                 scroll=str(self._scroll_into_view).lower(),
                 **animate.dump(),
-            )
+            ),
+            raw=True,
         )
 
     @staticmethod
@@ -114,22 +120,20 @@ class Chart:
         return merger
 
     def feature(self, name, enabled):
-        self._display(
+        display_javascript(
             DisplayTemplate.FEATURE.format(
                 chart_id=self._chart_id,
                 **Feature(name, enabled).dump(),
-            )
+            ),
+            raw=True,
         )
 
     def store(self) -> Snapshot:
         snapshot_id = uuid.uuid4().hex[:7]
-        self._display(
+        display_javascript(
             DisplayTemplate.STORE.format(
                 chart_id=self._chart_id, **Store(snapshot_id).dump()
-            )
+            ),
+            raw=True,
         )
         return Snapshot(snapshot_id)
-
-    @staticmethod
-    def _display(code):
-        display_javascript(code, raw=True)
