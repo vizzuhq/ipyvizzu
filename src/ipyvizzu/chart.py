@@ -8,10 +8,9 @@ import typing
 import uuid
 import enum
 import pkgutil
-from textwrap import indent, dedent
 import numpy as np
 
-from IPython.display import display_html, display_javascript
+from IPython.display import display_javascript
 from IPython import get_ipython
 
 
@@ -24,16 +23,16 @@ class DisplayTarget(str, enum.Enum):
 
 class DisplayTemplate:
 
-    INIT ="""
-            {ipyjs}
-            window.ipyvizzu = new window.IpyVizzu(element, "{c_id}", "{vizzu}", "{div_width}", "{div_height}");
+    INIT = """
+        {ipyvizzu_js}
+        window.ipyvizzu = new window.IpyVizzu(element, "{chart_id}", "{vizzu}", "{div_width}", "{div_height}");
         """
 
     CLEAR_INHIBITSCROLL = "window.IpyVizzu.clearInhibitScroll();"
-    ANIMATE = "window.ipyvizzu.animate(element, '{display_target}','{c_id}', {scroll}, {chartTarget}, {chartAnimOpts});"
-    STORE = "window.ipyvizzu.store('{id}', '{c_id}');"
-    FEATURE = "window.ipyvizzu.feature('{c_id}', {name}, {enabled});"
-    STORED = "window.ipyvizzu.stored('{id}')";
+    ANIMATE = "window.ipyvizzu.animate(element, '{chart_id}', '{display_target}', {scroll}, {chart_target}, {chart_anim_opts});"  # pylint: disable=line-too-long
+    STORE = "window.ipyvizzu.store('{chart_id}', '{id}');"
+    FEATURE = "window.ipyvizzu.feature('{chart_id}', {name}, {enabled});"
+    STORED = "window.ipyvizzu.stored('{id}')"
 
 
 class RawJavaScript:
@@ -219,36 +218,30 @@ class AnimationMerger(dict, Animation):
 
 
 class Method:
-    @abc.abstractmethod
+    _data = None
+
     def dump(self):
-        pass
+        return self._data
 
 
 class Animate(Method):
-    def __init__(self, data, option=None):
-        self._data = data
-        self._option = option
-
-    def dumpConfig(self):
-        return self._data.dump()
-
-    def dumpAnimOpts(self):
-        if self._option:
-            return PlainAnimation(self._option).dump()
-        else:
-            return "undefined"
+    def __init__(self, chart_target, chart_anim_opts=None):
+        self._data = {
+            "chart_target": chart_target.dump(),
+            "chart_anim_opts": PlainAnimation(chart_anim_opts).dump()
+            if chart_anim_opts
+            else "undefined",
+        }
 
 
 class Feature(Method):
-    def __init__(self, name, value):
-        self._name = name
-        self._value = value
+    def __init__(self, name, enabled):
+        self._data = {"name": json.dumps(name), "enabled": json.dumps(enabled)}
 
-    def dumpName(self):
-        return json.dumps(self._name)
 
-    def dumpValue(self):
-        return json.dumps(self._value)
+class Store(Method):
+    def __init__(self, snapshot_id):
+        self._data = {"id": snapshot_id}
 
 
 class Chart:
@@ -265,7 +258,7 @@ class Chart:
         height="480px",
         display: DisplayTarget = DisplayTarget("actual"),
     ):
-        self._c_id = uuid.uuid4().hex[:7]
+        self._chart_id = uuid.uuid4().hex[:7]
         self._vizzu = vizzu
         self._div_width = width
         self._div_height = height
@@ -276,12 +269,14 @@ class Chart:
         if ipy is not None:
             ipy.events.register("pre_run_cell", self._pre_run_cell)
 
-        ipyjs = pkgutil.get_data(__name__, "templates/ipyvizzu.js").decode("utf-8")
+        ipyvizzu_js = pkgutil.get_data(__name__, "templates/ipyvizzu.js").decode(
+            "utf-8"
+        )
 
         self._display(
             DisplayTemplate.INIT.format(
-                ipyjs = ipyjs,
-                c_id=self._c_id,
+                ipyvizzu_js=ipyvizzu_js,
+                chart_id=self._chart_id,
                 vizzu=self._vizzu,
                 div_width=self._div_width,
                 div_height=self._div_height,
@@ -299,16 +294,6 @@ class Chart:
     def scroll_into_view(self, scroll_into_view):
         self._scroll_into_view = bool(scroll_into_view)
 
-    def feature(self, name, value):
-        feature = Feature(name, value)
-        self._display(
-            DisplayTemplate.FEATURE.format(
-                c_id=self._c_id,
-                name=feature.dumpName(),
-                enabled=feature.dumpValue(),
-            )
-        )
-
     def animate(self, *animations: Animation, **options):
         """
         Show new animation.
@@ -319,17 +304,12 @@ class Chart:
         animation = self._merge_animations(animations)
         animate = Animate(animation, options)
 
-        chartTarget = animate.dumpConfig()
-        chartAnimOpts = animate.dumpAnimOpts()
-
         self._display(
             DisplayTemplate.ANIMATE.format(
                 display_target=self._display_target,
-                c_id=self._c_id,
-                animation=animation,
+                chart_id=self._chart_id,
                 scroll=str(self._scroll_into_view).lower(),
-                chartTarget=chartTarget,
-                chartAnimOpts=chartAnimOpts,
+                **animate.dump(),
             )
         )
 
@@ -344,9 +324,21 @@ class Chart:
 
         return merger
 
+    def feature(self, name, enabled):
+        self._display(
+            DisplayTemplate.FEATURE.format(
+                chart_id=self._chart_id,
+                **Feature(name, enabled).dump(),
+            )
+        )
+
     def store(self) -> Snapshot:
         snapshot_id = uuid.uuid4().hex[:7]
-        self._display(DisplayTemplate.STORE.format(id=snapshot_id, c_id=self._c_id))
+        self._display(
+            DisplayTemplate.STORE.format(
+                chart_id=self._chart_id, **Store(snapshot_id).dump()
+            )
+        )
         return Snapshot(snapshot_id)
 
     @staticmethod

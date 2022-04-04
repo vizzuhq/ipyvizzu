@@ -23,7 +23,7 @@ class IpyVizzu
         this.inhibitScroll = false;
     }
 
-    animate(element, displayTarget, chartId, scrollEnabled, chartTarget, chartAnimOpts)
+    animate(element, chartId, displayTarget, scrollEnabled, chartTarget, chartAnimOpts)
     {
         if (displayTarget !== 'end') this._moveHere(chartId, element);
         this.charts[chartId] = this.charts[chartId].then(chart => {
@@ -33,7 +33,7 @@ class IpyVizzu
         });
     }
 
-    store(id, chartId)
+    store(chartId, id)
     {
         this.charts[chartId] = this.charts[chartId].then(chart => {
             this.snapshots[id] = chart.store();
