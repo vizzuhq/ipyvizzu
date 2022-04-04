@@ -13,6 +13,7 @@ class IpyVizzu
 
         this.charts = {};
         this.charts[chartId] = import(vizzulib).then(Vizzu => new Vizzu.default(this.elements[chartId]).initializing);
+        this._moveHere(chartId, element);
 
         this.snapshots = {};
         this.displays = {};
@@ -25,9 +26,9 @@ class IpyVizzu
 
     animate(element, chartId, displayTarget, scrollEnabled, chartTarget, chartAnimOpts)
     {
-        if (displayTarget !== 'end') this._moveHere(chartId, element);
+        if (displayTarget === 'end') this._moveHere(chartId, element);
         this.charts[chartId] = this.charts[chartId].then(chart => {
-            if (displayTarget !== 'actual') this._moveHere(chartId, element);
+            if (displayTarget === 'actual') this._moveHere(chartId, element);
             this._scroll(chartId, scrollEnabled);
             return chart.animate(chartTarget, chartAnimOpts);
         });
