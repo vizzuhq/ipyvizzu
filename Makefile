@@ -32,10 +32,10 @@ test: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/python -m unittest discover tests/
 
 format: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/black ipyvizzu.py tests
+	$(VIRTUAL_ENV)/bin/black src tests
 
 check-format: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/black --check ipyvizzu.py tests
+	$(VIRTUAL_ENV)/bin/black --check src tests
 
 lint: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/pylint \
@@ -43,4 +43,4 @@ lint: $(DEV_BUILD_FLAG)
 		--disable missing-class-docstring \
 		--disable missing-module-docstring \
 		--disable too-few-public-methods \
-		ipyvizzu.py tests
+		src tests
