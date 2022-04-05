@@ -5,6 +5,7 @@ import typing
 import numpy as np
 
 from .json import RawJavaScript, RawJavaScriptEncoder
+from .template import DisplayTemplate
 
 
 class Animation:
@@ -137,7 +138,7 @@ class Snapshot(Animation):
         self._name = name
 
     def dump(self):
-        return f"window.ipyvizzu.stored('{self._name}')"
+        return DisplayTemplate.STORED.format(id=self._name)
 
     def build(self):
         raise NotImplementedError("Snapshot cannot be merged with other Animations")
