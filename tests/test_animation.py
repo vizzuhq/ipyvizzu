@@ -13,9 +13,6 @@ from ipyvizzu.animation import (
 )
 
 
-asset_dir = pathlib.Path(__file__).parent / "assets"
-
-
 class TestPlainAnimation(unittest.TestCase):
     def test_plainanimation(self):
         animation = PlainAnimation(geometry="circle")
@@ -23,6 +20,10 @@ class TestPlainAnimation(unittest.TestCase):
 
 
 class TestDataClassMethods(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.asset_dir = pathlib.Path(__file__).parent / "assets"
+
     def test_filter(self):
         data = Data.filter("filter_expr")
         # instead of build() test with dump() because contains raw js
@@ -40,7 +41,7 @@ class TestDataClassMethods(unittest.TestCase):
         )
 
     def test_from_json(self):
-        data = Data.from_json(asset_dir / "data_from_json.json")
+        data = Data.from_json(self.asset_dir / "data_from_json.json")
         self.assertEqual(
             {
                 "data": {
@@ -56,6 +57,10 @@ class TestDataClassMethods(unittest.TestCase):
 
 
 class TestData(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.asset_dir = pathlib.Path(__file__).parent / "assets"
+
     def setUp(self):
         self.data = Data()
 
@@ -143,9 +148,9 @@ class TestData(unittest.TestCase):
         )
 
     def test_data_frame(self):
-        with open(asset_dir / "data_frame_in.json", encoding="UTF-8") as fh_in:
+        with open(self.asset_dir / "data_frame_in.json", encoding="UTF-8") as fh_in:
             fc_in = json.load(fh_in)
-        with open(asset_dir / "data_frame_out.json", encoding="UTF-8") as fh_out:
+        with open(self.asset_dir / "data_frame_out.json", encoding="UTF-8") as fh_out:
             fc_out = json.load(fh_out)
 
         data_frame = pd.DataFrame(fc_in)
