@@ -19,61 +19,6 @@ from ipyvizzu import (
 )
 
 
-class TestAnimation(unittest.TestCase):
-    def test_plainanimation(self):
-        animation = PlainAnimation(geometry="circle")
-        self.assertEqual({"geometry": "circle"}, animation.build())
-
-    def test_config(self):
-        animation = Config({"color": {"set": ["Genres"]}})
-        self.assertEqual({"config": {"color": {"set": ["Genres"]}}}, animation.build())
-
-    def test_style(self):
-        animation = Style({"title": {"backgroundColor": "#A0A0A0"}})
-        self.assertEqual(
-            {"style": {"title": {"backgroundColor": "#A0A0A0"}}}, animation.build()
-        )
-
-    def test_style_can_be_none(self):
-        animation = Style(None)
-        self.assertEqual({"style": None}, animation.build())
-
-
-class TestMerger(unittest.TestCase):
-    def setUp(self):
-        self.merger = AnimationMerger()
-
-    def test_merge(self):
-        self.merger.merge(Style({"title": {"backgroundColor": "#A0A0A0"}}))
-        self.merger.merge(Config({"channels": {"label": {"attach": ["Popularity"]}}}))
-        self.assertEqual(
-            {
-                "style": {"title": {"backgroundColor": "#A0A0A0"}},
-                "config": {"channels": {"label": {"attach": ["Popularity"]}}},
-            },
-            self.merger.build(),
-        )
-
-    def test_only_different_type_of_animation_can_be_merged(self):
-        self.merger.merge(Config({"channels": {"label": {"attach": ["Popularity"]}}}))
-        self.assertRaises(
-            ValueError, self.merger.merge, Config({"color": {"set": ["Genres"]}})
-        )
-
-    def test_snapshot_can_not_be_merged(self):
-        snapshot = Snapshot("snapshot_a")
-        self.merger.merge(Config({"channels": {"label": {"attach": ["Popularity"]}}}))
-        self.assertRaises(NotImplementedError, self.merger.merge, snapshot)
-
-    def test_merge_none(self):
-        self.merger.merge(Config({"channels": {"label": {"attach": ["Popularity"]}}}))
-        self.merger.merge(Style(None))
-        self.assertEqual(
-            """{"config": {"channels": {"label": {"attach": ["Popularity"]}}}, "style": null}""",
-            self.merger.dump(),
-        )
-
-
 class TestChart(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

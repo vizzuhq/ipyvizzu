@@ -3,10 +3,23 @@ import pathlib
 import unittest
 import pandas as pd
 
-from ipyvizzu.animation import Data
+from ipyvizzu.animation import (
+    PlainAnimation,
+    Data,
+    Config,
+    Style,
+    Snapshot,
+    AnimationMerger,
+)
 
 
 asset_dir = pathlib.Path(__file__).parent / "assets"
+
+
+class TestPlainAnimation(unittest.TestCase):
+    def test_plainanimation(self):
+        animation = PlainAnimation(geometry="circle")
+        self.assertEqual({"geometry": "circle"}, animation.build())
 
 
 class TestDataClassMethods(unittest.TestCase):
@@ -137,8 +150,87 @@ class TestData(unittest.TestCase):
 
         data_frame = pd.DataFrame(fc_in)
 
-        self.data.add_data_frame(data_frame, {"PopularityD": "dimension"})
+        self.data.add_data_frame(data_frame, {"PopularityAsDimension": "dimension"})
         self.assertEqual(
             fc_out,
             self.data.build(),
         )
+
+
+class TestConfig(unittest.TestCase):
+    def test_config(self):
+        animation = Config({"color": {"set": ["Genres"]}})
+        self.assertEqual({"config": {"color": {"set": ["Genres"]}}}, animation.build())
+
+
+class TestStyle(unittest.TestCase):
+    def test_style(self):
+        animation = Style({"title": {"backgroundColor": "#A0A0A0"}})
+        self.assertEqual(
+            {"style": {"title": {"backgroundColor": "#A0A0A0"}}}, animation.build()
+        )
+
+    def test_style_can_be_none(self):
+        animation = Style(None)
+        self.assertEqual({"style": None}, animation.build())
+
+
+class TestSnapshot(unittest.TestCase):
+    def test_snapshot(self):
+        animation = Snapshot("abc1234")
+        self.assertEqual("window.ipyvizzu.stored('abc1234')", animation.dump())
+
+    def test_snapshot_can_not_be_built(self):
+        animation = Snapshot("abc1234")
+        self.assertRaises(NotImplementedError, animation.build)
+
+
+class TestMerger(unittest.TestCase):
+    def setUp(self):
+        self.merger = AnimationMerger()
+
+        self.data = Data()
+        self.data.add_record(["Rock", "Hard", 96])
+
+        self.config = Config({"channels": {"label": {"attach": ["Popularity"]}}})
+
+    def test_merge(self):
+        self.merger.merge(self.data)
+        self.merger.merge(self.config)
+        self.merger.merge(Style({"title": {"backgroundColor": "#A0A0A0"}}))
+        self.assertEqual(
+            json.dumps(
+                {
+                    "data": {"records": [["Rock", "Hard", 96]]},
+                    "config": {"channels": {"label": {"attach": ["Popularity"]}}},
+                    "style": {"title": {"backgroundColor": "#A0A0A0"}},
+                }
+            ),
+            self.merger.dump(),
+        )
+
+    def test_merge_none(self):
+        self.merger.merge(self.config)
+        self.merger.merge(Style(None))
+        self.assertEqual(
+            '{"config": {"channels": {"label": {"attach": ["Popularity"]}}}, "style": null}',
+            self.merger.dump(),
+        )
+
+    def test_snapshot_can_not_be_merged(self):
+        self.merger.merge(self.data)
+        self.merger.merge(self.config)
+        self.merger.merge(Style({"title": {"backgroundColor": "#A0A0A0"}}))
+        self.assertRaises(NotImplementedError, self.merger.merge, Snapshot("abc1234"))
+
+    def test_only_different_animations_can_be_merged(self):
+        self.merger.merge(self.data)
+        self.merger.merge(self.config)
+        self.merger.merge(Style({"title": {"backgroundColor": "#A0A0A0"}}))
+
+        data = Data()
+        data.add_record(["Pop", "Hard", 114])
+
+        self.assertRaises(ValueError, self.merger.merge, data)
+        self.assertRaises(ValueError, self.merger.merge, Config({"title": "Test"}))
+        self.assertRaises(ValueError, self.merger.merge, Style(None))
