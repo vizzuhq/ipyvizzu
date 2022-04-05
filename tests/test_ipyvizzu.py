@@ -39,26 +39,6 @@ class TestAnimation(unittest.TestCase):
         self.assertEqual({"style": None}, animation.build())
 
 
-class TestMethod(unittest.TestCase):
-    def test_animate_without_option(self):
-        animation = Config({"color": {"set": ["Genres"]}})
-        method = Animate(animation)
-        self.assertEqual(f"chart.animate({animation.dump()})", method.dump())
-
-    def test_animate_with_option(self):
-        animation = Config({"color": {"set": ["Genres"]}})
-        option = {"duration": 1, "easing": "linear"}
-        method = Animate(animation, option)
-        self.assertEqual(
-            f"chart.animate({animation.dump()}, {PlainAnimation(option).dump()})",
-            method.dump(),
-        )
-
-    def test_feature(self):
-        method = Feature("tooltip", True)
-        self.assertEqual('chart.feature("tooltip", true)', method.dump())
-
-
 class TestMerger(unittest.TestCase):
     def setUp(self):
         self.merger = AnimationMerger()
