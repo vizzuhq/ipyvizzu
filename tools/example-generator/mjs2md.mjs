@@ -8,7 +8,8 @@ class VizzuMock
 
 		this.firstcell = `
 import pandas as pd
-from ipyvizzu import Chart, Data, Config, Style
+from ipyvizzu.chart import Chart
+from ipyvizzu.animation import Data, Config, Style
 
 data_frame = pd.read_csv('../../data/${datafilename}.csv', dtype={"Year": str})
 data = Data()

@@ -24,7 +24,7 @@ clean:
 doc: $(NOTEBOOKS:.ipynb=.html)
 
 %.html: %.ipynb $(DEV_BUILD_FLAG)
-	cd tools/html-generator; ../../$(VIRTUAL_ENV)/bin/jupyter nbconvert --Exporter.preprocessors=preprocessor.NbPreprocessor --to html ../../$<
+	cd tools/html-generator; ../../$(VIRTUAL_ENV)/bin/jupyter nbconvert --Exporter.preprocessors=preprocessor.NbPreprocessor --to html --execute ../../$<
 
 check: check-format lint test
 

@@ -42,7 +42,8 @@ A notebook cell may contain the following code snippet resulting in the animatio
 
 ```python
 import pandas as pd
-from ipyvizzu import Chart, Data, Config, Style
+from ipyvizzu.chart import Chart
+from ipyvizzu.animation import Data, Config, Style
 
 data_frame = pd.read_csv('./titanic.csv')
 data = Data()
