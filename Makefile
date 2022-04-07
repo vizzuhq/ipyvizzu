@@ -2,7 +2,7 @@
 
 VIRTUAL_ENV = .venv
 DEV_BUILD_FLAG = $(VIRTUAL_ENV)/DEV_BUILD_FLAG
-NOTEBOOKS = $(shell find docs -type f -name '*.ipynb')
+NOTEBOOKS = $(shell find docs -type f -name '*.ipynb' -not -path '*/.ipynb_checkpoints/*')
 
 install:
 	$(VIRTUAL_ENV)/bin/python setup.py install
