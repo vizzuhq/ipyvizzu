@@ -11,7 +11,7 @@ dev: $(DEV_BUILD_FLAG)
 
 $(DEV_BUILD_FLAG):
 	python3 -m venv $(VIRTUAL_ENV)
-	$(VIRTUAL_ENV)/bin/pip install -e .
+	$(VIRTUAL_ENV)/bin/python setup.py install
 	$(VIRTUAL_ENV)/bin/pip install notebook
 	$(VIRTUAL_ENV)/bin/pip install pandas
 	$(VIRTUAL_ENV)/bin/pip install click==8.0.4 black==22.1.0 tokenize-rt pylint jupytext==1.13.7
