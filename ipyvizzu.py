@@ -9,6 +9,7 @@ import uuid
 import enum
 from textwrap import indent, dedent
 import numpy as np
+import pandas as pd
 
 from IPython.display import display_html
 from IPython import get_ipython
@@ -212,33 +213,36 @@ class Data(dict, Animation):
         default_measure_value=0,
         default_dimension_value="",
     ):
-        if infer_types is None:
-            infer_types = {}
-        for name in data_frame.columns:
-            infer_type = InferType(infer_types.get(name, InferType.AUTO))
-            if infer_type == InferType.AUTO:
-                if isinstance(data_frame[name].values[0], (np.float64, np.int64)):
-                    infer_type = InferType.MEASURE
+        if not isinstance(data_frame, type(None)):
+            if infer_types is None:
+                infer_types = {}
+            if isinstance(data_frame, pd.core.series.Series):
+                data_frame = pd.DataFrame(data_frame)
+            for name in data_frame.columns:
+                infer_type = InferType(infer_types.get(name, InferType.AUTO))
+                if infer_type == InferType.AUTO:
+                    if isinstance(data_frame[name].values[0], (np.float64, np.int64)):
+                        infer_type = InferType.MEASURE
+                    else:
+                        infer_type = InferType.DIMENSION
+
+                values = []
+                if infer_type == InferType.MEASURE:
+                    values = [
+                        float(i)
+                        for i in data_frame[name].fillna(default_measure_value).values
+                    ]
                 else:
-                    infer_type = InferType.DIMENSION
+                    values = [
+                        str(i)
+                        for i in data_frame[name].fillna(default_dimension_value).values
+                    ]
 
-            values = []
-            if infer_type == InferType.MEASURE:
-                values = [
-                    float(i)
-                    for i in data_frame[name].fillna(default_measure_value).values
-                ]
-            else:
-                values = [
-                    str(i)
-                    for i in data_frame[name].fillna(default_dimension_value).values
-                ]
-
-            self.add_series(
-                name,
-                values,
-                type=infer_type.value,
-            )
+                self.add_series(
+                    name,
+                    values,
+                    type=infer_type.value,
+                )
 
     def _add_named_value(self, dest, name, values=None, **kwargs):
         value = {"name": name, **kwargs}
