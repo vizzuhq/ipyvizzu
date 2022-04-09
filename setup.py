@@ -13,7 +13,7 @@ setup(
     license="Apache 2",
     py_modules=["ipyvizzu"],
     python_requires='>=3.6',
-    install_requires=["IPython", "NumPy"],
+    install_requires=["IPython", "NumPy", "pandas"],
     url="https://github.com/vizzuhq/ipyvizzu",
     project_urls={
         "Documentation": "https://vizzuhq.github.io/ipyvizzu/index.html",
