@@ -1,7 +1,6 @@
 import unittest
 
-from ipyvizzu.method import Method, Animate, Feature, Store
-from ipyvizzu.animation import Snapshot
+from ipyvizzu import Method, Animate, Feature, Store, Snapshot
 
 
 class TestMethod(unittest.TestCase):

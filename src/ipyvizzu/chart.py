@@ -8,9 +8,9 @@ import uuid
 from IPython.display import display_javascript
 from IPython import get_ipython
 
-from .animation import Animation, Snapshot, AnimationMerger
-from .method import Animate, Feature, Store
-from .template import DisplayTarget, DisplayTemplate
+from ipyvizzu.animation import Animation, Snapshot, AnimationMerger
+from ipyvizzu.method import Animate, Feature, Store
+from ipyvizzu.template import DisplayTarget, DisplayTemplate
 
 
 class Chart:

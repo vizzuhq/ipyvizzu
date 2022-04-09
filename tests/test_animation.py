@@ -3,7 +3,7 @@ import pathlib
 import unittest
 import pandas as pd
 
-from ipyvizzu.animation import (
+from ipyvizzu import (
     PlainAnimation,
     Data,
     Config,

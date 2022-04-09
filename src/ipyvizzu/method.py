@@ -1,6 +1,6 @@
 import json
 
-from .animation import PlainAnimation
+from ipyvizzu.animation import PlainAnimation
 
 
 class Method:

@@ -2,8 +2,7 @@ import unittest
 import unittest.mock
 
 from normalizer import Normalizer
-from ipyvizzu.chart import Chart
-from ipyvizzu.animation import Data, Config, Snapshot, Style
+from ipyvizzu import Chart, Data, Config, Snapshot, Style
 
 
 def get_text(normalizer, javascript):

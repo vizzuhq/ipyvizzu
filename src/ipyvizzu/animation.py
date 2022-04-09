@@ -4,8 +4,8 @@ import json
 import typing
 import numpy as np
 
-from .json import RawJavaScript, RawJavaScriptEncoder
-from .template import DisplayTemplate
+from ipyvizzu.json import RawJavaScript, RawJavaScriptEncoder
+from ipyvizzu.template import DisplayTemplate
 
 
 class Animation:
