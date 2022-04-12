@@ -34,10 +34,10 @@ test: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/python -m unittest discover tests/
 
 format: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/black src tests
+	$(VIRTUAL_ENV)/bin/black src tests tools
 
 check-format: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/black --check src tests
+	$(VIRTUAL_ENV)/bin/black --check src tests tools
 
 lint: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/pylint \
@@ -45,4 +45,4 @@ lint: $(DEV_BUILD_FLAG)
 		--disable missing-class-docstring \
 		--disable missing-module-docstring \
 		--disable too-few-public-methods \
-		src tests
+		src tests tools

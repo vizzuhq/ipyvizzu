@@ -19,13 +19,15 @@ class IpyVizzu
         this.displays = {};
     }
 
-    static clearInhibitScroll()
+    static clearInhibitScroll(element)
     {
+        // IpyVizzu._hide(element);
         IpyVizzu.inhibitScroll = false;
     }
 
     animate(element, chartId, displayTarget, scrollEnabled, chartTarget, chartAnimOpts)
     {
+        // IpyVizzu._hide(element);
         if (displayTarget === 'end') this._moveHere(chartId, element);
         this.charts[chartId] = this.charts[chartId].then(chart => {
             if (displayTarget === 'actual') this._moveHere(chartId, element);
@@ -34,21 +36,24 @@ class IpyVizzu
         });
     }
 
-    store(chartId, id)
+    store(element, chartId, id)
     {
+        // IpyVizzu._hide(element);
         this.charts[chartId] = this.charts[chartId].then(chart => {
             this.snapshots[id] = chart.store();
             return chart;
         });
     }
 
-    stored(id)
+    stored(element, id)
     {
+        // IpyVizzu._hide(element);
         return this.snapshots[id];
     }
 
-    feature(chartId, name, enabled)
+    feature(element, chartId, name, enabled)
     {
+        // IpyVizzu._hide(element);
         this.charts[chartId] = this.charts[chartId].then(chart => {
             chart.feature(name, enabled);
             return chart;
@@ -57,6 +62,7 @@ class IpyVizzu
 
     _moveHere(chartId, element)
     {
+        // IpyVizzu._display(this.elements[chartId], element);
         element.append(this.elements[chartId]);
     }
 
@@ -65,6 +71,18 @@ class IpyVizzu
         if (!IpyVizzu.inhibitScroll && enabled) {
             this.elements[chartId].scrollIntoView({ behavior: "auto", block: "center" });
         }
+    }
+
+    static _hide(element) {
+        document.getElementById(element.selector.substring(1)).parentNode.style.display = 'none';
+    }
+
+    static _display(prevElement, element) {
+        if (prevElement.parentNode) {
+            prevElement.parentNode.style.display = "none";
+        }
+        document.getElementById(element.selector.substring(1)).parentNode.style.display = 'flex';
+        document.getElementById(element.selector.substring(1)).parentNode.style.margin = 'auto';
     }
 }
 

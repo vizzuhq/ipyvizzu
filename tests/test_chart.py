@@ -81,7 +81,7 @@ class TestChartInit(unittest.TestCase):
         self.assertEqual(
             get_text(self.normalizer, javascript),
             "window.ipyvizzu.animate(element, id, 'begin', true, "
-            + "window.ipyvizzu.stored(id), "
+            + "window.ipyvizzu.stored(element, id), "
             + "undefined);",
         )
 
@@ -93,7 +93,7 @@ class TestChartInit(unittest.TestCase):
         self.assertEqual(
             get_text(self.normalizer, javascript),
             "window.ipyvizzu.animate(element, id, 'actual', true, "
-            + "window.ipyvizzu.stored(id), "
+            + "window.ipyvizzu.stored(element, id), "
             + "undefined);",
         )
 
@@ -105,7 +105,7 @@ class TestChartInit(unittest.TestCase):
         self.assertEqual(
             get_text(self.normalizer, javascript),
             "window.ipyvizzu.animate(element, id, 'end', true, "
-            + "window.ipyvizzu.stored(id), "
+            + "window.ipyvizzu.stored(element, id), "
             + "undefined);",
         )
 
@@ -163,7 +163,7 @@ class TestChartMethods(unittest.TestCase):
         self.assertEqual(
             get_text(self.normalizer, self.javascript),
             "window.ipyvizzu.animate(element, id, 'actual', true, "
-            + "window.ipyvizzu.stored(id), "
+            + "window.ipyvizzu.stored(element, id), "
             + "undefined);",
         )
 
@@ -174,7 +174,7 @@ class TestChartMethods(unittest.TestCase):
         self.assertEqual(
             get_text(self.normalizer, self.javascript),
             "window.ipyvizzu.animate(element, id, 'actual', true, "
-            + "window.ipyvizzu.stored(id), "
+            + "window.ipyvizzu.stored(element, id), "
             + '{"duration": "500ms"});',
         )
 
@@ -269,11 +269,12 @@ class TestChartMethods(unittest.TestCase):
         self.chart.feature("tooltip", True)
         self.assertEqual(
             get_text(self.normalizer, self.javascript),
-            'window.ipyvizzu.feature(id, "tooltip", true);',
+            'window.ipyvizzu.feature(element, id, "tooltip", true);',
         )
 
     def test_store(self):
         self.chart.store()
         self.assertEqual(
-            get_text(self.normalizer, self.javascript), "window.ipyvizzu.store(id, id);"
+            get_text(self.normalizer, self.javascript),
+            "window.ipyvizzu.store(element, id, id);",
         )
