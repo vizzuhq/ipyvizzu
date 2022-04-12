@@ -16,8 +16,8 @@ class NbPreprocessor(Preprocessor):
             for i, output in enumerate(cell.outputs):
                 if "data" in output and "application/javascript" in output["data"]:
                     cell.outputs[i]["data"]["application/javascript"] = re.sub(
-                        r"(// )(IpyVizzu._hide\(element\);|IpyVizzu._display\(this.elements\[chartId\], element\);)",  # pylint: disable=line-too-long
-                        r"\2",
+                        r"(window.nbconvert = )(false)(;)",
+                        r"\1true\3",
                         output["data"]["application/javascript"],
                     )
 

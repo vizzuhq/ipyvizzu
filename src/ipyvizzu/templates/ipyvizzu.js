@@ -21,13 +21,13 @@ class IpyVizzu
 
     static clearInhibitScroll(element)
     {
-        // IpyVizzu._hide(element);
+        if (window.nbconvert) IpyVizzu._hide(element);
         IpyVizzu.inhibitScroll = false;
     }
 
     animate(element, chartId, displayTarget, scrollEnabled, chartTarget, chartAnimOpts)
     {
-        // IpyVizzu._hide(element);
+        if (window.nbconvert) IpyVizzu._hide(element);
         if (displayTarget === 'end') this._moveHere(chartId, element);
         this.charts[chartId] = this.charts[chartId].then(chart => {
             if (displayTarget === 'actual') this._moveHere(chartId, element);
@@ -38,7 +38,7 @@ class IpyVizzu
 
     store(element, chartId, id)
     {
-        // IpyVizzu._hide(element);
+        if (window.nbconvert) IpyVizzu._hide(element);
         this.charts[chartId] = this.charts[chartId].then(chart => {
             this.snapshots[id] = chart.store();
             return chart;
@@ -47,13 +47,13 @@ class IpyVizzu
 
     stored(element, id)
     {
-        // IpyVizzu._hide(element);
+        if (window.nbconvert) IpyVizzu._hide(element);
         return this.snapshots[id];
     }
 
     feature(element, chartId, name, enabled)
     {
-        // IpyVizzu._hide(element);
+        if (window.nbconvert) IpyVizzu._hide(element);
         this.charts[chartId] = this.charts[chartId].then(chart => {
             chart.feature(name, enabled);
             return chart;
@@ -62,7 +62,7 @@ class IpyVizzu
 
     _moveHere(chartId, element)
     {
-        // IpyVizzu._display(this.elements[chartId], element);
+        if (window.nbconvert) IpyVizzu._display(this.elements[chartId], element);
         element.append(this.elements[chartId]);
     }
 
