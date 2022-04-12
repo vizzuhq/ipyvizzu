@@ -2,10 +2,10 @@ class IpyVizzu
 {
     constructor(element, chartId, vizzulib, divWidth, divHeight)
     {
-        this.inhibitScroll = false;
-        document.addEventListener('wheel', (evt) => { this.inhibitScroll = true }, true);
-        document.addEventListener('keydown', (evt) => { this.inhibitScroll = true }, true);
-        document.addEventListener('touchstart', (evt) => { this.inhibitScroll = true }, true);
+        IpyVizzu.inhibitScroll = false;
+        document.addEventListener('wheel', (evt) => { IpyVizzu.inhibitScroll = true }, true);
+        document.addEventListener('keydown', (evt) => { IpyVizzu.inhibitScroll = true }, true);
+        document.addEventListener('touchstart', (evt) => { IpyVizzu.inhibitScroll = true }, true);
 
         this.elements = {};
         this.elements[chartId] = document.createElement("div");
@@ -21,7 +21,7 @@ class IpyVizzu
 
     static clearInhibitScroll()
     {
-        this.inhibitScroll = false;
+        IpyVizzu.inhibitScroll = false;
     }
 
     animate(element, chartId, displayTarget, scrollEnabled, chartTarget, chartAnimOpts)
@@ -62,7 +62,7 @@ class IpyVizzu
 
     _scroll(chartId, enabled)
     {
-        if (!this.inhibitScroll && enabled) {
+        if (!IpyVizzu.inhibitScroll && enabled) {
             this.elements[chartId].scrollIntoView({ behavior: "auto", block: "center" });
         }
     }
