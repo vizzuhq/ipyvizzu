@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed `Data.add_data_frame()` in order to handle `None` and `pd.Series` as `data_frame` parameter.
+
 ## [0.7.0] - 2022-03-29
 
 ### Fixed
