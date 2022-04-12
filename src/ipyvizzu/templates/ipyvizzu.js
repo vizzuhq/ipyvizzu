@@ -3,9 +3,9 @@ class IpyVizzu
     constructor(element, chartId, vizzulib, divWidth, divHeight)
     {
         this.inhibitScroll = false;
-        document.addEventListener('wheel', function (evt) { this.inhibitScroll = true }, true);
-        document.addEventListener('keydown', function (evt) { this.inhibitScroll = true }, true);
-        document.addEventListener('touchstart', function (evt) { this.inhibitScroll = true }, true);
+        document.addEventListener('wheel', (evt) => { this.inhibitScroll = true }, true);
+        document.addEventListener('keydown', (evt) => { this.inhibitScroll = true }, true);
+        document.addEventListener('touchstart', (evt) => { this.inhibitScroll = true }, true);
 
         this.elements = {};
         this.elements[chartId] = document.createElement("div");
