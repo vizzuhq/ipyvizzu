@@ -161,6 +161,32 @@ class TestData(unittest.TestCase):
             self.data.build(),
         )
 
+    def test_data_frame_with_none(self):
+        data = Data()
+        data.add_data_frame(None)
+        self.assertEqual(
+            {"data": {}},
+            data.build(),
+        )
+
+    def test_data_frame_with_pd_series(self):
+        data = Data()
+        data.add_data_frame(pd.Series([1, 2], name="series1"))
+        data.add_data_frame(
+            pd.Series({"x": 3, "y": 4, "z": 5}, index=["x", "y"], name="series2")
+        )
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {"name": "series1", "type": "measure", "values": [1.0, 2.0]},
+                        {"name": "series2", "type": "measure", "values": [3.0, 4.0]},
+                    ]
+                }
+            },
+            data.build(),
+        )
+
 
 class TestConfig(unittest.TestCase):
     def test_config(self):
