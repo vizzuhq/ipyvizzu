@@ -1,7 +1,7 @@
 # pylint: skip-file
 
-from ipyvizzu.chart import Chart
-from ipyvizzu.animation import (
+from .chart import Chart
+from .animation import (
     Animation,
     PlainAnimation,
     InferType,
@@ -11,6 +11,6 @@ from ipyvizzu.animation import (
     Snapshot,
     AnimationMerger,
 )
-from ipyvizzu.method import Method, Animate, Feature, Store
-from ipyvizzu.json import RawJavaScript, RawJavaScriptEncoder
-from ipyvizzu.template import DisplayTarget, DisplayTemplate
+from .method import Method, Animate, Feature, Store
+from .json import RawJavaScript, RawJavaScriptEncoder
+from .template import DisplayTarget, DisplayTemplate
