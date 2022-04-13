@@ -9,6 +9,7 @@
 ### Added
 
 - Separated the JavaScript code into a JavaScript file instead of the previous string template.
+- Added `Chart.show()` and `DisplayTarget.MANUAL`, with these the displaying of the chart can be controlled.
 
 ## [0.7.0] - 2022-03-29
 
