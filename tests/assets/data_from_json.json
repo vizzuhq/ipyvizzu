@@ -1,0 +1,14 @@
+{
+    "dimensions": [
+        {"name": "Genres", "values": [ "Rock", "Pop" ]},
+        {"name": "Types", "values": [ "Hard"]}
+    ],
+    "measures": [
+        {
+            "name": "Popularity",
+            "values":  [
+                [114, 96]
+            ]
+        }
+    ]
+}

@@ -56,7 +56,7 @@
                 ]
             },
             {
-                "name": "PopularityD",
+                "name": "PopularityAsDimension",
                 "type": "dimension",
                 "values": [
                     "114",
