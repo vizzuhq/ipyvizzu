@@ -6,6 +6,7 @@ class DisplayTarget(str, enum.Enum):
     BEGIN = "begin"
     END = "end"
     ACTUAL = "actual"
+    MANUAL = "manual"
 
 
 class DisplayTemplate:
