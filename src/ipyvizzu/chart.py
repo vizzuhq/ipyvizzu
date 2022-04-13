@@ -117,10 +117,9 @@ class Chart:
         return Snapshot(snapshot_id)
 
     def show(self):
-        if self._display_target != DisplayTarget.MANUAL:
-            raise NotImplementedError(
-                f'chart.show() can be used with display="{DisplayTarget.MANUAL}" only'
-            )
+        assert (
+            self._display_target == DisplayTarget.MANUAL
+        ), f'chart.show() can be used with display="{DisplayTarget.MANUAL}" only'
         assert not self._showed, "cannot be used after chart.show()"
         display_javascript(
             "\n".join(self._calls),
