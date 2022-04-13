@@ -28,14 +28,15 @@ class Chart:
         display: DisplayTarget = DisplayTarget("actual"),
     ):
         self._chart_id = uuid.uuid4().hex[:7]
-        self._vizzu = vizzu
-        self._div_width = width
-        self._div_height = height
+
         self._display_target = DisplayTarget(display)
+        self._calls = []
+        self._showed = False
+
+        self._scroll_into_view = True
+
         if self._display_target != DisplayTarget.MANUAL:
             self._register_events()
-        self._calls = []
-        self._scroll_into_view = True
 
         ipyvizzu_js = pkgutil.get_data(__name__, "templates/ipyvizzu.js").decode(
             "utf-8"
@@ -44,9 +45,9 @@ class Chart:
             DisplayTemplate.INIT.format(
                 ipyvizzu_js=ipyvizzu_js,
                 chart_id=self._chart_id,
-                vizzu=self._vizzu,
-                div_width=self._div_width,
-                div_height=self._div_height,
+                vizzu=vizzu,
+                div_width=width,
+                div_height=height,
             )
         )
 
@@ -118,12 +119,14 @@ class Chart:
     def show(self):
         if self._display_target != DisplayTarget.MANUAL:
             raise NotImplementedError(
-                f'chart.show() can be used with display="{DisplayTarget.MANUAL}"'
+                f'chart.show() can be used with display="{DisplayTarget.MANUAL}" only'
             )
+        assert not self._showed, "cannot be used after chart.show()"
         display_javascript(
             "\n".join(self._calls),
             raw=True,
         )
+        self._showed = True
 
     def _display(self, javascript):
         if self._display_target != DisplayTarget.MANUAL:
@@ -132,4 +135,5 @@ class Chart:
                 raw=True,
             )
         else:
+            assert not self._showed, "cannot be used after chart.show()"
             self._calls.append(javascript)
