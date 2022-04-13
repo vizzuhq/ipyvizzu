@@ -1,0 +1,7 @@
+pip-tools
+notebook
+pandas
+black
+pylint
+jupytext
+tokenize-rt

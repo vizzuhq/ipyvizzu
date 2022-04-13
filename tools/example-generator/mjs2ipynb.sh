@@ -9,7 +9,7 @@ echo "[mjs2ipynb] Converting from js to md"
 node mjs2md.mjs ${input} ${mdfile} 
 
 echo "[mjs2ipynb] Converting from md to ipynb"
-${venv}/bin/jupytext --execute --to notebook ${mdfile}
+${venv}/bin/jupytext --to notebook ${mdfile}
 
 echo "[mjs2ipynb] Removing md file"
 rm ${mdfile}
