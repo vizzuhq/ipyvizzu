@@ -126,9 +126,10 @@ class Chart:
         )
 
     def _display(self, javascript):
-        self._calls.append(javascript)
         if self._display_target != DisplayTarget.MANUAL:
             display_javascript(
                 javascript,
                 raw=True,
             )
+        else:
+            self._calls.append(javascript)
