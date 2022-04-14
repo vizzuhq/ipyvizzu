@@ -3,6 +3,7 @@ class IpyVizzu
     constructor(element, chartId, vizzulib, divWidth, divHeight)
     {
         IpyVizzu.inhibitScroll = false;
+        IpyVizzu.nbconvert = false;
         document.addEventListener('wheel', (evt) => { IpyVizzu.inhibitScroll = true }, true);
         document.addEventListener('keydown', (evt) => { IpyVizzu.inhibitScroll = true }, true);
         document.addEventListener('touchstart', (evt) => { IpyVizzu.inhibitScroll = true }, true);
@@ -21,13 +22,13 @@ class IpyVizzu
 
     static clearInhibitScroll(element)
     {
-        if (window.nbconvert) IpyVizzu._hide(element);
+        if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
         IpyVizzu.inhibitScroll = false;
     }
 
     animate(element, chartId, displayTarget, scrollEnabled, chartTarget, chartAnimOpts)
     {
-        if (window.nbconvert) IpyVizzu._hide(element);
+        if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
         if (displayTarget === 'end') this._moveHere(chartId, element);
         this.charts[chartId] = this.charts[chartId].then(chart => {
             if (displayTarget === 'actual') this._moveHere(chartId, element);
@@ -38,7 +39,7 @@ class IpyVizzu
 
     store(element, chartId, id)
     {
-        if (window.nbconvert) IpyVizzu._hide(element);
+        if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
         this.charts[chartId] = this.charts[chartId].then(chart => {
             this.snapshots[id] = chart.store();
             return chart;
@@ -47,13 +48,13 @@ class IpyVizzu
 
     stored(element, id)
     {
-        if (window.nbconvert) IpyVizzu._hide(element);
+        if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
         return this.snapshots[id];
     }
 
     feature(element, chartId, name, enabled)
     {
-        if (window.nbconvert) IpyVizzu._hide(element);
+        if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
         this.charts[chartId] = this.charts[chartId].then(chart => {
             chart.feature(name, enabled);
             return chart;
@@ -62,7 +63,7 @@ class IpyVizzu
 
     _moveHere(chartId, element)
     {
-        if (window.nbconvert) IpyVizzu._display(this.elements[chartId], element);
+        if (IpyVizzu.nbconvert) IpyVizzu._display(this.elements[chartId], element);
         element.append(this.elements[chartId]);
     }
 
