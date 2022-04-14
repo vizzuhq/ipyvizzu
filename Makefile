@@ -20,7 +20,6 @@ clean:
 	-rm -rf $(VIRTUAL_ENV)
 
 requirements:
-	$(VIRTUAL_ENV)/bin/pip-compile --upgrade requirements.in
 	$(VIRTUAL_ENV)/bin/pip-compile --upgrade dev-requirements.in
 
 doc: $(NOTEBOOKS:.ipynb=.html)

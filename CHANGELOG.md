@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.8.1] - 2022-04-14
+
+### Fixed
+
+- Revert pip-compiled dependencies.
+
 ## [0.8.0] - 2022-04-14
 
 ### Fixed
