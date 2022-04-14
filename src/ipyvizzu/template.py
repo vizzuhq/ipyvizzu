@@ -10,7 +10,7 @@ class DisplayTarget(str, enum.Enum):
 
 class DisplayTemplate:
 
-    INIT = """window.nbconvert = false;
+    INIT = """
         {ipyvizzu_js}
         window.ipyvizzu = new window.IpyVizzu(element, "{chart_id}", "{vizzu}", "{div_width}", "{div_height}");"""  # pylint: disable=line-too-long
 

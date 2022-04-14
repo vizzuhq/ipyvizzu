@@ -16,7 +16,7 @@ class NbPreprocessor(Preprocessor):
             for i, output in enumerate(cell.outputs):
                 if "data" in output and "application/javascript" in output["data"]:
                     cell.outputs[i]["data"]["application/javascript"] = re.sub(
-                        r"(window.nbconvert = )(false)(;)",
+                        r"(IpyVizzu.nbconvert = )(false)(;)",
                         r"\1true\3",
                         output["data"]["application/javascript"],
                     )
