@@ -28,26 +28,27 @@ class Chart:
         display: DisplayTarget = DisplayTarget("actual"),
     ):
         self._chart_id = uuid.uuid4().hex[:7]
-        self._vizzu = vizzu
-        self._div_width = width
-        self._div_height = height
+
         self._display_target = DisplayTarget(display)
+        self._calls = []
+        self._showed = False
+
         self._scroll_into_view = True
 
-        self._register_events()
+        if self._display_target != DisplayTarget.MANUAL:
+            self._register_events()
 
         ipyvizzu_js = pkgutil.get_data(__name__, "templates/ipyvizzu.js").decode(
             "utf-8"
         )
-        display_javascript(
+        self._display(
             DisplayTemplate.INIT.format(
                 ipyvizzu_js=ipyvizzu_js,
                 chart_id=self._chart_id,
-                vizzu=self._vizzu,
-                div_width=self._div_width,
-                div_height=self._div_height,
-            ),
-            raw=True,
+                vizzu=vizzu,
+                div_width=width,
+                div_height=height,
+            )
         )
 
     @staticmethod
@@ -78,14 +79,13 @@ class Chart:
         animation = self._merge_animations(animations)
         animate = Animate(animation, options)
 
-        display_javascript(
+        self._display(
             DisplayTemplate.ANIMATE.format(
                 display_target=self._display_target,
                 chart_id=self._chart_id,
                 scroll=str(self._scroll_into_view).lower(),
                 **animate.dump(),
-            ),
-            raw=True,
+            )
         )
 
     @staticmethod
@@ -100,20 +100,39 @@ class Chart:
         return merger
 
     def feature(self, name, enabled):
-        display_javascript(
+        self._display(
             DisplayTemplate.FEATURE.format(
                 chart_id=self._chart_id,
                 **Feature(name, enabled).dump(),
-            ),
-            raw=True,
+            )
         )
 
     def store(self) -> Snapshot:
         snapshot_id = uuid.uuid4().hex[:7]
-        display_javascript(
+        self._display(
             DisplayTemplate.STORE.format(
                 chart_id=self._chart_id, **Store(snapshot_id).dump()
-            ),
-            raw=True,
+            )
         )
         return Snapshot(snapshot_id)
+
+    def show(self):
+        assert (
+            self._display_target == DisplayTarget.MANUAL
+        ), f'chart.show() can be used with display="{DisplayTarget.MANUAL}" only'
+        assert not self._showed, "cannot be used after chart.show()"
+        display_javascript(
+            "\n".join(self._calls),
+            raw=True,
+        )
+        self._showed = True
+
+    def _display(self, javascript):
+        if self._display_target != DisplayTarget.MANUAL:
+            display_javascript(
+                javascript,
+                raw=True,
+            )
+        else:
+            assert not self._showed, "cannot be used after chart.show()"
+            self._calls.append(javascript)

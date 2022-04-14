@@ -278,3 +278,67 @@ class TestChartMethods(unittest.TestCase):
             get_text(self.normalizer, self.javascript),
             "window.ipyvizzu.store(element, id, id);",
         )
+
+
+class TestChartShow(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.normalizer = Normalizer()
+
+    def setUp(self):
+        self.patch = unittest.mock.patch("ipyvizzu.chart.display_javascript")
+        self.javascript = self.patch.start()
+
+    def tearDown(self):
+        self.patch.stop()
+
+    def test_show(self):
+        chart = Chart(display="manual")
+        chart.animate(Snapshot("abc1234"))
+        self.assertEqual(
+            get_text(self.normalizer, self.javascript),
+            "",
+        )
+        chart.show()
+        self.assertEqual(
+            self.normalizer.normalize_id(
+                self.javascript.call_args_list[0].args[0].strip().splitlines()[-1]
+            ).strip(),
+            "window.ipyvizzu.animate(element, id, 'manual', true, "
+            + "window.ipyvizzu.stored(element, id), "
+            + "undefined);",
+        )
+
+    def test_show_if_display_is_not_manual(self):
+        chart = Chart()
+        chart.animate(Snapshot("abc1234"))
+        with self.assertRaises(AssertionError):
+            chart.show()
+
+    def test_show_after_show(self):
+        chart = Chart(display="manual")
+        chart.animate(Snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart.show()
+
+    def test_animate_after_show(self):
+        chart = Chart(display="manual")
+        chart.animate(Snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart.animate(Snapshot("abc1234"))
+
+    def test_feature_after_show(self):
+        chart = Chart(display="manual")
+        chart.animate(Snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart.feature("tooltip", True)
+
+    def test_store_after_show(self):
+        chart = Chart(display="manual")
+        chart.animate(Snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart.store()
