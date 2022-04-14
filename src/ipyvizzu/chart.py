@@ -33,7 +33,7 @@ class Chart:
         self._calls = []
         self._showed = False
 
-        self._scroll_into_view = True
+        self._scroll_into_view = False
 
         if self._display_target != DisplayTarget.MANUAL:
             self._register_events()

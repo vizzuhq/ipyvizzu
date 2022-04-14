@@ -80,7 +80,7 @@ class TestChartInit(unittest.TestCase):
         chart.animate(Snapshot("abc1234"))
         self.assertEqual(
             get_text(self.normalizer, javascript),
-            "window.ipyvizzu.animate(element, id, 'begin', true, "
+            "window.ipyvizzu.animate(element, id, 'begin', false, "
             + "window.ipyvizzu.stored(element, id), "
             + "undefined);",
         )
@@ -92,7 +92,7 @@ class TestChartInit(unittest.TestCase):
         chart.animate(Snapshot("abc1234"))
         self.assertEqual(
             get_text(self.normalizer, javascript),
-            "window.ipyvizzu.animate(element, id, 'actual', true, "
+            "window.ipyvizzu.animate(element, id, 'actual', false, "
             + "window.ipyvizzu.stored(element, id), "
             + "undefined);",
         )
@@ -104,7 +104,7 @@ class TestChartInit(unittest.TestCase):
         chart.animate(Snapshot("abc1234"))
         self.assertEqual(
             get_text(self.normalizer, javascript),
-            "window.ipyvizzu.animate(element, id, 'end', true, "
+            "window.ipyvizzu.animate(element, id, 'end', false, "
             + "window.ipyvizzu.stored(element, id), "
             + "undefined);",
         )
@@ -139,7 +139,7 @@ class TestChartMethods(unittest.TestCase):
         self.chart.animate(data)
         self.assertEqual(
             get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.animate(element, id, 'actual', true, "
+            "window.ipyvizzu.animate(element, id, 'actual', false, "
             + '{"data": {"records": [["Rock", "Hard", 96]]}}, '
             + "undefined);",
         )
@@ -151,7 +151,7 @@ class TestChartMethods(unittest.TestCase):
         self.chart.animate(data, duration="500ms")
         self.assertEqual(
             get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.animate(element, id, 'actual', true, "
+            "window.ipyvizzu.animate(element, id, 'actual', false, "
             + '{"data": {"records": [["Rock", "Hard", 96]]}}, '
             + '{"duration": "500ms"});',
         )
@@ -162,7 +162,7 @@ class TestChartMethods(unittest.TestCase):
         self.chart.animate(snapshot)
         self.assertEqual(
             get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.animate(element, id, 'actual', true, "
+            "window.ipyvizzu.animate(element, id, 'actual', false, "
             + "window.ipyvizzu.stored(element, id), "
             + "undefined);",
         )
@@ -173,7 +173,7 @@ class TestChartMethods(unittest.TestCase):
         self.chart.animate(snapshot, duration="500ms")
         self.assertEqual(
             get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.animate(element, id, 'actual', true, "
+            "window.ipyvizzu.animate(element, id, 'actual', false, "
             + "window.ipyvizzu.stored(element, id), "
             + '{"duration": "500ms"});',
         )
@@ -187,7 +187,7 @@ class TestChartMethods(unittest.TestCase):
         self.chart.animate(data, config, style)
         self.assertEqual(
             get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.animate(element, id, 'actual', true, "
+            "window.ipyvizzu.animate(element, id, 'actual', false, "
             + '{"data": {"records": [["Rock", "Hard", 96]]}, '
             + '"config": {"channels": {"label": {"attach": ["Popularity"]}}}, '
             + '"style": {"title": {"backgroundColor": "#A0A0A0"}}}, '
@@ -203,7 +203,7 @@ class TestChartMethods(unittest.TestCase):
         self.chart.animate(data, config, style, duration="500ms")
         self.assertEqual(
             get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.animate(element, id, 'actual', true, "
+            "window.ipyvizzu.animate(element, id, 'actual', false, "
             + '{"data": {"records": [["Rock", "Hard", 96]]}, '
             + '"config": {"channels": {"label": {"attach": ["Popularity"]}}}, '
             + '"style": {"title": {"backgroundColor": "#A0A0A0"}}}, '
@@ -241,26 +241,27 @@ class TestChartMethods(unittest.TestCase):
         self.chart.animate(config2)
         self.assertEqual(
             get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.animate(element, id, 'actual', true, "
+            "window.ipyvizzu.animate(element, id, 'actual', false, "
             + '{"data": {"records": [["Rock", "Hard", 96]]}, '
             + '"config": {"channels": {"label": {"attach": ["Popularity"]}}}, '
             + '"style": {"title": {"backgroundColor": "#A0A0A0"}}}, '
             + "undefined);\n"
-            + "window.ipyvizzu.animate(element, id, 'actual', true, "
+            + "window.ipyvizzu.animate(element, id, 'actual', false, "
             + '{"config": {"title": "Test"}}, '
             + "undefined);",
         )
 
-    def test_animate_with_not_scroll_into_view_false(self):
+    def test_animate_with_not_default_scroll_into_view(self):
         data = Data()
         data.add_record(["Rock", "Hard", 96])
 
-        self.chart.scroll_into_view = False
+        scroll_into_view = not self.chart.scroll_into_view
+        self.chart.scroll_into_view = scroll_into_view
 
         self.chart.animate(data)
         self.assertEqual(
             get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.animate(element, id, 'actual', false, "
+            f"window.ipyvizzu.animate(element, id, 'actual', {str(scroll_into_view).lower()}, "
             + '{"data": {"records": [["Rock", "Hard", 96]]}}, '
             + "undefined);",
         )
@@ -304,7 +305,7 @@ class TestChartShow(unittest.TestCase):
             self.normalizer.normalize_id(
                 self.javascript.call_args_list[0].args[0].strip().splitlines()[-1]
             ).strip(),
-            "window.ipyvizzu.animate(element, id, 'manual', true, "
+            "window.ipyvizzu.animate(element, id, 'manual', false, "
             + "window.ipyvizzu.stored(element, id), "
             + "undefined);",
         )
