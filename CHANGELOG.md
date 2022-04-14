@@ -2,12 +2,15 @@
 
 ## [Unreleased]
 
+## [0.8.0] - 2022-04-14
+
 ### Fixed
 
 - Fixed `Data.add_data_frame()` in order to handle `None` and `pd.Series` as `data_frame` parameter.
 
 ### Added
 
+- Changed default value of the `Chart.scroll_into_view` property to `False`.
 - Separated the JavaScript code into a JavaScript file instead of the previous string template.
 - Added `Chart.show()` and `DisplayTarget.MANUAL`, with these the displaying of the chart can be controlled.
 
