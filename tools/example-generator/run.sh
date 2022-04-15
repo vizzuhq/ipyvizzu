@@ -35,6 +35,10 @@ read -r -d '' animatedExamples <<- EOM
   ${testcaseDir}/templates/total_time_bar_line.mjs
 EOM
 
+read -r -d '' storyExamples <<- EOM
+  music-history/music-history.ipynb,musicformats
+EOM
+
 datafiles="chart_types_eu.mjs infinite_data.mjs music_industry_history_1.mjs tutorial.mjs"
 
 mkdir -p ${docsDir}/data
@@ -46,7 +50,7 @@ for datafile in $datafiles; do
   node vizzu-lib/tools/js2csv/js2csv.js "../../test/integration/test_data/${datafile}" ${docsDir}/data/$(basename ${datafile%.mjs}.csv)
 done
 
-echo "## Static examples" > ${examplesDir}/examples.md
+echo "## Static charts" > ${examplesDir}/examples.md
 
 for example in $staticExamples; do
   echo -n "<a href=\"static/$(basename ${example%.mjs}.html)\">" >> ${examplesDir}/examples.md
@@ -55,11 +59,21 @@ for example in $staticExamples; do
   ./mjs2ipynb.sh ${venv} $example ${examplesDir}/static/$(basename ${example%.mjs}.ipynb)
 done
 
-echo "## Animated examples" >> ${examplesDir}/examples.md
+echo "## Animated charts" >> ${examplesDir}/examples.md
 
 for example in $animatedExamples; do
   echo -n "<a href=\"animated/$(basename ${example%.mjs}.html)\">" >> ${examplesDir}/examples.md
   echo -n "<video nocontrols autoplay muted loop src=\"${thumbUrl}/animated/$(basename ${example%.mjs}.mp4)\" type=\"video/mp4\"></video>" >> ${examplesDir}/examples.md
   echo "</a>" >> ${examplesDir}/examples.md
   ./mjs2ipynb.sh ${venv} $example ${examplesDir}/animated/$(basename ${example%.mjs}.ipynb)
+done
+
+echo "## Data stories" >> ${examplesDir}/examples.md
+
+for example in $storyExamples; do
+  IFS=','
+  read -a exampleParts <<< "${example}"
+  echo -n "<a href=\"stories/${exampleParts[0]%.ipynb}.html\">" >> ${examplesDir}/examples.md
+  echo -n "<video nocontrols autoplay muted loop src=\"${thumbUrl}/stories/$(basename ${exampleParts[1]%.ipynb}.mp4)\" type=\"video/mp4\"></video>" >> ${examplesDir}/examples.md
+  echo "</a>" >> ${examplesDir}/examples.md
 done
