@@ -83,6 +83,10 @@ class Data(dict, Animation):
                 infer_types = {}
             if isinstance(data_frame, pd.core.series.Series):
                 data_frame = pd.DataFrame(data_frame)
+            if not isinstance(data_frame, pd.DataFrame):
+                raise TypeError(
+                    "data_frame must be instance of pandas.DataFrame or pandas.Series"
+                )
             for name in data_frame.columns:
                 infer_type = InferType(infer_types.get(name, InferType.AUTO))
                 if infer_type == InferType.AUTO:
@@ -108,6 +112,24 @@ class Data(dict, Animation):
                     values,
                     type=infer_type.value,
                 )
+
+    def add_data_frame_index(
+        self,
+        data_frame,
+        name: typing.Optional[str],
+    ):
+        if data_frame is not None:
+            if isinstance(data_frame, pd.core.series.Series):
+                data_frame = pd.DataFrame(data_frame)
+            if not isinstance(data_frame, pd.DataFrame):
+                raise TypeError(
+                    "data_frame must be instance of pandas.DataFrame or pandas.Series"
+                )
+            self.add_series(
+                str(name),
+                [str(i) for i in data_frame.index],
+                type=InferType.DIMENSION.value,
+            )
 
     def _add_named_value(self, dest, name, values=None, **kwargs):
         value = {"name": name, **kwargs}

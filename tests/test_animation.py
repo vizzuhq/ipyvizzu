@@ -147,6 +147,19 @@ class TestData(unittest.TestCase):
             self.data.build(),
         )
 
+    def test_data_frame_with_not_df(self):
+        data = Data()
+        with self.assertRaises(TypeError):
+            data.add_data_frame("not_data_frame", None)
+
+    def test_data_frame_with_none(self):
+        data = Data()
+        data.add_data_frame(None)
+        self.assertEqual(
+            {"data": {}},
+            data.build(),
+        )
+
     def test_data_frame(self):
         with open(self.asset_dir / "data_frame_in.json", encoding="UTF-8") as fh_in:
             fc_in = json.load(fh_in)
@@ -161,14 +174,6 @@ class TestData(unittest.TestCase):
             self.data.build(),
         )
 
-    def test_data_frame_with_none(self):
-        data = Data()
-        data.add_data_frame(None)
-        self.assertEqual(
-            {"data": {}},
-            data.build(),
-        )
-
     def test_data_frame_with_pd_series(self):
         data = Data()
         data.add_data_frame(pd.Series([1, 2], name="series1"))
@@ -181,6 +186,82 @@ class TestData(unittest.TestCase):
                     "series": [
                         {"name": "series1", "type": "measure", "values": [1.0, 2.0]},
                         {"name": "series2", "type": "measure", "values": [3.0, 4.0]},
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_data_frame_index_with_not_df(self):
+        data = Data()
+        with self.assertRaises(TypeError):
+            data.add_data_frame_index("not_data_frame", None)
+
+    def test_data_frame_index_with_none_and_none(self):
+        data = Data()
+        data.add_data_frame_index(None, None)
+        self.assertEqual(
+            {"data": {}},
+            data.build(),
+        )
+
+    def test_data_frame_index_with_df_and_none(self):
+        data = Data()
+        data_frame = pd.DataFrame(
+            pd.Series({"x": 1, "y": 2, "z": 3}, index=["x", "y"], name="series")
+        )
+        data.add_data_frame_index(data_frame, None)
+        data.add_data_frame(data_frame)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {"name": "None", "type": "dimension", "values": ["x", "y"]},
+                        {"name": "series", "type": "measure", "values": [1.0, 2.0]},
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_data_frame_index_with_df_and_name(self):
+        data = Data()
+        data_frame = pd.DataFrame({"series": [1, 2, 3]}, index=["x", "y", "z"])
+        data.add_data_frame_index(data_frame, "Index")
+        data.add_data_frame(data_frame)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {
+                            "name": "Index",
+                            "type": "dimension",
+                            "values": ["x", "y", "z"],
+                        },
+                        {
+                            "name": "series",
+                            "type": "measure",
+                            "values": [1.0, 2.0, 3.0],
+                        },
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_data_frame_index_with_pd_series(self):
+        data = Data()
+        data_frame = pd.Series(
+            {"x": 1, "y": 2, "z": 3}, index=["x", "y"], name="series"
+        )
+        data.add_data_frame_index(data_frame, "Index")
+        data.add_data_frame(data_frame)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {"name": "Index", "type": "dimension", "values": ["x", "y"]},
+                        {"name": "series", "type": "measure", "values": [1.0, 2.0]},
                     ]
                 }
             },
