@@ -45,4 +45,4 @@ jobs:
           git add docs
           git commit -am 'docs: update'
           git push -f origin gh-pages
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'release' && github.event.action == 'published'
