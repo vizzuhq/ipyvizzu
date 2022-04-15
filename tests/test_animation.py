@@ -154,8 +154,8 @@ class TestData(unittest.TestCase):
             fc_out = json.load(fh_out)
 
         data_frame = pd.DataFrame(fc_in)
-
-        self.data.add_data_frame(data_frame, {"PopularityAsDimension": "dimension"})
+        data_frame = data_frame.astype({"PopularityAsDimension": str})
+        self.data.add_data_frame(data_frame)
         self.assertEqual(
             fc_out,
             self.data.build(),

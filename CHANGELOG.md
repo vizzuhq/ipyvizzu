@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+### Added
+
+- Changed the DataFrame column's type recognition with checking `dtype` is a numeric type or not .
+- Deprecated `infer_types` parameter of `Data.add_data_frame()`, because it can be set via `dtype`.
+
 ## [0.8.1] - 2022-04-14
 
 ### Fixed
