@@ -1,6 +1,8 @@
 name: Publish documentation
 
 on:
+  workflow_dispatch:
+    branches: [ main ]
   push:
     branches: [ main ]
   pull_request:
@@ -45,4 +47,4 @@ jobs:
           git add docs
           git commit -am 'docs: update'
           git push -f origin gh-pages
-        if: github.event_name == 'release' && github.event.action == 'published'
+        if: ( github.event_name == 'release' && github.event.action == 'published' ) || github.event_name == 'workflow_dispatch'
