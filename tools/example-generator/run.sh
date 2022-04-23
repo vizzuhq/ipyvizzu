@@ -36,7 +36,7 @@ read -r -d '' animatedExamples <<- EOM
 EOM
 
 read -r -d '' storyExamples <<- EOM
-  music-history/music-history.ipynb,musicformats
+  musicformats
 EOM
 
 datafiles="chart_types_eu.mjs infinite_data.mjs music_industry_history_1.mjs tutorial.mjs"
@@ -71,9 +71,7 @@ done
 echo "## Data stories" >> ${examplesDir}/examples.md
 
 for example in $storyExamples; do
-  IFS=','
-  read -a exampleParts <<< "${example}"
-  echo -n "<a href=\"stories/${exampleParts[0]%.ipynb}.html\">" >> ${examplesDir}/examples.md
-  echo -n "<video nocontrols autoplay muted loop src=\"${thumbUrl}/stories/$(basename ${exampleParts[1]%.ipynb}.mp4)\" type=\"video/mp4\"></video>" >> ${examplesDir}/examples.md
+  echo -n "<a href=\"stories/${example}/${example}.html\">" >> ${examplesDir}/examples.md
+  echo -n "<video nocontrols autoplay muted loop src=\"${thumbUrl}/stories/$(basename ${example}.mp4)\" type=\"video/mp4\"></video>" >> ${examplesDir}/examples.md
   echo "</a>" >> ${examplesDir}/examples.md
 done
