@@ -3,6 +3,8 @@ name: Publish documentation
 on:
   workflow_dispatch:
     branches: [ main ]
+  release:
+    types: [published]
   push:
     branches: [ main ]
   pull_request:
