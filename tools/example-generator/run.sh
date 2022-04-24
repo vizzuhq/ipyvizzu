@@ -78,4 +78,4 @@ done
 
 echo "" >> ${examplesDir}/examples.md
 
-echo "Back to the [Table of contents](../index.ipynb#tutorial)" >> ${examplesDir}/examples.md
+echo "Back to the [Table of contents](../index.html#tutorial)" >> ${examplesDir}/examples.md
