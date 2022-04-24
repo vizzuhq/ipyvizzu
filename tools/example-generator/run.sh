@@ -75,3 +75,7 @@ for example in $storyExamples; do
   echo -n "<video nocontrols autoplay muted loop src=\"${thumbUrl}/stories/$(basename ${example}.mp4)\" type=\"video/mp4\"></video>" >> ${examplesDir}/examples.md
   echo "</a>" >> ${examplesDir}/examples.md
 done
+
+echo "" >> ${examplesDir}/examples.md
+
+echo "Back to the [Table of contents](../index.ipynb#tutorial)" >> ${examplesDir}/examples.md
