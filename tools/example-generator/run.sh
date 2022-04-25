@@ -54,6 +54,8 @@ n="\n"
 t="  "
 printf '%b\n' "---${n}jupytext:${n}${t}formats: md:myst${n}${t}text_representation:${n}${t}${t}extension: .md${n}${t}${t}format_name: myst${n}kernelspec:${n}${t}display_name: .venv${n}${t}language: python${n}${t}name: .venv${n}---" > ${examplesDir}/examples.md
 
+echo -e "\n# Examples" >> ${examplesDir}/examples.md
+
 echo -e "\n## Static charts" >> ${examplesDir}/examples.md
 
 echo "<div>" >> ${examplesDir}/examples.md
