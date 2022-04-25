@@ -37,7 +37,7 @@ Note: The data used in this example is available [here](https://github.com/vizzu
 `
 		;
 
-        this.link = "Back to the [Examples](../examples.html) ----- Back to the [Table of contents](../../index.ipynb#tutorial)";
+		this.link = "Back to the [Examples](../examples.html) ----- Back to the [Table of contents](../../index.ipynb#tutorial)";
 	}
 
 	animate(chart, animOptions) 
@@ -98,7 +98,7 @@ ${fullCode}
 			.replace(/\bnull\b/g, 'None')
 			.replace(/\btrue\b/g, 'True')
 			.replace(/\bfalse\b/g, 'False') + 
-            this.link;
+			this.link;
 	}
 }
 
