@@ -50,32 +50,53 @@ for datafile in $datafiles; do
   node vizzu-lib/tools/js2csv/js2csv.js "../../test/integration/test_data/${datafile}" ${docsDir}/data/$(basename ${datafile%.mjs}.csv)
 done
 
-echo "## Static charts" > ${examplesDir}/examples.md
+n="\n"
+t="  "
+printf '%b\n' "---${n}jupytext:${n}${t}formats: md:myst${n}${t}text_representation:${n}${t}${t}extension: .md${n}${t}${t}format_name: myst${n}kernelspec:${n}${t}display_name: .venv${n}${t}language: python${n}${t}name: .venv${n}---" > ${examplesDir}/examples.md
 
+echo -e "\n## Static charts" >> ${examplesDir}/examples.md
+
+echo "<div>" >> ${examplesDir}/examples.md
 for example in $staticExamples; do
+  echo -n "<div style=\"float:left\">" >> ${examplesDir}/examples.md
   echo -n "<a href=\"static/$(basename ${example%.mjs}.html)\">" >> ${examplesDir}/examples.md
   echo -n "<img src=\"${thumbUrl}/static/$(basename ${example%.mjs}.png)\">" >> ${examplesDir}/examples.md
-  echo "</a>" >> ${examplesDir}/examples.md
+  echo -n "</a>" >> ${examplesDir}/examples.md
+  echo "</div>" >> ${examplesDir}/examples.md
   ./mjs2ipynb.sh ${venv} $example ${examplesDir}/static/$(basename ${example%.mjs}.ipynb)
 done
+echo "</div>" >> ${examplesDir}/examples.md
+echo "<div style=\"clear:both\"></div>" >> ${examplesDir}/examples.md
 
-echo "## Animated charts" >> ${examplesDir}/examples.md
+echo -e "\n## Animated charts" >> ${examplesDir}/examples.md
 
+echo "<div>" >> ${examplesDir}/examples.md
 for example in $animatedExamples; do
+  echo -n "<div style=\"float:left\">" >> ${examplesDir}/examples.md
   echo -n "<a href=\"animated/$(basename ${example%.mjs}.html)\">" >> ${examplesDir}/examples.md
   echo -n "<video nocontrols autoplay muted loop src=\"${thumbUrl}/animated/$(basename ${example%.mjs}.mp4)\" type=\"video/mp4\"></video>" >> ${examplesDir}/examples.md
-  echo "</a>" >> ${examplesDir}/examples.md
+  echo -n "</a>" >> ${examplesDir}/examples.md
+  echo "</div>" >> ${examplesDir}/examples.md
   ./mjs2ipynb.sh ${venv} $example ${examplesDir}/animated/$(basename ${example%.mjs}.ipynb)
 done
+echo "</div>" >> ${examplesDir}/examples.md
+echo "<div style=\"clear:both\"></div>" >> ${examplesDir}/examples.md
 
-echo "## Data stories" >> ${examplesDir}/examples.md
+echo -e "\n## Data stories" >> ${examplesDir}/examples.md
 
+echo "<div>" >> ${examplesDir}/examples.md
 for example in $storyExamples; do
+  echo -n "<div style=\"float:left\">" >> ${examplesDir}/examples.md
   echo -n "<a href=\"stories/${example}/${example}.html\">" >> ${examplesDir}/examples.md
   echo -n "<video nocontrols autoplay muted loop src=\"${thumbUrl}/stories/$(basename ${example}.mp4)\" type=\"video/mp4\"></video>" >> ${examplesDir}/examples.md
-  echo "</a>" >> ${examplesDir}/examples.md
+  echo -n "</a>" >> ${examplesDir}/examples.md
+  echo "</div>" >> ${examplesDir}/examples.md
 done
+echo "</div>" >> ${examplesDir}/examples.md
+echo "<div style=\"clear:both\"></div>" >> ${examplesDir}/examples.md
 
-echo "" >> ${examplesDir}/examples.md
+echo -e "\nBack to the [Table of contents](../index.html#tutorial)" >> ${examplesDir}/examples.md
 
-echo "Back to the [Table of contents](../index.html#tutorial)" >> ${examplesDir}/examples.md
+${venv}/bin/jupytext --to notebook ${examplesDir}/examples.md
+
+rm ${examplesDir}/examples.md
