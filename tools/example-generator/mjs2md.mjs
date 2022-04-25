@@ -37,7 +37,7 @@ Note: The data used in this example is available [here](https://github.com/vizzu
 `
 		;
 
-		this.link = "Back to the [Examples](../examples.html) ----- Back to the [Table of contents](../../index.ipynb#tutorial)";
+		this.link = "Back to the [Examples](../examples.ipynb) ----- Back to the [Table of contents](../../index.ipynb#tutorial)";
 	}
 
 	animate(chart, animOptions) 
