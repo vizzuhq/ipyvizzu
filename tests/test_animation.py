@@ -1,6 +1,7 @@
 import json
 import pathlib
 import unittest
+import jsonschema
 import pandas as pd
 
 from ipyvizzu import (
@@ -116,32 +117,23 @@ class TestData(unittest.TestCase):
             self.data.build(),
         )
 
-    def test_dimension(self):
+    def test_data_cube(self):
         self.data.add_dimension("Genres", ["Pop", "Rock"])
         self.data.add_dimension("Types", ["Hard"])
+        self.data.add_measure("Popularity", [[114, 96]])
         self.assertEqual(
             {
                 "data": {
                     "dimensions": [
                         {"name": "Genres", "values": ["Pop", "Rock"]},
                         {"name": "Types", "values": ["Hard"]},
-                    ]
-                }
-            },
-            self.data.build(),
-        )
-
-    def test_mesure(self):
-        self.data.add_measure("Popularity", [[114, 96]])
-        self.assertEqual(
-            {
-                "data": {
+                    ],
                     "measures": [
                         {
                             "name": "Popularity",
                             "values": [[114, 96]],
                         }
-                    ]
+                    ],
                 }
             },
             self.data.build(),
@@ -186,6 +178,30 @@ class TestData(unittest.TestCase):
             },
             data.build(),
         )
+
+    def test_schema_dimension_only(self):
+        self.data.add_dimension("Genres", ["Pop", "Rock"])
+        with self.assertRaises(jsonschema.ValidationError):
+            self.data.build()
+
+    def test_schema_measure_only(self):
+        self.data.add_measure("Popularity", [[114, 96]])
+        with self.assertRaises(jsonschema.ValidationError):
+            self.data.build()
+
+    def test_schema_data_cube_and_series(self):
+        self.data.add_dimension("Genres", ["Pop", "Rock"])
+        self.data.add_measure("Popularity", [[114, 96]])
+        self.data.add_series("Types", ["Hard"])
+        with self.assertRaises(jsonschema.ValidationError):
+            self.data.build()
+
+    def test_schema_data_cube_and_records(self):
+        self.data.add_dimension("Genres", ["Pop", "Rock"])
+        self.data.add_measure("Popularity", [[114, 96]])
+        self.data.add_records([["Rock", "Hard", 96], ["Pop", "Hard", 114]])
+        with self.assertRaises(jsonschema.ValidationError):
+            self.data.build()
 
 
 class TestConfig(unittest.TestCase):

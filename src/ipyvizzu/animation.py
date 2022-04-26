@@ -7,6 +7,7 @@ import pandas as pd
 
 from ipyvizzu.json import RawJavaScript, RawJavaScriptEncoder
 from ipyvizzu.template import DisplayTemplate
+from ipyvizzu.schema import DataSchema
 
 
 class Animation:
@@ -121,6 +122,7 @@ class Data(dict, Animation):
         self.setdefault(dest, []).append(value)
 
     def build(self):
+        DataSchema.validate(self)
         return {"data": self}
 
 
