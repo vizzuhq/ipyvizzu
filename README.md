@@ -44,7 +44,7 @@ A notebook cell may contain the following code snippet resulting in the animatio
 import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
-data_frame = pd.read_csv('./titanic.csv')
+data_frame = pd.read_csv('titanic.csv')
 data = Data()
 data.add_data_frame(data_frame)
 
