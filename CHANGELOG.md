@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Added `Data` verification by schema.
+
 ## [0.8.1] - 2022-04-14
 
 ### Fixed
