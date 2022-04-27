@@ -4,6 +4,7 @@
 
 ### Added
 
+- Added `Data().add_data_frame_index(data_frame, name)`, with this `pandas.DataFrame.index` can be added to `Data()`.
 - Added `Data` verification by schema.
 
 ## [0.8.1] - 2022-04-14
