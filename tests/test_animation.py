@@ -1,6 +1,7 @@
 import json
 import pathlib
 import unittest
+import jsonschema
 import pandas as pd
 
 from ipyvizzu import (
@@ -116,35 +117,39 @@ class TestData(unittest.TestCase):
             self.data.build(),
         )
 
-    def test_dimension(self):
+    def test_data_cube(self):
         self.data.add_dimension("Genres", ["Pop", "Rock"])
         self.data.add_dimension("Types", ["Hard"])
+        self.data.add_measure("Popularity", [[114, 96]])
         self.assertEqual(
             {
                 "data": {
                     "dimensions": [
                         {"name": "Genres", "values": ["Pop", "Rock"]},
                         {"name": "Types", "values": ["Hard"]},
-                    ]
-                }
-            },
-            self.data.build(),
-        )
-
-    def test_mesure(self):
-        self.data.add_measure("Popularity", [[114, 96]])
-        self.assertEqual(
-            {
-                "data": {
+                    ],
                     "measures": [
                         {
                             "name": "Popularity",
                             "values": [[114, 96]],
                         }
-                    ]
+                    ],
                 }
             },
             self.data.build(),
+        )
+
+    def test_data_frame_with_not_df(self):
+        data = Data()
+        with self.assertRaises(TypeError):
+            data.add_data_frame("not_data_frame", None)
+
+    def test_data_frame_with_none(self):
+        data = Data()
+        data.add_data_frame(None)
+        self.assertEqual(
+            {"data": {}},
+            data.build(),
         )
 
     def test_data_frame(self):
@@ -159,14 +164,6 @@ class TestData(unittest.TestCase):
         self.assertEqual(
             fc_out,
             self.data.build(),
-        )
-
-    def test_data_frame_with_none(self):
-        data = Data()
-        data.add_data_frame(None)
-        self.assertEqual(
-            {"data": {}},
-            data.build(),
         )
 
     def test_data_frame_with_pd_series(self):
@@ -186,6 +183,111 @@ class TestData(unittest.TestCase):
             },
             data.build(),
         )
+
+    def test_data_frame_index_with_not_df(self):
+        data = Data()
+        with self.assertRaises(TypeError):
+            data.add_data_frame_index("not_data_frame", None)
+
+    def test_data_frame_index_with_none_and_none(self):
+        data = Data()
+        data.add_data_frame_index(None, None)
+        self.assertEqual(
+            {"data": {}},
+            data.build(),
+        )
+
+    def test_data_frame_index_with_df_and_none(self):
+        data = Data()
+        data_frame = pd.DataFrame(
+            pd.Series({"x": 1, "y": 2, "z": 3}, index=["x", "y"], name="series")
+        )
+        data.add_data_frame_index(data_frame, None)
+        data.add_data_frame(data_frame)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {"name": "None", "type": "dimension", "values": ["x", "y"]},
+                        {"name": "series", "type": "measure", "values": [1.0, 2.0]},
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_data_frame_index_with_df_and_name(self):
+        data = Data()
+        data_frame = pd.DataFrame({"series": [1, 2, 3]}, index=["x", "y", "z"])
+        data.add_data_frame_index(data_frame, "Index")
+        data.add_data_frame(data_frame)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {
+                            "name": "Index",
+                            "type": "dimension",
+                            "values": ["x", "y", "z"],
+                        },
+                        {
+                            "name": "series",
+                            "type": "measure",
+                            "values": [1.0, 2.0, 3.0],
+                        },
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_data_frame_index_with_pd_series(self):
+        data = Data()
+        data_frame = pd.Series(
+            {"x": 1, "y": 2, "z": 3}, index=["x", "y"], name="series"
+        )
+        data.add_data_frame_index(data_frame, "Index")
+        data.add_data_frame(data_frame)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {"name": "Index", "type": "dimension", "values": ["x", "y"]},
+                        {"name": "series", "type": "measure", "values": [1.0, 2.0]},
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+
+class TestDataSchema(unittest.TestCase):
+    def setUp(self):
+        self.data = Data()
+
+    def test_schema_dimension_only(self):
+        self.data.add_dimension("Genres", ["Pop", "Rock"])
+        with self.assertRaises(jsonschema.ValidationError):
+            self.data.build()
+
+    def test_schema_measure_only(self):
+        self.data.add_measure("Popularity", [[114, 96]])
+        with self.assertRaises(jsonschema.ValidationError):
+            self.data.build()
+
+    def test_schema_data_cube_and_series(self):
+        self.data.add_dimension("Genres", ["Pop", "Rock"])
+        self.data.add_measure("Popularity", [[114, 96]])
+        self.data.add_series("Types", ["Hard"])
+        with self.assertRaises(jsonschema.ValidationError):
+            self.data.build()
+
+    def test_schema_data_cube_and_records(self):
+        self.data.add_dimension("Genres", ["Pop", "Rock"])
+        self.data.add_measure("Popularity", [[114, 96]])
+        self.data.add_records([["Rock", "Hard", 96], ["Pop", "Hard", 114]])
+        with self.assertRaises(jsonschema.ValidationError):
+            self.data.build()
 
 
 class TestConfig(unittest.TestCase):

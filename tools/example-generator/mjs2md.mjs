@@ -31,8 +31,13 @@ kernelspec:
   language: python
   name: .venv
 ---
+
+Note: The data used in this example is available [here](https://github.com/vizzuhq/ipyvizzu/tree/gh-pages/docs/data). You can read more about the available types of data in the [Adding data](../../tutorial/data.ipynb) chapter.
+
 `
 		;
+
+		this.link = "Back to the [Examples](../examples.ipynb) ----- Back to the [Table of contents](../../index.ipynb#tutorial)";
 	}
 
 	animate(chart, animOptions) 
@@ -92,7 +97,8 @@ ${fullCode}
 		return this.code
 			.replace(/\bnull\b/g, 'None')
 			.replace(/\btrue\b/g, 'True')
-			.replace(/\bfalse\b/g, 'False');
+			.replace(/\bfalse\b/g, 'False') + 
+			this.link;
 	}
 }
 

@@ -1,8 +1,14 @@
 name: Release ipyvizzu
 
 on:
+  workflow_dispatch:
+    branches: [ main ]
   release:
     types: [published]
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   deploy:
@@ -31,3 +37,4 @@ jobs:
 
     - name: Release package
       run: python -m twine upload -u "__token__" -p "${{ secrets.PYPI_API_TOKEN }}" dist/*
+      if: ( github.event_name == 'release' && github.event.action == 'published' ) || github.event_name == 'workflow_dispatch'

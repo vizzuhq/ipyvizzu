@@ -6,6 +6,8 @@
 
 - Changed the DataFrame column's type recognition with checking `dtype` is a numeric type or not .
 - Deprecated `infer_types` parameter of `Data.add_data_frame()`, because it can be set via `dtype`.
+- Added `Data().add_data_frame_index(data_frame, name)`, with this `pandas.DataFrame.index` can be added to `Data()`.
+- Added `Data` verification by schema.
 
 ## [0.8.1] - 2022-04-14
 
