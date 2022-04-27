@@ -260,6 +260,11 @@ class TestData(unittest.TestCase):
             data.build(),
         )
 
+
+class TestDataSchema(unittest.TestCase):
+    def setUp(self):
+        self.data = Data()
+
     def test_schema_dimension_only(self):
         self.data.add_dimension("Genres", ["Pop", "Rock"])
         with self.assertRaises(jsonschema.ValidationError):
