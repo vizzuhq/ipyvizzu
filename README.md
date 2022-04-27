@@ -26,7 +26,7 @@ Main features:
 
 # Installation
 
-ipyvizzu requires `IPython`, `NumPy` and `pandas` packages.
+ipyvizzu requires `IPython` and `pandas` packages.
 However you can use it only in Jupyter Notebook therefore `notebook` project has to be installed.
 
 ```sh
