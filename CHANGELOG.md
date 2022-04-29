@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.9.0] - 2022-04-29
+
 ### Added
 
 - Changed the DataFrame column's type recognition with checking `dtype` is a numeric type or not .
