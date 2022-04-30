@@ -37,3 +37,9 @@ jobs:
     - name: Release package
       run: python -m twine upload -u "__token__" -p "${{ secrets.PYPI_API_TOKEN }}" dist/*
       if: ( github.event_name == 'release' && github.event.action == 'published' ) || github.event_name == 'workflow_dispatch'
+    
+    - name: Upload package
+      run: |
+        echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+        gh release upload ${{ github.event.release.tag_name }} dist/* --clobber
+      if: ( github.event_name == 'release' && github.event.action == 'published' ) || github.event_name == 'workflow_dispatch'
