@@ -10,6 +10,7 @@
   </p>
 </p>
 
+[![PyPI version](https://badge.fury.io/py/ipyvizzu.svg)](https://badge.fury.io/py/ipyvizzu)
 [![CI check](https://github.com/vizzuhq/ipyvizzu/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/vizzuhq/ipyvizzu/actions/workflows/ci.yml)
 
 # About The Project
