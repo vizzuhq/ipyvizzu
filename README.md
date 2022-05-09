@@ -65,6 +65,17 @@ chart.animate(Config({"x": "Count", "y": ["Sex","Survived"]}))
 Visit our [documentation](https://vizzuhq.github.io/ipyvizzu/index.html) site for more details and a step-by-step tutorial into ipyvizzu,
 or check out the [example gallery](https://vizzuhq.github.io/ipyvizzu/examples/examples.html).
 
+# Tools Support
+
+ipyvizzu can also be used within Google Colab, Deepnote and Kaggle Notebooks! Check out the demo links below 👇
+
+- [![Open In Collab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1nx-wcHrza8PGxkJxU-zywBx4k0XlNZ1j?usp=sharing) 
+
+- [![View in Deepnote](https://deepnote.com/static/buttons/view-in-deepnote.svg)](https://deepnote.com/workspace/shruti-agarwal-1806-11cb8322-b230-4e5d-ade2-32da41e1505a/project/ipyvizzu-41b32b6f-420f-41e3-b125-b5216df47705/%2Fnotebook.ipynb)
+
+- [![Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/shrupyag001/ipyvizzu-demo)
+
+
 # Contributing
 
 We welcome contributions to the project, visit our [contributing guide](https://github.com/vizzuhq/ipyvizzu/blob/main/CONTRIBUTING.md) for further info.
