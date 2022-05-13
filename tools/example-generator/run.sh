@@ -9,6 +9,19 @@ testDir=vizzu-lib/test/integration
 testcaseDir=${testDir}/test_cases/web_content
 thumbUrl=https://github.com/vizzuhq/vizzu-lib-doc/raw/main/docs/latest/content/examples
 
+n="\n"
+t="  "
+
+
+printf '%b\n' "---${n}jupytext:${n}${t}formats: md:myst${n}${t}text_representation:${n}${t}${t}extension: .md${n}${t}${t}format_name: myst${n}kernelspec:${n}${t}display_name: .venv${n}${t}language: python${n}${t}name: .venv${n}title: ipyvizzu${n}---${n}" > ${docsDir}/index.md
+
+cat ../../README.md >> ${docsDir}/index.md
+
+${venv}/bin/jupytext --to notebook ${docsDir}/index.md
+
+rm ${docsDir}/index.md
+
+
 staticExamples=$( find ${testcaseDir}/sample_static/ -name "*.mjs" )
 
 read -r -d '' animatedExamples <<- EOM
@@ -50,8 +63,6 @@ for datafile in $datafiles; do
   node vizzu-lib/tools/js2csv/js2csv.js "../../test/integration/test_data/${datafile}" ${docsDir}/data/$(basename ${datafile%.mjs}.csv)
 done
 
-n="\n"
-t="  "
 printf '%b\n' "---${n}jupytext:${n}${t}formats: md:myst${n}${t}text_representation:${n}${t}${t}extension: .md${n}${t}${t}format_name: myst${n}kernelspec:${n}${t}display_name: .venv${n}${t}language: python${n}${t}name: .venv${n}title: ipyvizzu - Examples${n}---" > ${examplesDir}/examples.md
 
 echo -e "\n# ipyvizzu examples" >> ${examplesDir}/examples.md
@@ -97,7 +108,7 @@ done
 echo "</div>" >> ${examplesDir}/examples.md
 echo "<div style=\"clear:both\"></div>" >> ${examplesDir}/examples.md
 
-echo -e "\nBack to the [Table of contents](../index.html#tutorial)" >> ${examplesDir}/examples.md
+echo -e "\nBack to the [Table of contents](../doc.html#tutorial)" >> ${examplesDir}/examples.md
 
 ${venv}/bin/jupytext --to notebook ${examplesDir}/examples.md
 

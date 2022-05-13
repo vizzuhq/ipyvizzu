@@ -21,7 +21,7 @@ setup(
     install_requires=requirements,
     url="https://github.com/vizzuhq/ipyvizzu",
     project_urls={
-        "Documentation": "https://vizzuhq.github.io/ipyvizzu/index.html",
+        "Documentation": "https://ipyvizzu.vizzuhq.com/",
         "Source": "https://github.com/vizzuhq/ipyvizzu",
         "Tracker": "https://github.com/vizzuhq/ipyvizzu/issues",
     },
