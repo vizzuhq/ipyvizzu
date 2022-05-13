@@ -5,7 +5,7 @@
   <p style="text-align: center"><b>ipyvizzu</b> - Jupyter notebook integration of Vizzu.</p>
   <p style="text-align: center">
     <a href="https://ipyvizzu.vizzuhq.com/doc.html">Tutorial</a>
-    · <a href="https://vizzuhq.github.io/ipyvizzu/examples/examples.html">Examples</a>
+    · <a href="http://ipyvizzu.vizzuhq.com/examples/examples.html">Examples</a>
     · <a href="https://github.com/vizzuhq/ipyvizzu">Repository</a>
   </p>
 </p>
@@ -63,7 +63,7 @@ chart.animate(Config({"x": "Count", "y": ["Sex","Survived"]}))
 </p>
 
 Visit our [documentation](https://ipyvizzu.vizzuhq.com/doc.html) site for more details and a step-by-step tutorial into ipyvizzu,
-or check out the [example gallery](https://vizzuhq.github.io/ipyvizzu/examples/examples.html).
+or check out the [example gallery](http://ipyvizzu.vizzuhq.com/examples/examples.html).
 
 # Tools Support
 
