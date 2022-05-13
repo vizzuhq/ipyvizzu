@@ -56,7 +56,7 @@ make doc
 The `Publish documentation` workflow invokes the `doc` target
 and publish it to the gh-pages branch.
 
-Online version can be read at [Tutorial & Examples](https://vizzuhq.github.io/ipyvizzu/index.html).
+Online version can be read at [Tutorial & Examples](https://ipyvizzu.vizzuhq.com/).
 
 
 ### Releasing the project

@@ -1,10 +1,10 @@
-<p align="center">
+<p style="text-align: center">
   <a href="https://github.com/vizzuhq/vizzu-lib">
     <img src="https://github.com/vizzuhq/vizzu-lib-doc/raw/main/docs/readme/infinite-60.gif" alt="Vizzu" />
   </a>
-  <p align="center"><b>ipyvizzu</b> - Jupyter notebook integration of Vizzu.</p>
-  <p align="center">
-    <a href="https://vizzuhq.github.io/ipyvizzu/index.html">Tutorial</a>
+  <p style="text-align: center"><b>ipyvizzu</b> - Jupyter notebook integration of Vizzu.</p>
+  <p style="text-align: center">
+    <a href="https://ipyvizzu.vizzuhq.com/doc.html">Tutorial</a>
     · <a href="https://vizzuhq.github.io/ipyvizzu/examples/examples.html">Examples</a>
     · <a href="https://github.com/vizzuhq/ipyvizzu">Repository</a>
   </p>
@@ -34,7 +34,7 @@ However you can use it only in Jupyter Notebook therefore `notebook` project has
 pip install ipyvizzu
 pip install notebook
 ```
-You can also use ipyvizzu by locally installing Vizzu, you can find more info about this in the [documentation](https://vizzuhq.github.io/ipyvizzu/index.html)
+You can also use ipyvizzu by locally installing Vizzu, you can find more info about this in the [documentation](https://ipyvizzu.vizzuhq.com/doc.html)
 
 # Usage
 
@@ -58,11 +58,11 @@ chart.animate(Config({"x": ["Count","Survived"], "label": ["Count","Survived"], 
 chart.animate(Config({"x": "Count", "y": ["Sex","Survived"]}))
 ```
 
-<p align="center">
+<p style="text-align: center">
   <img src="https://github.com/vizzuhq/ipyvizzu/raw/main/docs/assets/ipyvizzu-promo.gif" alt="ipyvizzu" />
 </p>
 
-Visit our [documentation](https://vizzuhq.github.io/ipyvizzu/index.html) site for more details and a step-by-step tutorial into ipyvizzu,
+Visit our [documentation](https://ipyvizzu.vizzuhq.com/doc.html) site for more details and a step-by-step tutorial into ipyvizzu,
 or check out the [example gallery](https://vizzuhq.github.io/ipyvizzu/examples/examples.html).
 
 # Tools Support
