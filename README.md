@@ -1,9 +1,9 @@
-<p style="text-align: center">
+<p align="center">
   <a href="https://github.com/vizzuhq/vizzu-lib">
     <img src="https://github.com/vizzuhq/vizzu-lib-doc/raw/main/docs/readme/infinite-60.gif" alt="Vizzu" />
   </a>
-  <p style="text-align: center"><b>ipyvizzu</b> - Jupyter notebook integration of Vizzu.</p>
-  <p style="text-align: center">
+  <p align="center"><b>ipyvizzu</b> - Jupyter notebook integration of Vizzu.</p>
+  <p align="center">
     <a href="https://ipyvizzu.vizzuhq.com/doc.html">Tutorial</a>
     · <a href="http://ipyvizzu.vizzuhq.com/examples/examples.html">Examples</a>
     · <a href="https://github.com/vizzuhq/ipyvizzu">Repository</a>
@@ -58,7 +58,7 @@ chart.animate(Config({"x": ["Count","Survived"], "label": ["Count","Survived"], 
 chart.animate(Config({"x": "Count", "y": ["Sex","Survived"]}))
 ```
 
-<p style="text-align: center">
+<p align="center">
   <img src="https://github.com/vizzuhq/ipyvizzu/raw/main/docs/assets/ipyvizzu-promo.gif" alt="ipyvizzu" />
 </p>
 
