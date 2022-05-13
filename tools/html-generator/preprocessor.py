@@ -14,7 +14,7 @@ class NbPreprocessor(Preprocessor):
 
             cell.source = re.sub(
                 r"\<p align\=\"center\"",
-                "<p style=\"text-align: center\"",
+                '<p style="text-align: center"',
                 cell.source,
             )
 
