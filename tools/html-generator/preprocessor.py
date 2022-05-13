@@ -12,6 +12,12 @@ class NbPreprocessor(Preprocessor):
                 cell.source,
             )
 
+            cell.source = re.sub(
+                r"\<p align\=\"center\"",
+                "<p style=\"text-align: center\"",
+                cell.source,
+            )
+
         if "outputs" in cell and cell.cell_type == "code":
             for i, output in enumerate(cell.outputs):
                 if "data" in output and "application/javascript" in output["data"]:
