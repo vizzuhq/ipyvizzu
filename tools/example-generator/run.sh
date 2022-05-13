@@ -113,3 +113,6 @@ echo -e "\nBack to the [Table of contents](../doc.html#tutorial)" >> ${examplesD
 ${venv}/bin/jupytext --to notebook ${examplesDir}/examples.md
 
 rm ${examplesDir}/examples.md
+
+
+echo -n "ipyvizzu.vizzuhq.com" > ${docsDir}/CNAME
