@@ -1,24 +1,18 @@
-"""
-Jupyter notebook integration for Vizzu.
-"""
+from IPython.display import display_javascript
+from IPython import get_ipython
 
 import pkgutil
 import uuid
 
-from IPython.display import display_javascript
-from IPython import get_ipython
+from pyvizzu.chart import Chart as PyvizzuChart
 
-from ipyvizzu.animation import Animation, Snapshot, AnimationMerger
-from ipyvizzu.method import Animate, Feature, Store
-from ipyvizzu.template import DisplayTarget, DisplayTemplate
+from ipyvizzu.template import DisplayTarget, DisplayTemplate, VIZZU
 
+"""
+Jupyter notebook integration of Vizzu.
+"""
 
-class Chart:
-    """
-    Wrapper over Vizzu Chart
-    """
-
-    VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js"
+class Chart(PyvizzuChart):
 
     def __init__(
         self,
@@ -38,18 +32,25 @@ class Chart:
         if self._display_target != DisplayTarget.MANUAL:
             self._register_events()
 
-        ipyvizzu_js = pkgutil.get_data(__name__, "templates/ipyvizzu.js").decode(
-            "utf-8"
-        )
+        try:
+            pyvizzu_js = pkgutil.get_data(__name__, "templates/pyvizzu.js").decode(
+                "utf-8"
+            )
+        except OSError:
+            pyvizzu_js = pkgutil.get_data("pyvizzu", "templates/pyvizzu.js").decode(
+                "utf-8"
+            )
+
         self._display(
             DisplayTemplate.INIT.format(
-                ipyvizzu_js=ipyvizzu_js,
+                pyvizzu_js=pyvizzu_js,
                 chart_id=self._chart_id,
                 vizzu=vizzu,
                 div_width=width,
                 div_height=height,
             )
         )
+
 
     @staticmethod
     def _register_events():
@@ -60,62 +61,7 @@ class Chart:
     @staticmethod
     def _register_pre_run_cell():
         display_javascript(DisplayTemplate.CLEAR_INHIBITSCROLL, raw=True)
-
-    @property
-    def scroll_into_view(self):
-        return self._scroll_into_view
-
-    @scroll_into_view.setter
-    def scroll_into_view(self, scroll_into_view):
-        self._scroll_into_view = bool(scroll_into_view)
-
-    def animate(self, *animations: Animation, **options):
-        """
-        Show new animation.
-        """
-        if not animations:
-            raise ValueError("No animation was set.")
-
-        animation = self._merge_animations(animations)
-        animate = Animate(animation, options)
-
-        self._display(
-            DisplayTemplate.ANIMATE.format(
-                display_target=self._display_target,
-                chart_id=self._chart_id,
-                scroll=str(self._scroll_into_view).lower(),
-                **animate.dump(),
-            )
-        )
-
-    @staticmethod
-    def _merge_animations(animations):
-        if len(animations) == 1:
-            return animations[0]
-
-        merger = AnimationMerger()
-        for animation in animations:
-            merger.merge(animation)
-
-        return merger
-
-    def feature(self, name, enabled):
-        self._display(
-            DisplayTemplate.FEATURE.format(
-                chart_id=self._chart_id,
-                **Feature(name, enabled).dump(),
-            )
-        )
-
-    def store(self) -> Snapshot:
-        snapshot_id = uuid.uuid4().hex[:7]
-        self._display(
-            DisplayTemplate.STORE.format(
-                chart_id=self._chart_id, **Store(snapshot_id).dump()
-            )
-        )
-        return Snapshot(snapshot_id)
-
+    
     def show(self):
         assert (
             self._display_target == DisplayTarget.MANUAL
