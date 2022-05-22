@@ -1,5 +1,5 @@
 """
-Jupyter notebook integration of Vizzu.
+Jupyter Notebook integration of Vizzu.
 """
 
 import pkgutil
@@ -54,8 +54,7 @@ class Chart(PyvizzuChart):
                 raw=True,
             )
         else:
-            assert not self._showed, "cannot be used after chart.show()"
-            self._calls.append(javascript)
+            super()._display(javascript)
 
     def show(self):
         assert (

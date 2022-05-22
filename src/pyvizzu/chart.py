@@ -77,6 +77,9 @@ class Chart:
         Display or collect javascript code.
         """
 
+        assert not self._showed, "cannot be used after chart.show()"
+        self._calls.append(javascript)
+
     @abc.abstractmethod
     def show(self):
         """

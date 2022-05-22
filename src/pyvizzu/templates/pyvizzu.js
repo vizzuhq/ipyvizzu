@@ -8,6 +8,8 @@ class IpyVizzu
         document.addEventListener('keydown', (evt) => { IpyVizzu.inhibitScroll = true }, true);
         document.addEventListener('touchstart', (evt) => { IpyVizzu.inhibitScroll = true }, true);
 
+        this.element = element;
+
         this.elements = {};
         this.elements[chartId] = document.createElement("div");
         this.elements[chartId].style.cssText = `width: ${divWidth}; height: ${divHeight};`;
@@ -22,12 +24,14 @@ class IpyVizzu
 
     static clearInhibitScroll(element)
     {
+        if (!element) element = this.element;
         if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
         IpyVizzu.inhibitScroll = false;
     }
 
     animate(element, chartId, displayTarget, scrollEnabled, chartTarget, chartAnimOpts)
     {
+        if (!element) element = this.element;
         if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
         if (displayTarget === 'end') this._moveHere(chartId, element);
         this.charts[chartId] = this.charts[chartId].then(chart => {
@@ -39,6 +43,7 @@ class IpyVizzu
 
     store(element, chartId, id)
     {
+        if (!element) element = this.element;
         if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
         this.charts[chartId] = this.charts[chartId].then(chart => {
             this.snapshots[id] = chart.store();
@@ -48,12 +53,14 @@ class IpyVizzu
 
     stored(element, id)
     {
+        if (!element) element = this.element;
         if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
         return this.snapshots[id];
     }
 
     feature(element, chartId, name, enabled)
     {
+        if (!element) element = this.element;
         if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
         this.charts[chartId] = this.charts[chartId].then(chart => {
             chart.feature(name, enabled);
