@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
+
 from setuptools import setup
 
-with open('requirements.txt') as fp:
-    requirements = fp.read().splitlines()
 
 with open("README.md") as fp:
     long_description = fp.read()
@@ -46,7 +45,7 @@ setup(
     package_dir={'ipyvizzu': 'src/ipyvizzu'},
     package_data={'ipyvizzu': ['templates/*.js']},
     python_requires='>=3.6',
-    install_requires=["IPython", "pyvizzu"],
+    install_requires=["IPython", f"pyvizzu=={version}"],
     url="https://github.com/vizzuhq/ipyvizzu",
     project_urls={
         "Documentation": "https://ipyvizzu.vizzuhq.com/",
