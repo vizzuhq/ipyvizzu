@@ -4,7 +4,7 @@ from pyvizzu.method import Feature as PyvizzuFeature
 from pyvizzu.method import Store as PyvizzuStore
 
 
-Method  = PyvizzuMethod
+Method = PyvizzuMethod
 
 Animate = PyvizzuAnimate
 

@@ -1,3 +1,4 @@
+import abc
 import uuid
 
 from pyvizzu.animation import Animation, Snapshot, AnimationMerger
@@ -6,9 +7,17 @@ from pyvizzu.template import DisplayTarget, DisplayTemplate
 
 
 class Chart:
-    """
-    Wrapper over Vizzu Chart
-    """
+    def __init__(
+        self,
+        display: DisplayTarget,
+    ):
+        self._chart_id = uuid.uuid4().hex[:7]
+
+        self._display_target = DisplayTarget(display)
+        self._calls = []
+        self._showed = False
+
+        self._scroll_into_view = False
 
     @property
     def scroll_into_view(self):
@@ -61,3 +70,15 @@ class Chart:
             )
         )
         return Snapshot(snapshot_id)
+
+    @abc.abstractmethod
+    def _display(self, javascript):
+        """
+        Display or collect javascript code.
+        """
+
+    @abc.abstractmethod
+    def show(self):
+        """
+        Display collected javascript code.
+        """
