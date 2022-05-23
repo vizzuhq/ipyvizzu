@@ -1,9 +1,9 @@
 import abc
 import uuid
 
-from pyvizzu.animation import Animation, Snapshot, AnimationMerger
+from pyvizzu.animation import Animation, AnimationMerger
 from pyvizzu.method import Animate, Feature, Store
-from pyvizzu.template import DisplayTarget, DisplayTemplate
+from pyvizzu.template import DisplayTarget
 
 
 class Chart:
@@ -14,6 +14,7 @@ class Chart:
         self._chart_id = uuid.uuid4().hex[:7]
 
         self._display_target = DisplayTarget(display)
+        self._set_display_template()
         self._calls = []
         self._showed = False
 
@@ -35,7 +36,7 @@ class Chart:
         animate = Animate(animation, options)
 
         self._display(
-            DisplayTemplate.ANIMATE.format(
+            self._display_template.ANIMATE.format(
                 display_target=self._display_target,
                 chart_id=self._chart_id,
                 scroll=str(self._scroll_into_view).lower(),
@@ -56,20 +57,21 @@ class Chart:
 
     def feature(self, name, enabled):
         self._display(
-            DisplayTemplate.FEATURE.format(
+            self._display_template.FEATURE.format(
                 chart_id=self._chart_id,
                 **Feature(name, enabled).dump(),
             )
         )
 
-    def store(self) -> Snapshot:
+    @abc.abstractmethod
+    def store(self):
         snapshot_id = uuid.uuid4().hex[:7]
         self._display(
-            DisplayTemplate.STORE.format(
+            self._display_template.STORE.format(
                 chart_id=self._chart_id, **Store(snapshot_id).dump()
             )
         )
-        return Snapshot(snapshot_id)
+        return snapshot_id
 
     @abc.abstractmethod
     def _display(self, javascript):
@@ -79,6 +81,12 @@ class Chart:
 
         assert not self._showed, "cannot be used after chart.show()"
         self._calls.append(javascript)
+
+    @abc.abstractmethod
+    def _set_display_template(self):
+        """
+        Set display template.
+        """
 
     @abc.abstractmethod
     def show(self):

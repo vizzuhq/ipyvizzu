@@ -6,7 +6,6 @@ import pandas as pd
 from pandas.api.types import is_numeric_dtype
 
 from pyvizzu.json import RawJavaScript, RawJavaScriptEncoder
-from pyvizzu.template import DisplayTemplate
 from pyvizzu.schema import DataSchema
 
 
@@ -156,8 +155,16 @@ class Snapshot(Animation):
     def __init__(self, name: str):
         self._name = name
 
+        self._set_display_template()
+
+    @abc.abstractmethod
+    def _set_display_template(self):
+        """
+        Set display template.
+        """
+
     def dump(self):
-        return DisplayTemplate.STORED.format(id=self._name)
+        return self._display_template.STORED.format(id=self._name)
 
     def build(self):
         raise NotImplementedError("Snapshot cannot be merged with other Animations")

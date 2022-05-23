@@ -9,6 +9,7 @@ from streamlit.components.v1 import html
 
 from pyvizzu.chart import Chart as PyvizzuChart
 
+from stpyvizzu.animation import Snapshot
 from stpyvizzu.template import DisplayTarget, DisplayTemplate, VIZZU
 
 
@@ -32,7 +33,7 @@ class Chart(PyvizzuChart):
         self._st_id = uuid.uuid4().hex[:7]
 
         self._display(
-            DisplayTemplate.INIT.format(
+            self._display_template.INIT.format(
                 pyvizzu_js=pyvizzu_js,
                 st_id=self._st_id,
                 chart_id=self._chart_id,
@@ -42,11 +43,18 @@ class Chart(PyvizzuChart):
             )
         )
 
+    def store(self):
+        snapshot_id = super().store()
+        return Snapshot(snapshot_id)
+
     def _display(self, javascript):
         if self._display_target != DisplayTarget.MANUAL:
             raise ValueError("display can be manual only")
 
         super()._display(javascript)
+
+    def _set_display_template(self):
+        self._display_template = DisplayTemplate
 
     def show(self):
         script = "\n".join(self._calls)

@@ -7,6 +7,8 @@ from pyvizzu.animation import Style as PyvizzuStyle
 from pyvizzu.animation import Snapshot as PyvizzuSnapshot
 from pyvizzu.animation import AnimationMerger as PyvizzuAnimationMerger
 
+from ipyvizzu.template import DisplayTemplate
+
 
 Animation = PyvizzuAnimation
 
@@ -20,6 +22,11 @@ Config = PyvizzuConfig
 
 Style = PyvizzuStyle
 
-Snapshot = PyvizzuSnapshot
+
+class Snapshot(PyvizzuSnapshot):
+
+    def _set_display_template(self):
+        self._display_template = DisplayTemplate
+
 
 AnimationMerger = PyvizzuAnimationMerger
