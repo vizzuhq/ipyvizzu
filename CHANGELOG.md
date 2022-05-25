@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.10.0] - 2022-05-25
+
 ### Added
 
 - Added `Chart._repr_html_()` method.
