@@ -29,14 +29,14 @@ class TestChartInit(unittest.TestCase):
 
         self.assertEqual(
             self.normalizer.normalize_id(
-                self.javascript.call_args_list[0].args[0].strip().splitlines()[-1]
+                self.javascript.call_args_list[1].args[0].strip().splitlines()[-1]
             ).strip(),
             "window.ipyvizzu = "
             + "new window.IpyVizzu("
             + "element, "
             + "id, "
-            + '"https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js", '
-            + '"800px", "480px");',
+            + "'https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js', "
+            + "'800px', '480px');",
         )
 
     def test_init_vizzu(self):
@@ -44,14 +44,14 @@ class TestChartInit(unittest.TestCase):
 
         self.assertEqual(
             self.normalizer.normalize_id(
-                self.javascript.call_args_list[0].args[0].strip().splitlines()[-1]
+                self.javascript.call_args_list[1].args[0].strip().splitlines()[-1]
             ).strip(),
             "window.ipyvizzu = "
             + "new window.IpyVizzu("
             + "element, "
             + "id, "
-            + '"https://cdn.jsdelivr.net/npm/vizzu@0.4.1/dist/vizzu.min.js", '
-            + '"800px", "480px");',
+            + "'https://cdn.jsdelivr.net/npm/vizzu@0.4.1/dist/vizzu.min.js', "
+            + "'800px', '480px');",
         )
 
     def test_init_div(self):
@@ -59,14 +59,14 @@ class TestChartInit(unittest.TestCase):
 
         self.assertEqual(
             self.normalizer.normalize_id(
-                self.javascript.call_args_list[0].args[0].strip().splitlines()[-1]
+                self.javascript.call_args_list[1].args[0].strip().splitlines()[-1]
             ).strip(),
             "window.ipyvizzu = "
             + "new window.IpyVizzu("
             + "element, "
             + "id, "
-            + '"https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js", '
-            + '"400px", "240px");',
+            + "'https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js', "
+            + "'400px', '240px');",
         )
 
     def test_init_display_not_valid(self):

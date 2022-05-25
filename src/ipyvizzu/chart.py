@@ -38,12 +38,11 @@ class Chart:
         if self._display_target != DisplayTarget.MANUAL:
             self._register_events()
 
-        ipyvizzu_js = pkgutil.get_data(__name__, "templates/ipyvizzu.js").decode(
-            "utf-8"
-        )
+        ipyvizzujs = pkgutil.get_data(__name__, "templates/ipyvizzu.js").decode("utf-8")
+        self._display(DisplayTemplate.IPYVIZZUJS.format(ipyvizzujs=ipyvizzujs))
+
         self._display(
             DisplayTemplate.INIT.format(
-                ipyvizzu_js=ipyvizzu_js,
                 chart_id=self._chart_id,
                 vizzu=vizzu,
                 div_width=width,
@@ -116,11 +115,27 @@ class Chart:
         )
         return Snapshot(snapshot_id)
 
+    def _repr_html_(self):
+        assert (
+            self._display_target == DisplayTarget.MANUAL
+        ), f'chart._repr_html_() can be used with display="{DisplayTarget.MANUAL}" only'
+        assert not self._showed, "cannot be used after chart displayed."
+        self._showed = True
+        html_id = uuid.uuid4().hex[:7]
+        script = (
+            self._calls[0]
+            + "\n"
+            + "\n".join(self._calls[1:]).replace(
+                "element", f'document.getElementById("{html_id}")'
+            )
+        )
+        return f'<div id="{html_id}"><script>{script}</script></div>'
+
     def show(self):
         assert (
             self._display_target == DisplayTarget.MANUAL
         ), f'chart.show() can be used with display="{DisplayTarget.MANUAL}" only'
-        assert not self._showed, "cannot be used after chart.show()"
+        assert not self._showed, "cannot be used after chart displayed"
         display_javascript(
             "\n".join(self._calls),
             raw=True,
