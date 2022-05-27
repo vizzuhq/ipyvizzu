@@ -19,17 +19,17 @@ You can use ipyvizzu in databricks with the following restrictions:
 |                                                                                         |                    |
 | Rerun cells without rerun the chart initialization cell                                 | :x:                |
 
-Try ipyvizzu with this working example below (it is not necessary to put the code into different cmds):
+Try ipyvizzu with this working example below (it is not necessary to put the code into different cells):
 
 ```python
-# cmd 1
+# cell 1
 # install ipyvizzu
 
 !pip install ipyvizzu
 ```
 
 ```python
-# cmd 2
+# cell 2
 # import pandas and ipyvizzu and initialize chart
 
 import pandas as pd
@@ -39,18 +39,18 @@ chart = Chart(width="640px", height="360px", display="manual")
 ```
 
 ```python
-# cmd 3
+# cell 3
 # add data
 
 data = Data()
-data_frame = pd.read_csv('https://github.com/vizzuhq/ipyvizzu/raw/main/docs/examples/stories/titanic/titanic.csv')
+data_frame = pd.read_csv("https://github.com/vizzuhq/ipyvizzu/raw/main/docs/examples/stories/titanic/titanic.csv")
 data.add_data_frame(data_frame)
 
 chart.animate(data)
 ```
 
 ```python
-# cmd 4
+# cell 4
 # add config
 
 chart.animate(Config({"x": "Count", "y": "Sex", "label": "Count","title":"Passengers of the Titanic"}))
@@ -59,14 +59,14 @@ chart.animate(Config({"x": "Count", "y": ["Sex","Survived"]}))
 ```
 
 ```python
-# cmd 5
+# cell 5
 # add style
 
 chart.animate(Style({"title": {"fontSize": 35}}))
 ```
 
 ```python
-# cmd 6
+# cell 6
 # display chart with _repr_html_() method
 
 chart
