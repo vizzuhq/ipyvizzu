@@ -1,31 +1,47 @@
-# Databricks
+# Mercury
 
-You can use ipyvizzu in Databricks with the following restrictions:
+You can use ipyvizzu in Mercury with the following restrictions:
 
 | Function                                                                                   | Supported          |
 | ------------------------------------------------------------------------------------------ | ------------------ |
-| Rerun individual cells without rerun the chart initialization cell (if display!="manual")  | :x:                |
-|                                                                                            |                    |
 | Constructor arguments:                                                                     |                    |
 | Change the url of vizzu (vizzu)                                                            | :white_check_mark: |
 | Change the width of the chart (width)                                                      | :white_check_mark: |
 | Change the height of the chart (height)                                                    | :white_check_mark: |
-| Automatically display all animations after the constructor's cell (display="begin")        | :x:                |
-| Automatically display animation after the currently running cell (display="actual")        | :x:                |
-| Automatically display all animations after the last running cell (display="end")           | :x:                |
-| Manually display all animations after `show()` method called (display="manual")            | :x:                |
-| Manually display all animations after `_repr_html_()` method called (display="manual")     | :white_check_mark: |
+| Automatically display all animations after the constructor's cell (display="begin")        | :white_check_mark: |
+| Automatically display animation after the currently running cell (display="actual")        | :white_check_mark: |
+| Automatically display all animations after the last running cell (display="end")           | :white_check_mark: |
+| Manually display all animations after `show()` method called (display="manual")            | :white_check_mark: |
+| Manually display all animations after `_repr_html_()` method called (display="manual")     | :x:                |
 |                                                                                            |                    |
 | Properties:                                                                                |                    |
 | Scroll into view (scroll_into_view=True)                                                   | :white_check_mark: |
 
 Try ipyvizzu with this working example below (it is not necessary to put the code into different cells):
 
+```
+# cell 0
+# configure application
+
+---
+title: ipyvizzu demo
+description: ipyvizzu mercury demo
+show-code: False
+params:
+params:
+    gender:
+        input: select
+        label: select the gender
+        choices: [male, female]
+        multi: False
+---
+```
+
 ```python
 # cell 1
-# install ipyvizzu
+# configure default value
 
-!pip install ipyvizzu
+gender = 'male'
 ```
 
 ```python
@@ -35,7 +51,11 @@ Try ipyvizzu with this working example below (it is not necessary to put the cod
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style
 
-chart = Chart(width="640px", height="360px", display="manual")
+chart = Chart(width="640px", height="360px")
+# chart = Chart(width="640px", height="360px", display="begin")
+# chart = Chart(width="640px", height="360px", display="actual")  # default
+# chart = Chart(width="640px", height="360px", display="end")
+# chart = Chart(width="640px", height="360px", display="manual")
 ```
 
 ```python
@@ -67,7 +87,15 @@ chart.animate(Style({"title": {"fontSize": 35}}))
 
 ```python
 # cell 6
-# display chart with _repr_html_() method
+# filter data by the selected gender
 
-chart
+data_filter = Data.filter(f"record['Sex'] == '{gender}'")
+chart.animate(data_filter)
+```
+
+```python
+# cell 6
+# display chart with show() method if display="manual"
+
+# chart.show()
 ```
