@@ -69,8 +69,6 @@ or check out the [example gallery](http://ipyvizzu.vizzuhq.com/examples/examples
 
 ipyvizzu can also be used in a wide variety of environments! Check out the examples below to see the supported functions:
 
-- [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/shrupyag001/ipyvizzu-demo)
-
 - [Colab example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/colab.md) and interactive demo [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/19H4etDPuSyJ3LNJbshsfEAnxxwjJgZgq?usp=sharing)
 
 - [Databricks example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/databricks.md)
@@ -80,6 +78,8 @@ ipyvizzu can also be used in a wide variety of environments! Check out the examp
 - [Deepnote example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/deepnote.md) and interactive demo [![View in Deepnote](https://deepnote.com/static/buttons/view-in-deepnote.svg)](https://deepnote.com/workspace/david-andras-vegh-bc03-79fd3a98-abaf-40c0-8b52-9f3e438a73fc/project/ipyvizzu-demo-dff3c2c3-f212-434e-8fa1-23d843c52fe3/%2Fipyvizzu_demo.ipynb)
 
 - [JupyterLite example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/jupyterlite.md)
+
+- [Kaggle example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/kaggle.md) and interactive demo [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/dvidandrsvgh/ipyvizzu-demo)
 
 - [Mercury example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/mercury.md) and interactive demo [![Open in Mercury](https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg)](https://huggingface.co/spaces/veghdev/ipyvizzu-demo)
 
