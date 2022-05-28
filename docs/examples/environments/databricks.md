@@ -4,6 +4,8 @@ You can use ipyvizzu in databricks with the following restrictions:
 
 | Function                                                                                | Supported          |
 | --------------------------------------------------------------------------------------- | ------------------ |
+| Rerun individual cells without rerun the chart initialization cell                      | :x:                |
+|                                                                                         |                    |
 | Constructor arguments:                                                                  |                    |
 | Change the url of vizzu (vizzu)                                                         | :white_check_mark: |
 | Change the width of the chart (width)                                                   | :white_check_mark: |
@@ -16,8 +18,6 @@ You can use ipyvizzu in databricks with the following restrictions:
 |                                                                                         |                    |
 | Properties:                                                                             |                    |
 | Scroll into view (scroll_into_view=True)                                                | :white_check_mark: |
-|                                                                                         |                    |
-| Rerun cells without rerun the chart initialization cell                                 | :x:                |
 
 Try ipyvizzu with this working example below (it is not necessary to put the code into different cells):
 
