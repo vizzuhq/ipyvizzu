@@ -77,6 +77,12 @@ ipyvizzu can also be used within Google Colab, Deepnote and Kaggle Notebooks! Ch
 
 - [![Open in Mercury](https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg)](https://huggingface.co/spaces/veghdev/ipyvizzu-demo)
 
+- databricks: See [supported functions and code example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/databricks.md)
+
+- DataCamp: See [supported functions and code example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/datacamp.md)
+
+- JupyterLite: See [supported functions and code example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/jupyterlite.md)
+
 
 # Contributing
 
