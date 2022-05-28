@@ -67,13 +67,13 @@ or check out the [example gallery](http://ipyvizzu.vizzuhq.com/examples/examples
 
 # Tools Support
 
-ipyvizzu can also be used in a wide variety of environments! Check out the links below:
+ipyvizzu can also be used in a wide variety of environments! Check out the examples below to see the supported functions:
 
 - [![View in Deepnote](https://deepnote.com/static/buttons/view-in-deepnote.svg)](https://deepnote.com/workspace/shruti-agarwal-1806-11cb8322-b230-4e5d-ade2-32da41e1505a/project/ipyvizzu-41b32b6f-420f-41e3-b125-b5216df47705/%2Fnotebook.ipynb)
 
 - [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/shrupyag001/ipyvizzu-demo)
 
-- [Colab example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/colab.md) or an interactive demo [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/19H4etDPuSyJ3LNJbshsfEAnxxwjJgZgq?usp=sharing)
+- [Colab example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/colab.md) and interactive demo [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/19H4etDPuSyJ3LNJbshsfEAnxxwjJgZgq?usp=sharing)
 
 - [Databricks example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/databricks.md)
 
@@ -81,7 +81,7 @@ ipyvizzu can also be used in a wide variety of environments! Check out the links
 
 - [JupyterLite example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/jupyterlite.md)
 
-- [Mercury example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/mercury.md) and an interactive demo [![Open in Mercury](https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg)](https://huggingface.co/spaces/veghdev/ipyvizzu-demo)
+- [Mercury example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/mercury.md) and interactive demo [![Open in Mercury](https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg)](https://huggingface.co/spaces/veghdev/ipyvizzu-demo)
 
 
 # Contributing
