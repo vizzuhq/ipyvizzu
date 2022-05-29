@@ -83,6 +83,8 @@ ipyvizzu can also be used in a wide variety of environments! Check out the examp
 
 - [Mercury example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/mercury.md) and interactive demo [![Open in Mercury](https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg)](https://huggingface.co/spaces/veghdev/ipyvizzu-demo)
 
+- [VSCode Python example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/vscode.md)
+
 
 # Contributing
 
