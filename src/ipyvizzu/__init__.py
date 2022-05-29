@@ -13,4 +13,4 @@ from .animation import (
 )
 from .method import Method, Animate, Feature, Store
 from .json import RawJavaScript, RawJavaScriptEncoder
-from .template import DisplayTarget, DisplayTemplate
+from .template import DisplayTarget, DisplayTemplate, VIZZU

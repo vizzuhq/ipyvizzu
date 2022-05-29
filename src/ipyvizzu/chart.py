@@ -1,9 +1,6 @@
 """
 Jupyter Notebook integration of Vizzu.
 """
-
-import pkgutil
-
 from IPython.display import display_javascript
 from IPython import get_ipython
 
@@ -21,22 +18,14 @@ class Chart(PyvizzuChart):
         height="480px",
         display: DisplayTarget = DisplayTarget("actual"),
     ):
-        super().__init__(display)
+        self._classes["DisplayTemplate"] = DisplayTemplate
+        self._classes["Snapshot"] = Snapshot
+        self._js["target"] = DisplayTarget(display)
 
-        pyvizzu_js = pkgutil.get_data("pyvizzu", "templates/pyvizzu.js").decode("utf-8")
+        super().__init__(vizzu, width, height)
 
-        if self._display_target != DisplayTarget.MANUAL:
+        if self._js["target"] != DisplayTarget.MANUAL:
             self._register_events()
-
-        self._display(
-            self._display_template.INIT.format(
-                pyvizzu_js=pyvizzu_js,
-                chart_id=self._chart_id,
-                vizzu=vizzu,
-                div_width=width,
-                div_height=height,
-            )
-        )
 
     def _register_events(self):
         ipy = get_ipython()
@@ -44,31 +33,41 @@ class Chart(PyvizzuChart):
             ipy.events.register("pre_run_cell", self._register_pre_run_cell)
 
     def _register_pre_run_cell(self):
-        display_javascript(self._display_template.CLEAR_INHIBITSCROLL, raw=True)
-
-    def store(self):
-        snapshot_id = super().store()
-        return Snapshot(snapshot_id)
+        display_javascript(
+            self._classes["DisplayTemplate"].CLEAR_INHIBITSCROLL, raw=True
+        )
 
     def _display(self, javascript):
-        if self._display_target != DisplayTarget.MANUAL:
+        if self._js["target"] != DisplayTarget.MANUAL:
             display_javascript(
                 javascript,
                 raw=True,
             )
         else:
             super()._display(javascript)
-    
-    def _set_display_template(self):
-        self._display_template = DisplayTemplate
+
+    def _repr_html_(self):
+        assert (
+            self._js["target"] == DisplayTarget.MANUAL
+        ), f'chart._repr_html_() can be used with display="{DisplayTarget.MANUAL}" only'
+        assert not self._js["showed"], "cannot be used after chart displayed."
+        self._js["showed"] = True
+        script = (
+            self._js["calls"][0]
+            + "\n"
+            + "\n".join(self._js["calls"][1:]).replace(
+                "element", f'document.getElementById("{self._ids["init"]}")'
+            )
+        )
+        return f'<div id="{self._ids["init"]}"><script>{script}</script></div>'
 
     def show(self):
         assert (
-            self._display_target == DisplayTarget.MANUAL
+            self._js["target"] == DisplayTarget.MANUAL
         ), f'chart.show() can be used with display="{DisplayTarget.MANUAL}" only'
-        assert not self._showed, "cannot be used after chart.show()"
+        assert not self._js["showed"], "cannot be used after chart displayed."
+        self._js["showed"] = True
         display_javascript(
-            "\n".join(self._calls),
+            "\n".join(self._js["calls"]),
             raw=True,
         )
-        self._showed = True

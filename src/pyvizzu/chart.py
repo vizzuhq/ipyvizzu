@@ -13,22 +13,20 @@ class Chart:
     _js = {}
 
     def __init__(self, vizzu=VIZZU, width="800px", height="480px"):
-        self._ids["init"] = uuid.uuid4().hex[:7]
-        self._ids["chart"] = uuid.uuid4().hex[:7]
+        self._ids.setdefault("init", uuid.uuid4().hex[:7])
+        self._ids.setdefault("chart", uuid.uuid4().hex[:7])
 
         self._scroll_into_view = False
 
-        self._js["calls"] = []
-        self._js["showed"] = False
-        self._js["target"] = DisplayTarget.MANUAL
+        self._js.setdefault("calls", [])
+        self._js.setdefault("showed", False)
+        self._js.setdefault("target", DisplayTarget.MANUAL)
 
-        self._set_classes()
+        self._classes.setdefault("DisplayTemplate", DisplayTemplate)
+        self._classes.setdefault("Snapshot", Snapshot)
+
         self._set_pyvizzujs()
         self._set_chart(vizzu, width, height)
-
-    def _set_classes(self):
-        self._classes["DisplayTemplate"] = DisplayTemplate
-        self._classes["Snapshot"] = Snapshot
 
     def _set_pyvizzujs(self):
         pyvizzujs = pkgutil.get_data("pyvizzu", "templates/pyvizzu.js").decode("utf-8")
@@ -97,7 +95,7 @@ class Chart:
                 chart_id=self._ids["chart"], **Store(snapshot_id).dump()
             )
         )
-        return self._classes["SnapShot"](snapshot_id)
+        return self._classes["Snapshot"](snapshot_id)
 
     def _display(self, javascript):
         assert not self._js["showed"], "cannot be used after chart displayed."
