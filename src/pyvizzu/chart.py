@@ -19,7 +19,7 @@ class Chart:
         self._scroll_into_view = False
 
         pyvizzujs = pkgutil.get_data("pyvizzu", "templates/pyvizzu.js").decode("utf-8")
-        self._display(DisplayTemplate.PYVIZZUJS.format(pyvizzujs=pyvizzujs))
+        self._display(self._display_template.PYVIZZUJS.format(pyvizzujs=pyvizzujs))
 
         self._display(
             self._display_template.INIT.format(
