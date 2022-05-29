@@ -1,24 +1,35 @@
-import abc
 import uuid
+import pkgutil
 
 from pyvizzu.animation import Animation, AnimationMerger
 from pyvizzu.method import Animate, Feature, Store
-from pyvizzu.template import DisplayTarget
+from pyvizzu.template import DisplayTarget, DisplayTemplate, VIZZU
 
 
 class Chart:
-    def __init__(
-        self,
-        display: DisplayTarget,
-    ):
+    def __init__(self, vizzu=VIZZU, width="800px", height="480px"):
+        self._init_id = uuid.uuid4().hex[:7]
         self._chart_id = uuid.uuid4().hex[:7]
 
-        self._display_target = DisplayTarget(display)
+        self._display_target = DisplayTarget.MANUAL
         self._set_display_template()
         self._calls = []
         self._showed = False
 
         self._scroll_into_view = False
+
+        pyvizzujs = pkgutil.get_data("pyvizzu", "templates/pyvizzu.js").decode("utf-8")
+        self._display(DisplayTemplate.PYVIZZUJS.format(pyvizzujs=pyvizzujs))
+
+        self._display(
+            self._display_template.INIT.format(
+                init_id=self._init_id,
+                chart_id=self._chart_id,
+                vizzu=vizzu,
+                div_width=width,
+                div_height=height,
+            )
+        )
 
     @property
     def scroll_into_view(self):
@@ -63,7 +74,6 @@ class Chart:
             )
         )
 
-    @abc.abstractmethod
     def store(self):
         snapshot_id = uuid.uuid4().hex[:7]
         self._display(
@@ -73,23 +83,18 @@ class Chart:
         )
         return snapshot_id
 
-    @abc.abstractmethod
-    def _display(self, javascript):
-        """
-        Display or collect javascript code.
-        """
+    def _set_display_template(self):
+        self._display_template = DisplayTemplate
 
-        assert not self._showed, "cannot be used after chart.show()"
+    def _display(self, javascript):
+        assert not self._showed, "cannot be used after chart displayed."
         self._calls.append(javascript)
 
-    @abc.abstractmethod
-    def _set_display_template(self):
-        """
-        Set display template.
-        """
+    def _repr_html_(self):
+        assert not self._showed, "cannot be used after chart displayed."
+        self._showed = True
+        script = "\n".join(self._calls)
+        return f'<div id="{self._init_id}"><script>{script}</script></div>'
 
-    @abc.abstractmethod
     def show(self):
-        """
-        Display collected javascript code.
-        """
+        return self._repr_html_()
