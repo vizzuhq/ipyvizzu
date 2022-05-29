@@ -1,66 +1,33 @@
 """
 Streamlit integration of Vizzu.
 """
-
-import pkgutil
-import uuid
-
 from streamlit.components.v1 import html
 
 from pyvizzu.chart import Chart as PyvizzuChart
 
 from stpyvizzu.animation import Snapshot
-from stpyvizzu.template import DisplayTarget, DisplayTemplate, VIZZU
+from stpyvizzu.template import DisplayTemplate, VIZZU
 
 
 class Chart(PyvizzuChart):
-    def __init__(
-        self,
-        vizzu=VIZZU,
-        width="800px",
-        height="480px",
-        display: DisplayTarget = DisplayTarget("manual"),
-    ):
-        super().__init__(display)
-
-        pyvizzu_js = pkgutil.get_data("pyvizzu", "templates/pyvizzu.js").decode("utf-8")
+    def __init__(self, vizzu=VIZZU, width="800px", height="480px"):
+        super().__init__(vizzu, width, height)
 
         if not width.endswith("px") or not height.endswith("px"):
             raise ValueError("width and height can be px only")
-        self._width = int(width[:-2]) + 10  # margin
-        self._height = int(height[:-2]) + 10  # margin
+        self._js["width"] = int(width[:-2]) + 10  # margin
+        self._js["height"] = int(height[:-2]) + 10  # margin
 
-        self._st_id = uuid.uuid4().hex[:7]
-
-        self._display(
-            self._display_template.INIT.format(
-                pyvizzu_js=pyvizzu_js,
-                st_id=self._st_id,
-                chart_id=self._chart_id,
-                vizzu=vizzu,
-                div_width=width,
-                div_height=height,
-            )
-        )
-
-    def store(self):
-        snapshot_id = super().store()
-        return Snapshot(snapshot_id)
-
-    def _display(self, javascript):
-        if self._display_target != DisplayTarget.MANUAL:
-            raise ValueError("display can be manual only")
-
-        super()._display(javascript)
-
-    def _set_display_template(self):
-        self._display_template = DisplayTemplate
+    def _set_classes(self):
+        self._classes["DisplayTemplate"] = DisplayTemplate
+        self._classes["Snapshot"] = Snapshot
 
     def show(self):
-        script = "\n".join(self._calls)
+        assert not self._js["showed"], "cannot be used after chart displayed."
+        self._js["showed"] = True
+        script = "\n".join(self._js["calls"])
         html(
-            f'<div id="{self._st_id}"><script>{script}</script></div>',
-            width=self._width,
-            height=self._height,
+            f'<div id="{self._ids["init"]}"><script>{script}</script></div>',
+            width=self._js["width"],
+            height=self._js["height"],
         )
-        self._showed = True

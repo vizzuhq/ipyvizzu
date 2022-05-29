@@ -24,9 +24,8 @@ Style = PyvizzuStyle
 
 
 class Snapshot(PyvizzuSnapshot):
-
-    def _set_display_template(self):
-        self._display_template = DisplayTemplate
+    def _set_classes(self):
+        self._classes["DisplayTemplate"] = DisplayTemplate
 
 
 AnimationMerger = PyvizzuAnimationMerger
