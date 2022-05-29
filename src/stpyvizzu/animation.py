@@ -24,6 +24,9 @@ Style = PyvizzuStyle
 
 
 class Snapshot(PyvizzuSnapshot):
+
+    # pylint: disable=abstract-method
+
     def __init__(self, name: str):
         self._classes["DisplayTemplate"] = DisplayTemplate
         super().__init__(name)
