@@ -7,21 +7,23 @@ from pyvizzu.template import DisplayTarget, DisplayTemplate, VIZZU
 
 
 class Chart:
-
-    _ids = {}
-    _classes = {}
-    _js = {}
-
     def __init__(self, vizzu=VIZZU, width="800px", height="480px"):
+
+        if not hasattr(self, "_ids"):
+            self._ids = {}
         self._ids.setdefault("init", uuid.uuid4().hex[:7])
         self._ids.setdefault("chart", uuid.uuid4().hex[:7])
 
         self._scroll_into_view = False
 
+        if not hasattr(self, "_js"):
+            self._js = {}
         self._js.setdefault("calls", [])
         self._js.setdefault("showed", False)
         self._js.setdefault("target", DisplayTarget.MANUAL)
 
+        if not hasattr(self, "_classes"):
+            self._classes = {}
         self._classes.setdefault("DisplayTemplate", DisplayTemplate)
         self._classes.setdefault("Snapshot", Snapshot)
 

@@ -11,6 +11,7 @@ from stpyvizzu.template import DisplayTemplate, VIZZU
 
 class Chart(PyvizzuChart):
     def __init__(self, vizzu=VIZZU, width="800px", height="480px"):
+        self._classes = {}
         self._classes["DisplayTemplate"] = DisplayTemplate
         self._classes["Snapshot"] = Snapshot
 

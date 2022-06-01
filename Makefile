@@ -12,13 +12,16 @@ install:
 dev-req:
 	$(VIRTUAL_ENV)/bin/pip-compile --upgrade dev-requirements.in
 
-dev: $(DEV_BUILD_FLAG) install
+dev: $(DEV_BUILD_FLAG)
 
 $(DEV_BUILD_FLAG):
 	python3 -m venv $(VIRTUAL_ENV)
 	$(VIRTUAL_ENV)/bin/pip install pip==22.0.4
 	$(VIRTUAL_ENV)/bin/pip install -r dev-requirements.txt
 	$(VIRTUAL_ENV)/bin/ipython kernel install --name ".venv" --user
+	$(VIRTUAL_ENV)/bin/python setup.py install
+	$(VIRTUAL_ENV)/bin/python setup.py install --ipyvizzu
+	$(VIRTUAL_ENV)/bin/python setup.py install --stpyvizzu
 	touch $(DEV_BUILD_FLAG)
 
 clean:
@@ -51,6 +54,7 @@ lint: $(DEV_BUILD_FLAG)
 		--disable missing-class-docstring \
 		--disable missing-module-docstring \
 		--disable too-few-public-methods \
+		--disable duplicate-code \
 		src tests tools
 
 

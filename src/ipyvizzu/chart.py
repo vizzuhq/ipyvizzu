@@ -18,9 +18,12 @@ class Chart(PyvizzuChart):
         height="480px",
         display: DisplayTarget = DisplayTarget("actual"),
     ):
+        self._js = {}
+        self._js["target"] = DisplayTarget(display)
+
+        self._classes = {}
         self._classes["DisplayTemplate"] = DisplayTemplate
         self._classes["Snapshot"] = Snapshot
-        self._js["target"] = DisplayTarget(display)
 
         super().__init__(vizzu, width, height)
 
