@@ -4,16 +4,16 @@ You can use ipyvizzu in VSCode Python with the following restrictions:
 
 | Function                                                                                   | Supported          |
 | ------------------------------------------------------------------------------------------ | ------------------ |
-| Rerun individual cells without rerun the chart initialization cell (if display!="manual")  | :white_check_mark: |
+| Rerun individual cells without rerun the chart initialization cell (if display!="manual")  | :x:                |
 |                                                                                            |                    |
 | Constructor arguments:                                                                     |                    |
 | Change the url of vizzu (vizzu)                                                            | :white_check_mark: |
 | Change the width of the chart (width)                                                      | :white_check_mark: |
 | Change the height of the chart (height)                                                    | :white_check_mark: |
-| Automatically display all animations after the constructor's cell (display="begin")        | :white_check_mark: |
+| Automatically display all animations after the constructor's cell (display="begin")        | :x:                |
 | Automatically display animation after the currently running cell (display="actual")        | :x:                |
-| Automatically display all animations after the last running cell (display="end")           | :white_check_mark: |
-| Manually display all animations after `show()` method called (display="manual")            | :white_check_mark: |
+| Automatically display all animations after the last running cell (display="end")           | :x:                |
+| Manually display all animations after `show()` method called (display="manual")            | :x:                |
 | Manually display all animations after `_repr_html_()` method called (display="manual")     | :white_check_mark: |
 |                                                                                            |                    |
 | Properties:                                                                                |                    |
@@ -36,9 +36,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style
 
 
-chart = Chart(width="640px", height="360px", display="end")
-# chart = Chart(width="640px", height="360px", display="begin")
-# chart = Chart(width="640px", height="360px", display="manual")
+chart = Chart(width="640px", height="360px", display="manual")
 ```
 
 ```python
@@ -70,8 +68,7 @@ chart.animate(Style({"title": {"fontSize": 35}}))
 
 ```python
 # cell 6
-# display chart with show() or _repr_html_() method if display="manual"
+# display chart with _repr_html_() method if display="manual"
 
-# chart.show()
-# chart
+chart
 ```
