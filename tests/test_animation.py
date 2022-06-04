@@ -166,6 +166,31 @@ class TestData(unittest.TestCase):
             self.data.build(),
         )
 
+    def test_data_frame_na(self):
+        data_frame = pd.read_csv(
+            self.asset_dir / "data_frame_na.csv", dtype={"PopularityAsDimension": str}
+        )
+        self.data.add_data_frame(data_frame)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {
+                            "name": "Popularity",
+                            "type": "measure",
+                            "values": [100.0, 0.0],
+                        },
+                        {
+                            "name": "PopularityAsDimension",
+                            "type": "dimension",
+                            "values": ["", "100"],
+                        },
+                    ]
+                }
+            },
+            self.data.build(),
+        )
+
     def test_data_frame_with_pd_series(self):
         data = Data()
         data.add_data_frame(pd.Series([1, 2], name="series1"))
