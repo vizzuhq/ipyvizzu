@@ -88,17 +88,20 @@ class Data(dict, Animation):
                 values = []
                 if is_numeric_dtype(data_frame[name].dtype):
                     infer_type = InferType.MEASURE
-                    values = [
-                        float(i)
-                        for i in data_frame[name].fillna(default_measure_value).values
-                    ]
+                    values = (
+                        data_frame[name]
+                        .fillna(default_measure_value)
+                        .astype(float)
+                        .values.tolist()
+                    )
                 else:
                     infer_type = InferType.DIMENSION
-                    values = [
-                        str(i)
-                        for i in data_frame[name].fillna(default_dimension_value).values
-                    ]
-
+                    values = (
+                        data_frame[name]
+                        .fillna(default_dimension_value)
+                        .astype(str)
+                        .values.tolist()
+                    )
                 self.add_series(
                     name,
                     values,
