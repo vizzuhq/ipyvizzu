@@ -4,12 +4,15 @@ VIRTUAL_ENV = .venv
 DEV_BUILD_FLAG = $(VIRTUAL_ENV)/DEV_BUILD_FLAG
 NOTEBOOKS = $(shell find docs -type f -name '*.ipynb' -not -path '*/.ipynb_checkpoints/*')
 
-install:
+install: $(DEV_BUILD_FLAG)
+	echo "pyvizzu" > PKG.cfg
 	$(VIRTUAL_ENV)/bin/python setup.py install
-	$(VIRTUAL_ENV)/bin/python setup.py install --ipyvizzu
-	$(VIRTUAL_ENV)/bin/python setup.py install --stpyvizzu
+	echo "ipyvizzu" > PKG.cfg
+	$(VIRTUAL_ENV)/bin/python setup.py install
+	echo "stpyvizzu" > PKG.cfg
+	$(VIRTUAL_ENV)/bin/python setup.py install
 
-dev-req:
+dev-req: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/pip-compile --upgrade dev-requirements.in
 
 dev: $(DEV_BUILD_FLAG)
@@ -19,9 +22,12 @@ $(DEV_BUILD_FLAG):
 	$(VIRTUAL_ENV)/bin/pip install pip==22.0.4
 	$(VIRTUAL_ENV)/bin/pip install -r dev-requirements.txt
 	$(VIRTUAL_ENV)/bin/ipython kernel install --name ".venv" --user
+	echo "pyvizzu" > PKG.cfg
 	$(VIRTUAL_ENV)/bin/python setup.py install
-	$(VIRTUAL_ENV)/bin/python setup.py install --ipyvizzu
-	$(VIRTUAL_ENV)/bin/python setup.py install --stpyvizzu
+	echo "ipyvizzu" > PKG.cfg
+	$(VIRTUAL_ENV)/bin/python setup.py install
+	echo "stpyvizzu" > PKG.cfg
+	$(VIRTUAL_ENV)/bin/python setup.py install
 	touch $(DEV_BUILD_FLAG)
 
 clean:
@@ -58,12 +64,15 @@ lint: $(DEV_BUILD_FLAG)
 		src tests tools
 
 
-release-build:
+release-build: $(DEV_BUILD_FLAG)
+	echo "pyvizzu" > PKG.cfg
 	$(VIRTUAL_ENV)/bin/python setup.py sdist bdist_wheel
-	$(VIRTUAL_ENV)/bin/python setup.py sdist bdist_wheel --ipyvizzu
-	$(VIRTUAL_ENV)/bin/python setup.py sdist bdist_wheel --stpyvizzu
+	echo "ipyvizzu" > PKG.cfg
+	$(VIRTUAL_ENV)/bin/python setup.py sdist bdist_wheel
+	echo "stpyvizzu" > PKG.cfg
+	$(VIRTUAL_ENV)/bin/python setup.py sdist bdist_wheel
 
-release-validate:
+release-validate: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/python -m twine check dist/*.tar.gz dist/*.whl
 
 release: release-build release-validate

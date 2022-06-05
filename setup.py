@@ -4,23 +4,16 @@ from setuptools import setup
 import sys
 
 
+version = "1.0.0"
+
 with open("README.md") as fp:
     long_description = fp.read()
 
-
-version = "1.0.0"
-
-
-select = "pyvizzu"
-if "--ipyvizzu" in sys.argv:
-    select = "ipyvizzu"
-    sys.argv.remove("--ipyvizzu")
-elif "--stpyvizzu" in sys.argv:
-    select = "stpyvizzu"
-    sys.argv.remove("--stpyvizzu")
+with open("PKG.cfg") as fp:
+    package = fp.read().strip()
 
 
-if select == "pyvizzu":
+if package == "pyvizzu":
     setup(
         name="pyvizzu",
         version=version,
@@ -46,7 +39,7 @@ if select == "pyvizzu":
             "Environment :: Console",
         ],
     )
-elif select == "ipyvizzu":
+elif package == "ipyvizzu":
     setup(
         name="ipyvizzu",
         version=version,
@@ -71,7 +64,7 @@ elif select == "ipyvizzu":
             "Environment :: Console",
         ],
     )
-elif select == "stpyvizzu":
+elif package == "stpyvizzu":
     setup(
         name="streamlit-pyvizzu",
         version=version,
