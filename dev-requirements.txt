@@ -24,6 +24,8 @@ bleach==5.0.0
     # via
     #   nbconvert
     #   readme-renderer
+build==0.8.0
+    # via -r dev-requirements.in
 certifi==2022.5.18.1
     # via requests
 cffi==1.15.0
@@ -84,7 +86,7 @@ jinja2==3.1.2
     # via
     #   nbconvert
     #   notebook
-jsonschema==4.5.1
+jsonschema==4.6.0
     # via nbformat
 jupyter-client==7.3.1
     # via
@@ -149,6 +151,7 @@ numpy==1.22.4
     # via pandas
 packaging==21.3
     # via
+    #   build
     #   ipykernel
     #   nbconvert
 pandas==1.4.2
@@ -160,7 +163,9 @@ parso==0.8.3
 pathspec==0.9.0
     # via black
 pep517==0.12.0
-    # via pip-tools
+    # via
+    #   build
+    #   pip-tools
 pexpect==4.8.0
     # via ipython
 pickleshare==0.7.5
@@ -193,7 +198,7 @@ pygments==2.12.0
     #   nbconvert
     #   readme-renderer
     #   rich
-pylint==2.13.9
+pylint==2.14.0
     # via -r dev-requirements.in
 pyparsing==3.0.9
     # via packaging
@@ -207,7 +212,7 @@ pytz==2022.1
     # via pandas
 pyyaml==6.0
     # via jupytext
-pyzmq==23.0.0
+pyzmq==23.1.0
     # via
     #   jupyter-client
     #   notebook
@@ -246,8 +251,11 @@ toml==0.10.2
 tomli==2.0.1
     # via
     #   black
+    #   build
     #   pep517
     #   pylint
+tomlkit==0.11.0
+    # via pylint
 tornado==6.1
     # via
     #   ipykernel

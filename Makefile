@@ -66,11 +66,11 @@ lint: $(DEV_BUILD_FLAG)
 
 release-build: $(DEV_BUILD_FLAG)
 	echo "pyvizzu" > PKG.cfg
-	$(VIRTUAL_ENV)/bin/python setup.py sdist bdist_wheel
+	$(VIRTUAL_ENV)/bin/python -m build
 	echo "ipyvizzu" > PKG.cfg
-	$(VIRTUAL_ENV)/bin/python setup.py sdist bdist_wheel
+	$(VIRTUAL_ENV)/bin/python -m build
 	echo "stpyvizzu" > PKG.cfg
-	$(VIRTUAL_ENV)/bin/python setup.py sdist bdist_wheel
+	$(VIRTUAL_ENV)/bin/python -m build
 
 release-validate: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/python -m twine check dist/*.tar.gz dist/*.whl
