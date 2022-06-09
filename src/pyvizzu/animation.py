@@ -156,15 +156,15 @@ class Style(Animation):
 
 
 class Snapshot(Animation):
-
-    _classes = {}
-
     def __init__(self, name: str):
-        self._classes.setdefault("DisplayTemplate", DisplayTemplate)
         self._name = name
 
+    @property
+    def _display_template_class(self):
+        return DisplayTemplate
+
     def dump(self):
-        return self._classes["DisplayTemplate"].STORED.format(id=self._name)
+        return self._display_template_class.STORED.format(id=self._name)
 
     def build(self):
         raise NotImplementedError("Snapshot cannot be merged with other Animations")

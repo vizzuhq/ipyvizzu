@@ -16,6 +16,6 @@ class Snapshot(PyvizzuSnapshot):
 
     # pylint: disable=abstract-method
 
-    def __init__(self, name: str):
-        self._classes["DisplayTemplate"] = DisplayTemplate
-        super().__init__(name)
+    @property
+    def _display_template_class(self):
+        return DisplayTemplate
