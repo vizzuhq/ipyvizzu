@@ -9,23 +9,15 @@ from pyvizzu.template import DisplayTarget, DisplayTemplate, VIZZU
 class Chart:
     def __init__(self, vizzu=VIZZU, width="800px", height="480px"):
 
-        if not hasattr(self, "_ids"):
-            self._ids = {}
-        self._ids.setdefault("init", uuid.uuid4().hex[:7])
-        self._ids.setdefault("chart", uuid.uuid4().hex[:7])
+        self._ids = {}
+        self._ids["init"] = uuid.uuid4().hex[:7]
+        self._ids["chart"] = uuid.uuid4().hex[:7]
 
         self._scroll_into_view = False
 
-        if not hasattr(self, "_js"):
-            self._js = {}
-        self._js.setdefault("calls", [])
-        self._js.setdefault("showed", False)
-        self._js.setdefault("target", DisplayTarget.MANUAL)
-
-        if not hasattr(self, "_classes"):
-            self._classes = {}
-        self._classes.setdefault("DisplayTemplate", DisplayTemplate)
-        self._classes.setdefault("Snapshot", Snapshot)
+        self._js = {}
+        self._js["calls"] = []
+        self._js["showed"] = False
 
         self._set_pyvizzujs()
         self._set_chart(vizzu, width, height)
@@ -33,12 +25,12 @@ class Chart:
     def _set_pyvizzujs(self):
         pyvizzujs = pkgutil.get_data("pyvizzu", "templates/pyvizzu.js").decode("utf-8")
         self._display(
-            self._classes["DisplayTemplate"].PYVIZZUJS.format(pyvizzujs=pyvizzujs)
+            self._display_template_class.PYVIZZUJS.format(pyvizzujs=pyvizzujs)
         )
 
     def _set_chart(self, vizzu, width, height):
         self._display(
-            self._classes["DisplayTemplate"].INIT.format(
+            self._display_template_class.INIT.format(
                 init_id=self._ids["init"],
                 chart_id=self._ids["chart"],
                 vizzu=vizzu,
@@ -46,6 +38,18 @@ class Chart:
                 div_height=height,
             )
         )
+
+    @property
+    def _display_target(self):
+        return DisplayTarget.MANUAL
+
+    @property
+    def _display_template_class(self):
+        return DisplayTemplate
+
+    @property
+    def _snapshot_class(self):
+        return Snapshot
 
     @property
     def scroll_into_view(self):
@@ -63,8 +67,8 @@ class Chart:
         animate = Animate(animation, options)
 
         self._display(
-            self._classes["DisplayTemplate"].ANIMATE.format(
-                display_target=self._js["target"],
+            self._display_template_class.ANIMATE.format(
+                display_target=self._display_target,
                 chart_id=self._ids["chart"],
                 scroll=str(self._scroll_into_view).lower(),
                 **animate.dump(),
@@ -84,7 +88,7 @@ class Chart:
 
     def feature(self, name, enabled):
         self._display(
-            self._classes["DisplayTemplate"].FEATURE.format(
+            self._display_template_class.FEATURE.format(
                 chart_id=self._ids["chart"],
                 **Feature(name, enabled).dump(),
             )
@@ -93,11 +97,11 @@ class Chart:
     def store(self):
         snapshot_id = uuid.uuid4().hex[:7]
         self._display(
-            self._classes["DisplayTemplate"].STORE.format(
+            self._display_template_class.STORE.format(
                 chart_id=self._ids["chart"], **Store(snapshot_id).dump()
             )
         )
-        return self._classes["Snapshot"](snapshot_id)
+        return self._snapshot_class(snapshot_id)
 
     def _display(self, javascript):
         assert not self._js["showed"], "cannot be used after chart displayed."

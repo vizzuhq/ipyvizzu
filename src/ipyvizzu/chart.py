@@ -18,17 +18,28 @@ class Chart(PyvizzuChart):
         height="480px",
         display: DisplayTarget = DisplayTarget("actual"),
     ):
-        self._js = {}
-        self._js["target"] = DisplayTarget(display)
-
-        self._classes = {}
-        self._classes["DisplayTemplate"] = DisplayTemplate
-        self._classes["Snapshot"] = Snapshot
+        self._display_target = display
 
         super().__init__(vizzu, width, height)
 
-        if self._js["target"] != DisplayTarget.MANUAL:
+        if self._display_target != DisplayTarget.MANUAL:
             self._register_events()
+
+    @property
+    def _display_target(self):
+        return self.__display_target
+
+    @_display_target.setter
+    def _display_target(self, display):
+        self.__display_target = DisplayTarget(display)
+
+    @property
+    def _display_template_class(self):
+        return DisplayTemplate
+
+    @property
+    def _snapshot_class(self):
+        return Snapshot
 
     def _register_events(self):
         ipy = get_ipython()
@@ -36,12 +47,10 @@ class Chart(PyvizzuChart):
             ipy.events.register("pre_run_cell", self._register_pre_run_cell)
 
     def _register_pre_run_cell(self):
-        display_javascript(
-            self._classes["DisplayTemplate"].CLEAR_INHIBITSCROLL, raw=True
-        )
+        display_javascript(self._display_template_class.CLEAR_INHIBITSCROLL, raw=True)
 
     def _display(self, javascript):
-        if self._js["target"] != DisplayTarget.MANUAL:
+        if self._display_target != DisplayTarget.MANUAL:
             display_javascript(
                 javascript,
                 raw=True,
@@ -51,7 +60,7 @@ class Chart(PyvizzuChart):
 
     def _repr_html_(self):
         assert (
-            self._js["target"] == DisplayTarget.MANUAL
+            self._display_target == DisplayTarget.MANUAL
         ), f'chart._repr_html_() can be used with display="{DisplayTarget.MANUAL}" only'
         assert not self._js["showed"], "cannot be used after chart displayed."
         self._js["showed"] = True
@@ -66,7 +75,7 @@ class Chart(PyvizzuChart):
 
     def show(self):
         assert (
-            self._js["target"] == DisplayTarget.MANUAL
+            self._display_target == DisplayTarget.MANUAL
         ), f'chart.show() can be used with display="{DisplayTarget.MANUAL}" only'
         assert not self._js["showed"], "cannot be used after chart displayed."
         self._js["showed"] = True

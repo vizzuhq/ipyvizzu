@@ -11,16 +11,20 @@ from stpyvizzu.template import DisplayTemplate, VIZZU
 
 class Chart(PyvizzuChart):
     def __init__(self, vizzu=VIZZU, width="800px", height="480px"):
-        self._classes = {}
-        self._classes["DisplayTemplate"] = DisplayTemplate
-        self._classes["Snapshot"] = Snapshot
-
         super().__init__(vizzu, width, height)
 
         if not width.endswith("px") or not height.endswith("px"):
             raise ValueError("width and height can be px only")
         self._js["width"] = int(width[:-2]) + 10  # margin
         self._js["height"] = int(height[:-2]) + 10  # margin
+
+    @property
+    def _display_template_class(self):
+        return DisplayTemplate
+
+    @property
+    def _snapshot_class(self):
+        return Snapshot
 
     def show(self):
         assert not self._js["showed"], "cannot be used after chart displayed."
