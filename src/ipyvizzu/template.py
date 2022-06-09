@@ -1,6 +1,8 @@
 import enum
 
-from pyvizzu.template import VIZZU as PyvizzuVIZZU
+# pylint: disable=unused-import
+
+from pyvizzu.template import VIZZU
 
 
 class DisplayTarget(str, enum.Enum):
@@ -25,6 +27,3 @@ class DisplayTemplate:
     STORE = "window.ipyvizzu.store(element, '{chart_id}', '{id}');"
 
     CLEAR_INHIBITSCROLL = "window.IpyVizzu.clearInhibitScroll(element);"
-
-
-VIZZU = PyvizzuVIZZU

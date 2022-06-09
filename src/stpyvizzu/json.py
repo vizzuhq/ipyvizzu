@@ -1,7 +1,4 @@
-from pyvizzu.json import RawJavaScript as PyvizzuRawJavaScript
-from pyvizzu.json import RawJavaScriptEncoder as PyvizzuRawJavaScriptEncoder
+# pylint: disable=unused-import
 
-
-RawJavaScript = PyvizzuRawJavaScript
-
-RawJavaScriptEncoder = PyvizzuRawJavaScriptEncoder
+from pyvizzu.json import RawJavaScript
+from pyvizzu.json import RawJavaScriptEncoder

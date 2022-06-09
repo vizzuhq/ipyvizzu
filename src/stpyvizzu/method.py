@@ -1,13 +1,6 @@
-from pyvizzu.method import Method as PyvizzuMethod
-from pyvizzu.method import Animate as PyvizzuAnimate
-from pyvizzu.method import Feature as PyvizzuFeature
-from pyvizzu.method import Store as PyvizzuStore
+# pylint: disable=unused-import
 
-
-Method = PyvizzuMethod
-
-Animate = PyvizzuAnimate
-
-Feature = PyvizzuFeature
-
-Store = PyvizzuStore
+from pyvizzu.method import Method
+from pyvizzu.method import Animate
+from pyvizzu.method import Feature
+from pyvizzu.method import Store

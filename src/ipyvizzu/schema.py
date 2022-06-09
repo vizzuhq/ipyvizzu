@@ -1,4 +1,3 @@
-from pyvizzu.schema import DataSchema as PyvizzuDataSchema
+# pylint: disable=unused-import
 
-
-DataSchema = PyvizzuDataSchema
+from pyvizzu.schema import DataSchema
