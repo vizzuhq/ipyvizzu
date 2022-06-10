@@ -1,8 +1,15 @@
 import unittest
 import unittest.mock
+import pathlib
+import importlib.util
 
-from normalizer import Normalizer
 from ipyvizzu import Chart, Data, Config, Snapshot, Style
+
+spec = importlib.util.spec_from_file_location(
+    "normalizer", pathlib.Path(__file__).parent.parent / "normalizer.py"
+)
+normalizer_module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(normalizer_module)
 
 
 def get_text(normalizer, javascript):
@@ -15,7 +22,7 @@ def get_text(normalizer, javascript):
 class TestChartInit(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.normalizer = Normalizer()
+        cls.normalizer = normalizer_module.Normalizer()
 
     def setUp(self):
         self.patch = unittest.mock.patch("ipyvizzu.chart.display_javascript")
@@ -113,7 +120,7 @@ class TestChartInit(unittest.TestCase):
 class TestChartMethods(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.normalizer = Normalizer()
+        cls.normalizer = normalizer_module.Normalizer()
 
     def setUp(self):
         self.patch = unittest.mock.patch("ipyvizzu.chart.display_javascript")
@@ -284,7 +291,7 @@ class TestChartMethods(unittest.TestCase):
 class TestChartShow(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.normalizer = Normalizer()
+        cls.normalizer = normalizer_module.Normalizer()
 
     def setUp(self):
         self.patch = unittest.mock.patch("ipyvizzu.chart.display_javascript")

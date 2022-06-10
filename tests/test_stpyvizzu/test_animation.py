@@ -4,7 +4,7 @@ import unittest
 import jsonschema
 import pandas as pd
 
-from ipyvizzu import (
+from stpyvizzu import (
     PlainAnimation,
     Data,
     Config,
@@ -23,7 +23,7 @@ class TestPlainAnimation(unittest.TestCase):
 class TestDataClassMethods(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.asset_dir = pathlib.Path(__file__).parent / "assets"
+        cls.asset_dir = pathlib.Path(__file__).parent.parent / "assets"
 
     def test_filter(self):
         data = Data.filter("filter_expr")
@@ -60,7 +60,7 @@ class TestDataClassMethods(unittest.TestCase):
 class TestData(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.asset_dir = pathlib.Path(__file__).parent / "assets"
+        cls.asset_dir = pathlib.Path(__file__).parent.parent / "assets"
 
     def setUp(self):
         self.data = Data()
@@ -336,7 +336,7 @@ class TestStyle(unittest.TestCase):
 class TestSnapshot(unittest.TestCase):
     def test_snapshot(self):
         animation = Snapshot("abc1234")
-        self.assertEqual("window.ipyvizzu.stored(element, 'abc1234')", animation.dump())
+        self.assertEqual("window.ipyvizzu.stored(null, 'abc1234')", animation.dump())
 
     def test_snapshot_can_not_be_built(self):
         animation = Snapshot("abc1234")
