@@ -1,6 +1,7 @@
 # Panel
 
-You can use ipyvizzu in Panel with the following restrictions:
+ipyvizzu is partially supported in Panel.
+You can use it with the following restrictions:
 
 | Function                                                                                   | Supported          |
 | ------------------------------------------------------------------------------------------ | ------------------ |
@@ -62,7 +63,6 @@ def create_chart():
 
 
     return chart
-
 
 
 CHART = create_chart()
