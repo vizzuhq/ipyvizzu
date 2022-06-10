@@ -1,6 +1,6 @@
-# Panel
+# Streamlit
 
-ipyvizzu is partially supported in Panel.
+ipyvizzu is partially supported in Streamlit.
 You can use it with the following restrictions:
 
 | Function                                                                                   | Supported          |
@@ -27,9 +27,9 @@ Create ipyvizzu_demo.py:
 ```python
 # ipyvizzu_demo.py
 
-# import panel, pandas and ipyvizzu
+# import streamlit, pandas and ipyvizzu
 
-import panel as pn
+from streamlit.components.v1 import html
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style
 
@@ -62,30 +62,18 @@ def create_chart():
     chart.animate(Style({"title": {"fontSize": 35}}))
 
 
-    return chart
+    return chart._repr_html_()
 
 
 CHART = create_chart()
 
-pn.extension(sizing_mode="stretch_width", template="fast")
-
-pn.state.template.param.update(
-    title="ipyvizzu",
-)
-
-pn.pane.Markdown(
-"""
-# Panel demo with ipyvizzu
-"""
-).servable()
-
-pn.pane.HTML(CHART, height=370, sizing_mode="stretch_both").servable()
+html(CHART, width=650, height=370)
 ```
 
-Install dependencies and run ipyvizzu_demo.py with Panel.
+Install dependencies and run ipyvizzu_demo.py with Streamlit.
 
 ```sh
-pip install ipyvizzu pandas panel
+pip install ipyvizzu pandas streamlit
 
-panel serve ipyvizzu_demo.py  # --autoreload
+streamlit run ipyvizzu_demo.py
 ```
