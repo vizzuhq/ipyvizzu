@@ -17,3 +17,23 @@ class TestMethodStpyvizzu(TestMethod):
 
     def get_store(self, snapshot_id):
         return Store(snapshot_id)
+
+    def test_animate_without_option(self):
+        method = super().test_animate_without_option()
+        self.assertEqual(
+            {
+                "chart_target": "window.pyvizzu.stored(null, 'abc1234')",
+                "chart_anim_opts": "undefined",
+            },
+            method.dump(),
+        )
+
+    def test_animate_with_option(self):
+        method = super().test_animate_with_option()
+        self.assertEqual(
+            {
+                "chart_target": "window.pyvizzu.stored(null, 'abc1234')",
+                "chart_anim_opts": '{"duration": 1, "easing": "linear"}',
+            },
+            method.dump(),
+        )

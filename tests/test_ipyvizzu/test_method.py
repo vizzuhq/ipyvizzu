@@ -19,8 +19,7 @@ class TestMethodIpyvizzu(TestMethod):
         return Store(snapshot_id)
 
     def test_animate_without_option(self):
-        animation = self.get_snapshot("abc1234")
-        method = self.get_animate(animation)
+        method = super().test_animate_without_option()
         self.assertEqual(
             {
                 "chart_target": "window.ipyvizzu.stored(element, 'abc1234')",
@@ -30,9 +29,7 @@ class TestMethodIpyvizzu(TestMethod):
         )
 
     def test_animate_with_option(self):
-        animation = self.get_snapshot("abc1234")
-        option = {"duration": 1, "easing": "linear"}
-        method = self.get_animate(animation, option)
+        method = super().test_animate_with_option()
         self.assertEqual(
             {
                 "chart_target": "window.ipyvizzu.stored(element, 'abc1234')",
