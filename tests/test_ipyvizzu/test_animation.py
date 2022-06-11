@@ -43,12 +43,12 @@ class TestConfigPyvizzu(TestConfig):
         return Config(config)
 
 
-class TestStylePyvizzu(TestStyle):
+class TestStyleIpyvizzu(TestStyle):
     def get_style(self, style):
         return Style(style)
 
 
-class TestSnapshotPyvizzu(TestSnapshot):
+class TestSnapshotIpyvizzu(TestSnapshot):
     def get_snapshot(self, snapshot):
         return Snapshot(snapshot)
 
@@ -57,7 +57,7 @@ class TestSnapshotPyvizzu(TestSnapshot):
         self.assertEqual("window.ipyvizzu.stored(element, 'abc1234')", animation.dump())
 
 
-class TestMergerPyvizzu(TestMerger):
+class TestMergerIpyvizzu(TestMerger):
     def get_animationmerger(self):
         return AnimationMerger()
 

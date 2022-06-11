@@ -18,42 +18,42 @@ from stpyvizzu import (
 )
 
 
-class TestPlainAnimationPyvizzu(TestPlainAnimation):
+class TestPlainAnimationStpyvizzu(TestPlainAnimation):
     def get_plainanimation(self, **kwargs):
         return PlainAnimation(**kwargs)
 
 
-class TestDataClassMethodsPyvizzu(TestDataClassMethods):
+class TestDataClassMethodsStpyvizzu(TestDataClassMethods):
     def get_data(self):
         return Data
 
 
-class TestDataPyvizzu(TestData):
+class TestDataStpyvizzu(TestData):
     def get_data(self):
         return Data()
 
 
-class TestDataSchemaPyvizzu(TestDataSchema):
+class TestDataSchemaStpyvizzu(TestDataSchema):
     def get_data(self):
         return Data()
 
 
-class TestConfigPyvizzu(TestConfig):
+class TestConfigStpyvizzu(TestConfig):
     def get_config(self, config):
         return Config(config)
 
 
-class TestStylePyvizzu(TestStyle):
+class TestStyleStpyvizzu(TestStyle):
     def get_style(self, style):
         return Style(style)
 
 
-class TestSnapshotPyvizzu(TestSnapshot):
+class TestSnapshotStpyvizzu(TestSnapshot):
     def get_snapshot(self, snapshot):
         return Snapshot(snapshot)
 
 
-class TestMergerPyvizzu(TestMerger):
+class TestMergerStpyvizzu(TestMerger):
     def get_animationmerger(self):
         return AnimationMerger()
 
