@@ -52,6 +52,10 @@ class TestSnapshotPyvizzu(TestSnapshot):
     def get_snapshot(self, snapshot):
         return Snapshot(snapshot)
 
+    def test_snapshot(self):
+        animation = super().test_snapshot()
+        self.assertEqual("window.pyvizzu.stored(null, 'abc1234')", animation.dump())
+
 
 class TestMergerPyvizzu(TestMerger):
     def get_animationmerger(self):

@@ -53,7 +53,7 @@ class TestSnapshotIpyvizzu(TestSnapshot):
         return Snapshot(snapshot)
 
     def test_snapshot(self):
-        animation = self.get_snapshot("abc1234")
+        animation = super().test_snapshot()
         self.assertEqual("window.ipyvizzu.stored(element, 'abc1234')", animation.dump())
 
 

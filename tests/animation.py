@@ -405,8 +405,7 @@ class TestSnapshot(unittest.TestCase):
         """
 
     def test_snapshot(self):
-        animation = self.get_snapshot("abc1234")
-        self.assertEqual("window.pyvizzu.stored(null, 'abc1234')", animation.dump())
+        return self.get_snapshot("abc1234")
 
     def test_snapshot_can_not_be_built(self):
         animation = self.get_snapshot("abc1234")
