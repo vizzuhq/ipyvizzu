@@ -48,7 +48,7 @@ class TestMethod(unittest.TestCase):
         method = self.get_animate(animation)
         self.assertEqual(
             {
-                "chart_target": "window.ipyvizzu.stored(null, 'abc1234')",
+                "chart_target": "window.pyvizzu.stored(null, 'abc1234')",
                 "chart_anim_opts": "undefined",
             },
             method.dump(),
@@ -60,7 +60,7 @@ class TestMethod(unittest.TestCase):
         method = self.get_animate(animation, option)
         self.assertEqual(
             {
-                "chart_target": "window.ipyvizzu.stored(null, 'abc1234')",
+                "chart_target": "window.pyvizzu.stored(null, 'abc1234')",
                 "chart_anim_opts": '{"duration": 1, "easing": "linear"}',
             },
             method.dump(),

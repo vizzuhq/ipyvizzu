@@ -1,13 +1,13 @@
-if (!window.IpyVizzu) {
-    class IpyVizzu 
+if (!window.PyVizzu) {
+    class PyVizzu 
     {
         constructor(element, chartId, vizzulib, divWidth, divHeight)
         {
-            IpyVizzu.inhibitScroll = false;
-            IpyVizzu.nbconvert = false;
-            document.addEventListener('wheel', (evt) => { IpyVizzu.inhibitScroll = true }, true);
-            document.addEventListener('keydown', (evt) => { IpyVizzu.inhibitScroll = true }, true);
-            document.addEventListener('touchstart', (evt) => { IpyVizzu.inhibitScroll = true }, true);
+            PyVizzu.inhibitScroll = false;
+            PyVizzu.nbconvert = false;
+            document.addEventListener('wheel', (evt) => { PyVizzu.inhibitScroll = true }, true);
+            document.addEventListener('keydown', (evt) => { PyVizzu.inhibitScroll = true }, true);
+            document.addEventListener('touchstart', (evt) => { PyVizzu.inhibitScroll = true }, true);
 
             this.element = element;
             this.elements = {};
@@ -25,14 +25,14 @@ if (!window.IpyVizzu) {
         static clearInhibitScroll(element)
         {
             if (!element) element = this.element;
-            if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
-            IpyVizzu.inhibitScroll = false;
+            if (PyVizzu.nbconvert) PyVizzu._hide(element);
+            PyVizzu.inhibitScroll = false;
         }
 
         animate(element, chartId, displayTarget, scrollEnabled, chartTarget, chartAnimOpts)
         {
             if (!element) element = this.element;
-            if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
+            if (PyVizzu.nbconvert) PyVizzu._hide(element);
             if (displayTarget === 'end') this._moveHere(chartId, element);
             this.charts[chartId] = this.charts[chartId].then(chart => {
                 if (displayTarget === 'actual') this._moveHere(chartId, element);
@@ -44,7 +44,7 @@ if (!window.IpyVizzu) {
         store(element, chartId, id)
         {
             if (!element) element = this.element;
-            if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
+            if (PyVizzu.nbconvert) PyVizzu._hide(element);
             this.charts[chartId] = this.charts[chartId].then(chart => {
                 this.snapshots[id] = chart.store();
                 return chart;
@@ -54,14 +54,14 @@ if (!window.IpyVizzu) {
         stored(element, id)
         {
             if (!element) element = this.element;
-            if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
+            if (PyVizzu.nbconvert) PyVizzu._hide(element);
             return this.snapshots[id];
         }
 
         feature(element, chartId, name, enabled)
         {
             if (!element) element = this.element;
-            if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
+            if (PyVizzu.nbconvert) PyVizzu._hide(element);
             this.charts[chartId] = this.charts[chartId].then(chart => {
                 chart.feature(name, enabled);
                 return chart;
@@ -70,13 +70,13 @@ if (!window.IpyVizzu) {
 
         _moveHere(chartId, element)
         {
-            if (IpyVizzu.nbconvert) IpyVizzu._display(this.elements[chartId], element);
+            if (PyVizzu.nbconvert) PyVizzu._display(this.elements[chartId], element);
             element.append(this.elements[chartId]);
         }
 
         _scroll(chartId, enabled)
         {
-            if (!IpyVizzu.inhibitScroll && enabled) {
+            if (!PyVizzu.inhibitScroll && enabled) {
                 this.elements[chartId].scrollIntoView({ behavior: "auto", block: "center" });
             }
         }
@@ -94,5 +94,5 @@ if (!window.IpyVizzu) {
         }
     }
 
-    window.IpyVizzu = IpyVizzu;
+    window.PyVizzu = PyVizzu;
 }
