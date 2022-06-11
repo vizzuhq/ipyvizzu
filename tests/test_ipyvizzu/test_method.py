@@ -1,16 +1,26 @@
-import unittest
-
+from tests.method import TestMethod
 from ipyvizzu import Method, Animate, Feature, Store, Snapshot
 
 
-class TestMethod(unittest.TestCase):
-    def test_method(self):
-        method = Method()
-        self.assertEqual(None, method.dump())
+class TestMethodIpyvizzu(TestMethod):
+    def get_method(self):
+        return Method()
+
+    def get_animate(self, chart_target, chart_anim_opts=None):
+        return Animate(chart_target, chart_anim_opts)
+
+    def get_snapshot(self, snapshot_id):
+        return Snapshot(snapshot_id)
+
+    def get_feature(self, name, enabled):
+        return Feature(name, enabled)
+
+    def get_store(self, snapshot_id):
+        return Store(snapshot_id)
 
     def test_animate_without_option(self):
-        animation = Snapshot("abc1234")
-        method = Animate(animation)
+        animation = self.get_snapshot("abc1234")
+        method = self.get_animate(animation)
         self.assertEqual(
             {
                 "chart_target": "window.ipyvizzu.stored(element, 'abc1234')",
@@ -20,9 +30,9 @@ class TestMethod(unittest.TestCase):
         )
 
     def test_animate_with_option(self):
-        animation = Snapshot("abc1234")
+        animation = self.get_snapshot("abc1234")
         option = {"duration": 1, "easing": "linear"}
-        method = Animate(animation, option)
+        method = self.get_animate(animation, option)
         self.assertEqual(
             {
                 "chart_target": "window.ipyvizzu.stored(element, 'abc1234')",
@@ -30,11 +40,3 @@ class TestMethod(unittest.TestCase):
             },
             method.dump(),
         )
-
-    def test_feature(self):
-        method = Feature("tooltip", True)
-        self.assertEqual({"name": '"tooltip"', "enabled": "true"}, method.dump())
-
-    def test_store(self):
-        method = Store("abc1234")
-        self.assertEqual({"id": "abc1234"}, method.dump())
