@@ -1,8 +1,19 @@
+import unittest.mock
+
 from tests.chart import TestChartInit, TestChartMethods, TestChartShow
 from stpyvizzu import Chart, Data, Config, Snapshot, Style
 
 
 class TestChartInitStpyvizzu(TestChartInit):
+    def setUp(self):
+        self.patch = unittest.mock.patch("stpyvizzu.chart.html")
+        self.trash = self.patch.start()
+        super().setUp()
+
+    def tearDown(self):
+        super().tearDown()
+        self.patch.stop()
+
     def get_mock(self):
         return "stpyvizzu.Chart._display"
 
@@ -44,6 +55,15 @@ class TestChartInitStpyvizzu(TestChartInit):
 
 
 class TestChartMethodsStpyvizzu(TestChartMethods):
+    def setUp(self):
+        self.patch = unittest.mock.patch("stpyvizzu.chart.html")
+        self.trash = self.patch.start()
+        super().setUp()
+
+    def tearDown(self):
+        super().tearDown()
+        self.patch.stop()
+
     def get_mock(self):
         return "stpyvizzu.Chart._display"
 
@@ -145,6 +165,15 @@ class TestChartMethodsStpyvizzu(TestChartMethods):
 
 
 class TestChartShowStpyvizzu(TestChartShow):
+    def setUp(self):
+        self.patch = unittest.mock.patch("stpyvizzu.chart.html")
+        self.trash = self.patch.start()
+        super().setUp()
+
+    def tearDown(self):
+        super().tearDown()
+        self.patch.stop()
+
     def get_mock(self):
         return "stpyvizzu.Chart._display"
 
