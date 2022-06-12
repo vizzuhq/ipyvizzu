@@ -1,4 +1,9 @@
-from tests.chart import TestChartInit, TestChartMethods, TestChartShow
+from tests.chart import (
+    TestChartInit,
+    TestChartMethods,
+    TestChartShow,
+    TestChartReprHtml,
+)
 from pyvizzu import Chart, Data, Config, Snapshot, Style
 
 
@@ -161,3 +166,22 @@ class TestChartShowPyvizzu(TestChartShow):
             + "undefined);"
         )
         super().test_show(ref)
+
+
+class TestChartReprHtmlPyvizzu(TestChartReprHtml):
+    def get_mock(self):
+        return "pyvizzu.Chart._display"
+
+    def get_chart(self):
+        return Chart()
+
+    def get_snapshot(self, snapshot_id):
+        return Snapshot(snapshot_id)
+
+    def test_repr_html(self, ref=None):
+        ref = (
+            "window.pyvizzu.animate(null, id, 'manual', false, "
+            + "window.pyvizzu.stored(null, id), "
+            + "undefined);"
+        )
+        super().test_repr_html(ref)

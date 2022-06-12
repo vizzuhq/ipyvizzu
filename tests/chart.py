@@ -290,6 +290,13 @@ class TestChartShow(unittest.TestCase):
         with self.assertRaises(AssertionError):
             chart.show()
 
+    def test_show_after_repr_html(self):
+        chart = self.get_chart()
+        chart.animate(self.get_snapshot("abc1234"))
+        chart._repr_html_()  # pylint: disable=protected-access
+        with self.assertRaises(AssertionError):
+            chart.show()
+
     def test_animate_after_show(self):
         chart = self.get_chart()
         chart.animate(self.get_snapshot("abc1234"))
@@ -308,5 +315,88 @@ class TestChartShow(unittest.TestCase):
         chart = self.get_chart()
         chart.animate(self.get_snapshot("abc1234"))
         chart.show()
+        with self.assertRaises(AssertionError):
+            chart.store()
+
+
+class TestChartReprHtml(unittest.TestCase):
+
+    # pylint: disable=protected-access
+
+    @classmethod
+    def setUpClass(cls):
+        if cls is TestChartReprHtml:
+            raise unittest.SkipTest()
+        super(TestChartReprHtml, cls).setUpClass()
+        cls.normalizer = Normalizer()
+
+    @abc.abstractmethod
+    def get_mock(self):
+        """
+        Return mock
+        """
+
+    @abc.abstractmethod
+    def get_chart(self):
+        """
+        Return Chart()
+        """
+
+    @abc.abstractmethod
+    def get_snapshot(self, snapshot_id):
+        """
+        Return Snapshot(snapshot_id)
+        """
+
+    def test_repr_html(self, ref=None):
+        chart = self.get_chart()
+        with unittest.mock.patch(self.get_mock()) as output:
+            chart.animate(self.get_snapshot("abc1234"))
+            self.assertEqual(
+                chart._js["showed"],
+                False,
+            )
+            chart._repr_html_()
+            self.assertEqual(
+                chart._js["showed"],
+                True,
+            )
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                ref,
+            )
+
+    def test_repr_html_after_repr_html(self):
+        chart = self.get_chart()
+        chart.animate(self.get_snapshot("abc1234"))
+        chart._repr_html_()
+        with self.assertRaises(AssertionError):
+            chart._repr_html_()
+
+    def test_repr_html_after_show(self):
+        chart = self.get_chart()
+        chart.animate(self.get_snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart._repr_html_()
+
+    def test_animate_after_repr_html(self):
+        chart = self.get_chart()
+        chart.animate(self.get_snapshot("abc1234"))
+        chart._repr_html_()
+        with self.assertRaises(AssertionError):
+            chart.animate(self.get_snapshot("abc1234"))
+
+    def test_feature_after_repr_html(self):
+        chart = self.get_chart()
+        chart.animate(self.get_snapshot("abc1234"))
+        chart._repr_html_()
+        with self.assertRaises(AssertionError):
+            chart.feature("tooltip", True)
+
+    def test_store_after_repr_html_(self):
+        chart = self.get_chart()
+        chart.animate(self.get_snapshot("abc1234"))
+        chart._repr_html_()
         with self.assertRaises(AssertionError):
             chart.store()

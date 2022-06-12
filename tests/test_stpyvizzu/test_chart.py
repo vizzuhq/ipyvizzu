@@ -1,6 +1,11 @@
 import unittest.mock
 
-from tests.chart import TestChartInit, TestChartMethods, TestChartShow
+from tests.chart import (
+    TestChartInit,
+    TestChartMethods,
+    TestChartShow,
+    TestChartReprHtml,
+)
 from stpyvizzu import Chart, Data, Config, Snapshot, Style
 
 
@@ -194,3 +199,31 @@ class TestChartShowStpyvizzu(TestChartShow):
             + "undefined);"
         )
         super().test_show(ref)
+
+
+class TestChartReprHtmlStpyvizzu(TestChartReprHtml):
+    def setUp(self):
+        self.patch = unittest.mock.patch("stpyvizzu.chart.html")
+        self.trash = self.patch.start()
+        super().setUp()
+
+    def tearDown(self):
+        super().tearDown()
+        self.patch.stop()
+
+    def get_mock(self):
+        return "pyvizzu.Chart._display"
+
+    def get_chart(self):
+        return Chart()
+
+    def get_snapshot(self, snapshot_id):
+        return Snapshot(snapshot_id)
+
+    def test_repr_html(self, ref=None):
+        ref = (
+            "window.pyvizzu.animate(null, id, 'manual', false, "
+            + "window.pyvizzu.stored(null, id), "
+            + "undefined);"
+        )
+        super().test_repr_html(ref)
