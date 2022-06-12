@@ -53,6 +53,10 @@ class TestChartInitStpyvizzu(TestChartInit):
         )
         super().test_init_div(ref)
 
+    def test_init_div_without_px(self, ref=None):
+        with self.assertRaises(ValueError):
+            self.get_chart(width="400", height="240")
+
 
 class TestChartMethodsStpyvizzu(TestChartMethods):
     def setUp(self):
