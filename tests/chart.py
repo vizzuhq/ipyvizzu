@@ -275,12 +275,12 @@ class TestChartShow(unittest.TestCase):
             )
             chart.show()
             self.assertEqual(
-                self.normalizer.normalize_output(output),
-                ref,
-            )
-            self.assertEqual(
                 chart._js["showed"],  # pylint: disable=protected-access
                 True,
+            )
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                ref,
             )
 
     def test_show_after_show(self):

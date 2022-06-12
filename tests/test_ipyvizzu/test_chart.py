@@ -1,5 +1,7 @@
+import unittest
 import unittest.mock
 
+from tests.normalizer import Normalizer
 from tests.chart import TestChartInit, TestChartMethods, TestChartShow
 from ipyvizzu import Chart, Data, Config, Snapshot, Style
 
@@ -220,11 +222,14 @@ class TestChartShowIpyvizzu(TestChartShow):
     def get_chart(self):
         return Chart(display="manual")
 
+    def get_chart_default(self):
+        return Chart()
+
     def get_snapshot(self, snapshot_id):
         return Snapshot(snapshot_id)
 
     def test_show_if_display_is_not_manual(self):
-        chart = Chart()
+        chart = self.get_chart_default()
         chart.animate(self.get_snapshot("abc1234"))
         with self.assertRaises(AssertionError):
             chart.show()
@@ -236,3 +241,94 @@ class TestChartShowIpyvizzu(TestChartShow):
             + "undefined);"
         )
         super().test_show(ref)
+
+    def test_show_after_repr_html(self):
+        chart = self.get_chart()
+        chart.animate(self.get_snapshot("abc1234"))
+        chart._repr_html_()  # pylint: disable=protected-access
+        with self.assertRaises(AssertionError):
+            chart.show()
+
+
+class TestChartReprHtmlIpyvizzu(unittest.TestCase):
+
+    # pylint: disable=protected-access
+
+    def setUp(self):
+        self.patch = unittest.mock.patch("ipyvizzu.chart.display_javascript")
+        self.trash = self.patch.start()
+
+    def tearDown(self):
+        self.patch.stop()
+
+    def get_chart(self):
+        return Chart(display="manual")
+
+    def get_chart_default(self):
+        return Chart()
+
+    def get_snapshot(self, snapshot_id):
+        return Snapshot(snapshot_id)
+
+    def test_repr_html_if_display_is_not_manual(self):
+        chart = self.get_chart_default()
+        with self.assertRaises(AssertionError):
+            chart._repr_html_()
+
+    def test_repr_html(self):
+        ref = (
+            "window.ipyvizzu.animate(element, id, 'manual', false, "
+            + "window.ipyvizzu.stored(element, id), "
+            + "undefined);"
+        )
+        chart = self.get_chart()
+        with unittest.mock.patch("ipyvizzu.Chart._display") as output:
+            chart.animate(self.get_snapshot("abc1234"))
+            self.assertEqual(
+                chart._js["showed"],
+                False,
+            )
+            chart._repr_html_()
+            self.assertEqual(
+                chart._js["showed"],
+                True,
+            )
+            self.assertEqual(
+                Normalizer().normalize_output(output),
+                ref,
+            )
+
+    def test_repr_html_after_repr_html(self):
+        chart = self.get_chart()
+        chart.animate(self.get_snapshot("abc1234"))
+        chart._repr_html_()
+        with self.assertRaises(AssertionError):
+            chart._repr_html_()
+
+    def test_repr_html_after_show(self):
+        chart = self.get_chart()
+        chart.animate(self.get_snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart._repr_html_()
+
+    def test_animate_after_repr_html(self):
+        chart = self.get_chart()
+        chart.animate(self.get_snapshot("abc1234"))
+        chart._repr_html_()
+        with self.assertRaises(AssertionError):
+            chart.animate(self.get_snapshot("abc1234"))
+
+    def test_feature_after_repr_html(self):
+        chart = self.get_chart()
+        chart.animate(self.get_snapshot("abc1234"))
+        chart._repr_html_()
+        with self.assertRaises(AssertionError):
+            chart.feature("tooltip", True)
+
+    def test_store_after_repr_html(self):
+        chart = self.get_chart()
+        chart.animate(self.get_snapshot("abc1234"))
+        chart._repr_html_()
+        with self.assertRaises(AssertionError):
+            chart.store()
