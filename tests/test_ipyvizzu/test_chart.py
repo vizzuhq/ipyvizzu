@@ -5,8 +5,17 @@ from ipyvizzu import Chart, Data, Config, Snapshot, Style
 
 
 class TestChartInitIpyvizzu(TestChartInit):
-    def get_patch(self):
-        return unittest.mock.patch("ipyvizzu.chart.display_javascript")
+    def setUp(self):
+        self.patch = unittest.mock.patch("ipyvizzu.chart.display_javascript")
+        self.trash = self.patch.start()
+        super().setUp()
+
+    def tearDown(self):
+        super().tearDown()
+        self.patch.stop()
+
+    def get_mock(self):
+        return "ipyvizzu.chart.display_javascript"
 
     def get_chart(self, *args, **kwargs):
         return Chart(*args, **kwargs)
@@ -53,47 +62,50 @@ class TestChartInitIpyvizzu(TestChartInit):
 
     def test_init_display_begin(self):
         chart = self.get_chart(display="begin")
-        javascript = self.patch.start()
-        chart.animate(self.get_snapshot("abc1234"))
-        self.assertEqual(
-            self.normalizer.normalize_id(
-                javascript.call_args_list[0].args[0].strip().splitlines()[-1]
-            ).strip(),
-            "window.ipyvizzu.animate(element, id, 'begin', false, "
-            + "window.ipyvizzu.stored(element, id), "
-            + "undefined);",
-        )
+        with unittest.mock.patch(self.get_mock()) as output:
+            chart.animate(self.get_snapshot("abc1234"))
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(element, id, 'begin', false, "
+                + "window.ipyvizzu.stored(element, id), "
+                + "undefined);",
+            )
 
     def test_init_display_actual(self):
         chart = self.get_chart(display="actual")
-        javascript = self.patch.start()
-        chart.animate(self.get_snapshot("abc1234"))
-        self.assertEqual(
-            self.normalizer.normalize_id(
-                javascript.call_args_list[0].args[0].strip().splitlines()[-1]
-            ).strip(),
-            "window.ipyvizzu.animate(element, id, 'actual', false, "
-            + "window.ipyvizzu.stored(element, id), "
-            + "undefined);",
-        )
+        with unittest.mock.patch(self.get_mock()) as output:
+            chart.animate(self.get_snapshot("abc1234"))
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(element, id, 'actual', false, "
+                + "window.ipyvizzu.stored(element, id), "
+                + "undefined);",
+            )
 
     def test_init_display_end(self):
         chart = self.get_chart(display="end")
-        javascript = self.patch.start()
-        chart.animate(self.get_snapshot("abc1234"))
-        self.assertEqual(
-            self.normalizer.normalize_id(
-                javascript.call_args_list[0].args[0].strip().splitlines()[-1]
-            ).strip(),
-            "window.ipyvizzu.animate(element, id, 'end', false, "
-            + "window.ipyvizzu.stored(element, id), "
-            + "undefined);",
-        )
+        with unittest.mock.patch(self.get_mock()) as output:
+            chart.animate(self.get_snapshot("abc1234"))
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(element, id, 'end', false, "
+                + "window.ipyvizzu.stored(element, id), "
+                + "undefined);",
+            )
 
 
 class TestChartMethodsIpyvizzu(TestChartMethods):
-    def get_patch(self):
-        return unittest.mock.patch("ipyvizzu.chart.display_javascript")
+    def setUp(self):
+        self.patch = unittest.mock.patch("ipyvizzu.chart.display_javascript")
+        self.trash = self.patch.start()
+        super().setUp()
+
+    def tearDown(self):
+        super().tearDown()
+        self.patch.stop()
+
+    def get_mock(self):
+        return "ipyvizzu.chart.display_javascript"
 
     def get_chart(self, *args, **kwargs):
         return Chart(*args, **kwargs)
@@ -193,8 +205,17 @@ class TestChartMethodsIpyvizzu(TestChartMethods):
 
 
 class TestChartShowIpyvizzu(TestChartShow):
-    def get_patch(self):
-        return unittest.mock.patch("ipyvizzu.Chart._display")
+    def setUp(self):
+        self.patch = unittest.mock.patch("ipyvizzu.chart.display_javascript")
+        self.trash = self.patch.start()
+        super().setUp()
+
+    def tearDown(self):
+        super().tearDown()
+        self.patch.stop()
+
+    def get_mock(self):
+        return "ipyvizzu.Chart._display"
 
     def get_chart(self):
         return Chart(display="manual")

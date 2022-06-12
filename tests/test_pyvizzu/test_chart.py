@@ -1,13 +1,10 @@
-import unittest
-import unittest.mock
-
 from tests.chart import TestChartInit, TestChartMethods, TestChartShow
 from pyvizzu import Chart, Data, Config, Snapshot, Style
 
 
 class TestChartInitPyvizzu(TestChartInit):
-    def get_patch(self):
-        return unittest.mock.patch("pyvizzu.Chart._display")
+    def get_mock(self):
+        return "pyvizzu.Chart._display"
 
     def get_chart(self, *args, **kwargs):
         return Chart(*args, **kwargs)
@@ -47,8 +44,8 @@ class TestChartInitPyvizzu(TestChartInit):
 
 
 class TestChartMethodsPyvizzu(TestChartMethods):
-    def get_patch(self):
-        return unittest.mock.patch("pyvizzu.Chart._display")
+    def get_mock(self):
+        return "pyvizzu.Chart._display"
 
     def get_chart(self, *args, **kwargs):
         return Chart(*args, **kwargs)
@@ -148,8 +145,8 @@ class TestChartMethodsPyvizzu(TestChartMethods):
 
 
 class TestChartShowPyvizzu(TestChartShow):
-    def get_patch(self):
-        return unittest.mock.patch("pyvizzu.Chart._display")
+    def get_mock(self):
+        return "pyvizzu.Chart._display"
 
     def get_chart(self):
         return Chart()
@@ -164,12 +161,3 @@ class TestChartShowPyvizzu(TestChartShow):
             + "undefined);"
         )
         super().test_show(ref)
-
-    def test_animate_after_show(self):
-        return unittest.skip("not implemented")
-
-    def test_feature_after_show(self):
-        return unittest.skip("not implemented")
-
-    def test_store_after_show(self):
-        return unittest.skip("not implemented")
