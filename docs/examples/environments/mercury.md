@@ -4,6 +4,8 @@ You can use ipyvizzu in Mercury with the following restrictions:
 
 | Function                                                                                   | Supported          |
 | ------------------------------------------------------------------------------------------ | ------------------ |
+| Rerun individual cells without rerun the chart initialization cell (if display!="manual")  | :x:                |
+|                                                                                            |                    |
 | Constructor arguments:                                                                     |                    |
 | Change the url of vizzu (vizzu)                                                            | :white_check_mark: |
 | Change the width of the chart (width)                                                      | :white_check_mark: |

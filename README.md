@@ -85,6 +85,10 @@ ipyvizzu can also be used in a wide variety of environments! Check out the examp
 
 - [Mode example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/mode.md)
 
+- [Panel example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/panel.md)
+
+- [Streamlit example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/streamlit.md)
+
 - [VSCode Python example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/vscode.md)
 
 

@@ -145,7 +145,6 @@ class TestData(unittest.TestCase):
         self.data.add_series("Popularity", type="measure")
         records = [["Rock", "Hard", 96], ["Pop", "Hard", 114]]
         self.data.add_records(records)
-        self.maxDiff = None
         self.assertEqual(
             {
                 "data": {
