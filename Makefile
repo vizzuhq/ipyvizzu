@@ -46,9 +46,7 @@ doc: $(NOTEBOOKS:.ipynb=.html)
 check: check-format lint test
 
 test: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/python -m unittest discover tests/test_pyvizzu
-	$(VIRTUAL_ENV)/bin/python -m unittest discover tests/test_ipyvizzu
-	$(VIRTUAL_ENV)/bin/python -m unittest discover tests/test_stpyvizzu
+	$(VIRTUAL_ENV)/bin/coverage run --source pyvizzu,ipyvizzu,stpyvizzu -m unittest discover tests && .venv/bin/coverage report
 
 format: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/black src tests tools
