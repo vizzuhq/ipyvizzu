@@ -139,6 +139,27 @@ class TestData(unittest.TestCase):
             self.data.build(),
         )
 
+    def test_series_without_values(self):
+        self.data.add_series("Genres", type="dimension")
+        self.data.add_series("Types", type="dimension")
+        self.data.add_series("Popularity", type="measure")
+        records = [["Rock", "Hard", 96], ["Pop", "Hard", 114]]
+        self.data.add_records(records)
+        self.maxDiff = None
+        self.assertEqual(
+            {
+                "data": {
+                    "records": [["Rock", "Hard", 96], ["Pop", "Hard", 114]],
+                    "series": [
+                        {"name": "Genres", "type": "dimension"},
+                        {"name": "Types", "type": "dimension"},
+                        {"name": "Popularity", "type": "measure"},
+                    ],
+                }
+            },
+            self.data.build(),
+        )
+
     def test_data_cube(self):
         self.data.add_dimension("Genres", ["Pop", "Rock"])
         self.data.add_dimension("Types", ["Hard"])
