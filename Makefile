@@ -4,6 +4,8 @@ VIRTUAL_ENV = .venv
 DEV_BUILD_FLAG = $(VIRTUAL_ENV)/DEV_BUILD_FLAG
 NOTEBOOKS = $(shell find docs -type f -name '*.ipynb' -not -path '*/.ipynb_checkpoints/*')
 
+PACKAGES = pyvizzu,ipyvizzu,stpyvizzu
+
 install: $(DEV_BUILD_FLAG)
 	echo "pyvizzu" > PKG.cfg
 	$(VIRTUAL_ENV)/bin/python setup.py install
@@ -46,7 +48,9 @@ doc: $(NOTEBOOKS:.ipynb=.html)
 check: check-format lint test
 
 test: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/coverage run --source pyvizzu,ipyvizzu,stpyvizzu -m unittest discover tests && .venv/bin/coverage report
+	$(VIRTUAL_ENV)/bin/coverage run --branch --source $(PACKAGES) -m unittest discover tests
+	$(VIRTUAL_ENV)/bin/coverage html
+	$(VIRTUAL_ENV)/bin/coverage report -m --fail-under=95
 
 format: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/black src tests tools
