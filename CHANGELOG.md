@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed `Data` schema validation.
+
 ## [0.10.0] - 2022-05-25
 
 ### Added

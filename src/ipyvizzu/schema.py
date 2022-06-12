@@ -7,10 +7,10 @@ NAMED_SCHEMA = {
         "type": "object",
         "properties": {
             "name": {"type": "string"},
-            "values": {"type": "array"},
+            "values": {"type": "array", "optional": True},
             "type": {"type": "string", "optional": True},
         },
-        "required": ["name", "values"],
+        "required": ["name"],
     },
 }
 
