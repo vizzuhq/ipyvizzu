@@ -20,7 +20,7 @@ class TestChartInitStpyvizzu(TestChartInit):
     def get_chart(self, *args, **kwargs):
         return Chart(*args, **kwargs)
 
-    def test_init(self):
+    def test_init(self, ref=None):
         ref = (
             "window.pyvizzu = "
             + "new window.PyVizzu("
@@ -31,7 +31,7 @@ class TestChartInitStpyvizzu(TestChartInit):
         )
         super().test_init(ref)
 
-    def test_init_vizzu(self):
+    def test_init_vizzu(self, ref=None):
         ref = (
             "window.pyvizzu = "
             + "new window.PyVizzu("
@@ -42,7 +42,7 @@ class TestChartInitStpyvizzu(TestChartInit):
         )
         super().test_init_vizzu(ref)
 
-    def test_init_div(self):
+    def test_init_div(self, ref=None):
         ref = (
             "window.pyvizzu = "
             + "new window.PyVizzu("
@@ -82,7 +82,7 @@ class TestChartMethodsStpyvizzu(TestChartMethods):
     def get_snapshot(self, snapshot_id):
         return Snapshot(snapshot_id)
 
-    def test_animate_one_chart_target(self):
+    def test_animate_one_chart_target(self, ref=None):
         ref = (
             "window.pyvizzu.animate(null, id, 'manual', false, "
             + '{"data": {"records": [["Rock", "Hard", 96]]}}, '
@@ -90,7 +90,7 @@ class TestChartMethodsStpyvizzu(TestChartMethods):
         )
         super().test_animate_one_chart_target(ref)
 
-    def test_animate_one_chart_target_with_chart_anim_opts(self):
+    def test_animate_one_chart_target_with_chart_anim_opts(self, ref=None):
         ref = (
             "window.pyvizzu.animate(null, id, 'manual', false, "
             + '{"data": {"records": [["Rock", "Hard", 96]]}}, '
@@ -98,7 +98,7 @@ class TestChartMethodsStpyvizzu(TestChartMethods):
         )
         super().test_animate_one_chart_target_with_chart_anim_opts(ref)
 
-    def test_animate_snapshot_chart_target(self):
+    def test_animate_snapshot_chart_target(self, ref=None):
         ref = (
             "window.pyvizzu.animate(null, id, 'manual', false, "
             + "window.pyvizzu.stored(null, id), "
@@ -106,7 +106,7 @@ class TestChartMethodsStpyvizzu(TestChartMethods):
         )
         super().test_animate_snapshot_chart_target(ref)
 
-    def test_animate_snapshot_chart_target_with_chart_anim_opts(self):
+    def test_animate_snapshot_chart_target_with_chart_anim_opts(self, ref=None):
         ref = (
             "window.pyvizzu.animate(null, id, 'manual', false, "
             + "window.pyvizzu.stored(null, id), "
@@ -114,7 +114,7 @@ class TestChartMethodsStpyvizzu(TestChartMethods):
         )
         super().test_animate_snapshot_chart_target_with_chart_anim_opts(ref)
 
-    def test_animate_more_chart_target(self):
+    def test_animate_more_chart_target(self, ref=None):
         ref = (
             "window.pyvizzu.animate(null, id, 'manual', false, "
             + '{"data": {"records": [["Rock", "Hard", 96]]}, '
@@ -124,7 +124,7 @@ class TestChartMethodsStpyvizzu(TestChartMethods):
         )
         super().test_animate_more_chart_target(ref)
 
-    def test_animate_more_chart_target_with_chart_anim_opts(self):
+    def test_animate_more_chart_target_with_chart_anim_opts(self, ref=None):
         ref = (
             "window.pyvizzu.animate(null, id, 'manual', false, "
             + '{"data": {"records": [["Rock", "Hard", 96]]}, '
@@ -134,7 +134,7 @@ class TestChartMethodsStpyvizzu(TestChartMethods):
         )
         super().test_animate_more_chart_target_with_chart_anim_opts(ref)
 
-    def test_animate_more_calls(self):
+    def test_animate_more_calls(self, ref=None):
         ref = (
             "window.pyvizzu.animate(null, id, 'manual', false, "
             + '{"data": {"records": [["Rock", "Hard", 96]]}, '
@@ -147,7 +147,7 @@ class TestChartMethodsStpyvizzu(TestChartMethods):
         )
         super().test_animate_more_calls(ref)
 
-    def test_animate_with_not_default_scroll_into_view(self):
+    def test_animate_with_not_default_scroll_into_view(self, ref=None):
         ref = (
             "window.pyvizzu.animate(null, id, 'manual', true, "
             + '{"data": {"records": [["Rock", "Hard", 96]]}}, '
@@ -155,11 +155,11 @@ class TestChartMethodsStpyvizzu(TestChartMethods):
         )
         super().test_animate_with_not_default_scroll_into_view(ref)
 
-    def test_feature(self):
+    def test_feature(self, ref=None):
         ref = 'window.pyvizzu.feature(null, id, "tooltip", true);'
         super().test_feature(ref)
 
-    def test_store(self):
+    def test_store(self, ref=None):
         ref = "window.pyvizzu.store(null, id, id);"
         super().test_store(ref)
 
@@ -183,7 +183,7 @@ class TestChartShowStpyvizzu(TestChartShow):
     def get_snapshot(self, snapshot_id):
         return Snapshot(snapshot_id)
 
-    def test_show(self):
+    def test_show(self, ref=None):
         ref = (
             "window.pyvizzu.animate(null, id, 'manual', false, "
             + "window.pyvizzu.stored(null, id), "

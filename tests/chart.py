@@ -25,7 +25,7 @@ class TestChartInit(unittest.TestCase):
         Return Chart(*args, **kwargs)
         """
 
-    def test_init(self, ref):
+    def test_init(self, ref=None):
         with unittest.mock.patch(self.get_mock()) as output:
             self.get_chart()
             self.assertEqual(
@@ -33,7 +33,7 @@ class TestChartInit(unittest.TestCase):
                 ref,
             )
 
-    def test_init_vizzu(self, ref):
+    def test_init_vizzu(self, ref=None):
         with unittest.mock.patch(self.get_mock()) as output:
             self.get_chart(
                 vizzu="https://cdn.jsdelivr.net/npm/vizzu@0.4.1/dist/vizzu.min.js"
@@ -43,7 +43,7 @@ class TestChartInit(unittest.TestCase):
                 ref,
             )
 
-    def test_init_div(self, ref):
+    def test_init_div(self, ref=None):
         with unittest.mock.patch(self.get_mock()) as output:
             self.get_chart(width="400px", height="240px")
             self.assertEqual(
@@ -110,7 +110,7 @@ class TestChartMethods(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.chart.animate(duration="500ms")
 
-    def test_animate_one_chart_target(self, ref):
+    def test_animate_one_chart_target(self, ref=None):
         with unittest.mock.patch(self.get_mock()) as output:
             data = self.get_data()
             data.add_record(["Rock", "Hard", 96])
@@ -120,7 +120,7 @@ class TestChartMethods(unittest.TestCase):
                 ref,
             )
 
-    def test_animate_one_chart_target_with_chart_anim_opts(self, ref):
+    def test_animate_one_chart_target_with_chart_anim_opts(self, ref=None):
         with unittest.mock.patch(self.get_mock()) as output:
             data = self.get_data()
             data.add_record(["Rock", "Hard", 96])
@@ -130,7 +130,7 @@ class TestChartMethods(unittest.TestCase):
                 ref,
             )
 
-    def test_animate_snapshot_chart_target(self, ref):
+    def test_animate_snapshot_chart_target(self, ref=None):
         with unittest.mock.patch(self.get_mock()) as output:
             snapshot = self.get_snapshot("abc1234")
             self.chart.animate(snapshot)
@@ -139,7 +139,7 @@ class TestChartMethods(unittest.TestCase):
                 ref,
             )
 
-    def test_animate_snapshot_chart_target_with_chart_anim_opts(self, ref):
+    def test_animate_snapshot_chart_target_with_chart_anim_opts(self, ref=None):
         with unittest.mock.patch(self.get_mock()) as output:
             snapshot = self.get_snapshot("abc1234")
             self.chart.animate(snapshot, duration="500ms")
@@ -148,7 +148,7 @@ class TestChartMethods(unittest.TestCase):
                 ref,
             )
 
-    def test_animate_more_chart_target(self, ref):
+    def test_animate_more_chart_target(self, ref=None):
         with unittest.mock.patch(self.get_mock()) as output:
             data = self.get_data()
             data.add_record(["Rock", "Hard", 96])
@@ -162,7 +162,7 @@ class TestChartMethods(unittest.TestCase):
                 ref,
             )
 
-    def test_animate_more_chart_target_with_chart_anim_opts(self, ref):
+    def test_animate_more_chart_target_with_chart_anim_opts(self, ref=None):
         with unittest.mock.patch(self.get_mock()) as output:
             data = self.get_data()
             data.add_record(["Rock", "Hard", 96])
@@ -194,7 +194,7 @@ class TestChartMethods(unittest.TestCase):
         with self.assertRaises(NotImplementedError):
             self.chart.animate(data, config, style, snapshot)
 
-    def test_animate_more_calls(self, ref):
+    def test_animate_more_calls(self, ref=None):
         with unittest.mock.patch(self.get_mock()) as output:
             data = self.get_data()
             data.add_record(["Rock", "Hard", 96])
@@ -210,7 +210,7 @@ class TestChartMethods(unittest.TestCase):
                 ref,
             )
 
-    def test_animate_with_not_default_scroll_into_view(self, ref):
+    def test_animate_with_not_default_scroll_into_view(self, ref=None):
         with unittest.mock.patch(self.get_mock()) as output:
             data = self.get_data()
             data.add_record(["Rock", "Hard", 96])
@@ -222,7 +222,7 @@ class TestChartMethods(unittest.TestCase):
                 ref,
             )
 
-    def test_feature(self, ref):
+    def test_feature(self, ref=None):
         with unittest.mock.patch(self.get_mock()) as output:
             self.chart.feature("tooltip", True)
             self.assertEqual(
@@ -230,7 +230,7 @@ class TestChartMethods(unittest.TestCase):
                 ref,
             )
 
-    def test_store(self, ref):
+    def test_store(self, ref=None):
         with unittest.mock.patch(self.get_mock()) as output:
             self.chart.store()
             self.assertEqual(
@@ -265,7 +265,7 @@ class TestChartShow(unittest.TestCase):
         Return Snapshot(snapshot_id)
         """
 
-    def test_show(self, ref):
+    def test_show(self, ref=None):
         chart = self.get_chart()
         with unittest.mock.patch(self.get_mock()) as output:
             chart.animate(self.get_snapshot("abc1234"))
