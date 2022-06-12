@@ -3,6 +3,7 @@ notebook
 pandas
 black
 pylint
+coverage
 jupytext
 tokenize-rt
 build
