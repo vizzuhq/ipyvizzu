@@ -50,7 +50,7 @@ check: check-format lint test
 test: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/coverage run --branch --source $(PACKAGES) -m unittest discover tests
 	$(VIRTUAL_ENV)/bin/coverage html
-	$(VIRTUAL_ENV)/bin/coverage report -m --fail-under=95
+	$(VIRTUAL_ENV)/bin/coverage report -m --fail-under=100
 
 format: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/black src tests tools
