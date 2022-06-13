@@ -98,6 +98,23 @@ class TestChartInitIpyvizzu(TestChartInit):
                 + "undefined);",
             )
 
+    def test_init_register_events(self):
+        class IPyEvents:
+            @staticmethod
+            def register(event, function):  # pylint: disable=unused-argument
+                function()
+
+        class IPy:
+            events = IPyEvents
+
+        with unittest.mock.patch("ipyvizzu.chart.get_ipython", return_value=IPy()):
+            with unittest.mock.patch(self.get_mock()) as output:
+                self.get_chart()
+                self.assertEqual(
+                    self.normalizer.normalize_output(output, 2),
+                    "window.ipyvizzu.clearInhibitScroll(element);",
+                )
+
 
 class TestChartMethodsIpyvizzu(TestChartMethods):
     def setUp(self):
