@@ -22,4 +22,10 @@ class DisplayTemplate:
 
     STORE = "window.ipyvizzu.store(element, '{chart_id}', '{id}');"
 
+    SET_EVENT = "window.ipyvizzu.setEvent(element, '{chart_id}', '{id}', '{event}', event => {{ {handler} }});"  # pylint: disable=line-too-long
+
+    CLEAR_EVENT = (
+        "window.ipyvizzu.clearEvent(element, '{chart_id}', '{id}', '{event}');"
+    )
+
     CLEAR_INHIBITSCROLL = "window.IpyVizzu.clearInhibitScroll(element);"

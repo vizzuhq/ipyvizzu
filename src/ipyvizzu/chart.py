@@ -11,6 +11,7 @@ from IPython import get_ipython
 from ipyvizzu.animation import Animation, Snapshot, AnimationMerger
 from ipyvizzu.method import Animate, Feature, Store
 from ipyvizzu.template import DisplayTarget, DisplayTemplate
+from ipyvizzu.event import EventHandler
 
 
 class Chart:
@@ -114,6 +115,25 @@ class Chart:
             )
         )
         return Snapshot(snapshot_id)
+
+    def on(self, event, handler) -> EventHandler:  # pylint: disable=invalid-name
+        event_handler = EventHandler(event, handler)
+        self._display(
+            DisplayTemplate.SET_EVENT.format(
+                chart_id=self._chart_id,
+                id=event_handler.id,
+                event=event_handler.event,
+                handler=event_handler.handler,
+            )
+        )
+        return event_handler
+
+    def off(self, event_handler) -> None:
+        self._display(
+            DisplayTemplate.CLEAR_EVENT.format(
+                chart_id=self._chart_id, id=event_handler.id, event=event_handler.event
+            )
+        )
 
     def _repr_html_(self):
         assert (

@@ -19,6 +19,8 @@ if (!window.IpyVizzu) {
 
             this.snapshots = {};
             this.displays = {};
+
+            this.events = {};
         }
 
         static clearInhibitScroll(element)
@@ -43,6 +45,25 @@ if (!window.IpyVizzu) {
             if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
             this.charts[chartId] = this.charts[chartId].then(chart => {
                 this.snapshots[id] = chart.store();
+                return chart;
+            });
+        }
+
+        setEvent(element, chartId, id, event, handler)
+        {
+            if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
+            this.charts[chartId] = this.charts[chartId].then(chart => {
+                this.events[id] = handler;
+                chart.on(event, this.events[id]);
+                return chart;
+            });
+        }
+
+        clearEvent(element, chartId, id, event)
+        {
+            if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
+            this.charts[chartId] = this.charts[chartId].then(chart => {
+                chart.off(event, this.events[id]);
                 return chart;
             });
         }
