@@ -1,4 +1,4 @@
-from ipyvizzu.template import DisplayTemplate
+from stpyvizzu.template import DisplayTemplate
 from pyvizzu.animation import Snapshot as PyvizzuSnapshot
 
 # pylint: disable=unused-import

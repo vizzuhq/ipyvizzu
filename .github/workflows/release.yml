@@ -17,29 +17,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install build
-        pip install twine
+    - name: Build dev environment
+      run: make dev
 
     - name: Build package
-      run: python -m build
-
-    - name: Check package
-      run: python -m twine check dist/*
+      run: make release
 
     - name: Release package
-      run: python -m twine upload -u "__token__" -p "${{ secrets.PYPI_API_TOKEN }}" dist/*
+      run: |
+        python -m twine upload -u "__token__" -p "${{ secrets.PYPI_API_TOKEN }}" dist/*.tar.gz  dist/*.whl
       if: ( github.event_name == 'release' && github.event.action == 'published' ) || github.event_name == 'workflow_dispatch'
     
     - name: Upload package
       run: |
         echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
-        gh release upload ${{ github.event.release.tag_name }} dist/* --clobber
+        gh release upload ${{ github.event.release.tag_name }} dist/*.tar.gz  dist/*.whl --clobber
       if: ( github.event_name == 'release' && github.event.action == 'published' ) || github.event_name == 'workflow_dispatch'
