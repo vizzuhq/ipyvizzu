@@ -116,7 +116,10 @@ class Chart:
         )
         return Snapshot(snapshot_id)
 
-    def on(self, event, handler) -> EventHandler:  # pylint: disable=invalid-name
+    def on(  # pylint: disable=invalid-name
+        self, event: str, handler: str
+    ) -> EventHandler:
+        """A method used to register the given handler for the given event"""
         event_handler = EventHandler(event, handler)
         self._display(
             DisplayTemplate.SET_EVENT.format(
@@ -128,7 +131,8 @@ class Chart:
         )
         return event_handler
 
-    def off(self, event_handler) -> None:
+    def off(self, event_handler: EventHandler) -> None:
+        """A method used to unregister the given event handler"""
         self._display(
             DisplayTemplate.CLEAR_EVENT.format(
                 chart_id=self._chart_id, id=event_handler.id, event=event_handler.event
