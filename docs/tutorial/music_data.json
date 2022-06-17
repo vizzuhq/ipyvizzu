@@ -1,7 +1,7 @@
 {
     "dimensions": [
         {"name": "Genres", "values": [ "Pop", "Rock", "Jazz", "Metal"]},
-        {"name": "Types", "values": [ "Hard", "Smooth", "Experimental"]}
+        {"name": "Kinds", "values": [ "Hard", "Smooth", "Experimental"]}
     ],
     "measures": [
         {

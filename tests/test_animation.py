@@ -48,7 +48,7 @@ class TestDataClassMethods(unittest.TestCase):
                 "data": {
                     "dimensions": [
                         {"name": "Genres", "values": ["Rock", "Pop"]},
-                        {"name": "Types", "values": ["Hard"]},
+                        {"name": "Kinds", "values": ["Hard"]},
                     ],
                     "measures": [{"name": "Popularity", "values": [[114, 96]]}],
                 }
@@ -98,7 +98,7 @@ class TestData(unittest.TestCase):
 
     def test_series(self):
         self.data.add_series("Genres", ["Rock", "Pop"], type="dimension")
-        self.data.add_series("Types", ["Hard"])
+        self.data.add_series("Kinds", ["Hard"])
         self.data.add_series("Popularity", [96, 114], type="measure")
         self.assertEqual(
             {
@@ -109,7 +109,7 @@ class TestData(unittest.TestCase):
                             "type": "dimension",
                             "values": ["Rock", "Pop"],
                         },
-                        {"name": "Types", "values": ["Hard"]},
+                        {"name": "Kinds", "values": ["Hard"]},
                         {"name": "Popularity", "type": "measure", "values": [96, 114]},
                     ]
                 }
@@ -119,7 +119,7 @@ class TestData(unittest.TestCase):
 
     def test_series_without_values(self):
         self.data.add_series("Genres", type="dimension")
-        self.data.add_series("Types", type="dimension")
+        self.data.add_series("Kinds", type="dimension")
         self.data.add_series("Popularity", type="measure")
         records = [["Rock", "Hard", 96], ["Pop", "Hard", 114]]
         self.data.add_records(records)
@@ -129,7 +129,7 @@ class TestData(unittest.TestCase):
                     "records": [["Rock", "Hard", 96], ["Pop", "Hard", 114]],
                     "series": [
                         {"name": "Genres", "type": "dimension"},
-                        {"name": "Types", "type": "dimension"},
+                        {"name": "Kinds", "type": "dimension"},
                         {"name": "Popularity", "type": "measure"},
                     ],
                 }
@@ -139,14 +139,14 @@ class TestData(unittest.TestCase):
 
     def test_data_cube(self):
         self.data.add_dimension("Genres", ["Pop", "Rock"])
-        self.data.add_dimension("Types", ["Hard"])
+        self.data.add_dimension("Kinds", ["Hard"])
         self.data.add_measure("Popularity", [[114, 96]])
         self.assertEqual(
             {
                 "data": {
                     "dimensions": [
                         {"name": "Genres", "values": ["Pop", "Rock"]},
-                        {"name": "Types", "values": ["Hard"]},
+                        {"name": "Kinds", "values": ["Hard"]},
                     ],
                     "measures": [
                         {
@@ -323,7 +323,7 @@ class TestDataSchema(unittest.TestCase):
     def test_schema_data_cube_and_series(self):
         self.data.add_dimension("Genres", ["Pop", "Rock"])
         self.data.add_measure("Popularity", [[114, 96]])
-        self.data.add_series("Types", ["Hard"])
+        self.data.add_series("Kinds", ["Hard"])
         with self.assertRaises(jsonschema.ValidationError):
             self.data.build()
 
