@@ -18,17 +18,19 @@ if (!window.IpyVizzu) {
             this.events = {};
         }
 
+        static clearInhibitScroll(element)
+        {
+            if (window.IpyVizzu) {
+                if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
+                IpyVizzu.inhibitScroll = false;
+            }
+        }
+
         createChart(element, chartId, vizzulib, divWidth, divHeight) {
             this.elements[chartId] = document.createElement("div");
             this.elements[chartId].style.cssText = `width: ${divWidth}; height: ${divHeight};`;
             this.charts[chartId] = import(vizzulib).then(Vizzu => new Vizzu.default(this.elements[chartId]).initializing);
             this._moveHere(chartId, element);
-        }
-
-        static clearInhibitScroll(element)
-        {
-            if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
-            IpyVizzu.inhibitScroll = false;
         }
 
         animate(element, chartId, displayTarget, scrollEnabled, chartTarget, chartAnimOpts)
