@@ -9,6 +9,7 @@
 ### Added
 
 - Added `Chart.on()` and `Chart.off()` methods, added basic event handling support.
+- Added `Chart.log()` method, with this the actual config and style can be logged in the browser console.
 
 ## [0.10.1] - 2022-06-12
 

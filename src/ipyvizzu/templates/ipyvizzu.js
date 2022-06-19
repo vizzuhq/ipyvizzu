@@ -53,6 +53,21 @@ if (!window.IpyVizzu) {
             });
         }
 
+        stored(element, id)
+        {
+            if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
+            return this.snapshots[id];
+        }
+
+        feature(element, chartId, name, enabled)
+        {
+            if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
+            this.charts[chartId] = this.charts[chartId].then(chart => {
+                chart.feature(name, enabled);
+                return chart;
+            });
+        }
+
         setEvent(element, chartId, id, event, handler)
         {
             if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
@@ -72,17 +87,11 @@ if (!window.IpyVizzu) {
             });
         }
 
-        stored(element, id)
-        {
-            if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
-            return this.snapshots[id];
-        }
-
-        feature(element, chartId, name, enabled)
+        log(element, chartId, chartProperty)
         {
             if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
             this.charts[chartId] = this.charts[chartId].then(chart => {
-                chart.feature(name, enabled);
+                console.log(chart[chartProperty])
                 return chart;
             });
         }
