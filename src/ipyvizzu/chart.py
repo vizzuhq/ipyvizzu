@@ -4,6 +4,7 @@ Jupyter notebook integration for Vizzu.
 
 import pkgutil
 import uuid
+from enum import Enum
 
 from IPython.display import display_javascript
 from IPython import get_ipython
@@ -12,6 +13,13 @@ from ipyvizzu.animation import Animation, Snapshot, AnimationMerger
 from ipyvizzu.method import Animate, Feature, Store
 from ipyvizzu.template import DisplayTarget, DisplayTemplate
 from ipyvizzu.event import EventHandler
+
+
+class ChartProperty(Enum):
+    """An enum class used to define chart properties"""
+
+    CONFIG = "config"
+    STYLE = "styles"
 
 
 class Chart:
@@ -136,6 +144,14 @@ class Chart:
         self._display(
             DisplayTemplate.CLEAR_EVENT.format(
                 chart_id=self._chart_id, id=event_handler.id, event=event_handler.event
+            )
+        )
+
+    def log(self, chart_property: ChartProperty) -> None:
+        """A method used to log the given chart property in the browser console"""
+        self._display(
+            DisplayTemplate.LOG.format(
+                chart_id=self._chart_id, chart_property=chart_property.value
             )
         )
 

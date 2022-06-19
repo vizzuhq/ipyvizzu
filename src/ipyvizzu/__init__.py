@@ -1,6 +1,6 @@
 # pylint: skip-file
 
-from .chart import Chart
+from .chart import Chart, ChartProperty
 from .animation import (
     Animation,
     PlainAnimation,

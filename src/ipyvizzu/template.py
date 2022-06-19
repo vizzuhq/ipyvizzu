@@ -28,4 +28,6 @@ class DisplayTemplate:
         "window.ipyvizzu.clearEvent(element, '{chart_id}', '{id}', '{event}');"
     )
 
+    LOG = "window.ipyvizzu.log(element, '{chart_id}', '{chart_property}');"
+
     CLEAR_INHIBITSCROLL = "window.IpyVizzu.clearInhibitScroll(element);"
