@@ -1,8 +1,9 @@
+import abc
 import unittest
 import unittest.mock
 
 from normalizer import Normalizer
-from ipyvizzu import Chart, Data, Config, Snapshot, Style
+from ipyvizzu import Chart, ChartProperty, Data, Config, Snapshot, Style
 from ipyvizzu.event import EventHandler
 
 
@@ -108,7 +109,9 @@ class TestChartInit(unittest.TestCase):
         )
 
 
-class TestChartMethods(unittest.TestCase):
+class TestChartWoInit(unittest.TestCase, abc.ABC):
+    """An abstract test class used to test the chart without the initialization step"""
+
     @classmethod
     def setUpClass(cls):
         cls.normalizer = Normalizer()
@@ -121,6 +124,10 @@ class TestChartMethods(unittest.TestCase):
 
     def tearDown(self):
         self.patch.stop()
+
+
+class TestChartMethods(TestChartWoInit):
+    """A test class used to test the methods of the chart which are related to ipyvizzu.method"""
 
     def test_animate_chart_target_has_to_be_passed(self):
         with self.assertRaises(ValueError):
@@ -279,21 +286,11 @@ class TestChartMethods(unittest.TestCase):
         )
 
 
-class TestChartEvents(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.normalizer = Normalizer()
-
-    def setUp(self):
-        self.patch = unittest.mock.patch("ipyvizzu.chart.display_javascript")
-        self.trash = self.patch.start()
-        self.chart = Chart()
-        self.javascript = self.patch.start()
-
-    def tearDown(self):
-        self.patch.stop()
+class TestChartEvents(TestChartWoInit):
+    """A test class used to test the methods of the chart which are related to events"""
 
     def test_on(self):
+        """A test method used to test chart.on() method"""
         handler_method = """event.renderingContext.fillStyle =
             (event.data.text === 'Jazz') ? 'red' : 'gray';"""
         self.chart.on("plot-axis-label-draw", handler_method)
@@ -303,6 +300,7 @@ class TestChartEvents(unittest.TestCase):
         )
 
     def test_off(self):
+        """A test method used to test chart.off() method"""
         handler_method = "alert(JSON.stringify(event.data));"
         handler = EventHandler("click", handler_method)
         self.chart.off(handler)
@@ -310,6 +308,31 @@ class TestChartEvents(unittest.TestCase):
             get_text(self.normalizer, self.javascript),
             "window.ipyvizzu.clearEvent(element, id, id, 'click');",
         )
+
+
+class TestChartLogs(TestChartWoInit):
+    """A test class used to test the methods of the chart which are related to logging"""
+
+    def test_log_config(self):
+        """A test method used to test chart.log() method with config value"""
+        self.chart.log(ChartProperty.CONFIG)
+        self.assertEqual(
+            get_text(self.normalizer, self.javascript),
+            "window.ipyvizzu.log(element, id, 'config');",
+        )
+
+    def test_log_style(self):
+        """A test method used to test chart.log() method with styles value"""
+        self.chart.log(ChartProperty.STYLE)
+        self.assertEqual(
+            get_text(self.normalizer, self.javascript),
+            "window.ipyvizzu.log(element, id, 'styles');",
+        )
+
+    def test_log_invalid(self):
+        """A test method used to test chart.log() method with an invalid value"""
+        with self.assertRaises(AttributeError):
+            self.chart.log(ChartProperty.INVALID)  # pylint: disable=no-member
 
 
 class TestChartShow(unittest.TestCase):
