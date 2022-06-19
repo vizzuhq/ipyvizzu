@@ -9,7 +9,7 @@ class EventHandler:
     def __init__(self, event, handler):
         self._id = uuid.uuid4().hex[:7]
         self._event = event
-        self._handler = handler
+        self._handler = " ".join(handler.split())
 
     @property
     def id(self):  # pylint: disable=invalid-name
