@@ -3,6 +3,7 @@ import unittest.mock
 
 from normalizer import Normalizer
 from ipyvizzu import Chart, Data, Config, Snapshot, Style
+from ipyvizzu.event import EventHandler
 
 
 def get_text(normalizer, javascript):
@@ -31,8 +32,7 @@ class TestChartInit(unittest.TestCase):
             self.normalizer.normalize_id(
                 self.javascript.call_args_list[1].args[0].strip().splitlines()[-1]
             ).strip(),
-            "window.ipyvizzu = "
-            + "new window.IpyVizzu("
+            "window.ipyvizzu.createChart("
             + "element, "
             + "id, "
             + "'https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js', "
@@ -46,8 +46,7 @@ class TestChartInit(unittest.TestCase):
             self.normalizer.normalize_id(
                 self.javascript.call_args_list[1].args[0].strip().splitlines()[-1]
             ).strip(),
-            "window.ipyvizzu = "
-            + "new window.IpyVizzu("
+            "window.ipyvizzu.createChart("
             + "element, "
             + "id, "
             + "'https://cdn.jsdelivr.net/npm/vizzu@0.4.1/dist/vizzu.min.js', "
@@ -61,8 +60,7 @@ class TestChartInit(unittest.TestCase):
             self.normalizer.normalize_id(
                 self.javascript.call_args_list[1].args[0].strip().splitlines()[-1]
             ).strip(),
-            "window.ipyvizzu = "
-            + "new window.IpyVizzu("
+            "window.ipyvizzu.createChart("
             + "element, "
             + "id, "
             + "'https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js', "
@@ -278,6 +276,39 @@ class TestChartMethods(unittest.TestCase):
         self.assertEqual(
             get_text(self.normalizer, self.javascript),
             "window.ipyvizzu.store(element, id, id);",
+        )
+
+
+class TestChartEvents(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.normalizer = Normalizer()
+
+    def setUp(self):
+        self.patch = unittest.mock.patch("ipyvizzu.chart.display_javascript")
+        self.trash = self.patch.start()
+        self.chart = Chart()
+        self.javascript = self.patch.start()
+
+    def tearDown(self):
+        self.patch.stop()
+
+    def test_on(self):
+        handler_method = """event.renderingContext.fillStyle =
+            (event.data.text === 'Jazz') ? 'red' : 'gray';"""
+        self.chart.on("plot-axis-label-draw", handler_method)
+        self.assertEqual(
+            get_text(self.normalizer, self.javascript),
+            "window.ipyvizzu.setEvent(element, id, id, 'plot-axis-label-draw', event => { event.renderingContext.fillStyle = (event.data.text === 'Jazz') ? 'red' : 'gray'; });",  # pylint: disable=line-too-long
+        )
+
+    def test_off(self):
+        handler_method = "alert(JSON.stringify(event.data));"
+        handler = EventHandler("click", handler_method)
+        self.chart.off(handler)
+        self.assertEqual(
+            get_text(self.normalizer, self.javascript),
+            "window.ipyvizzu.clearEvent(element, id, id, 'click');",
         )
 
 

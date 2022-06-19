@@ -13,7 +13,7 @@ class DisplayTemplate:
 
     IPYVIZZUJS = "{ipyvizzujs}"
 
-    INIT = "window.ipyvizzu = new window.IpyVizzu(element, '{chart_id}', '{vizzu}', '{div_width}', '{div_height}');"  # pylint: disable=line-too-long
+    INIT = "window.ipyvizzu.createChart(element, '{chart_id}', '{vizzu}', '{div_width}', '{div_height}');"  # pylint: disable=line-too-long
 
     ANIMATE = "window.ipyvizzu.animate(element, '{chart_id}', '{display_target}', {scroll}, {chart_target}, {chart_anim_opts});"  # pylint: disable=line-too-long
     STORED = "window.ipyvizzu.stored(element, '{id}')"
@@ -21,5 +21,11 @@ class DisplayTemplate:
     FEATURE = "window.ipyvizzu.feature(element, '{chart_id}', {name}, {enabled});"
 
     STORE = "window.ipyvizzu.store(element, '{chart_id}', '{id}');"
+
+    SET_EVENT = "window.ipyvizzu.setEvent(element, '{chart_id}', '{id}', '{event}', event => {{ {handler} }});"  # pylint: disable=line-too-long
+
+    CLEAR_EVENT = (
+        "window.ipyvizzu.clearEvent(element, '{chart_id}', '{id}', '{event}');"
+    )
 
     CLEAR_INHIBITSCROLL = "window.IpyVizzu.clearInhibitScroll(element);"
