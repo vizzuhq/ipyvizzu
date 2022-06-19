@@ -1,7 +1,7 @@
 if (!window.IpyVizzu) {
     class IpyVizzu 
     {
-        constructor(element, chartId, vizzulib, divWidth, divHeight)
+        constructor()
         {
             IpyVizzu.inhibitScroll = false;
             IpyVizzu.nbconvert = false;
@@ -10,17 +10,19 @@ if (!window.IpyVizzu) {
             document.addEventListener('touchstart', (evt) => { IpyVizzu.inhibitScroll = true }, true);
 
             this.elements = {};
-            this.elements[chartId] = document.createElement("div");
-            this.elements[chartId].style.cssText = `width: ${divWidth}; height: ${divHeight};`;
-
             this.charts = {};
-            this.charts[chartId] = import(vizzulib).then(Vizzu => new Vizzu.default(this.elements[chartId]).initializing);
-            this._moveHere(chartId, element);
-
+            
             this.snapshots = {};
             this.displays = {};
 
             this.events = {};
+        }
+
+        createChart(element, chartId, vizzulib, divWidth, divHeight) {
+            this.elements[chartId] = document.createElement("div");
+            this.elements[chartId].style.cssText = `width: ${divWidth}; height: ${divHeight};`;
+            this.charts[chartId] = import(vizzulib).then(Vizzu => new Vizzu.default(this.elements[chartId]).initializing);
+            this._moveHere(chartId, element);
         }
 
         static clearInhibitScroll(element)
@@ -110,4 +112,5 @@ if (!window.IpyVizzu) {
     }
 
     window.IpyVizzu = IpyVizzu;
+    window.ipyvizzu = new window.IpyVizzu();
 }

@@ -31,8 +31,7 @@ class TestChartInit(unittest.TestCase):
             self.normalizer.normalize_id(
                 self.javascript.call_args_list[1].args[0].strip().splitlines()[-1]
             ).strip(),
-            "window.ipyvizzu = "
-            + "new window.IpyVizzu("
+            "window.ipyvizzu.createChart("
             + "element, "
             + "id, "
             + "'https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js', "
@@ -46,8 +45,7 @@ class TestChartInit(unittest.TestCase):
             self.normalizer.normalize_id(
                 self.javascript.call_args_list[1].args[0].strip().splitlines()[-1]
             ).strip(),
-            "window.ipyvizzu = "
-            + "new window.IpyVizzu("
+            "window.ipyvizzu.createChart("
             + "element, "
             + "id, "
             + "'https://cdn.jsdelivr.net/npm/vizzu@0.4.1/dist/vizzu.min.js', "
@@ -61,8 +59,7 @@ class TestChartInit(unittest.TestCase):
             self.normalizer.normalize_id(
                 self.javascript.call_args_list[1].args[0].strip().splitlines()[-1]
             ).strip(),
-            "window.ipyvizzu = "
-            + "new window.IpyVizzu("
+            "window.ipyvizzu.createChart("
             + "element, "
             + "id, "
             + "'https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js', "
