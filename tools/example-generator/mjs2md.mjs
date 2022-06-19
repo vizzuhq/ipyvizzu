@@ -33,7 +33,7 @@ kernelspec:
 title: ipyvizzu - Example
 ---
 
-**Note:** The data used in this example is available [here](https://github.com/vizzuhq/ipyvizzu/tree/gh-pages/docs/data). You can read more about the available types of data in the [Adding data](../../tutorial/data.ipynb) chapter.
+**Note:** The data used in this example is available [here](https://github.com/vizzuhq/ipyvizzu/tree/gh-pages/docs/data). You can read more about the available types of data in the [Adding data](../../tutorial/01_02_adding_data.ipynb) chapter.
 
 `
 		;
