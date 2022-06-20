@@ -44,9 +44,6 @@ class Chart:
 
         self._scroll_into_view = False
 
-        if self._display_target != DisplayTarget.MANUAL:
-            self._register_events()
-
         ipyvizzujs = pkgutil.get_data(__name__, "templates/ipyvizzu.js").decode("utf-8")
         self._display(DisplayTemplate.IPYVIZZUJS.format(ipyvizzujs=ipyvizzujs))
 
@@ -58,6 +55,9 @@ class Chart:
                 div_height=height,
             )
         )
+
+        if self._display_target != DisplayTarget.MANUAL:
+            self._register_events()
 
     @staticmethod
     def _register_events():

@@ -20,10 +20,8 @@ if (!window.IpyVizzu) {
 
         static clearInhibitScroll(element)
         {
-            if (window.IpyVizzu) {
-                if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
-                IpyVizzu.inhibitScroll = false;
-            }
+            if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
+            IpyVizzu.inhibitScroll = false;
         }
 
         createChart(element, chartId, vizzulib, divWidth, divHeight) {

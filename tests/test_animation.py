@@ -20,7 +20,7 @@ class TestPlainAnimation(unittest.TestCase):
         self.assertEqual({"geometry": "circle"}, animation.build())
 
 
-class TestDataClassMethods(unittest.TestCase):
+class TestDataClassmethods(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.asset_dir = pathlib.Path(__file__).parent / "assets"

@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fixed multiple `Chart` usage in the same workspace.
+- Fixed `IpyVizzu.clearInhibitScroll` if `window.IpyVizzu` does not exist.
 
 ### Added
 
