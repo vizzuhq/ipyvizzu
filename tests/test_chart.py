@@ -1,399 +1,669 @@
+"""
+A test module used to test
+chart module
+"""
+
 import abc
 import unittest
 import unittest.mock
+from typing import Callable
 
 from normalizer import Normalizer
 from ipyvizzu import Chart, ChartProperty, Data, Config, Snapshot, Style
 from ipyvizzu.event import EventHandler
 
 
-def get_text(normalizer, javascript):
-    display_out = []
-    for block in javascript.call_args_list:
-        display_out.append(block.args[0])
-    return normalizer.normalize_id("\n".join(display_out)).strip()
+class TestChart(unittest.TestCase, abc.ABC):
+    """
+    An abstract test class used to test
+    chart.Chart()
+    """
 
-
-class TestChartInit(unittest.TestCase):
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         cls.normalizer = Normalizer()
 
-    def setUp(self):
-        self.patch = unittest.mock.patch("ipyvizzu.chart.display_javascript")
-        self.javascript = self.patch.start()
+    def setUp(self) -> None:
+        self.patch = unittest.mock.patch(self.get_mock())
+        self.trash = self.patch.start()
+        self.chart = Chart()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         self.patch.stop()
 
-    def test_init(self):
-        Chart()
+    def get_mock(self) -> str:
+        """
+        A method used to return
+        mocked method's name
+        """
+        return "ipyvizzu.chart.display_javascript"
 
-        self.assertEqual(
-            self.normalizer.normalize_id(
-                self.javascript.call_args_list[1].args[0].strip().splitlines()[-1]
-            ).strip(),
-            "window.ipyvizzu.createChart("
-            + "element, "
-            + "id, "
-            + "'https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js', "
-            + "'800px', '480px');",
-        )
 
-    def test_init_vizzu(self):
-        Chart(vizzu="https://cdn.jsdelivr.net/npm/vizzu@0.4.1/dist/vizzu.min.js")
+class TestChartInit(TestChart):
+    """
+    A test class used to test
+    the initialization of Chart()
+    """
 
-        self.assertEqual(
-            self.normalizer.normalize_id(
-                self.javascript.call_args_list[1].args[0].strip().splitlines()[-1]
-            ).strip(),
-            "window.ipyvizzu.createChart("
-            + "element, "
-            + "id, "
-            + "'https://cdn.jsdelivr.net/npm/vizzu@0.4.1/dist/vizzu.min.js', "
-            + "'800px', '480px');",
-        )
+    def test_init(self) -> None:
+        """
+        A test method used to test
+        Chart() with default constructor parameters
+        """
+        with unittest.mock.patch(self.get_mock()) as output:
+            Chart()
+            self.assertEqual(
+                self.normalizer.normalize_output(output, 1),
+                "window.ipyvizzu.createChart("
+                + "element, "
+                + "id, "
+                + "'https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js', "
+                + "'800px', '480px');",
+            )
 
-    def test_init_div(self):
-        Chart(width="400px", height="240px")
+    def test_init_vizzu(self) -> None:
+        """
+        A test method used to test
+        Chart()'s vizzu constructor parameter
+        """
+        with unittest.mock.patch(self.get_mock()) as output:
+            Chart(vizzu="https://cdn.jsdelivr.net/npm/vizzu@0.4.1/dist/vizzu.min.js")
+            self.assertEqual(
+                self.normalizer.normalize_output(output, 1),
+                "window.ipyvizzu.createChart("
+                + "element, "
+                + "id, "
+                + "'https://cdn.jsdelivr.net/npm/vizzu@0.4.1/dist/vizzu.min.js', "
+                + "'800px', '480px');",
+            )
 
-        self.assertEqual(
-            self.normalizer.normalize_id(
-                self.javascript.call_args_list[1].args[0].strip().splitlines()[-1]
-            ).strip(),
-            "window.ipyvizzu.createChart("
-            + "element, "
-            + "id, "
-            + "'https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js', "
-            + "'400px', '240px');",
-        )
+    def test_init_div(self) -> None:
+        """
+        A test method used to test
+        Chart()'s width and height constructor parameters
+        """
+        with unittest.mock.patch(self.get_mock()) as output:
+            Chart(width="400px", height="240px")
+            self.assertEqual(
+                self.normalizer.normalize_output(output, 1),
+                "window.ipyvizzu.createChart("
+                + "element, "
+                + "id, "
+                + "'https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js', "
+                + "'400px', '240px');",
+            )
 
-    def test_init_display_not_valid(self):
+    def test_init_display_invalid(self) -> None:
+        """
+        A test method used to test
+        Chart()'s display constructor parameter with an invalid value
+        """
         with self.assertRaises(ValueError):
             Chart(display="invalid")
 
-    def test_init_display_begin(self):
-        chart = Chart(display="begin")
-        javascript = self.patch.start()
+    def test_init_display_begin(self) -> None:
+        """
+        A test method used to test
+        Chart()'s display constructor parameter with the begin value
+        """
+        self.chart = Chart(display="begin")
+        with unittest.mock.patch(self.get_mock()) as output:
+            self.chart.animate(Snapshot("abc1234"))
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(element, id, 'begin', false, "
+                + "window.ipyvizzu.stored(element, id), "
+                + "undefined);",
+            )
 
-        chart.animate(Snapshot("abc1234"))
-        self.assertEqual(
-            get_text(self.normalizer, javascript),
-            "window.ipyvizzu.animate(element, id, 'begin', false, "
-            + "window.ipyvizzu.stored(element, id), "
-            + "undefined);",
-        )
+    def test_init_display_actual(self) -> None:
+        """
+        A test method used to test
+        Chart()'s display constructor parameter with the actual value
+        """
+        self.chart = Chart(display="actual")
+        with unittest.mock.patch(self.get_mock()) as output:
+            self.chart.animate(Snapshot("abc1234"))
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(element, id, 'actual', false, "
+                + "window.ipyvizzu.stored(element, id), "
+                + "undefined);",
+            )
 
-    def test_init_display_actual(self):
-        chart = Chart(display="actual")
-        javascript = self.patch.start()
+    def test_init_display_end(self) -> None:
+        """
+        A test method used to test
+        Chart()'s display constructor parameter with the end value
+        """
+        self.chart = Chart(display="end")
+        with unittest.mock.patch(self.get_mock()) as output:
+            self.chart.animate(Snapshot("abc1234"))
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(element, id, 'end', false, "
+                + "window.ipyvizzu.stored(element, id), "
+                + "undefined);",
+            )
 
-        chart.animate(Snapshot("abc1234"))
-        self.assertEqual(
-            get_text(self.normalizer, javascript),
-            "window.ipyvizzu.animate(element, id, 'actual', false, "
-            + "window.ipyvizzu.stored(element, id), "
-            + "undefined);",
-        )
+    def test_init_register_events(self) -> None:
+        """
+        A test method used to test
+        Chart()._register_events() method
+        """
 
-    def test_init_display_end(self):
-        chart = Chart(display="end")
-        javascript = self.patch.start()
+        class IPyEvents:
+            """
+            A class used to mock
+            get_ipython().events object
+            """
 
-        chart.animate(Snapshot("abc1234"))
-        self.assertEqual(
-            get_text(self.normalizer, javascript),
-            "window.ipyvizzu.animate(element, id, 'end', false, "
-            + "window.ipyvizzu.stored(element, id), "
-            + "undefined);",
-        )
+            @staticmethod
+            def register(
+                event: str, function: Callable  # pylint: disable=unused-argument
+            ) -> None:
+                """
+                A method used to mock
+                get_ipython().events.register() method
+                """
+                function()
+
+        class IPy:
+            """
+            A class used to mock
+            get_ipython() object
+            """
+
+            events = IPyEvents
+
+        get_ipython_mock = "ipyvizzu.chart.get_ipython"
+        with unittest.mock.patch(get_ipython_mock, return_value=IPy()):
+            with unittest.mock.patch(self.get_mock()) as output:
+                Chart()
+                self.assertEqual(
+                    self.normalizer.normalize_output(output, 2),
+                    "if (window.IpyVizzu) { window.IpyVizzu.clearInhibitScroll(element); }",
+                )
 
 
-class TestChartWoInit(unittest.TestCase, abc.ABC):
-    """An abstract test class used to test the chart without the initialization step"""
+class TestChartMethods(TestChart):
+    """
+    A test class used to test
+    the methods of the chart which are related to method module
+    """
 
-    @classmethod
-    def setUpClass(cls):
-        cls.normalizer = Normalizer()
-
-    def setUp(self):
-        self.patch = unittest.mock.patch("ipyvizzu.chart.display_javascript")
-        self.trash = self.patch.start()
-        self.chart = Chart()
-        self.javascript = self.patch.start()
-
-    def tearDown(self):
-        self.patch.stop()
-
-
-class TestChartMethods(TestChartWoInit):
-    """A test class used to test the methods of the chart which are related to ipyvizzu.method"""
-
-    def test_animate_chart_target_has_to_be_passed(self):
+    def test_animate_chart_target_has_to_be_passed(self) -> None:
+        """
+        A test method used to test
+        Chart().animate() method without arguments
+        """
         with self.assertRaises(ValueError):
             self.chart.animate()
 
-    def test_animate_chart_target_has_to_be_passed_even_if_chart_anim_opts_passed(self):
+    def test_animate_chart_target_has_to_be_passed_even_if_chart_anim_opts_passed(
+        self,
+    ) -> None:
+        """
+        A test method used to test
+        Chart().animate() method without chart target and with anim options
+        """
         with self.assertRaises(ValueError):
             self.chart.animate(duration="500ms")
 
-    def test_animate_one_chart_target(self):
-        data = Data()
-        data.add_record(["Rock", "Hard", 96])
+    def test_animate_one_chart_target(self) -> None:
+        """
+        A test method used to test
+        Chart().animate() method with a chart target
+        """
+        with unittest.mock.patch(self.get_mock()) as output:
+            data = Data()
+            data.add_record(["Rock", "Hard", 96])
+            self.chart.animate(data)
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(element, id, 'actual', false, "
+                + '{"data": {"records": [["Rock", "Hard", 96]]}}, '
+                + "undefined);",
+            )
 
-        self.chart.animate(data)
-        self.assertEqual(
-            get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.animate(element, id, 'actual', false, "
-            + '{"data": {"records": [["Rock", "Hard", 96]]}}, '
-            + "undefined);",
-        )
+    def test_animate_one_chart_target_with_chart_anim_opts(self) -> None:
+        """
+        A test method used to test
+        Chart().animate() method with a chart target and anim options
+        """
+        with unittest.mock.patch(self.get_mock()) as output:
+            data = Data()
+            data.add_record(["Rock", "Hard", 96])
+            self.chart.animate(data, duration="500ms")
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(element, id, 'actual', false, "
+                + '{"data": {"records": [["Rock", "Hard", 96]]}}, '
+                + '{"duration": "500ms"});',
+            )
 
-    def test_animate_one_chart_target_with_chart_anim_opts(self):
-        data = Data()
-        data.add_record(["Rock", "Hard", 96])
+    def test_animate_snapshot_chart_target(self) -> None:
+        """
+        A test method used to test
+        Chart().animate() method with a Snapshot chart target
+        """
+        with unittest.mock.patch(self.get_mock()) as output:
+            snapshot = Snapshot("abc1234")
+            self.chart.animate(snapshot)
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(element, id, 'actual', false, "
+                + "window.ipyvizzu.stored(element, id), "
+                + "undefined);",
+            )
 
-        self.chart.animate(data, duration="500ms")
-        self.assertEqual(
-            get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.animate(element, id, 'actual', false, "
-            + '{"data": {"records": [["Rock", "Hard", 96]]}}, '
-            + '{"duration": "500ms"});',
-        )
+    def test_animate_snapshot_chart_target_with_chart_anim_opts(self) -> None:
+        """
+        A test method used to test
+        Chart().animate() method with a Snapshot chart target and anim options
+        """
+        with unittest.mock.patch(self.get_mock()) as output:
+            snapshot = Snapshot("abc1234")
+            self.chart.animate(snapshot, duration="500ms")
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(element, id, 'actual', false, "
+                + "window.ipyvizzu.stored(element, id), "
+                + '{"duration": "500ms"});',
+            )
 
-    def test_animate_snapshot_chart_target(self):
-        snapshot = Snapshot("abc1234")
+    def test_animate_more_chart_target(self) -> None:
+        """
+        A test method used to test
+        Chart().animate() method with multiple chart targets
+        """
+        with unittest.mock.patch(self.get_mock()) as output:
+            data = Data()
+            data.add_record(["Rock", "Hard", 96])
+            config = Config({"channels": {"label": {"attach": ["Popularity"]}}})
+            style = Style({"title": {"backgroundColor": "#A0A0A0"}})
+            self.chart.animate(data, config, style)
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(element, id, 'actual', false, "
+                + '{"data": {"records": [["Rock", "Hard", 96]]}, '
+                + '"config": {"channels": {"label": {"attach": ["Popularity"]}}}, '
+                + '"style": {"title": {"backgroundColor": "#A0A0A0"}}}, '
+                + "undefined);",
+            )
 
-        self.chart.animate(snapshot)
-        self.assertEqual(
-            get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.animate(element, id, 'actual', false, "
-            + "window.ipyvizzu.stored(element, id), "
-            + "undefined);",
-        )
+    def test_animate_more_chart_target_with_chart_anim_opts(self) -> None:
+        """
+        A test method used to test
+        Chart().animate() method with multiple chart targets and anim options
+        """
+        with unittest.mock.patch(self.get_mock()) as output:
+            data = Data()
+            data.add_record(["Rock", "Hard", 96])
+            config = Config({"channels": {"label": {"attach": ["Popularity"]}}})
+            style = Style({"title": {"backgroundColor": "#A0A0A0"}})
+            self.chart.animate(data, config, style, duration="500ms")
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(element, id, 'actual', false, "
+                + '{"data": {"records": [["Rock", "Hard", 96]]}, '
+                + '"config": {"channels": {"label": {"attach": ["Popularity"]}}}, '
+                + '"style": {"title": {"backgroundColor": "#A0A0A0"}}}, '
+                + '{"duration": "500ms"});',
+            )
 
-    def test_animate_snapshot_chart_target_with_chart_anim_opts(self):
-        snapshot = Snapshot("abc1234")
-
-        self.chart.animate(snapshot, duration="500ms")
-        self.assertEqual(
-            get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.animate(element, id, 'actual', false, "
-            + "window.ipyvizzu.stored(element, id), "
-            + '{"duration": "500ms"});',
-        )
-
-    def test_animate_more_chart_target(self):
-        data = Data()
-        data.add_record(["Rock", "Hard", 96])
-        config = Config({"channels": {"label": {"attach": ["Popularity"]}}})
-        style = Style({"title": {"backgroundColor": "#A0A0A0"}})
-
-        self.chart.animate(data, config, style)
-        self.assertEqual(
-            get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.animate(element, id, 'actual', false, "
-            + '{"data": {"records": [["Rock", "Hard", 96]]}, '
-            + '"config": {"channels": {"label": {"attach": ["Popularity"]}}}, '
-            + '"style": {"title": {"backgroundColor": "#A0A0A0"}}}, '
-            + "undefined);",
-        )
-
-    def test_animate_more_chart_target_with_chart_anim_opts(self):
-        data = Data()
-        data.add_record(["Rock", "Hard", 96])
-        config = Config({"channels": {"label": {"attach": ["Popularity"]}}})
-        style = Style({"title": {"backgroundColor": "#A0A0A0"}})
-
-        self.chart.animate(data, config, style, duration="500ms")
-        self.assertEqual(
-            get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.animate(element, id, 'actual', false, "
-            + '{"data": {"records": [["Rock", "Hard", 96]]}, '
-            + '"config": {"channels": {"label": {"attach": ["Popularity"]}}}, '
-            + '"style": {"title": {"backgroundColor": "#A0A0A0"}}}, '
-            + '{"duration": "500ms"});',
-        )
-
-    def test_animate_more_chart_target_with_conflict(self):
+    def test_animate_more_chart_target_with_conflict(self) -> None:
+        """
+        A test method used to test
+        Chart().animate() method with same chart targets
+        """
         data = Data()
         data.add_record(["Rock", "Hard", 96])
         config1 = Config({"channels": {"label": {"attach": ["Popularity"]}}})
         config2 = Config({"title": "Test"})
         style = Style({"title": {"backgroundColor": "#A0A0A0"}})
-
         with self.assertRaises(ValueError):
             self.chart.animate(data, config1, style, config2)
 
-    def test_animate_more_chart_target_with_snapshot(self):
+    def test_animate_more_chart_target_with_snapshot(self) -> None:
+        """
+        A test method used to test
+        Chart().animate() method with multiple chart targets and a Snapshot chart target
+        """
         data = Data()
         data.add_record(["Rock", "Hard", 96])
         config = Config({"channels": {"label": {"attach": ["Popularity"]}}})
         style = Style({"title": {"backgroundColor": "#A0A0A0"}})
         snapshot = Snapshot("abc1234")
-
         with self.assertRaises(NotImplementedError):
             self.chart.animate(data, config, style, snapshot)
 
-    def test_animate_more_calls(self):
-        data = Data()
-        data.add_record(["Rock", "Hard", 96])
-        config1 = Config({"channels": {"label": {"attach": ["Popularity"]}}})
-        config2 = Config({"title": "Test"})
-        style = Style({"title": {"backgroundColor": "#A0A0A0"}})
+    def test_animate_more_calls(self) -> None:
+        """
+        A test method used to test
+        multiple Chart().animate() methods
+        """
+        with unittest.mock.patch(self.get_mock()) as output:
+            data = Data()
+            data.add_record(["Rock", "Hard", 96])
+            config1 = Config({"channels": {"label": {"attach": ["Popularity"]}}})
+            config2 = Config({"title": "Test"})
+            style = Style({"title": {"backgroundColor": "#A0A0A0"}})
+            self.chart.animate(data, config1, style)
+            self.chart.animate(config2)
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(element, id, 'actual', false, "
+                + '{"data": {"records": [["Rock", "Hard", 96]]}, '
+                + '"config": {"channels": {"label": {"attach": ["Popularity"]}}}, '
+                + '"style": {"title": {"backgroundColor": "#A0A0A0"}}}, '
+                + "undefined);\n"
+                + "window.ipyvizzu.animate(element, id, 'actual', false, "
+                + '{"config": {"title": "Test"}}, '
+                + "undefined);",
+            )
 
-        self.chart.animate(data, config1, style)
-        self.chart.animate(config2)
-        self.assertEqual(
-            get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.animate(element, id, 'actual', false, "
-            + '{"data": {"records": [["Rock", "Hard", 96]]}, '
-            + '"config": {"channels": {"label": {"attach": ["Popularity"]}}}, '
-            + '"style": {"title": {"backgroundColor": "#A0A0A0"}}}, '
-            + "undefined);\n"
-            + "window.ipyvizzu.animate(element, id, 'actual', false, "
-            + '{"config": {"title": "Test"}}, '
-            + "undefined);",
-        )
+    def test_animate_with_not_default_scroll_into_view(self) -> None:
+        """
+        A test method used to test
+        Chart().animate() method with scroll into view
+        """
+        with unittest.mock.patch(self.get_mock()) as output:
+            data = Data()
+            data.add_record(["Rock", "Hard", 96])
+            scroll_into_view = not self.chart.scroll_into_view
+            self.chart.scroll_into_view = scroll_into_view
+            self.chart.animate(data)
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                f"window.ipyvizzu.animate(element, id, 'actual', {str(scroll_into_view).lower()}, "
+                + '{"data": {"records": [["Rock", "Hard", 96]]}}, '
+                + "undefined);",
+            )
 
-    def test_animate_with_not_default_scroll_into_view(self):
-        data = Data()
-        data.add_record(["Rock", "Hard", 96])
+    def test_feature(self) -> None:
+        """
+        A test method used to test
+        Chart.feature() method
+        """
+        with unittest.mock.patch(self.get_mock()) as output:
+            self.chart.feature("tooltip", True)
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                'window.ipyvizzu.feature(element, id, "tooltip", true);',
+            )
 
-        scroll_into_view = not self.chart.scroll_into_view
-        self.chart.scroll_into_view = scroll_into_view
-
-        self.chart.animate(data)
-        self.assertEqual(
-            get_text(self.normalizer, self.javascript),
-            f"window.ipyvizzu.animate(element, id, 'actual', {str(scroll_into_view).lower()}, "
-            + '{"data": {"records": [["Rock", "Hard", 96]]}}, '
-            + "undefined);",
-        )
-
-    def test_feature(self):
-        self.chart.feature("tooltip", True)
-        self.assertEqual(
-            get_text(self.normalizer, self.javascript),
-            'window.ipyvizzu.feature(element, id, "tooltip", true);',
-        )
-
-    def test_store(self):
-        self.chart.store()
-        self.assertEqual(
-            get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.store(element, id, id);",
-        )
-
-
-class TestChartEvents(TestChartWoInit):
-    """A test class used to test the methods of the chart which are related to events"""
-
-    def test_on(self):
-        """A test method used to test chart.on() method"""
-        handler_method = """event.renderingContext.fillStyle =
-            (event.data.text === 'Jazz') ? 'red' : 'gray';"""
-        self.chart.on("plot-axis-label-draw", handler_method)
-        self.assertEqual(
-            get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.setEvent(element, id, id, 'plot-axis-label-draw', event => { event.renderingContext.fillStyle = (event.data.text === 'Jazz') ? 'red' : 'gray'; });",  # pylint: disable=line-too-long
-        )
-
-    def test_off(self):
-        """A test method used to test chart.off() method"""
-        handler_method = "alert(JSON.stringify(event.data));"
-        handler = EventHandler("click", handler_method)
-        self.chart.off(handler)
-        self.assertEqual(
-            get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.clearEvent(element, id, id, 'click');",
-        )
+    def test_store(self) -> None:
+        """
+        A test method used to test
+        Chart.store() method
+        """
+        with unittest.mock.patch(self.get_mock()) as output:
+            self.chart.store()
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.store(element, id, id);",
+            )
 
 
-class TestChartLogs(TestChartWoInit):
-    """A test class used to test the methods of the chart which are related to logging"""
+class TestChartEvents(TestChart):
+    """
+    A test class used to test
+    the methods of the Chart() which are related to events
+    """
 
-    def test_log_config(self):
-        """A test method used to test chart.log() method with config value"""
-        self.chart.log(ChartProperty.CONFIG)
-        self.assertEqual(
-            get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.log(element, id, 'config');",
-        )
+    def test_on(self) -> None:
+        """
+        A test method used to test
+        Chart().on() method
+        """
+        with unittest.mock.patch(self.get_mock()) as output:
+            handler_method = """event.renderingContext.fillStyle =
+                (event.data.text === 'Jazz') ? 'red' : 'gray';"""
+            self.chart.on("plot-axis-label-draw", handler_method)
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.setEvent("
+                + "element, id, id, 'plot-axis-label-draw', "
+                + "event => "
+                + "{ event.renderingContext.fillStyle = "
+                + "(event.data.text === 'Jazz') ? 'red' : 'gray'; });",
+            )
 
-    def test_log_style(self):
-        """A test method used to test chart.log() method with styles value"""
-        self.chart.log(ChartProperty.STYLE)
-        self.assertEqual(
-            get_text(self.normalizer, self.javascript),
-            "window.ipyvizzu.log(element, id, 'styles');",
-        )
+    def test_off(self) -> None:
+        """
+        A test method used to test
+        Chart().off() method
+        """
+        with unittest.mock.patch(self.get_mock()) as output:
+            handler_method = "alert(JSON.stringify(event.data));"
+            handler = EventHandler("click", handler_method)
+            self.chart.off(handler)
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.clearEvent(element, id, id, 'click');",
+            )
 
-    def test_log_invalid(self):
-        """A test method used to test chart.log() method with an invalid value"""
+
+class TestChartLogs(TestChart):
+    """
+    A test class used to test
+    the methods of the Chart() which are related to logging
+    """
+
+    def test_log_config(self) -> None:
+        """
+        A test method used to test
+        Chart().log() method with config value
+        """
+        with unittest.mock.patch(self.get_mock()) as output:
+            self.chart.log(ChartProperty.CONFIG)
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.log(element, id, 'config');",
+            )
+
+    def test_log_style(self) -> None:
+        """
+        A test method used to test
+        Chart().log() method with styles value
+        """
+        with unittest.mock.patch(self.get_mock()) as output:
+            self.chart.log(ChartProperty.STYLE)
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.log(element, id, 'styles');",
+            )
+
+    def test_log_invalid(self) -> None:
+        """
+        A test method used to test
+        Chart().log() method with an invalid value
+        """
         with self.assertRaises(AttributeError):
             self.chart.log(ChartProperty.INVALID)  # pylint: disable=no-member
 
 
-class TestChartShow(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.normalizer = Normalizer()
+class TestChartDisplay(TestChart):
+    """
+    A test class used to test
+    the methods of the chart which are related to display
+    """
 
-    def setUp(self):
-        self.patch = unittest.mock.patch("ipyvizzu.chart.display_javascript")
-        self.javascript = self.patch.start()
-
-    def tearDown(self):
-        self.patch.stop()
-
-    def test_show(self):
-        chart = Chart(display="manual")
-        chart.animate(Snapshot("abc1234"))
-        self.assertEqual(
-            get_text(self.normalizer, self.javascript),
-            "",
-        )
-        chart.show()
-        self.assertEqual(
-            self.normalizer.normalize_id(
-                self.javascript.call_args_list[0].args[0].strip().splitlines()[-1]
-            ).strip(),
-            "window.ipyvizzu.animate(element, id, 'manual', false, "
-            + "window.ipyvizzu.stored(element, id), "
-            + "undefined);",
-        )
-
-    def test_show_if_display_is_not_manual(self):
-        chart = Chart()
-        chart.animate(Snapshot("abc1234"))
+    def test_repr_html_if_display_is_not_manual(self) -> None:
+        """
+        A test method used to test
+        Chart()._repr_html_() method if display is not manual
+        """
+        self.chart.animate(Snapshot("abc1234"))
         with self.assertRaises(AssertionError):
-            chart.show()
+            self.chart._repr_html_()  # pylint: disable=protected-access
 
-    def test_show_after_show(self):
-        chart = Chart(display="manual")
-        chart.animate(Snapshot("abc1234"))
-        chart.show()
+    def test_show_if_display_is_not_manual(self) -> None:
+        """
+        A test method used to test
+        Chart().show() method if display is not manual
+        """
+        self.chart.animate(Snapshot("abc1234"))
         with self.assertRaises(AssertionError):
-            chart.show()
+            self.chart.show()
 
-    def test_animate_after_show(self):
-        chart = Chart(display="manual")
-        chart.animate(Snapshot("abc1234"))
-        chart.show()
-        with self.assertRaises(AssertionError):
-            chart.animate(Snapshot("abc1234"))
+    def test_repr_html(self) -> None:
+        """
+        A test method used to test
+        Chart()._repr_html_() method if display is manual
+        """
+        self.chart = Chart(display="manual")
+        display_mock = "ipyvizzu.Chart._display"
+        with unittest.mock.patch(display_mock) as output:
+            self.chart.animate(Snapshot("abc1234"))
+            self.assertEqual(
+                self.chart._showed,  # pylint: disable=protected-access
+                False,
+            )
+            self.chart._repr_html_()  # pylint: disable=protected-access
+            self.assertEqual(
+                self.chart._showed,  # pylint: disable=protected-access
+                True,
+            )
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(element, id, 'manual', false, "
+                + "window.ipyvizzu.stored(element, id), "
+                + "undefined);",
+            )
 
-    def test_feature_after_show(self):
-        chart = Chart(display="manual")
-        chart.animate(Snapshot("abc1234"))
-        chart.show()
-        with self.assertRaises(AssertionError):
-            chart.feature("tooltip", True)
+    def test_show(self) -> None:
+        """
+        A test method used to test
+        Chart().show() method if display is manual
+        """
+        self.chart = Chart(display="manual")
+        display_mock = "ipyvizzu.Chart._display"
+        with unittest.mock.patch(display_mock) as output:
+            self.chart.animate(Snapshot("abc1234"))
+            self.assertEqual(
+                self.chart._showed,  # pylint: disable=protected-access
+                False,
+            )
+            self.chart.show()
+            self.assertEqual(
+                self.chart._showed,  # pylint: disable=protected-access
+                True,
+            )
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(element, id, 'manual', false, "
+                + "window.ipyvizzu.stored(element, id), "
+                + "undefined);",
+            )
 
-    def test_store_after_show(self):
-        chart = Chart(display="manual")
-        chart.animate(Snapshot("abc1234"))
-        chart.show()
+    def test_repr_html_after_repr_html(self) -> None:
+        """
+        A test method used to test
+        Chart()._repr_html_() method after Chart()._repr_html_() called
+        """
+        self.chart = Chart(display="manual")
+        self.chart.animate(Snapshot("abc1234"))
+        self.chart._repr_html_()  # pylint: disable=protected-access
         with self.assertRaises(AssertionError):
-            chart.store()
+            self.chart._repr_html_()  # pylint: disable=protected-access
+
+    def test_repr_html_after_show(self) -> None:
+        """
+        A test method used to test
+        Chart()._repr_html_() method after Chart().show() called
+        """
+        self.chart = Chart(display="manual")
+        self.chart.animate(Snapshot("abc1234"))
+        self.chart.show()
+        with self.assertRaises(AssertionError):
+            self.chart._repr_html_()  # pylint: disable=protected-access
+
+    def test_show_after_show(self) -> None:
+        """
+        A test method used to test
+        Chart().show() method after Chart().show() called
+        """
+        self.chart = Chart(display="manual")
+        self.chart.animate(Snapshot("abc1234"))
+        self.chart.show()
+        with self.assertRaises(AssertionError):
+            self.chart.show()
+
+    def test_show_after_repr_html(self) -> None:
+        """
+        A test method used to test
+        Chart().show() method after Chart()._repr_html_() called
+        """
+        self.chart = Chart(display="manual")
+        self.chart.animate(Snapshot("abc1234"))
+        self.chart._repr_html_()  # pylint: disable=protected-access
+        with self.assertRaises(AssertionError):
+            self.chart.show()
+
+    def test_animate_after_repr_html(self) -> None:
+        """
+        A test method used to test
+        Chart().animate() method after Chart()._repr_html_() called
+        """
+        self.chart = Chart(display="manual")
+        self.chart.animate(Snapshot("abc1234"))
+        self.chart._repr_html_()  # pylint: disable=protected-access
+        with self.assertRaises(AssertionError):
+            self.chart.animate(Snapshot("abc1234"))
+
+    def test_animate_after_show(self) -> None:
+        """
+        A test method used to test
+        Chart().animate() method after Chart().show() called
+        """
+        self.chart = Chart(display="manual")
+        self.chart.animate(Snapshot("abc1234"))
+        self.chart.show()
+        with self.assertRaises(AssertionError):
+            self.chart.animate(Snapshot("abc1234"))
+
+    def test_feature_after_repr_html(self) -> None:
+        """
+        A test method used to test
+        Chart().feature() method after Chart()._repr_html_() called
+        """
+        self.chart = Chart(display="manual")
+        self.chart.animate(Snapshot("abc1234"))
+        self.chart._repr_html_()  # pylint: disable=protected-access
+        with self.assertRaises(AssertionError):
+            self.chart.feature("tooltip", True)
+
+    def test_feature_after_show(self) -> None:
+        """
+        A test method used to test
+        Chart().feature() method after Chart().show() called
+        """
+        self.chart = Chart(display="manual")
+        self.chart.animate(Snapshot("abc1234"))
+        self.chart.show()
+        with self.assertRaises(AssertionError):
+            self.chart.feature("tooltip", True)
+
+    def test_store_after_repr_html_(self) -> None:
+        """
+        A test method used to test
+        Chart().store() method after Chart()._repr_html_() called
+        """
+        self.chart = Chart(display="manual")
+        self.chart.animate(Snapshot("abc1234"))
+        self.chart._repr_html_()  # pylint: disable=protected-access
+        with self.assertRaises(AssertionError):
+            self.chart.store()
+
+    def test_store_after_show(self) -> None:
+        """
+        A test method used to test
+        Chart().store() method after Chart().show() called
+        """
+        self.chart = Chart(display="manual")
+        self.chart.animate(Snapshot("abc1234"))
+        self.chart.show()
+        with self.assertRaises(AssertionError):
+            self.chart.store()
