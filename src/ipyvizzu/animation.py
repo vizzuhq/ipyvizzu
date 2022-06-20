@@ -6,7 +6,6 @@ import pandas as pd
 from pandas.api.types import is_numeric_dtype
 
 from ipyvizzu.json import RawJavaScript, RawJavaScriptEncoder
-from ipyvizzu.template import DisplayTemplate
 from ipyvizzu.schema import DataSchema
 
 
@@ -160,7 +159,7 @@ class Snapshot(Animation):
         self._name = name
 
     def dump(self):
-        return DisplayTemplate.STORED.format(id=self._name)
+        return f"'{self._name}'"
 
     def build(self):
         raise NotImplementedError("Snapshot cannot be merged with other Animations")

@@ -112,7 +112,7 @@ class TestChartInit(TestChart):
             self.assertEqual(
                 self.normalizer.normalize_output(output),
                 "window.ipyvizzu.animate(element, id, 'begin', false, "
-                + "window.ipyvizzu.stored(element, id), "
+                + "id, "
                 + "undefined);",
             )
 
@@ -127,7 +127,7 @@ class TestChartInit(TestChart):
             self.assertEqual(
                 self.normalizer.normalize_output(output),
                 "window.ipyvizzu.animate(element, id, 'actual', false, "
-                + "window.ipyvizzu.stored(element, id), "
+                + "id, "
                 + "undefined);",
             )
 
@@ -142,7 +142,7 @@ class TestChartInit(TestChart):
             self.assertEqual(
                 self.normalizer.normalize_output(output),
                 "window.ipyvizzu.animate(element, id, 'end', false, "
-                + "window.ipyvizzu.stored(element, id), "
+                + "id, "
                 + "undefined);",
             )
 
@@ -253,7 +253,7 @@ class TestChartMethods(TestChart):
             self.assertEqual(
                 self.normalizer.normalize_output(output),
                 "window.ipyvizzu.animate(element, id, 'actual', false, "
-                + "window.ipyvizzu.stored(element, id), "
+                + "id, "
                 + "undefined);",
             )
 
@@ -268,7 +268,7 @@ class TestChartMethods(TestChart):
             self.assertEqual(
                 self.normalizer.normalize_output(output),
                 "window.ipyvizzu.animate(element, id, 'actual', false, "
-                + "window.ipyvizzu.stored(element, id), "
+                + "id, "
                 + '{"duration": "500ms"});',
             )
 
@@ -529,7 +529,7 @@ class TestChartDisplay(TestChart):
             self.assertEqual(
                 self.normalizer.normalize_output(output),
                 "window.ipyvizzu.animate(element, id, 'manual', false, "
-                + "window.ipyvizzu.stored(element, id), "
+                + "id, "
                 + "undefined);",
             )
 
@@ -554,7 +554,7 @@ class TestChartDisplay(TestChart):
             self.assertEqual(
                 self.normalizer.normalize_output(output),
                 "window.ipyvizzu.animate(element, id, 'manual', false, "
-                + "window.ipyvizzu.stored(element, id), "
+                + "id, "
                 + "undefined);",
             )
 

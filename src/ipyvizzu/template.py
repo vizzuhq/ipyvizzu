@@ -16,7 +16,6 @@ class DisplayTemplate:
     INIT = "window.ipyvizzu.createChart(element, '{chart_id}', '{vizzu}', '{div_width}', '{div_height}');"  # pylint: disable=line-too-long
 
     ANIMATE = "window.ipyvizzu.animate(element, '{chart_id}', '{display_target}', {scroll}, {chart_target}, {chart_anim_opts});"  # pylint: disable=line-too-long
-    STORED = "window.ipyvizzu.stored(element, '{id}')"
 
     FEATURE = "window.ipyvizzu.feature(element, '{chart_id}', {name}, {enabled});"
 
