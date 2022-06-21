@@ -169,7 +169,9 @@ class TestData(unittest.TestCase):
         self.data.add_records([["Rock", "Hard", 96], ["Pop", "Hard", 114]])
         self.data.set_filter("filter_expr")
         self.assertEqual(
-            '{"data": {"records": [["Rock", "Hard", 96], ["Pop", "Hard", 114]], "filter": record => { return (filter_expr) }}}',  # pylint: disable=line-too-long
+            '{"data": {"records": '
+            + '[["Rock", "Hard", 96], ["Pop", "Hard", 114]], '
+            + '"filter": record => { return (filter_expr) }}}',
             self.data.dump(),
         )
 
