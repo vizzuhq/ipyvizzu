@@ -1,8 +1,18 @@
+"""
+A module used to preprocess
+notebook files before convert them to html
+"""
+
 import re
 from nbconvert.preprocessors import Preprocessor
 
 
 class NbPreprocessor(Preprocessor):
+    """
+    A custom Preprocessor class used to preprocess
+    notebook cells
+    """
+
     def preprocess_cell(self, cell, resources, index):
 
         if "source" in cell and cell.cell_type == "markdown":

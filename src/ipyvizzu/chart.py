@@ -1,10 +1,12 @@
 """
-Jupyter notebook integration for Vizzu.
+A module used to work
+with charts
 """
 
 import pkgutil
 import uuid
 from enum import Enum
+from typing import List, Optional, Union
 
 from IPython.display import display_javascript
 from IPython import get_ipython
@@ -16,7 +18,10 @@ from ipyvizzu.event import EventHandler
 
 
 class ChartProperty(Enum):
-    """An enum class used to define chart properties"""
+    """
+    An enum class used to define
+    chart properties
+    """
 
     CONFIG = "config"
     STYLE = "styles"
@@ -24,17 +29,18 @@ class ChartProperty(Enum):
 
 class Chart:
     """
-    Wrapper over Vizzu Chart
+    A class used to represent
+    wrapper over Vizzu Chart
     """
 
     VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js"
 
     def __init__(
         self,
-        vizzu=VIZZU,
-        width="800px",
-        height="480px",
-        display: DisplayTarget = DisplayTarget("actual"),
+        vizzu: str = VIZZU,
+        width: str = "800px",
+        height: str = "480px",
+        display: Optional[DisplayTarget] = DisplayTarget("actual"),
     ):
         self._chart_id = uuid.uuid4().hex[:7]
 
@@ -60,27 +66,34 @@ class Chart:
             self._register_events()
 
     @staticmethod
-    def _register_events():
+    def _register_events() -> None:
         ipy = get_ipython()
         if ipy is not None:
             ipy.events.register("pre_run_cell", Chart._register_pre_run_cell)
 
     @staticmethod
-    def _register_pre_run_cell():
+    def _register_pre_run_cell() -> None:
         display_javascript(DisplayTemplate.CLEAR_INHIBITSCROLL, raw=True)
 
     @property
-    def scroll_into_view(self):
+    def scroll_into_view(self) -> bool:
+        """
+        A property used to turn on/off
+        scroll into view feature
+        """
+
         return self._scroll_into_view
 
     @scroll_into_view.setter
-    def scroll_into_view(self, scroll_into_view):
+    def scroll_into_view(self, scroll_into_view: bool):
         self._scroll_into_view = bool(scroll_into_view)
 
-    def animate(self, *animations: Animation, **options):
+    def animate(self, *animations: Animation, **options: dict) -> None:
         """
-        Show new animation.
+        A method used to prepare
+        the javascript code for the chart.animate() call
         """
+
         if not animations:
             raise ValueError("No animation was set.")
 
@@ -97,7 +110,9 @@ class Chart:
         )
 
     @staticmethod
-    def _merge_animations(animations):
+    def _merge_animations(
+        animations: List[Animation],
+    ) -> Union[Animation, AnimationMerger]:
         if len(animations) == 1:
             return animations[0]
 
@@ -107,7 +122,12 @@ class Chart:
 
         return merger
 
-    def feature(self, name, enabled):
+    def feature(self, name: str, enabled: bool) -> None:
+        """
+        A method used to prepare
+        the javascript code for the chart.feature() call
+        """
+
         self._display(
             DisplayTemplate.FEATURE.format(
                 chart_id=self._chart_id,
@@ -116,6 +136,11 @@ class Chart:
         )
 
     def store(self) -> Snapshot:
+        """
+        A method used to prepare
+        the javascript code for the chart.store() call
+        """
+
         snapshot_id = uuid.uuid4().hex[:7]
         self._display(
             DisplayTemplate.STORE.format(
@@ -127,7 +152,11 @@ class Chart:
     def on(  # pylint: disable=invalid-name
         self, event: str, handler: str
     ) -> EventHandler:
-        """A method used to register the given handler for the given event"""
+        """
+        A method used to register
+        the given handler for the given event
+        """
+
         event_handler = EventHandler(event, handler)
         self._display(
             DisplayTemplate.SET_EVENT.format(
@@ -140,7 +169,11 @@ class Chart:
         return event_handler
 
     def off(self, event_handler: EventHandler) -> None:
-        """A method used to unregister the given event handler"""
+        """
+        A method used to unregister
+        the given event handler
+        """
+
         self._display(
             DisplayTemplate.CLEAR_EVENT.format(
                 chart_id=self._chart_id, id=event_handler.id, event=event_handler.event
@@ -148,14 +181,18 @@ class Chart:
         )
 
     def log(self, chart_property: ChartProperty) -> None:
-        """A method used to log the given chart property in the browser console"""
+        """
+        A method used to log
+        the given chart property in the browser console
+        """
+
         self._display(
             DisplayTemplate.LOG.format(
                 chart_id=self._chart_id, chart_property=chart_property.value
             )
         )
 
-    def _repr_html_(self):
+    def _repr_html_(self) -> str:
         assert (
             self._display_target == DisplayTarget.MANUAL
         ), f'chart._repr_html_() can be used with display="{DisplayTarget.MANUAL}" only'
@@ -171,7 +208,12 @@ class Chart:
         )
         return f'<div id="{html_id}"><script>{script}</script></div>'
 
-    def show(self):
+    def show(self) -> None:
+        """
+        A method used to display
+        the assembled javascript code
+        """
+
         assert (
             self._display_target == DisplayTarget.MANUAL
         ), f'chart.show() can be used with display="{DisplayTarget.MANUAL}" only'
@@ -182,7 +224,7 @@ class Chart:
         )
         self._showed = True
 
-    def _display(self, javascript):
+    def _display(self, javascript: str) -> None:
         if self._display_target != DisplayTarget.MANUAL:
             display_javascript(
                 javascript,

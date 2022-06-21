@@ -41,9 +41,4 @@ check-format: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/black --check src tests tools docs
 
 lint: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/pylint \
-		--disable missing-function-docstring \
-		--disable missing-class-docstring \
-		--disable missing-module-docstring \
-		--disable too-few-public-methods \
-		src tests tools
+	$(VIRTUAL_ENV)/bin/pylint src tests tools
