@@ -14,7 +14,7 @@ class TestMethod(unittest.TestCase):
     methods
     """
 
-    def test_method(self):
+    def test_method(self) -> None:
         """
         A test method used to test
         Method()
@@ -23,7 +23,7 @@ class TestMethod(unittest.TestCase):
         method = Method()
         self.assertEqual(None, method.dump())
 
-    def test_animate_without_option(self):
+    def test_animate_without_option(self) -> None:
         """
         A test method used to test
         Animate() with animation and without option
@@ -39,7 +39,7 @@ class TestMethod(unittest.TestCase):
             method.dump(),
         )
 
-    def test_animate_with_option(self):
+    def test_animate_with_option(self) -> None:
         """
         A test method used to test
         Animate() with animation and option
@@ -56,7 +56,7 @@ class TestMethod(unittest.TestCase):
             method.dump(),
         )
 
-    def test_feature(self):
+    def test_feature(self) -> None:
         """
         A test method used to test
         Feature()
@@ -65,7 +65,7 @@ class TestMethod(unittest.TestCase):
         method = Feature("tooltip", True)
         self.assertEqual({"name": '"tooltip"', "enabled": "true"}, method.dump())
 
-    def test_store(self):
+    def test_store(self) -> None:
         """
         A test method used to test
         Store()

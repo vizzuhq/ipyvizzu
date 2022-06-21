@@ -4,6 +4,7 @@ mocked test outputs
 """
 
 import re
+from unittest.mock import MagicMock
 
 
 class Normalizer:
@@ -16,7 +17,7 @@ class Normalizer:
         self.id1_pattern = re.compile(r"'[a-f0-9]{7}'", flags=re.MULTILINE)
         self.id2_pattern = re.compile(r"\"[a-f0-9]{7}\"", flags=re.MULTILINE)
 
-    def normalize_id(self, output):
+    def normalize_id(self, output: str) -> str:
         """
         A method used to replace
         uuids found with a regular expression with "id"
@@ -27,7 +28,7 @@ class Normalizer:
         normalized_output = self.id2_pattern.sub("id", normalized_output)
         return normalized_output
 
-    def normalize_output(self, output, start_index=0):
+    def normalize_output(self, output: MagicMock, start_index: int = 0) -> str:
         """
         A method used to merge and normalize
         mocked test outputs

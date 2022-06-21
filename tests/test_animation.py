@@ -26,7 +26,7 @@ class TestPlainAnimation(unittest.TestCase):
     PlainAnimation()
     """
 
-    def test_plainanimation(self):
+    def test_plainanimation(self) -> None:
         """
         A test method used to test
         PlainAnimation().build()
@@ -42,10 +42,10 @@ class TestDataSchema(unittest.TestCase):
     data schema validation of the Data() class
     """
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.data = Data()
 
-    def test_schema_dimension_only(self):
+    def test_schema_dimension_only(self) -> None:
         """
         A test method used to test
         data schema with dimension and without measure
@@ -55,7 +55,7 @@ class TestDataSchema(unittest.TestCase):
         with self.assertRaises(jsonschema.ValidationError):
             self.data.build()
 
-    def test_schema_measure_only(self):
+    def test_schema_measure_only(self) -> None:
         """
         A test method used to test
         data schema without dimension and with measure
@@ -65,7 +65,7 @@ class TestDataSchema(unittest.TestCase):
         with self.assertRaises(jsonschema.ValidationError):
             self.data.build()
 
-    def test_schema_data_cube_and_series(self):
+    def test_schema_data_cube_and_series(self) -> None:
         """
         A test method used to test
         data schema with both dimension/measure and series
@@ -77,7 +77,7 @@ class TestDataSchema(unittest.TestCase):
         with self.assertRaises(jsonschema.ValidationError):
             self.data.build()
 
-    def test_schema_data_cube_and_records(self):
+    def test_schema_data_cube_and_records(self) -> None:
         """
         A test method used to test
         data schema with both dimension/measure and records
@@ -97,10 +97,10 @@ class TestDataClassmethods(unittest.TestCase):
     """
 
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         cls.asset_dir = pathlib.Path(__file__).parent / "assets"
 
-    def test_filter(self):
+    def test_filter(self) -> None:
         """
         A test method used to test
         Data.filter() method
@@ -113,7 +113,7 @@ class TestDataClassmethods(unittest.TestCase):
             data.dump(),
         )
 
-    def test_filter_can_be_none(self):
+    def test_filter_can_be_none(self) -> None:
         """
         A test method used to test
         Data.filter() method with None
@@ -126,7 +126,7 @@ class TestDataClassmethods(unittest.TestCase):
             data.dump(),
         )
 
-    def test_from_json(self):
+    def test_from_json(self) -> None:
         """
         A test method used to test
         Data.from_json() method
@@ -154,13 +154,13 @@ class TestData(unittest.TestCase):
     """
 
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         cls.asset_dir = pathlib.Path(__file__).parent / "assets"
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.data = Data()
 
-    def test_set_filter(self):
+    def test_set_filter(self) -> None:
         """
         A test method used to test
         Data().set_filter() method
@@ -175,7 +175,7 @@ class TestData(unittest.TestCase):
             self.data.dump(),
         )
 
-    def test_set_filter_can_be_none(self):
+    def test_set_filter_can_be_none(self) -> None:
         """
         A test method used to test
         Data().set_filter() method with None
@@ -188,7 +188,7 @@ class TestData(unittest.TestCase):
             self.data.dump(),
         )
 
-    def test_record(self):
+    def test_record(self) -> None:
         """
         A test method used to test
         Data().add_record() method
@@ -201,7 +201,7 @@ class TestData(unittest.TestCase):
             self.data.build(),
         )
 
-    def test_records(self):
+    def test_records(self) -> None:
         """
         A test method used to test
         Data().add_records() method
@@ -213,7 +213,7 @@ class TestData(unittest.TestCase):
             self.data.build(),
         )
 
-    def test_series(self):
+    def test_series(self) -> None:
         """
         A test method used to test
         Data().add_series() method
@@ -239,7 +239,7 @@ class TestData(unittest.TestCase):
             self.data.build(),
         )
 
-    def test_series_without_values(self):
+    def test_series_without_values(self) -> None:
         """
         A test method used to test
         Data().add_series() method without values
@@ -264,7 +264,7 @@ class TestData(unittest.TestCase):
             self.data.build(),
         )
 
-    def test_data_cube(self):
+    def test_data_cube(self) -> None:
         """
         A test method used to test
         Data().add_dimension() and Data().add_measure() methods
@@ -291,7 +291,7 @@ class TestData(unittest.TestCase):
             self.data.build(),
         )
 
-    def test_data_frame_with_not_df(self):
+    def test_data_frame_with_not_df(self) -> None:
         """
         A test method used to test
         Data().add_data_frame() method with not valid dataframe
@@ -301,7 +301,7 @@ class TestData(unittest.TestCase):
         with self.assertRaises(TypeError):
             data.add_data_frame("not_data_frame", None)
 
-    def test_data_frame_with_none(self):
+    def test_data_frame_with_none(self) -> None:
         """
         A test method used to test
         Data().add_data_frame() method with None
@@ -314,7 +314,7 @@ class TestData(unittest.TestCase):
             data.build(),
         )
 
-    def test_data_frame(self):
+    def test_data_frame(self) -> None:
         """
         A test method used to test
         Data().add_data_frame() method with dataframe
@@ -333,7 +333,7 @@ class TestData(unittest.TestCase):
             self.data.build(),
         )
 
-    def test_data_frame_na(self):
+    def test_data_frame_na(self) -> None:
         """
         A test method used to test
         Data().add_data_frame() method with a dataframe which contains na values
@@ -363,7 +363,7 @@ class TestData(unittest.TestCase):
             self.data.build(),
         )
 
-    def test_data_frame_with_pd_series(self):
+    def test_data_frame_with_pd_series(self) -> None:
         """
         A test method used to test
         Data().add_data_frame() method with pd.Series()
@@ -386,7 +386,7 @@ class TestData(unittest.TestCase):
             data.build(),
         )
 
-    def test_data_frame_index_with_not_df(self):
+    def test_data_frame_index_with_not_df(self) -> None:
         """
         A test method used to test
         Data().add_data_frame_index() method with not valid dataframe
@@ -396,7 +396,7 @@ class TestData(unittest.TestCase):
         with self.assertRaises(TypeError):
             data.add_data_frame_index("not_data_frame", None)
 
-    def test_data_frame_index_with_none_and_none(self):
+    def test_data_frame_index_with_none_and_none(self) -> None:
         """
         A test method used to test
         Data().add_data_frame_index() method with (None, None)
@@ -409,7 +409,7 @@ class TestData(unittest.TestCase):
             data.build(),
         )
 
-    def test_data_frame_index_with_df_and_none(self):
+    def test_data_frame_index_with_df_and_none(self) -> None:
         """
         A test method used to test
         Data().add_data_frame_index() method with (dataframe, None)
@@ -433,7 +433,7 @@ class TestData(unittest.TestCase):
             data.build(),
         )
 
-    def test_data_frame_index_with_df_and_index(self):
+    def test_data_frame_index_with_df_and_index(self) -> None:
         """
         A test method used to test
         Data().add_data_frame_index() method with (dataframe, index)
@@ -463,7 +463,7 @@ class TestData(unittest.TestCase):
             data.build(),
         )
 
-    def test_data_frame_index_with_pd_series(self):
+    def test_data_frame_index_with_pd_series(self) -> None:
         """
         A test method used to test
         Data().add_data_frame_index() method with (pd.Series(), index)
@@ -494,7 +494,7 @@ class TestConfig(unittest.TestCase):
     Config()
     """
 
-    def test_config(self):
+    def test_config(self) -> None:
         """
         A test method used to test
         Config().build()
@@ -510,7 +510,7 @@ class TestStyle(unittest.TestCase):
     Style()
     """
 
-    def test_style(self):
+    def test_style(self) -> None:
         """
         A test method used to test
         Style().build()
@@ -521,7 +521,7 @@ class TestStyle(unittest.TestCase):
             {"style": {"title": {"backgroundColor": "#A0A0A0"}}}, animation.build()
         )
 
-    def test_style_can_be_none(self):
+    def test_style_can_be_none(self) -> None:
         """
         A test method used to test
         Style(None).build()
@@ -537,7 +537,7 @@ class TestSnapshot(unittest.TestCase):
     Snapshot()
     """
 
-    def test_snapshot(self):
+    def test_snapshot(self) -> None:
         """
         A test method used to test
         Snapshot().dump()
@@ -546,7 +546,7 @@ class TestSnapshot(unittest.TestCase):
         animation = Snapshot("abc1234")
         self.assertEqual("'abc1234'", animation.dump())
 
-    def test_snapshot_can_not_be_built(self):
+    def test_snapshot_can_not_be_built(self) -> None:
         """
         A test method used to test
         Snapshot().build() raises error
@@ -562,7 +562,7 @@ class TestMerger(unittest.TestCase):
     AnimationMerger()
     """
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.merger = AnimationMerger()
 
         self.data = Data()
@@ -570,7 +570,7 @@ class TestMerger(unittest.TestCase):
 
         self.config = Config({"channels": {"label": {"attach": ["Popularity"]}}})
 
-    def test_merge(self):
+    def test_merge(self) -> None:
         """
         A test method used to test
         AnimationMerger().merge()
@@ -590,7 +590,7 @@ class TestMerger(unittest.TestCase):
             self.merger.dump(),
         )
 
-    def test_merge_none(self):
+    def test_merge_none(self) -> None:
         """
         A test method used to test
         AnimationMerger().merge() with Style(None)
@@ -603,7 +603,7 @@ class TestMerger(unittest.TestCase):
             self.merger.dump(),
         )
 
-    def test_snapshot_can_not_be_merged(self):
+    def test_snapshot_can_not_be_merged(self) -> None:
         """
         A test method used to test
         AnimationMerger().merge() with Snapshot()
@@ -614,7 +614,7 @@ class TestMerger(unittest.TestCase):
         self.merger.merge(Style({"title": {"backgroundColor": "#A0A0A0"}}))
         self.assertRaises(NotImplementedError, self.merger.merge, Snapshot("abc1234"))
 
-    def test_only_different_animations_can_be_merged(self):
+    def test_only_different_animations_can_be_merged(self) -> None:
         """
         A test method used to test
         AnimationMerger().merge() with same animations
