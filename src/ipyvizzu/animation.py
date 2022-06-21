@@ -1,7 +1,13 @@
+"""
+A module used to work
+with animations
+"""
+
 import abc
-import enum
+from enum import Enum
 import json
-import typing
+from typing import Optional, List, Union
+
 import pandas as pd
 from pandas.api.types import is_numeric_dtype
 
@@ -10,22 +16,42 @@ from ipyvizzu.schema import DataSchema
 
 
 class Animation:
-    def dump(self):
+    """
+    An abstract class used to represent
+    an animation object which has dump and build methods
+    """
+
+    def dump(self) -> str:
+        """
+        A method used to convert
+        the builded data into json str
+        """
+
         return json.dumps(self.build(), cls=RawJavaScriptEncoder)
 
     @abc.abstractmethod
-    def build(self) -> typing.Mapping:
+    def build(self) -> dict:
         """
-        Return a dict with native python values that can be converted into json.
+        A method used to return
+        a dict with native python values that can be converted into json
         """
 
 
 class PlainAnimation(dict, Animation):
-    def build(self):
+    """
+    A class used to represent
+    a plain animation which is a custom dictionary
+    """
+
+    def build(self) -> dict:
         return self
 
 
-class InferType(enum.Enum):
+class InferType(Enum):
+    """
+    An enum class used to define
+    infer type options
+    """
 
     DIMENSION = "dimension"
     MEASURE = "measure"
@@ -33,16 +59,27 @@ class InferType(enum.Enum):
 
 class Data(dict, Animation):
     """
-    Vizzu data with the required keys: records, series, dimensions or measures.
+    A class used to represent
+    data animation
     """
 
     @classmethod
-    def filter(cls, filter_expr):
+    def filter(cls, filter_expr: str):
+        """
+        A method used to return
+        a Data() class which contains a filter
+        """
+
         data = cls()
         data.set_filter(filter_expr)
         return data
 
-    def set_filter(self, filter_expr):
+    def set_filter(self, filter_expr: str) -> None:
+        """
+        A method used to add
+        filter to an existing Data() class
+        """
+
         filter_expr = (
             RawJavaScript(f"record => {{ return ({filter_expr}) }}")
             if filter_expr is not None
@@ -51,31 +88,66 @@ class Data(dict, Animation):
         self.update({"filter": filter_expr})
 
     @classmethod
-    def from_json(cls, filename):
+    def from_json(cls, filename: str):
+        """
+        A method used to return
+        a Data() class which created from a json file
+        """
+
         with open(filename, "r", encoding="utf8") as file_desc:
             return cls(json.load(file_desc))
 
-    def add_record(self, record):
+    def add_record(self, record: list) -> None:
+        """
+        A method used to add
+        record to an existing Data() class
+        """
+
         self._add_value("records", record)
 
-    def add_records(self, records):
+    def add_records(self, records: List[list]) -> None:
+        """
+        A method used to add
+        records to an existing Data() class
+        """
+
         list(map(self.add_record, records))
 
-    def add_series(self, name, values=None, **kwargs):
+    def add_series(self, name: str, values: Optional[list] = None, **kwargs) -> None:
+        """
+        A method used to add
+        series to an existing Data() class
+        """
+
         self._add_named_value("series", name, values, **kwargs)
 
     def add_dimension(self, name, values=None, **kwargs):
+        """
+        A method used to add
+        dimension to an existing Data() class
+        """
+
         self._add_named_value("dimensions", name, values, **kwargs)
 
-    def add_measure(self, name, values=None, **kwargs):
+    def add_measure(self, name: str, values: Optional[list] = None, **kwargs) -> None:
+        """
+        A method used to add
+        measure to an existing Data() class
+        """
+
         self._add_named_value("measures", name, values, **kwargs)
 
     def add_data_frame(
         self,
-        data_frame,
+        data_frame: Union[pd.DataFrame, pd.core.series.Series],
         default_measure_value=0,
         default_dimension_value="",
-    ):
+    ) -> None:
+        """
+        A method used to add
+        dataframe to an existing Data() class
+        """
+
         if not isinstance(data_frame, type(None)):
             if isinstance(data_frame, pd.core.series.Series):
                 data_frame = pd.DataFrame(data_frame)
@@ -109,9 +181,14 @@ class Data(dict, Animation):
 
     def add_data_frame_index(
         self,
-        data_frame,
-        name: typing.Optional[str],
-    ):
+        data_frame: Union[pd.DataFrame, pd.core.series.Series],
+        name: str,
+    ) -> None:
+        """
+        A method used to add
+        dataframe index to an existing Data() class
+        """
+
         if data_frame is not None:
             if isinstance(data_frame, pd.core.series.Series):
                 data_frame = pd.DataFrame(data_frame)
@@ -125,7 +202,9 @@ class Data(dict, Animation):
                 type=InferType.DIMENSION.value,
             )
 
-    def _add_named_value(self, dest, name, values=None, **kwargs):
+    def _add_named_value(
+        self, dest: str, name: str, values: Optional[list] = None, **kwargs
+    ) -> None:
         value = {"name": name, **kwargs}
 
         if values is not None:
@@ -133,47 +212,74 @@ class Data(dict, Animation):
 
         self._add_value(dest, value)
 
-    def _add_value(self, dest, value):
+    def _add_value(self, dest: str, value: Union[dict, list]) -> None:
         self.setdefault(dest, []).append(value)
 
-    def build(self):
+    def build(self) -> dict:
         DataSchema.validate(self)
         return {"data": self}
 
 
 class Config(dict, Animation):
-    def build(self):
+    """
+    A class used to represent
+    config animation
+    """
+
+    def build(self) -> dict:
         return {"config": self}
 
 
 class Style(Animation):
-    def __init__(self, data: typing.Optional[dict]):
+    """
+    A class used to represent
+    style animation
+    """
+
+    def __init__(self, data: Optional[dict]):
         self._data = data
 
-    def build(self):
+    def build(self) -> dict:
         return {"style": self._data}
 
 
 class Snapshot(Animation):
+    """
+    A class used to represent
+    snapshot animation
+    """
+
     def __init__(self, name: str):
         self._name = name
 
     def dump(self):
+        """
+        A method used to dump
+        snapshot id as a string
+        """
+
         return f"'{self._name}'"
 
-    def build(self):
+    def build(self) -> NotImplementedError:
         raise NotImplementedError("Snapshot cannot be merged with other Animations")
 
 
 class AnimationMerger(dict, Animation):
-    def build(self):
-        return self
+    """
+    A class used to store and merge
+    different types of animations
+    """
 
-    def merge(self, animation: Animation):
+    def merge(self, animation: Animation) -> None:
+        """
+        A method used to merge
+        an animation with the previously merged animations
+        """
+
         data = self._validate(animation)
         self.update(data)
 
-    def _validate(self, animation):
+    def _validate(self, animation: Animation) -> dict:
         data = animation.build()
         common_keys = set(data).intersection(self)
 
@@ -181,3 +287,6 @@ class AnimationMerger(dict, Animation):
             raise ValueError(f"Animation is already merged: {common_keys}")
 
         return data
+
+    def build(self) -> dict:
+        return self

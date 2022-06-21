@@ -1,4 +1,6 @@
-# pylint: skip-file
+"""
+Jupyter notebook integration for Vizzu.
+"""
 
 from .chart import Chart, ChartProperty
 from .animation import (

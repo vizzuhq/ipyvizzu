@@ -1,18 +1,40 @@
+"""
+A module used to work
+with json
+"""
+
 import json
-import typing
+from typing import Optional
 import uuid
 
 
 class RawJavaScript:
-    def __init__(self, raw: typing.Optional[str]):
+    """
+    A class used to represent
+    a custom object which contains raw javascript code
+    """
+
+    # pylint: disable=too-few-public-methods
+
+    def __init__(self, raw: Optional[str]):
         self._raw = raw
 
     @property
-    def raw(self):
+    def raw(self) -> Optional[str]:
+        """
+        A property used to store
+        raw javascript code as str
+        """
+
         return self._raw
 
 
 class RawJavaScriptEncoder(json.JSONEncoder):
+    """
+    A JSONEncoder class used to encode
+    RawJavaScript() object
+    """
+
     def __init__(self, *args, **kwargs):
         json.JSONEncoder.__init__(self, *args, **kwargs)
         self._raw_replacements = {}
