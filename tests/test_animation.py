@@ -356,7 +356,7 @@ class TestStyle(unittest.TestCase):
 class TestSnapshot(unittest.TestCase):
     def test_snapshot(self):
         animation = Snapshot("abc1234")
-        self.assertEqual("window.ipyvizzu.stored(element, 'abc1234')", animation.dump())
+        self.assertEqual("'abc1234'", animation.dump())
 
     def test_snapshot_can_not_be_built(self):
         animation = Snapshot("abc1234")

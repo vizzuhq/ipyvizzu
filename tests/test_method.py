@@ -13,7 +13,7 @@ class TestMethod(unittest.TestCase):
         method = Animate(animation)
         self.assertEqual(
             {
-                "chart_target": "window.ipyvizzu.stored(element, 'abc1234')",
+                "chart_target": "'abc1234'",
                 "chart_anim_opts": "undefined",
             },
             method.dump(),
@@ -25,7 +25,7 @@ class TestMethod(unittest.TestCase):
         method = Animate(animation, option)
         self.assertEqual(
             {
-                "chart_target": "window.ipyvizzu.stored(element, 'abc1234')",
+                "chart_target": "'abc1234'",
                 "chart_anim_opts": '{"duration": 1, "easing": "linear"}',
             },
             method.dump(),

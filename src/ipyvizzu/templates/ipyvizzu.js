@@ -38,6 +38,7 @@ if (!window.IpyVizzu) {
             this.charts[chartId] = this.charts[chartId].then(chart => {
                 if (displayTarget === 'actual') this._moveHere(chartId, element);
                 this._scroll(chartId, scrollEnabled);
+                if (typeof chartTarget === 'string') chartTarget = this.snapshots[chartTarget];
                 return chart.animate(chartTarget, chartAnimOpts);
             });
         }
@@ -49,12 +50,6 @@ if (!window.IpyVizzu) {
                 this.snapshots[id] = chart.store();
                 return chart;
             });
-        }
-
-        stored(element, id)
-        {
-            if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
-            return this.snapshots[id];
         }
 
         feature(element, chartId, name, enabled)
