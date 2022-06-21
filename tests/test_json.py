@@ -1,6 +1,6 @@
 """
 A test module used to test
-json module
+the json module
 """
 
 import json
@@ -18,8 +18,9 @@ class TestRawJavaScriptEncoder(unittest.TestCase):
     def test_encoder_with_rawjavascript(self) -> None:
         """
         A test method used to test
-        RawJavaScriptEncoder() with RawJavaScript()
+        RawJavaScriptEncoder() with RawJavaScript() custom object
         """
+
         raw_javascript = RawJavaScript("null")
         self.assertEqual(
             json.dumps({"test": raw_javascript}, cls=RawJavaScriptEncoder),
@@ -29,14 +30,16 @@ class TestRawJavaScriptEncoder(unittest.TestCase):
     def test_encoder_with_not_rawjavascript(self) -> None:
         """
         A test method used to test
-        RawJavaScriptEncoder() with NotRawJavaScript()
+        RawJavaScriptEncoder() with NotRawJavaScript() custom object
         """
 
         class NotRawJavaScript:
             """
             A class used to represent
-            a custom not javascript object
+            a custom object which is not RawJavaScript
             """
+
+            # pylint: disable=too-few-public-methods
 
             def __init__(self):
                 pass

@@ -1,6 +1,6 @@
 """
-A module used to normalize
-objects
+A module used to postprocess
+mocked test outputs
 """
 
 import re
@@ -18,9 +18,10 @@ class Normalizer:
 
     def normalize_id(self, output):
         """
-        A class used to normalize
-        uuids
+        A method used to replace
+        uuids found with a regular expression with "id"
         """
+
         normalized_output = output
         normalized_output = self.id1_pattern.sub("id", normalized_output)
         normalized_output = self.id2_pattern.sub("id", normalized_output)
@@ -28,9 +29,10 @@ class Normalizer:
 
     def normalize_output(self, output, start_index=0):
         """
-        A class used to normalize
-        mocked outputs
+        A method used to merge and normalize
+        mocked test outputs
         """
+
         output_items = []
         for block in output.call_args_list[start_index:]:
             output_items.append(block.args[0])
