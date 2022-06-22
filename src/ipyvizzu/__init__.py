@@ -1,6 +1,4 @@
-"""
-Jupyter notebook integration for Vizzu.
-"""
+"""Jupyter notebook integration of Vizzu."""
 
 from .chart import Chart, ChartProperty
 from .animation import (
