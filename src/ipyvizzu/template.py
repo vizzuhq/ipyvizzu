@@ -1,15 +1,15 @@
-"""
-A module used to work
-with preparing javascript code
-"""
+"""A module for storing the information needed to generate javascript code."""
 
 from enum import Enum
 
 
-class DisplayTarget(str, Enum):
+class DisplayTarget(Enum):
     """
-    An enum class used to define
-    display target options
+    An enum class for storing chart display options.
+    BEGIN: Displays all animation steps after the constructor's cell.
+    END: Displays all animation steps after the last running cell.
+    ACTUAL: Displays the actual animation step after the currently running cell.
+    MANUAL: Displays all animation steps after calling a show method.
     """
 
     BEGIN = "begin"
@@ -19,10 +19,7 @@ class DisplayTarget(str, Enum):
 
 
 class DisplayTemplate:
-    """
-    A class used to store
-    display templates
-    """
+    """A class for storing string templates to generate javascript snippets."""
 
     # pylint: disable=too-few-public-methods
 
