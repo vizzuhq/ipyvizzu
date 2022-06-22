@@ -1,7 +1,4 @@
-"""
-A module used to preprocess
-notebook files before convert them to html
-"""
+"""A module for preprocessing notebook files."""
 
 import re
 from nbconvert.preprocessors import Preprocessor
@@ -9,11 +6,16 @@ from nbconvert.preprocessors import Preprocessor
 
 class NbPreprocessor(Preprocessor):
     """
-    A custom Preprocessor class used to preprocess
-    notebook cells
+    A class for preprocessing notebook cells before converting them to another format.
+    It is derived from the nbconvert.preprocessors.Preprocessor() class.
     """
 
     def preprocess_cell(self, cell, resources, index):
+        """
+        A method that overrides Preprocessor().preprocess_cell() method.
+        In markdown cells, it replaces the alignment format and ipynb links with html links.
+        In code cells, it sets IpyVizzu.nbconvert value to true.
+        """
 
         if "source" in cell and cell.cell_type == "markdown":
             cell.source = re.sub(
