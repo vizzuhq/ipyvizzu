@@ -29,7 +29,8 @@ class RawJavaScriptEncoder(json.JSONEncoder):
     def __init__(self, *args, **kwargs):
         """
         Extends json.JSONEncoder() with an instance variable - _raw_replacements.
-        _raw_replacements dictionary stores the uuids and codes of the replaced RawJavaScript objects.
+        _raw_replacements dictionary stores the uuids and
+        javascript codes of the replaced RawJavaScript objects.
         """
 
         json.JSONEncoder.__init__(self, *args, **kwargs)
