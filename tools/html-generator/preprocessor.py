@@ -12,7 +12,7 @@ class NbPreprocessor(Preprocessor):
 
     def preprocess_cell(self, cell, resources, index):
         """
-        A method that overrides Preprocessor().preprocess_cell() method.
+        Overrides Preprocessor().preprocess_cell() method.
         In markdown cells, it replaces the alignment format and ipynb links with html links.
         In code cells, it sets IpyVizzu.nbconvert value to true.
         """

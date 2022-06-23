@@ -40,7 +40,7 @@ class Chart:
         vizzu: str = VIZZU,
         width: str = "800px",
         height: str = "480px",
-        display: Optional[DisplayTarget] = DisplayTarget("actual"),
+        display: Optional[DisplayTarget] = DisplayTarget.ACTUAL,
     ):
         self._chart_id = uuid.uuid4().hex[:7]
 
@@ -102,7 +102,7 @@ class Chart:
 
         self._display(
             DisplayTemplate.ANIMATE.format(
-                display_target=self._display_target,
+                display_target=self._display_target.value,
                 chart_id=self._chart_id,
                 scroll=str(self._scroll_into_view).lower(),
                 **animate.dump(),
@@ -195,7 +195,7 @@ class Chart:
     def _repr_html_(self) -> str:
         assert (
             self._display_target == DisplayTarget.MANUAL
-        ), f'chart._repr_html_() can be used with display="{DisplayTarget.MANUAL}" only'
+        ), f'chart._repr_html_() can be used with display="{DisplayTarget.MANUAL.value}" only'
         assert not self._showed, "cannot be used after chart displayed."
         self._showed = True
         html_id = uuid.uuid4().hex[:7]
@@ -216,7 +216,7 @@ class Chart:
 
         assert (
             self._display_target == DisplayTarget.MANUAL
-        ), f'chart.show() can be used with display="{DisplayTarget.MANUAL}" only'
+        ), f'chart.show() can be used with display="{DisplayTarget.MANUAL.value}" only'
         assert not self._showed, "cannot be used after chart displayed"
         display_javascript(
             "\n".join(self._calls),
