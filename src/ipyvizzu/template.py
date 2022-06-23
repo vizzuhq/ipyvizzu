@@ -3,6 +3,13 @@
 from enum import Enum
 
 
+class ChartProperty(Enum):
+    """An enum class for storing chart properties."""
+
+    CONFIG = "config"
+    STYLE = "styles"
+
+
 class DisplayTarget(Enum):
     """
     An enum class for storing chart display options.
@@ -35,7 +42,7 @@ class DisplayTemplate:
         + "'{chart_id}', '{display_target}', {scroll}, {chart_target}, {chart_anim_opts});"
     )
 
-    FEATURE = "window.ipyvizzu.feature(element, '{chart_id}', {name}, {enabled});"
+    FEATURE = "window.ipyvizzu.feature(element, '{chart_id}', '{name}', {enabled});"
 
     STORE = "window.ipyvizzu.store(element, '{chart_id}', '{id}');"
 

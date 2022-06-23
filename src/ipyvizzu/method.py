@@ -1,37 +1,30 @@
-"""
-A module used to work
-with ipyvizzu methods
-"""
+"""A module for working with template methods."""
 
 import json
 from typing import Optional, Union
 
 from ipyvizzu.animation import PlainAnimation, Animation, AnimationMerger
+from ipyvizzu.event import EventHandler
+from ipyvizzu.template import ChartProperty
 
 
 class Method:
-    """
-    A class used to store and return
-    any data
-    """
+    """A class for storing and dumping any kind of data."""
 
     # pylint: disable=too-few-public-methods
 
     _data = None
 
-    def dump(self) -> dict:
-        """
-        A method used to return
-        the stored data
-        """
+    def dump(self) -> None:
+        """A method for returning the stored data."""
 
         return self._data
 
 
 class Animate(Method):
     """
-    A Method class used to create
-    data based on chart target and chart anim parameters
+    A class for dumping Chart()-independent parameters to DisplayTemplate.ANIMATE template.
+    It dumps chart_target and chart_anim_opts (or undefined) parameters.
     """
 
     # pylint: disable=too-few-public-methods
@@ -51,23 +44,64 @@ class Animate(Method):
 
 class Feature(Method):
     """
-    A Method class used to create
-    data based on name and enabled parameters
+    A class for dumping Chart()-independent parameters to DisplayTemplate.FEATURE template.
+    It dumps name and enabled parameters.
     """
 
     # pylint: disable=too-few-public-methods
 
     def __init__(self, name: str, enabled: bool):
-        self._data = {"name": json.dumps(name), "enabled": json.dumps(enabled)}
+        self._data = {"name": name, "enabled": json.dumps(enabled)}
 
 
 class Store(Method):
     """
-    A Method class used to create
-    data based on snapshot id parameter
+    A class for dumping Chart()-independent parameters to DisplayTemplate.STORE template.
+    It dumps snapshot_id (as id) parameter.
     """
 
     # pylint: disable=too-few-public-methods
 
     def __init__(self, snapshot_id: str):
         self._data = {"id": snapshot_id}
+
+
+class EventOn(Method):
+    """
+    A class for dumping Chart()-independent parameters to DisplayTemplate.SET_EVENT template.
+    It dumps event_handler.id (as id), event_handler.event (as event) and
+    event_handler.handler (as handler) parameters.
+    """
+
+    # pylint: disable=too-few-public-methods
+
+    def __init__(self, event_handler: EventHandler):
+        self._data = {
+            "id": event_handler.id,
+            "event": event_handler.event,
+            "handler": event_handler.handler,
+        }
+
+
+class EventOff(Method):
+    """
+    A class for dumping Chart()-independent parameters to DisplayTemplate.CLEAR_EVENT template.
+    It dumps event_handler.id (as id) and event_handler.event (as event) parameters.
+    """
+
+    # pylint: disable=too-few-public-methods
+
+    def __init__(self, event_handler: EventHandler):
+        self._data = {"id": event_handler.id, "event": event_handler.event}
+
+
+class Log(Method):
+    """
+    A class for dumping Chart()-independent parameters to DisplayTemplate.LOG template.
+    It dumps chart_property parameter.
+    """
+
+    # pylint: disable=too-few-public-methods
+
+    def __init__(self, chart_property: ChartProperty):
+        self._data = {"chart_property": chart_property.value}
