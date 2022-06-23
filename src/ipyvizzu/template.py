@@ -3,7 +3,7 @@
 from enum import Enum
 
 
-class DisplayTarget(str, Enum):
+class DisplayTarget(Enum):
     """
     An enum class for storing chart display options.
     BEGIN: Displays all animation steps after the constructor's cell.
