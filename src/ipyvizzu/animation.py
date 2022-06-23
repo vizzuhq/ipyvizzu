@@ -7,12 +7,13 @@ import abc
 from enum import Enum
 import json
 from typing import Optional, List, Union
+import jsonschema
 
 import pandas as pd
 from pandas.api.types import is_numeric_dtype
 
 from ipyvizzu.json import RawJavaScript, RawJavaScriptEncoder
-from ipyvizzu.schema import DataSchema
+from ipyvizzu.schema import DATA_SCHEMA
 
 
 class Animation:
@@ -216,7 +217,7 @@ class Data(dict, Animation):
         self.setdefault(dest, []).append(value)
 
     def build(self) -> dict:
-        DataSchema.validate(self)
+        jsonschema.validate(self, DATA_SCHEMA)
         return {"data": self}
 
 

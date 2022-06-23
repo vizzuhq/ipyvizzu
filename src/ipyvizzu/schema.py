@@ -1,9 +1,4 @@
-"""
-A module used to work
-with data schema
-"""
-
-from jsonschema import validate
+"""A module for storing data schema."""
 
 
 NAMED_SCHEMA = {
@@ -45,21 +40,3 @@ DATA_SCHEMA = {
         },
     ],
 }
-
-
-class DataSchema:
-    """
-    A class used to validate
-    data by schema
-    """
-
-    # pylint: disable=too-few-public-methods
-
-    @staticmethod
-    def validate(data: dict) -> None:
-        """
-        A static method used to compare
-        the given data with the DATA_SCHEMA
-        """
-
-        validate(data, DATA_SCHEMA)
