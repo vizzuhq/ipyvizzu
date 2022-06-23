@@ -1,6 +1,6 @@
 """Jupyter notebook integration of Vizzu."""
 
-from .chart import Chart, ChartProperty
+from .chart import Chart
 from .animation import (
     Animation,
     PlainAnimation,
@@ -11,7 +11,7 @@ from .animation import (
     Snapshot,
     AnimationMerger,
 )
-from .method import Method, Animate, Feature, Store
+from .method import Method, Animate, Feature, Store, EventOn, EventOff, Log
 from .json import RawJavaScript, RawJavaScriptEncoder
-from .template import DisplayTarget, DisplayTemplate
+from .template import ChartProperty, DisplayTarget, DisplayTemplate
 from .event import EventHandler

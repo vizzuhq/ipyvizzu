@@ -1,7 +1,4 @@
-"""
-A test module used to test
-the chart module
-"""
+"""A module for testing the ipyvizzu.chart module."""
 
 import abc
 import unittest
@@ -9,8 +6,7 @@ import unittest.mock
 from typing import Callable
 
 from normalizer import Normalizer
-from ipyvizzu import Chart, ChartProperty, Data, Config, Snapshot, Style
-from ipyvizzu.event import EventHandler
+from ipyvizzu import Chart, ChartProperty, Data, Config, Snapshot, Style, EventHandler
 
 
 class TestChart(unittest.TestCase, abc.ABC):
@@ -416,7 +412,7 @@ class TestChartMethods(TestChart):
             self.chart.feature("tooltip", True)
             self.assertEqual(
                 self.normalizer.normalize_output(output),
-                'window.ipyvizzu.feature(element, id, "tooltip", true);',
+                "window.ipyvizzu.feature(element, id, 'tooltip', true);",
             )
 
     def test_store(self) -> None:

@@ -1,7 +1,4 @@
-"""
-A test module used to test
-the json module
-"""
+"""A module for testing the ipyvizzu.json module."""
 
 import json
 import unittest
@@ -10,16 +7,10 @@ from ipyvizzu import RawJavaScriptEncoder, RawJavaScript
 
 
 class TestRawJavaScriptEncoder(unittest.TestCase):
-    """
-    A test class used to test
-    RawJavaScriptEncoder()
-    """
+    """A class for testing RawJavaScriptEncoder()."""
 
     def test_encoder_with_rawjavascript(self) -> None:
-        """
-        A test method used to test
-        RawJavaScriptEncoder() with RawJavaScript() custom object
-        """
+        """A method for testing RawJavaScriptEncoder() with RawJavaScript() object."""
 
         raw_javascript = RawJavaScript("null")
         self.assertEqual(
@@ -28,16 +19,10 @@ class TestRawJavaScriptEncoder(unittest.TestCase):
         )
 
     def test_encoder_with_not_rawjavascript(self) -> None:
-        """
-        A test method used to test
-        RawJavaScriptEncoder() with NotRawJavaScript() custom object
-        """
+        """A method for testing RawJavaScriptEncoder() with NotRawJavaScript() object."""
 
         class NotRawJavaScript:
-            """
-            A class used to represent
-            a custom object which is not RawJavaScript
-            """
+            """A class for representing a custom object which is not RawJavaScript()."""
 
             # pylint: disable=too-few-public-methods
 
