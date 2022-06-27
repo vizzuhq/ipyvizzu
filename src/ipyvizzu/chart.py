@@ -1,7 +1,4 @@
-"""
-A module used to work
-with charts
-"""
+"""A module for working with Vizzu charts."""
 
 import pkgutil
 import uuid
@@ -17,18 +14,15 @@ from ipyvizzu.event import EventHandler
 
 
 class Chart:
-    """
-    A class used to represent
-    wrapper over Vizzu Chart
-    """
+    """A class for representing a wrapper over Vizzu chart."""
 
     VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js"
 
     def __init__(
         self,
-        vizzu: str = VIZZU,
-        width: str = "800px",
-        height: str = "480px",
+        vizzu: Optional[str] = VIZZU,
+        width: Optional[str] = "800px",
+        height: Optional[str] = "480px",
         display: Optional[DisplayTarget] = DisplayTarget.ACTUAL,
     ):
         self._chart_id = uuid.uuid4().hex[:7]
@@ -66,22 +60,16 @@ class Chart:
 
     @property
     def scroll_into_view(self) -> bool:
-        """
-        A property used to turn on/off
-        scroll into view feature
-        """
+        """A property for turning on/off scroll into view."""
 
         return self._scroll_into_view
 
     @scroll_into_view.setter
-    def scroll_into_view(self, scroll_into_view: bool):
+    def scroll_into_view(self, scroll_into_view: Optional[bool]):
         self._scroll_into_view = bool(scroll_into_view)
 
-    def animate(self, *animations: Animation, **options: dict) -> None:
-        """
-        A method used to prepare
-        the javascript code for the chart.animate() call
-        """
+    def animate(self, *animations: Animation, **options: Optional[dict]) -> None:
+        """A method for animating the chart."""
 
         if not animations:
             raise ValueError("No animation was set.")
@@ -112,10 +100,7 @@ class Chart:
         return merger
 
     def feature(self, name: str, enabled: bool) -> None:
-        """
-        A method used to prepare
-        the javascript code for the chart.feature() call
-        """
+        """A method for turning on/off a feature of the chart."""
 
         self._display(
             DisplayTemplate.FEATURE.format(
@@ -125,10 +110,7 @@ class Chart:
         )
 
     def store(self) -> Snapshot:
-        """
-        A method used to prepare
-        the javascript code for the chart.store() call
-        """
+        """A method for saving and storing the actual state of the chart."""
 
         snapshot_id = uuid.uuid4().hex[:7]
         self._display(
@@ -141,10 +123,7 @@ class Chart:
     def on(  # pylint: disable=invalid-name
         self, event: str, handler: str
     ) -> EventHandler:
-        """
-        A method used to register
-        the given handler for the given event
-        """
+        """A method for creating and turning on an event handler."""
 
         event_handler = EventHandler(event, handler)
         self._display(
@@ -156,10 +135,7 @@ class Chart:
         return event_handler
 
     def off(self, event_handler: EventHandler) -> None:
-        """
-        A method used to unregister
-        the given event handler
-        """
+        """A method for turning off an event handler."""
 
         self._display(
             DisplayTemplate.CLEAR_EVENT.format(
@@ -169,10 +145,7 @@ class Chart:
         )
 
     def log(self, chart_property: ChartProperty) -> None:
-        """
-        A method used to log
-        the given chart property in the browser console
-        """
+        """A method for printing chart properties to the browser console."""
 
         self._display(
             DisplayTemplate.LOG.format(
@@ -197,10 +170,7 @@ class Chart:
         return f'<div id="{html_id}"><script>{script}</script></div>'
 
     def show(self) -> None:
-        """
-        A method used to display
-        the assembled javascript code
-        """
+        """A method for displaying the assembled javascript code."""
 
         assert (
             self._display_target == DisplayTarget.MANUAL
@@ -219,5 +189,5 @@ class Chart:
                 raw=True,
             )
         else:
-            assert not self._showed, "cannot be used after chart.show()"
+            assert not self._showed, "cannot be used after chart displayed"
             self._calls.append(javascript)
