@@ -67,7 +67,7 @@ class Data(dict, Animation):
         """A method used to add a filter to a Data() class instance."""
 
         filter_expr = (
-            RawJavaScript(f"record => {{ return ({filter_expr}) }}")
+            RawJavaScript(f"record => {{ return ({' '.join(filter_expr.split())}) }}")
             if filter_expr is not None
             else filter_expr
         )

@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Fixed multi-line filter expression handling in `Data()` filter.
 - Fixed multiple `Chart` usage in the same workspace.
 - Fixed `IpyVizzu.clearInhibitScroll` if `window.IpyVizzu` does not exist.
 - Fixed `chart.animate(snapshot)` call.

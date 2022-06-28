@@ -101,6 +101,21 @@ class TestDataClassmethods(unittest.TestCase):
             data.dump(),
         )
 
+    def test_filter_multiline(self) -> None:
+        """A method for testing Data.filter() method with multi-line string."""
+
+        filter_expr = """
+        A && 
+            B ||
+            C
+        """
+        data = Data.filter(filter_expr)
+        # instead of build() test with dump() because contains raw js
+        self.assertEqual(
+            '{"data": {"filter": record => { return (A && B || C) }}}',
+            data.dump(),
+        )
+
     def test_filter_can_be_none(self) -> None:
         """A method for testing Data.filter() method with None."""
 
