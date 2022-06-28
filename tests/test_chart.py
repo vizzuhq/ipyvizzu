@@ -514,35 +514,26 @@ class TestChartLogs(TestChart):
 
 class TestChartDisplay(TestChart):
     """
-    A test class used to test
-    methods of the chart which are related to displaying
+    A class for testing Chart() class.
+    It tests display-related methods.
     """
 
     def test_repr_html_if_display_is_not_manual(self) -> None:
-        """
-        A test method used to test
-        Chart()._repr_html_() method if display is not manual
-        """
+        """A method for testing Chart()._repr_html_() method (display!=manual)."""
 
         self.chart.animate(Snapshot("abc1234"))
         with self.assertRaises(AssertionError):
             self.chart._repr_html_()  # pylint: disable=protected-access
 
     def test_show_if_display_is_not_manual(self) -> None:
-        """
-        A test method used to test
-        Chart().show() method if display is not manual
-        """
+        """A method for testing Chart().show() method (display!=manual)."""
 
         self.chart.animate(Snapshot("abc1234"))
         with self.assertRaises(AssertionError):
             self.chart.show()
 
     def test_repr_html(self) -> None:
-        """
-        A test method used to test
-        Chart()._repr_html_() method if display is manual
-        """
+        """A method for testing Chart()._repr_html_() method (display=manual)."""
 
         self.chart = Chart(display="manual")
         display_mock = "ipyvizzu.Chart._display"
@@ -565,10 +556,7 @@ class TestChartDisplay(TestChart):
             )
 
     def test_show(self) -> None:
-        """
-        A test method used to test
-        Chart().show() method if display is manual
-        """
+        """A method for testing Chart().show() method (display=manual)."""
 
         self.chart = Chart(display="manual")
         display_mock = "ipyvizzu.Chart._display"
@@ -592,8 +580,8 @@ class TestChartDisplay(TestChart):
 
     def test_repr_html_after_repr_html(self) -> None:
         """
-        A test method used to test
-        Chart()._repr_html_() method after Chart()._repr_html_() called
+        A method for testing Chart()._repr_html_() method.
+        It raises an error if it calls after Chart()._repr_html_().
         """
 
         self.chart = Chart(display="manual")
@@ -604,8 +592,8 @@ class TestChartDisplay(TestChart):
 
     def test_repr_html_after_show(self) -> None:
         """
-        A test method used to test
-        Chart()._repr_html_() method after Chart().show() called
+        A method for testing Chart()._repr_html_() method.
+        It raises an error if it calls after Chart().show().
         """
 
         self.chart = Chart(display="manual")
@@ -616,8 +604,8 @@ class TestChartDisplay(TestChart):
 
     def test_show_after_show(self) -> None:
         """
-        A test method used to test
-        Chart().show() method after Chart().show() called
+        A method for testing Chart().show() method.
+        It raises an error if it calls after Chart().show().
         """
 
         self.chart = Chart(display="manual")
@@ -628,8 +616,8 @@ class TestChartDisplay(TestChart):
 
     def test_show_after_repr_html(self) -> None:
         """
-        A test method used to test
-        Chart().show() method after Chart()._repr_html_() called
+        A method for testing Chart().show() method.
+        It raises an error if it calls after Chart()._repr_html_().
         """
 
         self.chart = Chart(display="manual")
@@ -640,8 +628,8 @@ class TestChartDisplay(TestChart):
 
     def test_animate_after_repr_html(self) -> None:
         """
-        A test method used to test
-        Chart().animate() method after Chart()._repr_html_() called
+        A method for testing Chart().animate() method.
+        It raises an error if it calls after Chart()._repr_html_().
         """
 
         self.chart = Chart(display="manual")
@@ -652,8 +640,8 @@ class TestChartDisplay(TestChart):
 
     def test_animate_after_show(self) -> None:
         """
-        A test method used to test
-        Chart().animate() method after Chart().show() called
+        A method for testing Chart().animate() method.
+        It raises an error if it calls after Chart().show().
         """
 
         self.chart = Chart(display="manual")
@@ -664,8 +652,8 @@ class TestChartDisplay(TestChart):
 
     def test_feature_after_repr_html(self) -> None:
         """
-        A test method used to test
-        Chart().feature() method after Chart()._repr_html_() called
+        A method for testing Chart().feature() method.
+        It raises an error if it calls after Chart()._repr_html_().
         """
 
         self.chart = Chart(display="manual")
@@ -676,8 +664,8 @@ class TestChartDisplay(TestChart):
 
     def test_feature_after_show(self) -> None:
         """
-        A test method used to test
-        Chart().feature() method after Chart().show() called
+        A method for testing Chart().feature() method.
+        It raises an error if it calls after Chart().show().
         """
 
         self.chart = Chart(display="manual")
@@ -688,8 +676,8 @@ class TestChartDisplay(TestChart):
 
     def test_store_after_repr_html_(self) -> None:
         """
-        A test method used to test
-        Chart().store() method after Chart()._repr_html_() called
+        A method for testing Chart().store() method.
+        It raises an error if it calls after Chart()._repr_html_().
         """
 
         self.chart = Chart(display="manual")
@@ -700,8 +688,8 @@ class TestChartDisplay(TestChart):
 
     def test_store_after_show(self) -> None:
         """
-        A test method used to test
-        Chart().store() method after Chart().show() called
+        A method for testing Chart().store() method.
+        It raises an error if it calls after Chart().show().
         """
 
         self.chart = Chart(display="manual")
