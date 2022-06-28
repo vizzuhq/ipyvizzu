@@ -1,7 +1,4 @@
-"""
-A test module used to test
-the animation module
-"""
+"""A module for testing the ipyvizzu.animation module."""
 
 
 import json
@@ -21,16 +18,10 @@ from ipyvizzu import (
 
 
 class TestPlainAnimation(unittest.TestCase):
-    """
-    A test class used to test
-    PlainAnimation()
-    """
+    """A class for testing PlainAnimation() class."""
 
     def test_plainanimation(self) -> None:
-        """
-        A test method used to test
-        PlainAnimation().build()
-        """
+        """A method for testing PlainAnimation().build()."""
 
         animation = PlainAnimation(geometry="circle")
         self.assertEqual({"geometry": "circle"}, animation.build())
@@ -38,8 +29,8 @@ class TestPlainAnimation(unittest.TestCase):
 
 class TestDataSchema(unittest.TestCase):
     """
-    A test class used to test
-    data schema validation of the Data() class
+    A class for testing Data() class.
+    It tests data schema validation.
     """
 
     def setUp(self) -> None:
@@ -47,8 +38,8 @@ class TestDataSchema(unittest.TestCase):
 
     def test_schema_dimension_only(self) -> None:
         """
-        A test method used to test
-        data schema with dimension and without measure
+        A method for testing Data().build().
+        It raises an error if added dimension without measure.
         """
 
         self.data.add_dimension("Genres", ["Pop", "Rock"])
@@ -57,8 +48,8 @@ class TestDataSchema(unittest.TestCase):
 
     def test_schema_measure_only(self) -> None:
         """
-        A test method used to test
-        data schema without dimension and with measure
+        A method for testing Data().build().
+        It raises an error if added measure without dimension.
         """
 
         self.data.add_measure("Popularity", [[114, 96]])
@@ -67,8 +58,8 @@ class TestDataSchema(unittest.TestCase):
 
     def test_schema_data_cube_and_series(self) -> None:
         """
-        A test method used to test
-        data schema with both dimension/measure and series
+        A method for testing Data().build().
+        It raises an error if added both dimension/measure and series.
         """
 
         self.data.add_dimension("Genres", ["Pop", "Rock"])
@@ -79,8 +70,8 @@ class TestDataSchema(unittest.TestCase):
 
     def test_schema_data_cube_and_records(self) -> None:
         """
-        A test method used to test
-        data schema with both dimension/measure and records
+        A method for testing Data().build().
+        It raises an error if added both dimension/measure and records.
         """
 
         self.data.add_dimension("Genres", ["Pop", "Rock"])
@@ -92,8 +83,8 @@ class TestDataSchema(unittest.TestCase):
 
 class TestDataClassmethods(unittest.TestCase):
     """
-    A test class used to test
-    classmethods of the Data() class
+    A class for testing Data() class.
+    It tests classmethods.
     """
 
     @classmethod
@@ -101,10 +92,7 @@ class TestDataClassmethods(unittest.TestCase):
         cls.asset_dir = pathlib.Path(__file__).parent / "assets"
 
     def test_filter(self) -> None:
-        """
-        A test method used to test
-        Data.filter() method
-        """
+        """A method for testing Data.filter() method with string."""
 
         data = Data.filter("filter_expr")
         # instead of build() test with dump() because contains raw js
@@ -114,10 +102,7 @@ class TestDataClassmethods(unittest.TestCase):
         )
 
     def test_filter_can_be_none(self) -> None:
-        """
-        A test method used to test
-        Data.filter() method with None
-        """
+        """A method for testing Data.filter() method with None."""
 
         data = Data.filter(None)
         # instead of build() test with dump() because contains raw js
@@ -127,10 +112,7 @@ class TestDataClassmethods(unittest.TestCase):
         )
 
     def test_from_json(self) -> None:
-        """
-        A test method used to test
-        Data.from_json() method
-        """
+        """A method for testing Data.from_json() method."""
 
         data = Data.from_json(self.asset_dir / "data_from_json.json")
         self.assertEqual(
@@ -149,8 +131,8 @@ class TestDataClassmethods(unittest.TestCase):
 
 class TestData(unittest.TestCase):
     """
-    A test class used to test
-    Data()
+    A class for testing Data() class.
+    It tests instance methods.
     """
 
     @classmethod
@@ -161,10 +143,7 @@ class TestData(unittest.TestCase):
         self.data = Data()
 
     def test_set_filter(self) -> None:
-        """
-        A test method used to test
-        Data().set_filter() method
-        """
+        """A method for testing Data().set_filter() method with string."""
 
         self.data.add_records([["Rock", "Hard", 96], ["Pop", "Hard", 114]])
         self.data.set_filter("filter_expr")
@@ -176,10 +155,7 @@ class TestData(unittest.TestCase):
         )
 
     def test_set_filter_can_be_none(self) -> None:
-        """
-        A test method used to test
-        Data().set_filter() method with None
-        """
+        """A method for testing Data().set_filter() method with None."""
 
         self.data.add_records([["Rock", "Hard", 96], ["Pop", "Hard", 114]])
         self.data.set_filter(None)
@@ -189,10 +165,7 @@ class TestData(unittest.TestCase):
         )
 
     def test_record(self) -> None:
-        """
-        A test method used to test
-        Data().add_record() method
-        """
+        """A method for testing Data().add_record() method."""
 
         self.data.add_record(["Rock", "Hard", 96])
         self.data.add_record(["Pop", "Hard", 114])
@@ -202,10 +175,7 @@ class TestData(unittest.TestCase):
         )
 
     def test_records(self) -> None:
-        """
-        A test method used to test
-        Data().add_records() method
-        """
+        """A method for testing Data().add_records() method."""
 
         self.data.add_records([["Rock", "Hard", 96], ["Pop", "Hard", 114]])
         self.assertEqual(
@@ -214,10 +184,7 @@ class TestData(unittest.TestCase):
         )
 
     def test_series(self) -> None:
-        """
-        A test method used to test
-        Data().add_series() method
-        """
+        """A method for testing Data().add_series() method with values."""
 
         self.data.add_series("Genres", ["Rock", "Pop"], type="dimension")
         self.data.add_series("Kinds", ["Hard"])
@@ -240,10 +207,7 @@ class TestData(unittest.TestCase):
         )
 
     def test_series_without_values(self) -> None:
-        """
-        A test method used to test
-        Data().add_series() method without values
-        """
+        """A method for testing Data().add_series() method without values."""
 
         self.data.add_series("Genres", type="dimension")
         self.data.add_series("Kinds", type="dimension")
@@ -265,10 +229,7 @@ class TestData(unittest.TestCase):
         )
 
     def test_data_cube(self) -> None:
-        """
-        A test method used to test
-        Data().add_dimension() and Data().add_measure() methods
-        """
+        """A method for testing Data().add_dimension() and Data().add_measure() methods."""
 
         self.data.add_dimension("Genres", ["Pop", "Rock"])
         self.data.add_dimension("Kinds", ["Hard"])
@@ -293,18 +254,18 @@ class TestData(unittest.TestCase):
 
     def test_data_frame_with_not_df(self) -> None:
         """
-        A test method used to test
-        Data().add_data_frame() method with not valid dataframe
+        A method for testing Data().add_data_frame() method.
+        It raises an error if called with not valid dataframe.
         """
 
         data = Data()
         with self.assertRaises(TypeError):
-            data.add_data_frame("not_data_frame", None)
+            data.add_data_frame("")
 
     def test_data_frame_with_none(self) -> None:
         """
-        A test method used to test
-        Data().add_data_frame() method with None
+        A method for testing Data().add_data_frame() method.
+        It tests with None.
         """
 
         data = Data()
@@ -316,8 +277,8 @@ class TestData(unittest.TestCase):
 
     def test_data_frame(self) -> None:
         """
-        A test method used to test
-        Data().add_data_frame() method with dataframe
+        A method for testing Data().add_data_frame() method.
+        It tests with dataframe.
         """
 
         with open(self.asset_dir / "data_frame_in.json", encoding="UTF-8") as fh_in:
@@ -335,8 +296,8 @@ class TestData(unittest.TestCase):
 
     def test_data_frame_na(self) -> None:
         """
-        A test method used to test
-        Data().add_data_frame() method with a dataframe which contains na values
+        A method for testing Data().add_data_frame() method.
+        It tests with dataframe that contains na values.
         """
 
         data_frame = pd.read_csv(
@@ -365,8 +326,8 @@ class TestData(unittest.TestCase):
 
     def test_data_frame_with_pd_series(self) -> None:
         """
-        A test method used to test
-        Data().add_data_frame() method with pd.Series()
+        A method for testing Data().add_data_frame() method.
+        It tests with pd.Series().
         """
 
         data = Data()
@@ -388,22 +349,22 @@ class TestData(unittest.TestCase):
 
     def test_data_frame_index_with_not_df(self) -> None:
         """
-        A test method used to test
-        Data().add_data_frame_index() method with not valid dataframe
+        A method for testing Data().add_data_frame_index() method.
+        It raises an error if called with not valid dataframe.
         """
 
         data = Data()
         with self.assertRaises(TypeError):
-            data.add_data_frame_index("not_data_frame", None)
+            data.add_data_frame_index(data_frame="", name="")
 
     def test_data_frame_index_with_none_and_none(self) -> None:
         """
-        A test method used to test
-        Data().add_data_frame_index() method with (None, None)
+        A method for testing Data().add_data_frame_index() method.
+        It tests with (None, None).
         """
 
         data = Data()
-        data.add_data_frame_index(None, None)
+        data.add_data_frame_index(data_frame=None, name=None)
         self.assertEqual(
             {"data": {}},
             data.build(),
@@ -411,15 +372,15 @@ class TestData(unittest.TestCase):
 
     def test_data_frame_index_with_df_and_none(self) -> None:
         """
-        A test method used to test
-        Data().add_data_frame_index() method with (dataframe, None)
+        A method for testing Data().add_data_frame_index() method.
+        It tests with (dataframe, None).
         """
 
         data = Data()
         data_frame = pd.DataFrame(
             pd.Series({"x": 1, "y": 2, "z": 3}, index=["x", "y"], name="series")
         )
-        data.add_data_frame_index(data_frame, None)
+        data.add_data_frame_index(data_frame=data_frame, name=None)
         data.add_data_frame(data_frame)
         self.assertEqual(
             {
@@ -435,13 +396,13 @@ class TestData(unittest.TestCase):
 
     def test_data_frame_index_with_df_and_index(self) -> None:
         """
-        A test method used to test
-        Data().add_data_frame_index() method with (dataframe, index)
+        A method for testing Data().add_data_frame_index() method.
+        It tests with (dataframe, index).
         """
 
         data = Data()
         data_frame = pd.DataFrame({"series": [1, 2, 3]}, index=["x", "y", "z"])
-        data.add_data_frame_index(data_frame, "Index")
+        data.add_data_frame_index(data_frame=data_frame, name="Index")
         data.add_data_frame(data_frame)
         self.assertEqual(
             {
@@ -465,15 +426,15 @@ class TestData(unittest.TestCase):
 
     def test_data_frame_index_with_pd_series(self) -> None:
         """
-        A test method used to test
-        Data().add_data_frame_index() method with (pd.Series(), index)
+        A method for testing Data().add_data_frame_index() method.
+        It tests with (pd.Series(), index).
         """
 
         data = Data()
         data_frame = pd.Series(
             {"x": 1, "y": 2, "z": 3}, index=["x", "y"], name="series"
         )
-        data.add_data_frame_index(data_frame, "Index")
+        data.add_data_frame_index(data_frame=data_frame, name="Index")
         data.add_data_frame(data_frame)
         self.assertEqual(
             {
@@ -489,32 +450,20 @@ class TestData(unittest.TestCase):
 
 
 class TestConfig(unittest.TestCase):
-    """
-    A test class used to test
-    Config()
-    """
+    """A class for testing Config()."""
 
     def test_config(self) -> None:
-        """
-        A test method used to test
-        Config().build()
-        """
+        """A method for testing Config().build() method."""
 
         animation = Config({"color": {"set": ["Genres"]}})
         self.assertEqual({"config": {"color": {"set": ["Genres"]}}}, animation.build())
 
 
 class TestStyle(unittest.TestCase):
-    """
-    A test class used to test
-    Style()
-    """
+    """A class for testing Style()."""
 
     def test_style(self) -> None:
-        """
-        A test method used to test
-        Style().build()
-        """
+        """A method for testing Style().build() with dictionary."""
 
         animation = Style({"title": {"backgroundColor": "#A0A0A0"}})
         self.assertEqual(
@@ -522,34 +471,25 @@ class TestStyle(unittest.TestCase):
         )
 
     def test_style_can_be_none(self) -> None:
-        """
-        A test method used to test
-        Style(None).build()
-        """
+        """A method for testing Style().build() with None."""
 
         animation = Style(None)
         self.assertEqual({"style": None}, animation.build())
 
 
 class TestSnapshot(unittest.TestCase):
-    """
-    A test class used to test
-    Snapshot()
-    """
+    """A class for testing Snapshot()."""
 
     def test_snapshot(self) -> None:
-        """
-        A test method used to test
-        Snapshot().dump()
-        """
+        """A method for testing Snapshot().dump()."""
 
         animation = Snapshot("abc1234")
         self.assertEqual("'abc1234'", animation.dump())
 
     def test_snapshot_can_not_be_built(self) -> None:
         """
-        A test method used to test
-        Snapshot().build() raises error
+        A method for testing Snapshot().build().
+        It raises an error if called.
         """
 
         animation = Snapshot("abc1234")
@@ -557,10 +497,7 @@ class TestSnapshot(unittest.TestCase):
 
 
 class TestMerger(unittest.TestCase):
-    """
-    A test class used to test
-    AnimationMerger()
-    """
+    """A class for testing AnimationMerger()."""
 
     def setUp(self) -> None:
         self.merger = AnimationMerger()
@@ -571,10 +508,7 @@ class TestMerger(unittest.TestCase):
         self.config = Config({"channels": {"label": {"attach": ["Popularity"]}}})
 
     def test_merge(self) -> None:
-        """
-        A test method used to test
-        AnimationMerger().merge()
-        """
+        """A method for testing AnimationMerger().merge() with animations."""
 
         self.merger.merge(self.data)
         self.merger.merge(self.config)
@@ -591,10 +525,7 @@ class TestMerger(unittest.TestCase):
         )
 
     def test_merge_none(self) -> None:
-        """
-        A test method used to test
-        AnimationMerger().merge() with Style(None)
-        """
+        """A method for testing AnimationMerger().merge() with animation that contains None."""
 
         self.merger.merge(self.config)
         self.merger.merge(Style(None))
@@ -605,8 +536,8 @@ class TestMerger(unittest.TestCase):
 
     def test_snapshot_can_not_be_merged(self) -> None:
         """
-        A test method used to test
-        AnimationMerger().merge() with Snapshot()
+        A method for testing AnimationMerger().merge() with Snapshot().
+        It raises an error if called.
         """
 
         self.merger.merge(self.data)
@@ -616,8 +547,8 @@ class TestMerger(unittest.TestCase):
 
     def test_only_different_animations_can_be_merged(self) -> None:
         """
-        A test method used to test
-        AnimationMerger().merge() with same animations
+        A method for testing AnimationMerger().merge() with same types of animations.
+        It raises an error if called.
         """
 
         self.merger.merge(self.data)

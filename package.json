@@ -1,6 +1,6 @@
 {
     "name": "@vizzu/ipyvizzu",
-    "description": "Jupyter notebook integration for vizzu.",
+    "description": "ipyvizzu is the Jupyter Notebook integration of Vizzu.",
     "keywords": [
         "chart",
         "charts",

@@ -45,7 +45,7 @@ A notebook cell may contain the following code snippet resulting in the animatio
 import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
-data_frame = pd.read_csv('titanic.csv')
+data_frame = pd.read_csv("titanic.csv")
 data = Data()
 data.add_data_frame(data_frame)
 
@@ -53,9 +53,26 @@ chart = Chart(width="640px", height="360px")
 
 chart.animate(data)
 
-chart.animate(Config({"x": "Count", "y": "Sex", "label": "Count","title":"Passengers of the Titanic"}))
-chart.animate(Config({"x": ["Count","Survived"], "label": ["Count","Survived"], "color": "Survived"}))
-chart.animate(Config({"x": "Count", "y": ["Sex","Survived"]}))
+chart.animate(
+    Config(
+        {
+            "x": "Count",
+            "y": "Sex",
+            "label": "Count",
+            "title": "Passengers of the Titanic",
+        }
+    )
+)
+chart.animate(
+    Config(
+        {
+            "x": ["Count", "Survived"],
+            "label": ["Count", "Survived"],
+            "color": "Survived",
+        }
+    )
+)
+chart.animate(Config({"x": "Count", "y": ["Sex", "Survived"]}))
 ```
 
 <p align="center">

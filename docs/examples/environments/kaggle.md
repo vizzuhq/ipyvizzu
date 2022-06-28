@@ -7,7 +7,7 @@ You can use ipyvizzu in Kaggle with the following restrictions:
 | Rerun individual cells without rerun the chart initialization cell (if display!="manual")  | :white_check_mark: |
 |                                                                                            |                    |
 | Constructor arguments:                                                                     |                    |
-| Change the url of vizzu (vizzu)                                                            | :white_check_mark: |
+| Change the url of Vizzu (vizzu)                                                            | :white_check_mark: |
 | Change the width of the chart (width)                                                      | :white_check_mark: |
 | Change the height of the chart (height)                                                    | :white_check_mark: |
 | Automatically display all animations after the constructor's cell (display="begin")        | :white_check_mark: |
