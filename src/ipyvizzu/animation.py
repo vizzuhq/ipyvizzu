@@ -182,14 +182,33 @@ class Data(dict, Animation):
         return {"data": self}
 
 
-class Config(dict, Animation):
+class ConfigAttr(type):
+    """
+    A class for representing config attribute metaclass.
+    It returns a Config class with a chart preset if __getattr__ called.
+    """
+
+    @classmethod
+    def __getattr__(cls, name):
+        config_attr = cls("ConfigAttr", (object,), {"name": name})
+        return config_attr._get_preset  # pylint: disable=no-member
+
+    def _get_preset(cls, preset):
+        config = Config(f"Vizzu.presets.{cls.name}({preset})")
+        return config
+
+
+class Config(Animation, metaclass=ConfigAttr):
     """
     A class for representing config animation.
     It can build config of the chart.
     """
 
+    def __init__(self, data: Optional[dict]):
+        self._data = data
+
     def build(self) -> dict:
-        return {"config": self}
+        return {"config": self._data}
 
 
 class Style(Animation):
