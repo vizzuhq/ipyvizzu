@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.11.0] - 2022-06-30
+
 ### Fixed
 
 - Fixed multi-line filter expression handling in `Data()` filter.
