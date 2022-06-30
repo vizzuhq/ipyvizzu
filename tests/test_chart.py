@@ -446,7 +446,7 @@ class TestChartLogs(TestChart):
             self.chart.log(ChartProperty.STYLE)
             self.assertEqual(
                 self.normalizer.normalize_output(output),
-                "window.ipyvizzu.log(element, id, 'styles');",
+                "window.ipyvizzu.log(element, id, 'style');",
             )
 
     def test_log_invalid(self) -> None:
