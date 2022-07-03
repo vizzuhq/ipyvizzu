@@ -6,7 +6,8 @@ import unittest.mock
 from typing import Callable
 
 from tests.normalizer import Normalizer
-from ipyvizzu import Chart, ChartProperty, Data, Config, Snapshot, Style, EventHandler
+from ipyvizzu import ChartProperty, Data, Config, Snapshot, Style, EventHandler
+from ipyvizzu.jupyter.chart import Chart
 
 
 class TestChart(unittest.TestCase, abc.ABC):
@@ -480,7 +481,7 @@ class TestChartDisplay(TestChart):
         """A method for testing Chart()._repr_html_() method (display=manual)."""
 
         self.chart = Chart(display="manual")
-        display_mock = "ipyvizzu.Chart._display"
+        display_mock = "ipyvizzu.jupyter.chart.Chart._display"
         with unittest.mock.patch(display_mock) as output:
             self.chart.animate(Snapshot("abc1234"))
             self.assertEqual(
@@ -503,7 +504,7 @@ class TestChartDisplay(TestChart):
         """A method for testing Chart().show() method (display=manual)."""
 
         self.chart = Chart(display="manual")
-        display_mock = "ipyvizzu.Chart._display"
+        display_mock = "ipyvizzu.jupyter.chart.Chart._display"
         with unittest.mock.patch(display_mock) as output:
             self.chart.animate(Snapshot("abc1234"))
             self.assertEqual(
