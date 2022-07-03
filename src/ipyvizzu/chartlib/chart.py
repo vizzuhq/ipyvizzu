@@ -1,62 +1,32 @@
 """A module for working with Vizzu charts."""
 
-import pkgutil
+from abc import ABC, abstractmethod
 import uuid
 from typing import List, Optional, Union
 
-from IPython.display import display_javascript
-from IPython import get_ipython
-
 from ipyvizzu.chartlib.animation import Animation, Snapshot, AnimationMerger
 from ipyvizzu.chartlib.method import Animate, Feature, Store, EventOn, EventOff, Log
-from ipyvizzu.chartlib.template import ChartProperty, DisplayTarget, DisplayTemplate
+from ipyvizzu.chartlib.template import ChartProperty
 from ipyvizzu.chartlib.event import EventHandler
 
 
-class ChartLib:
-    """A class for representing a wrapper over Vizzu chart."""
-
-    VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js"
-
-    def __init__(
-        self,
-        vizzu: Optional[str] = VIZZU,
-        width: Optional[str] = "800px",
-        height: Optional[str] = "480px",
-        display: Optional[DisplayTarget] = DisplayTarget.ACTUAL,
-    ):
-        self._chart_id = uuid.uuid4().hex[:7]
-
-        self._display_target = DisplayTarget(display)
-        self._calls = []
-        self._showed = False
-
-        self._scroll_into_view = False
-
-        ipyvizzujs = pkgutil.get_data(__name__, "templates/ipyvizzu.js").decode("utf-8")
-        self._display(DisplayTemplate.IPYVIZZUJS.format(ipyvizzujs=ipyvizzujs))
-
-        self._display(
-            DisplayTemplate.INIT.format(
-                chart_id=self._chart_id,
-                vizzu=vizzu,
-                div_width=width,
-                div_height=height,
-            )
-        )
-
-        if self._display_target != DisplayTarget.MANUAL:
-            self._register_events()
+class ChartLib(ABC):
+    """An abstract class for representing a wrapper over Vizzu chart."""
 
     @staticmethod
-    def _register_events() -> None:
-        ipy = get_ipython()
-        if ipy is not None:
-            ipy.events.register("pre_run_cell", ChartLib._register_pre_run_cell)
+    @abstractmethod
+    def display_template():
+        """An abstract method for returning DisplayTemplate."""
 
-    @staticmethod
-    def _register_pre_run_cell() -> None:
-        display_javascript(DisplayTemplate.CLEAR_INHIBITSCROLL, raw=True)
+    @property
+    @abstractmethod
+    def display_target(self):
+        """An abstract property for storing display_target."""
+
+    @property
+    @abstractmethod
+    def chart_id(self):
+        """An abstract property for storing chart_id."""
 
     @property
     def scroll_into_view(self) -> bool:
@@ -78,9 +48,9 @@ class ChartLib:
         animate = Animate(animation, options)
 
         self._display(
-            DisplayTemplate.ANIMATE.format(
-                display_target=self._display_target.value,
-                chart_id=self._chart_id,
+            ChartLib.display_template.ANIMATE.format(
+                display_target=self.display_target.value,
+                chart_id=self.chart_id,
                 scroll=str(self._scroll_into_view).lower(),
                 **animate.dump(),
             )
@@ -103,8 +73,8 @@ class ChartLib:
         """A method for turning on/off a feature of the chart."""
 
         self._display(
-            DisplayTemplate.FEATURE.format(
-                chart_id=self._chart_id,
+            ChartLib.display_template.FEATURE.format(
+                chart_id=self.chart_id,
                 **Feature(name, enabled).dump(),
             )
         )
@@ -114,8 +84,8 @@ class ChartLib:
 
         snapshot_id = uuid.uuid4().hex[:7]
         self._display(
-            DisplayTemplate.STORE.format(
-                chart_id=self._chart_id, **Store(snapshot_id).dump()
+            ChartLib.display_template.STORE.format(
+                chart_id=self.chart_id, **Store(snapshot_id).dump()
             )
         )
         return Snapshot(snapshot_id)
@@ -127,8 +97,8 @@ class ChartLib:
 
         event_handler = EventHandler(event, handler)
         self._display(
-            DisplayTemplate.SET_EVENT.format(
-                chart_id=self._chart_id,
+            ChartLib.display_template.SET_EVENT.format(
+                chart_id=self.chart_id,
                 **EventOn(event_handler).dump(),
             )
         )
@@ -138,8 +108,8 @@ class ChartLib:
         """A method for turning off an event handler."""
 
         self._display(
-            DisplayTemplate.CLEAR_EVENT.format(
-                chart_id=self._chart_id,
+            ChartLib.display_template.CLEAR_EVENT.format(
+                chart_id=self.chart_id,
                 **EventOff(event_handler).dump(),
             )
         )
@@ -148,46 +118,15 @@ class ChartLib:
         """A method for printing chart properties to the browser console."""
 
         self._display(
-            DisplayTemplate.LOG.format(
-                chart_id=self._chart_id, **Log(chart_property).dump()
+            ChartLib.display_template.LOG.format(
+                chart_id=self.chart_id, **Log(chart_property).dump()
             )
         )
 
-    def _repr_html_(self) -> str:
-        assert (
-            self._display_target == DisplayTarget.MANUAL
-        ), f'chart._repr_html_() can be used with display="{DisplayTarget.MANUAL.value}" only'
-        assert not self._showed, "cannot be used after chart displayed."
-        self._showed = True
-        html_id = uuid.uuid4().hex[:7]
-        script = (
-            self._calls[0]
-            + "\n"
-            + "\n".join(self._calls[1:]).replace(
-                "element", f'document.getElementById("{html_id}")'
-            )
-        )
-        return f'<div id="{html_id}"><script>{script}</script></div>'
-
+    @abstractmethod
     def show(self) -> None:
-        """A method for displaying the assembled javascript code."""
+        """An abstract method for displaying the assembled javascript code."""
 
-        assert (
-            self._display_target == DisplayTarget.MANUAL
-        ), f'chart.show() can be used with display="{DisplayTarget.MANUAL.value}" only'
-        assert not self._showed, "cannot be used after chart displayed"
-        display_javascript(
-            "\n".join(self._calls),
-            raw=True,
-        )
-        self._showed = True
-
+    @abstractmethod
     def _display(self, javascript: str) -> None:
-        if self._display_target != DisplayTarget.MANUAL:
-            display_javascript(
-                javascript,
-                raw=True,
-            )
-        else:
-            assert not self._showed, "cannot be used after chart displayed"
-            self._calls.append(javascript)
+        """An abstract method for displaying/assembling the javascript code."""
