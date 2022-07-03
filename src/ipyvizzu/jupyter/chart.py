@@ -1,6 +1,5 @@
 """A module for working with Vizzu charts."""
 
-import pkgutil
 from typing import Optional
 import uuid
 
@@ -31,11 +30,10 @@ class Chart(ChartLib):
 
         self._scroll_into_view = False
 
-        ipyvizzujs = pkgutil.get_data(__name__, "templates/ipyvizzu.js").decode("utf-8")
-        self._display(Chart.display_template.IPYVIZZUJS.format(ipyvizzujs=ipyvizzujs))
+        self._display_ipyvizzujs()
 
         self._display(
-            Chart.display_template.INIT.format(
+            self.display_template.INIT.format(
                 chart_id=self._chart_id,
                 vizzu=vizzu,
                 div_width=width,
@@ -46,19 +44,17 @@ class Chart(ChartLib):
         if self.display_target != DisplayTarget.MANUAL:
             self._register_events()
 
-    @staticmethod
-    def _register_events() -> None:
+    def _register_events(self) -> None:
         ipy = get_ipython()
         if ipy is not None:
-            ipy.events.register("pre_run_cell", Chart._register_pre_run_cell)
+            ipy.events.register("pre_run_cell", self._register_pre_run_cell)
 
-    @staticmethod
-    def _register_pre_run_cell() -> None:
-        display_javascript(Chart.display_template.CLEAR_INHIBITSCROLL, raw=True)
+    def _register_pre_run_cell(self) -> None:
+        display_javascript(self.display_template.CLEAR_INHIBITSCROLL, raw=True)
 
-    @staticmethod
-    def display_template() -> DisplayTemplate:
-        """A method for returning DisplayTemplate."""
+    @property
+    def display_template(self) -> DisplayTemplate:
+        """A property for storing display_template."""
         return DisplayTemplate
 
     @property

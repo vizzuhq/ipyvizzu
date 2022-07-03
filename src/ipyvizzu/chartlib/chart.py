@@ -1,6 +1,7 @@
 """A module for working with Vizzu charts."""
 
 from abc import ABC, abstractmethod
+import pkgutil
 import uuid
 from typing import List, Optional, Union
 
@@ -13,10 +14,10 @@ from ipyvizzu.chartlib.event import EventHandler
 class ChartLib(ABC):
     """An abstract class for representing a wrapper over Vizzu chart."""
 
-    @staticmethod
+    @property
     @abstractmethod
-    def display_template():
-        """An abstract method for returning DisplayTemplate."""
+    def display_template(self):
+        """An abstract property for storing display_template."""
 
     @property
     @abstractmethod
@@ -48,7 +49,7 @@ class ChartLib(ABC):
         animate = Animate(animation, options)
 
         self._display(
-            ChartLib.display_template.ANIMATE.format(
+            self.display_template.ANIMATE.format(
                 display_target=self.display_target.value,
                 chart_id=self.chart_id,
                 scroll=str(self._scroll_into_view).lower(),
@@ -73,7 +74,7 @@ class ChartLib(ABC):
         """A method for turning on/off a feature of the chart."""
 
         self._display(
-            ChartLib.display_template.FEATURE.format(
+            self.display_template.FEATURE.format(
                 chart_id=self.chart_id,
                 **Feature(name, enabled).dump(),
             )
@@ -84,7 +85,7 @@ class ChartLib(ABC):
 
         snapshot_id = uuid.uuid4().hex[:7]
         self._display(
-            ChartLib.display_template.STORE.format(
+            self.display_template.STORE.format(
                 chart_id=self.chart_id, **Store(snapshot_id).dump()
             )
         )
@@ -97,7 +98,7 @@ class ChartLib(ABC):
 
         event_handler = EventHandler(event, handler)
         self._display(
-            ChartLib.display_template.SET_EVENT.format(
+            self.display_template.SET_EVENT.format(
                 chart_id=self.chart_id,
                 **EventOn(event_handler).dump(),
             )
@@ -108,7 +109,7 @@ class ChartLib(ABC):
         """A method for turning off an event handler."""
 
         self._display(
-            ChartLib.display_template.CLEAR_EVENT.format(
+            self.display_template.CLEAR_EVENT.format(
                 chart_id=self.chart_id,
                 **EventOff(event_handler).dump(),
             )
@@ -118,7 +119,7 @@ class ChartLib(ABC):
         """A method for printing chart properties to the browser console."""
 
         self._display(
-            ChartLib.display_template.LOG.format(
+            self.display_template.LOG.format(
                 chart_id=self.chart_id, **Log(chart_property).dump()
             )
         )
@@ -130,3 +131,7 @@ class ChartLib(ABC):
     @abstractmethod
     def _display(self, javascript: str) -> None:
         """An abstract method for displaying/assembling the javascript code."""
+
+    def _display_ipyvizzujs(self) -> None:
+        ipyvizzujs = pkgutil.get_data(__name__, "templates/ipyvizzu.js").decode("utf-8")
+        self._display(self.display_template.IPYVIZZUJS.format(ipyvizzujs=ipyvizzujs))
