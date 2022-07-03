@@ -125,7 +125,7 @@ class ChartLib(ABC):
         )
 
     @abstractmethod
-    def show(self) -> None:
+    def show(self):
         """An abstract method for displaying the assembled javascript code."""
 
     @abstractmethod

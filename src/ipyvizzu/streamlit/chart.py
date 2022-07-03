@@ -3,6 +3,8 @@
 from typing import Optional
 import uuid
 
+from streamlit.components.v1 import html
+
 from ipyvizzu.chartlib.chart import ChartLib
 from ipyvizzu.chartlib.template import VIZZU, DisplayTarget
 
@@ -10,7 +12,7 @@ from ipyvizzu.python.template import DisplayTemplate
 
 
 class Chart(ChartLib):
-    """A class for representing a wrapper over Vizzu chart in Python environment."""
+    """A class for representing a wrapper over Vizzu chart in Streamlit environment."""
 
     def __init__(
         self,
@@ -28,6 +30,14 @@ class Chart(ChartLib):
         self._display_ipyvizzujs()
 
         self._init_id = uuid.uuid4().hex[:7]
+
+        if not width.endswith("px") or not height.endswith("px"):
+            raise ValueError("width and height can be px only")
+
+        self._canvas = {
+            "width": int(width[:-2]) + 10,  # margin
+            "height": int(height[:-2]) + 10,  # margin
+        }
 
         self._display(
             self.display_template.INIT.format(
@@ -58,13 +68,18 @@ class Chart(ChartLib):
     def chart_id(self, chart_id: str):
         self._chart_id = chart_id
 
-    def show(self) -> str:
+    def show(self) -> None:
         """A method for displaying the assembled javascript code."""
 
         assert not self._showed, "cannot be used after chart displayed"
         self._showed = True
         script = "\n".join(self._calls)
-        return f'<div id="{self._init_id}"><script>{script}</script></div>'
+        print(script)
+        html(
+            f'<div id="{self._init_id}"><script>{script}</script></div>',
+            width=self._canvas["width"],
+            height=self._canvas["height"],
+        )
 
     def _display(self, javascript: str) -> None:
         """A method for assembling the javascript code."""

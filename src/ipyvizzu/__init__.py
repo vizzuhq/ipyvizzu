@@ -31,7 +31,21 @@ if not ENV:
 
             ENV = True
     except ImportError as error:
-        """ipyvizzu is not running in Jupyter environment."""
+        # ipyvizzu is not running in Jupyter environment.
+        pass
+
+
+if not ENV:
+    try:
+        from streamlit.scriptrunner.script_run_context import get_script_run_ctx
+
+        if get_script_run_ctx():
+            from .streamlit.chart import Chart
+            from .python.template import DisplayTemplate
+
+            ENV = True
+    except ImportError as error:
+        # ipyvizzu is not running in Streamlit environment.
         pass
 
 
