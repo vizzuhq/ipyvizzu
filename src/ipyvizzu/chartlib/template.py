@@ -10,7 +10,7 @@ class ChartProperty(Enum):
     """An enum class for storing chart properties."""
 
     CONFIG = "config"
-    STYLE = "styles"
+    STYLE = "style"
 
 
 class DisplayTarget(Enum):
