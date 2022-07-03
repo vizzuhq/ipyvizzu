@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open('requirements.txt') as fp:
     requirements = fp.read().splitlines()
@@ -9,14 +9,14 @@ with open("README.md") as fp:
 
 setup(
     name="ipyvizzu",
-    version="0.10.1",
+    version="1.0.0",
     description="ipyvizzu is the Jupyter Notebook integration of Vizzu.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="Apache 2",
-    packages=['ipyvizzu'],
-    package_dir={'ipyvizzu': 'src/ipyvizzu'},
-    package_data={'ipyvizzu': ['templates/*.js']},
+    packages=find_packages(where="src", exclude=['__pycache__']),
+    package_dir={'': 'src'},
+    package_data={'ipyvizzu': ['chartlib/templates/*.js']},
     python_requires='>=3.6',
     install_requires=requirements,
     url="https://github.com/vizzuhq/ipyvizzu",

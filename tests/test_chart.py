@@ -31,7 +31,7 @@ class TestChart(unittest.TestCase, abc.ABC):
     def mock(self) -> str:
         """A property for storing the method's name that needs to be mocked."""
 
-        return "ipyvizzu.chart.display_javascript"
+        return "ipyvizzu.chartlib.chart.display_javascript"
 
 
 class TestChartInit(TestChart):
@@ -150,7 +150,7 @@ class TestChartInit(TestChart):
 
             events = IPyEvents
 
-        get_ipython_mock = "ipyvizzu.chart.get_ipython"
+        get_ipython_mock = "ipyvizzu.chartlib.chart.get_ipython"
         with unittest.mock.patch(get_ipython_mock, return_value=IPy()):
             with unittest.mock.patch(self.mock) as output:
                 Chart()

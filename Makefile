@@ -17,7 +17,10 @@ $(DEV_BUILD_FLAG):
 	touch $(DEV_BUILD_FLAG)
 
 clean:
-	-rm -rf $(VIRTUAL_ENV)
+	rm -rf $(VIRTUAL_ENV)
+	rm -rf build
+	rm -rf dist
+	rm -rf *.egg-info
 
 requirements:
 	$(VIRTUAL_ENV)/bin/pip-compile --upgrade dev-requirements.in

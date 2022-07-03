@@ -9,8 +9,8 @@ import jsonschema
 import pandas as pd
 from pandas.api.types import is_numeric_dtype
 
-from ipyvizzu.json import RawJavaScript, RawJavaScriptEncoder
-from ipyvizzu.schema import DATA_SCHEMA
+from ipyvizzu.chartlib.json import RawJavaScript, RawJavaScriptEncoder
+from ipyvizzu.chartlib.schema import DATA_SCHEMA
 
 
 class Animation:

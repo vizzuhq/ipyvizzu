@@ -7,13 +7,13 @@ from typing import List, Optional, Union
 from IPython.display import display_javascript
 from IPython import get_ipython
 
-from ipyvizzu.animation import Animation, Snapshot, AnimationMerger
-from ipyvizzu.method import Animate, Feature, Store, EventOn, EventOff, Log
-from ipyvizzu.template import ChartProperty, DisplayTarget, DisplayTemplate
-from ipyvizzu.event import EventHandler
+from ipyvizzu.chartlib.animation import Animation, Snapshot, AnimationMerger
+from ipyvizzu.chartlib.method import Animate, Feature, Store, EventOn, EventOff, Log
+from ipyvizzu.chartlib.template import ChartProperty, DisplayTarget, DisplayTemplate
+from ipyvizzu.chartlib.event import EventHandler
 
 
-class Chart:
+class ChartLib:
     """A class for representing a wrapper over Vizzu chart."""
 
     VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js"
@@ -52,7 +52,7 @@ class Chart:
     def _register_events() -> None:
         ipy = get_ipython()
         if ipy is not None:
-            ipy.events.register("pre_run_cell", Chart._register_pre_run_cell)
+            ipy.events.register("pre_run_cell", ChartLib._register_pre_run_cell)
 
     @staticmethod
     def _register_pre_run_cell() -> None:

@@ -3,9 +3,9 @@
 import json
 from typing import Optional, Union
 
-from ipyvizzu.animation import PlainAnimation, Animation, AnimationMerger
-from ipyvizzu.event import EventHandler
-from ipyvizzu.template import ChartProperty
+from ipyvizzu.chartlib.animation import PlainAnimation, Animation, AnimationMerger
+from ipyvizzu.chartlib.event import EventHandler
+from ipyvizzu.chartlib.template import ChartProperty
 
 
 class Method:
