@@ -7,9 +7,7 @@ from IPython.display import display_javascript
 from IPython import get_ipython
 
 from ipyvizzu.chartlib.chart import ChartLib
-from ipyvizzu.chartlib.template import VIZZU, DisplayTarget
-
-from ipyvizzu.jupyter.template import DisplayTemplate
+from ipyvizzu.chartlib.template import VIZZU, DisplayTarget, DisplayTemplate
 
 
 class Chart(ChartLib):
@@ -33,8 +31,9 @@ class Chart(ChartLib):
         self._display_ipyvizzujs()
 
         self._display(
-            self.display_template.INIT.format(
-                chart_id=self._chart_id,
+            DisplayTemplate.INIT.format(
+                div=self.display_location,
+                chart_id=self.chart_id,
                 vizzu=vizzu,
                 div_width=width,
                 div_height=height,
@@ -50,30 +49,23 @@ class Chart(ChartLib):
             ipy.events.register("pre_run_cell", self._register_pre_run_cell)
 
     def _register_pre_run_cell(self) -> None:
-        display_javascript(self.display_template.CLEAR_INHIBITSCROLL, raw=True)
+        display_javascript(DisplayTemplate.CLEAR_INHIBITSCROLL, raw=True)
 
     @property
-    def display_template(self) -> DisplayTemplate:
-        """A property for storing display_template."""
-        return DisplayTemplate
+    def display_location(self) -> str:
+        """A property for storing display_location."""
+
+        return "element"
 
     @property
     def display_target(self) -> DisplayTarget:
         """A property for storing display_target."""
+
         return self._display_target
 
     @display_target.setter
     def display_target(self, display_target: Optional[DisplayTarget]):
         self._display_target = DisplayTarget(display_target)
-
-    @property
-    def chart_id(self) -> str:
-        """A property for storing chart_id."""
-        return self._chart_id
-
-    @chart_id.setter
-    def chart_id(self, chart_id: str):
-        self._chart_id = chart_id
 
     def _repr_html_(self) -> str:
         assert (
@@ -106,6 +98,7 @@ class Chart(ChartLib):
 
     def _display(self, javascript: str) -> None:
         """A method for displaying/assembling the javascript code."""
+
         if self.display_target != DisplayTarget.MANUAL:
             display_javascript(
                 javascript,

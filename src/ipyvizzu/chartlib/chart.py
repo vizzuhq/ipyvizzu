@@ -7,7 +7,11 @@ from typing import List, Optional, Union
 
 from ipyvizzu.chartlib.animation import Animation, Snapshot, AnimationMerger
 from ipyvizzu.chartlib.method import Animate, Feature, Store, EventOn, EventOff, Log
-from ipyvizzu.chartlib.template import ChartProperty
+from ipyvizzu.chartlib.template import (
+    ChartProperty,
+    DisplayTemplate,
+    DisplayTarget,
+)
 from ipyvizzu.chartlib.event import EventHandler
 
 
@@ -16,18 +20,23 @@ class ChartLib(ABC):
 
     @property
     @abstractmethod
-    def display_template(self):
-        """An abstract property for storing display_template."""
-
-    @property
-    @abstractmethod
     def display_target(self):
         """An abstract property for storing display_target."""
 
     @property
     @abstractmethod
-    def chart_id(self):
-        """An abstract property for storing chart_id."""
+    def display_location(self) -> str:
+        """A property for storing display_location."""
+
+    @property
+    def chart_id(self) -> str:
+        """A property for storing chart_id."""
+
+        return self._chart_id
+
+    @chart_id.setter
+    def chart_id(self, chart_id: str):
+        self._chart_id = chart_id
 
     @property
     def scroll_into_view(self) -> bool:
@@ -49,7 +58,8 @@ class ChartLib(ABC):
         animate = Animate(animation, options)
 
         self._display(
-            self.display_template.ANIMATE.format(
+            DisplayTemplate.ANIMATE.format(
+                div=self.display_location,
                 display_target=self.display_target.value,
                 chart_id=self.chart_id,
                 scroll=str(self._scroll_into_view).lower(),
@@ -74,7 +84,8 @@ class ChartLib(ABC):
         """A method for turning on/off a feature of the chart."""
 
         self._display(
-            self.display_template.FEATURE.format(
+            DisplayTemplate.FEATURE.format(
+                div=self.display_location,
                 chart_id=self.chart_id,
                 **Feature(name, enabled).dump(),
             )
@@ -85,8 +96,10 @@ class ChartLib(ABC):
 
         snapshot_id = uuid.uuid4().hex[:7]
         self._display(
-            self.display_template.STORE.format(
-                chart_id=self.chart_id, **Store(snapshot_id).dump()
+            DisplayTemplate.STORE.format(
+                div=self.display_location,
+                chart_id=self.chart_id,
+                **Store(snapshot_id).dump(),
             )
         )
         return Snapshot(snapshot_id)
@@ -98,7 +111,8 @@ class ChartLib(ABC):
 
         event_handler = EventHandler(event, handler)
         self._display(
-            self.display_template.SET_EVENT.format(
+            DisplayTemplate.SET_EVENT.format(
+                div=self.display_location,
                 chart_id=self.chart_id,
                 **EventOn(event_handler).dump(),
             )
@@ -109,7 +123,8 @@ class ChartLib(ABC):
         """A method for turning off an event handler."""
 
         self._display(
-            self.display_template.CLEAR_EVENT.format(
+            DisplayTemplate.CLEAR_EVENT.format(
+                div=self.display_location,
                 chart_id=self.chart_id,
                 **EventOff(event_handler).dump(),
             )
@@ -119,8 +134,10 @@ class ChartLib(ABC):
         """A method for printing chart properties to the browser console."""
 
         self._display(
-            self.display_template.LOG.format(
-                chart_id=self.chart_id, **Log(chart_property).dump()
+            DisplayTemplate.LOG.format(
+                div=self.display_location,
+                chart_id=self.chart_id,
+                **Log(chart_property).dump(),
             )
         )
 
@@ -134,4 +151,59 @@ class ChartLib(ABC):
 
     def _display_ipyvizzujs(self) -> None:
         ipyvizzujs = pkgutil.get_data(__name__, "templates/ipyvizzu.js").decode("utf-8")
-        self._display(self.display_template.IPYVIZZUJS.format(ipyvizzujs=ipyvizzujs))
+        self._display(DisplayTemplate.IPYVIZZUJS.format(ipyvizzujs=ipyvizzujs))
+
+
+class ManualChart(ChartLib, ABC):
+    """
+    A class for representing a wrapper over Vizzu chart
+    that can only be displayed using chart.show().
+    """
+
+    def __init__(
+        self,
+        vizzu: Optional[str],
+        width: Optional[str],
+        height: Optional[str],
+    ):
+        self.chart_id = uuid.uuid4().hex[:7]
+
+        self._calls = []
+        self._showed = False
+
+        self._scroll_into_view = False
+
+        self._display_ipyvizzujs()
+
+        self._init_id = uuid.uuid4().hex[:7]
+
+        self._display(
+            DisplayTemplate.INIT.format(
+                div=self.display_location,
+                chart_id=self._chart_id,
+                vizzu=vizzu,
+                div_width=width,
+                div_height=height,
+            )
+        )
+
+    @property
+    def display_target(self) -> DisplayTarget:
+        """A property for storing display_target."""
+
+        return DisplayTarget.MANUAL
+
+    @property
+    @abstractmethod
+    def display_location(self) -> str:
+        """An abstract property for storing display_location."""
+
+    @abstractmethod
+    def show(self) -> str:
+        """An abstract method for displaying the assembled javascript code."""
+
+    def _display(self, javascript: str) -> None:
+        """A method for assembling the javascript code."""
+
+        assert not self._showed, "cannot be used after chart displayed"
+        self._calls.append(javascript)

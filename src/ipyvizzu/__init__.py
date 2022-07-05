@@ -13,7 +13,7 @@ from .chartlib.animation import (
 )
 from .chartlib.method import Method, Animate, Feature, Store, EventOn, EventOff, Log
 from .chartlib.json import RawJavaScript, RawJavaScriptEncoder
-from .chartlib.template import ChartProperty, DisplayTarget
+from .chartlib.template import ChartProperty, DisplayTarget, DisplayTemplate
 from .chartlib.event import EventHandler
 
 
@@ -27,7 +27,6 @@ if not ENV:
         IPY = get_ipython()
         if IPY is not None:
             from .jupyter.chart import Chart
-            from .jupyter.template import DisplayTemplate
 
             ENV = True
     except ImportError as error:
@@ -41,7 +40,6 @@ if not ENV:
 
         if get_script_run_ctx():
             from .streamlit.chart import Chart
-            from .python.template import DisplayTemplate
 
             ENV = True
     except ImportError as error:
@@ -51,6 +49,5 @@ if not ENV:
 
 if not ENV:
     from .python.chart import Chart
-    from .python.template import DisplayTemplate
 
     ENV = True

@@ -1,17 +1,14 @@
 """A module for working with Vizzu charts."""
 
 from typing import Optional
-import uuid
 
 from streamlit.components.v1 import html
 
-from ipyvizzu.chartlib.chart import ChartLib
-from ipyvizzu.chartlib.template import VIZZU, DisplayTarget
-
-from ipyvizzu.python.template import DisplayTemplate
+from ipyvizzu.chartlib.chart import ManualChart
+from ipyvizzu.chartlib.template import VIZZU
 
 
-class Chart(ChartLib):
+class Chart(ManualChart):
     """A class for representing a wrapper over Vizzu chart in Streamlit environment."""
 
     def __init__(
@@ -20,16 +17,7 @@ class Chart(ChartLib):
         width: Optional[str] = "800px",
         height: Optional[str] = "480px",
     ):
-        self.chart_id = uuid.uuid4().hex[:7]
-
-        self._calls = []
-        self._showed = False
-
-        self._scroll_into_view = False
-
-        self._display_ipyvizzujs()
-
-        self._init_id = uuid.uuid4().hex[:7]
+        super().__init__(vizzu=vizzu, width=width, height=height)
 
         if not width.endswith("px") or not height.endswith("px"):
             raise ValueError("width and height can be px only")
@@ -39,34 +27,11 @@ class Chart(ChartLib):
             "height": int(height[:-2]) + 10,  # margin
         }
 
-        self._display(
-            self.display_template.INIT.format(
-                init_id=self._init_id,
-                chart_id=self._chart_id,
-                vizzu=vizzu,
-                div_width=width,
-                div_height=height,
-            )
-        )
-
     @property
-    def display_template(self) -> DisplayTemplate:
-        """A property for storing display_template."""
-        return DisplayTemplate
+    def display_location(self) -> str:
+        """A property for storing display_location."""
 
-    @property
-    def display_target(self) -> DisplayTarget:
-        """A property for storing display_target."""
-        return DisplayTarget.MANUAL
-
-    @property
-    def chart_id(self) -> str:
-        """A property for storing chart_id."""
-        return self._chart_id
-
-    @chart_id.setter
-    def chart_id(self, chart_id: str):
-        self._chart_id = chart_id
+        return f"document.getElementById('{self._init_id}')"
 
     def show(self) -> None:
         """A method for displaying the assembled javascript code."""
@@ -80,9 +45,3 @@ class Chart(ChartLib):
             width=self._canvas["width"],
             height=self._canvas["height"],
         )
-
-    def _display(self, javascript: str) -> None:
-        """A method for assembling the javascript code."""
-
-        assert not self._showed, "cannot be used after chart displayed"
-        self._calls.append(javascript)
