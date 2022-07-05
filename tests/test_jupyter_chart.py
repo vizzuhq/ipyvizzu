@@ -1,6 +1,5 @@
 """A module for testing the ipyvizzu.jupyter.chart module."""
 
-import abc
 import unittest
 import unittest.mock
 from typing import Callable
@@ -353,65 +352,45 @@ class TestChartLogs(TestChart, TestChartLogsABC, unittest.TestCase):
         super().test_log_style(reference)
 
 
-class TestChartOld(unittest.TestCase, abc.ABC):
+class TestChartShow(unittest.TestCase):
     """
-    An abstract class for testing Chart() class.
-    It is responsible for setup and teardown.
+    A class for testing Chart() class.
+    It tests display-related methods.
     """
 
     @classmethod
     def setUpClass(cls) -> None:
         cls.normalizer = Normalizer()
 
-    def setUp(self) -> None:
-        self.patch = unittest.mock.patch(self.mock)
+    def setUp(self):
+        self.patch = unittest.mock.patch("ipyvizzu.jupyter.chart.display_javascript")
         self.trash = self.patch.start()
-        self.chart = Chart()
 
-    def tearDown(self) -> None:
+    def tearDown(self):
         self.patch.stop()
-
-    @property
-    def mock(self) -> str:
-        """A property for storing the method's name that needs to be mocked."""
-
-        return "ipyvizzu.jupyter.chart.display_javascript"
-
-
-class TestChartDisplayOld(TestChartOld):
-    """
-    A class for testing Chart() class.
-    It tests display-related methods.
-    """
-
-    def test_repr_html_if_display_is_not_manual(self) -> None:
-        """A method for testing Chart()._repr_html_() method (display!=manual)."""
-
-        self.chart.animate(Snapshot("abc1234"))
-        with self.assertRaises(AssertionError):
-            self.chart._repr_html_()  # pylint: disable=protected-access
 
     def test_show_if_display_is_not_manual(self) -> None:
         """A method for testing Chart().show() method (display!=manual)."""
 
-        self.chart.animate(Snapshot("abc1234"))
+        chart = Chart()
+        chart.animate(Snapshot("abc1234"))
         with self.assertRaises(AssertionError):
-            self.chart.show()
+            chart.show()
 
-    def test_repr_html(self) -> None:
-        """A method for testing Chart()._repr_html_() method (display=manual)."""
+    def test_show(self) -> None:
+        """A method for testing Chart().show() method (display=manual)."""
 
-        self.chart = Chart(display="manual")
+        chart = Chart(display="manual")
         display_mock = "ipyvizzu.jupyter.chart.Chart._display"
         with unittest.mock.patch(display_mock) as output:
-            self.chart.animate(Snapshot("abc1234"))
+            chart.animate(Snapshot("abc1234"))
             self.assertEqual(
-                self.chart._showed,  # pylint: disable=protected-access
+                chart._showed,  # pylint: disable=protected-access
                 False,
             )
-            self.chart._repr_html_()  # pylint: disable=protected-access
+            chart.show()
             self.assertEqual(
-                self.chart._showed,  # pylint: disable=protected-access
+                chart._showed,  # pylint: disable=protected-access
                 True,
             )
             self.assertEqual(
@@ -421,20 +400,94 @@ class TestChartDisplayOld(TestChartOld):
                 + "undefined);",
             )
 
-    def test_show(self) -> None:
-        """A method for testing Chart().show() method (display=manual)."""
+    def test_show_after_show(self) -> None:
+        """
+        A method for testing Chart().show() method.
+        It raises an error if called after Chart().show().
+        """
 
-        self.chart = Chart(display="manual")
+        chart = Chart(display="manual")
+        chart.animate(Snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart.show()
+
+    def test_animate_after_show(self) -> None:
+        """
+        A method for testing Chart().animate() method.
+        It raises an error if called after Chart().show().
+        """
+
+        chart = Chart(display="manual")
+        chart.animate(Snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart.animate(Snapshot("abc1234"))
+
+    def test_feature_after_show(self) -> None:
+        """
+        A method for testing Chart().feature() method.
+        It raises an error if called after Chart().show().
+        """
+
+        chart = Chart(display="manual")
+        chart.animate(Snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart.feature("tooltip", True)
+
+    def test_store_after_show(self) -> None:
+        """
+        A method for testing Chart().store() method.
+        It raises an error if called after Chart().show().
+        """
+
+        chart = Chart(display="manual")
+        chart.animate(Snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart.store()
+
+
+class TestChartReprHtml(unittest.TestCase):
+    """
+    A class for testing Chart() class.
+    It tests display-related methods.
+    """
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.normalizer = Normalizer()
+
+    def setUp(self):
+        self.patch = unittest.mock.patch("ipyvizzu.jupyter.chart.display_javascript")
+        self.trash = self.patch.start()
+
+    def tearDown(self):
+        self.patch.stop()
+
+    def test_repr_html_if_display_is_not_manual(self) -> None:
+        """A method for testing Chart()._repr_html_() method (display!=manual)."""
+
+        chart = Chart()
+        chart.animate(Snapshot("abc1234"))
+        with self.assertRaises(AssertionError):
+            chart._repr_html_()  # pylint: disable=protected-access
+
+    def test_repr_html(self) -> None:
+        """A method for testing Chart()._repr_html_() method (display=manual)."""
+
+        chart = Chart(display="manual")
         display_mock = "ipyvizzu.jupyter.chart.Chart._display"
         with unittest.mock.patch(display_mock) as output:
-            self.chart.animate(Snapshot("abc1234"))
+            chart.animate(Snapshot("abc1234"))
             self.assertEqual(
-                self.chart._showed,  # pylint: disable=protected-access
+                chart._showed,  # pylint: disable=protected-access
                 False,
             )
-            self.chart.show()
+            chart._repr_html_()  # pylint: disable=protected-access
             self.assertEqual(
-                self.chart._showed,  # pylint: disable=protected-access
+                chart._showed,  # pylint: disable=protected-access
                 True,
             )
             self.assertEqual(
@@ -450,11 +503,11 @@ class TestChartDisplayOld(TestChartOld):
         It raises an error if called after Chart()._repr_html_().
         """
 
-        self.chart = Chart(display="manual")
-        self.chart.animate(Snapshot("abc1234"))
-        self.chart._repr_html_()  # pylint: disable=protected-access
+        chart = Chart(display="manual")
+        chart.animate(Snapshot("abc1234"))
+        chart._repr_html_()  # pylint: disable=protected-access
         with self.assertRaises(AssertionError):
-            self.chart._repr_html_()  # pylint: disable=protected-access
+            chart._repr_html_()  # pylint: disable=protected-access
 
     def test_repr_html_after_show(self) -> None:
         """
@@ -462,23 +515,11 @@ class TestChartDisplayOld(TestChartOld):
         It raises an error if called after Chart().show().
         """
 
-        self.chart = Chart(display="manual")
-        self.chart.animate(Snapshot("abc1234"))
-        self.chart.show()
+        chart = Chart(display="manual")
+        chart.animate(Snapshot("abc1234"))
+        chart.show()
         with self.assertRaises(AssertionError):
-            self.chart._repr_html_()  # pylint: disable=protected-access
-
-    def test_show_after_show(self) -> None:
-        """
-        A method for testing Chart().show() method.
-        It raises an error if called after Chart().show().
-        """
-
-        self.chart = Chart(display="manual")
-        self.chart.animate(Snapshot("abc1234"))
-        self.chart.show()
-        with self.assertRaises(AssertionError):
-            self.chart.show()
+            chart._repr_html_()  # pylint: disable=protected-access
 
     def test_show_after_repr_html(self) -> None:
         """
@@ -486,11 +527,11 @@ class TestChartDisplayOld(TestChartOld):
         It raises an error if called after Chart()._repr_html_().
         """
 
-        self.chart = Chart(display="manual")
-        self.chart.animate(Snapshot("abc1234"))
-        self.chart._repr_html_()  # pylint: disable=protected-access
+        chart = Chart(display="manual")
+        chart.animate(Snapshot("abc1234"))
+        chart._repr_html_()  # pylint: disable=protected-access
         with self.assertRaises(AssertionError):
-            self.chart.show()
+            chart.show()
 
     def test_animate_after_repr_html(self) -> None:
         """
@@ -498,23 +539,11 @@ class TestChartDisplayOld(TestChartOld):
         It raises an error if called after Chart()._repr_html_().
         """
 
-        self.chart = Chart(display="manual")
-        self.chart.animate(Snapshot("abc1234"))
-        self.chart._repr_html_()  # pylint: disable=protected-access
+        chart = Chart(display="manual")
+        chart.animate(Snapshot("abc1234"))
+        chart._repr_html_()  # pylint: disable=protected-access
         with self.assertRaises(AssertionError):
-            self.chart.animate(Snapshot("abc1234"))
-
-    def test_animate_after_show(self) -> None:
-        """
-        A method for testing Chart().animate() method.
-        It raises an error if called after Chart().show().
-        """
-
-        self.chart = Chart(display="manual")
-        self.chart.animate(Snapshot("abc1234"))
-        self.chart.show()
-        with self.assertRaises(AssertionError):
-            self.chart.animate(Snapshot("abc1234"))
+            chart.animate(Snapshot("abc1234"))
 
     def test_feature_after_repr_html(self) -> None:
         """
@@ -522,23 +551,11 @@ class TestChartDisplayOld(TestChartOld):
         It raises an error if called after Chart()._repr_html_().
         """
 
-        self.chart = Chart(display="manual")
-        self.chart.animate(Snapshot("abc1234"))
-        self.chart._repr_html_()  # pylint: disable=protected-access
+        chart = Chart(display="manual")
+        chart.animate(Snapshot("abc1234"))
+        chart._repr_html_()  # pylint: disable=protected-access
         with self.assertRaises(AssertionError):
-            self.chart.feature("tooltip", True)
-
-    def test_feature_after_show(self) -> None:
-        """
-        A method for testing Chart().feature() method.
-        It raises an error if called after Chart().show().
-        """
-
-        self.chart = Chart(display="manual")
-        self.chart.animate(Snapshot("abc1234"))
-        self.chart.show()
-        with self.assertRaises(AssertionError):
-            self.chart.feature("tooltip", True)
+            chart.feature("tooltip", True)
 
     def test_store_after_repr_html_(self) -> None:
         """
@@ -546,20 +563,8 @@ class TestChartDisplayOld(TestChartOld):
         It raises an error if called after Chart()._repr_html_().
         """
 
-        self.chart = Chart(display="manual")
-        self.chart.animate(Snapshot("abc1234"))
-        self.chart._repr_html_()  # pylint: disable=protected-access
+        chart = Chart(display="manual")
+        chart.animate(Snapshot("abc1234"))
+        chart._repr_html_()  # pylint: disable=protected-access
         with self.assertRaises(AssertionError):
-            self.chart.store()
-
-    def test_store_after_show(self) -> None:
-        """
-        A method for testing Chart().store() method.
-        It raises an error if called after Chart().show().
-        """
-
-        self.chart = Chart(display="manual")
-        self.chart.animate(Snapshot("abc1234"))
-        self.chart.show()
-        with self.assertRaises(AssertionError):
-            self.chart.store()
+            chart.store()

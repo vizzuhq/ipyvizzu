@@ -1,8 +1,9 @@
-"""A module for testing the ipyvizzu.pyhton.chart module."""
+"""A module for testing the manual ipyvizzu.chart module."""
 
 import unittest
 import unittest.mock
 
+from tests.normalizer import Normalizer
 from tests.chart import (
     TestChartABC,
     TestChartInitABC,
@@ -10,10 +11,12 @@ from tests.chart import (
     TestChartEventsABC,
     TestChartLogsABC,
 )
-from ipyvizzu.python.chart import Chart
+from ipyvizzu import Snapshot
+from ipyvizzu.python.chart import Chart as PythonChart
+from ipyvizzu.streamlit.chart import Chart as StreamlitChart
 
 
-class TestChart(TestChartABC):
+class TestPythonChart(TestChartABC):
     """
     An abstract class for testing Chart() class.
     It is responsible for setup and teardown.
@@ -23,20 +26,27 @@ class TestChart(TestChartABC):
         return "ipyvizzu.python.chart.Chart._display"
 
     def get_chart(self, *args, **kwargs):
-        return Chart(*args, **kwargs)
+        return PythonChart(*args, **kwargs)
 
 
-class TestChartInit(TestChart, TestChartInitABC, unittest.TestCase):
+class TestStreamlitChart(TestChartABC):
+    """
+    An abstract class for testing Chart() class.
+    It is responsible for setup and teardown.
+    """
+
+    def get_mock(self):
+        return "ipyvizzu.streamlit.chart.Chart._display"
+
+    def get_chart(self, *args, **kwargs):
+        return StreamlitChart(*args, **kwargs)
+
+
+class TestChartInit(TestChartInitABC):
     """
     A class for testing Chart() class.
     It tests the constructor of the Chart().
     """
-
-    def _assert_equal(self, *args, **kwargs):
-        self.assertEqual(*args, **kwargs)
-
-    def _assert_raises(self, *args, **kwargs):
-        return self.assertRaises(*args, **kwargs)
 
     def test_init(
         self,
@@ -75,10 +85,10 @@ class TestChartInit(TestChart, TestChartInitABC, unittest.TestCase):
         super().test_init_div(reference)
 
 
-class TestChartMethods(TestChart, TestChartMethodsABC, unittest.TestCase):
+class TestPythonChartInit(TestPythonChart, TestChartInit, unittest.TestCase):
     """
     A class for testing Chart() class.
-    It tests ipyvizzu.method-related methods.
+    It tests the constructor of the Chart().
     """
 
     def _assert_equal(self, *args, **kwargs):
@@ -86,6 +96,31 @@ class TestChartMethods(TestChart, TestChartMethodsABC, unittest.TestCase):
 
     def _assert_raises(self, *args, **kwargs):
         return self.assertRaises(*args, **kwargs)
+
+
+class TestStreamlitChartInit(TestStreamlitChart, TestChartInit, unittest.TestCase):
+    """
+    A class for testing Chart() class.
+    It tests the constructor of the Chart().
+    """
+
+    def _assert_equal(self, *args, **kwargs):
+        self.assertEqual(*args, **kwargs)
+
+    def _assert_raises(self, *args, **kwargs):
+        return self.assertRaises(*args, **kwargs)
+
+    def test_init_div_without_px(self):
+        """A method for testing the "width" and "height" constructor parameters without px unit."""
+        with self.assertRaises(ValueError):
+            self.get_chart(width="400", height="240")
+
+
+class TestChartMethods(TestChartMethodsABC):
+    """
+    A class for testing Chart() class.
+    It tests ipyvizzu.method-related methods.
+    """
 
     def test_animate_one_chart_target(
         self,
@@ -216,10 +251,10 @@ class TestChartMethods(TestChart, TestChartMethodsABC, unittest.TestCase):
         super().test_store(reference)
 
 
-class TestChartEvents(TestChart, TestChartEventsABC, unittest.TestCase):
+class TestChartPythonMethods(TestPythonChart, TestChartMethods, unittest.TestCase):
     """
     A class for testing Chart() class.
-    It tests event-related methods.
+    It tests ipyvizzu.method-related methods.
     """
 
     def _assert_equal(self, *args, **kwargs):
@@ -227,6 +262,28 @@ class TestChartEvents(TestChart, TestChartEventsABC, unittest.TestCase):
 
     def _assert_raises(self, *args, **kwargs):
         return self.assertRaises(*args, **kwargs)
+
+
+class TestChartStreamlitMethods(
+    TestStreamlitChart, TestChartMethods, unittest.TestCase
+):
+    """
+    A class for testing Chart() class.
+    It tests ipyvizzu.method-related methods.
+    """
+
+    def _assert_equal(self, *args, **kwargs):
+        self.assertEqual(*args, **kwargs)
+
+    def _assert_raises(self, *args, **kwargs):
+        return self.assertRaises(*args, **kwargs)
+
+
+class TestChartEvents(TestChartEventsABC):
+    """
+    A class for testing Chart() class.
+    It tests event-related methods.
+    """
 
     def test_on(
         self,
@@ -249,10 +306,10 @@ class TestChartEvents(TestChart, TestChartEventsABC, unittest.TestCase):
         super().test_off(reference)
 
 
-class TestChartLogs(TestChart, TestChartLogsABC, unittest.TestCase):
+class TestPythonChartEvents(TestPythonChart, TestChartEvents, unittest.TestCase):
     """
     A class for testing Chart() class.
-    It tests log-related methods.
+    It tests event-related methods.
     """
 
     def _assert_equal(self, *args, **kwargs):
@@ -260,6 +317,26 @@ class TestChartLogs(TestChart, TestChartLogsABC, unittest.TestCase):
 
     def _assert_raises(self, *args, **kwargs):
         return self.assertRaises(*args, **kwargs)
+
+
+class TestStreamlitChartEvents(TestStreamlitChart, TestChartEvents, unittest.TestCase):
+    """
+    A class for testing Chart() class.
+    It tests event-related methods.
+    """
+
+    def _assert_equal(self, *args, **kwargs):
+        self.assertEqual(*args, **kwargs)
+
+    def _assert_raises(self, *args, **kwargs):
+        return self.assertRaises(*args, **kwargs)
+
+
+class TestChartLogs(TestChartLogsABC):
+    """
+    A class for testing Chart() class.
+    It tests log-related methods.
+    """
 
     def test_log_config(
         self,
@@ -275,3 +352,200 @@ class TestChartLogs(TestChart, TestChartLogsABC, unittest.TestCase):
         """A method for testing Chart().log() method (ChartProperty.STYLE)."""
 
         super().test_log_style(reference)
+
+
+class TestPythonChartLogs(TestPythonChart, TestChartLogs, unittest.TestCase):
+    """
+    A class for testing Chart() class.
+    It tests log-related methods.
+    """
+
+    def _assert_equal(self, *args, **kwargs):
+        self.assertEqual(*args, **kwargs)
+
+    def _assert_raises(self, *args, **kwargs):
+        return self.assertRaises(*args, **kwargs)
+
+
+class TestStreamlitChartLogs(TestStreamlitChart, TestChartLogs, unittest.TestCase):
+    """
+    A class for testing Chart() class.
+    It tests log-related methods.
+    """
+
+    def _assert_equal(self, *args, **kwargs):
+        self.assertEqual(*args, **kwargs)
+
+    def _assert_raises(self, *args, **kwargs):
+        return self.assertRaises(*args, **kwargs)
+
+
+class TestPythonChartShow(unittest.TestCase):
+    """
+    A class for testing Chart() class.
+    It tests display-related methods.
+    """
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.normalizer = Normalizer()
+
+    def test_show(self) -> None:
+        """A method for testing Chart().show() method (display=manual)."""
+
+        chart = PythonChart()
+        display_mock = "ipyvizzu.python.chart.Chart._display"
+        with unittest.mock.patch(display_mock) as output:
+            chart.animate(Snapshot("abc1234"))
+            self.assertEqual(
+                chart._showed,  # pylint: disable=protected-access
+                False,
+            )
+            chart.show()
+            self.assertEqual(
+                chart._showed,  # pylint: disable=protected-access
+                True,
+            )
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(document.getElementById(id), id, 'manual', false, "
+                + "id, "
+                + "undefined);",
+            )
+
+    def test_show_after_show(self) -> None:
+        """
+        A method for testing Chart().show() method.
+        It raises an error if called after Chart().show().
+        """
+
+        chart = PythonChart()
+        chart.animate(Snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart.show()
+
+    def test_animate_after_show(self) -> None:
+        """
+        A method for testing Chart().animate() method.
+        It raises an error if called after Chart().show().
+        """
+
+        chart = PythonChart()
+        chart.animate(Snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart.animate(Snapshot("abc1234"))
+
+    def test_feature_after_show(self) -> None:
+        """
+        A method for testing Chart().feature() method.
+        It raises an error if called after Chart().show().
+        """
+
+        chart = PythonChart()
+        chart.animate(Snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart.feature("tooltip", True)
+
+    def test_store_after_show(self) -> None:
+        """
+        A method for testing Chart().store() method.
+        It raises an error if called after Chart().show().
+        """
+
+        chart = PythonChart()
+        chart.animate(Snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart.store()
+
+
+class TestStreamlitChartShow(unittest.TestCase):
+    """
+    A class for testing Chart() class.
+    It tests display-related methods.
+    """
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.normalizer = Normalizer()
+
+    def setUp(self) -> None:
+        self.patch = unittest.mock.patch("ipyvizzu.streamlit.chart.html")
+        self.trash = self.patch.start()
+
+    def tearDown(self) -> None:
+        self.patch.stop()
+
+    def test_show(self) -> None:
+        """A method for testing Chart().show() method (display=manual)."""
+
+        chart = StreamlitChart()
+        display_mock = "ipyvizzu.streamlit.chart.Chart._display"
+        with unittest.mock.patch(display_mock) as output:
+            chart.animate(Snapshot("abc1234"))
+            self.assertEqual(
+                chart._showed,  # pylint: disable=protected-access
+                False,
+            )
+            chart.show()
+            self.assertEqual(
+                chart._showed,  # pylint: disable=protected-access
+                True,
+            )
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(document.getElementById(id), id, 'manual', false, "
+                + "id, "
+                + "undefined);",
+            )
+
+    def test_show_after_show(self) -> None:
+        """
+        A method for testing Chart().show() method.
+        It raises an error if called after Chart().show().
+        """
+
+        chart = StreamlitChart()
+        chart.animate(Snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart.show()
+
+    def test_animate_after_show(self) -> None:
+        """
+        A method for testing Chart().animate() method.
+        It raises an error if called after Chart().show().
+        """
+
+        chart = StreamlitChart()
+        chart.animate(Snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart.animate(Snapshot("abc1234"))
+
+    def test_feature_after_show(self) -> None:
+        """
+        A method for testing Chart().feature() method.
+        It raises an error if called after Chart().show().
+        """
+
+        chart = StreamlitChart()
+        chart.animate(Snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart.feature("tooltip", True)
+
+    def test_store_after_show(self) -> None:
+        """
+        A method for testing Chart().store() method.
+        It raises an error if called after Chart().show().
+        """
+
+        chart = StreamlitChart()
+        chart.animate(Snapshot("abc1234"))
+        chart.show()
+        with self.assertRaises(AssertionError):
+            chart.store()

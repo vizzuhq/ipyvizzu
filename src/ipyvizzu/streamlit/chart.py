@@ -39,7 +39,6 @@ class Chart(ManualChart):
         assert not self._showed, "cannot be used after chart displayed"
         self._showed = True
         script = "\n".join(self._calls)
-        print(script)
         html(
             f'<div id="{self._init_id}"><script>{script}</script></div>',
             width=self._canvas["width"],

@@ -47,4 +47,4 @@ check-format: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/black --check src tests tools docs
 
 lint: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/pylint src tests tools
+	$(VIRTUAL_ENV)/bin/pylint src tests tools --disable=duplicate-code
