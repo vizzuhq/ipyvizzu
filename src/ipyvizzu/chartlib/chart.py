@@ -25,8 +25,8 @@ class ChartLib(ABC):
 
     @property
     @abstractmethod
-    def display_location(self) -> str:
-        """A property for storing display_location."""
+    def display_location(self):
+        """An abstract property for storing display_location."""
 
     @property
     def chart_id(self) -> str:
@@ -143,7 +143,7 @@ class ChartLib(ABC):
 
     @abstractmethod
     def show(self):
-        """An abstract method for displaying the assembled javascript code."""
+        """An abstract method for displaying/returning the assembled javascript code."""
 
     @abstractmethod
     def _display(self, javascript: str) -> None:
@@ -156,7 +156,7 @@ class ChartLib(ABC):
 
 class ManualChart(ChartLib, ABC):
     """
-    A class for representing a wrapper over Vizzu chart
+    An abstract class for representing a wrapper over Vizzu chart
     that can only be displayed using chart.show().
     """
 
@@ -195,12 +195,12 @@ class ManualChart(ChartLib, ABC):
 
     @property
     @abstractmethod
-    def display_location(self) -> str:
+    def display_location(self):
         """An abstract property for storing display_location."""
 
     @abstractmethod
-    def show(self) -> str:
-        """An abstract method for displaying the assembled javascript code."""
+    def show(self):
+        """An abstract method for displaying/returning the assembled javascript code."""
 
     def _display(self, javascript: str) -> None:
         """A method for assembling the javascript code."""

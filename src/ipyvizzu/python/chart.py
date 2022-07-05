@@ -24,7 +24,7 @@ class Chart(ManualChart):
         return f"document.getElementById('{self._init_id}')"
 
     def show(self) -> str:
-        """A method for displaying the assembled javascript code."""
+        """A method for returning the assembled javascript code."""
 
         assert not self._showed, "cannot be used after chart displayed"
         self._showed = True
