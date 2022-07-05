@@ -20,34 +20,34 @@ from .chartlib.event import EventHandler
 ENV = False
 
 
-if not ENV:
+if not ENV:  # pragma: no cover
     try:
         from IPython import get_ipython
 
-        IPY = get_ipython()
-        if IPY is not None:
-            from .jupyter.chart import Chart
+        IPY = get_ipython()  # pragma: no cover
+        if IPY is not None:  # pragma: no cover
+            from .jupyter.chart import Chart  # pragma: no cover
 
-            ENV = True
+            ENV = True  # pragma: no cover
     except ImportError as error:
         # ipyvizzu is not running in Jupyter environment.
         pass
 
 
-if not ENV:
+if not ENV:  # pragma: no cover
     try:
         from streamlit.scriptrunner.script_run_context import get_script_run_ctx
 
-        if get_script_run_ctx():
-            from .streamlit.chart import Chart
+        if get_script_run_ctx():  # pragma: no cover
+            from .streamlit.chart import Chart  # pragma: no cover
 
-            ENV = True
+            ENV = True  # pragma: no cover
     except ImportError as error:
         # ipyvizzu is not running in Streamlit environment.
         pass
 
 
-if not ENV:
+if not ENV:  # pragma: no cover
     from .python.chart import Chart
 
     ENV = True
