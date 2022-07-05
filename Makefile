@@ -20,7 +20,10 @@ clean:
 	rm -rf $(VIRTUAL_ENV)
 	rm -rf build
 	rm -rf dist
-	rm -rf *.egg-info
+	rm -rf **/*.egg-info
+	rm -rf **/__pycache__
+	rm -rf .coverage
+	rm -rf htmlcov
 
 requirements:
 	$(VIRTUAL_ENV)/bin/pip-compile --upgrade dev-requirements.in
