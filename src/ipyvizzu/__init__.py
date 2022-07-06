@@ -17,37 +17,48 @@ from .chartlib.template import ChartProperty, DisplayTarget, DisplayTemplate
 from .chartlib.event import EventHandler
 
 
-ENV = False
+class Environment:
+    """A class for selecting the runtime environment."""
+
+    # pylint: disable=import-outside-toplevel
+    # pylint: disable=unused-import
+
+    @staticmethod
+    def get_chart() -> None:
+        """A static method for importing the appropriate chart for the environment."""
+
+        if Environment.is_ipython():  # pragma: no cover
+            from .jupyter.chart import Chart
+
+            return Chart
+        elif Environment.is_streamlit():  # pragma: no cover
+            from .streamlit.chart import Chart
+
+            return Chart
+        else:
+            from .python.chart import Chart
+
+            return Chart
+
+    @staticmethod
+    def is_ipython():
+        """A static method for detecting Jupyter environment."""
+        try:
+            from IPython import get_ipython
+
+            return get_ipython()
+        except ImportError:  # pragma: no cover
+            return None
+
+    @staticmethod
+    def is_streamlit():
+        """A static method for detecting Streamlit environment."""
+        try:
+            from streamlit.scriptrunner.script_run_context import get_script_run_ctx
+
+            return get_script_run_ctx()
+        except ImportError:  # pragma: no cover
+            return None
 
 
-if not ENV:  # pragma: no cover
-    try:
-        from IPython import get_ipython
-
-        IPY = get_ipython()  # pragma: no cover
-        if IPY is not None:  # pragma: no cover
-            from .jupyter.chart import Chart  # pragma: no cover
-
-            ENV = True  # pragma: no cover
-    except ImportError as error:
-        # ipyvizzu is not running in Jupyter environment.
-        pass
-
-
-if not ENV:  # pragma: no cover
-    try:
-        from streamlit.scriptrunner.script_run_context import get_script_run_ctx
-
-        if get_script_run_ctx():  # pragma: no cover
-            from .streamlit.chart import Chart  # pragma: no cover
-
-            ENV = True  # pragma: no cover
-    except ImportError as error:
-        # ipyvizzu is not running in Streamlit environment.
-        pass
-
-
-if not ENV:  # pragma: no cover
-    from .python.chart import Chart
-
-    ENV = True
+Chart = Environment.get_chart()
