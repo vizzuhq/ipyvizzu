@@ -28,17 +28,18 @@ class Environment:
         """A static method for importing the appropriate chart for the environment."""
 
         if Environment.is_ipython():  # pragma: no cover
-            from .jupyter.chart import Chart
+            from .jupyter.chart import Chart as JupyterChart
 
-            return Chart
-        elif Environment.is_streamlit():  # pragma: no cover
-            from .streamlit.chart import Chart
+            return JupyterChart
 
-            return Chart
-        else:
-            from .python.chart import Chart
+        if Environment.is_streamlit():  # pragma: no cover
+            from .streamlit.chart import Chart as StreamlitChart
 
-            return Chart
+            return StreamlitChart
+
+        from .python.chart import Chart as PythonChart
+
+        return PythonChart
 
     @staticmethod
     def is_ipython():
