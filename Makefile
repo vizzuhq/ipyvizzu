@@ -17,7 +17,13 @@ $(DEV_BUILD_FLAG):
 	touch $(DEV_BUILD_FLAG)
 
 clean:
-	-rm -rf $(VIRTUAL_ENV)
+	rm -rf $(VIRTUAL_ENV)
+	rm -rf build
+	rm -rf dist
+	rm -rf **/*.egg-info
+	rm -rf **/__pycache__
+	rm -rf .coverage
+	rm -rf htmlcov
 
 requirements:
 	$(VIRTUAL_ENV)/bin/pip-compile --upgrade dev-requirements.in
@@ -41,4 +47,4 @@ check-format: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/black --check src tests tools docs
 
 lint: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/pylint src tests tools
+	$(VIRTUAL_ENV)/bin/pylint src tests tools --disable=duplicate-code
