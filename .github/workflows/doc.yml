@@ -1,18 +1,12 @@
 name: Publish documentation
 
 on:
-  workflow_dispatch:
-  release:
-    types: [published]
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_call:
 
 jobs:
-  build:
+  publish_doc:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v2
@@ -27,8 +21,16 @@ jobs:
           git branch -f gh-pages
           git switch gh-pages
 
-      - name: Build dev environment
-        run: make dev
+      - uses: actions/cache@v3
+        with:
+          path: ./.venv
+          key: venv-${{ github.run_id }}
+
+      - name: Touch dev environment
+        run: make touch-dev
+
+      - name: Set Jupyter kernel
+        run: make install-kernel
 
       - name: Checkout vizzu-lib
         uses: actions/checkout@v2
@@ -36,7 +38,7 @@ jobs:
           repository: vizzuhq/vizzu-lib
           path: tools/example-generator/vizzu-lib
 
-      - name: Generate ipynbs
+      - name: Generate vizzu-lib ipynbs
         run: ./run.sh ../../.venv
         working-directory: tools/example-generator
 

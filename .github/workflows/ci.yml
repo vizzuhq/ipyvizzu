@@ -1,18 +1,30 @@
-name: CI check
+name: CI
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_call:
 
 jobs:
-  build:
 
-    runs-on: ubuntu-latest
+  check_ci:
+
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v2
+
+    - uses: actions/cache@v3
+      with:
+        path: ./.venv
+        key: venv-${{ github.run_id }}
+
+    - name: Touch dev environment
+      run: make touch-dev
           
-    - name: Run CI check
-      run: make check
+    - name: Check format
+      run: make check-format
+
+    - name: Run pylint
+      run: make lint
+
+    - name: Run test
+      run: make test-wo-install
