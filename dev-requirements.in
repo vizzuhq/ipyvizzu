@@ -5,4 +5,5 @@ black[jupyter]
 pylint
 coverage
 notebook
+jupytext
 pandas
