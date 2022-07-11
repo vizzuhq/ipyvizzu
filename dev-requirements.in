@@ -1,8 +1,8 @@
 pip-tools
-notebook
-pandas
+twine
 black
+black[jupyter]
 pylint
 coverage
-jupytext
-tokenize-rt
+notebook
+pandas
