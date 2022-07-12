@@ -39,7 +39,7 @@ class DisplayTemplate:
 
     ANIMATE = (
         "window.ipyvizzu.animate(element, "
-        + "'{chart_id}', '{display_target}', {scroll}, {chart_target}, {chart_anim_opts});"
+        + "'{chart_id}', '{display_target}', {scroll}, lib => {{ return {chart_target} }}, {chart_anim_opts});"
     )
 
     FEATURE = "window.ipyvizzu.feature(element, '{chart_id}', '{name}', {enabled});"
