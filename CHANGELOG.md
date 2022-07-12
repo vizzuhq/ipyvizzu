@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.11.1] - 2022-07-12
+
+### Added
+
+- Added py.typed and typing support.
+
 ## [0.11.0] - 2022-06-30
 
 ### Fixed
