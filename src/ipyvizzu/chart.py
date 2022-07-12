@@ -70,7 +70,7 @@ class Chart:
         self._scroll_into_view = bool(scroll_into_view)
 
     def animate(
-        self, *animations: Animation, **options: Optional[Union[str, dict]]
+        self, *animations: Animation, **options: Optional[Union[str, int, float, dict]]
     ) -> None:
         """A method for animating the chart."""
 
