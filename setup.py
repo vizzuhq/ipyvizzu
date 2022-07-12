@@ -16,7 +16,7 @@ setup(
     license="Apache 2",
     packages=["ipyvizzu"],
     package_dir={"ipyvizzu": "src/ipyvizzu"},
-    package_data={"ipyvizzu": ["templates/*.js"]},
+    package_data={"ipyvizzu": ["py.typed", "templates/*.js"]},
     python_requires=">=3.6",
     install_requires=requirements,
     url="https://github.com/vizzuhq/ipyvizzu",
