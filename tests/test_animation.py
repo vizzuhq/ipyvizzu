@@ -482,7 +482,7 @@ class TestConfig(unittest.TestCase):
 
         animation = Config.column({"x": "foo", "y": "bar"})
         self.assertEqual(
-            {"config": "Vizzu.presets.column({'x': 'foo', 'y': 'bar'})"},
+            {"config": "lib.presets.column({'x': 'foo', 'y': 'bar'})"},
             animation.build(),
         )
 
