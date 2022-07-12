@@ -1,3 +1,4 @@
+pre-commit
 pip-tools
 twine
 black

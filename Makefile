@@ -28,6 +28,7 @@ install-dev-req:
 	python3 -m venv $(VIRTUAL_ENV)
 	$(VIRTUAL_ENV)/bin/python -m pip install --upgrade pip
 	$(VIRTUAL_ENV)/bin/pip install -r dev-requirements.txt
+	$(VIRTUAL_ENV)/bin/pre-commit install
 
 install:
 	$(VIRTUAL_ENV)/bin/python setup.py install
