@@ -108,6 +108,9 @@ ipyvizzu can also be used in a wide variety of environments! Check out the examp
 
 - [VSCode Python example](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/vscode.md)
 
+# Extensions
+
+- [ipyvizzu-story](https://github.com/vizzuhq/ipyvizzu-story) Presentation controls for navigating data stories.
 
 # Contributing
 
