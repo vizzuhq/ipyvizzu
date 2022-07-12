@@ -477,6 +477,15 @@ class TestConfig(unittest.TestCase):
         animation = Config({"color": {"set": ["Genres"]}})
         self.assertEqual({"config": {"color": {"set": ["Genres"]}}}, animation.build())
 
+    def test_config_preset(self) -> None:
+        """A method for testing Config.__getattr__() method."""
+
+        animation = Config.column({"x": "foo", "y": "bar"})
+        self.assertEqual(
+            {"config": "Vizzu.presets.column({'x': 'foo', 'y': 'bar'})"},
+            animation.build(),
+        )
+
 
 class TestStyle(unittest.TestCase):
     """A class for testing Style()."""
