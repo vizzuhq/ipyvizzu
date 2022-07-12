@@ -481,9 +481,10 @@ class TestConfig(unittest.TestCase):
         """A method for testing Config.__getattr__() method."""
 
         animation = Config.column({"x": "foo", "y": "bar"})
+        # instead of build() test with dump() because contains raw js
         self.assertEqual(
-            {"config": "lib.presets.column({'x': 'foo', 'y': 'bar'})"},
-            animation.build(),
+            "{\"config\": lib.presets.column({'x': 'foo', 'y': 'bar'})}",
+            animation.dump(),
         )
 
 

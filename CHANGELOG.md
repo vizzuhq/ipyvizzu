@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Added Config presets support.
+
 ## [0.11.1] - 2022-07-12
 
 ### Added
