@@ -1,6 +1,8 @@
 repos:
+
 - repo: local
   hooks:
+
     - id: format
       stages: [commit]
       name: format
@@ -9,8 +11,10 @@ repos:
       language: system
       types: [python]
       pass_filenames: false
+
 - repo: local
   hooks:
+  
     - id: check-format
       stages: [push]
       name: check-format
@@ -19,8 +23,7 @@ repos:
       language: system
       types: [python]
       pass_filenames: false
-- repo: local
-  hooks:
+
     - id: lint
       stages: [push]
       name: lint
@@ -29,8 +32,7 @@ repos:
       language: system
       types: [python]
       pass_filenames: false
-- repo: local
-  hooks:
+
     - id: check-typing
       stages: [push]
       name: check-typing
@@ -39,8 +41,7 @@ repos:
       language: system
       types: [python]
       pass_filenames: false
-- repo: local
-  hooks:
+
     - id: test
       stages: [push]
       name: test
