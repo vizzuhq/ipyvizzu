@@ -12,9 +12,6 @@ repos:
       types: [python]
       pass_filenames: false
 
-- repo: local
-  hooks:
-  
     - id: check-format
       stages: [push]
       name: check-format

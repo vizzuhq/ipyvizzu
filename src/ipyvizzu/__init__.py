@@ -1,4 +1,4 @@
-"""Jupyter notebook integration of Vizzu."""
+"""IPython - Jupyter notebook integration of Vizzu."""
 
 from .chart import Chart
 from .animation import (
