@@ -4,6 +4,7 @@ twine
 black
 black[jupyter]
 pylint
+mypy
 coverage
 notebook
 jupytext

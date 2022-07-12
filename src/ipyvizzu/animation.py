@@ -2,12 +2,13 @@
 
 import abc
 from enum import Enum
+from os import PathLike
 import json
-from typing import Optional, List, Union
-import jsonschema
+from typing import Optional, Union, List
+import jsonschema  # type: ignore
 
-import pandas as pd
-from pandas.api.types import is_numeric_dtype
+import pandas as pd  # type: ignore
+from pandas.api.types import is_numeric_dtype  # type: ignore
 
 from ipyvizzu.json import RawJavaScript, RawJavaScriptEncoder
 from ipyvizzu.schema import DATA_SCHEMA
@@ -25,7 +26,7 @@ class Animation:
         return json.dumps(self.build(), cls=RawJavaScriptEncoder)
 
     @abc.abstractmethod
-    def build(self) -> Optional[dict]:
+    def build(self) -> dict:
         """
         A method for returning a dictionary
         with native python values that can be converted into json.
@@ -66,15 +67,15 @@ class Data(dict, Animation):
     def set_filter(self, filter_expr: Optional[str] = None) -> None:
         """A method used to add a filter to a Data() class instance."""
 
-        filter_expr = (
+        filter_expr_raw_js = (
             RawJavaScript(f"record => {{ return ({' '.join(filter_expr.split())}) }}")
             if filter_expr is not None
             else filter_expr
         )
-        self.update({"filter": filter_expr})
+        self.update({"filter": filter_expr_raw_js})
 
     @classmethod
-    def from_json(cls, filename: Optional[str]):  # -> Data:
+    def from_json(cls, filename: Union[str, bytes, PathLike]):  # -> Data:
         """A method for returning a Data() class which created from a json file."""
 
         with open(filename, "r", encoding="utf8") as file_desc:
@@ -170,7 +171,7 @@ class Data(dict, Animation):
         value = {"name": name, **kwargs}
 
         if values is not None:
-            value["values"] = values
+            value["values"] = values  # type: ignore
 
         self._add_value(dest, value)
 
@@ -219,7 +220,7 @@ class Snapshot(Animation):
 
         return f"'{self._name}'"
 
-    def build(self) -> NotImplementedError:
+    def build(self):
         raise NotImplementedError("Snapshot cannot be merged with other Animations")
 
 

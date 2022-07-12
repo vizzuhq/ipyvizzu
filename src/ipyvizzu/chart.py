@@ -2,10 +2,10 @@
 
 import pkgutil
 import uuid
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Tuple
 
-from IPython.display import display_javascript
-from IPython import get_ipython
+from IPython.display import display_javascript  # type: ignore
+from IPython import get_ipython  # type: ignore
 
 from ipyvizzu.animation import Animation, Snapshot, AnimationMerger
 from ipyvizzu.method import Animate, Feature, Store, EventOn, EventOff, Log
@@ -23,17 +23,18 @@ class Chart:
         vizzu: Optional[str] = VIZZU,
         width: Optional[str] = "800px",
         height: Optional[str] = "480px",
-        display: Optional[DisplayTarget] = DisplayTarget.ACTUAL,
+        display: Optional[Union[DisplayTarget, str]] = DisplayTarget.ACTUAL,
     ):
         self._chart_id = uuid.uuid4().hex[:7]
 
         self._display_target = DisplayTarget(display)
-        self._calls = []
+        self._calls: List[str] = []
         self._showed = False
 
         self._scroll_into_view = False
 
-        ipyvizzujs = pkgutil.get_data(__name__, "templates/ipyvizzu.js").decode("utf-8")
+        ipyvizzurawjs = pkgutil.get_data(__name__, "templates/ipyvizzu.js")
+        ipyvizzujs = ipyvizzurawjs.decode("utf-8")  # type: ignore
         self._display(DisplayTemplate.IPYVIZZUJS.format(ipyvizzujs=ipyvizzujs))
 
         self._display(
@@ -68,7 +69,9 @@ class Chart:
     def scroll_into_view(self, scroll_into_view: Optional[bool]):
         self._scroll_into_view = bool(scroll_into_view)
 
-    def animate(self, *animations: Animation, **options: Optional[dict]) -> None:
+    def animate(
+        self, *animations: Animation, **options: Optional[Union[str, dict]]
+    ) -> None:
         """A method for animating the chart."""
 
         if not animations:
@@ -88,7 +91,7 @@ class Chart:
 
     @staticmethod
     def _merge_animations(
-        animations: List[Animation],
+        animations: Tuple[Animation, ...],
     ) -> Union[Animation, AnimationMerger]:
         if len(animations) == 1:
             return animations[0]

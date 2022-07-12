@@ -1,7 +1,7 @@
 """A module for preprocessing notebook files."""
 
 import re
-from nbconvert.preprocessors import Preprocessor
+from nbconvert.preprocessors import Preprocessor  # type: ignore
 
 
 class NbPreprocessor(Preprocessor):

@@ -15,6 +15,8 @@ class TestChart(unittest.TestCase, abc.ABC):
     It is responsible for setup and teardown.
     """
 
+    normalizer: Normalizer
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.normalizer = Normalizer()
@@ -453,7 +455,7 @@ class TestChartLogs(TestChart):
         """A method for testing Chart().log() method with an invalid value."""
 
         with self.assertRaises(AttributeError):
-            self.chart.log(ChartProperty.INVALID)  # pylint: disable=no-member
+            self.chart.log(ChartProperty.INVALID)  # type: ignore  # pylint: disable=no-member
 
 
 class TestChartDisplay(TestChart):

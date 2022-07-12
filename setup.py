@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from setuptools import setup
 
-with open('requirements.txt') as fp:
+with open("requirements.txt") as fp:
     requirements = fp.read().splitlines()
 
 with open("README.md") as fp:
@@ -14,10 +14,10 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="Apache 2",
-    packages=['ipyvizzu'],
-    package_dir={'ipyvizzu': 'src/ipyvizzu'},
-    package_data={'ipyvizzu': ['templates/*.js']},
-    python_requires='>=3.6',
+    packages=["ipyvizzu"],
+    package_dir={"ipyvizzu": "src/ipyvizzu"},
+    package_data={"ipyvizzu": ["templates/*.js"]},
+    python_requires=">=3.6",
     install_requires=requirements,
     url="https://github.com/vizzuhq/ipyvizzu",
     project_urls={

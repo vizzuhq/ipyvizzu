@@ -26,5 +26,8 @@ jobs:
     - name: Run pylint
       run: make lint
 
+    - name: Check typing
+      run: make check-typing
+
     - name: Run test
       run: make test-wo-install

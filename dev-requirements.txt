@@ -139,8 +139,12 @@ mdurl==0.1.1
     # via markdown-it-py
 mistune==0.8.4
     # via nbconvert
+mypy==0.961
+    # via -r dev-requirements.in
 mypy-extensions==0.4.3
-    # via black
+    # via
+    #   black
+    #   mypy
 nbclient==0.6.6
     # via nbconvert
 nbconvert==6.5.0
@@ -274,6 +278,7 @@ tomli==2.0.1
     # via
     #   black
     #   build
+    #   mypy
     #   pep517
     #   pylint
 tomlkit==0.11.1
@@ -301,6 +306,7 @@ typing-extensions==4.3.0
     # via
     #   astroid
     #   black
+    #   mypy
     #   pylint
     #   rich
 urllib3==1.26.10

@@ -26,7 +26,8 @@ class TestMethod(unittest.TestCase):
         """A method for testing Method().dump() return value."""
 
         method = Method()
-        self.assertEqual(None, method.dump())
+        with self.assertRaises(AttributeError):
+            method.dump()
 
     def test_animate_with_anim_without_option(self) -> None:
         """

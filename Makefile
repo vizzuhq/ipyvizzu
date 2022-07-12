@@ -1,6 +1,6 @@
 .PHONY: clean \
 	clean-dev update-dev-req install-dev-req install install-kernel touch-dev \
-	check format check-format lint clean-test test-wo-install test \
+	check format check-format lint check-typing clean-test test-wo-install test \
 	clean-doc \
 	clean-build build-release check-release release
 
@@ -51,7 +51,7 @@ $(DEV_BUILD_FLAG):
 
 # ci
 
-check: check-format lint test
+check: check-format lint check-typing test
 
 format: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/black src tests docs tools
@@ -61,6 +61,9 @@ check-format: $(DEV_BUILD_FLAG)
 
 lint: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/bin/pylint src tests tools
+
+check-typing: $(DEV_BUILD_FLAG)
+	$(VIRTUAL_ENV)/bin/mypy src tests tools
 
 clean-test:
 	rm -rf .coverage

@@ -4,8 +4,8 @@
 import json
 import pathlib
 import unittest
-import jsonschema
-import pandas as pd
+import jsonschema  # type: ignore
+import pandas as pd  # type: ignore
 
 from ipyvizzu import (
     PlainAnimation,
@@ -87,6 +87,8 @@ class TestDataClassmethods(unittest.TestCase):
     It tests classmethods.
     """
 
+    asset_dir: pathlib.Path
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.asset_dir = pathlib.Path(__file__).parent / "assets"
@@ -149,6 +151,8 @@ class TestData(unittest.TestCase):
     A class for testing Data() class.
     It tests instance methods.
     """
+
+    asset_dir: pathlib.Path
 
     @classmethod
     def setUpClass(cls) -> None:

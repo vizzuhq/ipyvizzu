@@ -13,9 +13,9 @@ class Method:
 
     # pylint: disable=too-few-public-methods
 
-    _data = None
+    _data: dict
 
-    def dump(self) -> None:
+    def dump(self) -> dict:
         """A method for returning the stored data."""
 
         return self._data
