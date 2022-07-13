@@ -16,6 +16,8 @@ if (!window.IpyVizzu) {
             this.displays = {};
 
             this.events = {};
+            this.loaded = {};
+            this.libs = {};
         }
 
         static clearInhibitScroll(element)
@@ -27,17 +29,22 @@ if (!window.IpyVizzu) {
         createChart(element, chartId, vizzulib, divWidth, divHeight) {
             this.elements[chartId] = document.createElement("div");
             this.elements[chartId].style.cssText = `width: ${divWidth}; height: ${divHeight};`;
-            this.charts[chartId] = import(vizzulib).then(Vizzu => new Vizzu.default(this.elements[chartId]).initializing);
+            this.loaded[chartId] = import(vizzulib);
+            this.charts[chartId] = this.loaded[chartId].then(Vizzu => {
+                this.libs[chartId] = Vizzu.default;
+                return new Vizzu.default(this.elements[chartId]).initializing
+            });
             this._moveHere(chartId, element);
         }
 
-        animate(element, chartId, displayTarget, scrollEnabled, chartTarget, chartAnimOpts)
+        animate(element, chartId, displayTarget, scrollEnabled, getChartTarget, chartAnimOpts)
         {
             if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
             if (displayTarget === 'end') this._moveHere(chartId, element);
             this.charts[chartId] = this.charts[chartId].then(chart => {
                 if (displayTarget === 'actual') this._moveHere(chartId, element);
                 this._scroll(chartId, scrollEnabled);
+                let chartTarget = getChartTarget(this.libs[chartId]);
                 if (typeof chartTarget === 'string') chartTarget = this.snapshots[chartTarget];
                 return chart.animate(chartTarget, chartAnimOpts);
             });

@@ -477,6 +477,16 @@ class TestConfig(unittest.TestCase):
         animation = Config({"color": {"set": ["Genres"]}})
         self.assertEqual({"config": {"color": {"set": ["Genres"]}}}, animation.build())
 
+    def test_config_preset(self) -> None:
+        """A method for testing Config.__getattr__() method."""
+
+        animation = Config.column({"x": "foo", "y": "bar"})
+        # instead of build() test with dump() because contains raw js
+        self.assertEqual(
+            "{\"config\": lib.presets.column({'x': 'foo', 'y': 'bar'})}",
+            animation.dump(),
+        )
+
 
 class TestStyle(unittest.TestCase):
     """A class for testing Style()."""
