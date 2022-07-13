@@ -1,5 +1,17 @@
 import fs from 'fs';
 
+class PresetsMock {
+	constructor() {
+		return new Proxy(this, {
+			get: (target, prop) => {
+				return function(obj)  {
+					return `Config.${prop}(${JSON.stringify(obj, null, 2)})`;
+				};
+			},
+		});
+	}
+}
+
 class VizzuMock 
 {
 	constructor(datafilename) 
@@ -52,7 +64,14 @@ title: ipyvizzu - Example
 		}
 		if (chart.config)
 		{
-			params.push("Config(" + JSON.stringify(chart.config, null, 2) + ")");
+			if (chart.config.startsWith('Config.'))
+			{
+				params.push(chart.config);
+			}
+			else
+			{
+				params.push("Config(" + JSON.stringify(chart.config, null, 2) + ")");
+			}
 		}
 		if (chart.style)
 		{
@@ -91,6 +110,11 @@ ${fullCode}
 
 `
 		;
+	}
+
+	static get presets()
+	{
+		return new PresetsMock();
 	}
 
 	getCode()
