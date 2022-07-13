@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [0.12.0] - 2022-07-13
+
+### Added
+
+- Added Config presets support.
+- Changed Vizzu's version to 0.5.x.
+
 ## [0.11.1] - 2022-07-12
 
 ### Added

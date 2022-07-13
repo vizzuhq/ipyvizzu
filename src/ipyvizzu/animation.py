@@ -195,7 +195,7 @@ class ConfigAttr(type):
         return config_attr._get_preset  # pylint: disable=no-member
 
     def _get_preset(cls, preset):
-        config = Config(f"lib.presets.{cls.name}({preset})")
+        config = Config(RawJavaScript(f"lib.presets.{cls.name}({preset})"))
         return config
 
 

@@ -16,7 +16,7 @@ from ipyvizzu.event import EventHandler
 class Chart:
     """A class for representing a wrapper over Vizzu chart."""
 
-    VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@~0.4.0/dist/vizzu.min.js"
+    VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@~0.5.0/dist/vizzu.min.js"
 
     def __init__(
         self,
@@ -70,7 +70,7 @@ class Chart:
         self._scroll_into_view = bool(scroll_into_view)
 
     def animate(
-        self, *animations: Animation, **options: Optional[Union[str, dict]]
+        self, *animations: Animation, **options: Optional[Union[str, int, float, dict]]
     ) -> None:
         """A method for animating the chart."""
 

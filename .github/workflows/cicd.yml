@@ -24,4 +24,5 @@ jobs:
 
   release:
     uses: ./.github/workflows/release.yml
+    secrets: inherit
     needs: doc
