@@ -89,7 +89,7 @@ make doc
 ```
 
 The documentation will be published to the gh-pages branch with the `doc` workflow.
-Online version can be read at [ipyvizzu.com](https://ipyvizzu.vizzuhq.com/).
+Online version can be read at [ipyvizzu.com](https://ipyvizzu.vizzuhq.com).
 
 The static and animated chart examples are generated from the [vizzu-lib](https://github.com/vizzuhq/vizzu-lib) repository.
 If you would like to build them too, run the following commands.
@@ -104,7 +104,7 @@ make doc
 
 ### Release
 
-ipyvizzu is distributed on [pypi](https://pypi.org/project/ipyvizzu/). **Note:** You need to be an administrator to release the project.
+ipyvizzu is distributed on [pypi](https://pypi.org/project/ipyvizzu). **Note:** You need to be an administrator to release the project.
 
 If you want to release ipyvizzu follow the steps below.
 
@@ -112,7 +112,7 @@ If you want to release ipyvizzu follow the steps below.
 
 - Create the release notes from the [CHANGELOG](https://github.com/vizzuhq/ipyvizzu/blob/main/CHANGELOG.md) and publish the new release on [Releases](https://github.com/vizzuhq/ipyvizzu/releases).
 
- **Note:** Publishing a new release will automatically trigger the `release` workflow which builds, checks and uploads the ipyvizzu package to [pypi](https://pypi.org/project/ipyvizzu/).
+ **Note:** Publishing a new release will automatically trigger the `release` workflow which builds, checks and uploads the ipyvizzu package to [pypi](https://pypi.org/project/ipyvizzu).
 
 You can build and check the package before a release with the `release` make target.
 

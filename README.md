@@ -15,7 +15,7 @@
 
 # About The Project
 
-ipyvizzu is the [Jupyter Notebook](https://jupyter.org/) integration of [Vizzu](https://github.com/vizzuhq/vizzu-lib). ipyvizzu enables data scientists and analysts to utilize animation for storytelling with data using Python.
+ipyvizzu is the [Jupyter Notebook](https://jupyter.org) integration of [Vizzu](https://github.com/vizzuhq/vizzu-lib). ipyvizzu enables data scientists and analysts to utilize animation for storytelling with data using Python.
 
 Similar to Vizzu, which is a free, open-source Javascript/C++ library, ipyvizzu also utilizes a generic dataviz engine that generates many types of charts and seamlessly animates between them. It is designed for building animated data stories as it enables showing different perspectives of the data that the viewers can easily follow.
 
