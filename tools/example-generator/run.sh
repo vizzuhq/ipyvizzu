@@ -21,48 +21,7 @@ ${venv}/bin/jupytext --to notebook ${docsDir}/index.md
 
 rm ${docsDir}/index.md
 
-read -r -d '' presetExamples <<- EOM
-  ${testcaseDir}/preset/02_C_R_column.mjs
-  ${testcaseDir}/preset/03_C_R_grouped_column_negative.mjs
-  ${testcaseDir}/preset/04_C_R_stacked_column.mjs
-  ${testcaseDir}/preset/05_C_R_splitted_column.mjs
-  ${testcaseDir}/preset/06_C_R_percentage_column.mjs
-  ${testcaseDir}/preset/08_C_R_waterfall.mjs
-  ${testcaseDir}/preset/09_C_R_stacked_mekko.mjs
-  ${testcaseDir}/preset/10_C_R_marimekko.mjs
-  ${testcaseDir}/preset/13_C_R_bar_negative.mjs
-  ${testcaseDir}/preset/14_C_R_grouped_bar_negative.mjs
-  ${testcaseDir}/preset/15_C_R_stacked_bar.mjs
-  ${testcaseDir}/preset/16_C_R_splitted_bar.mjs
-  ${testcaseDir}/preset/17_C_R_percentage_bar.mjs
-  ${testcaseDir}/preset/20_C_C_lollipop chart.mjs
-  ${testcaseDir}/preset/22_C_C_scatter.mjs
-  ${testcaseDir}/preset/24_C_C_bubbleplot.mjs
-  ${testcaseDir}/preset/27_C_A_area_negative.mjs
-  ${testcaseDir}/preset/28_C_A_stacked_area.mjs
-  ${testcaseDir}/preset/31_C_A_splitted_area.mjs
-  ${testcaseDir}/preset/32_C_A_stream.mjs
-  ${testcaseDir}/preset/33_C_A_vertical_stream.mjs
-  ${testcaseDir}/preset/34_C_A_violin.mjs
-  ${testcaseDir}/preset/35_C_A_vertical_violin.mjs
-  ${testcaseDir}/preset/38_C_L_line.mjs
-  ${testcaseDir}/preset/39_C_L_vertical_line.mjs
-  ${testcaseDir}/preset/40_P_R_pie.mjs
-  ${testcaseDir}/preset/42a_P_R_polar_stacked_column.mjs
-  ${testcaseDir}/preset/42_P_R_polar_column.mjs
-  ${testcaseDir}/preset/44_P_R_variable_radius_pie_chart.mjs
-  ${testcaseDir}/preset/49_P_R_radial_bar.mjs
-  ${testcaseDir}/preset/50_P_R_radial_stacked_bar.mjs
-  ${testcaseDir}/preset/51_P_R_donut.mjs
-  ${testcaseDir}/preset/52_P_R_nested_donut.mjs
-  ${testcaseDir}/preset/53_P_C_polar_scatter.mjs
-  ${testcaseDir}/preset/56_P_A_polar_line.mjs
-  ${testcaseDir}/preset/58_W_R_treemap.mjs
-  ${testcaseDir}/preset/59_W_R_stacked_treemap.mjs
-  ${testcaseDir}/preset/60_W_R_heatmap.mjs
-  ${testcaseDir}/preset/61_W_R_bubble_chart.mjs
-  ${testcaseDir}/preset/62_W_R_stacked_bubble.mjs
-EOM
+presetExamples=$( find ${testcaseDir}/preset/ -name "*.mjs" | sort )
 
 staticExamples=$( find ${testcaseDir}/sample_static/ -name "*.mjs" )
 
