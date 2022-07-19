@@ -72,7 +72,7 @@ make check-typing
 
 #### Testing
 
-The ipyvizzu project is tested with `unittest` testing framework and .
+The ipyvizzu project is tested with `unittest` testing framework.
 
 Run the `test` make target to install ipyvizzu into your virtual environmnt and run the tests.
 
