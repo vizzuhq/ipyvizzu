@@ -111,7 +111,7 @@ ipyvizzu can also be used in a wide variety of environments! Check out the examp
 
 # Contributing
 
-We welcome contributions to the project, visit our [contributing guide](https://github.com/vizzuhq/ipyvizzu/blob/main/CONTRIBUTING.md) for further info.
+We welcome contributions to the project, visit our contributing [guide](https://github.com/vizzuhq/ipyvizzu/blob/main/CONTRIBUTING.md) for further info.
 
 # Contact
 
