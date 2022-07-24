@@ -39,7 +39,7 @@ You can also use ipyvizzu by locally installing Vizzu, you can find more info ab
 You can create the animation below with the following code snippet.
 
 Visit our [documentation](https://ipyvizzu.vizzuhq.com/doc.html) site for more details and a step-by-step tutorial into ipyvizzu
-or check out our [example gallery](http://ipyvizzu.vizzuhq.com/examples/examples.html).
+or check out our example [gallery](http://ipyvizzu.vizzuhq.com/examples/examples.html).
 
 <p align="center">
   <img src="https://github.com/vizzuhq/ipyvizzu/raw/main/docs/assets/ipyvizzu-promo.gif" alt="ipyvizzu" />
