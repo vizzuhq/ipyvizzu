@@ -28,18 +28,22 @@ Main features:
 # Installation
 
 ipyvizzu requires `IPython` and `pandas` packages.
-However you can use it only in Jupyter Notebook therefore `notebook` project has to be installed.
 
 ```sh
 pip install ipyvizzu
-pip install notebook
 ```
 You can also use ipyvizzu by locally installing Vizzu, you can find more info about this in the [documentation](https://ipyvizzu.vizzuhq.com/doc.html)
 
 # Usage
 
-ipyvizzu only works in Jupiter Notebook environment.
-A notebook cell may contain the following code snippet resulting in the animation below.
+You can create the animation below with the following code snippet.
+
+Visit our [documentation](https://ipyvizzu.vizzuhq.com/doc.html) site for more details and a step-by-step tutorial into ipyvizzu
+or check out our [example gallery](http://ipyvizzu.vizzuhq.com/examples/examples.html).
+
+<p align="center">
+  <img src="https://github.com/vizzuhq/ipyvizzu/raw/main/docs/assets/ipyvizzu-promo.gif" alt="ipyvizzu" />
+</p>
 
 ```python
 import pandas as pd
@@ -74,13 +78,6 @@ chart.animate(
 )
 chart.animate(Config({"x": "Count", "y": ["Sex", "Survived"]}))
 ```
-
-<p align="center">
-  <img src="https://github.com/vizzuhq/ipyvizzu/raw/main/docs/assets/ipyvizzu-promo.gif" alt="ipyvizzu" />
-</p>
-
-Visit our [documentation](https://ipyvizzu.vizzuhq.com/doc.html) site for more details and a step-by-step tutorial into ipyvizzu,
-or check out the [example gallery](http://ipyvizzu.vizzuhq.com/examples/examples.html).
 
 # Tools Support
 
@@ -120,7 +117,7 @@ We welcome contributions to the project, visit our [contributing guide](https://
 
 * Join our Slack if you have any questions or comments: [vizzu-community.slack.com](https://join.slack.com/t/vizzu-community/shared_invite/zt-w2nqhq44-2CCWL4o7qn2Ns1EFSf9kEg)
 * Drop us a line at hello@vizzuhq.com
-* Follow us on Twitter: [https://twitter.com/VizzuHQ](https://twitter.com/VizzuHQ)
+* Follow us on Twitter: [VizzuHQ](https://twitter.com/VizzuHQ)
 
 # License
 
