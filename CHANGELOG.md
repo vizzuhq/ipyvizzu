@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Fixed requirements, added jsonschema.
+
 ## [0.12.0] - 2022-07-13
 
 ### Added

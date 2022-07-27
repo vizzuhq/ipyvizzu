@@ -29,7 +29,7 @@ Main features:
 
 # Installation
 
-ipyvizzu requires the `IPython` and `pandas` packages.
+ipyvizzu requires the `IPython`, `jsonschema` and `pandas` packages.
 
 ```sh
 pip install ipyvizzu
