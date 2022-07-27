@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/vizzuhq/ipyvizzu/">
+  <a href="https://github.com/vizzuhq/ipyvizzu">
     <img src="https://github.com/vizzuhq/vizzu-lib-doc/raw/main/docs/readme/infinite-60.gif" alt="Vizzu" />
   </a>
   <p align="center"><b>ipyvizzu</b> - Build animated charts in Jupyter notebook with a simple Python synthax.</p>
@@ -15,7 +15,7 @@
 
 # About The Project
 
-ipyvizzu is an animated charting tool for [Jupyter](https://jupyter.org), [Google Colab](https://colab.research.google.com/), [Databricks](https://docs.databricks.com/notebooks/index.html), [Kaggle](https://www.kaggle.com/code) and [Deepnote](https://deepnote.com/) notebooks among other platforms. ipyvizzu enables data scientists and analysts to utilize animation for storytelling with data using Python. It's built on the open-source Javascript/C++ charting library [Vizzu](https://github.com/vizzuhq/vizzu-lib)
+ipyvizzu is an animated charting tool for [Jupyter](https://jupyter.org), [Google Colab](https://colab.research.google.com), [Databricks](https://docs.databricks.com/notebooks), [Kaggle](https://www.kaggle.com/code) and [Deepnote](https://deepnote.com) notebooks among other platforms. ipyvizzu enables data scientists and analysts to utilize animation for storytelling with data using Python. It's built on the open-source Javascript/C++ charting library [Vizzu](https://github.com/vizzuhq/vizzu-lib)
 
 **There is a new extension of ipyvizzu, [ipyvizzu-story](https://github.com/vizzuhq/ipyvizzu-story)** with which the animated charts can be presented right from the notebooks. Since ipyvizzu-story's synthax is a bit different to ipyvizzu's, we suggest you to start from the [ipyvizzu-story repo](https://github.com/vizzuhq/ipyvizzu-story) if you're interested in using animated charts to present your findings live or to share your presentation as an HTML file.
 
@@ -48,7 +48,9 @@ You can create the animation below with the following code snippet.
 import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
-data_frame = pd.read_csv("https://raw.githubusercontent.com/vizzuhq/ipyvizzu/main/docs/examples/stories/titanic/titanic.csv")
+data_frame = pd.read_csv(
+    "https://raw.githubusercontent.com/vizzuhq/ipyvizzu/main/docs/examples/stories/titanic/titanic.csv"
+)
 data = Data()
 data.add_data_frame(data_frame)
 

@@ -1,6 +1,6 @@
 {
-    "name": "@vizzu/ipyvizzu",
-    "description": "ipyvizzu is the Jupyter Notebook integration of Vizzu.",
+    "name": "ipyvizzu",
+    "description": "Build animated charts in Jupyter notebook with a simple Python synthax.",
     "keywords": [
         "chart",
         "charts",
@@ -14,7 +14,7 @@
         "charting",
         "datavisualization"
     ],
-    "homepage": "http://ipyvizzu.vizzuhq.com/",
+    "homepage": "http://ipyvizzu.vizzuhq.com",
     "url": "https://github.com/vizzuhq/ipyvizzu/issues",
     "email": "hello@vizzuhq.com",
     "license": "Apache-2.0",

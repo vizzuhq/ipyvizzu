@@ -10,7 +10,7 @@ with open("README.md") as fp:
 setup(
     name="ipyvizzu",
     version="0.12.0",
-    description="ipyvizzu is the Jupyter Notebook integration of Vizzu.",
+    description="Build animated charts in Jupyter notebook with a simple Python synthax.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="Apache 2",
@@ -21,7 +21,7 @@ setup(
     install_requires=requirements,
     url="https://github.com/vizzuhq/ipyvizzu",
     project_urls={
-        "Documentation": "https://ipyvizzu.vizzuhq.com/",
+        "Documentation": "https://ipyvizzu.vizzuhq.com",
         "Source": "https://github.com/vizzuhq/ipyvizzu",
         "Tracker": "https://github.com/vizzuhq/ipyvizzu/issues",
     },
