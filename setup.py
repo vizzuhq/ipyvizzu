@@ -9,7 +9,7 @@ with open("README.md") as fp:
 
 setup(
     name="ipyvizzu",
-    version="0.12.0",
+    version="0.12.1",
     description="Build animated charts in Jupyter notebook with a simple Python synthax.",
     long_description=long_description,
     long_description_content_type="text/markdown",
