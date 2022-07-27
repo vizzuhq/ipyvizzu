@@ -4,6 +4,8 @@
 
 ## [0.12.1] - 2022-07-27
 
+### Fixed
+
 - Fixed requirements, added jsonschema.
 
 ## [0.12.0] - 2022-07-13
