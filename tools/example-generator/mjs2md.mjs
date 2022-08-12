@@ -64,7 +64,7 @@ title: ipyvizzu - Example
 		}
 		if (chart.config)
 		{
-			if (chart.config.startsWith('Config.'))
+			if (chart.config instanceof String && chart.config.startsWith('Config.'))
 			{
 				params.push(chart.config);
 			}
