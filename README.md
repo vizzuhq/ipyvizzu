@@ -97,6 +97,8 @@ ipyvizzu can be used in a wide variety of environments. We prepared examples and
 
 - [Google Colab](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/colab.md) and interactive demo [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/19H4etDPuSyJ3LNJbshsfEAnxxwjJgZgq?usp=sharing)
 
+- [JupyterLab](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/jupyterlab.md)
+
 - [JupyterLite](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/jupyterlite.md)
 
 - [Kaggle](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/kaggle.md) and interactive demo [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/dvidandrsvgh/ipyvizzu-demo)
