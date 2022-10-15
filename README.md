@@ -105,6 +105,8 @@ ipyvizzu can be used in a wide variety of environments. We prepared examples and
 
 - [Mode](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/mode.md)
 
+- [Noteable](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/noteable.md)
+
 - [Panel](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/panel.md)
 
 - [Streamlit](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/streamlit.md)
