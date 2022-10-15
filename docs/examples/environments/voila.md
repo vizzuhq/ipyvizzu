@@ -19,7 +19,7 @@ You can use ipyvizzu in Voilà with the following restrictions:
 | Properties:                                                                                |                    |
 | Scroll into view (scroll_into_view=True)                                                   | :white_check_mark: |
 
-Try ipyvizzu with this working example below (it is not necessary to put the code into different cells):
+Try ipyvizzu with this working example below (it is not necessary to put the code into different cells) - create ipyvizzu_demo.ipynb:
 
 ```python
 # cell 1
@@ -70,10 +70,10 @@ chart.animate(Style({"title": {"fontSize": 35}}))
 # chart
 ```
 
-Install dependencies and run ipyvizzu_demo.py with Voilà.
+Install dependencies and run ipyvizzu_demo.ipynb with Voilà.
 
 ```sh
 pip install ipyvizzu pandas voila
 
-voila ipyvizzu_demo.py
+voila ipyvizzu_demo.ipynb
 ```
