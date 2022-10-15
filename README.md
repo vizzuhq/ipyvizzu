@@ -109,6 +109,8 @@ ipyvizzu can be used in a wide variety of environments. We prepared examples and
 
 - [Streamlit](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/streamlit.md)
 
+- [Voilà](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/voila.md)
+
 - [VSCode](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/vscode.md)
 
 # Extensions
