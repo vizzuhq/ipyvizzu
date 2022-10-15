@@ -51,13 +51,13 @@ gender = 'male'
 # import pandas and ipyvizzu and initialize chart
 
 import pandas as pd
-from ipyvizzu import Chart, Data, Config, Style
+from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 
 chart = Chart(width="640px", height="360px")
-# chart = Chart(width="640px", height="360px", display="begin")
-# chart = Chart(width="640px", height="360px", display="actual")  # default
-# chart = Chart(width="640px", height="360px", display="end")
-# chart = Chart(width="640px", height="360px", display="manual")
+# chart = Chart(width="640px", height="360px", display=DisplayTarget.BEGIN)
+# chart = Chart(width="640px", height="360px", display=DisplayTarget.ACTUAL)  # default
+# chart = Chart(width="640px", height="360px", display=DisplayTarget.END)
+# chart = Chart(width="640px", height="360px", display=DisplayTarget.MANUAL)
 ```
 
 ```python
@@ -97,7 +97,7 @@ chart.animate(data_filter)
 
 ```python
 # cell 6
-# display chart with show() method if display="manual"
+# display chart with show() method if display=DisplayTarget.MANUAL
 
 # chart.show()
 ```

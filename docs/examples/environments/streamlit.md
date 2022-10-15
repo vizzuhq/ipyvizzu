@@ -31,14 +31,14 @@ Create ipyvizzu_demo.py:
 
 from streamlit.components.v1 import html
 import pandas as pd
-from ipyvizzu import Chart, Data, Config, Style
+from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 
 
 def create_chart():
 
     # initialize chart
 
-    chart = Chart(width="640px", height="360px", display="manual")
+    chart = Chart(width="640px", height="360px", display=DisplayTarget.MANUAL)
 
 
     # add data

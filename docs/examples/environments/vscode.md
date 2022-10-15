@@ -33,10 +33,10 @@ Try ipyvizzu with this working example below (it is not necessary to put the cod
 # import pandas and ipyvizzu and initialize chart
 
 import pandas as pd
-from ipyvizzu import Chart, Data, Config, Style
+from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 
 
-chart = Chart(width="640px", height="360px", display="manual")
+chart = Chart(width="640px", height="360px", display=DisplayTarget.MANUAL)
 ```
 
 ```python
@@ -68,7 +68,7 @@ chart.animate(Style({"title": {"fontSize": 35}}))
 
 ```python
 # cell 6
-# display chart with _repr_html_() method if display="manual"
+# display chart with _repr_html_() method
 
 chart
 ```

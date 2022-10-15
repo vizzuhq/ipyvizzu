@@ -37,13 +37,13 @@ await micropip.install("ipyvizzu")
 import pandas as pd
 import js, asyncio
 from io import StringIO
-from ipyvizzu import Chart, Data, Config, Style
+from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 
 chart = Chart(width="640px", height="360px")
-# chart = Chart(width="640px", height="360px", display="begin")
-# chart = Chart(width="640px", height="360px", display="actual")  # default
-# chart = Chart(width="640px", height="360px", display="end")
-# chart = Chart(width="640px", height="360px", display="manual")
+# chart = Chart(width="640px", height="360px", display=DisplayTarget.BEGIN)
+# chart = Chart(width="640px", height="360px", display=DisplayTarget.ACTUAL)  # default
+# chart = Chart(width="640px", height="360px", display=DisplayTarget.END)
+# chart = Chart(width="640px", height="360px", display=DisplayTarget.MANUAL)
 ```
 
 ```python
@@ -103,7 +103,7 @@ chart.animate(Style({"title": {"fontSize": 35}}))
 
 ```python
 # cell 6
-# display chart with show() or _repr_html_() method if display="manual"
+# display chart with show() or _repr_html_() method if display=DisplayTarget.MANUAL
 
 # chart.show()
 # chart
