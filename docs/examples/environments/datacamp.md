@@ -1,6 +1,6 @@
-# databricks
+# DataCamp
 
-You can use ipyvizzu in databricks with the following restrictions:
+You can use ipyvizzu in DataCamp with the following restrictions:
 
 | Function                                                                                   | Supported          |
 | ------------------------------------------------------------------------------------------ | ------------------ |
