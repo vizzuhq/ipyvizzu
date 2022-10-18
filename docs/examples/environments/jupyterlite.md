@@ -23,10 +23,9 @@ Try ipyvizzu with this working example below (it is not necessary to put the cod
 
 ```python
 # cell 1
-# install jsonschema and ipyvizzu
+# install ipyvizzu
 
 import micropip
-await micropip.install("jsonschema")
 await micropip.install("ipyvizzu")
 ```
 
