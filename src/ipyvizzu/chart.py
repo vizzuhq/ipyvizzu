@@ -16,7 +16,7 @@ from ipyvizzu.event import EventHandler
 class Chart:
     """A class for representing a wrapper over Vizzu chart."""
 
-    VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@~0.5.0/dist/vizzu.min.js"
+    VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@~0.6.0/dist/vizzu.min.js"
 
     def __init__(
         self,

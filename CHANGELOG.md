@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.13.0] - 2022-10-19
+
+### Added
+
+- Changed Vizzu's version to 0.6.x.
+
 ## [0.12.1] - 2022-07-27
 
 ### Fixed

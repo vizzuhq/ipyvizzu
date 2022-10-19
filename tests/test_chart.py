@@ -52,7 +52,7 @@ class TestChartInit(TestChart):
                 "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
-                + "'https://cdn.jsdelivr.net/npm/vizzu@~0.5.0/dist/vizzu.min.js', "
+                + "'https://cdn.jsdelivr.net/npm/vizzu@~0.6.0/dist/vizzu.min.js', "
                 + "'800px', '480px');",
             )
 
@@ -80,7 +80,7 @@ class TestChartInit(TestChart):
                 "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
-                + "'https://cdn.jsdelivr.net/npm/vizzu@~0.5.0/dist/vizzu.min.js', "
+                + "'https://cdn.jsdelivr.net/npm/vizzu@~0.6.0/dist/vizzu.min.js', "
                 + "'400px', '240px');",
             )
 

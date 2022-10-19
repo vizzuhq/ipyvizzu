@@ -27,6 +27,6 @@
         "test": "make check"
     },
     "dependencies": {
-        "vizzu": "~0.5.0"
+        "vizzu": "~0.6.0"
     }
 }
