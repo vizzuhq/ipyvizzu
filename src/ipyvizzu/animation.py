@@ -4,7 +4,7 @@ import abc
 from enum import Enum
 from os import PathLike
 import json
-from typing import Optional, Union, List
+from typing import Optional, Union, List, Any
 import jsonschema  # type: ignore
 
 import pandas as pd  # type: ignore
@@ -17,19 +17,27 @@ from ipyvizzu.schema import DATA_SCHEMA
 class Animation:
     """
     An abstract class for representing animation objects
-    that have dump and build methods.
+    that have `dump` and `build` methods.
     """
 
     def dump(self) -> str:
-        """A method for converting the builded dictionary into json string."""
+        """
+        A method for converting the built dictionary into string.
+
+        Returns:
+            An str that has been json dumped with RawJavaScriptEncoder from a dictionary.
+        """
 
         return json.dumps(self.build(), cls=RawJavaScriptEncoder)
 
     @abc.abstractmethod
     def build(self) -> dict:
         """
-        A method for returning a dictionary
-        with native python values that can be converted into json.
+        An abstract method for returning a dictionary with values
+        that can be converted into json string.
+
+        Returns:
+            A dictionary that stored in the animation object.
         """
 
 
@@ -40,32 +48,66 @@ class PlainAnimation(dict, Animation):
     """
 
     def build(self) -> dict:
+        """
+        A method for returning the plain animation dictionary.
+
+        Returns:
+            A dictionary that stored in the plain animation object.
+        """
+
         return self
 
 
 class InferType(Enum):
-    """An enum class for storing infer types."""
+    """An enum class for storing data infer types."""
 
     DIMENSION = "dimension"
+    """An enum key-value for storing dimension infer type."""
+
     MEASURE = "measure"
+    """An enum key-value for storing measure infer type."""
 
 
 class Data(dict, Animation):
     """
     A class for representing data animation.
-    It can build data of the chart.
+    It can build data option of the chart.
     """
 
     @classmethod
     def filter(cls, filter_expr: Optional[str] = None):  # -> Data:
-        """A method for returning a Data() class with a filter."""
+        """
+        A class method for creating a Data class with a data filter.
+
+        Args:
+            filter_expr: The JavaScript data filter expression.
+
+        Returns:
+            (Data): A Data class that contains a data filter.
+
+        Examples:
+            Create Data class with a data filter:
+
+                filter = Data.filter("record['Genres'] == 'Pop'")
+        """
 
         data = cls()
         data.set_filter(filter_expr)
         return data
 
     def set_filter(self, filter_expr: Optional[str] = None) -> None:
-        """A method used to add a filter to a Data() class instance."""
+        """
+        A method for adding a filter to an existing Data class instance.
+
+        Args:
+            filter_expr: The JavaScript data filter expression.
+
+        Examples:
+            Add a data filter to a Data class:
+
+                data = Data()
+                data.set_filter("record['Genres'] == 'Pop'")
+        """
 
         filter_expr_raw_js = (
             RawJavaScript(f"record => {{ return ({' '.join(filter_expr.split())}) }}")
@@ -76,43 +118,163 @@ class Data(dict, Animation):
 
     @classmethod
     def from_json(cls, filename: Union[str, bytes, PathLike]):  # -> Data:
-        """A method for returning a Data() class which created from a json file."""
+        """
+        A method for returning a Data class which has been created from a json file.
+
+        Args:
+            filename: The path of the data source json file.
+
+        Returns:
+            (Data): A Data class that has been created from a json file.
+        """
 
         with open(filename, "r", encoding="utf8") as file_desc:
             return cls(json.load(file_desc))
 
     def add_record(self, record: list) -> None:
-        """A method used to add a record to a Data() class instance."""
+        """
+        A method for adding a record to an existing Data class instance.
+
+        Args:
+            record: A list that contains data values.
+
+        Examples:
+            Adding a record to a data animation object:
+
+                data = Data()
+                record = ["Pop", "Hard", 114]
+                data.add_record(record)
+        """
 
         self._add_value("records", record)
 
     def add_records(self, records: List[list]) -> None:
-        """A method used to add a records to a Data() class instance."""
+        """
+        A method for adding records to an existing Data class instance.
+
+        Args:
+            records: A list that contains data records.
+
+        Examples:
+            Adding records to a data animation object:
+
+                data = Data()
+                records = [
+                    ["Pop", "Hard", 114],
+                    ["Rock", "Hard", 96],
+                    ["Pop", "Experimental", 127],
+                    ["Rock", "Experimental", 83],
+                ]
+                data.add_records(records)
+        """
 
         list(map(self.add_record, records))
 
     def add_series(self, name: str, values: Optional[list] = None, **kwargs) -> None:
-        """A method used to add a series to a Data() class instance."""
+        """
+        A method for adding a series to an existing Data class instance.
+
+        Args:
+            name: The name of the series.
+            values: The data values of the series.
+            **kwargs (Optional):
+                Arbitrary keyword arguments.
+
+                For example infer type can be set with the `type` keywod argument.
+
+        Examples:
+            Adding a series without values to a data animation object:
+
+                data = Data()
+                data.add_series("Genres")
+
+            Adding a series without values and with infer type to a data animation object:
+
+                data = Data()
+                data.add_series("Kinds", type="dimension")
+
+            Adding a series with values to a data animation object:
+
+                data = Data()
+                data.add_series(
+                    "Popularity", [114, 96, 127, 83]
+                )
+        """
 
         self._add_named_value("series", name, values, **kwargs)
 
     def add_dimension(self, name: str, values: Optional[list] = None, **kwargs) -> None:
-        """A method used to add a dimension to a Data() class instance."""
+        """
+        A method for adding a dimension to an existing Data class instance.
+
+        Args:
+            name: The name of the dimension.
+            values: The data values of the dimension.
+            **kwargs (Optional): Arbitrary keyword arguments.
+
+        Examples:
+            Adding a dimension with values to a data animation object:
+
+                data = Data()
+                data.add_dimension("Genres", ["Pop", "Rock"])
+        """
 
         self._add_named_value("dimensions", name, values, **kwargs)
 
     def add_measure(self, name: str, values: Optional[list] = None, **kwargs) -> None:
-        """A method used to add a measure to a Data() class instance."""
+        """
+        A method for adding a measure to an existing Data class instance.
+
+        Args:
+            name: The name of the measure.
+            values: The data values of the measure.
+            **kwargs (Optional): Arbitrary keyword arguments.
+
+        Examples:
+            Adding a measure with values to a data animation object:
+
+                data = Data()
+                data.add_measure(
+                    "Popularity",
+                    [
+                        [114, 96],
+                        [127, 83],
+                    ],
+                )
+        """
 
         self._add_named_value("measures", name, values, **kwargs)
 
     def add_data_frame(
         self,
         data_frame: Union[pd.DataFrame, pd.core.series.Series],
-        default_measure_value=0,
-        default_dimension_value="",
+        default_measure_value: Optional[Any] = 0,
+        default_dimension_value: Optional[Any] = "",
     ) -> None:
-        """A method used to add a dataframe to a Data() class instance."""
+        """
+        A method for adding data frame to an existing Data class instance.
+
+        Args:
+            data_frame: The pandas data frame object.
+            default_measure_value: The default measure value to fill the empty values.
+            default_dimension_value: The default dimension value to fill the empty values.
+
+        Raises:
+            TypeError: If `data_frame` is not instance of `pandas.DataFrame` or `pandas.Series`.
+
+        Examples:
+            Adding a data frame to a data animation object:
+
+                data_frame = pd.DataFrame(
+                    {
+                        "Genres": ["Pop", "Rock", "Pop", "Rock"],
+                        "Kinds": ["Hard", "Hard", "Experimental", "Experimental"],
+                        "Popularity": [114, 96, 127, 83],
+                    }
+                )
+                data = Data()
+                data.add_data_frame(data_frame)
+        """
 
         if not isinstance(data_frame, type(None)):
             if isinstance(data_frame, pd.core.series.Series):
@@ -150,7 +312,27 @@ class Data(dict, Animation):
         data_frame: Union[pd.DataFrame, pd.core.series.Series],
         name: Optional[str],
     ) -> None:
-        """A method used to add a dataframe's index to a Data() class instance."""
+        """
+        A method for adding data frame's index to an existing Data class instance.
+
+        Args:
+            data_frame: The pandas data frame object.
+            name: The name of the index series.
+
+        Raises:
+            TypeError: If `data_frame` is not instance of `pandas.DataFrame` or `pandas.Series`.
+
+        Examples:
+            Adding a data frame to a data animation object:
+
+                data_frame = pd.DataFrame(
+                    {"Popularity": [114, 96]},
+                    index=["x", "y"]
+                )
+                data = Data()
+                data.add_data_frame_index(data_frame, "DataFrameIndex")
+                data.add_data_frame(data_frame)
+        """
 
         if data_frame is not None:
             if isinstance(data_frame, pd.core.series.Series):
@@ -179,14 +361,22 @@ class Data(dict, Animation):
         self.setdefault(dest, []).append(value)
 
     def build(self) -> dict:
+        """
+        A method for validating and returning the data animation dictionary.
+
+        Returns:
+            A dictionary that stored in the data animation object.
+                It contains a `data` key whose value is the stored animation.
+        """
+
         jsonschema.validate(self, DATA_SCHEMA)
         return {"data": self}
 
 
 class ConfigAttr(type):
     """
-    A class for representing config attribute metaclass.
-    It returns a Config class with a chart preset if __getattr__ called.
+    A metaclass class for the Config class.
+    Returns a Config class with a chart preset if the `__getattr__` method called.
     """
 
     @classmethod
@@ -202,44 +392,74 @@ class ConfigAttr(type):
 class Config(Animation, metaclass=ConfigAttr):
     """
     A class for representing config animation.
-    It can build config of the chart.
+    It can build config option of the chart.
     """
 
     def __init__(self, data: Optional[dict]):
         self._data = data
 
     def build(self) -> dict:
+        """
+        A method for returning the config animation dictionary.
+
+        Returns:
+            A dictionary that stored in the config animation object.
+                It contains a `config` key whose value is the stored animation.
+        """
+
         return {"config": self._data}
 
 
 class Style(Animation):
     """
     A class for representing style animation.
-    It can build style of the chart.
+    It can build style option of the chart.
     """
 
     def __init__(self, data: Optional[dict]):
         self._data = data
 
     def build(self) -> dict:
+        """
+        A method for returning the style animation dictionary.
+
+        Returns:
+            A dictionary that stored in the style animation object.
+                It contains a `style` key whose value is the stored animation.
+        """
+
         return {"style": self._data}
 
 
 class Snapshot(Animation):
     """
     A class for representing snapshot animation.
-    It can build a snapshot id of the chart.
+    It can build the snapshot id of the chart.
     """
 
     def __init__(self, name: str):
         self._name = name
 
     def dump(self) -> str:
-        """A method for dumping snapshot id as a string."""
+        """
+        A method for overwriting the `Animation` `build` method.
+        It dumps the stored snapshot id as a string.
+
+        Returns:
+            An str that contains the stored snapshot id.
+        """
 
         return f"'{self._name}'"
 
     def build(self):
+        """
+        A method for preventing to merge Snapshot with other Animations.
+
+        Raises:
+            NotImplementedError: If the `build` method has been called,
+                because Snapshot cannot be merged with other Animations.
+        """
+
         raise NotImplementedError("Snapshot cannot be merged with other Animations")
 
 
@@ -247,7 +467,15 @@ class AnimationMerger(dict, Animation):
     """A class for merging different types of animations."""
 
     def merge(self, animation: Animation) -> None:
-        """A method for merging an animation with previously merged animations."""
+        """
+        A method for merging an animation with the previously merged animations.
+
+        Args:
+            animation: An animation to be merged with with previously merged animations.
+
+        Raises:
+            ValueError: If the type of an animation is already merged.
+        """
 
         data = self._validate(animation)
         self.update(data)
@@ -262,4 +490,11 @@ class AnimationMerger(dict, Animation):
         return data
 
     def build(self) -> dict:
+        """
+        A method for returning a merged dictionary from different types of animations.
+
+        Returns:
+            A merged dictionary from Data, Config and Style animations.
+        """
+
         return self
