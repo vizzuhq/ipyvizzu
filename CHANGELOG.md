@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Changed cdn url to jsdelivr style.
+
 ## [0.13.0] - 2022-10-19
 
 ### Added
