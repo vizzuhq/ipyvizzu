@@ -1,4 +1,4 @@
-"""A module for storing data schema."""
+"""A module for storing the data schema."""
 
 
 NAMED_SCHEMA = {
@@ -13,9 +13,11 @@ NAMED_SCHEMA = {
         "required": ["name"],
     },
 }
+"""`dict`: Store the schema of the `series`, `dimensions` and `measures` data types."""
 
 
 RECORD_SCHEMA = {"type": "array", "items": {"type": "array"}}
+"""`dict`: Store the schema of the `records` data type."""
 
 
 DATA_SCHEMA = {
@@ -40,3 +42,4 @@ DATA_SCHEMA = {
         },
     ],
 }
+"""`dict`: Store the schema of the data animation."""

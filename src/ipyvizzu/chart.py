@@ -17,6 +17,7 @@ class Chart:
     """A class for representing a wrapper over Vizzu chart."""
 
     VIZZU = "https://cdn.jsdelivr.net/npm/vizzu@0.6/dist/vizzu.min.js"
+    """`str`: A variable for storing the default url of vizzu package."""
 
     def __init__(
         self,
@@ -25,6 +26,16 @@ class Chart:
         height: Optional[str] = "480px",
         display: Optional[Union[DisplayTarget, str]] = DisplayTarget.ACTUAL,
     ):
+        """
+        Chart constructor.
+
+        Args:
+            vizzu: The url of Vizzu JavaScript package.
+            width: The width of the chart.
+            height: The height of the chart.
+            display: The display behaviour of the chart.
+        """
+
         self._chart_id = uuid.uuid4().hex[:7]
 
         self._display_target = DisplayTarget(display)
@@ -61,7 +72,12 @@ class Chart:
 
     @property
     def scroll_into_view(self) -> bool:
-        """A property for turning on/off scroll into view."""
+        """
+        A property for turning on/off the scroll into view feature.
+
+        Returns:
+            The value of the property (default `False`).
+        """
 
         return self._scroll_into_view
 
@@ -72,7 +88,23 @@ class Chart:
     def animate(
         self, *animations: Animation, **options: Optional[Union[str, int, float, dict]]
     ) -> None:
-        """A method for animating the chart."""
+        """
+        A method for changing the state of the chart.
+
+        Args:
+            *animations:
+                List of Animation objects such as [Data][ipyvizzu.animation.Data],
+                [Config][ipyvizzu.animation.Config] and [Style][ipyvizzu.animation.Style].
+            **options: Dictionary of animation options for example `duration=1`.
+
+        Raises:
+            ValueError: If `animations` is not set.
+
+        Example:
+            Reset the chart styles:
+
+                chart.animate(Style(None))
+        """
 
         if not animations:
             raise ValueError("No animation was set.")
@@ -103,7 +135,18 @@ class Chart:
         return merger
 
     def feature(self, name: str, enabled: bool) -> None:
-        """A method for turning on/off a feature of the chart."""
+        """
+        A method for turning on/off features of the chart.
+
+        Args:
+            name: The name of the chart feature.
+            enabled: The new state of the chart feature.
+
+        Example:
+            Turn on `tooltip` of the chart:
+
+                chart.feature("tooltip", True)
+        """
 
         self._display(
             DisplayTemplate.FEATURE.format(
@@ -113,7 +156,19 @@ class Chart:
         )
 
     def store(self) -> Snapshot:
-        """A method for saving and storing the actual state of the chart."""
+        """
+        A method for saving and storing the actual state of the chart.
+
+        Returns:
+            A snapshot animation object wich stores the actual state of the chart.
+
+        Example:
+            Save and restore the actual state of the chart:
+
+                snapshot = chart.store()
+                ...
+                chart.animate(snapshot)
+        """
 
         snapshot_id = uuid.uuid4().hex[:7]
         self._display(
@@ -126,7 +181,22 @@ class Chart:
     def on(  # pylint: disable=invalid-name
         self, event: str, handler: str
     ) -> EventHandler:
-        """A method for creating and turning on an event handler."""
+        """
+        A method for creating and turning on an event handler.
+
+        Args:
+            event: The type of the event.
+            handler: The JavaScript method of the event.
+
+        Returns:
+            The turned on event handler object.
+
+        Example:
+            Turn on an event handler which prints an alert message
+            when someone clicks on the chart:
+
+                handler = chart.on("click", "alert(JSON.stringify(event.data));")
+        """
 
         event_handler = EventHandler(event, handler)
         self._display(
@@ -138,7 +208,17 @@ class Chart:
         return event_handler
 
     def off(self, event_handler: EventHandler) -> None:
-        """A method for turning off an event handler."""
+        """
+        A method for turning off an event handler.
+
+        Args:
+            event_handler: A previously created event handler object.
+
+        Example:
+            Turn off a previously created event handler:
+
+                chart.off(handler)
+        """
 
         self._display(
             DisplayTemplate.CLEAR_EVENT.format(
@@ -148,7 +228,20 @@ class Chart:
         )
 
     def log(self, chart_property: ChartProperty) -> None:
-        """A method for printing chart properties to the browser console."""
+        """
+        A method for printing chart properties to the browser console.
+
+        Args:
+            chart_property:
+                A chart property such as
+                [CONFIG][ipyvizzu.template.ChartProperty] and
+                [STYLE][ipyvizzu.template.ChartProperty].
+
+        Example:
+            Log the actual style of the chart to the browser console:
+
+                chart.log(ChartProperty.STYLE)
+        """
 
         self._display(
             DisplayTemplate.LOG.format(
@@ -159,7 +252,7 @@ class Chart:
     def _repr_html_(self) -> str:
         assert (
             self._display_target == DisplayTarget.MANUAL
-        ), f'chart._repr_html_() can be used with display="{DisplayTarget.MANUAL.value}" only'
+        ), "chart._repr_html_() can be used with display=DisplayTarget.MANUAL only"
         assert not self._showed, "cannot be used after chart displayed."
         self._showed = True
         html_id = uuid.uuid4().hex[:7]
@@ -173,11 +266,18 @@ class Chart:
         return f'<div id="{html_id}"><script>{script}</script></div>'
 
     def show(self) -> None:
-        """A method for displaying the assembled javascript code."""
+        """
+        A method for displaying the assembled JavaScript code.
+
+        Raises:
+            AssertionError: If [display][ipyvizzu.Chart.__init__]
+                is not [DisplayTarget.MANUAL][ipyvizzu.template.DisplayTarget].
+            AssertionError: If chart already has been displayed.
+        """
 
         assert (
             self._display_target == DisplayTarget.MANUAL
-        ), f'chart.show() can be used with display="{DisplayTarget.MANUAL.value}" only'
+        ), "chart.show() can be used with display=DisplayTarget.MANUAL only"
         assert not self._showed, "cannot be used after chart displayed"
         display_javascript(
             "\n".join(self._calls),

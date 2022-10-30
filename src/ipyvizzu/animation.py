@@ -25,7 +25,8 @@ class Animation:
         A method for converting the built dictionary into string.
 
         Returns:
-            An str that has been json dumped with RawJavaScriptEncoder from a dictionary.
+            An str that has been json dumped with
+                [RawJavaScriptEncoder][ipyvizzu.json.RawJavaScriptEncoder] from a dictionary.
         """
 
         return json.dumps(self.build(), cls=RawJavaScriptEncoder)
@@ -77,16 +78,17 @@ class Data(dict, Animation):
     @classmethod
     def filter(cls, filter_expr: Optional[str] = None):  # -> Data:
         """
-        A class method for creating a Data class with a data filter.
+        A class method for creating a [Data][ipyvizzu.animation.Data]
+        class instance with a data filter.
 
         Args:
             filter_expr: The JavaScript data filter expression.
 
         Returns:
-            (Data): A Data class that contains a data filter.
+            (Data): A data animation instance that contains a data filter.
 
-        Examples:
-            Create Data class with a data filter:
+        Example:
+            Create a [Data][ipyvizzu.animation.Data] class with a data filter:
 
                 filter = Data.filter("record['Genres'] == 'Pop'")
         """
@@ -97,13 +99,14 @@ class Data(dict, Animation):
 
     def set_filter(self, filter_expr: Optional[str] = None) -> None:
         """
-        A method for adding a filter to an existing Data class instance.
+        A method for adding a filter to an existing
+        [Data][ipyvizzu.animation.Data] class instance.
 
         Args:
             filter_expr: The JavaScript data filter expression.
 
-        Examples:
-            Add a data filter to a Data class:
+        Example:
+            Add a data filter to a [Data][ipyvizzu.animation.Data] class instance:
 
                 data = Data()
                 data.set_filter("record['Genres'] == 'Pop'")
@@ -119,13 +122,14 @@ class Data(dict, Animation):
     @classmethod
     def from_json(cls, filename: Union[str, bytes, PathLike]):  # -> Data:
         """
-        A method for returning a Data class which has been created from a json file.
+        A method for returning a [Data][ipyvizzu.animation.Data]
+        class instance which has been created from a json file.
 
         Args:
             filename: The path of the data source json file.
 
         Returns:
-            (Data): A Data class that has been created from a json file.
+            (Data): A data animation instance that has been created from a json file.
         """
 
         with open(filename, "r", encoding="utf8") as file_desc:
@@ -133,13 +137,14 @@ class Data(dict, Animation):
 
     def add_record(self, record: list) -> None:
         """
-        A method for adding a record to an existing Data class instance.
+        A method for adding a record to an existing
+        [Data][ipyvizzu.animation.Data] class instance.
 
         Args:
             record: A list that contains data values.
 
-        Examples:
-            Adding a record to a data animation object:
+        Example:
+            Adding a record to a [Data][ipyvizzu.animation.Data] class instance:
 
                 data = Data()
                 record = ["Pop", "Hard", 114]
@@ -150,13 +155,14 @@ class Data(dict, Animation):
 
     def add_records(self, records: List[list]) -> None:
         """
-        A method for adding records to an existing Data class instance.
+        A method for adding records to an existing
+        [Data][ipyvizzu.animation.Data] class instance.
 
         Args:
             records: A list that contains data records.
 
-        Examples:
-            Adding records to a data animation object:
+        Example:
+            Adding records to a [Data][ipyvizzu.animation.Data] class instance:
 
                 data = Data()
                 records = [
@@ -172,7 +178,8 @@ class Data(dict, Animation):
 
     def add_series(self, name: str, values: Optional[list] = None, **kwargs) -> None:
         """
-        A method for adding a series to an existing Data class instance.
+        A method for adding a series to an existing
+        [Data][ipyvizzu.animation.Data] class instance.
 
         Args:
             name: The name of the series.
@@ -182,18 +189,19 @@ class Data(dict, Animation):
 
                 For example infer type can be set with the `type` keywod argument.
 
-        Examples:
-            Adding a series without values to a data animation object:
+        Example:
+            Adding a series without values to a [Data][ipyvizzu.animation.Data] class instance:
 
                 data = Data()
                 data.add_series("Genres")
 
-            Adding a series without values and with infer type to a data animation object:
+            Adding a series without values and with infer type to
+            a [Data][ipyvizzu.animation.Data] class instance:
 
                 data = Data()
                 data.add_series("Kinds", type="dimension")
 
-            Adding a series with values to a data animation object:
+            Adding a series with values to a [Data][ipyvizzu.animation.Data] class instance:
 
                 data = Data()
                 data.add_series(
@@ -205,15 +213,16 @@ class Data(dict, Animation):
 
     def add_dimension(self, name: str, values: Optional[list] = None, **kwargs) -> None:
         """
-        A method for adding a dimension to an existing Data class instance.
+        A method for adding a dimension to an existing
+        [Data][ipyvizzu.animation.Data] class instance.
 
         Args:
             name: The name of the dimension.
             values: The data values of the dimension.
             **kwargs (Optional): Arbitrary keyword arguments.
 
-        Examples:
-            Adding a dimension with values to a data animation object:
+        Example:
+            Adding a dimension with values to a [Data][ipyvizzu.animation.Data] class instance:
 
                 data = Data()
                 data.add_dimension("Genres", ["Pop", "Rock"])
@@ -223,15 +232,16 @@ class Data(dict, Animation):
 
     def add_measure(self, name: str, values: Optional[list] = None, **kwargs) -> None:
         """
-        A method for adding a measure to an existing Data class instance.
+        A method for adding a measure to an existing
+        [Data][ipyvizzu.animation.Data] class instance.
 
         Args:
             name: The name of the measure.
             values: The data values of the measure.
             **kwargs (Optional): Arbitrary keyword arguments.
 
-        Examples:
-            Adding a measure with values to a data animation object:
+        Example:
+            Adding a measure with values to a [Data][ipyvizzu.animation.Data] class instance:
 
                 data = Data()
                 data.add_measure(
@@ -252,7 +262,8 @@ class Data(dict, Animation):
         default_dimension_value: Optional[Any] = "",
     ) -> None:
         """
-        A method for adding data frame to an existing Data class instance.
+        A method for adding data frame to an existing
+        [Data][ipyvizzu.animation.Data] class instance.
 
         Args:
             data_frame: The pandas data frame object.
@@ -262,8 +273,8 @@ class Data(dict, Animation):
         Raises:
             TypeError: If `data_frame` is not instance of `pandas.DataFrame` or `pandas.Series`.
 
-        Examples:
-            Adding a data frame to a data animation object:
+        Example:
+            Adding a data frame to a [Data][ipyvizzu.animation.Data] class instance:
 
                 data_frame = pd.DataFrame(
                     {
@@ -313,7 +324,8 @@ class Data(dict, Animation):
         name: Optional[str],
     ) -> None:
         """
-        A method for adding data frame's index to an existing Data class instance.
+        A method for adding data frame's index to an existing
+        [Data][ipyvizzu.animation.Data] class instance.
 
         Args:
             data_frame: The pandas data frame object.
@@ -322,8 +334,8 @@ class Data(dict, Animation):
         Raises:
             TypeError: If `data_frame` is not instance of `pandas.DataFrame` or `pandas.Series`.
 
-        Examples:
-            Adding a data frame to a data animation object:
+        Example:
+            Adding a data frame's index to a [Data][ipyvizzu.animation.Data] class instance:
 
                 data_frame = pd.DataFrame(
                     {"Popularity": [114, 96]},
@@ -375,8 +387,9 @@ class Data(dict, Animation):
 
 class ConfigAttr(type):
     """
-    A metaclass class for the Config class.
-    Returns a Config class with a chart preset if the `__getattr__` method called.
+    A metaclass class for the [Config][ipyvizzu.animation.Config] class.
+    Returns a [Config][ipyvizzu.animation.Config] class with a chart preset
+    if the `__getattr__` method called.
     """
 
     @classmethod
@@ -396,6 +409,13 @@ class Config(Animation, metaclass=ConfigAttr):
     """
 
     def __init__(self, data: Optional[dict]):
+        """
+        Config constructor.
+
+        Args:
+            data: A config animation dictionary.
+        """
+
         self._data = data
 
     def build(self) -> dict:
@@ -417,6 +437,13 @@ class Style(Animation):
     """
 
     def __init__(self, data: Optional[dict]):
+        """
+        Style constructor.
+
+        Args:
+            data: A style animation dictionary.
+        """
+
         self._data = data
 
     def build(self) -> dict:
@@ -438,11 +465,19 @@ class Snapshot(Animation):
     """
 
     def __init__(self, name: str):
+        """
+        Snapshot constructor.
+
+        Args:
+            name: A snapshot id.
+        """
+
         self._name = name
 
     def dump(self) -> str:
         """
-        A method for overwriting the `Animation` `build` method.
+        A method for overwriting the
+        [Animation.build][ipyvizzu.animation.Animation.build] method.
         It dumps the stored snapshot id as a string.
 
         Returns:
@@ -453,14 +488,16 @@ class Snapshot(Animation):
 
     def build(self):
         """
-        A method for preventing to merge Snapshot with other Animations.
+        A method for preventing to merge [Snapshot][ipyvizzu.animation.Snapshot]
+        with other animations.
 
         Raises:
-            NotImplementedError: If the `build` method has been called,
-                because Snapshot cannot be merged with other Animations.
+            NotImplementedError: If the [build][ipyvizzu.animation.Snapshot.build] method
+                has been called, because [Snapshot][ipyvizzu.animation.Snapshot]
+                cannot be merged with other animations.
         """
 
-        raise NotImplementedError("Snapshot cannot be merged with other Animations")
+        raise NotImplementedError("Snapshot cannot be merged with other animations")
 
 
 class AnimationMerger(dict, Animation):
@@ -494,7 +531,10 @@ class AnimationMerger(dict, Animation):
         A method for returning a merged dictionary from different types of animations.
 
         Returns:
-            A merged dictionary from Data, Config and Style animations.
+            A merged dictionary from
+                [Data][ipyvizzu.animation.Data],
+                [Config][ipyvizzu.animation.Config] and
+                [Style][ipyvizzu.animation.Style] animations.
         """
 
         return self
