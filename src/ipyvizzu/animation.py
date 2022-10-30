@@ -396,6 +396,13 @@ class Config(Animation, metaclass=ConfigAttr):
     """
 
     def __init__(self, data: Optional[dict]):
+        """
+        Config constructor.
+
+        Args:
+            data: A config animation dictionary.
+        """
+
         self._data = data
 
     def build(self) -> dict:
@@ -417,6 +424,13 @@ class Style(Animation):
     """
 
     def __init__(self, data: Optional[dict]):
+        """
+        Style constructor.
+
+        Args:
+            data: A style animation dictionary.
+        """
+
         self._data = data
 
     def build(self) -> dict:
@@ -438,6 +452,13 @@ class Snapshot(Animation):
     """
 
     def __init__(self, name: str):
+        """
+        Snapshot constructor.
+
+        Args:
+            name: A snapshot id.
+        """
+
         self._name = name
 
     def dump(self) -> str:
