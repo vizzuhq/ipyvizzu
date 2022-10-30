@@ -87,7 +87,7 @@ class Data(dict, Animation):
         Returns:
             (Data): A data animation instance that contains a data filter.
 
-        Examples:
+        Example:
             Create a [Data][ipyvizzu.animation.Data] class with a data filter:
 
                 filter = Data.filter("record['Genres'] == 'Pop'")
@@ -105,7 +105,7 @@ class Data(dict, Animation):
         Args:
             filter_expr: The JavaScript data filter expression.
 
-        Examples:
+        Example:
             Add a data filter to a [Data][ipyvizzu.animation.Data] class instance:
 
                 data = Data()
@@ -143,7 +143,7 @@ class Data(dict, Animation):
         Args:
             record: A list that contains data values.
 
-        Examples:
+        Example:
             Adding a record to a [Data][ipyvizzu.animation.Data] class instance:
 
                 data = Data()
@@ -161,7 +161,7 @@ class Data(dict, Animation):
         Args:
             records: A list that contains data records.
 
-        Examples:
+        Example:
             Adding records to a [Data][ipyvizzu.animation.Data] class instance:
 
                 data = Data()
@@ -189,7 +189,7 @@ class Data(dict, Animation):
 
                 For example infer type can be set with the `type` keywod argument.
 
-        Examples:
+        Example:
             Adding a series without values to a [Data][ipyvizzu.animation.Data] class instance:
 
                 data = Data()
@@ -221,7 +221,7 @@ class Data(dict, Animation):
             values: The data values of the dimension.
             **kwargs (Optional): Arbitrary keyword arguments.
 
-        Examples:
+        Example:
             Adding a dimension with values to a [Data][ipyvizzu.animation.Data] class instance:
 
                 data = Data()
@@ -240,7 +240,7 @@ class Data(dict, Animation):
             values: The data values of the measure.
             **kwargs (Optional): Arbitrary keyword arguments.
 
-        Examples:
+        Example:
             Adding a measure with values to a [Data][ipyvizzu.animation.Data] class instance:
 
                 data = Data()
@@ -273,7 +273,7 @@ class Data(dict, Animation):
         Raises:
             TypeError: If `data_frame` is not instance of `pandas.DataFrame` or `pandas.Series`.
 
-        Examples:
+        Example:
             Adding a data frame to a [Data][ipyvizzu.animation.Data] class instance:
 
                 data_frame = pd.DataFrame(
@@ -334,7 +334,7 @@ class Data(dict, Animation):
         Raises:
             TypeError: If `data_frame` is not instance of `pandas.DataFrame` or `pandas.Series`.
 
-        Examples:
+        Example:
             Adding a data frame's index to a [Data][ipyvizzu.animation.Data] class instance:
 
                 data_frame = pd.DataFrame(
