@@ -1,4 +1,4 @@
-"""A module for inserting javascript code into a json string."""
+"""A module for working JavaScript code in json convertible objects."""
 
 import json
 from typing import Optional
@@ -6,31 +6,48 @@ import uuid
 
 
 class RawJavaScript:
-    """A class for representing and storing raw javascript code."""
+    """A class for representing raw JavaScript code."""
 
     # pylint: disable=too-few-public-methods
 
     def __init__(self, raw: Optional[str]):
+        """
+        RawJavaScript constructor.
+
+        It stores raw JavaScript code as a string.
+
+        Args:
+            raw: JavaScript code as `str`.
+        """
+
         self._raw = raw
 
     @property
     def raw(self) -> Optional[str]:
-        """A property for storing raw javascript code as a string."""
+        """
+        A property for storing raw JavaScript code as a string.
+
+        Returns:
+            Raw JavaScript code as `str`.
+        """
 
         return self._raw
 
 
 class RawJavaScriptEncoder(json.JSONEncoder):
     """
-    A class for encoding json object that contains RawJavaScript values.
-    It is derived from the json.JSONEncoder() class.
+    A class for representing a custom json encoder,
+    it can encode objects that contain
+    [RawJavaScript][ipyvizzu.json.RawJavaScript] values.
     """
 
     def __init__(self, *args, **kwargs):
         """
-        Extends json.JSONEncoder() with an instance variable - _raw_replacements.
-        _raw_replacements dictionary stores the uuids and
-        javascript codes of the replaced RawJavaScript objects.
+        RawJavaScriptEncoder constructor.
+
+        It extends `json.JSONEncoder` with an instance variable (`_raw_replacements`).
+        The `_raw_replacements` dictionary stores the `uuids` and
+        JavaScript codes of the [RawJavaScript][ipyvizzu.json.RawJavaScript] objects.
         """
 
         json.JSONEncoder.__init__(self, *args, **kwargs)
@@ -38,9 +55,9 @@ class RawJavaScriptEncoder(json.JSONEncoder):
 
     def default(self, o):
         """
-        Overrides json.JSONEncoder().default() method.
-        It replaces RawJavaScript object with uuid and
-        it stores raw javascript code with uuid key in _raw_replacements dictionary.
+        Overrides `json.JSONEncoder.default` method.
+        It replaces [RawJavaScript][ipyvizzu.json.RawJavaScript] object with `uuid` and
+        it stores raw JavaScript code with `uuid` key in the `_raw_replacements` dictionary.
         """
 
         if isinstance(o, RawJavaScript):
@@ -51,8 +68,8 @@ class RawJavaScriptEncoder(json.JSONEncoder):
 
     def encode(self, o):
         """
-        Overrides json.JSONEncoder().encode() method.
-        It replaces uuids with raw javascript code without apostrophes.
+        Overrides `json.JSONEncoder.encode` method.
+        It replaces `uuids` with raw JavaScript code without apostrophes.
         """
 
         result = json.JSONEncoder.encode(self, o)

@@ -1,16 +1,22 @@
-#!/usr/bin/env python3
-from setuptools import setup
+"""
+ipyvizzu
+Build animated charts in Jupyter Notebook and
+in many other environments with a simple Python synthax.
+"""
 
-with open("requirements.txt") as fp:
+from setuptools import setup  # type: ignore
+
+
+with open("requirements.txt", encoding="utf8") as fp:
     requirements = fp.read().splitlines()
 
-with open("README.md") as fp:
+with open("README.md", encoding="utf8") as fp:
     long_description = fp.read()
 
 setup(
     name="ipyvizzu",
     version="0.13.0",
-    description="Build animated charts in Jupyter notebook with a simple Python synthax.",
+    description="Build animated charts in many environments with a simple Python synthax.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="Apache 2",

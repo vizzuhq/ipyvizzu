@@ -7,12 +7,11 @@ from nbconvert.preprocessors import Preprocessor  # type: ignore
 class NbPreprocessor(Preprocessor):
     """
     A class for preprocessing notebook cells before converting them to another format.
-    It is derived from the nbconvert.preprocessors.Preprocessor() class.
     """
 
     def preprocess_cell(self, cell, resources, index):
         """
-        Overrides Preprocessor().preprocess_cell() method.
+        Overrides Preprocessor.preprocess_cell method.
         In markdown cells, it replaces the alignment format and ipynb links with html links.
         In code cells, it sets IpyVizzu.nbconvert value to true.
         """

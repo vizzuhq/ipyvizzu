@@ -11,7 +11,7 @@ from ipyvizzu import Chart, ChartProperty, Data, Config, Snapshot, Style, EventH
 
 class TestChart(unittest.TestCase, abc.ABC):
     """
-    An abstract class for testing Chart() class.
+    An abstract class for testing Chart class.
     It is responsible for setup and teardown.
     """
 
@@ -31,19 +31,29 @@ class TestChart(unittest.TestCase, abc.ABC):
 
     @property
     def mock(self) -> str:
-        """A property for storing the method's name that needs to be mocked."""
+        """
+        A property for storing the method's name that needs to be mocked.
+
+        Returns:
+            The mocked method's name.
+        """
 
         return "ipyvizzu.chart.display_javascript"
 
 
 class TestChartInit(TestChart):
     """
-    A class for testing Chart() class.
-    It tests the constructor of the Chart().
+    A class for testing Chart class.
+    It tests the constructor.
     """
 
     def test_init(self) -> None:
-        """A method for testing the default constructor parameters."""
+        """
+        A method for testing the default constructor parameters.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
 
         with unittest.mock.patch(self.mock) as output:
             Chart()
@@ -57,7 +67,12 @@ class TestChartInit(TestChart):
             )
 
     def test_init_vizzu(self) -> None:
-        """A method for testing the "vizzu" constructor parameter."""
+        """
+        A method for testing the "vizzu" constructor parameter.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
 
         with unittest.mock.patch(self.mock) as output:
             Chart(vizzu="https://cdn.jsdelivr.net/npm/vizzu@0.4.1/dist/vizzu.min.js")
@@ -71,7 +86,12 @@ class TestChartInit(TestChart):
             )
 
     def test_init_div(self) -> None:
-        """A method for testing the "width" and "height" constructor parameters."""
+        """
+        A method for testing the "width" and "height" constructor parameters.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
 
         with unittest.mock.patch(self.mock) as output:
             Chart(width="400px", height="240px")
@@ -85,13 +105,23 @@ class TestChartInit(TestChart):
             )
 
     def test_init_display_invalid(self) -> None:
-        """A method for testing the "display" constructor parameter (display=invalid)."""
+        """
+        A method for testing the "display" constructor parameter (display=invalid).
+
+        Raises:
+            AssertionError: If ValueError is not occurred.
+        """
 
         with self.assertRaises(ValueError):
             Chart(display="invalid")
 
     def test_init_display_begin(self) -> None:
-        """A method for testing the "display" constructor parameter (display=begin)."""
+        """
+        A method for testing the "display" constructor parameter (display=begin).
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
 
         self.chart = Chart(display="begin")
         with unittest.mock.patch(self.mock) as output:
@@ -104,7 +134,12 @@ class TestChartInit(TestChart):
             )
 
     def test_init_display_actual(self) -> None:
-        """A method for testing the "display" constructor parameter (display=actual)."""
+        """
+        A method for testing the "display" constructor parameter (display=actual).
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
 
         self.chart = Chart(display="actual")
         with unittest.mock.patch(self.mock) as output:
@@ -117,7 +152,12 @@ class TestChartInit(TestChart):
             )
 
     def test_init_display_end(self) -> None:
-        """A method for testing the "display" constructor parameter (display=end)."""
+        """
+        A method for testing the "display" constructor parameter (display=end).
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
 
         self.chart = Chart(display="end")
         with unittest.mock.patch(self.mock) as output:
@@ -130,23 +170,28 @@ class TestChartInit(TestChart):
             )
 
     def test_init_register_events(self) -> None:
-        """A method for testing Chart()._register_events() method."""
+        """
+        A method for testing Chart._register_events method.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
 
         class IPyEvents:
-            """A class for mocking get_ipython().events object."""
+            """A class for mocking get_ipython.events object."""
 
             # pylint: disable=too-few-public-methods
 
             @staticmethod
             def register(event: str, function: Callable) -> None:
-                """A method for mocking get_ipython().events.register() method."""
+                """A method for mocking get_ipython.events.register method."""
 
                 # pylint: disable=unused-argument
 
                 function()
 
         class IPy:
-            """A class for mocking get_ipython() object."""
+            """A class for mocking get_ipython object."""
 
             # pylint: disable=too-few-public-methods
 
@@ -164,14 +209,17 @@ class TestChartInit(TestChart):
 
 class TestChartMethods(TestChart):
     """
-    A class for testing Chart() class.
-    It tests ipyvizzu.method-related methods.
+    A class for testing Chart class.
+    It tests the ipyvizzu.method related methods.
     """
 
     def test_animate_chart_target_has_to_be_passed(self) -> None:
         """
-        A method for testing Chart().animate() method.
-        It raises an error if called without chart target.
+        A method for testing Chart.animate method.
+        It raises an error if has ben called without chart target.
+
+        Raises:
+            AssertionError: If ValueError is not occurred.
         """
 
         with self.assertRaises(ValueError):
@@ -181,8 +229,11 @@ class TestChartMethods(TestChart):
         self,
     ) -> None:
         """
-        A method for testing Chart().animate() method.
-        It raises an error if only called with anim options.
+        A method for testing Chart.animate method.
+        It raises an error if has ben called with anim options only.
+
+        Raises:
+            AssertionError: If ValueError is not occurred.
         """
 
         with self.assertRaises(ValueError):
@@ -190,8 +241,11 @@ class TestChartMethods(TestChart):
 
     def test_animate_one_chart_target(self) -> None:
         """
-        A method for testing Chart().animate() method.
+        A method for testing Chart.animate method.
         It tests with chart target.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
         """
 
         with unittest.mock.patch(self.mock) as output:
@@ -207,8 +261,11 @@ class TestChartMethods(TestChart):
 
     def test_animate_one_chart_target_with_chart_anim_opts(self) -> None:
         """
-        A method for testing Chart().animate() method.
+        A method for testing Chart.animate method.
         It tests with chart target and anim options.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
         """
 
         with unittest.mock.patch(self.mock) as output:
@@ -224,8 +281,11 @@ class TestChartMethods(TestChart):
 
     def test_animate_snapshot_chart_target(self) -> None:
         """
-        A method for testing Chart().animate() method.
+        A method for testing Chart.animate method.
         It tests with Snapshot chart target.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
         """
 
         with unittest.mock.patch(self.mock) as output:
@@ -240,8 +300,11 @@ class TestChartMethods(TestChart):
 
     def test_animate_snapshot_chart_target_with_chart_anim_opts(self) -> None:
         """
-        A method for testing Chart().animate() method.
+        A method for testing Chart.animate method.
         It tests with Snapshot chart target and anim options.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
         """
 
         with unittest.mock.patch(self.mock) as output:
@@ -256,8 +319,11 @@ class TestChartMethods(TestChart):
 
     def test_animate_more_chart_target(self) -> None:
         """
-        A method for testing Chart().animate() method.
+        A method for testing Chart.animate method.
         It tests with multiple chart targets.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
         """
 
         with unittest.mock.patch(self.mock) as output:
@@ -277,8 +343,11 @@ class TestChartMethods(TestChart):
 
     def test_animate_more_chart_target_with_chart_anim_opts(self) -> None:
         """
-        A method for testing Chart().animate() method.
+        A method for testing Chart.animate method.
         It tests with multiple chart targets and anim options.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
         """
 
         with unittest.mock.patch(self.mock) as output:
@@ -298,8 +367,11 @@ class TestChartMethods(TestChart):
 
     def test_animate_more_chart_target_with_conflict(self) -> None:
         """
-        A method for testing Chart().animate() method.
+        A method for testing Chart.animate method.
         It tests with same types of chart target.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
         """
 
         data = Data()
@@ -312,8 +384,11 @@ class TestChartMethods(TestChart):
 
     def test_animate_more_chart_target_with_snapshot(self) -> None:
         """
-        A method for testing Chart().animate() method.
-        It raises an error if called with multiple chart targets and Snapshot chart target.
+        A method for testing Chart.animate method.
+        It raises an error if has ben called with multiple chart targets and Snapshot chart target.
+
+        Raises:
+            AssertionError: If NotImplementedError is not occurred.
         """
 
         data = Data()
@@ -326,8 +401,11 @@ class TestChartMethods(TestChart):
 
     def test_animate_more_calls(self) -> None:
         """
-        A method for testing Chart().animate() method.
+        A method for testing Chart.animate method.
         It tests multiple calls.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
         """
 
         with unittest.mock.patch(self.mock) as output:
@@ -352,8 +430,11 @@ class TestChartMethods(TestChart):
 
     def test_animate_with_not_default_scroll_into_view(self) -> None:
         """
-        A method for testing Chart().animate() method.
+        A method for testing Chart.animate method.
         It tests with "scroll_into_view=True".
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
         """
 
         with unittest.mock.patch(self.mock) as output:
@@ -370,7 +451,12 @@ class TestChartMethods(TestChart):
             )
 
     def test_feature(self) -> None:
-        """A method for testing Chart().feature() method."""
+        """
+        A method for testing Chart.feature method.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
 
         with unittest.mock.patch(self.mock) as output:
             self.chart.feature("tooltip", True)
@@ -380,7 +466,12 @@ class TestChartMethods(TestChart):
             )
 
     def test_store(self) -> None:
-        """A method for testing Chart().store() method."""
+        """
+        A method for testing Chart.store method.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
 
         with unittest.mock.patch(self.mock) as output:
             self.chart.store()
@@ -392,12 +483,17 @@ class TestChartMethods(TestChart):
 
 class TestChartEvents(TestChart):
     """
-    A class for testing Chart() class.
-    It tests event-related methods.
+    A class for testing Chart class.
+    It tests the event related methods.
     """
 
     def test_on(self) -> None:
-        """A method for testing Chart().on() method."""
+        """
+        A method for testing Chart.on method.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
 
         with unittest.mock.patch(self.mock) as output:
             handler_method = """event.renderingContext.fillStyle =
@@ -413,7 +509,12 @@ class TestChartEvents(TestChart):
             )
 
     def test_off(self) -> None:
-        """A method for testing Chart().off() method."""
+        """
+        A method for testing Chart.off method.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
 
         with unittest.mock.patch(self.mock) as output:
             handler_method = "alert(JSON.stringify(event.data));"
@@ -427,12 +528,17 @@ class TestChartEvents(TestChart):
 
 class TestChartLogs(TestChart):
     """
-    A class for testing Chart() class.
-    It tests log-related methods.
+    A class for testing Chart class.
+    It tests the log related methods.
     """
 
     def test_log_config(self) -> None:
-        """A method for testing Chart().log() method (ChartProperty.CONFIG)."""
+        """
+        A method for testing Chart.log method (ChartProperty.CONFIG).
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
 
         with unittest.mock.patch(self.mock) as output:
             self.chart.log(ChartProperty.CONFIG)
@@ -442,7 +548,12 @@ class TestChartLogs(TestChart):
             )
 
     def test_log_style(self) -> None:
-        """A method for testing Chart().log() method (ChartProperty.STYLE)."""
+        """
+        A method for testing Chart.log method (ChartProperty.STYLE).
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
 
         with unittest.mock.patch(self.mock) as output:
             self.chart.log(ChartProperty.STYLE)
@@ -452,7 +563,12 @@ class TestChartLogs(TestChart):
             )
 
     def test_log_invalid(self) -> None:
-        """A method for testing Chart().log() method with an invalid value."""
+        """
+        A method for testing Chart.log method with an invalid value.
+
+        Raises:
+            AssertionError: If AttributeError is not occurred.
+        """
 
         with self.assertRaises(AttributeError):
             self.chart.log(ChartProperty.INVALID)  # type: ignore  # pylint: disable=no-member
@@ -460,26 +576,41 @@ class TestChartLogs(TestChart):
 
 class TestChartDisplay(TestChart):
     """
-    A class for testing Chart() class.
-    It tests display-related methods.
+    A class for testing Chart class.
+    It tests the display related methods.
     """
 
     def test_repr_html_if_display_is_not_manual(self) -> None:
-        """A method for testing Chart()._repr_html_() method (display!=manual)."""
+        """
+        A method for testing Chart._repr_html_ method (display!=manual).
+
+        Raises:
+            AssertionError: If AssertionError is not occurred.
+        """
 
         self.chart.animate(Snapshot("abc1234"))
         with self.assertRaises(AssertionError):
             self.chart._repr_html_()  # pylint: disable=protected-access
 
     def test_show_if_display_is_not_manual(self) -> None:
-        """A method for testing Chart().show() method (display!=manual)."""
+        """
+        A method for testing Chart.show method (display!=manual).
+
+        Raises:
+            AssertionError: If AssertionError is not occurred.
+        """
 
         self.chart.animate(Snapshot("abc1234"))
         with self.assertRaises(AssertionError):
             self.chart.show()
 
     def test_repr_html(self) -> None:
-        """A method for testing Chart()._repr_html_() method (display=manual)."""
+        """
+        A method for testing Chart._repr_html_ method (display=manual).
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
 
         self.chart = Chart(display="manual")
         display_mock = "ipyvizzu.Chart._display"
@@ -502,7 +633,12 @@ class TestChartDisplay(TestChart):
             )
 
     def test_show(self) -> None:
-        """A method for testing Chart().show() method (display=manual)."""
+        """
+        A method for testing Chart.show method (display=manual).
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
 
         self.chart = Chart(display="manual")
         display_mock = "ipyvizzu.Chart._display"
@@ -526,8 +662,11 @@ class TestChartDisplay(TestChart):
 
     def test_repr_html_after_repr_html(self) -> None:
         """
-        A method for testing Chart()._repr_html_() method.
-        It raises an error if called after Chart()._repr_html_().
+        A method for testing Chart._repr_html_ method.
+        It raises an error if has ben called after Chart._repr_html_.
+
+        Raises:
+            AssertionError: If AssertionError is not occurred.
         """
 
         self.chart = Chart(display="manual")
@@ -538,8 +677,11 @@ class TestChartDisplay(TestChart):
 
     def test_repr_html_after_show(self) -> None:
         """
-        A method for testing Chart()._repr_html_() method.
-        It raises an error if called after Chart().show().
+        A method for testing Chart._repr_html_ method.
+        It raises an error if has ben called after Chart.show.
+
+        Raises:
+            AssertionError: If AssertionError is not occurred.
         """
 
         self.chart = Chart(display="manual")
@@ -550,8 +692,11 @@ class TestChartDisplay(TestChart):
 
     def test_show_after_show(self) -> None:
         """
-        A method for testing Chart().show() method.
-        It raises an error if called after Chart().show().
+        A method for testing Chart.show method.
+        It raises an error if has ben called after Chart.show.
+
+        Raises:
+            AssertionError: If AssertionError is not occurred.
         """
 
         self.chart = Chart(display="manual")
@@ -562,8 +707,11 @@ class TestChartDisplay(TestChart):
 
     def test_show_after_repr_html(self) -> None:
         """
-        A method for testing Chart().show() method.
-        It raises an error if called after Chart()._repr_html_().
+        A method for testing Chart.show method.
+        It raises an error if has ben called after Chart._repr_html_.
+
+        Raises:
+            AssertionError: If AssertionError is not occurred.
         """
 
         self.chart = Chart(display="manual")
@@ -574,8 +722,11 @@ class TestChartDisplay(TestChart):
 
     def test_animate_after_repr_html(self) -> None:
         """
-        A method for testing Chart().animate() method.
-        It raises an error if called after Chart()._repr_html_().
+        A method for testing Chart.animate method.
+        It raises an error if has ben called after Chart._repr_html_.
+
+        Raises:
+            AssertionError: If AssertionError is not occurred.
         """
 
         self.chart = Chart(display="manual")
@@ -586,8 +737,11 @@ class TestChartDisplay(TestChart):
 
     def test_animate_after_show(self) -> None:
         """
-        A method for testing Chart().animate() method.
-        It raises an error if called after Chart().show().
+        A method for testing Chart.animate method.
+        It raises an error if has ben called after Chart.show.
+
+        Raises:
+            AssertionError: If AssertionError is not occurred.
         """
 
         self.chart = Chart(display="manual")
@@ -598,8 +752,11 @@ class TestChartDisplay(TestChart):
 
     def test_feature_after_repr_html(self) -> None:
         """
-        A method for testing Chart().feature() method.
-        It raises an error if called after Chart()._repr_html_().
+        A method for testing Chart.feature method.
+        It raises an error if has ben called after Chart._repr_html_.
+
+        Raises:
+            AssertionError: If AssertionError is not occurred.
         """
 
         self.chart = Chart(display="manual")
@@ -610,8 +767,11 @@ class TestChartDisplay(TestChart):
 
     def test_feature_after_show(self) -> None:
         """
-        A method for testing Chart().feature() method.
-        It raises an error if called after Chart().show().
+        A method for testing Chart.feature method.
+        It raises an error if has ben called after Chart.show.
+
+        Raises:
+            AssertionError: If AssertionError is not occurred.
         """
 
         self.chart = Chart(display="manual")
@@ -622,8 +782,11 @@ class TestChartDisplay(TestChart):
 
     def test_store_after_repr_html_(self) -> None:
         """
-        A method for testing Chart().store() method.
-        It raises an error if called after Chart()._repr_html_().
+        A method for testing Chart.store method.
+        It raises an error if has ben called after Chart._repr_html_.
+
+        Raises:
+            AssertionError: If AssertionError is not occurred.
         """
 
         self.chart = Chart(display="manual")
@@ -634,8 +797,11 @@ class TestChartDisplay(TestChart):
 
     def test_store_after_show(self) -> None:
         """
-        A method for testing Chart().store() method.
-        It raises an error if called after Chart().show().
+        A method for testing Chart.store method.
+        It raises an error if has ben called after Chart.show.
+
+        Raises:
+            AssertionError: If AssertionError is not occurred.
         """
 
         self.chart = Chart(display="manual")
