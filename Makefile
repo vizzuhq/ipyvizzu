@@ -54,16 +54,16 @@ $(DEV_BUILD_FLAG):
 check: check-format lint check-typing test
 
 format: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/black src tests docs tools
+	$(VIRTUAL_ENV)/bin/black src tests docs tools setup.py
 
 check-format: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/black --check src tests docs tools
+	$(VIRTUAL_ENV)/bin/black --check src tests docs tools setup.py
 
 lint: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/pylint src tests tools
+	$(VIRTUAL_ENV)/bin/pylint src tests tools setup.py
 
 check-typing: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/mypy src tests tools
+	$(VIRTUAL_ENV)/bin/mypy src tests tools setup.py
 
 clean-test:
 	rm -rf .coverage

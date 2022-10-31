@@ -1,4 +1,7 @@
-"""IPython - Jupyter notebook integration of Vizzu."""
+"""
+Build animated charts in Jupyter Notebook and
+in many other environments with a simple Python synthax.
+"""
 
 from .chart import Chart
 from .animation import (

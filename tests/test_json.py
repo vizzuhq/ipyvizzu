@@ -7,10 +7,15 @@ from ipyvizzu import RawJavaScriptEncoder, RawJavaScript
 
 
 class TestRawJavaScriptEncoder(unittest.TestCase):
-    """A class for testing RawJavaScriptEncoder()."""
+    """A class for testing RawJavaScriptEncoder class."""
 
     def test_encoder_with_rawjavascript(self) -> None:
-        """A method for testing RawJavaScriptEncoder() with RawJavaScript() object."""
+        """
+        A method for testing RawJavaScriptEncoder with RawJavaScript object.
+
+        Raises:
+            AssertionError: If the dumped value is not correct.
+        """
 
         raw_javascript = RawJavaScript("null")
         self.assertEqual(
@@ -19,15 +24,20 @@ class TestRawJavaScriptEncoder(unittest.TestCase):
         )
 
     def test_encoder_with_not_rawjavascript(self) -> None:
-        """A method for testing RawJavaScriptEncoder() with NotRawJavaScript() object."""
+        """
+        A method for testing RawJavaScriptEncoder with NotRawJavaScript object.
+
+        Raises:
+            AssertionError: If TypeError is not occurred.
+        """
 
         class NotRawJavaScript:
-            """A class for representing a custom object which is not RawJavaScript()."""
+            """A class for representing a custom object which is not RawJavaScript."""
 
             # pylint: disable=too-few-public-methods
 
             def __init__(self):
-                pass
+                """NotRawJavaScript constructor."""
 
         not_raw_javascript = NotRawJavaScript()
         with self.assertRaises(TypeError):
