@@ -34,43 +34,43 @@ class DisplayTemplate:
 
     # pylint: disable=too-few-public-methods
 
-    IPYVIZZUJS = "{ipyvizzujs}"
-    """`str`: ipyvizzu JavaScript class."""
+    IPYVIZZUJS: str = "{ipyvizzujs}"
+    """ipyvizzu JavaScript class."""
 
-    INIT = (
+    INIT: str = (
         "window.ipyvizzu.createChart(element, "
         + "'{chart_id}', '{vizzu}', '{div_width}', '{div_height}');"
     )
-    """`str`: Call createChart JavaScript method."""
+    """Call createChart JavaScript method."""
 
-    ANIMATE = (
+    ANIMATE: str = (
         "window.ipyvizzu.animate(element, "
         + "'{chart_id}', '{display_target}', {scroll}, "
         + "lib => {{ return {chart_target} }}, {chart_anim_opts});"
     )
-    """`str`: Call animate JavaScript method."""
+    """Call animate JavaScript method."""
 
-    FEATURE = "window.ipyvizzu.feature(element, '{chart_id}', '{name}', {enabled});"
-    """`str`: Call feature JavaScript method."""
+    FEATURE: str = "window.ipyvizzu.feature(element, '{chart_id}', '{name}', {enabled});"
+    """Call feature JavaScript method."""
 
-    STORE = "window.ipyvizzu.store(element, '{chart_id}', '{id}');"
-    """`str`: Call store JavaScript method."""
+    STORE: str = "window.ipyvizzu.store(element, '{chart_id}', '{id}');"
+    """Call store JavaScript method."""
 
-    SET_EVENT = (
+    SET_EVENT: str = (
         "window.ipyvizzu.setEvent(element, "
         + "'{chart_id}', '{id}', '{event}', event => {{ {handler} }});"
     )
-    """`str`: Call setEvent JavaScript method."""
+    """Call setEvent JavaScript method."""
 
-    CLEAR_EVENT = (
+    CLEAR_EVENT: str = (
         "window.ipyvizzu.clearEvent(element, '{chart_id}', '{id}', '{event}');"
     )
-    """`str`: Call clearEvent JavaScript method."""
+    """Call clearEvent JavaScript method."""
 
-    LOG = "window.ipyvizzu.log(element, '{chart_id}', '{chart_property}');"
-    """`str`: Call log JavaScript method."""
+    LOG: str = "window.ipyvizzu.log(element, '{chart_id}', '{chart_property}');"
+    """Call log JavaScript method."""
 
-    CLEAR_INHIBITSCROLL = (
+    CLEAR_INHIBITSCROLL: str = (
         "if (window.IpyVizzu) { window.IpyVizzu.clearInhibitScroll(element); }"
     )
-    """`str`: Call clearInhibitScroll JavaScript method if ipyvizzu JavaScript class exists."""
+    """Call clearInhibitScroll JavaScript method if ipyvizzu JavaScript class exists."""
