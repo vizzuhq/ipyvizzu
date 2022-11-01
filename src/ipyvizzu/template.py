@@ -50,7 +50,9 @@ class DisplayTemplate:
     )
     """Call animate JavaScript method."""
 
-    FEATURE: str = "window.ipyvizzu.feature(element, '{chart_id}', '{name}', {enabled});"
+    FEATURE: str = (
+        "window.ipyvizzu.feature(element, '{chart_id}', '{name}', {enabled});"
+    )
     """Call feature JavaScript method."""
 
     STORE: str = "window.ipyvizzu.store(element, '{chart_id}', '{id}');"
