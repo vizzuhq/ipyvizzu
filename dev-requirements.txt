@@ -15,7 +15,7 @@ argon2-cffi-bindings==21.2.0
     # via argon2-cffi
 astroid==2.12.12
     # via pylint
-asttokens==2.0.8
+asttokens==2.1.0
     # via stack-data
 attrs==22.1.0
     # via jsonschema
@@ -49,7 +49,7 @@ commonmark==0.9.1
     # via rich
 coverage==6.5.0
     # via -r dev-requirements.in
-cryptography==38.0.1
+cryptography==38.0.3
     # via secretstorage
 debugpy==1.6.3
     # via ipykernel
@@ -65,7 +65,7 @@ docutils==0.19
     # via readme-renderer
 entrypoints==0.4
     # via jupyter-client
-executing==1.1.1
+executing==1.2.0
     # via stack-data
 fastjsonschema==2.16.2
     # via nbformat
@@ -78,12 +78,14 @@ idna==3.4
     #   anyio
     #   requests
 importlib-metadata==5.0.0
-    # via twine
-ipykernel==6.16.2
+    # via
+    #   keyring
+    #   twine
+ipykernel==6.17.1
     # via
     #   nbclassic
     #   notebook
-ipython==8.5.0
+ipython==8.6.0
     # via
     #   black
     #   ipykernel
@@ -107,16 +109,16 @@ jinja2==3.1.2
     #   nbclassic
     #   nbconvert
     #   notebook
-jsonschema==4.16.0
+jsonschema==4.17.0
     # via nbformat
-jupyter-client==7.4.4
+jupyter-client==7.4.6
     # via
     #   ipykernel
     #   jupyter-server
     #   nbclassic
     #   nbclient
     #   notebook
-jupyter-core==4.11.2
+jupyter-core==5.0.0
     # via
     #   jupyter-client
     #   jupyter-server
@@ -124,7 +126,7 @@ jupyter-core==4.11.2
     #   nbconvert
     #   nbformat
     #   notebook
-jupyter-server==1.21.0
+jupyter-server==1.23.2
     # via
     #   nbclassic
     #   notebook-shim
@@ -132,7 +134,7 @@ jupyterlab-pygments==0.2.2
     # via nbconvert
 jupytext==1.14.1
     # via -r dev-requirements.in
-keyring==23.9.3
+keyring==23.11.0
     # via twine
 lazy-object-proxy==1.8.0
     # via astroid
@@ -158,17 +160,17 @@ mistune==2.0.4
     # via nbconvert
 more-itertools==9.0.0
     # via jaraco-classes
-mypy==0.982
+mypy==0.991
     # via -r dev-requirements.in
 mypy-extensions==0.4.3
     # via
     #   black
     #   mypy
-nbclassic==0.4.5
+nbclassic==0.4.8
     # via notebook
 nbclient==0.7.0
     # via nbconvert
-nbconvert==7.2.3
+nbconvert==7.2.5
     # via
     #   jupyter-server
     #   nbclassic
@@ -190,9 +192,9 @@ nest-asyncio==1.5.6
     #   notebook
 nodeenv==1.7.0
     # via pre-commit
-notebook==6.5.1
+notebook==6.5.2
     # via -r dev-requirements.in
-notebook-shim==0.2.0
+notebook-shim==0.2.2
     # via nbclassic
 numpy==1.23.4
     # via pandas
@@ -208,7 +210,7 @@ pandocfilters==1.5.0
     # via nbconvert
 parso==0.8.3
     # via jedi
-pathspec==0.10.1
+pathspec==0.10.2
     # via black
 pep517==0.13.0
     # via build
@@ -216,13 +218,14 @@ pexpect==4.8.0
     # via ipython
 pickleshare==0.7.5
     # via ipython
-pip-tools==6.9.0
+pip-tools==6.10.0
     # via -r dev-requirements.in
 pkginfo==1.8.3
     # via twine
-platformdirs==2.5.2
+platformdirs==2.5.4
     # via
     #   black
+    #   jupyter-core
     #   pylint
     #   virtualenv
 pre-commit==2.20.0
@@ -232,9 +235,9 @@ prometheus-client==0.15.0
     #   jupyter-server
     #   nbclassic
     #   notebook
-prompt-toolkit==3.0.31
+prompt-toolkit==3.0.32
     # via ipython
-psutil==5.9.3
+psutil==5.9.4
     # via ipykernel
 ptyprocess==0.7.0
     # via
@@ -254,13 +257,13 @@ pylint==2.15.5
     # via -r dev-requirements.in
 pyparsing==3.0.9
     # via packaging
-pyrsistent==0.18.1
+pyrsistent==0.19.2
     # via jsonschema
 python-dateutil==2.8.2
     # via
     #   jupyter-client
     #   pandas
-pytz==2022.5
+pytz==2022.6
     # via pandas
 pyyaml==6.0
     # via
@@ -273,7 +276,7 @@ pyzmq==24.0.1
     #   jupyter-server
     #   nbclassic
     #   notebook
-readme-renderer==37.2
+readme-renderer==37.3
     # via twine
 requests==2.28.1
     # via
@@ -301,7 +304,7 @@ sniffio==1.3.0
     # via anyio
 soupsieve==2.3.2.post1
     # via beautifulsoup4
-stack-data==0.5.1
+stack-data==0.6.1
     # via ipython
 terminado==0.17.0
     # via
@@ -354,7 +357,7 @@ urllib3==1.26.12
     # via
     #   requests
     #   twine
-virtualenv==20.16.6
+virtualenv==20.16.7
     # via pre-commit
 wcwidth==0.2.5
     # via prompt-toolkit
@@ -362,9 +365,9 @@ webencodings==0.5.1
     # via
     #   bleach
     #   tinycss2
-websocket-client==1.4.1
+websocket-client==1.4.2
     # via jupyter-server
-wheel==0.37.1
+wheel==0.38.4
     # via pip-tools
 wrapt==1.14.1
     # via astroid
