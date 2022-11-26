@@ -12,5 +12,6 @@ tests/coverage
 
 .venv
 
+site
 node_modules
 package-lock.json

@@ -1,0 +1,40 @@
+site_name: ipyvizzu
+site_url: https://vizzuhq.github.io/ipyvizzu/
+
+docs_dir: ../../docs
+
+repo_url: https://github.com/vizzuhq/ipyvizzu
+edit_uri: ""
+use_directory_urls: false
+
+theme:
+  name: material
+  icon:
+    logo: material/home
+
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+plugins:
+  - search
+  - section-index
+  - autorefs
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [../../src]
+          options:
+            members_order: source
+            show_root_heading: True
+            show_root_members_full_path: True
+            show_submodules: True
+  - gen-files:
+      scripts:
+        - gen_files.py
+  - literate-nav
+
+nav:
+  - Home: index.md
+  - Reference: reference/ipyvizzu/
