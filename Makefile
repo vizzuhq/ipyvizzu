@@ -115,7 +115,7 @@ doc: $(NOTEBOOKS:.ipynb=.html)
 	cd tools/html-generator; ../../$(VIRTUAL_ENV)/$(BIN_PATH)/jupyter nbconvert --Exporter.preprocessors=preprocessor.NbPreprocessor --to html --template classic --execute ../../$<
 
 mkdocs: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/$(BIN_PATH)/mkdocs build -s -f ./tools/mkdocs/mkdocs.yml -d ../../site
+	$(VIRTUAL_ENV)/$(BIN_PATH)/mkdocs build -f ./tools/mkdocs/mkdocs.yml -d ../../site
 
 
 

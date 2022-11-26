@@ -39,5 +39,9 @@ nav:
   - Home: index.md
   - Documentation:
       - docs/index.md
-      - Installation: docs/installation.md
+      - docs/installation.md
+      - Environments:
+          - docs/environments/index.md
+          - docs/environments/streamlit.md
+          - docs/environments/panel.md
   - Reference: reference/ipyvizzu/
