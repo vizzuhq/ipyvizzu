@@ -1,7 +1,19 @@
+PACKAGE = ipyvizzu
+OS_TYPE = linux
+PYTHON_BIN = python3
+BIN_PATH = bin
+ifeq ($(OS), Windows_NT)
+	OS_TYPE = windows
+	PYTHON_BIN = python
+	BIN_PATH = Scripts
+endif
+
+
+
 .PHONY: clean \
-	clean-dev update-dev-req install-dev-req install install-kernel touch-dev \
+	clean-dev update-dev-req install-dev-req install-kernel install touch-dev \
 	check format check-format lint check-typing clean-test test-wo-install test \
-	clean-doc \
+	clean-doc doc \
 	clean-build build-release check-release release
 
 VIRTUAL_ENV = .venv
@@ -19,32 +31,41 @@ clean: clean-dev clean-test clean-doc clean-build
 # init
 
 clean-dev:
+ifeq ($(OS_TYPE), windows)
+	if exist $(VIRTUAL_ENV) ( rd /s /q $(VIRTUAL_ENV) )
+else
 	rm -rf $(VIRTUAL_ENV)
+endif
 
 update-dev-req: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/pip-compile --upgrade dev-requirements.in
+	$(VIRTUAL_ENV)/$(BIN_PATH)/pip-compile --upgrade dev-requirements.in
 
 install-dev-req:
-	python3 -m venv $(VIRTUAL_ENV)
-	$(VIRTUAL_ENV)/bin/python -m pip install --upgrade pip
-	$(VIRTUAL_ENV)/bin/pip install -r dev-requirements.txt
-	$(VIRTUAL_ENV)/bin/pre-commit install --hook-type pre-commit --hook-type pre-push
-
-install:
-	$(VIRTUAL_ENV)/bin/python setup.py install
+	$(VIRTUAL_ENV)/$(BIN_PATH)/pip install -r dev-requirements.txt
 
 install-kernel:
-	$(VIRTUAL_ENV)/bin/ipython kernel install --name ".venv" --user
+	$(VIRTUAL_ENV)/$(BIN_PATH)/ipython kernel install --name ".venv" --user
+
+install:
+	$(VIRTUAL_ENV)/$(BIN_PATH)/pip uninstall -y $(PACKAGE)
+	$(VIRTUAL_ENV)/$(BIN_PATH)/python setup.py install
 
 touch-dev:
+ifeq ($(OS_TYPE), windows)
+	type NUL >> $(DEV_BUILD_FLAG)
+else
 	touch $(DEV_BUILD_FLAG)
+endif
 
 dev: $(DEV_BUILD_FLAG)
 
 $(DEV_BUILD_FLAG):
-	$(MAKE) -f Makefile install-dev-req
+	$(PYTHON_BIN) -m venv $(VIRTUAL_ENV)
+	$(VIRTUAL_ENV)/$(BIN_PATH)/python -m pip install --upgrade pip
 	$(MAKE) -f Makefile install
+	$(MAKE) -f Makefile install-dev-req
 	$(MAKE) -f Makefile install-kernel
+	$(VIRTUAL_ENV)/$(BIN_PATH)/pre-commit install --hook-type pre-commit --hook-type pre-push
 	$(MAKE) -f Makefile touch-dev
 
 
@@ -54,25 +75,30 @@ $(DEV_BUILD_FLAG):
 check: check-format lint check-typing test
 
 format: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/black src tests docs tools setup.py
+	$(VIRTUAL_ENV)/$(BIN_PATH)/black src tests tools setup.py
+	$(VIRTUAL_ENV)/$(BIN_PATH)/black docs
 
 check-format: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/black --check src tests docs tools setup.py
+	$(VIRTUAL_ENV)/$(BIN_PATH)/black --check src tests tools setup.py
+	$(VIRTUAL_ENV)/$(BIN_PATH)/black --check docs
 
 lint: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/pylint src tests tools setup.py
+	$(VIRTUAL_ENV)/$(BIN_PATH)/pylint src tests tools setup.py
 
 check-typing: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/mypy src tests tools setup.py
+	$(VIRTUAL_ENV)/$(BIN_PATH)/mypy src tests tools setup.py
 
 clean-test:
-	rm -rf .coverage
-	rm -rf htmlcov
+ifeq ($(OS_TYPE), windows)
+	if exist tests\coverage ( rd /s /q tests\coverage )
+else
+	rm -rf tests/coverage
+endif
 
 test-wo-install: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/coverage run --branch --source ipyvizzu -m unittest discover tests
-	$(VIRTUAL_ENV)/bin/coverage html
-	$(VIRTUAL_ENV)/bin/coverage report -m --fail-under=100
+	$(VIRTUAL_ENV)/$(BIN_PATH)/coverage run --data-file tests/coverage/.coverage --branch --source ipyvizzu -m unittest discover tests
+	$(VIRTUAL_ENV)/$(BIN_PATH)/coverage html --data-file tests/coverage/.coverage -d tests/coverage
+	$(VIRTUAL_ENV)/$(BIN_PATH)/coverage report --data-file tests/coverage/.coverage -m --fail-under=100
 
 test: $(DEV_BUILD_FLAG) install test-wo-install
 
@@ -86,22 +112,29 @@ clean-doc:
 doc: $(NOTEBOOKS:.ipynb=.html)
 
 %.html: %.ipynb $(DEV_BUILD_FLAG)
-	cd tools/html-generator; ../../$(VIRTUAL_ENV)/bin/jupyter nbconvert --Exporter.preprocessors=preprocessor.NbPreprocessor --to html --template classic --execute ../../$<
+	cd tools/html-generator; ../../$(VIRTUAL_ENV)/$(BIN_PATH)/jupyter nbconvert --Exporter.preprocessors=preprocessor.NbPreprocessor --to html --template classic --execute ../../$<
 
 
 
 # release
 
 clean-build:
+ifeq ($(OS_TYPE), windows)
+	if exist build ( rd /s /q build )
+	if exist dist ( rd /s /q dist )
+	for /d /r src %%d in (*.egg-info) do @if exist "%%d" rd /s /q "%%d"
+	for /d /r . %%d in (__pycache__) do @if exist "%%d" rd /s /q "%%d"
+else
 	rm -rf build
 	rm -rf dist
-	rm -rf **/*.egg-info
-	rm -rf **/__pycache__
+	rm -rf `find src -name '*.egg-info'`
+	rm -rf `find . -name '__pycache__'`
+endif
 
 build-release: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/python -m build
+	$(VIRTUAL_ENV)/$(BIN_PATH)/python -m build
 
 check-release: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/bin/python -m twine check dist/*.tar.gz dist/*.whl
+	$(VIRTUAL_ENV)/$(BIN_PATH)/python -m twine check dist/*.tar.gz dist/*.whl
 
 release: clean-build build-release check-release
