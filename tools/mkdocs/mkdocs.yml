@@ -37,4 +37,7 @@ plugins:
 
 nav:
   - Home: index.md
+  - Documentation:
+      - docs/index.md
+      - Installation: docs/installation.md
   - Reference: reference/ipyvizzu/
