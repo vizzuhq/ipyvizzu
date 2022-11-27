@@ -6,6 +6,15 @@ black[jupyter]
 pylint
 mypy
 coverage
+mdformat
+mdformat-beautysh
+mdformat-black
+mdformat-config
+mdformat-web
+mdformat-gfm
+mdformat-tables
+mdformat-frontmatter
+mdformat-footnote
 mkdocs
 mkdocstrings[python]
 mkdocs-material
