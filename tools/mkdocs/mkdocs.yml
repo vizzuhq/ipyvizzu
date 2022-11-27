@@ -55,6 +55,7 @@ nav:
               - Mercury (mljar): docs/environments/jupyter/mercury.md
               - docs/environments/jupyter/mode.md
               - docs/environments/jupyter/noteable.md
+              - Voilà: docs/environments/jupyter/voila.md
           - docs/environments/streamlit.md
           - docs/environments/panel.md
   - Reference: reference/ipyvizzu/
