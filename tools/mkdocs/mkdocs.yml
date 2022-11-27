@@ -52,6 +52,7 @@ nav:
               - JupyterLab: docs/environments/jupyter/jupyterlab.md
               - JupyterLite: docs/environments/jupyter/jupyterlite.md
               - docs/environments/jupyter/kaggle.md
+              - Mercury (mljar): docs/environments/jupyter/mercury.md
           - docs/environments/streamlit.md
           - docs/environments/panel.md
   - Reference: reference/ipyvizzu/
