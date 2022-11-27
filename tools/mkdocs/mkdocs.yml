@@ -45,6 +45,7 @@ nav:
           - Jupyter/IPython:
               - docs/environments/jupyter/index.md
               - Jupyter Notebook: docs/environments/jupyter/jupyternotebook.md
+              - JupyterLab: docs/environments/jupyter/jupyterlab.md
           - docs/environments/streamlit.md
           - docs/environments/panel.md
   - Reference: reference/ipyvizzu/
