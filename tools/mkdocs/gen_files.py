@@ -138,6 +138,8 @@ class SectionIndex:
                 and isinstance(nav_item[0], str)
                 and nav_item[0].endswith("index.md")
             ):
+                with mkdocs_gen_files.open(nav_item[0], "a") as f_index:
+                    f_index.write("\n")
                 SectionIndex._write_index_file(file=nav_item[0], toc=nav_item[1:])
             for item in nav_item:
                 SectionIndex.generate(nav_item=item)

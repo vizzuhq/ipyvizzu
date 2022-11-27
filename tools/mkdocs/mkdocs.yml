@@ -42,6 +42,9 @@ nav:
       - docs/installation.md
       - Environments:
           - docs/environments/index.md
+          - Jupyter/IPython:
+              - docs/environments/jupyter/index.md
+              - Jupyter Notebook: docs/environments/jupyter/jupyternotebook.md
           - docs/environments/streamlit.md
           - docs/environments/panel.md
   - Reference: reference/ipyvizzu/

@@ -23,7 +23,7 @@ You can use `ipyvizzu` in `Jupyter/IPython`, `Streamlit` or `Panel` (see [Enviro
 You can easily install `ipyvizzu` in your notebook without using the command line
 if you place the following code into a cell.
 
-```python
+```
 !pip install ipyvizzu
 ```
 

@@ -30,7 +30,6 @@ Below you can see an example, place the following code blocks into a python file
 
 For more information regarding to how to use ipyvizzu-story please check [Tutorial chapter](../tutorial.md) of our documentation site.
 
-
 ```python
 # import panel, pandas and ipyvizzu
 
@@ -45,27 +44,42 @@ def create_chart():
 
     chart = Chart(width="640px", height="360px", display=DisplayTarget.MANUAL)
 
-
     # create and add data to Chart
 
     data = Data()
-    data_frame = pd.read_csv("https://github.com/vizzuhq/ipyvizzu/raw/main/docs/examples/stories/titanic/titanic.csv")
+    data_frame = pd.read_csv(
+        "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/examples/stories/titanic/titanic.csv"
+    )
     data.add_data_frame(data_frame)
 
     chart.animate(data)
 
-
     # add config to Chart
 
-    chart.animate(Config({"x": "Count", "y": "Sex", "label": "Count","title":"Passengers of the Titanic"}))
-    chart.animate(Config({"x": ["Count","Survived"], "label": ["Count","Survived"], "color": "Survived"}))
-    chart.animate(Config({"x": "Count", "y": ["Sex","Survived"]}))
-
+    chart.animate(
+        Config(
+            {
+                "x": "Count",
+                "y": "Sex",
+                "label": "Count",
+                "title": "Passengers of the Titanic",
+            }
+        )
+    )
+    chart.animate(
+        Config(
+            {
+                "x": ["Count", "Survived"],
+                "label": ["Count", "Survived"],
+                "color": "Survived",
+            }
+        )
+    )
+    chart.animate(Config({"x": "Count", "y": ["Sex", "Survived"]}))
 
     # add style to Chart
 
     chart.animate(Style({"title": {"fontSize": 35}}))
-
 
     # return Chart
 
@@ -86,7 +100,7 @@ pn.state.template.param.update(
 )
 
 pn.pane.Markdown(
-"""
+    """
 # Panel demo with ipyvizzu
 """
 ).servable()
