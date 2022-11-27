@@ -32,7 +32,7 @@ or place the following code into a notebook cell in order to install ipyvizzu (f
 
 ## Example
 
-Below you can see an example, place the following code blocks into notebook cells in order to try it in Jupyter Notebook.
+Below you can see an example, place the following code blocks into notebook cells in order to try it in JupyterLab.
 
 For more information regarding to how to use ipyvizzu-story please check [Tutorial chapter](../tutorial.md) of our documentation site.
 
