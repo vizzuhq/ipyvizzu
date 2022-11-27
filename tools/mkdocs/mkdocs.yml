@@ -48,6 +48,7 @@ nav:
               - docs/environments/jupyter/colab.md
               - docs/environments/jupyter/databricks.md
               - DataCamp: docs/environments/jupyter/datacamp.md
+              - docs/environments/jupyter/deepnote.md
               - JupyterLab: docs/environments/jupyter/jupyterlab.md
               - JupyterLite: docs/environments/jupyter/jupyterlite.md
           - docs/environments/streamlit.md
