@@ -54,6 +54,7 @@ nav:
               - docs/environments/jupyter/kaggle.md
               - Mercury (mljar): docs/environments/jupyter/mercury.md
               - docs/environments/jupyter/mode.md
+              - docs/environments/jupyter/noteable.md
           - docs/environments/streamlit.md
           - docs/environments/panel.md
   - Reference: reference/ipyvizzu/
