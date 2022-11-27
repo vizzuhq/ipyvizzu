@@ -23,6 +23,7 @@ mkdocs-section-index
 mkdocs-gen-files
 mkdocs-literate-nav
 mkdocs-jupyter
+mdx_truly_sane_lists
 pyyaml
 types-pyyaml
 notebook

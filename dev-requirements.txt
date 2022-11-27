@@ -181,6 +181,7 @@ lxml==4.9.1
     #   nbconvert
 markdown==3.3.7
     # via
+    #   mdx-truly-sane-lists
     #   mkdocs
     #   mkdocs-autorefs
     #   mkdocs-material
@@ -240,6 +241,8 @@ mdit-py-plugins==0.3.1
     #   mdformat-gfm
 mdurl==0.1.2
     # via markdown-it-py
+mdx-truly-sane-lists==1.3
+    # via -r dev-requirements.in
 mergedeep==1.3.4
     # via mkdocs
 mistune==0.8.4
