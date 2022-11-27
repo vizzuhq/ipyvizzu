@@ -1,6 +1,6 @@
-# Databricks
+# DataCamp
 
-You can use ipyvizzu in Databricks with the following restrictions:
+You can use ipyvizzu in DataCamp with the following restrictions:
 
 - [x] Change the url of Vizzu (`vizzu`)
 - [x] Change the width of the chart (`width`)
@@ -9,12 +9,14 @@ You can use ipyvizzu in Databricks with the following restrictions:
 
 Dislay restrictions:
 
-- [x] Display all animations after `_repr_html_` method called (`display`=`DisplayTarget.MANUAL`)
-- [ ] Display all animations after `show` method called (`display`=`DisplayTarget.MANUAL`)
-- [ ] Automatically display all animations after the first cell (`display`=`DisplayTarget.BEGIN`)
-- [ ] Automatically display all animations after the currently running cell (`display`=`DisplayTarget.ACTUAL`)
-- [ ] Automatically display all animations after the last running cell (`display`=`DisplayTarget.END`)
-- [ ] Rerun any cell without rerun the first cell (`display`!=`DisplayTarget.MANUAL`)
+- [x] Display all animations after `_repr_html_` method called (`display`=`DisplayTarget.MANUAL`) \*
+- [x] Display all animations after `show` method called (`display`=`DisplayTarget.MANUAL`) \*
+- [x] Automatically display all animations after the first cell (`display`=`DisplayTarget.BEGIN`) \*
+- [x] Automatically display all animations after the currently running cell (`display`=`DisplayTarget.ACTUAL`) \*
+- [x] Automatically display all animations after the last running cell (`display`=`DisplayTarget.END`) \*
+- [x] Rerun any cell without rerun the first cell (`display`!=`DisplayTarget.MANUAL`)
+
+\*ipyvizzu does not work in the default editor, switch to the JupyterLab-style editor
 
 ## Installation
 
@@ -26,20 +28,24 @@ Place the following code into a notebook cell in order to install ipyvizzu (for 
 
 ## Example
 
-Below you can see an example, place the following code blocks into notebook cells in order to try it in Databricks.
+Below you can see an example, place the following code blocks into notebook cells in order to try it in DataCamp.
 
 For more information regarding to how to use ipyvizzu please check [Tutorial chapter](../../tutorial.md) of our documentation site.
 
 ```python
 # import pandas and ipyvizzu
-
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 
 
 # initialize Chart
 
-chart = Chart(width="640px", height="360px", display=DisplayTarget.MANUAL)
+chart = Chart(
+    width="640px", height="360px"
+)  # or Chart(width="640px", height="360px", display=DisplayTarget.ACTUAL)
+# chart = Chart(width="640px", height="360px", display=DisplayTarget.BEGIN)
+# chart = Chart(width="640px", height="360px", display=DisplayTarget.END)
+# chart = Chart(width="640px", height="360px", display=DisplayTarget.MANUAL)
 ```
 
 ```python
@@ -51,7 +57,6 @@ data_frame = pd.read_csv(
     + "docs/examples/stories/titanic/titanic.csv"
 )
 data.add_data_frame(data_frame)
-
 chart.animate(data)
 ```
 
@@ -87,9 +92,10 @@ chart.animate(Style({"title": {"fontSize": 35}}))
 ```
 
 ```python
-# display Chart with _repr_html_ method (display=DisplayTarget.MANUAL)
+# display Chart with show or _repr_html_ method (display=DisplayTarget.MANUAL)
 
-chart
+# chart.show()
+# chart
 ```
 
 ## Try it!

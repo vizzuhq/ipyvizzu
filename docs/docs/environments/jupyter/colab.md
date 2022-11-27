@@ -87,7 +87,7 @@ chart.animate(Style({"title": {"fontSize": 35}}))
 ```
 
 ```python
-# display chart with show or _repr_html_ method
+# display Chart with show or _repr_html_ method (display=DisplayTarget.MANUAL)
 
 chart.show()
 # chart
