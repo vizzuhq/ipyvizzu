@@ -46,9 +46,10 @@ from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 
 # initialize Chart
 
-chart = Chart(width="640px", height="360px")
+chart = Chart(
+    width="640px", height="360px"
+)  # or Chart(width="640px", height="360px", display=DisplayTarget.ACTUAL)
 # chart = Chart(width="640px", height="360px", display=DisplayTarget.BEGIN)
-# chart = Chart(width="640px", height="360px", display=DisplayTarget.ACTUAL)  # default
 # chart = Chart(width="640px", height="360px", display=DisplayTarget.END)
 # chart = Chart(width="640px", height="360px", display=DisplayTarget.MANUAL)
 ```
@@ -59,7 +60,8 @@ chart = Chart(width="640px", height="360px")
 
 data = Data()
 data_frame = pd.read_csv(
-    "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/examples/stories/titanic/titanic.csv"
+    "https://github.com/vizzuhq/ipyvizzu/raw/main/"
+    + "docs/examples/stories/titanic/titanic.csv"
 )
 data.add_data_frame(data_frame)
 
