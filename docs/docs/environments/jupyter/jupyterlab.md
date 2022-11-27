@@ -32,12 +32,11 @@ or place the following code into a notebook cell in order to install ipyvizzu (f
 
 ## Example
 
-Below you can see an example, place the following code blocks into a python file in order to try it in JupyterLab.
+Below you can see an example, place the following code blocks into notebook cells in order to try it in Jupyter Notebook.
 
 For more information regarding to how to use ipyvizzu-story please check [Tutorial chapter](../tutorial.md) of our documentation site.
 
 ```python
-# cell 1
 # import pandas and ipyvizzu
 
 import pandas as pd
@@ -55,7 +54,6 @@ chart = Chart(
 ```
 
 ```python
-# cell 2
 # add data to Chart
 
 data = Data()
@@ -69,7 +67,6 @@ chart.animate(data)
 ```
 
 ```python
-# cell 3
 # add config to Chart
 
 chart.animate(
@@ -95,14 +92,12 @@ chart.animate(Config({"x": "Count", "y": ["Sex", "Survived"]}))
 ```
 
 ```python
-# cell 4
 # add style to Chart
 
 chart.animate(Style({"title": {"fontSize": 35}}))
 ```
 
 ```python
-# cell 5
 # display Chart with show or _repr_html_ method (display=DisplayTarget.MANUAL)
 
 # chart.show()

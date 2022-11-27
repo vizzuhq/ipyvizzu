@@ -1,6 +1,6 @@
-# Jupyter Notebook
+# JupyterLite
 
-You can use ipyvizzu in Jupyter Notebook with the following restrictions:
+You can use ipyvizzu in JupyterLite with the following restrictions:
 
 - [x] Change the url of Vizzu (`vizzu`)
 - [x] Change the width of the chart (`width`)
@@ -18,28 +18,26 @@ Dislay restrictions:
 
 ## Installation
 
-Run the following command in your command line
+Place the following code into a notebook cell in order to install ipyvizzu (for more installation options and details see [Installation chapter](../../installation.md) of our documentation site).
 
-```sh
-pip install ipyvizzu
-```
+```python
+import micropip
 
-or place the following code into a notebook cell in order to install ipyvizzu (for more installation options and details see [Installation chapter](../../installation.md) of our documentation site).
-
-```
-!pip install ipyvizzu
+await micropip.install("ipyvizzu")
 ```
 
 ## Example
 
-Below you can see an example, place the following code blocks into notebook cells in order to try it in Jupyter Notebook.
+Below you can see an example, place the following code blocks into notebook cells in order to try it in JupyterLite.
 
 For more information regarding to how to use ipyvizzu-story please check [Tutorial chapter](../tutorial.md) of our documentation site.
 
 ```python
-# import pandas and ipyvizzu
+# import pandas, js, asyncio, StringIO and ipyvizzu
 
 import pandas as pd
+import js, asyncio
+from io import StringIO
 from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 
 
@@ -55,12 +53,41 @@ chart = Chart(
 
 ```python
 # add data to Chart
+# download data from https://github.com/
+# vizzuhq/ipyvizzu/raw/main/docs/examples/stories/titanic/titanic.csv
+# and place it in your JupyterLite workspace
+
+DB_NAME = "JupyterLite Storage"
+
+
+async def get_contents(path):
+    """use the IndexedDB API to acess JupyterLite's in-browser storage
+    for documentation purposes, the full names of the JS API objects are used.
+    see https://developer.mozilla.org/en-US/docs/Web/API/IDBRequest
+    """
+    queue = asyncio.Queue(1)
+
+    IDBOpenDBRequest = js.self.indexedDB.open(DB_NAME)
+    IDBOpenDBRequest.onsuccess = IDBOpenDBRequest.onerror = queue.put_nowait
+
+    await queue.get()
+
+    if IDBOpenDBRequest.result is None:
+        return None
+
+    IDBTransaction = IDBOpenDBRequest.result.transaction("files", "readonly")
+    IDBObjectStore = IDBTransaction.objectStore("files")
+    IDBRequest = IDBObjectStore.get(path, "key")
+    IDBRequest.onsuccess = IDBRequest.onerror = queue.put_nowait
+
+    await queue.get()
+
+    return IDBRequest.result.to_py() if IDBRequest.result else None
+
 
 data = Data()
-data_frame = pd.read_csv(
-    "https://github.com/vizzuhq/ipyvizzu/raw/main/"
-    + "docs/examples/stories/titanic/titanic.csv"
-)
+data_csv = await get_contents("titanic.csv")
+data_frame = pd.read_csv(StringIO(data_csv["content"]))
 data.add_data_frame(data_frame)
 
 chart.animate(data)
@@ -106,8 +133,4 @@ chart.animate(Style({"title": {"fontSize": 35}}))
 
 ## Try it!
 
-Run the following command and place the above code blocks into notebook cells in order to try it.
-
-```sh
-jupyter notebook
-```
+Place the above code blocks into notebook cells in order to try it.
