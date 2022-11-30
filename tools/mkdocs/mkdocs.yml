@@ -4,7 +4,7 @@ site_url: https://vizzuhq.github.io/ipyvizzu/mkdocs
 docs_dir: ../../docs
 
 repo_url: https://github.com/vizzuhq/ipyvizzu
-edit_uri: https://github.com/vizzuhq/ipyvizzu-story/edit/mkdocs/docs
+edit_uri: https://github.com/vizzuhq/ipyvizzu/edit/mkdocs/docs
 use_directory_urls: false
 
 theme:
