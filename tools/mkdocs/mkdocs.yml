@@ -41,6 +41,9 @@ nav:
   - Documentation:
       - docs/index.md
       - docs/installation.md
+      - Tutorial:
+          - docs/tutorial/index.md
+          - Axes, title, tooltip: docs/tutorial/01_03_axes_title_tooltip.md
       - Environments:
           - docs/environments/index.md
           - Jupyter/IPython:
