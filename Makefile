@@ -42,6 +42,7 @@ update-dev-req: $(DEV_BUILD_FLAG)
 
 install-dev-req:
 	$(VIRTUAL_ENV)/$(BIN_PATH)/pip install -r dev-requirements.txt
+	$(VIRTUAL_ENV)/$(BIN_PATH)/python tools/mdformat/customise_mdformat_black.py -v $(VIRTUAL_ENV) -l 78
 
 install-kernel:
 	$(VIRTUAL_ENV)/$(BIN_PATH)/ipython kernel install --name ".venv" --user
