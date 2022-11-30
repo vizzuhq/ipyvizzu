@@ -1,0 +1,63 @@
+site_name: ipyvizzu
+site_url: https://vizzuhq.github.io/ipyvizzu/
+
+docs_dir: ../../docs
+
+repo_url: https://github.com/vizzuhq/ipyvizzu
+edit_uri: ""
+use_directory_urls: false
+
+theme:
+  name: material
+  icon:
+    logo: material/home
+
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - mdx_truly_sane_lists
+
+plugins:
+  - search
+  - section-index
+  - autorefs
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [../../src]
+          options:
+            members_order: source
+            show_root_heading: True
+            show_root_members_full_path: True
+            show_submodules: True
+  - gen-files:
+      scripts:
+        - gen_files.py
+  - literate-nav
+
+nav:
+  - Home: index.md
+  - Documentation:
+      - docs/index.md
+      - docs/installation.md
+      - Environments:
+          - docs/environments/index.md
+          - Jupyter/IPython:
+              - docs/environments/jupyter/index.md
+              - Jupyter Notebook: docs/environments/jupyter/jupyternotebook.md
+              - docs/environments/jupyter/colab.md
+              - docs/environments/jupyter/databricks.md
+              - DataCamp: docs/environments/jupyter/datacamp.md
+              - docs/environments/jupyter/deepnote.md
+              - JupyterLab: docs/environments/jupyter/jupyterlab.md
+              - JupyterLite: docs/environments/jupyter/jupyterlite.md
+              - docs/environments/jupyter/kaggle.md
+              - Mercury/mljar: docs/environments/jupyter/mercury.md
+              - docs/environments/jupyter/mode.md
+              - docs/environments/jupyter/noteable.md
+              - Voilà: docs/environments/jupyter/voila.md
+              - VSCode Python: docs/environments/jupyter/vscode.md
+          - docs/environments/streamlit.md
+          - docs/environments/panel.md
+  - Reference: reference/ipyvizzu/

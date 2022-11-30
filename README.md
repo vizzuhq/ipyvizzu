@@ -85,37 +85,26 @@ chart.animate(Config({"x": "Count", "y": ["Sex", "Survived"]}))
 Visit our [documentation](https://ipyvizzu.vizzuhq.com/doc.html) site for more details and a step-by-step tutorial into ipyvizzu
 or check out our [example gallery](http://ipyvizzu.vizzuhq.com/examples/examples.html).
 
-# Tools Support
+## Environment support
 
-ipyvizzu can be used in a wide variety of environments. We prepared examples and the list of supported/unsupported features for the following platforms:
+ipyvizzu can be used in a wide variety of environments, visit [Environments chapter](https://vizzuhq.github.io/ipyvizzu/docs/environments/index.html) of our documentation site for more details.
 
-- [Databricks](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/databricks.md)
-
-- [DataCamp](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/datacamp.md)
-
-- [Deepnote](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/deepnote.md) and interactive demo [![View in Deepnote](https://deepnote.com/static/buttons/view-in-deepnote.svg)](https://deepnote.com/workspace/david-andras-vegh-bc03-79fd3a98-abaf-40c0-8b52-9f3e438a73fc/project/ipyvizzu-demo-dff3c2c3-f212-434e-8fa1-23d843c52fe3/%2Fipyvizzu_demo.ipynb)
-
-- [Google Colab](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/colab.md) and interactive demo [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/19H4etDPuSyJ3LNJbshsfEAnxxwjJgZgq?usp=sharing)
-
-- [JupyterLab](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/jupyterlab.md)
-
-- [JupyterLite](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/jupyterlite.md)
-
-- [Kaggle](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/kaggle.md) and interactive demo [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/dvidandrsvgh/ipyvizzu-demo)
-
-- [Mercury](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/mercury.md) and interactive demo [![Open in Mercury](https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg)](https://huggingface.co/spaces/veghdev/ipyvizzu-demo)
-
-- [Mode](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/mode.md)
-
-- [Noteable](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/noteable.md)
-
-- [Panel](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/panel.md)
-
-- [Streamlit](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/streamlit.md)
-
-- [Voilà](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/voila.md)
-
-- [VSCode](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/vscode.md)
+- Jupyter/IPython
+  - [Jupyter Notebook](https://vizzuhq.github.io/ipyvizzu/docs/environments/jupyter/jupyternotebook.html)
+  - [Colab](https://vizzuhq.github.io/ipyvizzu/docs/environments/jupyter/colab.html) [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/19H4etDPuSyJ3LNJbshsfEAnxxwjJgZgq?usp=sharing)
+  - [Databricks](https://vizzuhq.github.io/ipyvizzu/docs/environments/jupyter/databricks.html)
+  - [DataCamp](https://vizzuhq.github.io/ipyvizzu/docs/environments/jupyter/datacamp.html)
+  - [Deepnote](https://vizzuhq.github.io/ipyvizzu/docs/environments/jupyter/deepnote.html) [![View in Deepnote](https://deepnote.com/static/buttons/view-in-deepnote.svg)](https://deepnote.com/workspace/david-andras-vegh-bc03-79fd3a98-abaf-40c0-8b52-9f3e438a73fc/project/ipyvizzu-demo-dff3c2c3-f212-434e-8fa1-23d843c52fe3/%2Fipyvizzu_demo.ipynb)
+  - [JupyterLab](https://vizzuhq.github.io/ipyvizzu/docs/environments/jupyter/jupyterlab.html)
+  - [JupyterLite](https://vizzuhq.github.io/ipyvizzu/docs/environments/jupyter/jupyterlite.html)
+  - [Kaggle](https://vizzuhq.github.io/ipyvizzu/docs/environments/jupyter/kaggle.html) [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/dvidandrsvgh/ipyvizzu-demo)
+  - [Mercury/mljar](https://vizzuhq.github.io/ipyvizzu/docs/environments/jupyter/mercury.html) [![Open in Mercury](https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg)](https://huggingface.co/spaces/veghdev/ipyvizzu-demo)
+  - [Mode](https://vizzuhq.github.io/ipyvizzu/docs/environments/jupyter/mode.html)
+  - [Noteable](https://vizzuhq.github.io/ipyvizzu/docs/environments/jupyter/noteable.html)
+  - [Voilà](https://vizzuhq.github.io/ipyvizzu/docs/environments/jupyter/voila.html)
+  - [VSCode Python](https://vizzuhq.github.io/ipyvizzu/docs/environments/jupyter/vscode.html)
+- [Streamlit](https://vizzuhq.github.io/ipyvizzu/docs/environments/streamlit.html)
+- [Panel](https://vizzuhq.github.io/ipyvizzu/docs/environments/panel.html)
 
 # Extensions
 
