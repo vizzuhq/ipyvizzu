@@ -179,6 +179,8 @@ class Reference:
                 item = ".".join(parts)
                 f_md.write(f"::: {item}")
 
+            mkdocs_gen_files.set_edit_path(full_doc_path, ".." / path)
+
 
 def main() -> None:
     """
