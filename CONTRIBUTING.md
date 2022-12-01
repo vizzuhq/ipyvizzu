@@ -4,6 +4,12 @@
 
 You can find our open issues in the project's [issue tracker](https://github.com/vizzuhq/ipyvizzu/issues). Please let us know if you find any issues or have any feature requests there.
 
+## Contributing
+
+If you want to contribute to the project, your help is very welcome. Just fork the project, make your changes and send us a pull request.
+You can find the detailed description of how to do this in
+[Github's guide to contributing to projects](https://docs.github.com/en/get-started/quickstart/contributing-to-projects).
+
 ## CI-CD
 
 ### Development environment
