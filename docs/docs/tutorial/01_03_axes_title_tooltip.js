@@ -1,5 +1,44 @@
 vizzuLoaded = import("https://cdn.jsdelivr.net/npm/vizzu@0.6/dist/vizzu.min.js");
 
+
+class Snippet {
+
+    static display(vizzu, data, tutorial, number, anims, prev) {
+        let chart = new vizzu.default(tutorial + "_" + number).initializing;
+        chart = chart.then(chart => {
+            return chart.animate({ data }, 0);
+        });
+
+        if (prev) {
+            chart = Promise.all([chart, prev]).then((charts) => {
+                // return charts[0].animate({config: charts[1].config, style: charts[1].style}, 0);
+                return charts[0].animate({style: charts[1].style}, 0);
+            });
+        }
+        let snapshot;
+        chart = chart.then(chart => {
+            snapshot = chart.store()
+            return chart;
+        });
+
+        let button = document.getElementById(tutorial + "_" + number + "_" + "replay");
+        button.onclick = () => {
+            chart = chart.then(chart => {
+                chart.animate(snapshot, 0);
+                for (var i=0; i < anims.length; i++) {
+                    chart = anims[i](chart);
+                }
+                return chart;
+            });
+        };
+        button.click();
+
+        return chart;
+    }
+
+}
+
+
 vizzuLoaded.then(Vizzu =>{
 
     data = {
@@ -24,18 +63,8 @@ vizzuLoaded.then(Vizzu =>{
         ]
     };
 
-    chart1 = new Vizzu.default("tutorial_01_03_01").initializing;
-    chart1 = chart1.then(chart => {
-        return chart.animate({ data }, 0);
-    });
-    chart1 = chart1.then(chart => {
-        snapshot1 = chart.store()
-        return chart;
-    });
-    button1 = document.getElementById("tutorial_01_03_01_replay");
-    button1.onclick = () => {
-        chart1 = chart1.then(chart => {
-            chart.animate(snapshot1, 0);
+    let chart1 = Snippet.display(Vizzu, data, "tutorial_01_03", "01", [
+        chart => {
             return chart.animate({
                 config: {
                     channels: {
@@ -44,28 +73,11 @@ vizzuLoaded.then(Vizzu =>{
                     }
                 }
             });
-        });
-    };
-    button1.click();
+        }
+    ])
 
-    chart2 = new Vizzu.default("tutorial_01_03_02").initializing;
-    chart2 = chart2.then(chart => {
-        return chart.animate({ data }, 0);
-    });
-    chart2 = Promise.all([chart1, chart2]).then((charts) => {
-        config = charts[0].config;
-        style = charts[0].style;
-        // return charts[1].animate({config: charts[0].config, style: charts[0].style}, 0);
-        return charts[1].animate({style: charts[0].style}, 0);
-    });
-    chart2 = chart2.then(chart => {
-        snapshot2 = chart.store()
-        return chart;
-    });
-    button2 = document.getElementById("tutorial_01_03_02_replay");
-    button2.onclick = () => {
-        chart2 = chart2.then(chart => {
-            chart.animate(snapshot2, 0);
+    let chart2 = Snippet.display(Vizzu, data, "tutorial_01_03", "02", [
+        chart => {
             return chart.animate({
                 config: {
                     channels: {
@@ -74,28 +86,11 @@ vizzuLoaded.then(Vizzu =>{
                     }
                 }
             });
-        });
-    };
-    button2.click();
+        }
+    ], chart1)
 
-    chart3 = new Vizzu.default("tutorial_01_03_03").initializing;
-    chart3 = chart3.then(chart => {
-        return chart.animate({ data }, 0);
-    });
-    chart3 = Promise.all([chart2, chart3]).then((charts) => {
-        config = charts[0].config;
-        style = charts[0].style;
-        // return charts[1].animate({config: charts[0].config, style: charts[0].style}, 0);
-        return charts[1].animate({style: charts[0].style}, 0);
-    });
-    chart3 = chart3.then(chart => {
-        snapshot3 = chart.store()
-        return chart;
-    });
-    button3 = document.getElementById("tutorial_01_03_03_replay");
-    button3.onclick = () => {
-        chart3 = chart3.then(chart => {
-            chart.animate(snapshot3, 0);
+    let chart3 = Snippet.display(Vizzu, data, "tutorial_01_03", "03", [
+        chart => {
             return chart.animate({
                 config: {
                     channels: {
@@ -104,58 +99,19 @@ vizzuLoaded.then(Vizzu =>{
                     }
                 }
             });
-        });
-        chart3 = chart3.then(chart => {
-            console.log(chart.config)
-            return chart;
-        });
-    };
-    button3.click();
+        }
+    ], chart2)
 
-    chart4 = new Vizzu.default("tutorial_01_03_04").initializing;
-    chart4 = chart4.then(chart => {
-        return chart.animate({ data }, 0);
-    });
-    chart4 = Promise.all([chart3, chart4]).then((charts) => {
-        config = charts[0].config;
-        style = charts[0].style;
-        // return charts[1].animate({config: charts[0].config, style: charts[0].style}, 0);
-        return charts[1].animate({style: charts[0].style}, 0);
-    });
-    chart4 = chart4.then(chart => {
-        snapshot4 = chart.store()
-        return chart;
-    });
-    button4 = document.getElementById("tutorial_01_03_04_replay");
-    button4.onclick = () => {
-        chart4 = chart4.then(chart => {
-            chart.animate(snapshot4, 0);
+    let chart4 = Snippet.display(Vizzu, data, "tutorial_01_03", "04", [
+        chart => {
             return chart.animate({ title: "My first chart" });
-        });
-    };
-    button4.click();
+        }
+    ], chart3)
 
-    chart5 = new Vizzu.default("tutorial_01_03_05").initializing;
-    chart5 = chart4.then(chart => {
-        return chart.animate({ data }, 0);
-    });
-    chart5 = Promise.all([chart4, chart5]).then((charts) => {
-        config = charts[0].config;
-        style = charts[0].style;
-        // return charts[1].animate({config: charts[0].config, style: charts[0].style}, 0);
-        return charts[1].animate({style: charts[0].style}, 0);
-    });
-    chart5 = chart5.then(chart => {
-        snapshot5 = chart.store()
-        return chart;
-    });
-    button5 = document.getElementById("tutorial_01_03_05_replay");
-    button5.onclick = () => {
-        chart5 = chart5.then(chart => {
-            chart.animate(snapshot5, 0);
+    let chart5 = Snippet.display(Vizzu, data, "tutorial_01_03", "05", [
+        chart => {
             chart.feature("tooltip", true);
             return chart;
-        });
-    };
-    button5.click();
+        }
+    ], chart4)
 });
