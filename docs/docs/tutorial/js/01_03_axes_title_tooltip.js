@@ -1,7 +1,7 @@
-import("./js/tutorial.js").then(Tutorial => {
+import("./tutorial.js").then(Tutorial => {
     let tutorial = new Tutorial.default(
-        window.location.pathname.slice(0, window.location.pathname.lastIndexOf('/')) + "/js/data.js",
-        window.location.pathname.slice(0, window.location.pathname.lastIndexOf('/')) + "/js/vizzu.js",
+        "./data.js",
+        "./vizzu.js",
     )
 
     tutorial.create(
