@@ -44,11 +44,10 @@ install-dev-req:
 	$(VIRTUAL_ENV)/$(BIN_PATH)/pip install -r dev-requirements.txt
 
 install-kernel:
-	$(VIRTUAL_ENV)/$(BIN_PATH)/ipython kernel install --name ".venv" --user
+	$(VIRTUAL_ENV)/$(BIN_PATH)/ipython kernel install --user --name "$(VIRTUAL_ENV)"
 
 install:
-	$(VIRTUAL_ENV)/$(BIN_PATH)/pip uninstall -y $(PACKAGE)
-	$(VIRTUAL_ENV)/$(BIN_PATH)/python setup.py install
+	$(VIRTUAL_ENV)/$(BIN_PATH)/pip install --use-pep517 .
 
 touch-dev:
 ifeq ($(OS_TYPE), windows)
