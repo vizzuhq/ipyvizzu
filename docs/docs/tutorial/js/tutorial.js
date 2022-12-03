@@ -1,7 +1,6 @@
 class Tutorial {
 
-    constructor(tutorial, data, vizzu) {
-        this.tutorial = tutorial;
+    constructor(data, vizzu) {
         this.dataLoaded = import(data).then(data => {
             return data.default
         });
@@ -10,15 +9,23 @@ class Tutorial {
         });        
     }
 
+    create(snippets) {
+        let chart;
+        for (var i=0; i < snippets.length; i++) {
+            let number = i + 1;
+            chart = this.animate(("0" + number).slice(-2), snippets[i], chart);
+        }
+    }
+
     animate(number, anims, prevChart) {
         let chart = this.vizzuLoaded.then(Vizzu => {
-            return new Vizzu.default(this.tutorial + "_" + number).initializing;
+            return new Vizzu.default("tutorial_" + number).initializing;
         });
 
         let btn = document.createElement("button");
         btn.innerHTML = "Replay";
         chart = chart.then(chart => {
-            document.getElementById(this.tutorial + "_" + number).appendChild(btn);
+            document.getElementById("tutorial_" + number).appendChild(btn);
             return chart;
         });
 

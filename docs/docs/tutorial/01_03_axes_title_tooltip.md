@@ -19,7 +19,7 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_01_03_01"></div>
+<div id="tutorial_01"></div>
 
 In the next step, the chart is rearranged by putting both series on the y-axis using once again the set property, resulting in a single column chart. Vizzu automatically animates between the initial state and this one.
 
@@ -36,7 +36,7 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_01_03_02"></div>
+<div id="tutorial_02"></div>
 
 Instead of set, you can use attach and detach to add or remove series to/from the channels.
 
@@ -53,7 +53,7 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_01_03_03"></div>
+<div id="tutorial_03"></div>
 
 Using attach & detach makes it easier to build your animated charts step-by-step, however you either have to keep in mind what you had on which channel in the previous step or add the following code to access the actual configuration of the chart.
 
@@ -69,7 +69,7 @@ Setting the chart title with the title command.
 chart.animate(Config({"title": "My first chart"}))
 ```
 
-<div id="tutorial_01_03_04"></div>
+<div id="tutorial_04"></div>
 
 Switching on the tooltips that appear on the chart elements when the user hovers over them with their mouse by adding the (tooltip, true) parameters to the chart.feature method.
 
@@ -77,6 +77,6 @@ Switching on the tooltips that appear on the chart elements when the user hovers
 chart.feature("tooltip", True)
 ```
 
-<div id="tutorial_01_03_05"></div>
+<div id="tutorial_05"></div>
 
 <script src="./01_03_axes_title_tooltip.js"></script>
