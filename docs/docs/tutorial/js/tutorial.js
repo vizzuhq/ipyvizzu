@@ -1,3 +1,4 @@
+
 class Tutorial {
 
     constructor(data, vizzu) {
@@ -10,54 +11,53 @@ class Tutorial {
     }
 
     create(snippets) {
-        let chart;
+        let chart = Promise.resolve();
         for (var i=0; i < snippets.length; i++) {
             let number = i + 1;
             chart = this.animate(("0" + number).slice(-2), snippets[i], chart);
         }
     }
 
-    animate(number, anims, prevChart) {
-        let chart = this.vizzuLoaded.then(Vizzu => {
-            return new Vizzu.default("tutorial_" + number).initializing;
-        });
+    animate(number, snippet, prevChart) {
 
-        let btn = document.createElement("button");
-        btn.innerHTML = "Replay";
-        chart = chart.then(chart => {
-            document.getElementById("tutorial_" + number).appendChild(btn);
-            return chart;
-        });
+        let div = document.getElementById("tutorial_" + number);
+        div.classList.add("loading");
 
-        chart = Promise.all([chart, this.dataLoaded]).then(results => {
-            let chart = results[0];
-            let data = results[1];
-            return chart.animate({ data }, 0);
-        });
-        if (prevChart) {
-            chart = Promise.all([chart, prevChart]).then((results) => {
-                let chart = results[0];
-                let prevChart = results[1];
-                // return chart.animate({config: prevChart.config, style: prevChart.style}, 0);
-                return chart.animate({style: prevChart.style}, 0);
-            });
-        }
         let snapshot;
+
+        let chart = Promise.all([this.vizzuLoaded, this.dataLoaded]).then(results => {
+            let Vizzu = results[0];
+            let data = results[1];
+            return new Vizzu.default(div, { data }).initializing;
+        });
+        
+        chart = Promise.all([chart, prevChart]).then((results) => {
+            let chart = results[0];
+            let prevChart = results[1];
+            div.classList.remove("loading");
+            div.classList.add("replay");
+            if (prevChart) {
+                return chart.animate({config: prevChart.config, style: prevChart.style}, 0);
+            } else {
+                return chart;
+            }
+        });
+        
         chart = chart.then(chart => {
             snapshot = chart.store()
             return chart;
         });
 
-        btn.onclick = () => {
+        div.onclick = () => {
             chart = chart.then(chart => {
                 chart.animate(snapshot, 0);
-                for (var i=0; i < anims.length; i++) {
-                    chart = anims[i](chart);
+                for (var i=0; i < snippet.anims.length; i++) {
+                    chart = snippet.anims[i](chart);
                 }
                 return chart;
             });
         };
-        btn.click();
+        div.click();
 
         return chart;
     }

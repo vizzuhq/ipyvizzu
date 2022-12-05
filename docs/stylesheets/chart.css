@@ -1,0 +1,15 @@
+.replay:before {
+	content: 'Tap to replay';
+	color: #4171CD;
+	font-size: 10px;
+    position: absolute;
+	width: auto;
+}
+
+.loading:before {
+	content: 'Loading...';
+	color: #4171CD;
+	font-size: 10px;
+	position: absolute;
+	width: auto;
+}

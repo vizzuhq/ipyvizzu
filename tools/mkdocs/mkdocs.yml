@@ -12,6 +12,9 @@ theme:
   icon:
     logo: material/home
 
+extra_css:
+  - stylesheets/chart.css
+
 markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tasklist:
