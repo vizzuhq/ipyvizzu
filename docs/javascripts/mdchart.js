@@ -27,7 +27,8 @@ class MdChart {
       (results) => {
         const Vizzu = results[0];
         const data = results[1];
-        return new Vizzu.default(div, { data }).initializing;
+        const VizzuConstructor = Vizzu.default;
+        return new VizzuConstructor(div, { data }).initializing;
       }
     );
 

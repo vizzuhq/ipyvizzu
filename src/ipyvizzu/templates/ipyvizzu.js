@@ -49,7 +49,8 @@ if (!window.IpyVizzu) {
       this.loaded[chartId] = import(vizzulib);
       this.charts[chartId] = this.loaded[chartId].then((Vizzu) => {
         this.libs[chartId] = Vizzu.default;
-        return new Vizzu.default(this.elements[chartId]).initializing;
+        const VizzuConstructor = Vizzu.default;
+        return new VizzuConstructor(this.elements[chartId]).initializing;
       });
       this._moveHere(chartId, element);
     }
