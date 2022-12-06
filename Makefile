@@ -13,12 +13,14 @@ endif
 .PHONY: clean \
 	clean-dev update-dev-req install-dev-req install-kernel install touch-dev \
 	check format check-format lint check-typing clean-test test-wo-install test \
+	format-js \ lint-js \ check-js \
 	clean-doc doc \
 	clean-build build-release check-release release
 
 VIRTUAL_ENV = .venv
 
 DEV_BUILD_FLAG = $(VIRTUAL_ENV)/DEV_BUILD_FLAG
+DEV_JS_BUILD_FLAG = $(VIRTUAL_ENV)/DEV_JS_BUILD_FLAG
 
 NOTEBOOKS = $(shell find docs -type f -name '*.ipynb' -not -path '*/.ipynb_checkpoints/*')
 
@@ -69,6 +71,19 @@ $(DEV_BUILD_FLAG):
 	$(VIRTUAL_ENV)/$(BIN_PATH)/pre-commit install --hook-type pre-commit --hook-type pre-push
 	$(MAKE) -f Makefile touch-dev
 
+touch-dev-js:
+ifeq ($(OS_TYPE), windows)
+	type NUL >> $(DEV_JS_BUILD_FLAG)
+else
+	touch $(DEV_JS_BUILD_FLAG)
+endif
+
+
+$(DEV_JS_BUILD_FLAG):
+	cd tools/javascripts && \
+		npm update
+	$(MAKE) -f Makefile touch-dev-js
+
 
 
 # ci
@@ -105,19 +120,16 @@ test-wo-install: $(DEV_BUILD_FLAG)
 
 test: $(DEV_BUILD_FLAG) install test-wo-install
 
-format-javascript: $(DEV_BUILD_FLAG)
+format-js: $(DEV_JS_BUILD_FLAG)
 	cd tools/javascripts && \
-		npm update && \
 		npm run prettier
 
-lint-javascript: $(DEV_BUILD_FLAG)
+lint-js: $(DEV_JS_BUILD_FLAG)
 	cd tools/javascripts && \
-		npm update && \
 		npm run eslint
 
-check-javascript: $(DEV_BUILD_FLAG)
+check-js: $(DEV_JS_BUILD_FLAG)
 	cd tools/javascripts && \
-		npm update && \
 		npm run check
 
 
