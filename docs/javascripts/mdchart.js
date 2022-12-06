@@ -54,9 +54,11 @@ class MdChart {
 
     div.onclick = () => {
       chart = chart.then((chart) => {
-        chart.animate(snapshot, 0);
+        chart = chart.animate(snapshot, 0);
         for (let i = 0; i < snippet.anims.length; i++) {
-          chart = snippet.anims[i](chart);
+          chart = chart.then(chart => {
+            return snippet.anims[i](chart);
+          });
         }
         return chart;
       });
