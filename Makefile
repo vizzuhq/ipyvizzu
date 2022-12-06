@@ -105,6 +105,21 @@ test-wo-install: $(DEV_BUILD_FLAG)
 
 test: $(DEV_BUILD_FLAG) install test-wo-install
 
+format-javascript: $(DEV_BUILD_FLAG)
+	cd tools/javascripts && \
+		npm update && \
+		npm run prettier
+
+lint-javascript: $(DEV_BUILD_FLAG)
+	cd tools/javascripts && \
+		npm update && \
+		npm run eslint
+
+check-javascript: $(DEV_BUILD_FLAG)
+	cd tools/javascripts && \
+		npm update && \
+		npm run check
+
 
 
 # doc
