@@ -47,6 +47,8 @@ nav:
       - Tutorial:
           - docs/tutorial/index.md
           - Axes, title, tooltip: docs/tutorial/01_03_axes_title_tooltip.md
+          - Geometry: docs/tutorial/01_04_geometry.md
+          - Channels & legend: docs/tutorial/01_05_channels_legend.md
       - Environments:
           - docs/environments/index.md
           - Jupyter/IPython:

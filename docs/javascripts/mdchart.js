@@ -56,7 +56,7 @@ class MdChart {
       chart = chart.then((chart) => {
         chart = chart.animate(snapshot, 0);
         for (let i = 0; i < snippet.anims.length; i++) {
-          chart = chart.then(chart => {
+          chart = chart.then((chart) => {
             return snippet.anims[i](chart);
           });
         }
