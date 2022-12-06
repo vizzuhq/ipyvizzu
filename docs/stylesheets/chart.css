@@ -2,14 +2,16 @@
 	content: 'Tap to replay';
 	color: #4171CD;
 	font-size: 10px;
-    position: absolute;
 	width: auto;
+	display: block;
+	text-align: right;
 }
 
 .loading:before {
 	content: 'Loading...';
 	color: #4171CD;
 	font-size: 10px;
-	position: absolute;
 	width: auto;
+	display: block;
+	text-align: right;
 }
