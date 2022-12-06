@@ -1,10 +1,11 @@
-import("./tutorial.js").then(Tutorial => {
-    let tutorial = new Tutorial.default(
+import("../../javascripts/mdchart.js").then(MdChart => {
+    let mdchart = new MdChart.default(
         "./data.js",
         "./vizzu.js",
+        "tutorial"
     )
 
-    tutorial.create(
+    mdchart.create(
         [
             {
                 anims: [

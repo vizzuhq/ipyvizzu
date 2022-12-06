@@ -1,13 +1,14 @@
 
-class Tutorial {
+class MdChart {
 
-    constructor(data, vizzu) {
+    constructor(data, vizzu, id) {
         this.dataLoaded = import(data).then(data => {
             return data.default
         });
         this.vizzuLoaded = import(vizzu).then(vizzuUrl => {
             return import(vizzuUrl.default);
-        });        
+        });
+        this.id = id;
     }
 
     create(snippets) {
@@ -20,7 +21,7 @@ class Tutorial {
 
     animate(number, snippet, prevChart) {
 
-        let div = document.getElementById("tutorial_" + number);
+        let div = document.getElementById(this.id + "_" + number);
         div.classList.add("loading");
 
         let snapshot;
@@ -64,4 +65,4 @@ class Tutorial {
 
 }
 
-export default Tutorial;
+export default MdChart;
