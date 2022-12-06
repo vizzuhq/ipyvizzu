@@ -1,31 +1,31 @@
 {
-    "name": "ipyvizzu-dev",
-    "description": "ipyvizzu development",
-    "config": {
-        "check": "../../docs/**/*js ../../src/**/*js ../../tests/**/*js ../../tools/**/*js"
-    },
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "check": "npm-run-all check-prettier check-eslint",
-        "prettier": "prettier -w $npm_package_config_check",
-        "check-prettier": "prettier -c $npm_package_config_check",
-        "eslint": "eslint -c .eslintrc.cjs --fix $npm_package_config_check",
-        "check-eslint": "eslint -c .eslintrc.cjs $npm_package_config_check"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/vizzuhq/ipyvizzu.git"
-    },
-    "homepage": "https://ipyvizzu.vizzuhq.com/",
-    "url": "https://github.com/vizzuhq/ipyvizzu/issues",
-    "author": "Vizzu Kft.",
-    "license": "Apache-2.0",
-    "dependencies": {
-        "vizzu": "~0.6.0",
-        "npm-run-all": "*",
-        "prettier": "*",
-        "eslint": "*",
-        "eslint-config-standard": "*",
-        "eslint-config-prettier": "*"
-    }
+  "name": "ipyvizzu-dev",
+  "description": "ipyvizzu development",
+  "config": {
+    "check": "../../src/ ../../docs/ ../../tools"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check": "npm-run-all check-prettier check-eslint",
+    "prettier": "prettier -w $npm_package_config_check",
+    "check-prettier": "prettier -c $npm_package_config_check",
+    "eslint": "eslint --ext .js,.cjs -c .eslintrc.cjs --fix $npm_package_config_check",
+    "check-eslint": "eslint --ext .js,.cjs -c .eslintrc.cjs $npm_package_config_check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vizzuhq/ipyvizzu.git"
+  },
+  "homepage": "https://ipyvizzu.vizzuhq.com/",
+  "url": "https://github.com/vizzuhq/ipyvizzu/issues",
+  "author": "Vizzu Kft.",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "vizzu": "~0.6.0",
+    "npm-run-all": "*",
+    "prettier": "*",
+    "eslint": "*",
+    "eslint-config-standard": "*",
+    "eslint-config-prettier": "*"
+  }
 }
