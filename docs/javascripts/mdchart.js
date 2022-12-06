@@ -11,29 +11,29 @@ class MdChart {
 
   create(snippets) {
     let chart = Promise.resolve();
-    for (var i = 0; i < snippets.length; i++) {
-      let number = i + 1;
+    for (let i = 0; i < snippets.length; i++) {
+      const number = i + 1;
       chart = this.animate(("0" + number).slice(-2), snippets[i], chart);
     }
   }
 
   animate(number, snippet, prevChart) {
-    let div = document.getElementById(this.id + "_" + number);
+    const div = document.getElementById(this.id + "_" + number);
     div.classList.add("loading");
 
     let snapshot;
 
     let chart = Promise.all([this.vizzuLoaded, this.dataLoaded]).then(
       (results) => {
-        let Vizzu = results[0];
-        let data = results[1];
+        const Vizzu = results[0];
+        const data = results[1];
         return new Vizzu.default(div, { data }).initializing;
       }
     );
 
     chart = Promise.all([chart, prevChart]).then((results) => {
-      let chart = results[0];
-      let prevChart = results[1];
+      const chart = results[0];
+      const prevChart = results[1];
       div.classList.remove("loading");
       div.classList.add("replay");
       if (prevChart) {
@@ -54,7 +54,7 @@ class MdChart {
     div.onclick = () => {
       chart = chart.then((chart) => {
         chart.animate(snapshot, 0);
-        for (var i = 0; i < snippet.anims.length; i++) {
+        for (let i = 0; i < snippet.anims.length; i++) {
           chart = snippet.anims[i](chart);
         }
         return chart;

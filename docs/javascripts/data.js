@@ -1,4 +1,4 @@
-let data = {
+const data = {
   series: [
     { name: "Genres", type: "dimension" },
     { name: "Kinds", type: "dimension" },

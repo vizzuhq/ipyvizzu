@@ -51,17 +51,17 @@ title: ipyvizzu - Example
   }
 
   animate(chart, animOptions) {
-    let params = [];
+    const params = [];
 
     if (chart.data && chart.data.filter) {
-      let fnCode = chart.data.filter
+      const fnCode = chart.data.filter
         .toString()
         .replace(/\s*record\s*=>\s*/, "");
       params.push(`data.filter("""\n${fnCode.replace(/^\s*/gm, "")}\n""")`);
     }
     if (chart.config) {
       if (
-        typeof chart.config == "string" &&
+        typeof chart.config === "string" &&
         chart.config.startsWith("Config.")
       ) {
         params.push(chart.config);
@@ -74,7 +74,7 @@ title: ipyvizzu - Example
     }
     if (animOptions) {
       if (typeof animOptions === "object") {
-        for (let key in animOptions) {
+        for (const key in animOptions) {
           params.push(`${key} = ${JSON.stringify(animOptions[key])}`);
         }
       } else {
@@ -82,8 +82,8 @@ title: ipyvizzu - Example
       }
     }
 
-    let args = params.join(",\n");
-    let callCode = `chart.animate(\n${args}`;
+    const args = params.join(",\n");
+    const callCode = `chart.animate(\n${args}`;
     let fullCode = callCode.replace(/\n/g, "\n  ") + "\n)\n\n";
 
     if (this.cellcnt === 0) {
@@ -115,22 +115,22 @@ ${fullCode}
 }
 
 function getDataFilename(sourcefilename) {
-  let source = fs.readFileSync(sourcefilename, "utf8");
-  let datafilename = source.match(/test_data\/(\w*).mjs/)[1];
+  const source = fs.readFileSync(sourcefilename, "utf8");
+  const datafilename = source.match(/test_data\/(\w*).mjs/)[1];
   return datafilename;
 }
 
-let inputFileName = process.argv[2];
-let outputFileName = process.argv[3];
+const inputFileName = process.argv[2];
+const outputFileName = process.argv[3];
 
 console.log(`[mjs2md] processing ${inputFileName}`);
 
-let datafilename = getDataFilename(inputFileName);
+const datafilename = getDataFilename(inputFileName);
 console.log(`[mjs2md] data file detected: ${datafilename}`);
 
 import("./" + inputFileName).then((module) => {
   const chart = new VizzuMock(datafilename);
-  for (let testStep of module.default) {
+  for (const testStep of module.default) {
     testStep(chart);
   }
   console.log(`[mjs2md] writing ${outputFileName}`);
