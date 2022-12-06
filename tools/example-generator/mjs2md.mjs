@@ -1,24 +1,22 @@
-import fs from 'fs';
+import fs from "fs";
 
 class PresetsMock {
-	constructor() {
-		return new Proxy(this, {
-			get: (target, prop) => {
-				return function(obj)  {
-					return `Config.${prop}(${JSON.stringify(obj, null, 2)})`;
-				};
-			},
-		});
-	}
+  constructor() {
+    return new Proxy(this, {
+      get: (target, prop) => {
+        return function (obj) {
+          return `Config.${prop}(${JSON.stringify(obj, null, 2)})`;
+        };
+      },
+    });
+  }
 }
 
-class VizzuMock 
-{
-	constructor(datafilename) 
-	{
-		this.cellcnt = 0;
+class VizzuMock {
+  constructor(datafilename) {
+    this.cellcnt = 0;
 
-		this.firstcell = `
+    this.firstcell = `
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style
 
@@ -29,10 +27,9 @@ data.add_data_frame(data_frame)
 chart = Chart()
 chart.animate(data)
 
-`
-		;
+`;
 
-		this.code = `---
+    this.code = `---
 jupytext:
   formats: md:myst
   text_representation:
@@ -47,107 +44,95 @@ title: ipyvizzu - Example
 
 **Note:** The data used in this example is available [here](https://github.com/vizzuhq/ipyvizzu/tree/gh-pages/docs/data). You can read more about the available types of data in the [Adding data](../../tutorial/01_02_adding_data.ipynb) chapter.
 
-`
-		;
+`;
 
-		this.link = "Back to the [Examples](../examples.ipynb) ----- Back to the [Table of contents](../../doc.ipynb#tutorial)";
-	}
+    this.link =
+      "Back to the [Examples](../examples.ipynb) ----- Back to the [Table of contents](../../doc.ipynb#tutorial)";
+  }
 
-	animate(chart, animOptions) 
-	{
-		let params = [];
+  animate(chart, animOptions) {
+    const params = [];
 
-		if (chart.data && chart.data.filter)
-		{
-			let fnCode = chart.data.filter.toString().replace(/\s*record\s*=>\s*/, '');
-			params.push(`data.filter("""\n${fnCode.replace(/^\s*/gm,"")}\n""")`);
-		}
-		if (chart.config)
-		{
-			if (typeof chart.config == "string" && chart.config.startsWith('Config.'))
-			{
-				params.push(chart.config);
-			}
-			else
-			{
-				params.push("Config(" + JSON.stringify(chart.config, null, 2) + ")");
-			}
-		}
-		if (chart.style)
-		{
-			params.push("Style(" + JSON.stringify(chart.style, null, 2) + ")");
-		}
-		if (animOptions)
-		{
-			if (typeof animOptions === 'object')
-			{
-				for (let key in animOptions)
-				{
-					params.push(`${key} = ${JSON.stringify(animOptions[key])}`);
-				}
-			}
-			else
-			{
-				params.push(`duration = "${animOptions}"`);
-			}
-		}
+    if (chart.data && chart.data.filter) {
+      const fnCode = chart.data.filter
+        .toString()
+        .replace(/\s*record\s*=>\s*/, "");
+      params.push(`data.filter("""\n${fnCode.replace(/^\s*/gm, "")}\n""")`);
+    }
+    if (chart.config) {
+      if (
+        typeof chart.config === "string" &&
+        chart.config.startsWith("Config.")
+      ) {
+        params.push(chart.config);
+      } else {
+        params.push("Config(" + JSON.stringify(chart.config, null, 2) + ")");
+      }
+    }
+    if (chart.style) {
+      params.push("Style(" + JSON.stringify(chart.style, null, 2) + ")");
+    }
+    if (animOptions) {
+      if (typeof animOptions === "object") {
+        for (const key in animOptions) {
+          params.push(`${key} = ${JSON.stringify(animOptions[key])}`);
+        }
+      } else {
+        params.push(`duration = "${animOptions}"`);
+      }
+    }
 
-		let args = params.join(',\n');
-		let callCode = `chart.animate(\n${args}`;
-		let fullCode = callCode.replace(/\n/g, '\n  ') + "\n)\n\n";
+    const args = params.join(",\n");
+    const callCode = `chart.animate(\n${args}`;
+    let fullCode = callCode.replace(/\n/g, "\n  ") + "\n)\n\n";
 
-		if (this.cellcnt === 0)
-		{
-			fullCode = this.firstcell + fullCode;
-		}
-		this.cellcnt++;
+    if (this.cellcnt === 0) {
+      fullCode = this.firstcell + fullCode;
+    }
+    this.cellcnt++;
 
-		this.code +=  `
+    this.code += `
 
 \`\`\`{code-cell}
 ${fullCode}
 \`\`\`
 
-`
-		;
-	}
+`;
+  }
 
-	static get presets()
-	{
-		return new PresetsMock();
-	}
+  static get presets() {
+    return new PresetsMock();
+  }
 
-	getCode()
-	{
-		return this.code
-			.replace(/\bnull\b/g, 'None')
-			.replace(/\btrue\b/g, 'True')
-			.replace(/\bfalse\b/g, 'False') + 
-			this.link;
-	}
+  getCode() {
+    return (
+      this.code
+        .replace(/\bnull\b/g, "None")
+        .replace(/\btrue\b/g, "True")
+        .replace(/\bfalse\b/g, "False") + this.link
+    );
+  }
 }
 
-function getDataFilename(sourcefilename)
-{
-	let source = fs.readFileSync(sourcefilename, 'utf8');
-	let datafilename = source.match(/test_data\/(\w*).mjs/)[1];
-	return datafilename;
+function getDataFilename(sourcefilename) {
+  const source = fs.readFileSync(sourcefilename, "utf8");
+  const datafilename = source.match(/test_data\/(\w*).mjs/)[1];
+  return datafilename;
 }
 
-let inputFileName = process.argv[2];
-let outputFileName = process.argv[3];
+const inputFileName = process.argv[2];
+const outputFileName = process.argv[3];
 
 console.log(`[mjs2md] processing ${inputFileName}`);
 
-let datafilename = getDataFilename(inputFileName);
+const datafilename = getDataFilename(inputFileName);
 console.log(`[mjs2md] data file detected: ${datafilename}`);
 
-import("./"+inputFileName).then((module) => 
-{
-	const chart = new VizzuMock(datafilename);
-	for (let testStep of module.default) {
-		testStep(chart);
-	}
-	console.log(`[mjs2md] writing ${outputFileName}`);
-	fs.writeFileSync(outputFileName, chart.getCode());
-}); 
+import("./" + inputFileName).then((module) => {
+  const chart = new VizzuMock(datafilename);
+  for (const testStep of module.default) {
+    testStep(chart);
+  }
+  console.log(`[mjs2md] writing ${outputFileName}`);
+  fs.writeFileSync(outputFileName, chart.getCode());
+});
