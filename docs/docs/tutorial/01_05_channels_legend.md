@@ -14,12 +14,16 @@ but you can set them differently with the style object introduced in the
 [Color palette & fonts](./01_13_color_palette_fonts.md) chapter.
 
 ```python
+import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
 
-chart = Chart()
+data_frame = pd.read_csv("./music_data.csv")
+data = Data()
+data.add_data_frame(data_frame)
 
-data = Data.from_json("./music_data.json")
+
+chart = Chart()
 
 chart.animate(data)
 

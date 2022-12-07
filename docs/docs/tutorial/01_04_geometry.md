@@ -7,12 +7,16 @@ shines - beautifully animating between the geometries!
 Switching the geometry to area.
 
 ```python
+import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
 
-chart = Chart()
+data_frame = pd.read_csv("./music_data.csv")
+data = Data()
+data.add_data_frame(data_frame)
 
-data = Data.from_json("./music_data.json")
+
+chart = Chart()
 
 chart.animate(data)
 

@@ -10,12 +10,16 @@ dimensions from the data set we added in the previous chapter (Genre) to
 the x-axis and the measure (Popularity) to the y-axis using the set property.
 
 ```python
+import pandas as pd
 from ipyvizzu import Chart, ChartProperty, Data, Config
 
 
-chart = Chart()
+data_frame = pd.read_csv("./music_data.csv")
+data = Data()
+data.add_data_frame(data_frame)
 
-data = Data.from_json("./music_data.json")
+
+chart = Chart()
 
 chart.animate(data)
 
