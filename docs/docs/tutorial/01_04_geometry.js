@@ -10,8 +10,8 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
             config: {
               title: "Geometry",
               channels: {
-                y: { set: ["Popularity"] },
-                x: { set: ["Genres"] },
+                y: { set: "Popularity" },
+                x: { set: "Genres" },
               },
             },
           });

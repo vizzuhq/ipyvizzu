@@ -9,8 +9,8 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
           return chart.animate({
             config: {
               channels: {
-                y: { set: ["Popularity"] },
-                x: { set: ["Genres"] },
+                y: { set: "Popularity" },
+                x: { set: "Genres" },
               },
             },
           });
@@ -37,8 +37,8 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
           return chart.animate({
             config: {
               channels: {
-                y: { detach: ["Popularity"] },
-                x: { attach: ["Popularity"] },
+                y: { detach: "Popularity" },
+                x: { attach: "Popularity" },
               },
             },
           });

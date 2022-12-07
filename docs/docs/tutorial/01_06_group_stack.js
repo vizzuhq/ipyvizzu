@@ -10,8 +10,8 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
             config: {
               title: "Creating a stacked chart",
               channels: {
-                y: { set: ["Popularity"] },
-                x: { set: ["Genres"] },
+                y: { set: "Popularity" },
+                x: { set: "Genres" },
               },
             },
           });
@@ -45,8 +45,8 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
           return chart.animate({
             config: {
               channels: {
-                y: { detach: ["Kinds"] },
-                x: { attach: ["Kinds"] },
+                y: { detach: "Kinds" },
+                x: { attach: "Kinds" },
               },
             },
           });
@@ -66,8 +66,8 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
           return chart.animate({
             config: {
               channels: {
-                y: { attach: ["Kinds"] },
-                x: { detach: ["Kinds"] },
+                y: { attach: "Kinds" },
+                x: { detach: "Kinds" },
               },
             },
           });

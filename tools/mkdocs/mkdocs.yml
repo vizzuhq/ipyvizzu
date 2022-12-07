@@ -50,6 +50,7 @@ nav:
           - Geometry: docs/tutorial/01_04_geometry.md
           - Channels & legend: docs/tutorial/01_05_channels_legend.md
           - Group/stack: docs/tutorial/01_06_group_stack.md
+          - Sorting: docs/tutorial/01_07_sorting.md
       - Environments:
           - docs/environments/index.md
           - Jupyter/IPython:

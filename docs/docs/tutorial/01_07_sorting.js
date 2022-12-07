@@ -8,22 +8,20 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             config: {
-              title: "Label",
+              title: "Switch to ascending order...",
               channels: {
-                y: { set: "Popularity" },
+                y: { set: ["Popularity", "Kinds"] },
                 x: { set: "Genres" },
+                label: {attach: "Popularity"},
               },
+              color: {attach: "Kinds"},
             },
           });
         },
         (chart) => {
           return chart.animate({
             config: {
-              channels: {
-                label: {
-                  attach: "Popularity",
-                },
-              },
+              sort: "byValue",
             },
           });
         },
@@ -34,19 +32,14 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             config: {
-              title: "Lightness - legend on",
+              title: "...or descending order.",
             },
           });
         },
         (chart) => {
           return chart.animate({
             config: {
-              channels: {
-                lightness: {
-                  attach: "Popularity",
-                },
-              },
-              legend: "lightness",
+              reverse: true,
             },
           });
         },
@@ -57,22 +50,15 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             config: {
-              title: "Color",
+              title: "Let's get back to where we were",
             },
           });
         },
         (chart) => {
           return chart.animate({
             config: {
-              channels: {
-                lightness: {
-                  set: null,
-                },
-                color: {
-                  attach: "Genres",
-                },
-              },
-              legend: "color",
+              sort: "none",
+              reverse: false,
             },
           });
         },
@@ -83,7 +69,7 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             config: {
-              title: "Size - change of geometry required",
+              title: "With two discretes on one axis...",
             },
           });
         },
@@ -91,11 +77,35 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
           return chart.animate({
             config: {
               channels: {
-                size: {
-                  set: "Popularity",
+                y: {
+                  detach: "Kinds"
                 },
-              },
-              geometry: "circle",
+                x: {
+                  set: ["Genres", "Kinds"]
+                }
+              }
+            },
+          });
+        },
+      ],
+    },
+    {
+      anims: [
+        (chart) => {
+          return chart.animate({
+            config: {
+              title: "...grouping is determined by their order.",
+            },
+          });
+        },
+        (chart) => {
+          return chart.animate({
+            config: {
+              channels: {
+                x: {
+                  set: ["Kinds", "Genres"]
+                }
+              }
             },
           });
         },

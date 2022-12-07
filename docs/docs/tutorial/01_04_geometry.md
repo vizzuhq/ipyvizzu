@@ -1,7 +1,7 @@
 # Geometry
 
-In ipyvizzu you can set the geometric elements used to represent your data
-by the geometry property within the config object. This is where the library
+In ipyvizzu you can set the geometric elements used to represent your data by
+the geometry property within the config object. This is where the library
 shines - beautifully animating between the geometries!
 
 Switching the geometry to area.
@@ -42,9 +42,8 @@ chart.animate(Config({"title": "Geometry: line", "geometry": "line"}))
 
 <div id="tutorial_02"></div>
 
-Switching the geometry to circle.
-This setting is the most useful when used together with the size channel,
-as shown in the next chapter of the tutorial.
+Switching the geometry to circle. This setting is the most useful when used
+together with the size channel, as shown in the next chapter of the tutorial.
 
 ```python
 chart.animate(Config({"title": "Geometry: circle", "geometry": "circle"}))
@@ -52,8 +51,8 @@ chart.animate(Config({"title": "Geometry: circle", "geometry": "circle"}))
 
 <div id="tutorial_03"></div>
 
-Rectangle geometry is the default setting in ipyvizzu,
-used for most common charts like bar and column charts.
+Rectangle geometry is the default setting in ipyvizzu, used for most common
+charts like bar and column charts.
 
 ```python
 chart.animate(
