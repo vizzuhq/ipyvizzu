@@ -52,12 +52,13 @@ the legend when it's necessary. You can also turn it off with the
 `legend`: `None` command or set back to automatic mode with `legend`: `auto`.
 
 ```python
+chart.animate(Config({"title": "Lightness - legend on"}))
+
 chart.animate(
     Config(
         {
             "channels": {"lightness": {"attach": "Popularity"}},
             "legend": "lightness",
-            "title": "Lightness - legend on",
         }
     )
 )
@@ -73,12 +74,13 @@ If a measure is put on the color channel, a color range will be used.
 it doesn’t make sense to use it together with the color channel in this case.
 
 ```python
+chart.animate(Config({"title": "Color"}))
+
 chart.animate(
     Config(
         {
             "channels": {"color": {"attach": "Genres"}},
             "legend": "color",
-            "title": "Color",
         }
     )
 )
@@ -92,12 +94,13 @@ determines line width. It is ignored when using rectangle or area geometry.
 This is why we change the geometry to circle in the example.
 
 ```python
+chart.animate(Config({"title": "Size - change of geometry required"}))
+
 chart.animate(
     Config(
         {
             "channels": {"size": {"set": "Popularity"}},
             "geometry": "circle",
-            "title": "Size - change of geometry required",
         }
     )
 )

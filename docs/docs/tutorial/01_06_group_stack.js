@@ -8,7 +8,7 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             config: {
-              title: "Label",
+              title: "Creating a stacked chart",
               channels: {
                 y: { set: ["Popularity"] },
                 x: { set: ["Genres"] },
@@ -20,59 +20,13 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
           return chart.animate({
             config: {
               channels: {
-                label: {
-                  attach: "Popularity",
-                },
-              },
-            },
-          });
-        },
-      ],
-    },
-    {
-      anims: [
-        (chart) => {
-          return chart.animate({
-            config: {
-              title: "Lightness - legend on",
-            },
-          });
-        },
-        (chart) => {
-          return chart.animate({
-            config: {
-              channels: {
-                lightness: {
-                  attach: "Popularity",
-                },
-              },
-              legend: "lightness",
-            },
-          });
-        },
-      ],
-    },
-    {
-      anims: [
-        (chart) => {
-          return chart.animate({
-            config: {
-              title: "Color",
-            },
-          });
-        },
-        (chart) => {
-          return chart.animate({
-            config: {
-              channels: {
-                lightness: {
-                  set: null,
+                y: {
+                  attach: "Kinds",
                 },
                 color: {
-                  attach: "Genres",
+                  attach: "Kinds",
                 },
               },
-              legend: "color",
             },
           });
         },
@@ -83,7 +37,7 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             config: {
-              title: "Size - change of geometry required",
+              title: "...then you can add it to another channel = group elements...",
             },
           });
         },
@@ -91,11 +45,30 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
           return chart.animate({
             config: {
               channels: {
-                size: {
-                  set: "Popularity",
-                },
+                y: { detach: ["Kinds"] },
+                x: { attach: ["Kinds"] },
               },
-              geometry: "circle",
+            },
+          });
+        },
+      ],
+    },
+    {
+      anims: [
+        (chart) => {
+          return chart.animate({
+            config: {
+              title: "...doing it the other way is how you stack your chart",
+            },
+          });
+        },
+        (chart) => {
+          return chart.animate({
+            config: {
+              channels: {
+                y: { attach: ["Kinds"] },
+                x: { detach: ["Kinds"] },
+              },
             },
           });
         },
