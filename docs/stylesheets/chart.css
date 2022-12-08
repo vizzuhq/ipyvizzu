@@ -1,5 +1,5 @@
-.replay:before {
-  content: "Tap to replay";
+.loading:before {
+  content: "Loading...";
   color: #4171cd;
   font-size: 10px;
   width: auto;
@@ -7,8 +7,17 @@
   text-align: right;
 }
 
-.loading:before {
-  content: "Loading...";
+.playing:before {
+  content: "Playing...";
+  color: #4171cd;
+  font-size: 10px;
+  width: auto;
+  display: block;
+  text-align: right;
+}
+
+.replay:before {
+  content: "Tap to play";
   color: #4171cd;
   font-size: 10px;
   width: auto;
