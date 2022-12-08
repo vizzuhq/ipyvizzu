@@ -9,11 +9,18 @@ use_directory_urls: false
 
 theme:
   name: material
+  font:
+    text: Roboto
+  font:
+    code: Roboto Mono
+  logo: assets/logo-white.svg
+  favicon: assets/favicon.svg
   icon:
     logo: material/home
 
 extra_css:
   - stylesheets/chart.css
+  - stylesheets/extra.css
 
 markdown_extensions:
   - pymdownx.superfences
