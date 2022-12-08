@@ -58,6 +58,7 @@ nav:
           - Sorting: docs/tutorial/01_07_sorting.md
           - Align & range: docs/tutorial/01_08_align_range.md
           - Aggregate/drill-down: docs/tutorial/01_09_aggregate_drilldown.md
+          - Orientation, split & polar: docs/tutorial/01_10_orientation_split_polar.md
       - Environments:
           - docs/environments/index.md
           - Jupyter/IPython:
