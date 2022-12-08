@@ -36,7 +36,7 @@ class MdChart {
       const chart = results[0];
       const prevChart = results[1];
       div.classList.remove("loading");
-      div.classList.add("replay");
+      div.classList.add("playing");
       if (prevChart) {
         return chart.animate(
           { config: prevChart.config, style: prevChart.style },
@@ -52,16 +52,27 @@ class MdChart {
       return chart;
     });
 
+    let clicked = false;
     div.onclick = () => {
-      chart = chart.then((chart) => {
-        chart = chart.animate(snapshot, 0);
-        for (let i = 0; i < snippet.anims.length; i++) {
-          chart = chart.then((chart) => {
-            return snippet.anims[i](chart);
+      if (!clicked) {
+        clicked = true;
+        chart = chart.then((chart) => {
+          div.classList.remove("replay");
+          div.classList.add("playing");
+          chart = chart.animate(snapshot, 0);
+          for (let i = 0; i < snippet.anims.length; i++) {
+            chart = chart.then((chart) => {
+              return snippet.anims[i](chart);
+            });
+          }
+          chart.then(() => {
+            div.classList.remove("playing");
+            div.classList.add("replay");
+            clicked = false;
           });
-        }
-        return chart;
-      });
+          return chart;
+        });
+      }
     };
     div.click();
 
