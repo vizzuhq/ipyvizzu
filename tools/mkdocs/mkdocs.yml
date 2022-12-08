@@ -15,8 +15,6 @@ theme:
     code: Roboto Mono
   logo: assets/logo-white.svg
   favicon: assets/favicon.svg
-  icon:
-    logo: material/home
 
 extra_css:
   - stylesheets/chart.css
@@ -58,6 +56,7 @@ nav:
           - Channels & legend: docs/tutorial/01_05_channels_legend.md
           - Group/stack: docs/tutorial/01_06_group_stack.md
           - Sorting: docs/tutorial/01_07_sorting.md
+          - Align & range: docs/tutorial/01_08_align_range.md
       - Environments:
           - docs/environments/index.md
           - Jupyter/IPython:
