@@ -100,4 +100,4 @@ chart.animate(
 
 <div id="tutorial_03"></div>
 
-<script src="./01_12_without_coordinates_noop_channel.js"></script>
+<script src="./without_coordinates_noop_channel.js"></script>

@@ -123,4 +123,4 @@ chart.animate(
 
 <div id="tutorial_05"></div>
 
-<script src="./01_07_sorting.js"></script>
+<script src="./sorting.js"></script>

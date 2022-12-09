@@ -97,4 +97,4 @@ chart.feature("tooltip", True)
 
 <div id="tutorial_05"></div>
 
-<script src="./01_03_axes_title_tooltip.js"></script>
+<script src="./axes_title_tooltip.js"></script>

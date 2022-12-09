@@ -124,4 +124,4 @@ chart.animate(Style({"plot": {"paddingLeft": None, "paddingRight": None}}))
 
 <div id="tutorial_07"></div>
 
-<script src="./01_14_chart_layout.js"></script>
+<script src="./chart_layout.js"></script>

@@ -123,4 +123,4 @@ chart.animate(
 
 <div id="tutorial_04"></div>
 
-<script src="./01_09_aggregate_drilldown.js"></script>
+<script src="./aggregate_drilldown.js"></script>

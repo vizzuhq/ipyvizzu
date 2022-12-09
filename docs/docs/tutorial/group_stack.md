@@ -88,4 +88,4 @@ chart.animate(
 
 <div id="tutorial_03"></div>
 
-<script src="./01_06_group_stack.js"></script>
+<script src="./group_stack.js"></script>

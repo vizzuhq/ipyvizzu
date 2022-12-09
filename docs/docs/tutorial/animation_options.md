@@ -127,4 +127,4 @@ chart.animate(
 
 <div id="tutorial_06"></div>
 
-<script src="./01_15_animation_options.js"></script>
+<script src="./animation_options.js"></script>

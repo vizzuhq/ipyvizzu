@@ -121,4 +121,4 @@ chart.animate(
 
 <div id="tutorial_05"></div>
 
-<script src="./01_10_orientation_split_polar.js"></script>
+<script src="./orientation_split_polar.js"></script>

@@ -111,4 +111,4 @@ chart.animate(Style(None))
 For information on all available style parameters see the
 [reference](https://lib.vizzuhq.com/latest/reference/index.html) documentation.
 
-<script src="./01_13_color_palette_fonts.js"></script>
+<script src="./color_palette_fonts.js"></script>

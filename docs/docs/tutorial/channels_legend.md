@@ -5,13 +5,13 @@ can use to visualize your data. Similarly to the axes you can put any number of
 dimensions and/or one measure to a channel. In the following example the four
 most commonly used channels are shown. The fifth, noop channel is introduced
 later in the
-[Without coordinates & noop channel](./01_12_without_coordinates_noop_channel.md)
+[Without coordinates & noop channel](./without_coordinates_noop_channel.md)
 chapter.
 
 Data on the label channel will be written on the markers on the chart. ipyizzu
 automatically determines the best way to position these labels, but you can set
 them differently with the style object introduced in the
-[Color palette & fonts](./01_13_color_palette_fonts.md) chapter.
+[Color palette & fonts](./color_palette_fonts.md) chapter.
 
 ```python
 import pandas as pd
@@ -108,4 +108,4 @@ chart.animate(
 
 <div id="tutorial_04"></div>
 
-<script src="./01_05_channels_legend.js"></script>
+<script src="./channels_legend.js"></script>

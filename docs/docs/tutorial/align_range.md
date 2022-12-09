@@ -122,7 +122,7 @@ common data viz guidelines because we wanted to make it easy for you to create
 sleek charts. For example, in the cartesian coordinate system, the range will
 be automatically set to the max:110% for an axis with a measure on it. Polar
 coordinates work differently, as you can see for yourself in the
-[Orientation, split & polar chapter](./01_10_orientation_split_polar.md).
+[Orientation, split & polar chapter](./orientation_split_polar.md).
 
 Whenever you want to set your ranges back to the default value, just set them
 to `auto`.
@@ -152,4 +152,4 @@ chart.animate(
 
 <div id="tutorial_06"></div>
 
-<script src="./01_08_align_range.js"></script>
+<script src="./align_range.js"></script>

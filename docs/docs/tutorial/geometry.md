@@ -64,4 +64,4 @@ chart.animate(
 
 <div id="tutorial_04"></div>
 
-<script src="./01_04_geometry.js"></script>
+<script src="./geometry.js"></script>
