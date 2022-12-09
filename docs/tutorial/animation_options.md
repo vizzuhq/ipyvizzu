@@ -115,7 +115,7 @@ chart.animate(
 The default unit for animation is seconds, but you can set other units.
 
 ```python
-chart.animate(Config({"title": "Set unit"}))
+chart.animate(Config({"title": "Custom unit"}))
 
 chart.animate(
     Config(
