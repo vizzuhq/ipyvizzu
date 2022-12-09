@@ -72,6 +72,7 @@ import("../javascripts/mdchart.js").then((MdChart) => {
       ],
     },
     {
+      initDataFilter: (record) => record.Genres !== "Soul",
       anims: [
         (chart) => {
           return chart.animate({
@@ -80,16 +81,29 @@ import("../javascripts/mdchart.js").then((MdChart) => {
             },
           });
         },
-        (chart) => {
-          return chart.animate({
-            data: {
-              records: [
-                ["Soul", "Hard", 91],
-                ["Soul", "Smooth", 57],
-                ["Soul", "Experimental", 115],
-              ],
+        (chart, data) => {
+          const expandedData = JSON.parse(JSON.stringify(data));
+
+          expandedData.series[0].values.splice(5, 0, "Soul");
+          expandedData.series[0].values.splice(9, 0, "Soul");
+          expandedData.series[0].values.splice(14, 0, "Soul");
+
+          expandedData.series[1].values.splice(5, 0, "Hard");
+          expandedData.series[1].values.splice(9, 0, "Smooth");
+          expandedData.series[1].values.splice(14, 0, "Experimental");
+
+          expandedData.series[2].values.splice(5, 0, 91);
+          expandedData.series[2].values.splice(9, 0, 57);
+          expandedData.series[2].values.splice(14, 0, 115);
+
+          expandedData.filter = null;
+
+          return chart.animate(
+            {
+              data: expandedData,
             },
-          });
+            2
+          );
         },
       ],
     },

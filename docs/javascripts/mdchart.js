@@ -17,7 +17,7 @@ class MdChart {
     }
   }
 
-  restore(number, snippet, prevChart, snapshot, chart, data) {
+  restore(number, snippet, prevChart, snapshot, chart) {
     const div = document.getElementById(this.id + "_" + number);
 
     return Promise.all([chart, prevChart]).then((results) => {
@@ -30,13 +30,12 @@ class MdChart {
         animTarget = snapshot;
       } else {
         animTarget = {};
-        animTarget.data = Object.assign({}, data);
         if (prevChart) {
           animTarget.config = Object.assign({}, prevChart.config);
           animTarget.style = Object.assign({}, prevChart.style);
           // remove if it can be found in the prevChart
           if (snippet.initDataFilter) {
-            animTarget.data.filter = snippet.initDataFilter;
+            animTarget.data = { filter: snippet.initDataFilter };
           }
         }
       }
@@ -53,10 +52,10 @@ class MdChart {
 
       let chart = this.vizzuLoaded.then((Vizzu) => {
         const VizzuConstructor = Vizzu.default;
-        return new VizzuConstructor(div).initializing;
+        return new VizzuConstructor(div, { data }).initializing;
       });
 
-      chart = this.restore(number, snippet, prevChart, snapshot, chart, data);
+      chart = this.restore(number, snippet, prevChart, snapshot, chart);
 
       chart = chart.then((chart) => {
         snapshot = chart.store();
@@ -68,21 +67,14 @@ class MdChart {
         if (!clicked) {
           clicked = true;
 
-          chart = this.restore(
-            number,
-            snippet,
-            prevChart,
-            snapshot,
-            chart,
-            data
-          );
+          chart = this.restore(number, snippet, prevChart, snapshot, chart);
           chart.then(() => {
             div.classList.remove("replay");
             div.classList.add("playing");
           });
           for (let i = 0; i < snippet.anims.length; i++) {
             chart = chart.then((chart) => {
-              return snippet.anims[i](chart);
+              return snippet.anims[i](chart, data);
             });
           }
           chart.then(() => {
