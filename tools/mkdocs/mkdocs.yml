@@ -61,6 +61,7 @@ nav:
           - Orientation, split & polar: docs/tutorial/01_10_orientation_split_polar.md
           - Filtering & adding new records: docs/tutorial/01_11_filter_add_new_records.md
           - Without coordinates & noop channel: docs/tutorial/01_12_without_coordinates_noop_channel.md
+          - Color palette & fonts: docs/tutorial/01_13_color_palette_fonts.md
       - Environments:
           - docs/environments/index.md
           - Jupyter/IPython:
