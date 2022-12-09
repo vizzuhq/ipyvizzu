@@ -29,6 +29,8 @@ import("../javascripts/mdchart.js").then((MdChart) => {
       ],
     },
     {
+      initDataFilter: (record) =>
+        record.Genres === "Pop" || record.Genres === "Metal",
       anims: [
         (chart) => {
           return chart.animate({
@@ -49,6 +51,9 @@ import("../javascripts/mdchart.js").then((MdChart) => {
       ],
     },
     {
+      initDataFilter: (record) =>
+        (record.Genres === "Pop" || record.Genres === "Metal") &&
+        record.Kinds === "Smooth",
       anims: [
         (chart) => {
           return chart.animate({
