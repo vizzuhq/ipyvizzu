@@ -12,9 +12,9 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
               channels: {
                 y: { set: ["Popularity", "Kinds"] },
                 x: { set: "Genres" },
-                label: {attach: "Popularity"},
+                label: { attach: "Popularity" },
               },
-              color: {set: "Kinds"},
+              color: { set: "Kinds" },
             },
           });
         },
@@ -22,14 +22,14 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
           return chart.animate({
             style: {
               title: {
-                backgroundColor: "#A0A0A0"
+                backgroundColor: "#A0A0A0",
               },
               plot: {
-                backgroundColor: "#D2D2D2"
+                backgroundColor: "#D2D2D2",
               },
               legend: {
-                backgroundColor: "#808080"
-              }
+                backgroundColor: "#808080",
+              },
             },
           });
         },
@@ -48,8 +48,8 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
           return chart.animate({
             style: {
               legend: {
-                width: 50
-              }
+                width: 50,
+              },
             },
           });
         },
@@ -61,8 +61,8 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
           return chart.animate({
             style: {
               legend: {
-                width: null
-              }
+                width: null,
+              },
             },
           });
         },
@@ -83,8 +83,8 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
               title: {
                 paddingTop: 20,
                 paddingBottom: 20,
-                paddingLeft: 200
-              }
+                paddingLeft: 200,
+              },
             },
           });
         },
@@ -98,8 +98,8 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
               title: {
                 paddingTop: null,
                 paddingBottom: null,
-                paddingLeft: null
-              }
+                paddingLeft: null,
+              },
             },
           });
         },
@@ -119,8 +119,8 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
             style: {
               plot: {
                 paddingLeft: 100,
-                paddingRight: 100
-              }
+                paddingRight: 100,
+              },
             },
           });
         },
@@ -133,8 +133,8 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
             style: {
               plot: {
                 paddingLeft: null,
-                paddingRight: null
-              }
+                paddingRight: null,
+              },
             },
           });
         },

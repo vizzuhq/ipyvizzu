@@ -12,9 +12,9 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
               channels: {
                 y: { set: ["Popularity", "Kinds"] },
                 x: { set: "Genres" },
-                label: {attach: "Popularity"},
+                label: { attach: "Popularity" },
               },
-              color: {attach: "Kinds"},
+              color: { attach: "Kinds" },
             },
           });
         },
@@ -23,12 +23,12 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
             config: {
               channels: {
                 y: {
-                  attach: "Genres"
+                  attach: "Genres",
                 },
                 x: {
-                  set: null
-                }
-              }
+                  set: null,
+                },
+              },
             },
           });
         },
@@ -48,9 +48,9 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
             config: {
               channels: {
                 y: {
-                  detach: "Genres"
-                }
-              }
+                  detach: "Genres",
+                },
+              },
             },
           });
         },
@@ -70,9 +70,9 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
             config: {
               channels: {
                 y: {
-                  attach: "Genres"
-                }
-              }
+                  attach: "Genres",
+                },
+              },
             },
           });
         },
@@ -92,12 +92,12 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
             config: {
               channels: {
                 y: {
-                  detach: "Genres"
+                  detach: "Genres",
                 },
                 x: {
-                  set: "Genres"
-                }
-              }
+                  set: "Genres",
+                },
+              },
             },
           });
         },

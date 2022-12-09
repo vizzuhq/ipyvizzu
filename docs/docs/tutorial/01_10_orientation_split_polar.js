@@ -12,9 +12,9 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
               channels: {
                 y: { set: ["Popularity", "Kinds"] },
                 x: { set: "Genres" },
-                label: {attach: "Popularity"},
+                label: { attach: "Popularity" },
               },
-              color: {attach: "Kinds"},
+              color: { attach: "Kinds" },
             },
           });
         },
@@ -23,12 +23,12 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
             config: {
               channels: {
                 y: {
-                  detach: "Popularity"
+                  detach: "Popularity",
                 },
                 x: {
-                  attach: "Popularity"
-                }
-              }
+                  attach: "Popularity",
+                },
+              },
             },
           });
         },
@@ -46,7 +46,7 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             config: {
-              split: true
+              split: true,
             },
           });
         },
@@ -64,7 +64,7 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             config: {
-              split: false
+              split: false,
             },
           });
         },
@@ -84,9 +84,9 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
             config: {
               channels: {
                 x: {
-                  detach: "Genres"
-                }
-              }
+                  detach: "Genres",
+                },
+              },
             },
           });
         },
@@ -107,11 +107,11 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
               channels: {
                 y: {
                   range: {
-                    min: "-30%"
-                  }
-                }
+                    min: "-30%",
+                  },
+                },
               },
-              coordSystem: "polar"
+              coordSystem: "polar",
             },
           });
         },

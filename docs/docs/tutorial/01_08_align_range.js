@@ -12,9 +12,9 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
               channels: {
                 y: { set: ["Popularity", "Kinds"] },
                 x: { set: "Genres" },
-                label: {attach: "Popularity"},
+                label: { attach: "Popularity" },
               },
-              color: {attach: "Kinds"},
+              color: { attach: "Kinds" },
             },
           });
         },
@@ -24,9 +24,9 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
               align: "center",
               channels: {
                 y: {
-                  labels: false
-                }
-              }
+                  labels: false,
+                },
+              },
             },
           });
         },
@@ -83,10 +83,10 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
               channels: {
                 y: {
                   range: {
-                    max: "150%"
-                  }
-                }
-              }
+                    max: "150%",
+                  },
+                },
+              },
             },
           });
         },
@@ -97,7 +97,8 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             config: {
-              title: "Axis range set explicitly on an axis with discrete series",
+              title:
+                "Axis range set explicitly on an axis with discrete series",
             },
           });
         },
@@ -108,10 +109,10 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
                 x: {
                   range: {
                     min: -2,
-                    max: 3
-                  }
-                }
-              }
+                    max: 3,
+                  },
+                },
+              },
             },
           });
         },
@@ -134,15 +135,15 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
                   range: {
                     max: "auto",
                   },
-                  labels: true
+                  labels: true,
                 },
                 x: {
                   range: {
                     min: "auto",
                     max: "auto",
-                  }
-                }
-              }
+                  },
+                },
+              },
             },
           });
         },

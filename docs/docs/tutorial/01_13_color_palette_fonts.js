@@ -12,9 +12,9 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
               channels: {
                 y: { set: ["Popularity", "Kinds"] },
                 x: { set: "Genres" },
-                label: {attach: "Popularity"},
+                label: { attach: "Popularity" },
               },
-              color: {set: "Kinds"},
+              color: { set: "Kinds" },
             },
           });
         },
@@ -23,9 +23,9 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
             style: {
               plot: {
                 marker: {
-                  colorPalette: "#9355e8FF #123456FF #BDAF10FF"
-                }
-              }
+                  colorPalette: "#9355e8FF #123456FF #BDAF10FF",
+                },
+              },
             },
           });
         },
@@ -48,8 +48,8 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
           return chart.animate({
             style: {
               title: {
-                fontSize: 50
-              }
+                fontSize: 50,
+              },
             },
           });
         },
@@ -68,8 +68,8 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
           return chart.animate({
             style: {
               title: {
-                fontSize: null
-              }
+                fontSize: null,
+              },
             },
           });
         },
@@ -87,7 +87,7 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             style: {
-              fontSize: 20
+              fontSize: 20,
             },
           });
         },
@@ -104,7 +104,7 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
         },
         (chart) => {
           return chart.animate({
-            style: null
+            style: null,
           });
         },
       ],

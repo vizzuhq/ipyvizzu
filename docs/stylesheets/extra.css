@@ -1,19 +1,19 @@
 :root > * {
-	--md-primary-fg-color: #333;
-	--md-default-fg-color: #666;
-	--md-typeset-a-color: #4171cd;
+  --md-primary-fg-color: #333;
+  --md-default-fg-color: #666;
+  --md-typeset-a-color: #4171cd;
 
-	--md-code-fg-color:                  #666;
-	--md-code-bg-color:                  #fbfbfb;
+  --md-code-fg-color: #666;
+  --md-code-bg-color: #fbfbfb;
 
-	--md-code-hl-name-color: #666;
-	--md-code-hl-number-color:           #f25456;
-	--md-code-hl-string-color:           #f25456;
-	--md-code-hl-keyword-color:          #03ae71;
-	--md-code-hl-comment-color:          #93a49ab0;
-	--md-code-hl-function-color:         #f4941b;
+  --md-code-hl-name-color: #666;
+  --md-code-hl-number-color: #f25456;
+  --md-code-hl-string-color: #f25456;
+  --md-code-hl-keyword-color: #03ae71;
+  --md-code-hl-comment-color: #93a49ab0;
+  --md-code-hl-function-color: #f4941b;
 
-	/*
+  /*
 	--md-code-hl-color:                  #666;
 	--md-code-hl-special-color:          #f25456;
 	--md-code-hl-constant-color:         #f25456;

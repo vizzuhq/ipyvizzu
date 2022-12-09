@@ -12,16 +12,17 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
               channels: {
                 y: { set: ["Popularity", "Kinds"] },
                 x: { set: "Genres" },
-                label: {attach: "Popularity"},
+                label: { attach: "Popularity" },
               },
-              color: {attach: "Kinds"},
+              color: { attach: "Kinds" },
             },
           });
         },
         (chart) => {
           return chart.animate({
             data: {
-              filter: record => record['Genres'] == 'Pop' || record['Genres'] == 'Metal'
+              filter: (record) =>
+                record.Genres === "Pop" || record.Genres === "Metal",
             },
           });
         },
@@ -39,7 +40,9 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             data: {
-              filter: record => (record['Genres'] == 'Pop' || record['Genres'] == 'Metal') && record['Kinds'] == 'Smooth'
+              filter: (record) =>
+                (record.Genres === "Pop" || record.Genres === "Metal") &&
+                record.Kinds === "Smooth",
             },
           });
         },
@@ -57,7 +60,7 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             data: {
-              filter: null
+              filter: null,
             },
           });
         },
@@ -76,8 +79,10 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
           return chart.animate({
             data: {
               records: [
-                ["Soul", "Hard", 91], ["Soul", "Smooth", 57], ["Soul", "Experimental", 115]
-              ]
+                ["Soul", "Hard", 91],
+                ["Soul", "Smooth", 57],
+                ["Soul", "Experimental", 115],
+              ],
             },
           });
         },

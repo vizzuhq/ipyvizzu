@@ -12,9 +12,9 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
               channels: {
                 y: { set: ["Popularity", "Kinds"] },
                 x: { set: "Genres" },
-                label: {attach: "Popularity"},
+                label: { attach: "Popularity" },
               },
-              color: {set: "Kinds"},
+              color: { set: "Kinds" },
             },
           });
         },
@@ -23,13 +23,13 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
             config: {
               channels: {
                 y: {
-                  detach: "Kinds"
+                  detach: "Kinds",
                 },
                 x: {
-                  attach: "Kinds"
-                }
+                  attach: "Kinds",
+                },
               },
-            }
+            },
           });
         },
       ],
@@ -48,13 +48,13 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
             config: {
               channels: {
                 x: {
-                  detach: "Kinds"
+                  detach: "Kinds",
                 },
                 y: {
-                  attach: "Kinds"
-                }
+                  attach: "Kinds",
+                },
               },
-            }
+            },
           });
         },
       ],
@@ -69,27 +69,30 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
           });
         },
         (chart) => {
-          return chart.animate({
-            config: {
-              channels: {
-                x: {
-                  attach: "Kinds"
+          return chart.animate(
+            {
+              config: {
+                channels: {
+                  x: {
+                    attach: "Kinds",
+                  },
+                  y: {
+                    detach: "Kinds",
+                  },
                 },
-                y: {
-                  detach: "Kinds"
-                }
-              }
+              },
             },
-          }, {
-            y: { 
-              duration: 2, 
-              delay: 2 
-            },
-            style: { 
-                duration: 2, 
-                delay: 4 
+            {
+              y: {
+                duration: 2,
+                delay: 2,
+              },
+              style: {
+                duration: 2,
+                delay: 4,
+              },
             }
-          });
+          );
         },
       ],
     },
@@ -103,21 +106,24 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
           });
         },
         (chart) => {
-          return chart.animate({
-            config: {
-              channels: {
-                x: {
-                  detach: "Kinds"
+          return chart.animate(
+            {
+              config: {
+                channels: {
+                  x: {
+                    detach: "Kinds",
+                  },
+                  y: {
+                    attach: "Kinds",
+                  },
                 },
-                y: {
-                  attach: "Kinds"
-                }
-              }
+              },
             },
-          }, {
-            duration: 1, 
-            easing: 'linear'
-          });
+            {
+              duration: 1,
+              easing: "linear",
+            }
+          );
         },
       ],
     },
@@ -131,29 +137,32 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
           });
         },
         (chart) => {
-          return chart.animate({
-            config: {
-              channels: {
-                x: {
-                  attach: "Kinds"
+          return chart.animate(
+            {
+              config: {
+                channels: {
+                  x: {
+                    attach: "Kinds",
+                  },
+                  y: {
+                    detach: "Kinds",
+                  },
                 },
-                y: {
-                  detach: "Kinds"
-                }
-              }
+              },
             },
-          }, {
-            duration: 1, 
-            easing: 'linear',
-            y: { 
-                duration: 2, 
-                delay: 2 
-            },
-            style: { 
-                duration: 2, 
-                delay: 4 
+            {
+              duration: 1,
+              easing: "linear",
+              y: {
+                duration: 2,
+                delay: 2,
+              },
+              style: {
+                duration: 2,
+                delay: 4,
+              },
             }
-          });
+          );
         },
       ],
     },
@@ -167,20 +176,23 @@ import("../../javascripts/mdchart.js").then((MdChart) => {
           });
         },
         (chart) => {
-          return chart.animate({
-            config: {
-              channels: {
-                x: {
-                  detach: "Kinds"
+          return chart.animate(
+            {
+              config: {
+                channels: {
+                  x: {
+                    detach: "Kinds",
+                  },
+                  y: {
+                    attach: "Kinds",
+                  },
                 },
-                y: {
-                  attach: "Kinds"
-                }
-              }
+              },
             },
-          }, {
-            duration: '500ms',
-          });
+            {
+              duration: "500ms",
+            }
+          );
         },
       ],
     },
