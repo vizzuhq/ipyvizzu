@@ -17,62 +17,74 @@ class MdChart {
     }
   }
 
+  restore(number, snippet, prevChart, snapshot, chart, data) {
+    const div = document.getElementById(this.id + "_" + number);
+
+    return Promise.all([chart, prevChart]).then((results) => {
+      const chart = results[0];
+      const prevChart = results[1];
+      div.classList.remove("loading");
+      div.classList.add("playing");
+      let animTarget;
+      if (snapshot && !prevChart) {
+        animTarget = snapshot;
+      } else {
+        animTarget = {};
+        animTarget.data = Object.assign({}, data);
+        if (prevChart) {
+          animTarget.config = Object.assign({}, prevChart.config);
+          animTarget.style = Object.assign({}, prevChart.style);
+          // remove if it can be found in the prevChart
+          if (snippet.initDataFilter) {
+            animTarget.data.filter = snippet.initDataFilter;
+          }
+        }
+      }
+      return chart.animate(animTarget, 0);
+    });
+  }
+
   animate(number, snippet, prevChart) {
     const div = document.getElementById(this.id + "_" + number);
     div.classList.add("loading");
 
     return this.dataLoaded.then((data) => {
+      let snapshot;
+
       let chart = this.vizzuLoaded.then((Vizzu) => {
         const VizzuConstructor = Vizzu.default;
         return new VizzuConstructor(div).initializing;
       });
 
-      chart = Promise.all([chart, prevChart]).then((results) => {
-        const chart = results[0];
-        const prevChart = results[1];
-        div.classList.remove("loading");
-        div.classList.add("playing");
-        const animTarget = {};
-        animTarget.data = Object.assign({}, data);
-        if (prevChart) {
-          animTarget.config = Object.assign({}, prevChart.config);
-          animTarget.style = Object.assign({}, prevChart.style);
-        }
-        // remove if it can be found in the prevChart
-        if (snippet.initDataFilter) {
-          animTarget.data.filter = snippet.initDataFilter;
-        }
-        return chart.animate(animTarget, 0);
+      chart = this.restore(number, snippet, prevChart, snapshot, chart, data);
+
+      chart = chart.then((chart) => {
+        snapshot = chart.store();
+        return chart;
       });
 
       let clicked = false;
       div.onclick = () => {
         if (!clicked) {
           clicked = true;
-          chart = Promise.all([chart, prevChart]).then((results) => {
-            const chart = results[0];
-            const prevChart = results[1];
-            const animTarget = {};
-            animTarget.data = Object.assign({}, data);
-            if (prevChart) {
-              animTarget.config = Object.assign({}, prevChart.config);
-              animTarget.style = Object.assign({}, prevChart.style);
-            }
-            // remove if it can be found in the prevChart
-            if (snippet.initDataFilter) {
-              animTarget.data.filter = snippet.initDataFilter;
-            }
-            return chart.animate(animTarget, 0);
-          });
 
-          div.classList.remove("replay");
-          div.classList.add("playing");
+          chart = this.restore(
+            number,
+            snippet,
+            prevChart,
+            snapshot,
+            chart,
+            data
+          );
+          chart.then(() => {
+            div.classList.remove("replay");
+            div.classList.add("playing");
+          });
           for (let i = 0; i < snippet.anims.length; i++) {
             chart = chart.then((chart) => {
               return snippet.anims[i](chart);
             });
           }
-
           chart.then(() => {
             div.classList.remove("playing");
             div.classList.add("replay");
