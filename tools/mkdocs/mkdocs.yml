@@ -63,6 +63,7 @@ nav:
           - Without coordinates & noop channel: docs/tutorial/01_12_without_coordinates_noop_channel.md
           - Color palette & fonts: docs/tutorial/01_13_color_palette_fonts.md
           - Chart layout: docs/tutorial/01_14_chart_layout.md
+          - Animation options: docs/tutorial/01_15_animation_options.md
       - Environments:
           - docs/environments/index.md
           - Jupyter/IPython:
