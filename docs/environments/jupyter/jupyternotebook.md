@@ -34,7 +34,7 @@ or place the following code into a notebook cell in order to install ipyvizzu (f
 
 Below you can see an example, place the following code blocks into notebook cells in order to try it in Jupyter Notebook.
 
-For more information regarding to how to use ipyvizzu-story please check [Tutorial chapter](../tutorial.md) of our documentation site.
+For more information regarding to how to use ipyvizzu-story please check [Tutorial chapter](../../tutorial/index.md) of our documentation site.
 
 ```python
 # import pandas and ipyvizzu

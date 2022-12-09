@@ -45,41 +45,39 @@ plugins:
 
 nav:
   - Home: index.md
-  - Documentation:
-      - docs/index.md
-      - docs/installation.md
-      - Tutorial:
-          - docs/tutorial/index.md
-          - Axes, title, tooltip: docs/tutorial/axes_title_tooltip.md
-          - Geometry: docs/tutorial/geometry.md
-          - Channels & legend: docs/tutorial/channels_legend.md
-          - Group/stack: docs/tutorial/group_stack.md
-          - Sorting: docs/tutorial/sorting.md
-          - Align & range: docs/tutorial/align_range.md
-          - Aggregate/drill-down: docs/tutorial/aggregate_drilldown.md
-          - Orientation, split & polar: docs/tutorial/orientation_split_polar.md
-          - Filtering & adding new records: docs/tutorial/filter_add_new_records.md
-          - Without coordinates & noop channel: docs/tutorial/without_coordinates_noop_channel.md
-          - Color palette & fonts: docs/tutorial/color_palette_fonts.md
-          - Chart layout: docs/tutorial/chart_layout.md
-          - Animation options: docs/tutorial/animation_options.md
-      - Environments:
-          - docs/environments/index.md
-          - Jupyter/IPython:
-              - docs/environments/jupyter/index.md
-              - Jupyter Notebook: docs/environments/jupyter/jupyternotebook.md
-              - docs/environments/jupyter/colab.md
-              - docs/environments/jupyter/databricks.md
-              - DataCamp: docs/environments/jupyter/datacamp.md
-              - docs/environments/jupyter/deepnote.md
-              - JupyterLab: docs/environments/jupyter/jupyterlab.md
-              - JupyterLite: docs/environments/jupyter/jupyterlite.md
-              - docs/environments/jupyter/kaggle.md
-              - Mercury/mljar: docs/environments/jupyter/mercury.md
-              - docs/environments/jupyter/mode.md
-              - docs/environments/jupyter/noteable.md
-              - Voilà: docs/environments/jupyter/voila.md
-              - VSCode Python: docs/environments/jupyter/vscode.md
-          - docs/environments/streamlit.md
-          - docs/environments/panel.md
+  - installation.md
+  - Tutorial:
+      - tutorial/index.md
+      - Axes, title, tooltip: tutorial/axes_title_tooltip.md
+      - Geometry: tutorial/geometry.md
+      - Channels & legend: tutorial/channels_legend.md
+      - Group/stack: tutorial/group_stack.md
+      - Sorting: tutorial/sorting.md
+      - Align & range: tutorial/align_range.md
+      - Aggregate/drill-down: tutorial/aggregate_drilldown.md
+      - Orientation, split & polar: tutorial/orientation_split_polar.md
+      - Filtering & adding new records: tutorial/filter_add_new_records.md
+      - Without coordinates & noop channel: tutorial/without_coordinates_noop_channel.md
+      - Color palette & fonts: tutorial/color_palette_fonts.md
+      - Chart layout: tutorial/chart_layout.md
+      - Animation options: tutorial/animation_options.md
+  - Environments:
+      - environments/index.md
+      - Jupyter/IPython:
+          - environments/jupyter/index.md
+          - Jupyter Notebook: environments/jupyter/jupyternotebook.md
+          - environments/jupyter/colab.md
+          - environments/jupyter/databricks.md
+          - DataCamp: environments/jupyter/datacamp.md
+          - environments/jupyter/deepnote.md
+          - JupyterLab: environments/jupyter/jupyterlab.md
+          - JupyterLite: environments/jupyter/jupyterlite.md
+          - environments/jupyter/kaggle.md
+          - Mercury/mljar: environments/jupyter/mercury.md
+          - environments/jupyter/mode.md
+          - environments/jupyter/noteable.md
+          - Voilà: environments/jupyter/voila.md
+          - VSCode Python: environments/jupyter/vscode.md
+      - environments/streamlit.md
+      - environments/panel.md
   - Reference: reference/ipyvizzu/

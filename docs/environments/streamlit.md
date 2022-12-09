@@ -28,7 +28,7 @@ pip install ipyvizzu streamlit
 
 Below you can see an example, place the following code blocks into a python file in order to try it in Streamlit.
 
-For more information regarding to how to use ipyvizzu-story please check [Tutorial chapter](../tutorial.md) of our documentation site.
+For more information regarding to how to use ipyvizzu-story please check [Tutorial chapter](../tutorial/index.md) of our documentation site.
 
 ```python
 # import streamlit, pandas and ipyvizzu

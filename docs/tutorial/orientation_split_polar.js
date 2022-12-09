@@ -1,4 +1,4 @@
-import("../../javascripts/mdchart.js").then((MdChart) => {
+import("../javascripts/mdchart.js").then((MdChart) => {
   const MdChartConstructor = MdChart.default;
   const mdchart = new MdChartConstructor("./data.js", "./vizzu.js", "tutorial");
 
