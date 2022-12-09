@@ -34,7 +34,10 @@ chart.animate(data)
 chart.animate(
     Config(
         {
-            "channels": {"y": {"set": ["Popularity", "Kinds"]}, "x": {"set": "Genres"}},
+            "channels": {
+                "y": {"set": ["Popularity", "Kinds"]},
+                "x": {"set": "Genres"},
+            },
             "label": {"attach": "Popularity"},
             "color": {"set": "Kinds"},
             "title": "Color palette",
@@ -43,7 +46,13 @@ chart.animate(
 )
 
 chart.animate(
-    Style({"plot": {"marker": {"colorPalette": "#9355e8FF #123456FF #BDAF10FF"}}})
+    Style(
+        {
+            "plot": {
+                "marker": {"colorPalette": "#9355e8FF #123456FF #BDAF10FF"}
+            }
+        }
+    )
 )
 ```
 
