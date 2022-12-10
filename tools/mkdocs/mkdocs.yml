@@ -48,6 +48,7 @@ nav:
   - installation.md
   - Tutorial:
       - tutorial/index.md
+      - Data: tutorial/data.md
       - Axes, title, tooltip: tutorial/axes_title_tooltip.md
       - Geometry: tutorial/geometry.md
       - Channels & legend: tutorial/channels_legend.md
