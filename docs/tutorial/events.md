@@ -64,8 +64,10 @@ chart.animate(
     )
 )
 
-label_draw_handler = """event.renderingContext.fillStyle =
-    (event.data.text === 'Jazz') ? 'red' : 'gray';"""
+label_draw_handler = (
+    "event.renderingContext.fillStyle ="
+    + " (event.data.text === 'Jazz') ? 'red' : 'gray';"
+)
 
 label_draw = chart.on("plot-axis-label-draw", label_draw_handler)
 ```

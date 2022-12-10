@@ -53,9 +53,11 @@ that series into an array.
 
 ```python
 chart.animate(
-    Config({
-        "title": "When just one series is used",
-    })
+    Config(
+        {
+            "title": "When just one series is used",
+        }
+    )
 )
 
 chart.animate(
@@ -80,9 +82,11 @@ can simply write the series' name after the channel name.
 
 ```python
 chart.animate(
-    Config({
-        "title": "When you use set and no other channel options",
-    })
+    Config(
+        {
+            "title": "When you use set and no other channel options",
+        }
+    )
 )
 
 chart.animate(
@@ -105,9 +109,11 @@ automatically recognize the channels by their names.
 
 ```python
 chart.animate(
-    Config({
-        "title": "You don't have to use the channel object",
-    })
+    Config(
+        {
+            "title": "You don't have to use the channel object",
+        }
+    )
 )
 
 chart.animate(
@@ -128,9 +134,11 @@ Instead of creating nested objects, you can set the styles like this.
 
 ```python
 chart.animate(
-    Config({
-        "title": "Shorthand for styles",
-    })
+    Config(
+        {
+            "title": "Shorthand for styles",
+        }
+    )
 )
 
 chart.animate(
@@ -152,9 +160,11 @@ This is how you can get back to a state that you previously stored.
 chart.animate(snapshot)
 
 chart.animate(
-    Config({
-        "title": "Restoring a previously stored state",
-    })
+    Config(
+        {
+            "title": "Restoring a previously stored state",
+        }
+    )
 )
 ```
 

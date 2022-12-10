@@ -47,7 +47,8 @@ viewer.
 chart.animate(
     Config(
         {
-            "title": "...then you can add it to another channel = group elements..."
+            "title": "...then you can add it to another channel"
+            + " = group elements..."
         }
     )
 )

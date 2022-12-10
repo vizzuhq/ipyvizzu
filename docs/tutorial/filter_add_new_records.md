@@ -65,7 +65,8 @@ we weren't update the filter, Vizzu would use it in subsequent states.
 chart.animate(Config({"title": "Filter by two dimensions"}))
 
 filter2 = Data.filter(
-    "(record['Genres'] == 'Pop' || record['Genres'] == 'Metal') && record['Kinds'] == 'Smooth'"
+    "(record['Genres'] == 'Pop' || record['Genres'] == 'Metal')"
+    + " && record['Kinds'] == 'Smooth'"
 )
 
 chart.animate(filter2)
