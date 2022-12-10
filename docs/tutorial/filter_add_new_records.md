@@ -59,7 +59,7 @@ chart.animate(filter1)
 
 Now we add a cross-filter that includes items from both the `Genres` and the
 `Kinds` dimensions. This way we override the filter from the previous state. If
-we weren't update the filter, Vizzu would use it in subsequent states.
+we weren't update the filter, ipyvizzu would use it in subsequent states.
 
 ```python
 chart.animate(Config({"title": "Filter by two dimensions"}))

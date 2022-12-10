@@ -63,6 +63,7 @@ nav:
       - Animation options: tutorial/animation_options.md
       - Events: tutorial/events.md
       - Shorthands & Store: tutorial/shorthands_store.md
+      - Chart presets: tutorial/chart_presets.md
   - Environments:
       - environments/index.md
       - Jupyter/IPython:

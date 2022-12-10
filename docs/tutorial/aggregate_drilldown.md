@@ -5,8 +5,8 @@ to/from an axis or another channel.
 
 Let’s aggregate together the elements by getting the Genres dimension off the
 x-axis. By taking it off of the chart, only one chart element remains for every
-color, and Vizzu automatically calculates and shows the aggregate value of the
-elements.
+color, and ipyvizzu automatically calculates and shows the aggregate value of
+the elements.
 
 ```python
 import pandas as pd

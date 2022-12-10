@@ -47,49 +47,54 @@ class MdChart {
     const div = document.getElementById(this.id + "_" + number);
     div.classList.add("loading");
 
-    return this.dataLoaded.then((data) => {
-      let snapshot;
+    let snapshot;
 
-      let chart = this.vizzuLoaded.then((Vizzu) => {
+    let chart = Promise.all([this.vizzuLoaded, this.dataLoaded]).then(
+      (results) => {
+        const Vizzu = results[0];
+        const data = results[1];
         const VizzuConstructor = Vizzu.default;
         return new VizzuConstructor(div, { data }).initializing;
-      });
+      }
+    );
 
-      chart = this.restore(number, snippet, prevChart, snapshot, chart);
+    chart = this.restore(number, snippet, prevChart, snapshot, chart);
 
-      chart = chart.then((chart) => {
-        snapshot = chart.store();
-        return chart;
-      });
-
-      let clicked = false;
-      div.onclick = () => {
-        if (!clicked) {
-          clicked = true;
-
-          chart = this.restore(number, snippet, prevChart, snapshot, chart);
-          chart.then(() => {
-            div.classList.remove("replay");
-            div.classList.add("playing");
-          });
-          for (let i = 0; i < snippet.anims.length; i++) {
-            chart = chart.then((chart) => {
-              return snippet.anims[i](chart, data);
-            });
-          }
-          chart.then(() => {
-            div.classList.remove("playing");
-            div.classList.add("replay");
-            clicked = false;
-          });
-
-          return chart;
-        }
-      };
-      div.click();
-
+    chart = chart.then((chart) => {
+      snapshot = chart.store();
       return chart;
     });
+
+    let clicked = false;
+    div.onclick = () => {
+      if (!clicked) {
+        clicked = true;
+
+        chart = this.restore(number, snippet, prevChart, snapshot, chart);
+        chart.then(() => {
+          div.classList.remove("replay");
+          div.classList.add("playing");
+        });
+        for (let i = 0; i < snippet.anims.length; i++) {
+          chart = chart.then((chart) => {
+            return snippet.anims[i](chart, {
+              dataLoaded: this.dataLoaded,
+              vizzuLoaded: this.vizzuLoaded,
+            });
+          });
+        }
+        chart.then(() => {
+          div.classList.remove("playing");
+          div.classList.add("replay");
+          clicked = false;
+        });
+
+        return chart;
+      }
+    };
+    div.click();
+
+    return chart;
   }
 }
 
