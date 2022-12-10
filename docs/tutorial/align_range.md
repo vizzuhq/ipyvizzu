@@ -68,7 +68,7 @@ Getting back to the default alignment.
 ```python
 chart.animate(Config({"title": "Align: none - default"}))
 
-chart.animate(Config({"align": "none"}))
+chart.animate(Config({"align": "none", "channels": {"y": {"labels": True}}}))
 ```
 
 <div id="tutorial_03"></div>
@@ -136,7 +136,6 @@ chart.animate(
             "channels": {
                 "y": {
                     "range": {"max": "auto"},
-                    "labels": True,
                 },
                 "x": {
                     "range": {

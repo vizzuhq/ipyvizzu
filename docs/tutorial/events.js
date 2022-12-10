@@ -8,7 +8,7 @@ import("../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             config: {
-              title: "Click on a column!",
+              title: "Click event added to markers",
               channels: {
                 y: { set: ["Popularity", "Kinds"] },
                 x: { set: "Genres" },
@@ -32,7 +32,7 @@ import("../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             config: {
-              title: "Override the axis label color for 'Jazz' to red",
+              title: "Changing the canvas context before label draw",
             },
           });
         },
@@ -50,7 +50,7 @@ import("../javascripts/mdchart.js").then((MdChart) => {
       anims: [
         (chart) => {
           return chart.animate({
-            config: { title: "Block the drawing of the Vizzu Logo" },
+            config: { title: "Prevent default behavior" },
           });
         },
         (chart) => {

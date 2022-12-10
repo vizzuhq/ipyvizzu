@@ -171,7 +171,7 @@ import("../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             config: {
-              title: "Custom unit",
+              title: "Custom unit for duration",
             },
           });
         },

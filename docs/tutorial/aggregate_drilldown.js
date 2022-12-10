@@ -22,33 +22,8 @@ import("../javascripts/mdchart.js").then((MdChart) => {
           return chart.animate({
             config: {
               channels: {
-                y: {
-                  attach: "Genres",
-                },
                 x: {
                   set: null,
-                },
-              },
-            },
-          });
-        },
-      ],
-    },
-    {
-      anims: [
-        (chart) => {
-          return chart.animate({
-            config: {
-              title: "Aggregate element",
-            },
-          });
-        },
-        (chart) => {
-          return chart.animate({
-            config: {
-              channels: {
-                y: {
-                  detach: "Genres",
                 },
               },
             },
@@ -69,33 +44,8 @@ import("../javascripts/mdchart.js").then((MdChart) => {
           return chart.animate({
             config: {
               channels: {
-                y: {
-                  attach: "Genres",
-                },
-              },
-            },
-          });
-        },
-      ],
-    },
-    {
-      anims: [
-        (chart) => {
-          return chart.animate({
-            config: {
-              title: "Group",
-            },
-          });
-        },
-        (chart) => {
-          return chart.animate({
-            config: {
-              channels: {
-                y: {
-                  detach: "Genres",
-                },
                 x: {
-                  set: "Genres",
+                  attach: "Genres",
                 },
               },
             },

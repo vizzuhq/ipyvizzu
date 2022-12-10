@@ -8,36 +8,13 @@ import("../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             config: {
-              title: "Align: center",
+              title: "Store function",
               channels: {
                 y: { set: ["Popularity", "Kinds"] },
                 x: { set: "Genres" },
                 label: { attach: "Popularity" },
               },
-              color: { attach: "Kinds" },
-            },
-          });
-        },
-        (chart) => {
-          return chart.animate({
-            config: {
-              align: "center",
-              channels: {
-                y: {
-                  labels: false,
-                },
-              },
-            },
-          });
-        },
-      ],
-    },
-    {
-      anims: [
-        (chart) => {
-          return chart.animate({
-            config: {
-              title: "Align: stretch = % view",
+              color: { set: "Kinds" },
             },
           });
         },
@@ -55,18 +32,38 @@ import("../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             config: {
-              title: "Align: none - default",
+              title: "When just one series is used",
             },
           });
         },
         (chart) => {
           return chart.animate({
             config: {
+              channels: {
+                y: { detach: "Kinds" },
+                x: { attach: "Kinds" },
+              },
               align: "none",
+            },
+          });
+        },
+      ],
+    },
+    {
+      anims: [
+        (chart) => {
+          return chart.animate({
+            config: {
+              title: "When you use set and no other channel options",
+            },
+          });
+        },
+        (chart) => {
+          return chart.animate({
+            config: {
               channels: {
-                y: {
-                  labels: true,
-                },
+                y: ["Kinds", "Popularity"],
+                x: "Genres",
               },
             },
           });
@@ -78,20 +75,15 @@ import("../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             config: {
-              title: "Axis range set proportionally to shown values",
+              title: "You don't have to use the channel object",
             },
           });
         },
         (chart) => {
           return chart.animate({
             config: {
-              channels: {
-                y: {
-                  range: {
-                    max: "150%",
-                  },
-                },
-              },
+              y: "Kinds",
+              x: ["Genres", "Popularity"],
             },
           });
         },
@@ -102,22 +94,15 @@ import("../javascripts/mdchart.js").then((MdChart) => {
         (chart) => {
           return chart.animate({
             config: {
-              title:
-                "Axis range set explicitly on an axis with discrete series",
+              title: "Shorthand for styles",
             },
           });
         },
         (chart) => {
           return chart.animate({
-            config: {
-              channels: {
-                x: {
-                  range: {
-                    min: -2,
-                    max: 3,
-                  },
-                },
-              },
+            style: {
+              "plot.xAxis.label.fontSize": "150%",
+              "title.backgroundColor": "#A0A0A0",
             },
           });
         },
@@ -127,27 +112,23 @@ import("../javascripts/mdchart.js").then((MdChart) => {
       anims: [
         (chart) => {
           return chart.animate({
+            style: null,
             config: {
-              title: "Back to the default ranges",
+              title: "Store function",
+              align: "stretch",
+              channels: {
+                y: { set: ["Popularity", "Kinds"] },
+                x: { set: "Genres" },
+                label: { attach: "Popularity" },
+              },
+              color: { set: "Kinds" },
             },
           });
         },
         (chart) => {
           return chart.animate({
             config: {
-              channels: {
-                y: {
-                  range: {
-                    max: "auto",
-                  },
-                },
-                x: {
-                  range: {
-                    min: "auto",
-                    max: "auto",
-                  },
-                },
-              },
+              title: "Restoring a previously stored state",
             },
           });
         },

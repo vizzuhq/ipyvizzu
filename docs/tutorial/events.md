@@ -35,7 +35,7 @@ chart.animate(
             },
             "label": {"attach": "Popularity"},
             "color": {"set": "Kinds"},
-            "title": "Click on a column!",
+            "title": "Click event added to markers",
         }
     )
 )
@@ -56,6 +56,14 @@ chart.off(click)
 Here we override the axis label color for `Jazz` to red and all others to gray.
 
 ```python
+chart.animate(
+    Config(
+        {
+            "title": "Changing the canvas context before label draw",
+        }
+    )
+)
+
 label_draw_handler = """event.renderingContext.fillStyle =
     (event.data.text === 'Jazz') ? 'red' : 'gray';"""
 
@@ -75,6 +83,14 @@ The default behaviour of all events can be blocked by calling the event's
 bottom right corner of the chart.
 
 ```python
+chart.animate(
+    Config(
+        {
+            "title": "Prevent default behavior",
+        }
+    )
+)
+
 logo_draw_handler = "event.preventDefault();"
 
 logo_draw = logo_chart.on("logo-draw", logo_draw_handler)

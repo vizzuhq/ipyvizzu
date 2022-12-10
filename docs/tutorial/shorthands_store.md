@@ -1,0 +1,163 @@
+# Shorthands & Store
+
+To assist you with the development we added various shorthands that will make
+your code more compact. And we also added the store function, which enables you
+to save a chart state into a variable that you can reuse later instead of
+setting up that state once again.
+
+```python
+import pandas as pd
+from ipyvizzu import Chart, Data, Config, Style
+
+
+data_frame = pd.read_csv("./music_data.csv")
+data = Data()
+data.add_data_frame(data_frame)
+
+
+chart = Chart()
+
+chart.animate(data)
+
+chart.animate(
+    Config(
+        {
+            "title": "Store function",
+            "channels": {
+                "y": {"set": ["Popularity", "Kinds"]},
+                "x": {"set": "Genres"},
+            },
+            "label": {"attach": "Popularity"},
+            "color": {"set": "Kinds"},
+        }
+    )
+)
+
+chart.animate(
+    Config(
+        {
+            "align": "stretch",
+        }
+    )
+)
+
+# Let's save this state by calling the store function.
+
+snapshot = chart.store()
+```
+
+<div id="tutorial_01"></div>
+
+If you set/attach/detach just one series on a channel, you don't have to put
+that series into an array.
+
+```python
+chart.animate(
+    Config({
+        "title": "When just one series is used",
+    })
+)
+
+chart.animate(
+    Config(
+        {
+            "channels": {
+                # "x": { "attach": [ "Kinds" ] },
+                "x": {"attach": "Kinds"},
+                "y": {"detach": "Kinds"},
+            },
+            "align": "none",
+        }
+    )
+)
+```
+
+<div id="tutorial_02"></div>
+
+If you use set on a channel and no other options like range, you don't have to
+express that channel as an object. If you only set one series on a channel you
+can simply write the series' name after the channel name.
+
+```python
+chart.animate(
+    Config({
+        "title": "When you use set and no other channel options",
+    })
+)
+
+chart.animate(
+    Config(
+        {
+            "channels": {
+                # "y": { "set": [ "Kinds", "Popularity" ] },
+                "y": ["Kinds", "Popularity"],
+                "x": "Genres",
+            }
+        }
+    )
+)
+```
+
+<div id="tutorial_03"></div>
+
+In any case, you can simply omit the the channel object, ipyvizzu will
+automatically recognize the channels by their names.
+
+```python
+chart.animate(
+    Config({
+        "title": "You don't have to use the channel object",
+    })
+)
+
+chart.animate(
+    Config(
+        {
+            # "channels": {
+            "y": "Kinds",
+            "x": ["Genres", "Popularity"]
+            # }
+        }
+    )
+)
+```
+
+<div id="tutorial_04"></div>
+
+Instead of creating nested objects, you can set the styles like this.
+
+```python
+chart.animate(
+    Config({
+        "title": "Shorthand for styles",
+    })
+)
+
+chart.animate(
+    Style(
+        {
+            # "plot": { "xAxis": { "label": { "fontSize": "150%" } } },
+            "plot.xAxis.label.fontSize": "150%",
+            "title.backgroundColor": "#A0A0A0",
+        }
+    )
+)
+```
+
+<div id="tutorial_05"></div>
+
+This is how you can get back to a state that you previously stored.
+
+```python
+chart.animate(snapshot)
+
+chart.animate(
+    Config({
+        "title": "Restoring a previously stored state",
+    })
+)
+```
+
+<div id="tutorial_06"></div>
+
+<script src="./shorthands_store.js"></script>
