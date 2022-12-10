@@ -61,6 +61,7 @@ nav:
       - Color palette & fonts: tutorial/color_palette_fonts.md
       - Chart layout: tutorial/chart_layout.md
       - Animation options: tutorial/animation_options.md
+      - Events: tutorial/events.md
   - Environments:
       - environments/index.md
       - Jupyter/IPython:
