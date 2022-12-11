@@ -27,9 +27,9 @@ There are multiple ways you can add data to ipyvizzu.
 ### Using `pandas` DataFrame
 
 Use
-[`add_data_frame`](../reference/ipyvizzu/animation.html#ipyvizzu.animation.Data.add_data_frame)
+[`add_data_frame`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data.add_data_frame)
 method for adding data frame to
-[`Data`](http://127.0.0.1:5500/site/reference/ipyvizzu/animation.html#ipyvizzu.animation.Data).
+[`Data`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data).
 
 `music_data.csv`:
 
@@ -65,9 +65,9 @@ data.add_data_frame(data_frame)
 column is handled as a measure or as a dimension.
 
 It is also possible to add data frame index to
-[`Data`](http://127.0.0.1:5500/site/reference/ipyvizzu/animation.html#ipyvizzu.animation.Data)
+[`Data`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data)
 with the
-[`add_data_frame_index`](../reference/ipyvizzu/animation.html#ipyvizzu.animation.Data.add_data_frame_index)
+[`add_data_frame_index`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data.add_data_frame_index)
 method.
 
 ```python
