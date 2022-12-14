@@ -2,34 +2,59 @@ import("../javascripts/mdchart.js").then((MdChart) => {
   const MdChartConstructor = MdChart.default;
   const mdchart = new MdChartConstructor("./data.js", "./vizzu.js", "tutorial");
 
+  const clickHandler = (event) => {
+    alert(JSON.stringify(event.data));
+  };
+
+  const labelDrawHandler = (event) => {
+    event.renderingContext.fillStyle =
+      event.data.text === "Jazz" ? "red" : "gray";
+  }
+
+  const logoDrawHandler = (event) => {
+    event.preventDefault();
+  };
+
   mdchart.create([
     {
       anims: [
         (chart) => {
+          try {
+            chart.off("click", clickHandler);
+          } catch (error) {
+            if (!error.toString().includes("unknown event handler")) {
+              throw error;
+            }
+          }
           return chart.animate({
             config: {
-              title: "Click event added to markers",
               channels: {
                 y: { set: ["Popularity", "Kinds"] },
                 x: { set: "Genres" },
                 label: { attach: "Popularity" },
               },
               color: { set: "Kinds" },
+              title: "Click event added to markers",
             },
           });
         },
         (chart) => {
-          const clickHandler = (event) => {
-            alert(JSON.stringify(event.data));
-          };
           chart.on("click", clickHandler);
+          chart.render.updateFrame(true);
           return chart;
         },
       ],
     },
     {
-      anims: [
+      anims: [       
         (chart) => {
+          try {
+            chart.off("plot-axis-label-draw", labelDrawHandler);
+          } catch (error) {
+            if (!error.toString().includes("unknown event handler")) {
+              throw error;
+            }
+          }
           return chart.animate({
             config: {
               title: "Changing the canvas context before label draw",
@@ -37,11 +62,8 @@ import("../javascripts/mdchart.js").then((MdChart) => {
           });
         },
         (chart) => {
-          const labelDrawHandler = (event) => {
-            event.renderingContext.fillStyle =
-              event.data.text === "Jazz" ? "red" : "gray";
-          };
           chart.on("plot-axis-label-draw", labelDrawHandler);
+          chart.render.updateFrame(true);
           return chart;
         },
       ],
@@ -49,15 +71,22 @@ import("../javascripts/mdchart.js").then((MdChart) => {
     {
       anims: [
         (chart) => {
+          try {
+            chart.off("logo-draw", logoDrawHandler);
+          } catch (error) {
+            if (!error.toString().includes("unknown event handler")) {
+              throw error;
+            }
+          }
           return chart.animate({
-            config: { title: "Prevent default behavior" },
+            config: {
+              title: "Prevent default behavior",
+            },
           });
         },
         (chart) => {
-          const logoDrawHandler = (event) => {
-            event.preventDefault();
-          };
           chart.on("logo-draw", logoDrawHandler);
+          chart.render.updateFrame(true);
           return chart;
         },
       ],
