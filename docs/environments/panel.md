@@ -9,16 +9,24 @@ You can use ipyvizzu in Panel with the following restrictions:
 
 Dislay restrictions:
 
-- [x] Display all animations after `_repr_html_` method called (`display`=`DisplayTarget.MANUAL`)
-- [ ] Display all animations after `show` method called (`display`=`DisplayTarget.MANUAL`)
-- [ ] Automatically display all animations after the first cell (`display`=`DisplayTarget.BEGIN`)
-- [ ] Automatically display all animations after the currently running cell (`display`=`DisplayTarget.ACTUAL`)
-- [ ] Automatically display all animations after the last running cell (`display`=`DisplayTarget.END`)
-- [ ] Rerun any cell without rerun the first cell (`display`!=`DisplayTarget.MANUAL`)
+- [x] Display all animations after `_repr_html_` method called
+  (`display`=`DisplayTarget.MANUAL`)
+- [ ] Display all animations after `show` method called
+  (`display`=`DisplayTarget.MANUAL`)
+- [ ] Automatically display all animations after the first cell
+  (`display`=`DisplayTarget.BEGIN`)
+- [ ] Automatically display all animations after the currently running cell
+  (`display`=`DisplayTarget.ACTUAL`)
+- [ ] Automatically display all animations after the last running cell
+  (`display`=`DisplayTarget.END`)
+- [ ] Rerun any cell without rerun the first cell
+  (`display`!=`DisplayTarget.MANUAL`)
 
 ## Installation
 
-Run the following command in your command line in order to install ipyvizzu (for more installation options and details see [Installation chapter](../installation.md) of our documentation site).
+Run the following command in your command line in order to install ipyvizzu (for
+more installation options and details see
+[Installation chapter](../installation.md) of our documentation site).
 
 ```sh
 pip install ipyvizzu panel
@@ -26,9 +34,11 @@ pip install ipyvizzu panel
 
 ## Example
 
-Below you can see an example, place the following code blocks into a python file in order to try it in Panel.
+Below you can see an example, place the following code blocks into a python file
+in order to try it in Panel.
 
-For more information regarding to how to use ipyvizzu-story please check [Tutorial chapter](../tutorial/index.md) of our documentation site.
+For more information regarding to how to use ipyvizzu-story please check
+[Tutorial chapter](../tutorial/index.md) of our documentation site.
 
 ```python
 # import panel, pandas and ipyvizzu
@@ -111,8 +121,9 @@ pn.pane.HTML(CHART, height=370, sizing_mode="stretch_both").servable()
 
 ## Try it!
 
-Place the above code blocks into a python file (for example called `ipyvizzu_example.py`)
-and run the following command in your command line in order to try it.
+Place the above code blocks into a python file (for example called
+`ipyvizzu_example.py`) and run the following command in your command line in
+order to try it.
 
 ```sh
 panel serve ipyvizzu_example.py  # --autoreload

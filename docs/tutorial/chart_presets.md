@@ -2,10 +2,10 @@
 
 Throughout this tutorial, we have shown you how to create charts with ipyvizzu
 using a chart type-agnostic, uniform way without being limited to a predefined
-set of available charts. But sometimes, when you know the chart type you want
-to use, it is easier to start with that and skip configuring it from scratch.
-For this reason, ipyvizzu provides preset chart configurations for many known
-chart types. See the preset galery for all available presets.
+set of available charts. But sometimes, when you know the chart type you want to
+use, it is easier to start with that and skip configuring it from scratch. For
+this reason, ipyvizzu provides preset chart configurations for many known chart
+types. See the preset galery for all available presets.
 
 Use the methods of the presets static property of the `Config` class to build a
 chart based on a preset. These methods return chart configuration objects that

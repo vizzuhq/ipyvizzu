@@ -6,8 +6,8 @@ are called before rendering the chart elements. Handlers can be
 registered/unregistered with the on(), off() method pair.
 
 **Note:** Currently `chart.on(event, handler)` only accept handler's JavaScript
-expression as string. Event can be accessed via `event` object, see the
-examples below.
+expression as string. Event can be accessed via `event` object, see the examples
+below.
 
 We are registering a handler for the click event which will show an alert block
 with information about the clicked marker.

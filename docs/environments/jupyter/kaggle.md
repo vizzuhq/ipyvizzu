@@ -9,16 +9,24 @@ You can use ipyvizzu in Kaggle with the following restrictions:
 
 Dislay restrictions:
 
-- [x] Display all animations after `_repr_html_` method called (`display`=`DisplayTarget.MANUAL`)
-- [x] Display all animations after `show` method called (`display`=`DisplayTarget.MANUAL`)
-- [x] Automatically display all animations after the first cell (`display`=`DisplayTarget.BEGIN`)
-- [x] Automatically display all animations after the currently running cell (`display`=`DisplayTarget.ACTUAL`)
-- [x] Automatically display all animations after the last running cell (`display`=`DisplayTarget.END`)
-- [x] Rerun any cell without rerun the first cell (`display`!=`DisplayTarget.MANUAL`)
+- [x] Display all animations after `_repr_html_` method called
+  (`display`=`DisplayTarget.MANUAL`)
+- [x] Display all animations after `show` method called
+  (`display`=`DisplayTarget.MANUAL`)
+- [x] Automatically display all animations after the first cell
+  (`display`=`DisplayTarget.BEGIN`)
+- [x] Automatically display all animations after the currently running cell
+  (`display`=`DisplayTarget.ACTUAL`)
+- [x] Automatically display all animations after the last running cell
+  (`display`=`DisplayTarget.END`)
+- [x] Rerun any cell without rerun the first cell
+  (`display`!=`DisplayTarget.MANUAL`)
 
 ## Installation
 
-Place the following code into a notebook cell in order to install ipyvizzu (for more installation options and details see [Installation chapter](../../installation.md) of our documentation site).
+Place the following code into a notebook cell in order to install ipyvizzu (for
+more installation options and details see
+[Installation chapter](../../installation.md) of our documentation site).
 
 ```
 !pip install ipyvizzu
@@ -26,9 +34,11 @@ Place the following code into a notebook cell in order to install ipyvizzu (for 
 
 ## Example
 
-Below you can see an example, place the following code blocks into notebook cells in order to try it in Kaggle.
+Below you can see an example, place the following code blocks into notebook
+cells in order to try it in Kaggle.
 
-For more information regarding to how to use ipyvizzu please check [Tutorial chapter](../../tutorial/index.md) of our documentation site.
+For more information regarding to how to use ipyvizzu please check
+[Tutorial chapter](../../tutorial/index.md) of our documentation site.
 
 ```python
 # import pandas and ipyvizzu
@@ -100,4 +110,5 @@ chart.animate(Style({"title": {"fontSize": 35}}))
 
 ## Try it!
 
-Place the above code blocks into notebook cells in order to try it. [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/dvidandrsvgh/ipyvizzu-demo)
+Place the above code blocks into notebook cells in order to try it.
+[![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/dvidandrsvgh/ipyvizzu-demo)

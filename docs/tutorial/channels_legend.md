@@ -42,9 +42,9 @@ chart.animate(Config({"channels": {"label": {"attach": "Popularity"}}}))
 <div id="tutorial_01"></div>
 
 The lightness channel sets the lightness of the markers. In this case the same
-measure (Popularity) is added to it that is on the y-axis, meaning that
-columns’ height and lightness represent the same values. The legend for the
-lightness channel is turned on using the legend property.
+measure (Popularity) is added to it that is on the y-axis, meaning that columns’
+height and lightness represent the same values. The legend for the lightness
+channel is turned on using the legend property.
 
 **Note:** This is an example when we explicitly instruct ipyvizzu to show the
 legend. By default ipyvizzu automatically shows/hides the legend when it's

@@ -102,8 +102,8 @@ chart.animate(
 
 <div id="tutorial_04"></div>
 
-When switching the order of dimensions on the x-axis ipyvizzu will rearrange
-the elements according to this new logic.
+When switching the order of dimensions on the x-axis ipyvizzu will rearrange the
+elements according to this new logic.
 
 **Note:** The legend is automatically removed during the animation.
 

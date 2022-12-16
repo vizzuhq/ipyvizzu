@@ -3,9 +3,9 @@
 The following example shows how to group and stack elements of a bar chart.
 
 To get a stacked chart, you need to add a new dimension to the same channel
-where the measure is: the y-axis. However, since doing only this would result
-in multiple column chart elements with the same color stacked on top of each
-other, we also add the same dimension to the color channel.
+where the measure is: the y-axis. However, since doing only this would result in
+multiple column chart elements with the same color stacked on top of each other,
+we also add the same dimension to the color channel.
 
 ```python
 import pandas as pd

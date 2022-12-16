@@ -1,20 +1,19 @@
 # Color palette & fonts
 
 This and the next chapter provide a quick intro to the styling of the charts.
-You can either use the style property like in the following examples or use
-CSS. By using CSS, it's easier to set the same style for multiple charts on one
-page or re-use style settings.
+You can either use the style property like in the following examples or use CSS.
+By using CSS, it's easier to set the same style for multiple charts on one page
+or re-use style settings.
 
-If you use CSS, don't change the set parameters later on via the style
-property.
+If you use CSS, don't change the set parameters later on via the style property.
 
 The font sizes automatically adjust to the chart size to help readability, and
 can also be set separately or for specific groups.
 
 The color palette is changed to the colors we add here. The order of the
-dimension’s items in the data set determine which color belongs to which item
-as the colors are added one-by-one. If you want to use the same setting via
-CSS, you should add
+dimension’s items in the data set determine which color belongs to which item as
+the colors are added one-by-one. If you want to use the same setting via CSS,
+you should add
 `--vizzu-plot-marker-colorPalette: #9355e8FF #123456FF #BDAF10FF;`.
 
 ```python
@@ -87,8 +86,8 @@ chart.animate(Style({"title": {"fontSize": None}}))
 <div id="tutorial_03"></div>
 
 In case you change the font size of the whole chart with the top-level fontSize
-parameter then every font on the chart will grow/shrink proportionally. The
-size refers to the font size of the axis labels by default.
+parameter then every font on the chart will grow/shrink proportionally. The size
+refers to the font size of the axis labels by default.
 
 ```python
 chart.animate(Config({"title": "Setting all font sizes in one step"}))

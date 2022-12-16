@@ -4,9 +4,9 @@ Now that you are familiar with the basic logic and operation of ipyvizzu, let's
 dive in with some more advanced features that you can use to create animated
 data stories and show the data from different perspectives.
 
-Switching orientation means that you put a measure from one axis to the other
-to see the data from a different perspective. This is once again a state you
-should only use temporarily.
+Switching orientation means that you put a measure from one axis to the other to
+see the data from a different perspective. This is once again a state you should
+only use temporarily.
 
 ```python
 import pandas as pd

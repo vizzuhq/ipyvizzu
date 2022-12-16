@@ -1,14 +1,14 @@
 # Align & range
 
 ipyvizzu offers different options to align your chart elements and to set the
-range of values shown on the axes. Alignment can be used to create charts like
-a stream chart where the elements are vertically centered. A good example for
+range of values shown on the axes. Alignment can be used to create charts like a
+stream chart where the elements are vertically centered. A good example for
 using range is when you fix the y-axis so that it would not adapt to the data
 being shown.
 
 Centered alignment. The effect of this parameter depends on the orientation of
-the chart. For example, on a column chart, elements will be vertically
-centered, whereas on a bar chart, horizontally.
+the chart. For example, on a column chart, elements will be vertically centered,
+whereas on a bar chart, horizontally.
 
 **Note:** In the first example, the y-axis labels are hidden because they don't
 properly represent the values shown on the column chart anymore, as the chart
@@ -119,13 +119,13 @@ chart.animate(
 
 Ranges have certain defaults depending on the chart's configuration, based on
 common data viz guidelines because we wanted to make it easy for you to create
-sleek charts. For example, in the cartesian coordinate system, the range will
-be automatically set to the max:110% for an axis with a measure on it. Polar
+sleek charts. For example, in the cartesian coordinate system, the range will be
+automatically set to the max:110% for an axis with a measure on it. Polar
 coordinates work differently, as you can see for yourself in the
 [Orientation, split & polar chapter](./orientation_split_polar.md).
 
-Whenever you want to set your ranges back to the default value, just set them
-to `auto`.
+Whenever you want to set your ranges back to the default value, just set them to
+`auto`.
 
 ```python
 chart.animate(Config({"title": "Back to the default ranges"}))

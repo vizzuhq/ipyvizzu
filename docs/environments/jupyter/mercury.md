@@ -9,12 +9,18 @@ You can use ipyvizzu in Mercury/mljar with the following restrictions:
 
 Dislay restrictions:
 
-- [ ] Display all animations after `_repr_html_` method called (`display`=`DisplayTarget.MANUAL`)
-- [x] Display all animations after `show` method called (`display`=`DisplayTarget.MANUAL`)
-- [x] Automatically display all animations after the first cell (`display`=`DisplayTarget.BEGIN`)
-- [x] Automatically display all animations after the currently running cell (`display`=`DisplayTarget.ACTUAL`)
-- [x] Automatically display all animations after the last running cell (`display`=`DisplayTarget.END`)
-- [ ] Rerun any cell without rerun the first cell (`display`!=`DisplayTarget.MANUAL`)
+- [ ] Display all animations after `_repr_html_` method called
+  (`display`=`DisplayTarget.MANUAL`)
+- [x] Display all animations after `show` method called
+  (`display`=`DisplayTarget.MANUAL`)
+- [x] Automatically display all animations after the first cell
+  (`display`=`DisplayTarget.BEGIN`)
+- [x] Automatically display all animations after the currently running cell
+  (`display`=`DisplayTarget.ACTUAL`)
+- [x] Automatically display all animations after the last running cell
+  (`display`=`DisplayTarget.END`)
+- [ ] Rerun any cell without rerun the first cell
+  (`display`!=`DisplayTarget.MANUAL`)
 
 ## Installation
 
@@ -29,9 +35,11 @@ ipyvizzu
 
 ## Example
 
-Below you can see an example, place the following code blocks into notebook cells in order to try it in Mercury/mljar.
+Below you can see an example, place the following code blocks into notebook
+cells in order to try it in Mercury/mljar.
 
-For more information regarding to how to use ipyvizzu please check [Tutorial chapter](../../tutorial/index.md) of our documentation site.
+For more information regarding to how to use ipyvizzu please check
+[Tutorial chapter](../../tutorial/index.md) of our documentation site.
 
 ```
 # configure application
@@ -132,4 +140,5 @@ chart.animate(data_filter)
 
 ## Try it!
 
-Place the above code blocks into notebook cells in order to try it. [![Open in Mercury](https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg)](https://huggingface.co/spaces/veghdev/ipyvizzu-demo)
+Place the above code blocks into notebook cells in order to try it.
+[![Open in Mercury](https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg)](https://huggingface.co/spaces/veghdev/ipyvizzu-demo)

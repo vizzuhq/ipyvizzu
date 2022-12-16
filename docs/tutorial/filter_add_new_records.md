@@ -103,9 +103,9 @@ chart.animate(data2)
 
 <div id="tutorial_04"></div>
 
-**Note:** Combining this option with the [store](./shorthands_store.md)
-function makes it easy to update previously configured states with fresh data
-since this function saves the config and style parameters of the chart into a
-variable but not the data.
+**Note:** Combining this option with the [store](./shorthands_store.md) function
+makes it easy to update previously configured states with fresh data since this
+function saves the config and style parameters of the chart into a variable but
+not the data.
 
 <script src="./filter_add_new_records.js"></script>
