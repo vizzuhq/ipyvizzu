@@ -16,11 +16,15 @@ theme:
   favicon: assets/favicon.svg
 
 extra_css:
+  - stylesheets/highlight.css
   - stylesheets/chart.css
-  - stylesheets/extra.css
+  - stylesheets/site.css
+
+extra_javascript:
+  - //cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7/build/highlight.min.js
+  - javascripts/highlight.js
 
 markdown_extensions:
-  - pymdownx.superfences
   - pymdownx.tasklist:
       custom_checkbox: true
   - mdx_truly_sane_lists
@@ -40,6 +44,7 @@ plugins:
             show_submodules: True
   - gen-files:
       scripts:
+        - gen_examples.py
         - gen_files.py
   - literate-nav
 
