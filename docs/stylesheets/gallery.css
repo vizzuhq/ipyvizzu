@@ -15,3 +15,7 @@
     width: 32%;
   }
 }
+
+.example-gallery {
+  float: left;
+}

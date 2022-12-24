@@ -15,14 +15,12 @@ class PresetsMock {
 
 class VizzuMock {
   constructor(title, dataFileName) {
-    this.cellcnt = 0;
-
     this.code = `# ${title}
 
 <div id="example_01"></div>
-`;
 
-    this.firstcell = `
+\`\`\`python
+
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style
 
@@ -36,6 +34,15 @@ data.add_data_frame(data_frame)
 chart = Chart()
 chart.animate(data)
 
+`;
+
+    this.end = `
+\`\`\`
+
+<script src="./${path.basename(
+      inputFileName,
+      path.extname(inputFileName)
+    )}.js"></script>
 `;
   }
 
@@ -74,24 +81,7 @@ chart.animate(data)
     const args = params.join(",\n");
     const callCode = `chart.animate(\n${args}`;
     let fullCode = callCode.replace(/\n/g, "\n  ") + "\n)\n\n";
-
-    if (this.cellcnt === 0) {
-      fullCode = this.firstcell + fullCode;
-    }
-    this.cellcnt++;
-
-    this.code += `
-
-\`\`\`python
-${fullCode}
-\`\`\`
-
-<script src="./${path.basename(
-      inputFileName,
-      path.extname(inputFileName)
-    )}.js"></script>
-
-`;
+    this.code += fullCode;
   }
 
   static get presets() {
@@ -99,10 +89,12 @@ ${fullCode}
   }
 
   getCode() {
-    return this.code
-      .replace(/\bnull\b/g, "None")
-      .replace(/\btrue\b/g, "True")
-      .replace(/\bfalse\b/g, "False");
+    return (
+      this.code
+        .replace(/\bnull\b/g, "None")
+        .replace(/\btrue\b/g, "True")
+        .replace(/\bfalse\b/g, "False") + this.end
+    );
   }
 }
 

@@ -98,4 +98,6 @@ nav:
   - Examples:
       - examples/index.md
       - Preset charts: examples/presets/
+      - Animated charts: examples/animated/
+      - Static charts: examples/static/
   - Reference: reference/ipyvizzu/
