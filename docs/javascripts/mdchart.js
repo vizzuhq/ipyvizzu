@@ -1,8 +1,6 @@
 class MdChart {
   constructor(data, vizzu, id) {
-    this.dataLoaded = import(data).then((data) => {
-      return data.default;
-    });
+    this.data = data;
     this.vizzuLoaded = import(vizzu).then((vizzuUrl) => {
       return import(vizzuUrl.default);
     });
@@ -49,14 +47,10 @@ class MdChart {
 
     let snapshot;
 
-    let chart = Promise.all([this.vizzuLoaded, this.dataLoaded]).then(
-      (results) => {
-        const Vizzu = results[0];
-        const data = results[1];
-        const VizzuConstructor = Vizzu.default;
-        return new VizzuConstructor(div, { data }).initializing;
-      }
-    );
+    let chart = this.vizzuLoaded.then((Vizzu) => {
+      const VizzuConstructor = Vizzu.default;
+      return new VizzuConstructor(div, { data: this.data }).initializing;
+    });
 
     chart = this.restore(number, snippet, prevChart, snapshot, chart);
 
@@ -77,10 +71,7 @@ class MdChart {
         });
         for (let i = 0; i < snippet.anims.length; i++) {
           chart = chart.then((chart) => {
-            return snippet.anims[i](chart, {
-              dataLoaded: this.dataLoaded,
-              vizzuLoaded: this.vizzuLoaded,
-            });
+            return snippet.anims[i](chart, {});
           });
         }
         chart.then(() => {

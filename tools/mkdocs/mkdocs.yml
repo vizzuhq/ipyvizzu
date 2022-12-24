@@ -9,6 +9,9 @@ use_directory_urls: false
 
 theme:
   name: material
+  features:
+    - toc.follow
+    - navigation.top
   font:
     text: Roboto
     code: Roboto Mono
@@ -16,9 +19,10 @@ theme:
   favicon: assets/favicon.svg
 
 extra_css:
-  - stylesheets/highlight.css
-  - stylesheets/chart.css
   - stylesheets/site.css
+  - stylesheets/highlight.css
+  - stylesheets/gallery.css
+  - stylesheets/chart.css
 
 extra_javascript:
   - //cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7/build/highlight.min.js
@@ -28,6 +32,8 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - mdx_truly_sane_lists
+  - attr_list
+  - md_in_html
 
 plugins:
   - search
@@ -44,8 +50,8 @@ plugins:
             show_submodules: True
   - gen-files:
       scripts:
-        - gen_examples.py
         - gen_files.py
+        - gen_examples.py
   - literate-nav
 
 nav:
@@ -89,4 +95,7 @@ nav:
           - VSCode Python: environments/jupyter/vscode.md
       - environments/streamlit.md
       - environments/panel.md
+  - Examples:
+      - examples/index.md
+      - Preset charts: examples/presets/
   - Reference: reference/ipyvizzu/

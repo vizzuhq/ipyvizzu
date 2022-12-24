@@ -1,6 +1,10 @@
-import("../javascripts/mdchart.js").then((MdChart) => {
-  const MdChartConstructor = MdChart.default;
-  const mdchart = new MdChartConstructor("./data.js", "./vizzu.js", "tutorial");
+const dataLoaded = import("../javascripts/data.js");
+const mdChartLoaded = import("../javascripts/mdchart.js");
+
+Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
+  const data = results[0].default;
+  const MdChart = results[1].default;
+  const mdchart = new MdChart(data, "./vizzu.js", "tutorial");
 
   mdchart.create([
     {
@@ -81,31 +85,29 @@ import("../javascripts/mdchart.js").then((MdChart) => {
             },
           });
         },
-        (chart, metadata) => {
-          return metadata.dataLoaded.then((data) => {
-            const expandedData = JSON.parse(JSON.stringify(data));
+        (chart) => {
+          const expandedData = JSON.parse(JSON.stringify(data));
 
-            expandedData.series[0].values.splice(5, 0, "Soul");
-            expandedData.series[0].values.splice(9, 0, "Soul");
-            expandedData.series[0].values.splice(14, 0, "Soul");
+          expandedData.series[0].values.splice(5, 0, "Soul");
+          expandedData.series[0].values.splice(9, 0, "Soul");
+          expandedData.series[0].values.splice(14, 0, "Soul");
 
-            expandedData.series[1].values.splice(5, 0, "Hard");
-            expandedData.series[1].values.splice(9, 0, "Smooth");
-            expandedData.series[1].values.splice(14, 0, "Experimental");
+          expandedData.series[1].values.splice(5, 0, "Hard");
+          expandedData.series[1].values.splice(9, 0, "Smooth");
+          expandedData.series[1].values.splice(14, 0, "Experimental");
 
-            expandedData.series[2].values.splice(5, 0, 91);
-            expandedData.series[2].values.splice(9, 0, 57);
-            expandedData.series[2].values.splice(14, 0, 115);
+          expandedData.series[2].values.splice(5, 0, 91);
+          expandedData.series[2].values.splice(9, 0, 57);
+          expandedData.series[2].values.splice(14, 0, 115);
 
-            expandedData.filter = null;
+          expandedData.filter = null;
 
-            return chart.animate(
-              {
-                data: expandedData,
-              },
-              2
-            );
-          });
+          return chart.animate(
+            {
+              data: expandedData,
+            },
+            2
+          );
         },
       ],
     },

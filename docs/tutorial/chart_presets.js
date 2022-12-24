@@ -1,6 +1,10 @@
-import("../javascripts/mdchart.js").then((MdChart) => {
-  const MdChartConstructor = MdChart.default;
-  const mdchart = new MdChartConstructor("./data.js", "./vizzu.js", "tutorial");
+const dataLoaded = import("../javascripts/data.js");
+const mdChartLoaded = import("../javascripts/mdchart.js");
+
+Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
+  const data = results[0].default;
+  const MdChart = results[1].default;
+  const mdchart = new MdChart(data, "./vizzu.js", "tutorial");
 
   mdchart.create([
     {
@@ -12,17 +16,14 @@ import("../javascripts/mdchart.js").then((MdChart) => {
             },
           });
         },
-        (chart, metadata) => {
-          return metadata.vizzuLoaded.then((Vizzu) => {
-            const VizzuConstructor = Vizzu.default;
-            return chart.animate(
-              VizzuConstructor.presets.stackedBubble({
-                size: "Popularity",
-                color: "Kinds",
-                stackedBy: "Genres",
-              })
-            );
-          });
+        (chart) => {
+          return chart.animate(
+            chart.constructor.presets.stackedBubble({
+              size: "Popularity",
+              color: "Kinds",
+              stackedBy: "Genres",
+            })
+          );
         },
       ],
     },
@@ -35,18 +36,15 @@ import("../javascripts/mdchart.js").then((MdChart) => {
             },
           });
         },
-        (chart, metadata) => {
-          return metadata.vizzuLoaded.then((Vizzu) => {
-            const VizzuConstructor = Vizzu.default;
-            return chart.animate(
-              VizzuConstructor.presets.radialStackedBar({
-                angle: "Popularity",
-                radius: "Genres",
-                stackedBy: "Kinds",
-                sort: "byValue",
-              })
-            );
-          });
+        (chart) => {
+          return chart.animate(
+            chart.constructor.presets.radialStackedBar({
+              angle: "Popularity",
+              radius: "Genres",
+              stackedBy: "Kinds",
+              sort: "byValue",
+            })
+          );
         },
       ],
     },
@@ -59,18 +57,15 @@ import("../javascripts/mdchart.js").then((MdChart) => {
             },
           });
         },
-        (chart, metadata) => {
-          return metadata.vizzuLoaded.then((Vizzu) => {
-            const VizzuConstructor = Vizzu.default;
-            return chart.animate({
-              config: VizzuConstructor.presets.radialBar({
-                angle: "Popularity",
-                radius: "Genres",
-              }),
-              style: {
-                "plot.xAxis.interlacing.color": "#ffffff00",
-              },
-            });
+        (chart) => {
+          return chart.animate({
+            config: chart.constructor.presets.radialBar({
+              angle: "Popularity",
+              radius: "Genres",
+            }),
+            style: {
+              "plot.xAxis.interlacing.color": "#ffffff00",
+            },
           });
         },
       ],

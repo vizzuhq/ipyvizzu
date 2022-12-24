@@ -1,6 +1,10 @@
-import("../javascripts/mdchart.js").then((MdChart) => {
-  const MdChartConstructor = MdChart.default;
-  const mdchart = new MdChartConstructor("./data.js", "./vizzu.js", "tutorial");
+const dataLoaded = import("../javascripts/data.js");
+const mdChartLoaded = import("../javascripts/mdchart.js");
+
+Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
+  const data = results[0].default;
+  const MdChart = results[1].default;
+  const mdchart = new MdChart(data, "./vizzu.js", "tutorial");
 
   mdchart.create([
     {

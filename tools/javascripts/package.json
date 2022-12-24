@@ -2,7 +2,7 @@
   "name": "ipyvizzu-dev",
   "description": "ipyvizzu development",
   "config": {
-    "check": "../../src/ ../../docs/ ../../tools"
+    "check": "../../src/ ../../docs/ ../../tools/"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

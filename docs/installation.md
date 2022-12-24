@@ -34,7 +34,7 @@ line if you place the following code into a cell.
 Installing `ipyvizzu` from `conda-forge` can be achieved by adding `conda-forge`
 to your channels with:
 
-```
+```sh
 conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
@@ -42,7 +42,7 @@ conda config --set channel_priority strict
 Once the `conda-forge` channel has been enabled, run the following command to
 install `ipyvizzu` from [conda](https://anaconda.org/conda-forge/ipyvizzu/)
 
-```
+```sh
 conda install ipyvizzu
 
 # or with mamba:
@@ -52,7 +52,7 @@ mamba install ipyvizzu
 
 or the command below to upgrade it.
 
-```
+```sh
 conda update ipyvizzu
 
 # or with mamba:

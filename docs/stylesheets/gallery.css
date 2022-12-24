@@ -1,0 +1,17 @@
+@media screen and (max-width: 600px) {
+  .example-gallery {
+    width: 99%;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1400px) {
+  .example-gallery {
+    width: 49%;
+  }
+}
+
+@media screen and (min-width: 1401px) {
+  .example-gallery {
+    width: 32%;
+  }
+}

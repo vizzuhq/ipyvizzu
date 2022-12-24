@@ -1,6 +1,10 @@
-import("../javascripts/mdchart.js").then((MdChart) => {
-  const MdChartConstructor = MdChart.default;
-  const mdchart = new MdChartConstructor("./data.js", "./vizzu.js", "tutorial");
+const dataLoaded = import("../javascripts/data.js");
+const mdChartLoaded = import("../javascripts/mdchart.js");
+
+Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
+  const data = results[0].default;
+  const MdChart = results[1].default;
+  const mdchart = new MdChart(data, "./vizzu.js", "tutorial");
 
   const clickHandler = (event) => {
     alert(JSON.stringify(event.data));
@@ -9,7 +13,7 @@ import("../javascripts/mdchart.js").then((MdChart) => {
   const labelDrawHandler = (event) => {
     event.renderingContext.fillStyle =
       event.data.text === "Jazz" ? "red" : "gray";
-  }
+  };
 
   const logoDrawHandler = (event) => {
     event.preventDefault();
@@ -46,7 +50,7 @@ import("../javascripts/mdchart.js").then((MdChart) => {
       ],
     },
     {
-      anims: [       
+      anims: [
         (chart) => {
           try {
             chart.off("plot-axis-label-draw", labelDrawHandler);
