@@ -10,6 +10,8 @@ dist
 tests/coverage
 .test.*
 
+vizzu-lib
+
 .venv
 
 site
