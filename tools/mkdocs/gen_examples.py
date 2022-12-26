@@ -74,9 +74,9 @@ class GenExamples:
     def _add_video(self, item: pathlib.Path, title: str) -> None:
         with mkdocs_gen_files.open(f"{self._dst}/index.md", "a") as fh_index:
             fh_index.write(
-                "<div class='example-gallery'>"
+                "<div>"
                 + f"<a href='./{item.stem}.html' title='{title}'>"
-                + "<video nocontrols autoplay muted loop "
+                + "<video nocontrols autoplay muted loop class='example-gallery'"
                 + f"src='{VizzuLib.url}/{self._dst}/{item.stem}.mp4'"
                 + " type='video/mp4'></video>"
                 + "</a>"
