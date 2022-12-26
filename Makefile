@@ -12,7 +12,7 @@ endif
 
 .PHONY: clean \
 	clean-dev update-dev-req install-dev-req install-kernel install touch-dev \
-	check format check-format lint check-typing clean-test test-wo-install test \
+	check format check-format lint check-typing clean-test test \
 	format-js \ lint-js \ check-js \
 	clean-doc doc \
 	clean-build build-release check-release release
@@ -112,12 +112,10 @@ else
 	rm -rf tests/coverage
 endif
 
-test-wo-install: $(DEV_BUILD_FLAG)
+test: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/coverage run --data-file tests/coverage/.coverage --branch --source ipyvizzu -m unittest discover tests
 	$(VIRTUAL_ENV)/$(BIN_PATH)/coverage html --data-file tests/coverage/.coverage -d tests/coverage
 	$(VIRTUAL_ENV)/$(BIN_PATH)/coverage report --data-file tests/coverage/.coverage -m --fail-under=100
-
-test: $(DEV_BUILD_FLAG) install test-wo-install
 
 format-js: $(DEV_JS_BUILD_FLAG)
 	cd tools/javascripts && \

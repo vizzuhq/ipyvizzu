@@ -5,8 +5,8 @@ import unittest
 import unittest.mock
 from typing import Callable
 
-from normalizer import Normalizer
-from ipyvizzu import Chart, ChartProperty, Data, Config, Snapshot, Style, EventHandler
+from tests.normalizer import Normalizer
+from tests import Chart, ChartProperty, Data, Config, Snapshot, Style, EventHandler
 
 
 class TestChart(unittest.TestCase, abc.ABC):

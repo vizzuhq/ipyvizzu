@@ -30,4 +30,4 @@ jobs:
       run: make check-typing
 
     - name: Run test
-      run: make test-wo-install
+      run: make test
