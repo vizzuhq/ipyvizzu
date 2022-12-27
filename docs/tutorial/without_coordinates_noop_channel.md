@@ -8,6 +8,8 @@ To get to a treemap, we have to detach all dimensions and the measure from the
 axes and put two of them on the size channel, whereas the other dimension is
 still on the color channel.
 
+<div id="tutorial_01"></div>
+
 ```python
 import pandas as pd
 from ipyvizzu import Chart, Data, Config
@@ -55,11 +57,11 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_01"></div>
-
 Getting from a treemap to a bubble chart is simply by changing the geometry to
 circle. This bubble chart is stacked by the Type dimension that is on the size
 channel - this is why the bubbles are in separate, small groups.
+
+<div id="tutorial_02"></div>
 
 ```python
 chart.animate(Config({"title": "Bubble chart - stacked"}))
@@ -73,12 +75,12 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_02"></div>
-
 In order to show all bubbles as one group, we use the noop (no operations)
 channel for the Genres dimension. The noop channel enables us to have a
 dimension on the chart, that doesn’t affect any parameter of the elements, only
 their count.
+
+<div id="tutorial_03"></div>
 
 ```python
 chart.animate(
@@ -96,7 +98,5 @@ chart.animate(
     )
 )
 ```
-
-<div id="tutorial_03"></div>
 
 <script src="./without_coordinates_noop_channel.js"></script>

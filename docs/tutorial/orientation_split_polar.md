@@ -8,6 +8,8 @@ Switching orientation means that you put a measure from one axis to the other to
 see the data from a different perspective. This is once again a state you should
 only use temporarily.
 
+<div id="tutorial_01"></div>
+
 ```python
 import pandas as pd
 from ipyvizzu import Chart, Data, Config
@@ -52,10 +54,10 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_01"></div>
-
 By turning the split parameter on, you can see stacked elements side-by-side,
 which enables the comparison of the components.
+
+<div id="tutorial_02"></div>
 
 ```python
 chart.animate(Config({"title": "Split stacked values = show side-by-side"}))
@@ -63,9 +65,9 @@ chart.animate(Config({"title": "Split stacked values = show side-by-side"}))
 chart.animate(Config({"split": True}))
 ```
 
-<div id="tutorial_02"></div>
-
 Merging the components by turning the split parameter off.
+
+<div id="tutorial_03"></div>
 
 ```python
 chart.animate(Config({"title": "Merge"}))
@@ -73,9 +75,9 @@ chart.animate(Config({"title": "Merge"}))
 chart.animate(Config({"split": False}))
 ```
 
-<div id="tutorial_03"></div>
-
 We aggregate the data by removing the Genres dimension from the x-axis.
+
+<div id="tutorial_04"></div>
 
 ```python
 chart.animate(Config({"title": "Aggregate"}))
@@ -93,12 +95,12 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_04"></div>
-
 Switching from cartesian coordinates to polar. When doing so, it is worth
 setting the axis range on the axis with the dimension so that the viewers can
 easily compare the values shown. If you want to return to the default cartesian
 coordinates, just set the coordSystem parameter to `cartesian`.
+
+<div id="tutorial_05"></div>
 
 ```python
 chart.animate(Config({"title": "Polar coordinates"}))
@@ -118,7 +120,5 @@ chart.animate(
     )
 )
 ```
-
-<div id="tutorial_05"></div>
 
 <script src="./orientation_split_polar.js"></script>

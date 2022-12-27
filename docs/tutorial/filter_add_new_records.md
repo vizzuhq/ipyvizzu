@@ -13,6 +13,8 @@ We add two items from the Genres dimension - using the || operator - to the
 filter, so the chart elements that belong to the other two items will vanish
 from the chart.
 
+<div id="tutorial_01"></div>
+
 ```python
 from ipyvizzu import Chart, Data, Config
 
@@ -55,11 +57,11 @@ filter1 = Data.filter(
 chart.animate(filter1)
 ```
 
-<div id="tutorial_01"></div>
-
 Now we add a cross-filter that includes items from both the `Genres` and the
 `Kinds` dimensions. This way we override the filter from the previous state. If
 we weren't update the filter, ipyvizzu would use it in subsequent states.
+
+<div id="tutorial_02"></div>
 
 ```python
 chart.animate(Config({"title": "Filter by two dimensions"}))
@@ -72,9 +74,9 @@ filter2 = Data.filter(
 chart.animate(filter2)
 ```
 
-<div id="tutorial_02"></div>
-
 Switching the filter off to get back to the original view.
+
+<div id="tutorial_03"></div>
 
 ```python
 chart.animate(Config({"title": "Filter off"}))
@@ -82,9 +84,9 @@ chart.animate(Config({"title": "Filter off"}))
 chart.animate(Data.filter(None))
 ```
 
-<div id="tutorial_03"></div>
-
 Here we add another record to the data set and update the chart accordingly.
+
+<div id="tutorial_04"></div>
 
 ```python
 chart.animate(Config({"title": "Adding new records"}))
@@ -100,8 +102,6 @@ data2.add_records(records)
 
 chart.animate(data2)
 ```
-
-<div id="tutorial_04"></div>
 
 **Note:** Combining this option with the [store](./shorthands_store.md) function
 makes it easy to update previously configured states with fresh data since this

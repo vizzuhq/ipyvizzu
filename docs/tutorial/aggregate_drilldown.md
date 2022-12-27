@@ -8,6 +8,8 @@ x-axis. By taking it off of the chart, only one chart element remains for every
 color, and ipyvizzu automatically calculates and shows the aggregate value of
 the elements.
 
+<div id="tutorial_01"></div>
+
 ```python
 import pandas as pd
 from ipyvizzu import Chart, Data, Config
@@ -47,9 +49,9 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_01"></div>
-
 To drill-down, the same dimension is put back on the x-axis.
+
+<div id="tutorial_02"></div>
 
 ```python
 chart.animate(Config({"title": "Drill-down"}))
@@ -66,7 +68,5 @@ chart.animate(
     )
 )
 ```
-
-<div id="tutorial_02"></div>
 
 <script src="./aggregate_drilldown.js"></script>

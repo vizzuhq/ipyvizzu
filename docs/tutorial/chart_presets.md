@@ -12,6 +12,8 @@ chart based on a preset. These methods return chart configuration objects that
 can be passed to the `animate` method. For example, this is how to create a
 stacked bubble chart using its preset.
 
+<div id="tutorial_01"></div>
+
 ```python
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style
@@ -45,13 +47,13 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_01"></div>
-
 Presets will override all channels, removing all previously set series from the
 chart. Using a preset will also explicitly set most chart configuration
 parameters. Exceptions to this are the `legend`, `title`, `reverse`, and `sort`
 properties that can be set while using a preset. Here's an example of a preset
 where chart elements are sorted by value.
+
+<div id="tutorial_02"></div>
 
 ```python
 chart.animate(
@@ -74,14 +76,14 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_02"></div>
-
 As you will see, the preset doesn't override the previously configured sorting
 and wouldn't affect the rest of the chart config parameters mentioned above
 either.
 
 Presets will affect chart configuration, but you might also want to set the
 style or the underlying data.
+
+<div id="tutorial_03"></div>
 
 ```python
 chart.animate(
@@ -102,7 +104,5 @@ chart.animate(
     Style({"plot.xAxis.interlacing.color": "#ffffff00"}),
 )
 ```
-
-<div id="tutorial_03"></div>
 
 <script src="./chart_presets.js"></script>

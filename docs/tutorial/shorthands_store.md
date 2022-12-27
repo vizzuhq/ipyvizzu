@@ -5,6 +5,8 @@ your code more compact. And we also added the store function, which enables you
 to save a chart state into a variable that you can reuse later instead of
 setting up that state once again.
 
+<div id="tutorial_01"></div>
+
 ```python
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style
@@ -46,10 +48,10 @@ chart.animate(
 snapshot = chart.store()
 ```
 
-<div id="tutorial_01"></div>
-
 If you set/attach/detach just one series on a channel, you don't have to put
 that series into an array.
+
+<div id="tutorial_02"></div>
 
 ```python
 chart.animate(
@@ -74,11 +76,11 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_02"></div>
-
 If you use set on a channel and no other options like range, you don't have to
 express that channel as an object. If you only set one series on a channel you
 can simply write the series' name after the channel name.
+
+<div id="tutorial_03"></div>
 
 ```python
 chart.animate(
@@ -102,10 +104,10 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_03"></div>
-
 In any case, you can simply omit the the channel object, ipyvizzu will
 automatically recognize the channels by their names.
+
+<div id="tutorial_04"></div>
 
 ```python
 chart.animate(
@@ -128,9 +130,9 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_04"></div>
-
 Instead of creating nested objects, you can set the styles like this.
+
+<div id="tutorial_05"></div>
 
 ```python
 chart.animate(
@@ -152,9 +154,9 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_05"></div>
-
 This is how you can get back to a state that you previously stored.
+
+<div id="tutorial_06"></div>
 
 ```python
 chart.animate(snapshot)
@@ -167,7 +169,5 @@ chart.animate(
     )
 )
 ```
-
-<div id="tutorial_06"></div>
 
 <script src="./shorthands_store.js"></script>

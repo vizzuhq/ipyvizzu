@@ -16,6 +16,8 @@ the colors are added one-by-one. If you want to use the same setting via CSS,
 you should add
 `--vizzu-plot-marker-colorPalette: #9355e8FF #123456FF #BDAF10FF;`.
 
+<div id="tutorial_01"></div>
+
 ```python
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style, ChartProperty
@@ -55,8 +57,6 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_01"></div>
-
 The actual style settings of the chart can be logged in the browser console via
 the `STYLE` property.
 
@@ -67,15 +67,17 @@ chart.log(ChartProperty.STYLE)
 Changing the title font size will only affect the title; all other font sizes
 remain the same. CSS version: `--vizzu-title-fontSize: 50;`.
 
+<div id="tutorial_02"></div>
+
 ```python
 chart.animate(Config({"title": "Title font size"}))
 
 chart.animate(Style({"title": {"fontSize": 50}}))
 ```
 
-<div id="tutorial_02"></div>
-
 This is how to set the font size back to its default value.
+
+<div id="tutorial_03"></div>
 
 ```python
 chart.animate(Config({"title": "Title font size - back to default"}))
@@ -83,11 +85,11 @@ chart.animate(Config({"title": "Title font size - back to default"}))
 chart.animate(Style({"title": {"fontSize": None}}))
 ```
 
-<div id="tutorial_03"></div>
-
 In case you change the font size of the whole chart with the top-level fontSize
 parameter then every font on the chart will grow/shrink proportionally. The size
 refers to the font size of the axis labels by default.
+
+<div id="tutorial_04"></div>
 
 ```python
 chart.animate(Config({"title": "Setting all font sizes in one step"}))
@@ -95,17 +97,15 @@ chart.animate(Config({"title": "Setting all font sizes in one step"}))
 chart.animate(Style({"fontSize": 20}))
 ```
 
-<div id="tutorial_04"></div>
-
 You can reset styles to default on any levels by setting them to `None`.
+
+<div id="tutorial_05"></div>
 
 ```python
 chart.animate(Config({"title": "Setting all style settings back to default"}))
 
 chart.animate(Style(None))
 ```
-
-<div id="tutorial_05"></div>
 
 For information on all available style parameters see the
 [reference](https://lib.vizzuhq.com/latest/reference/index.html) documentation.

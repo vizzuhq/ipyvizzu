@@ -14,6 +14,8 @@ whereas on a bar chart, horizontally.
 properly represent the values shown on the column chart anymore, as the chart
 elements float off the x-axis.
 
+<div id="tutorial_01"></div>
+
 ```python
 import pandas as pd
 from ipyvizzu import Chart, Data, Config
@@ -49,11 +51,11 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_01"></div>
-
 Stretched alignment. This way the elements will proportionally fill the entire
 plot area, effectively showing proportions in stacked charts. This is why the
 scale will also switch from values to percentages when used.
+
+<div id="tutorial_02"></div>
 
 ```python
 chart.animate(Config({"title": "Align: stretch = % view"}))
@@ -61,9 +63,9 @@ chart.animate(Config({"title": "Align: stretch = % view"}))
 chart.animate(Config({"align": "stretch"}))
 ```
 
-<div id="tutorial_02"></div>
-
 Getting back to the default alignment.
+
+<div id="tutorial_03"></div>
 
 ```python
 chart.animate(Config({"title": "Align: none - default"}))
@@ -71,13 +73,13 @@ chart.animate(Config({"title": "Align: none - default"}))
 chart.animate(Config({"align": "none", "channels": {"y": {"labels": True}}}))
 ```
 
-<div id="tutorial_03"></div>
-
 You can set the range of an axis by setting the minimum and maximum values of
 it. Both parameters are optional so that you can set only one of those, and you
 either set specific values or a relative value by adding the % sign. In this
 example, we set the range of the y-axis in a way that the max value is 150% of
 the biggest element’s value.
+
+<div id="tutorial_04"></div>
 
 ```python
 chart.animate(
@@ -87,10 +89,10 @@ chart.animate(
 chart.animate(Config({"channels": {"y": {"range": {"max": "150%"}}}}))
 ```
 
-<div id="tutorial_04"></div>
-
 You can also set the range for an axis with a dimension on it. You can even use
 this feature to filter certain elements, just like in the following example.
+
+<div id="tutorial_05"></div>
 
 ```python
 chart.animate(
@@ -115,8 +117,6 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_05"></div>
-
 Ranges have certain defaults depending on the chart's configuration, based on
 common data viz guidelines because we wanted to make it easy for you to create
 sleek charts. For example, in the cartesian coordinate system, the range will be
@@ -126,6 +126,8 @@ coordinates work differently, as you can see for yourself in the
 
 Whenever you want to set your ranges back to the default value, just set them to
 `auto`.
+
+<div id="tutorial_06"></div>
 
 ```python
 chart.animate(Config({"title": "Back to the default ranges"}))
@@ -148,7 +150,5 @@ chart.animate(
     )
 )
 ```
-
-<div id="tutorial_06"></div>
 
 <script src="./align_range.js"></script>

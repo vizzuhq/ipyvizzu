@@ -12,6 +12,8 @@ pixel, percentage and em.
 We add different background colors to the parts of the layout to show how they
 are aligned.
 
+<div id="tutorial_01"></div>
+
 ```python
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style
@@ -51,9 +53,9 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_01"></div>
-
 Setting the width of the legend.
+
+<div id="tutorial_02"></div>
 
 ```python
 chart.animate(Config({"title": "Legend width"}))
@@ -61,19 +63,19 @@ chart.animate(Config({"title": "Legend width"}))
 chart.animate(Style({"legend": {"width": 50}}))
 ```
 
-<div id="tutorial_02"></div>
-
 Setting the legend width back to its default value.
+
+<div id="tutorial_03"></div>
 
 ```python
 chart.animate(Style({"legend": {"width": None}}))
 ```
 
-<div id="tutorial_03"></div>
-
 Changing the title paddings. By default, the title is horizontally centered
 above the chart. In this example, we set the title’s left padding, resulting in
 the text moving to the right.
+
+<div id="tutorial_04"></div>
 
 ```python
 chart.animate(Config({"title": "Title padding"}))
@@ -85,9 +87,9 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_04"></div>
-
 Setting the title paddings back to their default values.
+
+<div id="tutorial_05"></div>
 
 ```python
 chart.animate(
@@ -103,10 +105,10 @@ chart.animate(
 )
 ```
 
-<div id="tutorial_05"></div>
-
 Changing the paddings of the plot area to position the plot. The texts on the
 axes are drawn on the padding of the plot and not the plot itself.
+
+<div id="tutorial_06"></div>
 
 ```python
 chart.animate(Config({"title": "Plot padding"}))
@@ -114,14 +116,12 @@ chart.animate(Config({"title": "Plot padding"}))
 chart.animate(Style({"plot": {"paddingLeft": 100, "paddingRight": 100}}))
 ```
 
-<div id="tutorial_06"></div>
-
 Setting the plot paddings back to their default values.
+
+<div id="tutorial_07"></div>
 
 ```python
 chart.animate(Style({"plot": {"paddingLeft": None, "paddingRight": None}}))
 ```
-
-<div id="tutorial_07"></div>
 
 <script src="./chart_layout.js"></script>

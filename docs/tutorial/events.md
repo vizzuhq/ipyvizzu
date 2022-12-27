@@ -12,6 +12,8 @@ below.
 We are registering a handler for the click event which will show an alert block
 with information about the clicked marker.
 
+<div id="tutorial_01"></div>
+
 ```python
 import pandas as pd
 from ipyvizzu import Chart, Data, Config
@@ -45,8 +47,6 @@ click_handler = "alert(JSON.stringify(event.data));"
 click = chart.on("click", click_handler)
 ```
 
-<div id="tutorial_01"></div>
-
 Unregistering the previously registered handler.
 
 ```python
@@ -54,6 +54,8 @@ chart.off(click)
 ```
 
 Here we override the axis label color for `Jazz` to red and all others to gray.
+
+<div id="tutorial_02"></div>
 
 ```python
 chart.animate(
@@ -72,8 +74,6 @@ label_draw_handler = (
 label_draw = chart.on("plot-axis-label-draw", label_draw_handler)
 ```
 
-<div id="tutorial_02"></div>
-
 Unregistering the previously registered handler.
 
 ```python
@@ -83,6 +83,8 @@ chart.off(label_draw)
 The default behaviour of all events can be blocked by calling the event's
 `preventDefault` method. Here we block the drawing of the Vizzu Logo in the
 bottom right corner of the chart.
+
+<div id="tutorial_03"></div>
 
 ```python
 chart.animate(
@@ -97,8 +99,6 @@ logo_draw_handler = "event.preventDefault();"
 
 logo_draw = logo_chart.on("logo-draw", logo_draw_handler)
 ```
-
-<div id="tutorial_03"></div>
 
 Unregistering the previously registered handler.
 
