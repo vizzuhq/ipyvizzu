@@ -1,6 +1,6 @@
 """A module for generating the example gallery."""
 
-import pathlib
+from pathlib import Path
 import re
 from subprocess import PIPE, Popen
 from typing import List, Dict, Optional
@@ -69,7 +69,7 @@ class GenExamples:
             self._allowed[item] = True
 
     @staticmethod
-    def _get_content(item: pathlib.Path) -> str:
+    def _get_content(item: Path) -> str:
         with open(item, "r", encoding="utf8") as fh_item:
             return fh_item.read()
 
@@ -79,7 +79,7 @@ class GenExamples:
             fh_index.write(f"{meta}\n\n")
             fh_index.write(f"# {self._name}\n")
 
-    def _add_image(self, item: pathlib.Path, title: str) -> None:
+    def _add_image(self, item: Path, title: str) -> None:
         with mkdocs_gen_files.open(f"{self._dst}/index.md", "a") as fh_index:
             fh_index.write(
                 "["
@@ -90,7 +90,7 @@ class GenExamples:
                 + f"(./{item.stem}.md)\n"
             )
 
-    def _add_video(self, item: pathlib.Path, title: str) -> None:
+    def _add_video(self, item: Path, title: str) -> None:
         with mkdocs_gen_files.open(f"{self._dst}/index.md", "a") as fh_index:
             fh_index.write(
                 "<div>"
@@ -103,36 +103,9 @@ class GenExamples:
             )
 
     @staticmethod
-    def _generate_example_data(datafile: str) -> None:
-        if datafile not in GenExamples.datafiles:
-            GenExamples.datafiles[datafile] = True
-            with open(
-                f"./vizzu-lib/test/integration/test_data/{datafile}.mjs",
-                "r",
-                encoding="utf8",
-            ) as fh_data:
-                datacontent = fh_data.read()
-            with mkdocs_gen_files.open(f"data/{datafile}.js", "w") as fh_data:
-                fh_data.write(datacontent)
-
-    def _generate_example_js(
-        self, item: pathlib.Path, datafile: str, title: Optional[str] = None
-    ) -> None:
-        js_type = "js"
-        if title:
-            js_type = "md"
-
-        command: List[str] = [
-            "node",
-            f"./tools/mkdocs/mjs2{js_type}.mjs",
-            f"../../{item}",
-            datafile,
-        ]
-        if title:
-            command.append(title)
-
+    def _run_node(script: str, *params: str) -> str:
         with Popen(
-            command,
+            ["node", script, *params],
             stdin=PIPE,
             stdout=PIPE,
             stderr=PIPE,
@@ -142,15 +115,49 @@ class GenExamples:
         if node.returncode or errs:
             if errs:
                 raise RuntimeError(errs.decode())
-            raise RuntimeError(f"failed to run mjs2{js_type}")
+            raise RuntimeError(f"failed to run {Path(script).stem}")
 
-        content = outs.decode()
+        return outs.decode()
+
+    @staticmethod
+    def _generate_example_data(datafile: str) -> None:
+        if datafile not in GenExamples.datafiles:
+            GenExamples.datafiles[datafile] = True
+
+            with open(
+                f"./vizzu-lib/test/integration/test_data/{datafile}.mjs",
+                "r",
+                encoding="utf8",
+            ) as fh_data:
+                datacontent = fh_data.read()
+            with mkdocs_gen_files.open(f"data/{datafile}.js", "w") as fh_data:
+                fh_data.write(datacontent)
+
+            content = GenExamples._run_node(
+                "./tools/mkdocs/mjs2csv.mjs",
+                f"../../vizzu-lib/test/integration/test_data/{datafile}.mjs",
+            )
+            with mkdocs_gen_files.open(f"data/{datafile}.csv", "w") as f_example:
+                f_example.write(content)
+
+    def _generate_example_js(
+        self, item: Path, datafile: str, title: Optional[str] = None
+    ) -> None:
+        params = [f"../../{item}", datafile]
+
+        js_type = "js"
+        if title:
+            js_type = "md"
+            params.append(title)
+
+        content = GenExamples._run_node(f"./tools/mkdocs/mjs2{js_type}.mjs", *params)
+
         with mkdocs_gen_files.open(
             f"{self._dst}/{item.stem}.{js_type}", "w"
         ) as f_example:
             f_example.write(content)
 
-    def _generate_example(self, item: pathlib.Path, datafile: str, title: str) -> None:
+    def _generate_example(self, item: Path, datafile: str, title: str) -> None:
         self._generate_example_js(item, datafile, title)
         self._generate_example_js(item, datafile)
         GenExamples._generate_example_data(datafile)
@@ -160,7 +167,7 @@ class GenExamples:
 
         self._create_index()
 
-        src = pathlib.Path(f"./vizzu-lib/{self._src}")
+        src = Path(f"./vizzu-lib/{self._src}")
         items = list(src.rglob("*.mjs"))
         items.sort(key=lambda f: f.stem)
         for item in items:

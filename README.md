@@ -145,8 +145,7 @@ of our documentation site for more details.
 ## Contributing
 
 We welcome contributions to the project, visit our contributing
-[guide](https://ipyvizzu.vizzuhq.com/mkdocs/CONTRIBUTING.md) for
-further info.
+[guide](https://ipyvizzu.vizzuhq.com/mkdocs/CONTRIBUTING.md) for further info.
 
 ## Contact
 
