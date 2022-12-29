@@ -1,3 +1,7 @@
+---
+csv_url: ../data/music_data.csv
+---
+
 # Channels & legend
 
 Besides the x-axis and the y-axis, there are five more channels in ipyvizzu you
@@ -20,7 +24,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
 
-data_frame = pd.read_csv("./music_data.csv")
+data_frame = pd.read_csv("../data/music_data.csv")
 data = Data()
 data.add_data_frame(data_frame)
 

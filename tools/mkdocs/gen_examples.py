@@ -112,7 +112,7 @@ class GenExamples:
                 encoding="utf8",
             ) as fh_data:
                 datacontent = fh_data.read()
-            with mkdocs_gen_files.open(f"javascripts/{datafile}.js", "w") as fh_data:
+            with mkdocs_gen_files.open(f"data/{datafile}.js", "w") as fh_data:
                 fh_data.write(datacontent)
 
     def _generate_example_js(

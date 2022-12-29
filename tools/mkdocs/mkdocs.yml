@@ -1,5 +1,5 @@
 site_name: ipyvizzu
-site_url: https://vizzuhq.github.io/ipyvizzu/mkdocs
+site_url: https://ipyvizzu.vizzuhq.com/mkdocs
 
 docs_dir: ../../docs
 
@@ -115,7 +115,6 @@ nav:
       - Preset charts: examples/presets/
       - Animated charts: examples/animated/
       - Static charts: examples/static/
-      - Stories: examples/stories/
   - Reference: reference/ipyvizzu/
   - Development:
       - Contributing: CONTRIBUTING.md

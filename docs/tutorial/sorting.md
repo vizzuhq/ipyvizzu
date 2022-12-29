@@ -1,3 +1,7 @@
+---
+csv_url: ../data/music_data.csv
+---
+
 # Sorting
 
 ipyvizzu provides multiple options to sort data. By default, the data is sorted
@@ -14,7 +18,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
 
-data_frame = pd.read_csv("./music_data.csv")
+data_frame = pd.read_csv("../data/music_data.csv")
 data = Data()
 data.add_data_frame(data_frame)
 

@@ -1,3 +1,7 @@
+---
+csv_url: ../data/music_data.csv
+---
+
 # Shorthands & Store
 
 To assist you with the development we added various shorthands that will make
@@ -12,7 +16,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style
 
 
-data_frame = pd.read_csv("./music_data.csv")
+data_frame = pd.read_csv("../data/music_data.csv")
 data = Data()
 data.add_data_frame(data_frame)
 

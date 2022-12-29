@@ -1,3 +1,7 @@
+---
+csv_url: ../data/music_data.csv
+---
+
 # Animation options
 
 In ipyvizzu you can set the timing and duration of the animation. You can do
@@ -15,7 +19,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
 
-data_frame = pd.read_csv("./music_data.csv")
+data_frame = pd.read_csv("../data/music_data.csv")
 data = Data()
 data.add_data_frame(data_frame)
 

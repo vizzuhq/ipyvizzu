@@ -54,7 +54,7 @@ import pandas as pd
 from ipyvizzu import Data
 
 
-data_frame = pd.read_csv("./music_data.csv")
+data_frame = pd.read_csv("../data/music_data.csv")
 
 data = Data()
 data.add_data_frame(data_frame)
@@ -281,5 +281,5 @@ data.add_measure(
 from ipyvizzu import Data
 
 
-data = Data.from_json("./music_data.json")
+data = Data.from_json("../data/music_data.json")
 ```

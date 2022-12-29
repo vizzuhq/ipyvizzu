@@ -1,4 +1,3 @@
-import fs from "fs";
 import path from "path";
 
 class PresetsMock {
@@ -15,7 +14,11 @@ class PresetsMock {
 
 class VizzuMock {
   constructor(title, dataFileName) {
-    this.code = `# ${title}
+    this.code = `---
+csv_url: ../../data/${dataFileName}.csv
+---
+
+# ${title}
 
 <div id="example_01"></div>
 

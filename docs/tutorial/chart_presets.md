@@ -1,3 +1,7 @@
+---
+csv_url: ../data/music_data.csv
+---
+
 # Chart presets
 
 Throughout this tutorial, we have shown you how to create charts with ipyvizzu
@@ -19,7 +23,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style
 
 
-data_frame = pd.read_csv("./music_data.csv")
+data_frame = pd.read_csv("../data/music_data.csv")
 data = Data()
 data.add_data_frame(data_frame)
 

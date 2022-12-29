@@ -1,3 +1,7 @@
+---
+csv_url: ../data/music_data.csv
+---
+
 # Align & range
 
 ipyvizzu offers different options to align your chart elements and to set the
@@ -21,7 +25,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
 
-data_frame = pd.read_csv("./music_data.csv")
+data_frame = pd.read_csv("../data/music_data.csv")
 data = Data()
 data.add_data_frame(data_frame)
 

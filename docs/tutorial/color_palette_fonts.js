@@ -1,4 +1,4 @@
-const dataLoaded = import("../javascripts/data.js");
+const dataLoaded = import("../data/music_data.js");
 const mdChartLoaded = import("../javascripts/mdchart.js");
 
 Promise.all([dataLoaded, mdChartLoaded]).then((results) => {

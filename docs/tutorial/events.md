@@ -1,3 +1,7 @@
+---
+csv_url: ../data/music_data.csv
+---
+
 # Events
 
 You can register handlers for various events. There are mouse events (click,
@@ -19,7 +23,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
 
-data_frame = pd.read_csv("./music_data.csv")
+data_frame = pd.read_csv("../data/music_data.csv")
 data = Data()
 data.add_data_frame(data_frame)
 

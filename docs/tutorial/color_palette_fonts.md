@@ -1,3 +1,7 @@
+---
+csv_url: ../data/music_data.csv
+---
+
 # Color palette & fonts
 
 This and the next chapter provide a quick intro to the styling of the charts.
@@ -23,7 +27,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style, ChartProperty
 
 
-data_frame = pd.read_csv("./music_data.csv")
+data_frame = pd.read_csv("../data/music_data.csv")
 data = Data()
 data.add_data_frame(data_frame)
 

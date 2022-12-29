@@ -3,7 +3,7 @@ const dataFileName = process.argv[3];
 
 import(inputFileName).then((module) => {
   const test = `
-const dataLoaded = import("../../javascripts/${dataFileName}.js");
+const dataLoaded = import("../../data/${dataFileName}.js");
 const mdChartLoaded = import("../../javascripts/mdchart.js");
   
 Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
