@@ -107,14 +107,12 @@ The documentation will be published to the gh-pages branch with the `doc`
 workflow. Online version can be read at
 [ipyvizzu.com](https://ipyvizzu.vizzuhq.com).
 
-The static and animated chart examples are generated from the
+The preset, static and animated chart examples are generated from the
 [vizzu-lib](https://github.com/vizzuhq/vizzu-lib) repository. If you would like
 to build them too, run the following commands.
 
 ```sh
-cd tools/example-generator
-./sparse-clone-vizzu-lib.sh
-./run.sh ../../.venv
+git clone --depth 1 https://github.com/vizzuhq/vizzu-lib.git
 
 make doc
 ```

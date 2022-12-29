@@ -22,8 +22,6 @@ VIRTUAL_ENV = .venv
 DEV_BUILD_FLAG = $(VIRTUAL_ENV)/DEV_BUILD_FLAG
 DEV_JS_BUILD_FLAG = $(VIRTUAL_ENV)/DEV_JS_BUILD_FLAG
 
-NOTEBOOKS = $(shell find docs -type f -name '*.ipynb' -not -path '*/.ipynb_checkpoints/*')
-
 
 
 clean: clean-dev clean-test clean-doc clean-build
@@ -91,13 +89,20 @@ check: check-format lint check-typing test
 
 format: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/black src tests tools setup.py
-	$(VIRTUAL_ENV)/$(BIN_PATH)/black docs
-	$(VIRTUAL_ENV)/$(BIN_PATH)/python tools/mdformat/mdformat.py $(VIRTUAL_ENV)/$(BIN_PATH)/mdformat --wrap 80 --end-of-line keep docs README.md CONTRIBUTING.md CODE_OF_CONDUCT.md
+	$(VIRTUAL_ENV)/$(BIN_PATH)/black -l 78 docs
+	$(VIRTUAL_ENV)/$(BIN_PATH)/python tools/mdformat/mdformat.py $(VIRTUAL_ENV)/$(BIN_PATH)/mdformat \
+		--wrap 80 \
+		--end-of-line keep \
+		docs README.md CONTRIBUTING.md CODE_OF_CONDUCT.md
 
 check-format: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/black --check src tests tools setup.py
-	$(VIRTUAL_ENV)/$(BIN_PATH)/black --check docs
-	$(VIRTUAL_ENV)/$(BIN_PATH)/python tools/mdformat/mdformat.py $(VIRTUAL_ENV)/$(BIN_PATH)/mdformat --check --wrap 80 --end-of-line keep docs README.md CONTRIBUTING.md CODE_OF_CONDUCT.md
+	$(VIRTUAL_ENV)/$(BIN_PATH)/black --check -l 78 docs
+	$(VIRTUAL_ENV)/$(BIN_PATH)/python tools/mdformat/mdformat.py $(VIRTUAL_ENV)/$(BIN_PATH)/mdformat \
+		--check \
+		--wrap 80 \
+		--end-of-line keep \
+		docs README.md CONTRIBUTING.md CODE_OF_CONDUCT.md
 
 lint: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/pylint src tests tools setup.py
@@ -113,9 +118,12 @@ else
 endif
 
 test: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/$(BIN_PATH)/coverage run --data-file tests/coverage/.coverage --branch --source ipyvizzu -m unittest discover tests
-	$(VIRTUAL_ENV)/$(BIN_PATH)/coverage html --data-file tests/coverage/.coverage -d tests/coverage
-	$(VIRTUAL_ENV)/$(BIN_PATH)/coverage report --data-file tests/coverage/.coverage -m --fail-under=100
+	$(VIRTUAL_ENV)/$(BIN_PATH)/coverage run \
+		--data-file tests/coverage/.coverage --branch --source ipyvizzu -m unittest discover tests
+	$(VIRTUAL_ENV)/$(BIN_PATH)/coverage html \
+	 	--data-file tests/coverage/.coverage -d tests/coverage
+	$(VIRTUAL_ENV)/$(BIN_PATH)/coverage report \
+		--data-file tests/coverage/.coverage -m --fail-under=100
 
 format-js: $(DEV_JS_BUILD_FLAG)
 	cd tools/javascripts && \
@@ -134,14 +142,15 @@ check-js: $(DEV_JS_BUILD_FLAG)
 # doc
 
 clean-doc:
-	rm -rf docs/**/*.html
+ifeq ($(OS_TYPE), windows)
+	if exist site ( rd /s /q site )
+	for /d /r docs %%d in (.ipynb_checkpoints) do @if exist "%%d" rd /s /q "%%d"
+else
+	rm -rf site
+	rm -rf `find docs -name '.ipynb_checkpoints'`
+endif
 
-doc: $(NOTEBOOKS:.ipynb=.html)
-
-%.html: %.ipynb $(DEV_BUILD_FLAG)
-	cd tools/html-generator; ../../$(VIRTUAL_ENV)/$(BIN_PATH)/jupyter nbconvert --Exporter.preprocessors=preprocessor.NbPreprocessor --to html --template classic --execute ../../$<
-
-mkdocs: $(DEV_BUILD_FLAG)
+doc: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/mkdocs build -f ./tools/mkdocs/mkdocs.yml -d ../../site
 
 

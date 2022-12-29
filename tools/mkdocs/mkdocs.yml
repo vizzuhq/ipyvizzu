@@ -17,6 +17,7 @@ theme:
     code: Roboto Mono
   logo: assets/logo-white.svg
   favicon: assets/favicon.svg
+  custom_dir: ./overrides
 
 extra_css:
   - stylesheets/site.css
@@ -26,6 +27,7 @@ extra_css:
 
 extra_javascript:
   - //cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7/build/highlight.min.js
+  - //cdn.jsdelivr.net/npm/papaparse@5.3/papaparse.min.js
   - javascripts/highlight.js
 
 markdown_extensions:
@@ -37,8 +39,13 @@ markdown_extensions:
 
 plugins:
   - search
+  - awesome-pages
   - section-index
+  - literate-nav
   - autorefs
+  - coverage:
+      page_name: coverage
+      html_report_dir: tests/coverage
   - mkdocstrings:
       handlers:
         python:
@@ -50,9 +57,17 @@ plugins:
             show_submodules: True
   - gen-files:
       scripts:
-        - gen_files.py
+        - gen_pages.py
         - gen_examples.py
-  - literate-nav
+        - gen_reference.py
+  - mkdocs-jupyter:
+      include: []
+      ignore: []
+      ignore_h1_titles: False
+      include_source: True
+      execute: True
+      allow_errors: False
+      kernel_name: .venv
 
 nav:
   - Home: index.md
@@ -100,4 +115,9 @@ nav:
       - Preset charts: examples/presets/
       - Animated charts: examples/animated/
       - Static charts: examples/static/
+      - Stories: examples/stories/
   - Reference: reference/ipyvizzu/
+  - Development:
+      - Contributing: CONTRIBUTING.md
+      - Code of Conduct: CODE_OF_CONDUCT.md
+      - Coverage report: coverage.md

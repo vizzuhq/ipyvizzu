@@ -1,6 +1,4 @@
-"""Generate the example gallery."""
-
-# pylint: disable=too-few-public-methods
+"""A module for generating the example gallery."""
 
 import pathlib
 import re
@@ -9,25 +7,46 @@ from typing import List, Dict, Optional
 
 import mkdocs_gen_files
 
+from ipyvizzu import Chart
+
 
 class VizzuLib:
     """A class for providing vizzu-lib related information."""
 
-    version = "0.6"
-    url = f"https://github.com/vizzuhq/vizzu-lib-doc/raw/main/docs/{version}/content"
+    @staticmethod
+    def version() -> str:
+        """
+        A method for returning vizzu-lib version.
+
+        Returns:
+            Version of vizzu-lib.
+        """
+
+        cdn = Chart.VIZZU
+        return re.search(r"vizzu@([\d.]+)/", cdn).group(1)  # type: ignore
+
+    @staticmethod
+    def url() -> str:
+        """
+        A method for returning vizzu-lib doc url.
+
+        Returns:
+            Doc url of vizzu-lib.
+        """
+
+        version = VizzuLib.version()
+        return (
+            f"https://github.com/vizzuhq/vizzu-lib-doc/raw/main/docs/{version}/content"
+        )
 
 
-class Examples:
-    """A class for providing example related information."""
+class GenExamples:
+    """A class for generating examples."""
 
     datafiles: Dict[str, bool] = {}
 
     datafile_re = re.compile(r"test_data\/(\w*).mjs")
     title_re = re.compile(r"title\:\s'(.*)'")
-
-
-class GenExamples:
-    """A class for generating examples."""
 
     def __init__(self, name: str, src: str, dst: str, video: bool = False) -> None:
         self._name = name
@@ -65,7 +84,7 @@ class GenExamples:
             fh_index.write(
                 "["
                 + f"![{title}]"
-                + f"({VizzuLib.url}/{self._dst}/{item.stem}.png)"
+                + f"({VizzuLib.url()}/{self._dst}/{item.stem}.png)"
                 + "{ class='example-gallery' }"
                 + "]"
                 + f"(./{item.stem}.md)\n"
@@ -77,7 +96,7 @@ class GenExamples:
                 "<div>"
                 + f"<a href='./{item.stem}.html' title='{title}'>"
                 + "<video nocontrols autoplay muted loop class='example-gallery'"
-                + f"src='{VizzuLib.url}/{self._dst}/{item.stem}.mp4'"
+                + f"src='{VizzuLib.url()}/{self._dst}/{item.stem}.mp4'"
                 + " type='video/mp4'></video>"
                 + "</a>"
                 + "</div>\n"
@@ -85,8 +104,8 @@ class GenExamples:
 
     @staticmethod
     def _generate_example_data(datafile: str) -> None:
-        if datafile not in Examples.datafiles:
-            Examples.datafiles[datafile] = True
+        if datafile not in GenExamples.datafiles:
+            GenExamples.datafiles[datafile] = True
             with open(
                 f"./vizzu-lib/test/integration/test_data/{datafile}.mjs",
                 "r",
@@ -148,12 +167,12 @@ class GenExamples:
             if not self._allowed or self._allowed.get(item.stem, False):
                 content = GenExamples._get_content(item)
 
-                datafiles = re.findall(Examples.datafile_re, content)
+                datafiles = re.findall(GenExamples.datafile_re, content)
                 if not datafiles or len(datafiles) > 1:
                     raise ValueError("failed to find datafile")
                 datafile = "".join(datafiles)
 
-                titles = re.findall(Examples.title_re, content)
+                titles = re.findall(GenExamples.title_re, content)
                 if not titles:
                     raise ValueError("failed to find title")
                 title = ", ".join(titles)
