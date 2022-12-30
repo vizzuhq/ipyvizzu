@@ -38,67 +38,91 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
             });
           },
           (chart) => {
-            return chart.animate({
-              config: {
-                title: "Revenue by Music Format 1973-2020(%)",
-                align: "stretch",
-              },
-              delay: 1,
-            });
-          },
-          (chart) => {
-            return chart.animate({
-              config: {
-                title: "Revenue by Music Format 1973-2020",
-                align: "center",
-              },
-              delay: 1,
-            });
-          },
-          (chart) => {
-            return chart.animate({
-              config: {
-                split: true,
-              },
-              delay: 1,
-            });
-          },
-          (chart) => {
-            return chart.animate({
-              data: {
-                filter: (record) => {
-                  return (
-                    record.Format === "Vinyl" || record.Format === "Streaming"
-                  );
+            return chart.animate(
+              {
+                config: {
+                  title: "Revenue by Music Format 1973-2020(%)",
+                  align: "stretch",
                 },
               },
-              config: {
-                title: "Revenue of Vinyl & Streaming 1973-2020",
-              },
-              delay: 1,
-            });
+              {
+                delay: 1,
+              }
+            );
           },
           (chart) => {
-            return chart.animate({
-              data: { filter: null },
-              config: {
-                title: "Revenue by Music Format 1973-2020",
-                split: false,
+            return chart.animate(
+              {
+                config: {
+                  title: "Revenue by Music Format 1973-2020",
+                  align: "center",
+                },
               },
-              delay: 1,
-            });
+              {
+                delay: 1,
+              }
+            );
           },
           (chart) => {
-            return chart.animate({
-              config: {
-                x: "Year",
-                y: "Revenue [m$]",
-                noop: "Format",
-                align: "none",
-                geometry: "line",
+            return chart.animate(
+              {
+                config: {
+                  split: true,
+                },
               },
-              delay: 1,
-            });
+              {
+                delay: 1,
+              }
+            );
+          },
+          (chart) => {
+            return chart.animate(
+              {
+                data: {
+                  filter: (record) => {
+                    return (
+                      record.Format === "Vinyl" || record.Format === "Streaming"
+                    );
+                  },
+                },
+                config: {
+                  title: "Revenue of Vinyl & Streaming 1973-2020",
+                },
+              },
+              {
+                delay: 1,
+              }
+            );
+          },
+          (chart) => {
+            return chart.animate(
+              {
+                data: { filter: null },
+                config: {
+                  title: "Revenue by Music Format 1973-2020",
+                  split: false,
+                },
+              },
+              {
+                delay: 1,
+              }
+            );
+          },
+          (chart) => {
+            return chart.animate(
+              {
+                config: {
+                  x: "Year",
+                  y: "Revenue [m$]",
+                  noop: "Format",
+                  align: "none",
+                  geometry: "line",
+                },
+              },
+              {
+                delay: 1,
+              }
+            );
           },
         ],
       },
