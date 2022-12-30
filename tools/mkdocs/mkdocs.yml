@@ -61,7 +61,7 @@ plugins:
         - gen_examples.py
         - gen_reference.py
   - mkdocs-jupyter:
-      include: []
+      include: ["community/*.ipynb"]
       ignore: []
       ignore_h1_titles: False
       include_source: True
