@@ -115,6 +115,12 @@ nav:
       - Preset charts: examples/presets/
       - Animated charts: examples/animated/
       - Static charts: examples/static/
+      - Stories:
+          - examples/stories/index.md
+          - Music Revenue by Format: examples/stories/music/music.md
+          - Music Revenue by Format, Year by Year: examples/stories/musicformats/musicformats.md
+          - Nadal: examples/stories/nadal/nadal.md
+          - Sales of Shoes: examples/stories/sales/sales.md
   - Reference: reference/ipyvizzu/
   - Development:
       - Contributing: CONTRIBUTING.md

@@ -5,7 +5,7 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
   const Csv2Js = results[0].default;
   const MdChart = results[1].default;
 
-  const csv2js = new Csv2Js();
+  const csv2js = new Csv2Js(["Year"]);
   const dataLoaded = csv2js.getData("./music.csv");
 
   dataLoaded.then((data) => {
@@ -17,7 +17,7 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
           (chart) => {
             return chart.animate({
               config: {
-                title: "Revenue by Music Format 1973-2020",
+                title: "Music Revenue by Format 1973-2020",
                 x: "Year",
                 y: ["Format", "Revenue [m$]"],
                 color: "Format",
@@ -41,7 +41,7 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
             return chart.animate(
               {
                 config: {
-                  title: "Revenue by Music Format 1973-2020(%)",
+                  title: "Music Revenue by Format 1973-2020(%)",
                   align: "stretch",
                 },
               },
@@ -54,7 +54,7 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
             return chart.animate(
               {
                 config: {
-                  title: "Revenue by Music Format 1973-2020",
+                  title: "Music Revenue by Format 1973-2020",
                   align: "center",
                 },
               },
@@ -99,7 +99,7 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
               {
                 data: { filter: null },
                 config: {
-                  title: "Revenue by Music Format 1973-2020",
+                  title: "Music Revenue by Format 1973-2020",
                   split: false,
                 },
               },

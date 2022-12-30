@@ -1,5 +1,9 @@
 class Csv2Js {
-  constructor() {
+  constructor(strKeys) {
+    if (!strKeys) {
+      strKeys = [];
+    }
+    this.strKeys = strKeys;
     this.data = { series: [], records: [] };
   }
 
@@ -10,7 +14,7 @@ class Csv2Js {
       for (const key of keys) {
         this.data.series.push({
           name: key,
-          type: key === "Year" ? "dimension" : "measure",
+          type: this.strKeys.includes(key) ? "dimension" : "measure",
         });
       }
     } else {

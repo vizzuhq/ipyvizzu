@@ -5,7 +5,7 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
   const Csv2Js = results[0].default;
   const MdChart = results[1].default;
 
-  const csv2js = new Csv2Js();
+  const csv2js = new Csv2Js(["Year"]);
   const dataLoaded = csv2js.getData("./musicformats.csv");
 
   dataLoaded.then((data) => {

@@ -2,7 +2,7 @@
 csv_url: ./music.csv
 ---
 
-# Revenue by Music Format
+# Music Revenue by Format
 
 <div id="example_01"></div>
 
@@ -26,7 +26,7 @@ chart.animate(
             "color": "Format",
             "geometry": "area",
             "align": "center",
-            "title": "Revenue by Music Format 1973-2020",
+            "title": "Music Revenue by Format 1973-2020",
         }
     ),
     Style(
@@ -45,13 +45,13 @@ chart.animate(
 
 chart.animate(
     Config(
-        {"align": "stretch", "title": "Revenue by Music Format 1973-2020(%)"}
+        {"align": "stretch", "title": "Music Revenue by Format 1973-2020(%)"}
     ),
     delay=1,
 )
 
 chart.animate(
-    Config({"align": "center", "title": "Revenue by Music Format 1973-2020"}),
+    Config({"align": "center", "title": "Music Revenue by Format 1973-2020"}),
     delay=1,
 )
 
@@ -65,7 +65,7 @@ chart.animate(
 
 chart.animate(
     Data.filter(None),
-    Config({"title": "Revenue by Music Format 1973-2020", "split": False}),
+    Config({"title": "Music Revenue by Format 1973-2020", "split": False}),
     delay=1,
 )
 
