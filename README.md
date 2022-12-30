@@ -6,7 +6,7 @@
   <p align="center">
     <a href="https://ipyvizzu.vizzuhq.com/mkdocs/">Documentation</a>
     · <a href="https://ipyvizzu.vizzuhq.com/mkdocs/examples/index.html">Examples</a>
-    · <a href="https://ipyvizzu.vizzuhq.com/mkdocs/reference/ipyvizzu/index.html">Reference</a>
+    · <a href="https://ipyvizzu.vizzuhq.com/mkdocs/reference/ipyvizzu/index.html">Code reference</a>
     · <a href="https://github.com/vizzuhq/ipyvizzu">Repository</a>
   </p>
 </p>
@@ -15,7 +15,9 @@
 [![Conda Version](https://img.shields.io/conda/vn/conda-forge/ipyvizzu.svg)](https://anaconda.org/conda-forge/ipyvizzu)
 [![CI-CD](https://github.com/vizzuhq/ipyvizzu/actions/workflows/cicd.yml/badge.svg?branch=main)](https://github.com/vizzuhq/ipyvizzu/actions/workflows/cicd.yml)
 
-# About The Project
+# ipyvizzu
+
+## About The Project
 
 ipyvizzu is an animated charting tool for [Jupyter](https://jupyter.org),
 [Google Colab](https://colab.research.google.com),
@@ -48,7 +50,7 @@ Main features:
 - Auto scrolling feature to keep the actual chart in position while executing
   multiple cells.
 
-# Installation
+## Installation
 
 ipyvizzu requires the `IPython`, `jsonschema` and `pandas` packages.
 
@@ -59,7 +61,7 @@ pip install ipyvizzu
 You can also use ipyvizzu by locally installing Vizzu, you can find more info
 about this in the [documentation](https://ipyvizzu.vizzuhq.com/doc.html)
 
-# Usage
+## Usage
 
 You can create the animation below with the following code snippet.
 
@@ -103,16 +105,16 @@ chart.animate(
 chart.animate(Config({"x": "Count", "y": ["Sex", "Survived"]}))
 ```
 
-# Documentation
+## Documentation
 
 Visit our [documentation](https://ipyvizzu.vizzuhq.com/doc.html) site for more
 details and a step-by-step tutorial into ipyvizzu or check out our
 [example gallery](https://ipyvizzu.vizzuhq.com/mkdocs/examples/index.html).
 
-## Environment support
+## Supported environments
 
 ipyvizzu can be used in a wide variety of environments, visit
-[Environments chapter](https://ipyvizzu.vizzuhq.com/mkdocs/environments/index.html)
+[Supported environments chapter](https://ipyvizzu.vizzuhq.com/mkdocs/environments/index.html)
 of our documentation site for more details.
 
 - Jupyter/IPython

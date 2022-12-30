@@ -91,7 +91,20 @@ nav:
       - Events: tutorial/events.md
       - Shorthands & Store: tutorial/shorthands_store.md
       - Chart presets: tutorial/chart_presets.md
-  - Environments:
+  - Examples:
+      - examples/index.md
+      - Preset charts: examples/presets/
+      - Animated charts: examples/animated/
+      - Static charts: examples/static/
+      - Stories:
+          - examples/stories/index.md
+          - Music Revenue by Format: examples/stories/music/music.md
+          - Music Revenue by Format, Year by Year: examples/stories/musicformats/musicformats.md
+          - Nadal: examples/stories/nadal/nadal.md
+          - Sales of Shoes: examples/stories/sales/sales.md
+          - Titanic: examples/stories/titanic/titanic.md
+  - Code reference: reference/ipyvizzu/
+  - Supported environments:
       - environments/index.md
       - Jupyter/IPython:
           - environments/jupyter/index.md
@@ -110,19 +123,6 @@ nav:
           - VSCode Python: environments/jupyter/vscode.md
       - environments/streamlit.md
       - environments/panel.md
-  - Examples:
-      - examples/index.md
-      - Preset charts: examples/presets/
-      - Animated charts: examples/animated/
-      - Static charts: examples/static/
-      - Stories:
-          - examples/stories/index.md
-          - Music Revenue by Format: examples/stories/music/music.md
-          - Music Revenue by Format, Year by Year: examples/stories/musicformats/musicformats.md
-          - Nadal: examples/stories/nadal/nadal.md
-          - Sales of Shoes: examples/stories/sales/sales.md
-          - Titanic: examples/stories/titanic/titanic.md
-  - Reference: reference/ipyvizzu/
   - Development:
       - Contributing: CONTRIBUTING.md
       - Code of Conduct: CODE_OF_CONDUCT.md

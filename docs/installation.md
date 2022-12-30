@@ -18,7 +18,7 @@ pip install -U ipyvizzu
 ```
 
 You can use `ipyvizzu` in `Jupyter/IPython`, `Streamlit` or `Panel` (see
-[Environments chapter](environments/index.md) of our documentation site).
+[Supported environments chapter](environments/index.md) of our documentation site).
 
 ### Jupyter/IPython
 
