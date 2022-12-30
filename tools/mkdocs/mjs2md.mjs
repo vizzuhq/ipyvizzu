@@ -83,7 +83,7 @@ chart.animate(data)
 
     const args = params.join(",\n");
     const callCode = `chart.animate(\n${args}`;
-    let fullCode = callCode.replace(/\n/g, "\n  ") + "\n)\n\n";
+    const fullCode = callCode.replace(/\n/g, "\n  ") + "\n)\n\n";
     this.code += fullCode;
   }
 

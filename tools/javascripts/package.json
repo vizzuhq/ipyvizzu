@@ -9,8 +9,8 @@
     "check": "npm-run-all check-prettier check-eslint",
     "prettier": "prettier -w $npm_package_config_check",
     "check-prettier": "prettier -c $npm_package_config_check",
-    "eslint": "eslint --ext .js,.cjs -c .eslintrc.cjs --fix $npm_package_config_check",
-    "check-eslint": "eslint --ext .js,.cjs -c .eslintrc.cjs $npm_package_config_check"
+    "eslint": "eslint --ext .js,.cjs,.mjs -c .eslintrc.cjs --fix $npm_package_config_check",
+    "check-eslint": "eslint --ext .js,.cjs,.mjs -c .eslintrc.cjs $npm_package_config_check"
   },
   "repository": {
     "type": "git",

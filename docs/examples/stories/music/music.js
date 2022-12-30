@@ -5,7 +5,7 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
   const Csv2Js = results[0].default;
   const MdChart = results[1].default;
 
-  csv2js = new Csv2Js();
+  const csv2js = new Csv2Js();
   const dataLoaded = csv2js.getData("./music.csv");
 
   dataLoaded.then((data) => {

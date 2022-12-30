@@ -29,6 +29,7 @@ class Csv2Js {
     const stepCallback = this.receiveLine;
     const bindedStepCallback = stepCallback.bind(this);
     return new Promise(function (resolve, reject) {
+      // eslint-disable-next-line no-undef
       Papa.parse(csv, {
         download: true,
         header: true,
