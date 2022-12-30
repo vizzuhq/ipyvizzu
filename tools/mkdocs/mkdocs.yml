@@ -121,6 +121,7 @@ nav:
           - Music Revenue by Format, Year by Year: examples/stories/musicformats/musicformats.md
           - Nadal: examples/stories/nadal/nadal.md
           - Sales of Shoes: examples/stories/sales/sales.md
+          - Titanic: examples/stories/titanic/titanic.md
   - Reference: reference/ipyvizzu/
   - Development:
       - Contributing: CONTRIBUTING.md
