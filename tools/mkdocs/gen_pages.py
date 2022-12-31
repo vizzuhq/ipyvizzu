@@ -167,5 +167,11 @@ def main() -> None:
         site=config["site_url"],
     )
 
+    Page.generate(
+        src=Path(__file__).parent / ".." / ".." / "LICENSE",
+        dst="LICENSE.md",
+        site=config["site_url"],
+    )
+
 
 main()
