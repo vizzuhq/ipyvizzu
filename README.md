@@ -111,10 +111,10 @@ Visit our [documentation](https://ipyvizzu.vizzuhq.com/doc.html) site for more
 details and a step-by-step tutorial into ipyvizzu or check out our
 [example gallery](https://ipyvizzu.vizzuhq.com/mkdocs/examples/index.html).
 
-## Supported environments
+## Environments
 
 ipyvizzu can be used in a wide variety of environments, visit
-[Supported environments chapter](https://ipyvizzu.vizzuhq.com/mkdocs/environments/index.html)
+[Environments chapter](https://ipyvizzu.vizzuhq.com/mkdocs/environments/index.html)
 of our documentation site for more details.
 
 - Jupyter/IPython

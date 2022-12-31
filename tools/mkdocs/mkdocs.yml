@@ -104,7 +104,7 @@ nav:
           - Sales of Shoes: examples/stories/sales/sales.md
           - Titanic: examples/stories/titanic/titanic.md
   - Code reference: reference/ipyvizzu/
-  - Supported environments:
+  - Environments:
       - environments/index.md
       - Jupyter/IPython:
           - environments/jupyter/index.md
