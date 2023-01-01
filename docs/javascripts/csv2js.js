@@ -1,51 +1,47 @@
 class Csv2Js {
-  constructor(strKeys) {
-    if (!strKeys) {
-      strKeys = [];
-    }
-    this.strKeys = strKeys;
-    this.data = { series: [], records: [] };
-  }
-
-  receiveLine(results) {
-    const keys = Object.keys(results.data);
-
-    if (this.data.series.length === 0) {
-      for (const key of keys) {
-        this.data.series.push({
-          name: key,
-          type: this.strKeys.includes(key) ? "dimension" : "measure",
-        });
+  static csv(csv, dimensions) {
+    return new Promise((resolve, reject) => {
+      if (!dimensions) {
+        dimensions = [];
       }
-    } else {
-      this.data.records.push(Object.values(results.data));
-
-      for (let i = 0; i < this.data.series.length; i++) {
-        const key = this.data.series[i].name;
-        if (typeof results.data[key] !== "number")
-          this.data.series[i].type = "dimension";
-      }
-    }
-  }
-
-  getData(csv) {
-    const data = this.data;
-    const stepCallback = this.receiveLine;
-    const bindedStepCallback = stepCallback.bind(this);
-    return new Promise(function (resolve, reject) {
+      const detectedDimensions = {};
+      const data = { series: [], records: [] };
       // eslint-disable-next-line no-undef
-      Papa.parse(csv, {
-        download: true,
-        header: true,
-        dynamicTyping: true,
-        quoteChar: '"',
-        skipEmptyLines: true,
-        step: bindedStepCallback,
-        complete: () => {
-          resolve(data);
+      d3.csv(
+        csv,
+        (row) => {
+          const record = [];
+          const keys = Object.keys(row);
+          for (const key of keys) {
+            const numValue = +row[key];
+            if (!isNaN(numValue)) {
+              record.push(numValue);
+            } else {
+              record.push(row[key]);
+              detectedDimensions[key] = true;
+            }
+          }
+          data.records.push(record);
+          return record;
         },
-        error: reject,
-      });
+        (error, rows) => {
+          if (error) {
+            return reject(error);
+          }
+          for (let i = 0; i < rows.columns.length; i++) {
+            const key = rows.columns[i];
+            const series = {
+              name: key,
+              type:
+                dimensions.includes(key) || detectedDimensions[key]
+                  ? "dimension"
+                  : "measure",
+            };
+            data.series.push(series);
+          }
+          return resolve(data);
+        }
+      );
     });
   }
 }

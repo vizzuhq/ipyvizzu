@@ -5,8 +5,7 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
   const Csv2Js = results[0].default;
   const MdChart = results[1].default;
 
-  const csv2js = new Csv2Js(["Year"]);
-  const dataLoaded = csv2js.getData("./musicformats/musicformats.csv");
+  const dataLoaded = Csv2Js.csv("./musicformats/musicformats.csv", ["Year"]);
 
   dataLoaded.then((data) => {
     const mdchart = new MdChart(data, "./vizzu.js", "example");

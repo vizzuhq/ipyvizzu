@@ -5,8 +5,12 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
   const Csv2Js = results[0].default;
   const MdChart = results[1].default;
 
-  const csv2js = new Csv2Js(["Year", "Round2", "Order_GS", "Order_all"]);
-  const dataLoaded = csv2js.getData("./nadal/nadal.csv");
+  const dataLoaded = Csv2Js.csv("./nadal/nadal.csv", [
+    "Year",
+    "Round2",
+    "Order_GS",
+    "Order_all",
+  ]);
 
   dataLoaded.then((data) => {
     const mdchart = new MdChart(data, "./vizzu.js", "example");

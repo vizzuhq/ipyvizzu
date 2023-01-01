@@ -26,8 +26,8 @@ extra_css:
   - stylesheets/chart.css
 
 extra_javascript:
+  - //d3js.org/d3.v4.min.js
   - //cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7/build/highlight.min.js
-  - //cdn.jsdelivr.net/npm/papaparse@5.3/papaparse.min.js
   - javascripts/highlight.js
 
 markdown_extensions:
