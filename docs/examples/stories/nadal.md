@@ -1,5 +1,5 @@
 ---
-csv_url: ./nadal.csv
+csv_url: ./nadal/nadal.csv
 ---
 
 # Rafael Nadal's matches at the Roland Garros
@@ -11,7 +11,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 
 data_frame = pd.read_csv(
-    "./nadal.csv",
+    "./nadal/nadal.csv",
     dtype={"Year": str, "Round2": str, "Order_GS": str, "Order_all": str},
 )
 data = Data()
@@ -267,4 +267,4 @@ chart.animate(
 )
 ```
 
-<script src="./nadal.js"></script>
+<script src="./nadal/nadal.js"></script>

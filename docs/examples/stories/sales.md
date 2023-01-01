@@ -1,5 +1,5 @@
 ---
-csv_url: ./sales.csv
+csv_url: ./sales/sales.csv
 ---
 
 # Sales of Shoes
@@ -10,7 +10,7 @@ csv_url: ./sales.csv
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style
 
-data_frame = pd.read_csv("./sales.csv", dtype={"tenure": str})
+data_frame = pd.read_csv("./sales/sales.csv", dtype={"tenure": str})
 data = Data()
 data.add_data_frame(data_frame)
 
@@ -69,4 +69,4 @@ chart.animate(Config({"x": "Revenue [$]", "y": "Product"}))
 chart.animate(Config({"coordSystem": "polar", "sort": "byValue"}), delay=1)
 ```
 
-<script src="./sales.js"></script>
+<script src="./sales/sales.js"></script>

@@ -1,5 +1,5 @@
 ---
-csv_url: ./titanic.csv
+csv_url: ./titanic/titanic.csv
 ---
 
 # Passengers of the Titanic
@@ -10,7 +10,7 @@ csv_url: ./titanic.csv
 import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
-data_frame = pd.read_csv("./titanic.csv")
+data_frame = pd.read_csv("./titanic/titanic.csv")
 data = Data()
 data.add_data_frame(data_frame)
 
@@ -46,4 +46,4 @@ chart.animate(
 )
 ```
 
-<script src="./titanic.js"></script>
+<script src="./titanic/titanic.js"></script>

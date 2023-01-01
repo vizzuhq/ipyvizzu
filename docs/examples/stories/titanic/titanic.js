@@ -6,7 +6,7 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
   const MdChart = results[1].default;
 
   const csv2js = new Csv2Js();
-  const dataLoaded = csv2js.getData("./titanic.csv");
+  const dataLoaded = csv2js.getData("./titanic/titanic.csv");
 
   dataLoaded.then((data) => {
     const mdchart = new MdChart(data, "./vizzu.js", "example");

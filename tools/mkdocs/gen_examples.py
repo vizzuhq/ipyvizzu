@@ -212,7 +212,7 @@ class GenStories:
             with mkdocs_gen_files.open(f"{dst}/index.md", "a") as fh_index:
                 fh_index.write(
                     "<div>"
-                    + f"<a href='./{item.stem}/{item.stem}.html' title=''>"
+                    + f"<a href='./{item.stem}.html' title=''>"
                     + "<video nocontrols autoplay muted loop class='example-gallery'"
                     + f"src='{VizzuLib.url()}/{dst}/{item.stem}.mp4'"
                     + " type='video/mp4'></video>"

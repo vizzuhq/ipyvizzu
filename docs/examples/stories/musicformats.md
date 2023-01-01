@@ -1,5 +1,5 @@
 ---
-csv_url: ./musicformats.csv
+csv_url: ./musicformats/musicformats.csv
 ---
 
 # Music Revenue by Format - Year by Year
@@ -10,7 +10,9 @@ csv_url: ./musicformats.csv
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 
-data_frame = pd.read_csv("./musicformats.csv", dtype={"Year": str})
+data_frame = pd.read_csv(
+    "./musicformats/musicformats.csv", dtype={"Year": str}
+)
 data = Data()
 data.add_data_frame(data_frame)
 
@@ -166,4 +168,4 @@ chart.animate(
 )
 ```
 
-<script src="./musicformats.js"></script>
+<script src="./musicformats/musicformats.js"></script>
