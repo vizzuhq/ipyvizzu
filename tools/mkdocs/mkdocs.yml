@@ -41,7 +41,8 @@ plugins:
   - search
   - awesome-pages
   - section-index
-  - literate-nav
+  - literate-nav:
+      implicit_index: true
   - autorefs
   - coverage:
       page_name: coverage
@@ -96,13 +97,7 @@ nav:
       - Preset charts: examples/presets/
       - Animated charts: examples/animated/
       - Static charts: examples/static/
-      - Stories:
-          - examples/stories/index.md
-          - Music Revenue by Format: examples/stories/music/music.md
-          - Music Revenue by Format, Year by Year: examples/stories/musicformats/musicformats.md
-          - Nadal: examples/stories/nadal/nadal.md
-          - Sales of Shoes: examples/stories/sales/sales.md
-          - Titanic: examples/stories/titanic/titanic.md
+      - Stories: examples/stories/
   - Code reference: reference/ipyvizzu/
   - Environments:
       - environments/index.md

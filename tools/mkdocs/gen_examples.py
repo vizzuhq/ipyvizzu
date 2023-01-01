@@ -192,6 +192,35 @@ class GenExamples:
                 self._generate_example(item, datafile, title)
 
 
+class GenStories:
+    """A class for generating stories index page."""
+
+    # pylint: disable=too-few-public-methods
+
+    @staticmethod
+    def generate(src, dst) -> None:
+        """A method for generating stories index page."""
+
+        src = Path(src)
+        items = list(src.rglob("*.md"))
+        items.sort(key=lambda f: f.stem)
+        with mkdocs_gen_files.open(f"{dst}/index.md", "a") as fh_index:
+            meta = """---\nhide:\n  - toc\n---"""
+            fh_index.write(f"{meta}\n\n")
+
+        for item in items:
+            with mkdocs_gen_files.open(f"{dst}/index.md", "a") as fh_index:
+                fh_index.write(
+                    "<div>"
+                    + f"<a href='./{item.stem}/{item.stem}.html' title=''>"
+                    + "<video nocontrols autoplay muted loop class='example-gallery'"
+                    + f"src='{VizzuLib.url()}/{dst}/{item.stem}.mp4'"
+                    + " type='video/mp4'></video>"
+                    + "</a>"
+                    + "</div>\n"
+                )
+
+
 def main() -> None:
     """
     The main method.
@@ -244,6 +273,8 @@ def main() -> None:
         ]
     )
     animated.generate()
+
+    GenStories.generate("./docs/examples/stories/", "examples/stories")
 
 
 main()
