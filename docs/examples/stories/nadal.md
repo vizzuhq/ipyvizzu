@@ -12,7 +12,12 @@ from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 
 data_frame = pd.read_csv(
     "./nadal/nadal.csv",
-    dtype={"Year": str, "Round2": str, "Order_GS": str, "Order_all": str},
+    dtype={
+        "Year": str,
+        "Round2": str,
+        "Order_GS": str,
+        "Order_all": str,
+    },
 )
 data = Data()
 data.add_data_frame(data_frame)
@@ -26,7 +31,10 @@ chart.animate(
         {
             "x": "Year",
             "y": "Round2",
-            "color": {"set": "Result_Num", "range": {"min": -1, "max": 1}},
+            "color": {
+                "set": "Result_Num",
+                "range": {"min": -1, "max": 1},
+            },
             "size": None,
             "orientation": "horizontal",
             "geometry": "rectangle",
@@ -61,27 +69,44 @@ chart.animate(
 )
 
 chart.animate(
-    Config({"lightness": "Won", "title": "Won 112 out of 116 (96.5%)"}),
-    Style({"plot": {"marker": {"maxLightness": 0, "minLightness": 0.8}}}),
-    delay=4,
-)
-
-chart.animate(
-    Config({"lightness": "Lost", "title": "Lost 3 times, retired once"}),
-    delay=4,
-)
-
-chart.animate(
-    Config({"lightness": None, "title": ""}),
-    Style({"plot": {"marker": {"maxLightness": None, "minLightness": None}}}),
+    Config(
+        {"lightness": "Won", "title": "Won 112 out of 116 (96.5%)"}
+    ),
+    Style(
+        {"plot": {"marker": {"maxLightness": 0, "minLightness": 0.8}}}
+    ),
     delay=4,
 )
 
 chart.animate(
     Config(
-        {"lightness": "3SetWin", "title": "90 wins (80%) in straight sets"}
+        {"lightness": "Lost", "title": "Lost 3 times, retired once"}
     ),
-    Style({"plot": {"marker": {"maxLightness": 0, "minLightness": 0.8}}}),
+    delay=4,
+)
+
+chart.animate(
+    Config({"lightness": None, "title": ""}),
+    Style(
+        {
+            "plot": {
+                "marker": {"maxLightness": None, "minLightness": None}
+            }
+        }
+    ),
+    delay=4,
+)
+
+chart.animate(
+    Config(
+        {
+            "lightness": "3SetWin",
+            "title": "90 wins (80%) in straight sets",
+        }
+    ),
+    Style(
+        {"plot": {"marker": {"maxLightness": 0, "minLightness": 0.8}}}
+    ),
 )
 
 chart.animate(
@@ -96,7 +121,13 @@ chart.animate(
 
 chart.animate(
     Config({"lightness": None, "title": ""}),
-    Style({"plot": {"marker": {"maxLightness": None, "minLightness": None}}}),
+    Style(
+        {
+            "plot": {
+                "marker": {"maxLightness": None, "minLightness": None}
+            }
+        }
+    ),
     delay=4,
 )
 
@@ -107,7 +138,9 @@ chart.animate(
             "title": "Played the most times against Djokovic - 10 matches",
         }
     ),
-    Style({"plot": {"marker": {"maxLightness": 0, "minLightness": 0.8}}}),
+    Style(
+        {"plot": {"marker": {"maxLightness": 0, "minLightness": 0.8}}}
+    ),
 )
 
 chart.animate(
@@ -121,7 +154,12 @@ chart.animate(
 )
 
 chart.animate(
-    Config({"lightness": "Final", "title": "Rafa won all of his 14 finals"}),
+    Config(
+        {
+            "lightness": "Final",
+            "title": "Rafa won all of his 14 finals",
+        }
+    ),
     delay=4,
 )
 
@@ -243,7 +281,10 @@ chart.animate(
     data.filter('record.Year == "Total" && record.Round == "GS"'),
     Config(
         {
-            "y": {"set": ["Player"], "range": {"max": None, "min": None}},
+            "y": {
+                "set": ["Player"],
+                "range": {"max": None, "min": None},
+            },
             "x": ["Count", "Tournament", "Level", "Total_GS"],
             "title": "Rafa also leads in the number of total Grand Slams won",
         }

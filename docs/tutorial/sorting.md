@@ -114,7 +114,9 @@ elements according to this new logic.
 <div id="tutorial_05"></div>
 
 ```python
-chart.animate(Config({"title": "...grouping is determined by their order."}))
+chart.animate(
+    Config({"title": "...grouping is determined by their order."})
+)
 
 chart.animate(
     Config(

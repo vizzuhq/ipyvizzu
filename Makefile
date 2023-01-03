@@ -42,7 +42,6 @@ update-dev-req: $(DEV_BUILD_FLAG)
 
 install-dev-req:
 	$(VIRTUAL_ENV)/$(BIN_PATH)/pip install -r dev-requirements.txt
-	$(VIRTUAL_ENV)/$(BIN_PATH)/python tools/mdformat/customise_mdformat_black.py -v $(VIRTUAL_ENV) -l 78
 
 install-kernel:
 	$(VIRTUAL_ENV)/$(BIN_PATH)/ipython kernel install --user --name "$(VIRTUAL_ENV)"
@@ -89,19 +88,21 @@ check: check-format lint check-typing test
 
 format: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/black src tests tools setup.py
-	$(VIRTUAL_ENV)/$(BIN_PATH)/black -l 78 docs
+	$(VIRTUAL_ENV)/$(BIN_PATH)/black -l 70 docs
 	$(VIRTUAL_ENV)/$(BIN_PATH)/python tools/mdformat/mdformat.py $(VIRTUAL_ENV)/$(BIN_PATH)/mdformat \
 		--wrap 80 \
 		--end-of-line keep \
+		--line-length 70 \
 		docs README.md CONTRIBUTING.md CODE_OF_CONDUCT.md
 
 check-format: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/black --check src tests tools setup.py
-	$(VIRTUAL_ENV)/$(BIN_PATH)/black --check -l 78 docs
+	$(VIRTUAL_ENV)/$(BIN_PATH)/black --check -l 70 docs
 	$(VIRTUAL_ENV)/$(BIN_PATH)/python tools/mdformat/mdformat.py $(VIRTUAL_ENV)/$(BIN_PATH)/mdformat \
 		--check \
 		--wrap 80 \
 		--end-of-line keep \
+		--line-length 70 \
 		docs README.md CONTRIBUTING.md CODE_OF_CONDUCT.md
 
 lint: $(DEV_BUILD_FLAG)

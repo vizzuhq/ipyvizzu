@@ -30,7 +30,10 @@ chart.animate(
     Config(
         {
             "title": "Geometry",
-            "channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}},
+            "channels": {
+                "y": {"set": "Popularity"},
+                "x": {"set": "Genres"},
+            },
         }
     )
 )
@@ -52,7 +55,9 @@ together with the size channel, as shown in the next chapter of the tutorial.
 <div id="tutorial_03"></div>
 
 ```python
-chart.animate(Config({"title": "Geometry: circle", "geometry": "circle"}))
+chart.animate(
+    Config({"title": "Geometry: circle", "geometry": "circle"})
+)
 ```
 
 Rectangle geometry is the default setting in ipyvizzu, used for most common
@@ -63,7 +68,10 @@ charts like bar and column charts.
 ```python
 chart.animate(
     Config(
-        {"title": "Geometry: rectangle - default", "geometry": "rectangle "}
+        {
+            "title": "Geometry: rectangle - default",
+            "geometry": "rectangle ",
+        }
     )
 )
 ```

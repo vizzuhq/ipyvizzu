@@ -74,7 +74,9 @@ Getting back to the default alignment.
 ```python
 chart.animate(Config({"title": "Align: none - default"}))
 
-chart.animate(Config({"align": "none", "channels": {"y": {"labels": True}}}))
+chart.animate(
+    Config({"align": "none", "channels": {"y": {"labels": True}}})
+)
 ```
 
 You can set the range of an axis by setting the minimum and maximum values of
@@ -101,7 +103,9 @@ this feature to filter certain elements, just like in the following example.
 ```python
 chart.animate(
     Config(
-        {"title": "Axis range set explicitly on an axis with discrete series"}
+        {
+            "title": "Axis range set explicitly on an axis with discrete series"
+        }
     )
 )
 

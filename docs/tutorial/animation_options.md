@@ -43,7 +43,14 @@ chart.animate(
 )
 
 chart.animate(
-    Config({"channels": {"y": {"detach": "Kinds"}, "x": {"attach": "Kinds"}}})
+    Config(
+        {
+            "channels": {
+                "y": {"detach": "Kinds"},
+                "x": {"attach": "Kinds"},
+            }
+        }
+    )
 )
 ```
 
@@ -55,7 +62,14 @@ We stack the columns, still with the default options.
 chart.animate(Config({"title": "Default options - step 2"}))
 
 chart.animate(
-    Config({"channels": {"x": {"detach": "Kinds"}, "y": {"attach": "Kinds"}}})
+    Config(
+        {
+            "channels": {
+                "x": {"detach": "Kinds"},
+                "y": {"attach": "Kinds"},
+            }
+        }
+    )
 )
 ```
 
@@ -72,7 +86,12 @@ chart.animate(
 
 chart.animate(
     Config(
-        {"channels": {"y": {"detach": "Kinds"}, "x": {"attach": "Kinds"}}}
+        {
+            "channels": {
+                "y": {"detach": "Kinds"},
+                "x": {"attach": "Kinds"},
+            }
+        }
     ),
     y={"duration": 2, "delay": 2},
     style={"duration": 2, "delay": 4},
@@ -84,11 +103,18 @@ This is an example of changing the settings for the whole animation at once.
 <div id="tutorial_04"></div>
 
 ```python
-chart.animate(Config({"title": "Custom options for the whole animation"}))
+chart.animate(
+    Config({"title": "Custom options for the whole animation"})
+)
 
 chart.animate(
     Config(
-        {"channels": {"x": {"detach": "Kinds"}, "y": {"attach": "Kinds"}}}
+        {
+            "channels": {
+                "x": {"detach": "Kinds"},
+                "y": {"attach": "Kinds"},
+            }
+        }
     ),
     duration=1,
     easing="linear",
@@ -107,7 +133,12 @@ chart.animate(Config({"title": "Custom settings for both"}))
 
 chart.animate(
     Config(
-        {"channels": {"y": {"detach": "Kinds"}, "x": {"attach": "Kinds"}}}
+        {
+            "channels": {
+                "y": {"detach": "Kinds"},
+                "x": {"attach": "Kinds"},
+            }
+        }
     ),
     duration=1,
     easing="linear",
@@ -125,7 +156,12 @@ chart.animate(Config({"title": "Custom unit for duration"}))
 
 chart.animate(
     Config(
-        {"channels": {"x": {"detach": "Kinds"}, "y": {"attach": "Kinds"}}}
+        {
+            "channels": {
+                "x": {"detach": "Kinds"},
+                "y": {"attach": "Kinds"},
+            }
+        }
     ),
     duration="500ms",
 )

@@ -46,7 +46,9 @@ chart.animate(
 )
 
 chart.animate(
-    Data.filter(None), Config({"title": "Sales of All Products"}), delay=1
+    Data.filter(None),
+    Config({"title": "Sales of All Products"}),
+    delay=1,
 )
 
 chart.animate(
@@ -66,7 +68,9 @@ chart.animate(
 
 chart.animate(Config({"x": "Revenue [$]", "y": "Product"}))
 
-chart.animate(Config({"coordSystem": "polar", "sort": "byValue"}), delay=1)
+chart.animate(
+    Config({"coordSystem": "polar", "sort": "byValue"}), delay=1
+)
 ```
 
 <script src="./sales/sales.js"></script>

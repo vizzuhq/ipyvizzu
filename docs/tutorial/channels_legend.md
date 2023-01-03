@@ -36,13 +36,18 @@ chart.animate(data)
 chart.animate(
     Config(
         {
-            "channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}},
+            "channels": {
+                "y": {"set": "Popularity"},
+                "x": {"set": "Genres"},
+            },
             "title": "Label",
         }
     )
 )
 
-chart.animate(Config({"channels": {"label": {"attach": "Popularity"}}}))
+chart.animate(
+    Config({"channels": {"label": {"attach": "Popularity"}}})
+)
 ```
 
 The lightness channel sets the lightness of the markers. In this case the same

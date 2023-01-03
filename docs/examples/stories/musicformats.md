@@ -41,7 +41,10 @@ style = Style(
             },
             "xAxis": {
                 "title": {"color": "#ffffff00"},
-                "label": {"color": "#ffffff00", "numberFormat": "grouped"},
+                "label": {
+                    "color": "#ffffff00",
+                    "numberFormat": "grouped",
+                },
             },
             "marker": {
                 "colorPalette": "#b74c20FF #c47f58FF #1c9761FF"
@@ -70,7 +73,14 @@ for year in range(1973, 2021):
     )
 
 chart.animate(
-    Config({"channels": {"x": {"attach": ["Year"]}, "label": {"set": None}}}),
+    Config(
+        {
+            "channels": {
+                "x": {"attach": ["Year"]},
+                "label": {"set": None},
+            }
+        }
+    ),
     duration=0.3,
 )
 
@@ -98,10 +108,13 @@ chart.animate(
     duration=1.5,
 )
 
-chart.animate(Config({"channels": {"x": {"detach": ["Year"]}}}), duration=0)
+chart.animate(
+    Config({"channels": {"x": {"detach": ["Year"]}}}), duration=0
+)
 
 chart.animate(
-    Config({"channels": {"label": {"set": ["Revenue [m$]"]}}}), duration=0.1
+    Config({"channels": {"label": {"set": ["Revenue [m$]"]}}}),
+    duration=0.1,
 )
 
 chart.animate(
@@ -137,7 +150,11 @@ chart.animate(
                 "paddingLeft": 7.5,
                 "paddingTop": 25,
                 "xAxis": {
-                    "label": {"fontSize": 9, "angle": 2.0, "color": "#8e8e8e"}
+                    "label": {
+                        "fontSize": 9,
+                        "angle": 2.0,
+                        "color": "#8e8e8e",
+                    }
                 },
                 "yAxis": {
                     "interlacing": {"color": "#ffffff00"},

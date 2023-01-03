@@ -41,7 +41,11 @@ chart.animate(Config({"x": "Count", "y": ["Sex", "Survived"]}))
 
 chart.animate(
     Config(
-        {"x": ["Count", "Sex", "Survived"], "y": None, "coordSystem": "polar"}
+        {
+            "x": ["Count", "Sex", "Survived"],
+            "y": None,
+            "coordSystem": "polar",
+        }
     )
 )
 ```

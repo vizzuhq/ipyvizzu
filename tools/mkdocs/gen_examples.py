@@ -5,6 +5,7 @@ import re
 from subprocess import PIPE, Popen
 from typing import List, Dict, Optional
 
+import mdformat
 import mkdocs_gen_files
 
 from ipyvizzu import Chart
@@ -145,15 +146,34 @@ class GenExamples:
     ) -> None:
         params = [f"../../{item}", datafile]
 
-        js_type = "js"
+        dst_type = "js"
         if title:
-            js_type = "md"
+            dst_type = "md"
             params.append(title)
 
-        content = GenExamples._run_node(f"./tools/mkdocs/mjs2{js_type}.mjs", *params)
+        content = GenExamples._run_node(f"./tools/mkdocs/mjs2{dst_type}.mjs", *params)
+        if dst_type == "md":
+            content = mdformat.text(  # type: ignore
+                content,
+                options={"wrap": 80, "end-of-line": "keep", "line-length": 70},
+                extensions={"gfm", "tables", "footnote", "frontmatter", "configblack"},
+                codeformatters={
+                    "python",
+                    "bash",
+                    "sh",
+                    "json",
+                    "toml",
+                    "yaml",
+                    "javascript",
+                    "js",
+                    "css",
+                    "html",
+                    "xml",
+                },
+            )
 
         with mkdocs_gen_files.open(
-            f"{self._dst}/{item.stem}.{js_type}", "w"
+            f"{self._dst}/{item.stem}.{dst_type}", "w"
         ) as f_example:
             f_example.write(content)
 

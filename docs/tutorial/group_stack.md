@@ -30,7 +30,10 @@ chart.animate(data)
 chart.animate(
     Config(
         {
-            "channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}},
+            "channels": {
+                "y": {"set": "Popularity"},
+                "x": {"set": "Genres"},
+            },
             "title": "Creating a stacked chart",
         }
     )
@@ -38,7 +41,12 @@ chart.animate(
 
 chart.animate(
     Config(
-        {"channels": {"y": {"attach": "Kinds"}, "color": {"attach": "Kinds"}}}
+        {
+            "channels": {
+                "y": {"attach": "Kinds"},
+                "color": {"attach": "Kinds"},
+            }
+        }
     )
 )
 ```
@@ -78,7 +86,11 @@ around: detach the dimension from the x-axis and attach it to the y-axis.
 
 ```python
 chart.animate(
-    Config({"title": "...doing it the other way is how you stack your chart"})
+    Config(
+        {
+            "title": "...doing it the other way is how you stack your chart"
+        }
+    )
 )
 
 chart.animate(

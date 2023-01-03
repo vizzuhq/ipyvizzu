@@ -45,27 +45,39 @@ chart.animate(
 
 chart.animate(
     Config(
-        {"align": "stretch", "title": "Music Revenue by Format 1973-2020(%)"}
+        {
+            "align": "stretch",
+            "title": "Music Revenue by Format 1973-2020(%)",
+        }
     ),
     delay=1,
 )
 
 chart.animate(
-    Config({"align": "center", "title": "Music Revenue by Format 1973-2020"}),
+    Config(
+        {
+            "align": "center",
+            "title": "Music Revenue by Format 1973-2020",
+        }
+    ),
     delay=1,
 )
 
 chart.animate(Config({"split": True}), delay=1)
 
 chart.animate(
-    Data.filter("record.Format == 'Vinyl' ||record.Format == 'Streaming'"),
+    Data.filter(
+        "record.Format == 'Vinyl' ||record.Format == 'Streaming'"
+    ),
     Config({"title": "Revenue of Vinyl & Streaming 1973-2020"}),
     delay=1,
 )
 
 chart.animate(
     Data.filter(None),
-    Config({"title": "Music Revenue by Format 1973-2020", "split": False}),
+    Config(
+        {"title": "Music Revenue by Format 1973-2020", "split": False}
+    ),
     delay=1,
 )
 

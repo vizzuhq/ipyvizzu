@@ -52,7 +52,9 @@ def create_chart():
 
     # initialize chart
 
-    chart = Chart(width="640px", height="360px", display=DisplayTarget.MANUAL)
+    chart = Chart(
+        width="640px", height="360px", display=DisplayTarget.MANUAL
+    )
 
     # create and add data to Chart
 

@@ -30,7 +30,14 @@ chart = Chart()
 chart.animate(data)
 
 chart.animate(
-    Config({"channels": {"y": {"set": "Popularity"}, "x": {"set": "Genres"}}})
+    Config(
+        {
+            "channels": {
+                "y": {"set": "Popularity"},
+                "x": {"set": "Genres"},
+            }
+        }
+    )
 )
 ```
 

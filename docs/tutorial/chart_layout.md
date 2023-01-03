@@ -86,7 +86,13 @@ chart.animate(Config({"title": "Title padding"}))
 
 chart.animate(
     Style(
-        {"title": {"paddingTop": 20, "paddingBottom": 20, "paddingLeft": 200}}
+        {
+            "title": {
+                "paddingTop": 20,
+                "paddingBottom": 20,
+                "paddingLeft": 200,
+            }
+        }
     )
 )
 ```
@@ -117,7 +123,9 @@ axes are drawn on the padding of the plot and not the plot itself.
 ```python
 chart.animate(Config({"title": "Plot padding"}))
 
-chart.animate(Style({"plot": {"paddingLeft": 100, "paddingRight": 100}}))
+chart.animate(
+    Style({"plot": {"paddingLeft": 100, "paddingRight": 100}})
+)
 ```
 
 Setting the plot paddings back to their default values.
@@ -125,7 +133,9 @@ Setting the plot paddings back to their default values.
 <div id="tutorial_07"></div>
 
 ```python
-chart.animate(Style({"plot": {"paddingLeft": None, "paddingRight": None}}))
+chart.animate(
+    Style({"plot": {"paddingLeft": None, "paddingRight": None}})
+)
 ```
 
 <script src="./chart_layout.js"></script>

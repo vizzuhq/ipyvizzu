@@ -54,7 +54,9 @@ chart.animate(
     Style(
         {
             "plot": {
-                "marker": {"colorPalette": "#9355e8FF #123456FF #BDAF10FF"}
+                "marker": {
+                    "colorPalette": "#9355e8FF #123456FF #BDAF10FF"
+                }
             }
         }
     )
@@ -106,7 +108,9 @@ You can reset styles to default on any levels by setting them to `None`.
 <div id="tutorial_05"></div>
 
 ```python
-chart.animate(Config({"title": "Setting all style settings back to default"}))
+chart.animate(
+    Config({"title": "Setting all style settings back to default"})
+)
 
 chart.animate(Style(None))
 ```

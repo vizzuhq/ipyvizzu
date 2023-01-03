@@ -88,7 +88,9 @@ their count.
 
 ```python
 chart.animate(
-    Config({"title": "Bubble chart - grouped - using the noop channel"})
+    Config(
+        {"title": "Bubble chart - grouped - using the noop channel"}
+    )
 )
 
 chart.animate(

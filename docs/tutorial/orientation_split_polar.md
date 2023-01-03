@@ -64,7 +64,9 @@ which enables the comparison of the components.
 <div id="tutorial_02"></div>
 
 ```python
-chart.animate(Config({"title": "Split stacked values = show side-by-side"}))
+chart.animate(
+    Config({"title": "Split stacked values = show side-by-side"})
+)
 
 chart.animate(Config({"split": True}))
 ```

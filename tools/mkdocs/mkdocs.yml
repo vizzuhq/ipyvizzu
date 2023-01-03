@@ -39,7 +39,6 @@ markdown_extensions:
 
 plugins:
   - search
-  - awesome-pages
   - section-index
   - literate-nav:
       implicit_index: true

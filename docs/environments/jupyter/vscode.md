@@ -55,7 +55,9 @@ from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 
 # initialize Chart
 
-chart = Chart(width="640px", height="360px", display=DisplayTarget.MANUAL)
+chart = Chart(
+    width="640px", height="360px", display=DisplayTarget.MANUAL
+)
 ```
 
 ```python
