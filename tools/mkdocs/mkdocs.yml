@@ -113,6 +113,7 @@ nav:
           - Mercury/mljar: environments/jupyter/mercury.md
           - environments/jupyter/mode.md
           - environments/jupyter/noteable.md
+          - PyCharm: environments/jupyter/pycharm.md
           - Voilà: environments/jupyter/voila.md
           - VSCode Python: environments/jupyter/vscode.md
       - environments/streamlit.md

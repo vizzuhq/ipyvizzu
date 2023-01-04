@@ -133,6 +133,7 @@ of our documentation site for more details.
     [![Open in Mercury](https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg)](https://huggingface.co/spaces/veghdev/ipyvizzu-demo)
   - [Mode](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/mode.html)
   - [Noteable](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/noteable.html)
+  - [PyCharm](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/pycharm.html)
   - [Voilà](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/voila.html)
   - [VSCode Python](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/vscode.html)
 - [Streamlit](https://ipyvizzu.vizzuhq.com/mkdocs/environments/streamlit.html)
