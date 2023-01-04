@@ -1,5 +1,6 @@
 """A module for generating pages."""
 
+import os
 from pathlib import Path
 from typing import Union, Optional
 import re
@@ -69,7 +70,7 @@ class IndexPages:
         with mkdocs_gen_files.open(file, "a") as f_index:
             for key in item:
                 if isinstance(item[key], str):
-                    link = Path(item[key]).relative_to(Path(file).parent)
+                    link = Path(os.path.relpath(item[key], Path(file).parent))
                     f_index.write(f"* [{key}]({link})\n")
                     continue
                 if item[key] and isinstance(item[key], list):

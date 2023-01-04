@@ -18,4 +18,5 @@
 
 .example-gallery {
   float: left;
+  /*max-width: 320px !important;*/
 }

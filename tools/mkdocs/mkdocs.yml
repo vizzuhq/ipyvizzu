@@ -119,6 +119,7 @@ nav:
       - environments/streamlit.md
       - environments/panel.md
   - Development:
+      - dev/index.md
       - Contributing: CONTRIBUTING.md
       - Code of Conduct: CODE_OF_CONDUCT.md
       - Coverage report: coverage.md
