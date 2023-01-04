@@ -7,25 +7,25 @@ class Csv2Js {
       const detectedDimensions = {};
       const data = { series: [], records: [] };
       // eslint-disable-next-line no-undef
-      const csvLoaded = d3.csv(csv, (row) => {
-        const record = [];
-        const keys = Object.keys(row);
-        for (const key of keys) {
-          const numValue = +row[key];
-          if (!isNaN(numValue)) {
-            record.push(numValue);
-          } else {
-            record.push(row[key]);
-            detectedDimensions[key] = true;
-          }
-        }
-        data.records.push(record);
-        return row;
-      });
+      const csvLoaded = d3.csv(csv);
 
-      csvLoaded.then((header) => {
-        for (let i = 0; i < header.columns.length; i++) {
-          const key = header.columns[i];
+      csvLoaded.then((csvData) => {
+        for (let i = 0; i < csvData.length; i++) {
+          const record = [];
+          const keys = Object.keys(csvData[i]);
+          for (const key of keys) {
+            const numValue = +csvData[i][key];
+            if (!isNaN(numValue)) {
+              record.push(numValue);
+            } else {
+              record.push(csvData[i][key]);
+              detectedDimensions[key] = true;
+            }
+          }
+          data.records.push(record);
+        }
+        for (let i = 0; i < csvData.columns.length; i++) {
+          const key = csvData.columns[i];
           const series = {
             name: key,
             type:
