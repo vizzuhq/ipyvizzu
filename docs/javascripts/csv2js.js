@@ -1,3 +1,5 @@
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
 class Csv2Js {
   static csv(csv, dimensions) {
     return new Promise((resolve, reject) => {
@@ -6,7 +8,6 @@ class Csv2Js {
       }
       const detectedDimensions = {};
       const data = { series: [], records: [] };
-      // eslint-disable-next-line no-undef
       const csvLoaded = d3.csv(csv);
 
       csvLoaded.then((csvData) => {
