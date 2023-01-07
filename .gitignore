@@ -15,6 +15,5 @@ vizzu-lib
 .venv
 
 site
-.cache
 node_modules
 package-lock.json

@@ -52,14 +52,13 @@ Main features:
 
 ## Installation
 
-ipyvizzu requires the `IPython`, `jsonschema` and `pandas` packages.
-
 ```sh
 pip install ipyvizzu
 ```
 
-You can also use ipyvizzu by locally installing Vizzu, you can find more info
-about this in the [documentation](https://ipyvizzu.vizzuhq.com/doc.html)
+Visit
+[Installation chapter](https://ipyvizzu.vizzuhq.com/mkdocs/installation.html) of
+our documentation site for more installation options and details.
 
 ## Usage
 
@@ -107,9 +106,9 @@ chart.animate(Config({"x": "Count", "y": ["Sex", "Survived"]}))
 
 ## Documentation
 
-Visit our [documentation](https://ipyvizzu.vizzuhq.com/doc.html) site for more
+Visit our [Documentation site](https://ipyvizzu.vizzuhq.com/mkdocs/) for more
 details and a step-by-step tutorial into ipyvizzu or check out our
-[example gallery](https://ipyvizzu.vizzuhq.com/mkdocs/examples/index.html).
+[Example gallery](https://ipyvizzu.vizzuhq.com/mkdocs/examples/index.html).
 
 ## Environments
 
@@ -130,7 +129,6 @@ of our documentation site for more details.
   - [Kaggle](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/kaggle.html)
     [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/dvidandrsvgh/ipyvizzu-demo)
   - [Mercury/mljar](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/mercury.html)
-    [![Open in Mercury](https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg)](https://huggingface.co/spaces/veghdev/ipyvizzu-demo)
   - [Mode](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/mode.html)
   - [Noteable](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/noteable.html)
   - [PyCharm](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/pycharm.html)
@@ -148,7 +146,7 @@ of our documentation site for more details.
 ## Contributing
 
 We welcome contributions to the project, visit our contributing
-[guide](https://ipyvizzu.vizzuhq.com/mkdocs/CONTRIBUTING.md) for further info.
+[guide](https://ipyvizzu.vizzuhq.com/mkdocs/CONTRIBUTING.html) for further info.
 
 ## Contact
 
@@ -159,7 +157,7 @@ We welcome contributions to the project, visit our contributing
 
 ## License
 
-Copyright © 2022 [Vizzu Kft.](https://vizzuhq.com).
+Copyright © 2022-2023 [Vizzu](https://vizzuhq.com).
 
 Released under the
-[Apache 2.0 License](https://github.com/vizzuhq/ipyvizzu/blob/main/LICENSE).
+[Apache 2.0 License](https://ipyvizzu.vizzuhq.com/mkdocs/LICENSE.html).

@@ -1,6 +1,6 @@
 site_name: ipyvizzu
 site_url: https://ipyvizzu.vizzuhq.com/mkdocs
-copyright: Copyright &copy; 2022 Vizzu Kft.
+copyright: Copyright &copy; 2022-2023 Vizzu
 
 docs_dir: ../../docs
 
@@ -10,12 +10,6 @@ use_directory_urls: false
 
 theme:
   name: material
-  features:
-    - toc.follow
-    - search.suggest
-    - search.highlight
-    - navigation.top
-    - navigation.footer
   palette:
     scheme: vizzu
   font:
@@ -24,9 +18,15 @@ theme:
   logo: assets/logo-white.svg
   favicon: assets/favicon.svg
   custom_dir: ./overrides
+  features:
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - navigation.top
+    - navigation.footer
 
 extra_css:
-  - stylesheets/site.css
+  - stylesheets/vizzu.css
   - stylesheets/highlight.css
   - stylesheets/gallery.css
   - stylesheets/chart.css
@@ -59,16 +59,10 @@ markdown_extensions:
 
 plugins:
   - search
-  - social:
-      cards_color:
-        fill: "#333"
   - section-index
   - literate-nav:
       implicit_index: true
   - autorefs
-  - coverage:
-      page_name: coverage
-      html_report_dir: tests/coverage
   - mkdocstrings:
       handlers:
         python:
@@ -83,6 +77,9 @@ plugins:
         - gen_pages.py
         - gen_examples.py
         - gen_reference.py
+  - coverage:
+      page_name: coverage
+      html_report_dir: tests/coverage
   - mkdocs-jupyter:
       include: ["community/*.ipynb"]
       ignore: []

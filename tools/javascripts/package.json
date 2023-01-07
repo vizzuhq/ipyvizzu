@@ -21,7 +21,6 @@
   "author": "Vizzu Kft.",
   "license": "Apache-2.0",
   "dependencies": {
-    "vizzu": "~0.6.0",
     "npm-run-all": "*",
     "prettier": "*",
     "eslint": "*",

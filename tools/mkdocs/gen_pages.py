@@ -120,7 +120,6 @@ class Page:
             src: Source path.
             dst: Destination path.
             site: Site url.
-            ipynbs: List of html links that are ipynb files.
         """
 
         with open(src, "rt", encoding="utf8") as f_src:
