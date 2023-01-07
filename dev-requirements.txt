@@ -225,6 +225,7 @@ mccabe==0.7.0
 mdformat==0.7.16
     # via
     #   -r dev-requirements.in
+    #   mdformat-admon
     #   mdformat-beautysh
     #   mdformat-black
     #   mdformat-config
@@ -234,6 +235,8 @@ mdformat==0.7.16
     #   mdformat-gfm
     #   mdformat-tables
     #   mdformat-web
+mdformat-admon==0.0.1
+    # via -r dev-requirements.in
 mdformat-beautysh==0.1.1
     # via -r dev-requirements.in
 mdformat-black==0.1.1
@@ -257,6 +260,7 @@ mdformat-web==0.1.0
 mdit-py-plugins==0.3.3
     # via
     #   jupytext
+    #   mdformat-admon
     #   mdformat-footnote
     #   mdformat-frontmatter
     #   mdformat-gfm

@@ -56,6 +56,7 @@ markdown_extensions:
   - mdx_truly_sane_lists
   - attr_list
   - md_in_html
+  - admonition
 
 plugins:
   - search

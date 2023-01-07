@@ -83,8 +83,8 @@ step-by-step, however you either have to keep in mind what you had on which
 channel in the previous step or add the following code to access the actual
 configuration of the chart.
 
-**Note:** Add the following code to log the actual configuration of the chart in
-the browser console.
+Add the following code to log the actual configuration of the chart in the
+browser console.
 
 ```python
 chart.log(ChartProperty.CONFIG)

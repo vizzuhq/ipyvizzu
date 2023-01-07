@@ -29,7 +29,7 @@ open-source Javascript/C++ charting library
 [Vizzu](https://github.com/vizzuhq/vizzu-lib).
 
 **There is a new extension of ipyvizzu,
-[ipyvizzu-story](https://github.com/vizzuhq/ipyvizzu-story)** with which the
+[ipyvizzu-story](https://vizzuhq.github.io/ipyvizzu-story/)** with which the
 animated charts can be presented right from the notebooks. Since
 ipyvizzu-story's syntax is a bit different to ipyvizzu's, we suggest you to
 start from the [ipyvizzu-story repo](https://github.com/vizzuhq/ipyvizzu-story)

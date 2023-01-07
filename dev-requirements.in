@@ -21,6 +21,7 @@ mdformat-black
 mdformat-config
 mdformat-web
 # mdformat extensions
+mdformat-admon
 mdformat-gfm
 mdformat-tables
 mdformat-footnote

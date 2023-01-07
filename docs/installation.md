@@ -2,6 +2,13 @@
 
 `ipyvizzu` requires `IPython`, `jsonschema` and `pandas` packages.
 
+!!! info
+    `ipyvizzu` requires and downloads [Vizzu](https://lib.vizzuhq.com/)
+    JavaScript/C++ library from
+    [jsDelivr CDN](https://www.jsdelivr.com/package/npm/vizzu), but obviously
+    you can use a self-hosted version of `Vizzu`, see
+    [Chart settings chapter](./tutorial/chart_settings.md) of our tutorial.
+
 ## pypi
 
 Run the following command to install `ipyvizzu` from

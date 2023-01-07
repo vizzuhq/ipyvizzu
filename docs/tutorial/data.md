@@ -60,9 +60,10 @@ data = Data()
 data.add_data_frame(data_frame)
 ```
 
-**Note:** ipyvizzu makes a difference between two types of data, numeric
-(measure) and not numeric (dimension). A column's `dtype` specifies that the
-column is handled as a measure or as a dimension.
+!!! info
+    `ipyvizzu` makes a difference between two types of data, numeric (measure)
+    and not numeric (dimension). A column's `dtype` specifies that the column is
+    handled as a measure or as a dimension.
 
 It is also possible to add data frame index to
 [`Data`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data) with the

@@ -5,9 +5,10 @@ focus on certain selected elements, or get more context. You can also add new
 records to the data on the chart which makes it easy to work with real-time
 sources.
 
-**Note:** Currently `filter` and `set_filter` only accept JavaScript expression
-as string. Data fields can be accessed via record object, see the examples
-below.
+!!! note
+    Currently `filter` and `set_filter` methods only accept JavaScript
+    expression as string. Data fields can be accessed via record object, see the
+    examples below.
 
 We add two items from the Genres dimension - using the || operator - to the
 filter, so the chart elements that belong to the other two items will vanish
@@ -103,9 +104,10 @@ data2.add_records(records)
 chart.animate(data2)
 ```
 
-**Note:** Combining this option with the [store](./shorthands_store.md) function
-makes it easy to update previously configured states with fresh data since this
-function saves the config and style parameters of the chart into a variable but
-not the data.
+!!! info
+    Combining this option with the [store](./shorthands_store.md) function makes
+    it easy to update previously configured states with fresh data since this
+    function saves the config and style parameters of the chart into a variable
+    but not the data.
 
 <script src="./filter_add_new_records.js"></script>
