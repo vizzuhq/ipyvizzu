@@ -1,19 +1,19 @@
 # Chart settings
 
-You can change the behaviour of the chart with chart properties and constructor
-arguments.
+You can change the behaviour of the chart with the constructor
+arguments and the chart properties detailed below.
 
 ## Constructor arguments
 
-### Size of Chart
+### Chart size
 
 The size of the chart can be changed with `width` and `height`
 [constructor](../reference/ipyvizzu/chart.md#ipyvizzu.chart.Chart.__init__)
 arguments.
 
 !!! info
-    `width` and `height` constructor arguments are optional and the default
-    values are `800px` and `480px`, but you can change them to any valid cssText
+    `width` and `height` constructor arguments are optional, the default
+    values are `800px` and `480px`. You can set them to any valid cssText
     value.
 
 ```python
@@ -23,30 +23,21 @@ from ipyvizzu import Chart
 chart = Chart(width="100%", height="500px")
 ```
 
-### Display behavior of Chart
+### Display behavior
 
-The chart can be displayed in several ways and this behavior can be changed with
-the `display`
-[constructor](../reference/ipyvizzu/chart.md#ipyvizzu.chart.Chart.__init__)
-argument.
+There are multiple options for the logic of where and how the chart is displayed within the notebook and this behavior can be changed with
+the `display` [constructor](../reference/ipyvizzu/chart.md#ipyvizzu.chart.Chart.__init__) argument.
 
 !!! info
-    `display` constructor argument is optional and the default value is
+    `display` constructor argument is optional. Default value is
     [DisplayTarget.ACTUAL](../reference/ipyvizzu/template.md#ipyvizzu.template.DisplayTarget).
 
 !!! note
-    Not all of the options below work in all environments, before you choose,
-    please also check the [Environments chapter](../environments/index.md).
-
-The main advantage of using `ACTUAL`, `BEGIN` or `END`
-[DisplayTarget](../reference/ipyvizzu/template.md#ipyvizzu.template.DisplayTarget)
-is that once you have played the whole notebook, you can replay any intermediate
-cell without running the entire notebook again.
+    Not all options work in all environments, check the [Environments chapter](../environments/index.md) for more details.
 
 #### Actual
 
-By default or if `display` is set to `DisplayTarget.ACTUAL`, the chart is
-relocated and displayed after the cell that is actually running.
+Chart is relocated and displayed after each cell that has been run. This is set by default or if `display` is set to `DisplayTarget.ACTUAL`. 
 
 ```python
 from ipyvizzu import Chart, DisplayTarget
@@ -57,8 +48,7 @@ chart = Chart(display=DisplayTarget.ACTUAL)
 
 #### Begin
 
-if `display` is set to `DisplayTarget.BEGIN`, the chart is displayed after the
-cell of the constructor.
+Chart is displayed after the cell with the chart constructor if `display` is set to `DisplayTarget.BEGIN`.
 
 ```python
 from ipyvizzu import Chart, DisplayTarget
@@ -69,11 +59,10 @@ chart = Chart(display=DisplayTarget.BEGIN)
 
 #### End
 
-if `display` is set to `DisplayTarget.END`, the chart is displayed after the
-last running cell.
+If one cell is excuted, the chart will be displayed after the cell. 
+If multiple cells are run at once, the chart appears after the last cell set to run.
 
-!!! note
-    If you rerun an intermediate cell it becomes the last running cell.
+if `display` is set to `DisplayTarget.END`, the 
 
 ```python
 from ipyvizzu import Chart, DisplayTarget
@@ -84,15 +73,20 @@ chart = Chart(display=DisplayTarget.END)
 
 #### Manual
 
-If `display` is set to `DisplayTarget.MANUAL`, the chart is not displayed until
-a display function is called.
+Chart is displayed only when a display function is called if 
+`display` is set to `DisplayTarget.MANUAL`. 
+
+!!! note
+    Even though it runs in more environments, the disadvantage of using `MANUAL`
+    [DisplayTarget](../reference/ipyvizzu/template.md#ipyvizzu.template.DisplayTarget)
+    is that the chart cannot be modified after calling a display
+    function, without all the cells modifying the chart being rerun.
 
 One of the display functions is the `_repr_html_` method which is supported in
 most environments.
 
 ```python
 from ipyvizzu import Chart, DisplayTarget
-
 
 chart = Chart(display=DisplayTarget.MANUAL)
 
@@ -102,8 +96,7 @@ chart
 ```
 
 The other display function is the `show` method, which uses
-`IPython.display.display_javascript` function, like the `ACTUAL`, `BEGIN` and
-`END` targets, except it doesn't relocate the chart.
+`IPython.display.display_javascript` function.
 
 ```python
 from ipyvizzu import Chart, DisplayTarget
@@ -116,18 +109,12 @@ chart = Chart(display=DisplayTarget.MANUAL)
 chart.show()
 ```
 
-!!! note
-    Against better compatibility, the disadvantage of using `MANUAL`
-    [DisplayTarget](../reference/ipyvizzu/template.md#ipyvizzu.template.DisplayTarget)
-    is that the chart cannot be modified after calling one of the display
-    functions, so intermediate cells cannot be rerun.
+### Vizzu library
 
-### Vizzu
-
-`ipyvizzu` requires and downloads the [Vizzu](https://lib.vizzuhq.com/)
+`ipyvizzu` requires and automatically downloads the [Vizzu](https://lib.vizzuhq.com/)
 JavaScript/C++ library from
 [jsDelivr CDN](https://www.jsdelivr.com/package/npm/vizzu), but you can also use
-a self-hosted version of `Vizzu`.
+a self-hosted version.
 
 After download `Vizzu`, you can store and host it on your server.
 
@@ -146,21 +133,20 @@ chart = Chart(vizzu="<url>/vizzu.min.js")
 
 ### Scroll into view
 
-When the scroll into view feature is turned on, ipyvizzu is able to
-automatically follow and scroll to the currently running animation.
+When the scroll into view feature is turned on, `ipyvizzu` is able to
+automatically scroll to the chart being animated to view in the browser.
 
 !!! info
-    If manual scrolling is detected, ipyvizzu will not scroll automatically
+    If manual scrolling is detected while auto-scrolling, ipyvizzu will stop auto-scroll
     until the notebook is replayed again.
 
 !!! note
-    Scroll into view feature does not work in all environments, before you
-    choose, please also check the
+    Scroll into view feature does not work in all environments, please check the
     [Environments chapter](../environments/index.md).
 
-You can enable this feature, if set
+To enable this feature, set
 [scroll_into_view](../reference/ipyvizzu/chart.md#ipyvizzu.chart.Chart.scroll_into_view)
-property to `True` (which is `False` by default).
+property to `True` (it is `False` by default).
 
 ```python
 from ipyvizzu import Chart
