@@ -212,14 +212,14 @@ class GenExamples:
                 self._generate_example(item, datafile, title)
 
 
-class GenStories:
-    """A class for generating stories index page."""
+class GenRealLifeExamples:
+    """A class for generating real life examples index page."""
 
     # pylint: disable=too-few-public-methods
 
     @staticmethod
     def generate(src, dst) -> None:
-        """A method for generating stories index page."""
+        """A method for generating real life examples index page."""
 
         src = Path(src)
         items = list(src.rglob("*.md"))
@@ -294,7 +294,7 @@ def main() -> None:
     )
     animated.generate()
 
-    GenStories.generate("./docs/examples/stories/", "examples/stories")
+    GenRealLifeExamples.generate("./docs/examples/stories/", "examples/stories")
 
 
 main()

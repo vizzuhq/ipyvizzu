@@ -34,11 +34,10 @@ class Reference:
             elif parts[-1] == "__main__":
                 continue
 
+            mkdocs_gen_files.set_edit_path(full_doc_path, ".." / path)
             with mkdocs_gen_files.open(full_doc_path, "w") as f_md:
                 item = ".".join(parts)
                 f_md.write(f"::: {item}")
-
-            mkdocs_gen_files.set_edit_path(full_doc_path, ".." / path)
 
 
 def main() -> None:

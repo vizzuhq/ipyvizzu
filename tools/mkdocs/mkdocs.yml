@@ -117,7 +117,7 @@ nav:
       - Preset charts: examples/presets/
       - Animated charts: examples/animated/
       - Static charts: examples/static/
-      - Stories: examples/stories/
+      - Real life examples: examples/stories/
   - Code reference: reference/ipyvizzu/
   - Environments:
       - environments/index.md

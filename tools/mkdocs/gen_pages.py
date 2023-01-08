@@ -96,6 +96,9 @@ class IndexPages:
                 and isinstance(nav_item[0], str)
                 and nav_item[0].endswith("index.md")
             ):
+                original = Path("docs", nav_item[0])
+                if original.exists():
+                    mkdocs_gen_files.set_edit_path(nav_item[0], nav_item[0])
                 with mkdocs_gen_files.open(nav_item[0], "a") as f_index:
                     f_index.write("\n")
                 IndexPages._write_index_file(file=nav_item[0], toc=nav_item[1:])
@@ -135,6 +138,7 @@ class Page:
 
         content = content.replace(f"{site}/", "")
 
+        mkdocs_gen_files.set_edit_path(dst, ".." / Path(dst).parent / Path(src).name)
         with mkdocs_gen_files.open(dst, "w") as f_dst:
             f_dst.write(content)
 
