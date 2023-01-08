@@ -38,8 +38,8 @@ ipyvizzu
 Below you can see an example, place the following code blocks into notebook
 cells in order to try it in Mercury/mljar.
 
-For more information regarding to how to use ipyvizzu please check
-[Tutorial chapter](../../tutorial/index.md) of our documentation site.
+For more info about ipyvizzu please check
+[Tutorial chapter](../../tutorial/index.md).
 
 ```
 # configure application

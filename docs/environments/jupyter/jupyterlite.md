@@ -39,8 +39,8 @@ await micropip.install("ipyvizzu")
 Below you can see an example, place the following code blocks into notebook
 cells in order to try it in JupyterLite.
 
-For more information regarding to how to use ipyvizzu-story please check
-[Tutorial chapter](../../tutorial/index.md) of our documentation site.
+For more info about ipyvizzu please check
+[Tutorial chapter](../../tutorial/index.md).
 
 ```python
 # import pandas, js, asyncio, StringIO and ipyvizzu
