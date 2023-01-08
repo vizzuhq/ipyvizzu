@@ -1,13 +1,13 @@
 # Installation
 
-`ipyvizzu` requires `IPython`, `jsonschema` and `pandas` packages.
+`ipyvizzu` requires the `IPython`, `jsonschema` and `pandas` packages.
 
 !!! info
-    `ipyvizzu` requires and downloads [Vizzu](https://lib.vizzuhq.com/)
+    `ipyvizzu` requires and downloads the [Vizzu](https://lib.vizzuhq.com/)
     JavaScript/C++ library from
-    [jsDelivr CDN](https://www.jsdelivr.com/package/npm/vizzu), but obviously
-    you can use a self-hosted version of `Vizzu`, see
-    [Chart settings chapter](./tutorial/chart_settings.md) of our tutorial.
+    [jsDelivr CDN](https://www.jsdelivr.com/package/npm/vizzu), but 
+    you can also use a self-hosted version of `Vizzu`. Check
+    [Chart settings chapter](./tutorial/chart_settings.md) for more details.
 
 ## pypi
 
@@ -18,19 +18,19 @@ Run the following command to install `ipyvizzu` from
 pip install ipyvizzu
 ```
 
-or the command below to upgrade it.
+and this is how to upgrade it.
 
 ```sh
 pip install -U ipyvizzu
 ```
 
 You can use `ipyvizzu` in `Jupyter/IPython`, `Streamlit` or `Panel` (see
-[Environments chapter](environments/index.md) of our documentation site).
+[Environments chapter](environments/index.md) for more details).
 
 ### Jupyter/IPython
 
-You can easily install `ipyvizzu` in your notebook without using the command
-line if you place the following code into a cell.
+You can install `ipyvizzu` in your notebook without using the command
+line by entering the following code into a cell.
 
 ```
 !pip install ipyvizzu
@@ -57,7 +57,7 @@ conda install ipyvizzu
 mamba install ipyvizzu
 ```
 
-or the command below to upgrade it.
+And this is how to upgrade it.
 
 ```sh
 conda update ipyvizzu
