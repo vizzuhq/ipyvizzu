@@ -27,9 +27,9 @@ editor
 
 ## Installation
 
-Place the following code into a notebook cell in order to install ipyvizzu (for
-more installation options and details see
-[Installation chapter](../../installation.md) of our documentation site).
+Place the following code into a notebook cell in order to install ipyvizzu
+(visit [Installation chapter](../../installation.md) for more options and
+details).
 
 ```
 !pip install ipyvizzu

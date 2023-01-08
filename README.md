@@ -57,8 +57,8 @@ pip install ipyvizzu
 ```
 
 Visit
-[Installation chapter](https://ipyvizzu.vizzuhq.com/mkdocs/installation.html) of
-our documentation site for more installation options and details.
+[Installation chapter](https://ipyvizzu.vizzuhq.com/mkdocs/installation.html)
+for more options and details.
 
 ## Usage
 

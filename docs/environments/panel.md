@@ -24,9 +24,8 @@ Dislay restrictions:
 
 ## Installation
 
-Run the following command in your command line in order to install ipyvizzu (for
-more installation options and details see
-[Installation chapter](../installation.md) of our documentation site).
+Run the following command in your command line in order to install ipyvizzu
+(visit [Installation chapter](../installation.md) for more options and details).
 
 ```sh
 pip install ipyvizzu panel
