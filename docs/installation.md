@@ -57,7 +57,7 @@ conda install ipyvizzu
 mamba install ipyvizzu
 ```
 
-And this is how to upgrade it.
+and this is how to upgrade it.
 
 ```sh
 conda update ipyvizzu
