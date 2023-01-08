@@ -8,7 +8,7 @@ This is an excellent starting point to get acquainted with `ipyvizzu`, as it wal
 the installation of the library, introduces the logic it employs and the
 different settings to control how your animated charts look and behave.
 
-## The basic logic of ipyvizzu
+## Basic logic of ipyvizzu
 
 The foundation of an `ipyvizzu` chart is the animation. The
 animation contains states describing the chart's configuration, such as the data
