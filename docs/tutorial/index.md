@@ -1,24 +1,23 @@
 # Tutorial
 
-This is the tutorial of `ipyvizzu` - the `Python` integration of the
-free, open-source JavaScript/C++ library [Vizzu](https://lib.vizzuhq.com/). You
-can create animated charts, data stories, interactive reports and dashboards with it.
+This is the tutorial of `ipyvizzu` - the `Python` integration of the free,
+open-source JavaScript/C++ library [Vizzu](https://lib.vizzuhq.com/). You can
+create animated charts, data stories, interactive reports and dashboards with
+it.
 
-This is an excellent starting point to get acquainted with `ipyvizzu`, as it walks you through
-the installation of the library, introduces the logic it employs and the
-different settings to control how your animated charts look and behave.
+This is an excellent starting point to get acquainted with `ipyvizzu`, as it
+walks you through the installation of the library, introduces the logic it
+employs and the different settings to control how your animated charts look and
+behave.
 
 ## Basic logic of ipyvizzu
 
-The foundation of an `ipyvizzu` chart is the animation. The
-animation contains states describing the chart's configuration, such as the data
-series on the chart, the coordinate system, labels, titles, etc. A static chart is the result of
-a single animation state. When there are more states, `ipyizzu` automatically
+The foundation of an `ipyvizzu` chart is the animation. The animation contains
+states describing the chart's configuration, such as the data series on the
+chart, the coordinate system, labels, titles, etc. A static chart is the result
+of a single animation state. When there are more states, `ipyizzu` automatically
 transitions between these. The animate method initiates the animation into a new
-state by describing the new chart and how `ipyvizzu` should transition to it. The
-return value of the animate method is a promise that will be resolved after the
-animation is completed. Using this logic you can create a promise chain of
-animation from state to state.
+state by describing the new chart and how `ipyvizzu` should transition to it.
 
 ![Vizzu](../assets/code_structure.svg)
 
@@ -28,10 +27,9 @@ arguments sets the chart, and the (optional) keyword arguments determines how
 
 There are three types of non-keyword arguments:
 
-- `data`: this is where you add the data that you want to visualize 
+- `data`: this is where you add the data that you want to visualize
 - `config`: this is where you can add or remove series to the chart and set
-  general settings like the chart title, the geometry, the
-  alignment etc.
+  general settings like the chart title, the geometry, the alignment etc.
 - `style`: this is where you can set how your chart looks
 
 ## Installation
@@ -40,8 +38,7 @@ There are three types of non-keyword arguments:
 pip install ipyvizzu
 ```
 
-Visit [Installation chapter](../installation.md) for
-more options and details.
+Visit [Installation chapter](../installation.md) for more options and details.
 
 ## Usage
 

@@ -95,6 +95,7 @@ nav:
   - installation.md
   - Tutorial:
       - tutorial/index.md
+      - Chart settings: tutorial/chart_settings.md
       - Data: tutorial/data.md
       - Axes, title, tooltip: tutorial/axes_title_tooltip.md
       - Geometry: tutorial/geometry.md

@@ -5,8 +5,8 @@
 !!! info
     `ipyvizzu` requires and downloads the [Vizzu](https://lib.vizzuhq.com/)
     JavaScript/C++ library from
-    [jsDelivr CDN](https://www.jsdelivr.com/package/npm/vizzu), but 
-    you can also use a self-hosted version of `Vizzu`. Check
+    [jsDelivr CDN](https://www.jsdelivr.com/package/npm/vizzu), but you can also
+    use a self-hosted version of `Vizzu`. Check
     [Chart settings chapter](./tutorial/chart_settings.md) for more details.
 
 ## pypi
@@ -29,8 +29,8 @@ You can use `ipyvizzu` in `Jupyter/IPython`, `Streamlit` or `Panel` (see
 
 ### Jupyter/IPython
 
-You can install `ipyvizzu` in your notebook without using the command
-line by entering the following code into a cell.
+You can install `ipyvizzu` in your notebook without using the command line by
+entering the following code into a cell.
 
 ```
 !pip install ipyvizzu
