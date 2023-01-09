@@ -87,7 +87,7 @@ chart = Chart(display=DisplayTarget.END)
     our new extension
     [ipyvizzu-story](https://vizzuhq.github.io/ipyvizzu-story/) that enables you
     to build, present and share animated data stories in data science notebooks
-    with a very similar synthax to `ipyvizzu`'s.
+    with a very similar syntax to `ipyvizzu`'s.
 
 !!! info
     `DisplayTarget.ACTUAL`, `DisplayTarget.BEGIN` and `DisplayTarget.END` use
