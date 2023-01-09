@@ -59,10 +59,8 @@ chart = Chart(display=DisplayTarget.BEGIN)
 
 #### End
 
-If one cell is excuted, the chart will be displayed after the cell. 
+If `display` is set to `DisplayTarget.END`, then in case one cell is excuted, the chart will be displayed after the cell. 
 If multiple cells are run at once, the chart appears after the last cell set to run.
-
-if `display` is set to `DisplayTarget.END`, the 
 
 ```python
 from ipyvizzu import Chart, DisplayTarget
