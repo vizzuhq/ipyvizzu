@@ -86,7 +86,7 @@ class GenExamples:
                 "["
                 + f"![{title}]"
                 + f"({VizzuLib.url()}/{self._dst}/{item.stem}.png)"
-                + "{ class='example-gallery' }"
+                + "{ class='image-gallery' }"
                 + "]"
                 + f"(./{item.stem}.md)\n"
             )
@@ -96,7 +96,7 @@ class GenExamples:
             fh_index.write(
                 "<div>"
                 + f"<a href='./{item.stem}.html' title='{title}'>"
-                + "<video nocontrols autoplay muted loop class='example-gallery'"
+                + "<video nocontrols autoplay muted loop class='image-gallery'"
                 + f"src='{VizzuLib.url()}/{self._dst}/{item.stem}.mp4'"
                 + " type='video/mp4'></video>"
                 + "</a>"
@@ -233,7 +233,7 @@ class GenRealLifeExamples:
                 fh_index.write(
                     "<div>"
                     + f"<a href='./{item.stem}.html' title=''>"
-                    + "<video nocontrols autoplay muted loop class='example-gallery'"
+                    + "<video nocontrols autoplay muted loop class='image-gallery'"
                     + f"src='{VizzuLib.url()}/{dst}/{item.stem}.mp4'"
                     + " type='video/mp4'></video>"
                     + "</a>"

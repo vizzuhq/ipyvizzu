@@ -19,7 +19,7 @@ of a single animation state. When there are more states, `ipyizzu` automatically
 transitions between these. The animate method initiates the animation into a new
 state by describing the new chart and how `ipyvizzu` should transition to it.
 
-![Vizzu](../assets/code_structure.svg)
+![Vizzu](../assets/code_structure.svg){ class='image-center' }
 
 The animate method has non-keyword and keyword arguments. The non-keyword
 arguments sets the chart, and the (optional) keyword arguments determines how
