@@ -77,6 +77,9 @@ plugins:
             show_submodules: True
           import:
             - https://docs.python.org/3/objects.inv
+            - https://ipython.readthedocs.io/en/stable/objects.inv
+            - https://python-jsonschema.readthedocs.io/en/stable/objects.inv
+            - http://pandas.pydata.org/pandas-docs/stable/objects.inv
   - gen-files:
       scripts:
         - gen_pages.py
