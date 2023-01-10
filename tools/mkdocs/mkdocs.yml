@@ -66,6 +66,7 @@ plugins:
       implicit_index: true
   - autorefs
   - mkdocstrings:
+      enable_inventory: true
       handlers:
         python:
           paths: [../../src]
@@ -74,6 +75,8 @@ plugins:
             show_root_heading: True
             show_root_members_full_path: True
             show_submodules: True
+          import:
+            - https://docs.python.org/3/objects.inv
   - gen-files:
       scripts:
         - gen_pages.py
