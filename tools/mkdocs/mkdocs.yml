@@ -32,6 +32,7 @@ extra_css:
   - stylesheets/chart.css
 
 extra_javascript:
+  - javascripts/extlinks.js
   - //cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7/build/highlight.min.js
   - javascripts/highlight.js
 
