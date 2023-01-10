@@ -7,30 +7,23 @@ sources.
 
 !!! note
     Currently `filter` and `set_filter` methods only accept JavaScript
-    expression as string. Data fields can be accessed via record object, see the
-    examples below.
+    expression as string. The data fields can be accessed via the `record`
+    object, see the examples below.
 
-We add two items from the Genres dimension - using the || operator - to the
+We add two items from the `Genres` dimension - using the `||` operator - to the
 filter, so the chart elements that belong to the other two items will vanish
 from the chart.
 
 <div id="tutorial_01"></div>
 
 ```python
+import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
 
+data_frame = pd.read_csv("../data/music_data.csv")
 data1 = Data()
-data1.add_dimension("Genres", ["Pop", "Rock", "Jazz", "Metal"])
-data1.add_dimension("Kinds", ["Hard", "Smooth", "Experimental"])
-data1.add_measure(
-    "Popularity",
-    [
-        [114, 96, 78, 52],
-        [56, 36, 174, 121],
-        [127, 83, 94, 58],
-    ],
-)
+data1.add_data_frame(data_frame)
 
 
 chart = Chart()
@@ -60,7 +53,7 @@ chart.animate(filter1)
 
 Now we add a cross-filter that includes items from both the `Genres` and the
 `Kinds` dimensions. This way we override the filter from the previous state. If
-we weren't update the filter, ipyvizzu would use it in subsequent states.
+we weren't update the filter, `ipyvizzu` would use it in subsequent states.
 
 <div id="tutorial_02"></div>
 

@@ -4,7 +4,7 @@ csv_url: ../data/music_data.csv
 
 # Animation options
 
-In ipyvizzu you can set the timing and duration of the animation. You can do
+In `ipyvizzu` you can set the timing and duration of the animation. You can do
 this either for the whole animation, or for animation groups such as the
 elements moving along the x-axis or the y-axis, appearing or disappearing or
 when the coordinate system is changed.
@@ -121,7 +121,7 @@ chart.animate(
 )
 ```
 
-When the two settings are combined, ipyvizzu will use the general animation
+When the two settings are combined, `ipyvizzu` will use the general animation
 options and spread the unique settings for specific groups proportionally. This
 is why you can see the same animation as two steps before but happening much
 quicker since the duration of the whole animation is set to 1 second.

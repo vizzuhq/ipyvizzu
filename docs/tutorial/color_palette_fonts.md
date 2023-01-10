@@ -91,9 +91,9 @@ chart.animate(Config({"title": "Title font size - back to default"}))
 chart.animate(Style({"title": {"fontSize": None}}))
 ```
 
-In case you change the font size of the whole chart with the top-level fontSize
-parameter then every font on the chart will grow/shrink proportionally. The size
-refers to the font size of the axis labels by default.
+In case you change the font size of the whole chart with the top-level
+`fontSize` parameter then every font on the chart will grow/shrink
+proportionally. The size refers to the font size of the axis labels by default.
 
 <div id="tutorial_04"></div>
 

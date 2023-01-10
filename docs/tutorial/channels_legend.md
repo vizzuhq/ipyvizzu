@@ -4,9 +4,9 @@ csv_url: ../data/music_data.csv
 
 # Channels & legend
 
-Besides the x-axis and the y-axis, there are five more channels in ipyvizzu you
-can use to visualize your data. Similarly to the axes you can put any number of
-dimensions and/or one measure to a channel. In the following example the four
+Besides the x-axis and the y-axis, there are five more channels in `ipyvizzu`
+you can use to visualize your data. Similarly to the axes you can put any number
+of dimensions and/or one measure to a channel. In the following example the four
 most commonly used channels are shown. The fifth, noop channel is introduced
 later in the
 [Without coordinates & noop channel](./without_coordinates_noop_channel.md)

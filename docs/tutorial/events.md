@@ -4,17 +4,17 @@ csv_url: ../data/music_data.csv
 
 # Events
 
-You can register handlers for various events. There are mouse events (click,
-mouseon), animation events (begin, update, complete), and rendering events that
-are called before rendering the chart elements. Handlers can be
-registered/unregistered with the on(), off() method pair.
+You can register handlers for various events. There are mouse events (`click`,
+`mouseon`), animation events (`begin`, `update`, `complete`), and rendering
+events that are called before rendering the chart elements. Handlers can be
+registered/unregistered with the `on`, `off` method pair.
 
 !!! note
     Currently `on` method only accept handler's JavaScript expression as string.
-    Event can be accessed via `event` object, see the examples below.
+    The event can be accessed via the `event` object, see the examples below.
 
-We are registering a handler for the click event which will show an alert block
-with information about the clicked marker.
+We are registering a handler for the `click` event which will show an alert
+block with information about the clicked marker.
 
 <div id="tutorial_01"></div>
 

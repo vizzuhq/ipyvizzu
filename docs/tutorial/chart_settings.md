@@ -167,7 +167,7 @@ chart = Chart(vizzu="<url>/vizzu.min.js")
 When the scroll into view feature is turned on, `ipyvizzu` is able to
 automatically scroll to the chart being animated to view in the browser.
 
-If manual scrolling is detected while auto-scrolling, ipyvizzu will stop
+If manual scrolling is detected while auto-scrolling, `ipyvizzu` will stop
 auto-scroll until the notebook is replayed again.
 
 !!! info

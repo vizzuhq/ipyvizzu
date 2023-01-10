@@ -4,7 +4,7 @@ csv_url: ../data/music_data.csv
 
 # Align & range
 
-ipyvizzu offers different options to align your chart elements and to set the
+`ipyvizzu` offers different options to align your chart elements and to set the
 range of values shown on the axes. Alignment can be used to create charts like a
 stream chart where the elements are vertically centered. A good example for
 using range is when you fix the y-axis so that it would not adapt to the data
@@ -82,8 +82,8 @@ chart.animate(
 
 You can set the range of an axis by setting the minimum and maximum values of
 it. Both parameters are optional so that you can set only one of those, and you
-either set specific values or a relative value by adding the % sign. In this
-example, we set the range of the y-axis in a way that the max value is 150% of
+either set specific values or a relative value by adding the `%` sign. In this
+example, we set the range of the y-axis in a way that the max value is `150%` of
 the biggest element’s value.
 
 <div id="tutorial_04"></div>
@@ -129,7 +129,7 @@ chart.animate(
 Ranges have certain defaults depending on the chart's configuration, based on
 common data viz guidelines because we wanted to make it easy for you to create
 sleek charts. For example, in the cartesian coordinate system, the range will be
-automatically set to the max:110% for an axis with a measure on it. Polar
+automatically set to the `max:110%` for an axis with a measure on it. Polar
 coordinates work differently, as you can see for yourself in the
 [Orientation, split & polar chapter](./orientation_split_polar.md).
 

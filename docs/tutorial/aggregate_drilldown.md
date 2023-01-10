@@ -7,9 +7,9 @@ csv_url: ../data/music_data.csv
 These features basically mean that you add or remove an additional dimension
 to/from an axis or another channel.
 
-Let’s aggregate together the elements by getting the Genres dimension off the
+Let’s aggregate together the elements by getting the `Genres` dimension off the
 x-axis. By taking it off of the chart, only one chart element remains for every
-color, and ipyvizzu automatically calculates and shows the aggregate value of
+color, and `ipyvizzu` automatically calculates and shows the aggregate value of
 the elements.
 
 <div id="tutorial_01"></div>

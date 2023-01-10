@@ -62,8 +62,8 @@ chart.animate(
 ```
 
 Getting from a treemap to a bubble chart is simply by changing the geometry to
-circle. This bubble chart is stacked by the Type dimension that is on the size
-channel - this is why the bubbles are in separate, small groups.
+circle. This bubble chart is stacked by the `Kinds` dimension that is on the
+size channel - this is why the bubbles are in separate, small groups.
 
 <div id="tutorial_02"></div>
 
@@ -80,7 +80,7 @@ chart.animate(
 ```
 
 In order to show all bubbles as one group, we use the noop (no operations)
-channel for the Genres dimension. The noop channel enables us to have a
+channel for the `Genres` dimension. The noop channel enables us to have a
 dimension on the chart, that doesn’t affect any parameter of the elements, only
 their count.
 

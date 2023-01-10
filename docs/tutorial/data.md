@@ -2,21 +2,21 @@
 
 ## Data types
 
-ipyvizzu currently supports two types of data series: dimensions and measures.
-Dimensions slice the data cube ipyvizzu uses, whereas measures are values within
-the cube.
+`ipyvizzu` currently supports two types of data series: dimensions and measures.
+Dimensions slice the data cube `ipyvizzu` uses, whereas measures are values
+within the cube.
 
 Dimensions are categorical series that can contain strings and numbers, but both
 will be treated as strings. Temporal data such as dates or timestamps should
-also be added as dimensions. By default, ipyvizzu will draw the elements on the
-chart in the order they are provided in the data set. Thus we suggest adding
+also be added as dimensions. By default, `ipyvizzu` will draw the elements on
+the chart in the order they are provided in the data set. Thus we suggest adding
 temporal data in a sorted format from oldest to newest.
 
 Measures at the moment can only be numerical.
 
 ## Adding data
 
-There are multiple ways you can add data to ipyvizzu.
+There are multiple ways you can add data to `ipyvizzu`.
 
 - Using pandas DataFrame
 - Specify data by series - column after column if you think of a spreadsheet

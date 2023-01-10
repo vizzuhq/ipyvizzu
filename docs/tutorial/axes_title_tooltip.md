@@ -4,7 +4,7 @@ csv_url: ../data/music_data.csv
 
 # Axes, title, tooltip
 
-To build a chart with ipyvizzu, you have to add data series to the channels.
+To build a chart with `ipyvizzu`, you have to add data series to the channels.
 Channels will be explained more in-depth later, but for now, think of channels
 as different elements of the chart we can bind data to. The simplest and most
 often used channels are the x and y-axes.
@@ -42,8 +42,8 @@ chart.animate(
 ```
 
 In the next step, the chart is rearranged by putting both series on the y-axis
-using once again the set property, resulting in a single column chart. ipyvizzu
-automatically animates between the initial state and this one.
+using once again the set property, resulting in a single column chart.
+`ipyvizzu` automatically animates between the initial state and this one.
 
 <div id="tutorial_02"></div>
 

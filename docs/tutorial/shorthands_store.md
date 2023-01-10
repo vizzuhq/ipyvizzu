@@ -108,7 +108,7 @@ chart.animate(
 )
 ```
 
-In any case, you can simply omit the the channel object, ipyvizzu will
+In any case, you can simply omit the channel object, `ipyvizzu` will
 automatically recognize the channels by their names.
 
 <div id="tutorial_04"></div>

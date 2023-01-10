@@ -4,10 +4,10 @@ csv_url: ../data/music_data.csv
 
 # Chart layout
 
-ipyvizzu has three separate parts of the chart layout: the plot area that
+`ipyvizzu` has three separate parts of the chart layout: the plot area that
 contains the chart, the title containing the chart title on the top, and the
-legend on the left. ipyvizzu automatically hides the legend when it’s
-unnecessary to show it. When the title is not in use, ipyvizzu hides that part
+legend on the left. `ipyvizzu` automatically hides the legend when it’s
+unnecessary to show it. When the title is not in use, `ipyvizzu` hides that part
 automatically as well. Each of these parts have their own paddings on all four
 sides that adjust to the chart size by default, but can also be set with the
 appropriate settings in the style object. All size parameters can be set in

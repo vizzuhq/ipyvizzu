@@ -4,9 +4,9 @@ csv_url: ../data/music_data.csv
 
 # Sorting
 
-ipyvizzu provides multiple options to sort data. By default, the data is sorted
-by the order it is added to ipyvizzu. This is why we suggest to add temporal
-data such as dates in chronological order - from oldest to newest.
+`ipyvizzu` provides multiple options to sort data. By default, the data is
+sorted by the order it is added to `ipyvizzu`. This is why we suggest to add
+temporal data such as dates in chronological order - from oldest to newest.
 
 You can also sort the elements by value, which will provide you with an
 ascending order.
@@ -51,8 +51,8 @@ chart.animate(
 ```
 
 If you want descending order instead, you have to set the reverse parameter to
-true. When used without setting the sorting to byValue, the elements will be in
-the opposite order than they are in the data set added to ipyvizzu.
+`True`. When used without setting the sorting to `byValue`, the elements will be
+in the opposite order than they are in the data set added to `ipyvizzu`.
 
 <div id="tutorial_02"></div>
 
@@ -106,8 +106,8 @@ chart.animate(
 )
 ```
 
-When switching the order of dimensions on the x-axis ipyvizzu will rearrange the
-elements according to this new logic.
+When switching the order of dimensions on the x-axis `ipyvizzu` will rearrange
+the elements according to this new logic.
 
 !!! note
     The legend is automatically removed during the animation.

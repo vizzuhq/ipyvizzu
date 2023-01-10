@@ -15,9 +15,10 @@ behave.
 The foundation of an `ipyvizzu` chart is the animation. The animation contains
 states describing the chart's configuration, such as the data series on the
 chart, the coordinate system, labels, titles, etc. A static chart is the result
-of a single animation state. When there are more states, `ipyizzu` automatically
-transitions between these. The animate method initiates the animation into a new
-state by describing the new chart and how `ipyvizzu` should transition to it.
+of a single animation state. When there are more states, `ipyvizzu`
+automatically transitions between these. The animate method initiates the
+animation into a new state by describing the new chart and how `ipyvizzu` should
+transition to it.
 
 ![Vizzu](../assets/code_structure.svg){ class='image-center' }
 

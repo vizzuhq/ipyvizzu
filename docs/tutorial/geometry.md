@@ -4,7 +4,7 @@ csv_url: ../data/music_data.csv
 
 # Geometry
 
-In ipyvizzu you can set the geometric elements used to represent your data by
+In `ipyvizzu` you can set the geometric elements used to represent your data by
 the geometry property within the config object. This is where the library shines
 \- beautifully animating between the geometries!
 
@@ -60,7 +60,7 @@ chart.animate(
 )
 ```
 
-Rectangle geometry is the default setting in ipyvizzu, used for most common
+Rectangle geometry is the default setting in `ipyvizzu`, used for most common
 charts like bar and column charts.
 
 <div id="tutorial_04"></div>
