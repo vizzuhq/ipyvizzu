@@ -1,24 +1,24 @@
 @media screen and (max-width: 600px) {
   .image-gallery {
-    width: 99%;
+    width: 75%;
   }
 }
 
-@media screen and (min-width: 601px) and (max-width: 1400px) {
+@media screen and (min-width: 601px) and (max-width: 1687px) {
   .image-gallery {
-    width: 49%;
+    width: 37.5%;
   }
 }
 
-@media screen and (min-width: 1401px) {
+@media screen and (min-width: 1688px) {
   .image-gallery {
-    width: 32%;
+    width: 25%;
   }
 }
 
 .image-gallery {
   float: left;
-  /*max-width: 320px !important;*/
+  max-width: 450px !important;
 }
 
 .image-center {
