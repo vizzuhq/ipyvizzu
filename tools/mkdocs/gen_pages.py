@@ -136,7 +136,7 @@ class Page:
                 match[0], f"[{match[1]}]({match[3]}.md{match[5]})"
             )
 
-        content = content.replace(f"{site}/", "")
+        content = content.replace(f"{site}/", "").replace(f"{site}", "./")
 
         mkdocs_gen_files.set_edit_path(dst, ".." / Path(dst).parent / Path(src).name)
         with mkdocs_gen_files.open(dst, "w") as f_dst:
