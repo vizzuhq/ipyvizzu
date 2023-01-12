@@ -6,6 +6,10 @@
 
 - Changed cdn url to jsdelivr style.
 
+### Added
+
+- Added: `__all__` into `__init__.py`
+
 ## [0.13.0] - 2022-10-19
 
 ### Added
