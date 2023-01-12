@@ -202,7 +202,10 @@ class GenExamples:
                 titles = re.findall(GenExamples.title_re, content)
                 if not titles:
                     raise ValueError("failed to find title")
-                title = ", ".join(titles)
+                title = titles[0]
+                if len(titles) > 1:
+                    title = " to ".join([title, titles[-1]])
+                    title = title.replace("Chart", "")
 
                 if self._video:
                     self._add_video(item, title)
