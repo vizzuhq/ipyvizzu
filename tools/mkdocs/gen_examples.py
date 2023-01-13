@@ -11,6 +11,19 @@ import mkdocs_gen_files
 from ipyvizzu import Chart
 
 
+SET_PARENT_STYLE: str = """
+<script>
+const currentScript = document.currentScript;
+document.addEventListener("DOMContentLoaded", (event) => {
+  const parentContainer = currentScript.nextElementSibling;
+  parentContainer.style.display = "flex";
+  parentContainer.style["flex-wrap"] = "wrap";
+  parentContainer.style.justifyContent = "center";
+});
+</script>
+"""
+
+
 class VizzuLib:
     """A class for providing vizzu-lib related information."""
 
@@ -79,6 +92,7 @@ class GenExamples:
             meta = """---\nhide:\n  - toc\n---"""
             fh_index.write(f"{meta}\n\n")
             fh_index.write(f"# {self._name}\n")
+            fh_index.write(SET_PARENT_STYLE)
 
     def _add_image(self, item: Path, title: str) -> None:
         with mkdocs_gen_files.open(f"{self._dst}/index.md", "a") as fh_index:
@@ -94,13 +108,11 @@ class GenExamples:
     def _add_video(self, item: Path, title: str) -> None:
         with mkdocs_gen_files.open(f"{self._dst}/index.md", "a") as fh_index:
             fh_index.write(
-                "<div>"
-                + f"<a href='./{item.stem}.html' title='{title}'>"
+                f"<a href='./{item.stem}.html' title='{title}'>"
                 + "<video nocontrols autoplay muted loop class='image-gallery'"
                 + f"src='{VizzuLib.url()}/{self._dst}/{item.stem}.mp4'"
                 + " type='video/mp4'></video>"
-                + "</a>"
-                + "</div>\n"
+                + "</a>\n"
             )
 
     @staticmethod
@@ -186,7 +198,6 @@ class GenExamples:
         """A method for generating examples."""
 
         self._create_index()
-
         src = Path(f"./vizzu-lib/{self._src}")
         items = list(src.rglob("*.mjs"))
         items.sort(key=lambda f: f.stem)
@@ -215,32 +226,27 @@ class GenExamples:
                 self._generate_example(item, datafile, title)
 
 
-class GenRealLifeExamples:
+class GenRealLifeExamples(GenExamples):
     """A class for generating real life examples index page."""
 
-    # pylint: disable=too-few-public-methods
+    def __init__(self, name: str, src: str, dst: str) -> None:
+        super().__init__(name, src, dst, True)
 
-    @staticmethod
-    def generate(src, dst) -> None:
-        """A method for generating real life examples index page."""
+    def generate(self) -> None:
+        """A method for overwriting GenExamples.generate method."""
 
-        src = Path(src)
+        self._create_index()
+        src = Path(self._src)
         items = list(src.rglob("*.md"))
         items.sort(key=lambda f: f.stem)
-        with mkdocs_gen_files.open(f"{dst}/index.md", "a") as fh_index:
-            meta = """---\nhide:\n  - toc\n---"""
-            fh_index.write(f"{meta}\n\n")
-
         for item in items:
-            with mkdocs_gen_files.open(f"{dst}/index.md", "a") as fh_index:
+            with mkdocs_gen_files.open(f"{self._dst}/index.md", "a") as fh_index:
                 fh_index.write(
-                    "<div>"
-                    + f"<a href='./{item.stem}.html' title=''>"
+                    f"<a href='./{item.stem}.html' title=''>"
                     + "<video nocontrols autoplay muted loop class='image-gallery'"
-                    + f"src='{VizzuLib.url()}/{dst}/{item.stem}.mp4'"
+                    + f"src='{VizzuLib.url()}/{self._dst}/{item.stem}.mp4'"
                     + " type='video/mp4'></video>"
-                    + "</a>"
-                    + "</div>\n"
+                    + "</a>\n"
                 )
 
 
@@ -297,7 +303,12 @@ def main() -> None:
     )
     animated.generate()
 
-    GenRealLifeExamples.generate("./docs/examples/stories/", "examples/stories")
+    real = GenRealLifeExamples(
+        "Real life examples",
+        "./docs/examples/stories/",
+        "examples/stories",
+    )
+    real.generate()
 
 
 main()
