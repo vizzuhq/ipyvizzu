@@ -129,7 +129,7 @@ nav:
   - Code reference: reference/ipyvizzu/
   - Environments:
       - environments/index.md
-      - Jupyter/IPython:
+      - Notebooks:
           - environments/jupyter/index.md
           - Jupyter Notebook: environments/jupyter/jupyternotebook.md
           - environments/jupyter/colab.md
@@ -139,14 +139,20 @@ nav:
           - JupyterLab: environments/jupyter/jupyterlab.md
           - JupyterLite: environments/jupyter/jupyterlite.md
           - environments/jupyter/kaggle.md
-          - Mercury/mljar: environments/jupyter/mercury.md
-          - environments/jupyter/mode.md
           - environments/jupyter/noteable.md
-          - PyCharm: environments/jupyter/pycharm.md
+      - App platforms:
+          - environments/platform/index.md
+          - environments/streamlit.md
+          - environments/panel.md
+          - Mercury/mljar: environments/jupyter/mercury.md
           - Voilà: environments/jupyter/voila.md
+      - BI tools:
+          - environments/bi/index.md
+          - environments/jupyter/mode.md
+      - IDEs:
+          - environments/ide/index.md
+          - PyCharm: environments/jupyter/pycharm.md
           - VSCode Python: environments/jupyter/vscode.md
-      - environments/streamlit.md
-      - environments/panel.md
   - Development:
       - dev/index.md
       - Contributing: CONTRIBUTING.md

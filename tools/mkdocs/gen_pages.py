@@ -62,7 +62,7 @@ class IndexPages:
         with mkdocs_gen_files.open(file, "a") as f_index:
             parts = item.split("/")
             part = parts[-1].replace(".md", "").capitalize()
-            link = Path(item).relative_to(Path(file).parent)
+            link = Path(os.path.relpath(item, Path(file).parent))
             f_index.write(f"* [{part}]({link})\n")
 
     @staticmethod
@@ -76,7 +76,9 @@ class IndexPages:
                 if item[key] and isinstance(item[key], list):
                     if isinstance(item[key][0], str):
                         if item[key][0].endswith("index.md"):
-                            link = Path(item[key][0]).relative_to(Path(file).parent)
+                            link = Path(
+                                os.path.relpath(item[key][0], Path(file).parent)
+                            )
                             f_index.write(f"* [{key}]({link})\n")
                             continue
                 raise NotImplementedError(f"{item}")
