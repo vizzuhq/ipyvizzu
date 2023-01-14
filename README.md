@@ -137,8 +137,8 @@ for more details.
 - BI tools
   - [Mode](https://ipyvizzu.vizzuhq.com/mkdocs/environments/bi/mode.html)
 - IDEs
-  - [PyCharm](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/pycharm.html)
-  - [VSCode Python](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/vscode.html)
+  - [PyCharm](https://ipyvizzu.vizzuhq.com/mkdocs/environments/ide/pycharm.html)
+  - [VSCode Python](https://ipyvizzu.vizzuhq.com/mkdocs/environments/ide/vscode.html)
 
 ## Extensions
 

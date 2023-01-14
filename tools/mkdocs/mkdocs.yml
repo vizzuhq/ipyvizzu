@@ -151,8 +151,8 @@ nav:
           - environments/bi/mode.md
       - IDEs:
           - environments/ide/index.md
-          - PyCharm: environments/jupyter/pycharm.md
-          - VSCode Python: environments/jupyter/vscode.md
+          - PyCharm: environments/ide/pycharm.md
+          - VSCode Python: environments/ide/vscode.md
   - Development:
       - dev/index.md
       - Contributing: CONTRIBUTING.md
