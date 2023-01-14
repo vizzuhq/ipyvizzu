@@ -2,16 +2,17 @@
 
 This is the tutorial of `ipyvizzu` - the `Python` integration of the free,
 open-source JavaScript/C++ library [`Vizzu`](https://lib.vizzuhq.com/). You can
-create animated charts, data stories, interactive reports and dashboards with
-it in Jupyter and similar notebooks and app building platforms.
+create animated charts, data stories, interactive reports and dashboards with it
+in Jupyter and similar notebooks and app building platforms.
 
 This is an excellent starting point to get acquainted with `ipyvizzu`, as it
 walks you through the installation of the library, introduces the logic it
 employs and the different settings to control how your animated charts look and
 behave.
 
-The tutorial is organized into chapters that introduce the concept and the details of `ipyvizzu` step-by-step.
-You can find the list of chapters at the end of this page and in the menu.
+The tutorial is organized into chapters that introduce the concept and the
+details of `ipyvizzu` step-by-step. You can find the list of chapters at the end
+of this page and in the menu.
 
 ## Basic logic of ipyvizzu
 
