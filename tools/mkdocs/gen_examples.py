@@ -227,7 +227,7 @@ class GenExamples:
 
 
 class GenRealLifeExamples(GenExamples):
-    """A class for generating real life examples index page."""
+    """A class for generating real-life examples index page."""
 
     def __init__(self, name: str, src: str, dst: str) -> None:
         super().__init__(name, src, dst, True)
@@ -304,7 +304,7 @@ def main() -> None:
     animated.generate()
 
     real = GenRealLifeExamples(
-        "Real life examples",
+        "Real-life examples",
         "./docs/examples/stories/",
         "examples/stories",
     )
