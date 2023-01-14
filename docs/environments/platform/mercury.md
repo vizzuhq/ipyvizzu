@@ -1,13 +1,16 @@
 # Mercury/mljar
 
-You can use ipyvizzu in Mercury/mljar with the following restrictions:
+## Features
 
-- [x] Change the url of Vizzu (`vizzu`)
-- [x] Change the width of the chart (`width`)
-- [x] Change the height of the chart (`height`)
+The features of `ipyvizzu` that are available in `Mercury/mljar` are marked with
+a green check.
+
+- [x] Change the url of `Vizzu` (`vizzu`)
+- [x] Change the width of the `Chart` (`width`)
+- [x] Change the height of the `Chart` (`height`)
 - [x] Use scroll into view (`scroll_into_view`=`True`)
 
-Dislay restrictions:
+Dislay features:
 
 - [ ] Display all animations after `_repr_html_` method called
   (`display`=`DisplayTarget.MANUAL`)
@@ -22,9 +25,12 @@ Dislay restrictions:
 - [ ] Rerun any cell without rerun the first cell
   (`display`!=`DisplayTarget.MANUAL`)
 
+Check [Chart settings chapter](../../tutorial/chart_settings.md) for more
+details.
+
 ## Installation
 
-Add ipyvizzu to requirements.txt.
+Add `ipyvizzu` to `requirements.txt`.
 
 ```
 python-dotenv

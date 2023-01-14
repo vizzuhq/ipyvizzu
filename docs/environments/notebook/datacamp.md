@@ -1,13 +1,16 @@
 # DataCamp
 
-You can use ipyvizzu in DataCamp with the following restrictions:
+## Features
 
-- [x] Change the url of Vizzu (`vizzu`)
-- [x] Change the width of the chart (`width`)
-- [x] Change the height of the chart (`height`)
+The features of `ipyvizzu` that are available in `DataCamp` are marked with a
+green check.
+
+- [x] Change the url of `Vizzu` (`vizzu`)
+- [x] Change the width of the `Chart` (`width`)
+- [x] Change the height of the `Chart` (`height`)
 - [x] Use scroll into view (`scroll_into_view`=`True`)
 
-Dislay restrictions:
+Dislay features:
 
 - [x] Display all animations after `_repr_html_` method called
   (`display`=`DisplayTarget.MANUAL`) \*
@@ -22,12 +25,15 @@ Dislay restrictions:
 - [x] Rerun any cell without rerun the first cell
   (`display`!=`DisplayTarget.MANUAL`)
 
-\*ipyvizzu does not work in the default editor, switch to the JupyterLab-style
-editor
+\*`ipyvizzu` does not work in the default editor, switch to the
+`JupyterLab`-style editor
+
+Check [Chart settings chapter](../../tutorial/chart_settings.md) for more
+details.
 
 ## Installation
 
-Place the following code into a notebook cell in order to install ipyvizzu
+Place the following code into a notebook cell in order to install `ipyvizzu`
 (visit [Installation chapter](../../installation.md) for more options and
 details).
 
