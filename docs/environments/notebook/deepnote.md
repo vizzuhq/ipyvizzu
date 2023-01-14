@@ -28,6 +28,10 @@ Dislay features:
 Check [Chart settings chapter](../../tutorial/chart_settings.md) for more
 details.
 
+## Live example
+
+[![View in Deepnote](https://deepnote.com/static/buttons/view-in-deepnote.svg)](https://deepnote.com/workspace/david-andras-vegh-bc03-79fd3a98-abaf-40c0-8b52-9f3e438a73fc/project/ipyvizzu-demo-dff3c2c3-f212-434e-8fa1-23d843c52fe3/%2Fipyvizzu_demo.ipynb)
+
 ## Installation
 
 Place the following code into a notebook cell in order to install `ipyvizzu`
@@ -38,13 +42,9 @@ details).
 !pip install ipyvizzu
 ```
 
-## Example
+## Sample
 
-Below you can see an example, place the following code blocks into notebook
-cells in order to try it in Deepnote.
-
-For more info about ipyvizzu please check
-[Tutorial chapter](../../tutorial/index.md).
+Try `ipyvizzu` in `Deepnote` with the following sample.
 
 ```python
 # import pandas and ipyvizzu
@@ -58,9 +58,8 @@ from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 chart = Chart(
     width="640px", height="360px", display=DisplayTarget.MANUAL
 )
-```
 
-```python
+
 # add data to Chart
 
 data = Data()
@@ -71,9 +70,8 @@ data_frame = pd.read_csv(
 data.add_data_frame(data_frame)
 
 chart.animate(data)
-```
 
-```python
+
 # add config to Chart
 
 chart.animate(
@@ -96,22 +94,17 @@ chart.animate(
     )
 )
 chart.animate(Config({"x": "Count", "y": ["Sex", "Survived"]}))
-```
 
-```python
+
 # add style to Chart
 
 chart.animate(Style({"title": {"fontSize": 35}}))
-```
 
-```python
+
 # display Chart with show or _repr_html_ method (display=DisplayTarget.MANUAL)
 
 chart.show()
 # chart
 ```
 
-## Try it!
-
-Place the above code blocks into notebook cells in order to try it.
-[![View in Deepnote](https://deepnote.com/static/buttons/view-in-deepnote.svg)](https://deepnote.com/workspace/david-andras-vegh-bc03-79fd3a98-abaf-40c0-8b52-9f3e438a73fc/project/ipyvizzu-demo-dff3c2c3-f212-434e-8fa1-23d843c52fe3/%2Fipyvizzu_demo.ipynb)
+Check the [Tutorial](../../tutorial/index.md) for more info.

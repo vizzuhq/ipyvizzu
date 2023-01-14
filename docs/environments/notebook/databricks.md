@@ -28,6 +28,10 @@ Dislay features:
 Check [Chart settings chapter](../../tutorial/chart_settings.md) for more
 details.
 
+## Live example
+
+[Open in Databricks](https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/808850182010194/3745120999164565/1947355309752283/latest.html)
+
 ## Installation
 
 Place the following code into a notebook cell in order to install `ipyvizzu`
@@ -38,13 +42,9 @@ details).
 !pip install ipyvizzu
 ```
 
-## Example
+## Sample
 
-Below you can see an example, place the following code blocks into notebook
-cells in order to try it in Databricks.
-
-For more info about ipyvizzu please check
-[Tutorial chapter](../../tutorial/index.md).
+Try `ipyvizzu` in `Databricks` with the following sample.
 
 ```python
 # import pandas and ipyvizzu
@@ -58,9 +58,8 @@ from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 chart = Chart(
     width="640px", height="360px", display=DisplayTarget.MANUAL
 )
-```
 
-```python
+
 # add data to Chart
 
 data = Data()
@@ -71,9 +70,8 @@ data_frame = pd.read_csv(
 data.add_data_frame(data_frame)
 
 chart.animate(data)
-```
 
-```python
+
 # add config to Chart
 
 chart.animate(
@@ -96,20 +94,16 @@ chart.animate(
     )
 )
 chart.animate(Config({"x": "Count", "y": ["Sex", "Survived"]}))
-```
 
-```python
+
 # add style to Chart
 
 chart.animate(Style({"title": {"fontSize": 35}}))
-```
 
-```python
+
 # display Chart with _repr_html_ method (display=DisplayTarget.MANUAL)
 
 chart
 ```
 
-## Try it!
-
-Place the above code blocks into notebook cells in order to try it.
+Check the [Tutorial](../../tutorial/index.md) for more info.

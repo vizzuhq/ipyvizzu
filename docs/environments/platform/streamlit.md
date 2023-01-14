@@ -38,13 +38,9 @@ details).
 pip install ipyvizzu streamlit
 ```
 
-## Example
+## Sample
 
-Below you can see an example, place the following code blocks into a python file
-in order to try it in Streamlit.
-
-For more info about ipyvizzu please check
-[Tutorial chapter](../../tutorial/index.md).
+Try `ipyvizzu` in `Streamlit` with the following sample.
 
 ```python
 # import streamlit, pandas and ipyvizzu
@@ -115,8 +111,6 @@ CHART = create_chart()
 html(CHART, width=650, height=370)
 ```
 
-## Try it!
-
 Place the above code blocks into a python file (for example called
 `ipyvizzu_example.py`) and run the following command in your command line in
 order to try it.
@@ -124,3 +118,5 @@ order to try it.
 ```sh
 streamlit run ipyvizzu_example.py
 ```
+
+Check the [Tutorial](../../tutorial/index.md) for more info.

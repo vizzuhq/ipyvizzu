@@ -40,13 +40,9 @@ import micropip
 await micropip.install("ipyvizzu")
 ```
 
-## Example
+## Sample
 
-Below you can see an example, place the following code blocks into notebook
-cells in order to try it in JupyterLite.
-
-For more info about ipyvizzu please check
-[Tutorial chapter](../../tutorial/index.md).
+Try `ipyvizzu` in `JupyterLite` with the following sample.
 
 ```python
 # import pandas, js, asyncio, StringIO and ipyvizzu
@@ -65,9 +61,8 @@ chart = Chart(
 # chart = Chart(width="640px", height="360px", display=DisplayTarget.BEGIN)
 # chart = Chart(width="640px", height="360px", display=DisplayTarget.END)
 # chart = Chart(width="640px", height="360px", display=DisplayTarget.MANUAL)
-```
 
-```python
+
 # add data to Chart
 # download data from https://github.com/
 # vizzuhq/ipyvizzu/raw/main/docs/examples/stories/titanic/titanic.csv
@@ -111,9 +106,8 @@ data_frame = pd.read_csv(StringIO(data_csv["content"]))
 data.add_data_frame(data_frame)
 
 chart.animate(data)
-```
 
-```python
+
 # add config to Chart
 
 chart.animate(
@@ -136,21 +130,17 @@ chart.animate(
     )
 )
 chart.animate(Config({"x": "Count", "y": ["Sex", "Survived"]}))
-```
 
-```python
+
 # add style to Chart
 
 chart.animate(Style({"title": {"fontSize": 35}}))
-```
 
-```python
+
 # display Chart with show or _repr_html_ method (display=DisplayTarget.MANUAL)
 
 # chart.show()
 # chart
 ```
 
-## Try it!
-
-Place the above code blocks into notebook cells in order to try it.
+Check the [Tutorial](../../tutorial/index.md) for more info.

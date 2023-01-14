@@ -38,13 +38,9 @@ details).
 pip install ipyvizzu panel
 ```
 
-## Example
+## Sample
 
-Below you can see an example, place the following code blocks into a python file
-in order to try it in Panel.
-
-For more info about ipyvizzu please check
-[Tutorial chapter](../../tutorial/index.md).
+Try `ipyvizzu` in `Panel` with the following sample.
 
 ```python
 # import panel, pandas and ipyvizzu
@@ -127,12 +123,12 @@ pn.pane.Markdown(
 pn.pane.HTML(CHART, height=370, sizing_mode="stretch_both").servable()
 ```
 
-## Try it!
-
 Place the above code blocks into a python file (for example called
 `ipyvizzu_example.py`) and run the following command in your command line in
 order to try it.
 
 ```sh
-panel serve ipyvizzu_example.py  # --autoreload
+panel serve ipyvizzu_example.py --autoreload
 ```
+
+Check the [Tutorial](../../tutorial/index.md) for more info.

@@ -39,13 +39,9 @@ mljar-mercury
 ipyvizzu
 ```
 
-## Example
+## Sample
 
-Below you can see an example, place the following code blocks into notebook
-cells in order to try it in Mercury/mljar.
-
-For more info about ipyvizzu please check
-[Tutorial chapter](../../tutorial/index.md).
+Try `ipyvizzu` in `Mercury/mljar` with the following sample.
 
 ```
 # configure application
@@ -85,9 +81,8 @@ chart = Chart(
 # chart = Chart(width="640px", height="360px", display=DisplayTarget.BEGIN)
 # chart = Chart(width="640px", height="360px", display=DisplayTarget.END)
 # chart = Chart(width="640px", height="360px", display=DisplayTarget.MANUAL)
-```
 
-```python
+
 # add data to Chart
 
 data = Data()
@@ -98,9 +93,8 @@ data_frame = pd.read_csv(
 data.add_data_frame(data_frame)
 
 chart.animate(data)
-```
 
-```python
+
 # add config to Chart
 
 chart.animate(
@@ -123,27 +117,22 @@ chart.animate(
     )
 )
 chart.animate(Config({"x": "Count", "y": ["Sex", "Survived"]}))
-```
 
-```python
+
 # add style to Chart
 
 chart.animate(Style({"title": {"fontSize": 35}}))
-```
 
-```python
+
 # filter data by the selected gender to Chart
 
 data_filter = Data.filter(f"record['Sex'] == '{gender}'")
 chart.animate(data_filter)
-```
 
-```python
+
 # display Chart with show method (display=DisplayTarget.MANUAL)
 
 # chart.show()
 ```
 
-## Try it!
-
-Place the above code blocks into notebook cells in order to try it.
+Check the [Tutorial](../../tutorial/index.md) for more info.
