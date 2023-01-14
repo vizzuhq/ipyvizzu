@@ -1,5 +1,5 @@
-const csv2JsLoaded = import("../../../javascripts/csv2js.js");
-const mdChartLoaded = import("../../../javascripts/mdchart.js");
+const csv2JsLoaded = import("../../../assets/javascripts/csv2js.js");
+const mdChartLoaded = import("../../../assets/javascripts/mdchart.js");
 
 Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
   const Csv2Js = results[0].default;

@@ -21,7 +21,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
 
-data_frame = pd.read_csv("../data/music_data.csv")
+data_frame = pd.read_csv("../assets/data/music_data.csv")
 data1 = Data()
 data1.add_data_frame(data_frame)
 

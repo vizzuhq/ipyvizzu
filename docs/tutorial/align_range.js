@@ -1,5 +1,5 @@
-const dataLoaded = import("../data/music_data.js");
-const mdChartLoaded = import("../javascripts/mdchart.js");
+const dataLoaded = import("../assets/data/music_data.js");
+const mdChartLoaded = import("../assets/javascripts/mdchart.js");
 
 Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   const data = results[0].default;

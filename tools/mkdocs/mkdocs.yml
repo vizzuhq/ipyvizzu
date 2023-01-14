@@ -26,15 +26,15 @@ theme:
     - navigation.footer
 
 extra_css:
-  - stylesheets/vizzu.css
-  - stylesheets/highlight.css
-  - stylesheets/gallery.css
-  - stylesheets/chart.css
+  - assets/stylesheets/vizzu.css
+  - assets/stylesheets/highlight.css
+  - assets/stylesheets/gallery.css
+  - assets/stylesheets/chart.css
 
 extra_javascript:
-  - javascripts/extlinks.js
+  - assets/javascripts/extlinks.js
   - //cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7/build/highlight.min.js
-  - javascripts/highlight.js
+  - assets/javascripts/highlight.js
 
 extra:
   social:

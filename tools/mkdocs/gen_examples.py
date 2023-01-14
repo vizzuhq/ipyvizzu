@@ -143,14 +143,14 @@ class GenExamples:
                 encoding="utf8",
             ) as fh_data:
                 datacontent = fh_data.read()
-            with mkdocs_gen_files.open(f"data/{datafile}.js", "w") as fh_data:
+            with mkdocs_gen_files.open(f"assets/data/{datafile}.js", "w") as fh_data:
                 fh_data.write(datacontent)
 
             content = GenExamples._run_node(
                 "./tools/mkdocs/mjs2csv.mjs",
                 f"../../vizzu-lib/test/integration/test_data/{datafile}.mjs",
             )
-            with mkdocs_gen_files.open(f"data/{datafile}.csv", "w") as f_example:
+            with mkdocs_gen_files.open(f"assets/data/{datafile}.csv", "w") as f_example:
                 f_example.write(content)
 
     def _generate_example_js(

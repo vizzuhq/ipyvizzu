@@ -15,7 +15,7 @@ class PresetsMock {
 class VizzuMock {
   constructor(title, dataFileName) {
     this.code = `---
-csv_url: ../../data/${dataFileName}.csv
+csv_url: ../../assets/data/${dataFileName}.csv
 ---
 
 # ${title}
@@ -28,7 +28,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style
 
 data_frame = pd.read_csv(
-    '../../data/${dataFileName}.csv',
+    '../../assets/data/${dataFileName}.csv',
     dtype={"Year": str, "Timeseries": str},
 )
 data = Data()
