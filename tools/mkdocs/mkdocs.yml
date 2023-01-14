@@ -30,6 +30,7 @@ extra_css:
   - assets/stylesheets/highlight.css
   - assets/stylesheets/gallery.css
   - assets/stylesheets/chart.css
+  - assets/stylesheets/style_reference.css
 
 extra_javascript:
   - assets/javascripts/extlinks.js
@@ -85,6 +86,7 @@ plugins:
         - gen_pages.py
         - gen_examples.py
         - gen_reference.py
+        - gen_style_reference.py
   - coverage:
       page_name: coverage
       html_report_dir: tests/coverage

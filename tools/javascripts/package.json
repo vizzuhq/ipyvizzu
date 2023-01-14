@@ -25,6 +25,7 @@
     "prettier": "*",
     "eslint": "*",
     "eslint-config-standard": "*",
-    "eslint-config-prettier": "*"
+    "eslint-config-prettier": "*",
+    "puppeteer": "*"
   }
 }

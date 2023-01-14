@@ -2,13 +2,20 @@
 
 from pathlib import Path
 import re
-from subprocess import PIPE, Popen
+import sys
 from typing import List, Dict, Optional
 
 import mdformat
 import mkdocs_gen_files
 
 from ipyvizzu import Chart
+
+
+sys.path.insert(0, "./tools/mkdocs")
+
+from node import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
+    Node,
+)
 
 
 SET_PARENT_STYLE: str = """
@@ -116,23 +123,6 @@ class GenExamples:
             )
 
     @staticmethod
-    def _run_node(script: str, *params: str) -> str:
-        with Popen(
-            ["node", script, *params],
-            stdin=PIPE,
-            stdout=PIPE,
-            stderr=PIPE,
-        ) as node:
-            outs, errs = node.communicate()
-
-        if node.returncode or errs:
-            if errs:
-                raise RuntimeError(errs.decode())
-            raise RuntimeError(f"failed to run {Path(script).stem}")
-
-        return outs.decode()
-
-    @staticmethod
     def _generate_example_data(datafile: str) -> None:
         if datafile not in GenExamples.datafiles:
             GenExamples.datafiles[datafile] = True
@@ -146,7 +136,7 @@ class GenExamples:
             with mkdocs_gen_files.open(f"assets/data/{datafile}.js", "w") as fh_data:
                 fh_data.write(datacontent)
 
-            content = GenExamples._run_node(
+            content = Node.run(
                 "./tools/mkdocs/mjs2csv.mjs",
                 f"../../vizzu-lib/test/integration/test_data/{datafile}.mjs",
             )
@@ -163,7 +153,7 @@ class GenExamples:
             dst_type = "md"
             params.append(title)
 
-        content = GenExamples._run_node(f"./tools/mkdocs/mjs2{dst_type}.mjs", *params)
+        content = Node.run(f"./tools/mkdocs/mjs2{dst_type}.mjs", *params)
         if dst_type == "md":
             content = mdformat.text(  # type: ignore
                 content,

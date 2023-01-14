@@ -139,7 +139,7 @@ else
 	rm -rf `find docs -name '.ipynb_checkpoints'`
 endif
 
-doc: $(DEV_BUILD_FLAG)
+doc: $(DEV_BUILD_FLAG) $(DEV_JS_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/mkdocs build -s -f ./tools/mkdocs/mkdocs.yml -d ../../site
 
 
