@@ -25,7 +25,8 @@ Dislay restrictions:
 ## Installation
 
 Run the following command in your command line in order to install ipyvizzu
-(visit [Installation chapter](../installation.md) for more options and details).
+(visit [Installation chapter](../../installation.md) for more options and
+details).
 
 ```sh
 pip install ipyvizzu streamlit
@@ -37,7 +38,7 @@ Below you can see an example, place the following code blocks into a python file
 in order to try it in Streamlit.
 
 For more info about ipyvizzu please check
-[Tutorial chapter](../tutorial/index.md).
+[Tutorial chapter](../../tutorial/index.md).
 
 ```python
 # import streamlit, pandas and ipyvizzu
