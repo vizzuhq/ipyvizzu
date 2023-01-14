@@ -117,18 +117,18 @@ ipyvizzu can be used in a wide variety of environments, visit
 for more details.
 
 - Notebooks
-  - [Jupyter Notebook](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/jupyternotebook.html)
-  - [Colab](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/colab.html)
+  - [Jupyter Notebook](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/jupyternotebook.html)
+  - [Colab](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/colab.html)
     [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/19H4etDPuSyJ3LNJbshsfEAnxxwjJgZgq?usp=sharing)
-  - [Databricks](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/databricks.html)
-  - [DataCamp](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/datacamp.html)
-  - [Deepnote](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/deepnote.html)
+  - [Databricks](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/databricks.html)
+  - [DataCamp](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/datacamp.html)
+  - [Deepnote](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/deepnote.html)
     [![View in Deepnote](https://deepnote.com/static/buttons/view-in-deepnote.svg)](https://deepnote.com/workspace/david-andras-vegh-bc03-79fd3a98-abaf-40c0-8b52-9f3e438a73fc/project/ipyvizzu-demo-dff3c2c3-f212-434e-8fa1-23d843c52fe3/%2Fipyvizzu_demo.ipynb)
-  - [JupyterLab](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/jupyterlab.html)
-  - [JupyterLite](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/jupyterlite.html)
-  - [Kaggle](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/kaggle.html)
+  - [JupyterLab](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/jupyterlab.html)
+  - [JupyterLite](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/jupyterlite.html)
+  - [Kaggle](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/kaggle.html)
     [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/dvidandrsvgh/ipyvizzu-demo)
-  - [Noteable](https://ipyvizzu.vizzuhq.com/mkdocs/environments/jupyter/noteable.html)
+  - [Noteable](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/noteable.html)
 - App platforms
   - [Streamlit](https://ipyvizzu.vizzuhq.com/mkdocs/environments/platform/streamlit.html)
   - [Panel](https://ipyvizzu.vizzuhq.com/mkdocs/environments/platform/panel.html)

@@ -130,16 +130,16 @@ nav:
   - Environments:
       - environments/index.md
       - Notebooks:
-          - environments/jupyter/index.md
-          - Jupyter Notebook: environments/jupyter/jupyternotebook.md
-          - environments/jupyter/colab.md
-          - environments/jupyter/databricks.md
-          - DataCamp: environments/jupyter/datacamp.md
-          - environments/jupyter/deepnote.md
-          - JupyterLab: environments/jupyter/jupyterlab.md
-          - JupyterLite: environments/jupyter/jupyterlite.md
-          - environments/jupyter/kaggle.md
-          - environments/jupyter/noteable.md
+          - environments/notebook/index.md
+          - Jupyter Notebook: environments/notebook/jupyternotebook.md
+          - environments/notebook/colab.md
+          - environments/notebook/databricks.md
+          - DataCamp: environments/notebook/datacamp.md
+          - environments/notebook/deepnote.md
+          - JupyterLab: environments/notebook/jupyterlab.md
+          - JupyterLite: environments/notebook/jupyterlite.md
+          - environments/notebook/kaggle.md
+          - environments/notebook/noteable.md
       - App platforms:
           - environments/platform/index.md
           - environments/platform/streamlit.md
