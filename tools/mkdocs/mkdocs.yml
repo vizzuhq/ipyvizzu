@@ -89,11 +89,11 @@ plugins:
       page_name: coverage
       html_report_dir: tests/coverage
   - mkdocs-jupyter:
-      include: ["community/*.ipynb"]
+      include: []
       ignore: []
       ignore_h1_titles: False
       include_source: True
-      execute: True
+      execute: False
       allow_errors: False
       kernel_name: .venv
 

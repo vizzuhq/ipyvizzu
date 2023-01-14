@@ -2,7 +2,7 @@
 
 import os
 from pathlib import Path
-from typing import Union, Optional
+from typing import Union, Optional, List
 import re
 
 import yaml
@@ -84,12 +84,15 @@ class IndexPages:
                 raise NotImplementedError(f"{item}")
 
     @staticmethod
-    def generate(nav_item: Union[list, dict, str]) -> None:
+    def generate(
+        nav_item: Union[list, dict, str], skip: Optional[List[str]] = None
+    ) -> None:
         """
         A method for creating section indices for the navigation.
 
         Args:
             nav_item: Part of the navigation.
+            skip: List of index files to skip.
         """
 
         if isinstance(nav_item, list):
@@ -98,17 +101,18 @@ class IndexPages:
                 and isinstance(nav_item[0], str)
                 and nav_item[0].endswith("index.md")
             ):
-                original = Path("docs", nav_item[0])
-                if original.exists():
-                    mkdocs_gen_files.set_edit_path(nav_item[0], nav_item[0])
-                with mkdocs_gen_files.open(nav_item[0], "a") as f_index:
-                    f_index.write("\n")
-                IndexPages._write_index_file(file=nav_item[0], toc=nav_item[1:])
+                if not skip or nav_item[0] not in skip:
+                    original = Path("docs", nav_item[0])
+                    if original.exists():
+                        mkdocs_gen_files.set_edit_path(nav_item[0], nav_item[0])
+                    with mkdocs_gen_files.open(nav_item[0], "a") as f_index:
+                        f_index.write("\n")
+                    IndexPages._write_index_file(file=nav_item[0], toc=nav_item[1:])
             for item in nav_item:
-                IndexPages.generate(nav_item=item)
+                IndexPages.generate(nav_item=item, skip=skip)
         elif isinstance(nav_item, dict):
             for key in nav_item:
-                IndexPages.generate(nav_item=nav_item[key])
+                IndexPages.generate(nav_item=nav_item[key], skip=skip)
 
 
 class Page:
@@ -153,7 +157,7 @@ def main() -> None:
 
     config = MkdocsConfig.load(Path(__file__).parent / "mkdocs.yml")
 
-    IndexPages.generate(nav_item=config["nav"])
+    IndexPages.generate(nav_item=config["nav"], skip=["examples/index.md"])
 
     Page.generate(
         src=Path(__file__).parent / ".." / ".." / "README.md",
