@@ -148,7 +148,7 @@ nav:
           - Voilà: environments/platform/voila.md
       - BI tools:
           - environments/bi/index.md
-          - environments/jupyter/mode.md
+          - environments/bi/mode.md
       - IDEs:
           - environments/ide/index.md
           - PyCharm: environments/jupyter/pycharm.md
