@@ -79,11 +79,20 @@ const setClickEventScriptLoaded = fs.readFile(
   { encoding: "utf8" }
 );
 
-Promise.all([elementValue, setClickEventScriptLoaded]).then((results) => {
-  const elementValue = results[0];
-  const setClickEventScript = results[1];
-  let content = "";
-  content = appendContent(JSON.parse(elementValue), 0);
-  content += `<script>${setClickEventScript}</script>`;
-  console.log(content);
+const setAllScriptLoaded = fs.readFile("./tools/mkdocs/styles/set_all.mjs", {
+  encoding: "utf8",
 });
+
+Promise.all([elementValue, setClickEventScriptLoaded, setAllScriptLoaded]).then(
+  (results) => {
+    const elementValue = results[0];
+    const setClickEventScript = results[1];
+    const setAllScript = results[2];
+    let content = "";
+    content += `<p id="allbtn-style" class="allbtn-style"><button type="button">+&nbsp;Expand All</button></p>`;
+    content += appendContent(JSON.parse(elementValue), 0);
+    content += `<script>${setClickEventScript}</script>`;
+    content += `<script>${setAllScript}</script>`;
+    console.log(content);
+  }
+);
