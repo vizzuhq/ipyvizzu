@@ -89,7 +89,7 @@ Promise.all([elementValue, setClickEventScriptLoaded, setAllScriptLoaded]).then(
     const setClickEventScript = results[1];
     const setAllScript = results[2];
     let content = "";
-    content += `<p id="allbtn-style" class="allbtn-style"><button type="button">+&nbsp;Expand All</button></p>`;
+    content += `<p id="allbtn-style" class="allbtn-style"><button type="button">+&nbsp;expand all</button></p>`;
     content += appendContent(JSON.parse(elementValue), 0);
     content += `<script>${setClickEventScript}</script>`;
     content += `<script>${setAllScript}</script>`;

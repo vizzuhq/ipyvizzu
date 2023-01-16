@@ -7,11 +7,11 @@ pAll.addEventListener("click", function () {
     const button = coll[i].getElementsByTagName("button")[0];
     if (collapsible && button.textContent.includes("-")) {
       coll[i].click();
-      btnAll.textContent = "+ Expand All";
+      btnAll.textContent = "+ expand all";
     }
     if (!collapsible && button.textContent.includes("+")) {
       coll[i].click();
-      btnAll.textContent = "- Collapse All";
+      btnAll.textContent = "- collapse all";
     }
   }
 });

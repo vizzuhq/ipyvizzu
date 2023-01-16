@@ -105,12 +105,12 @@ nav:
   - Tutorial:
       - tutorial/index.md
       - Chart settings: tutorial/chart_settings.md
-      - Data: tutorial/data.md
+      - tutorial/data.md
       - Axes, title, tooltip: tutorial/axes_title_tooltip.md
-      - Geometry: tutorial/geometry.md
+      - tutorial/geometry.md
       - Channels & legend: tutorial/channels_legend.md
       - Group/stack: tutorial/group_stack.md
-      - Sorting: tutorial/sorting.md
+      - tutorial/sorting.md
       - Align & range: tutorial/align_range.md
       - Aggregate/drill-down: tutorial/aggregate_drilldown.md
       - Orientation, split & polar: tutorial/orientation_split_polar.md
@@ -119,9 +119,10 @@ nav:
       - Color palette & fonts: tutorial/color_palette_fonts.md
       - Chart layout: tutorial/chart_layout.md
       - Animation options: tutorial/animation_options.md
-      - Events: tutorial/events.md
+      - tutorial/events.md
       - Shorthands & Store: tutorial/shorthands_store.md
       - Chart presets: tutorial/chart_presets.md
+      - tutorial/style.md
   - Examples:
       - examples/index.md
       - Preset charts: examples/presets/

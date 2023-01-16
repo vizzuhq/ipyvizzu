@@ -33,7 +33,7 @@ class StyleReference:
             "https://vizzu-lib-main.storage.googleapis.com/lib/vizzu.min.js",  # Chart.VIZZU
         )
         with mkdocs_gen_files.open(dst, "a") as f_index:
-            f_index.write(f"{content}\n")
+            f_index.write(f"\n{content}\n")
 
 
 def main() -> None:
