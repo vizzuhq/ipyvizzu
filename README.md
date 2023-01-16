@@ -2,7 +2,7 @@
   <a href="https://github.com/vizzuhq/ipyvizzu">
     <img src="https://github.com/vizzuhq/vizzu-lib-doc/raw/main/docs/readme/infinite-60.gif" alt="Vizzu" />
   </a>
-  <p align="center"><b>ipyvizzu</b> - Build animated charts in many environments with a simple Python syntax</p>
+  <p align="center"><b>ipyvizzu</b> - Build animated charts in Jupyter Notebook and similar environments with a simple Python syntax</p>
   <p align="center">
     <a href="https://ipyvizzu.vizzuhq.com/doc.html">Tutorial</a>
     · <a href="http://ipyvizzu.vizzuhq.com/examples/examples.html">Examples</a>
@@ -18,7 +18,7 @@
 
 ipyvizzu is an animated charting tool for [Jupyter](https://jupyter.org), [Google Colab](https://colab.research.google.com), [Databricks](https://docs.databricks.com/notebooks), [Kaggle](https://www.kaggle.com/code) and [Deepnote](https://deepnote.com) notebooks among other platforms. ipyvizzu enables data scientists and analysts to utilize animation for storytelling with data using Python. It's built on the open-source Javascript/C++ charting library [Vizzu](https://github.com/vizzuhq/vizzu-lib)
 
-**There is a new extension of ipyvizzu, [ipyvizzu-story](https://github.com/vizzuhq/ipyvizzu-story)** with which the animated charts can be presented right from the notebooks. Since ipyvizzu-story's syntax is a bit different to ipyvizzu's, we suggest you to start from the [ipyvizzu-story repo](https://github.com/vizzuhq/ipyvizzu-story) if you're interested in using animated charts to present your findings live or to share your presentation as an HTML file.
+**There is a new extension of ipyvizzu, [ipyvizzu-story](https://github.com/vizzuhq/ipyvizzu-story)** with which the animated charts can be presented right from the notebooks and shared as an interactive HTML file. Since ipyvizzu-story's syntax is a bit different to ipyvizzu's, we suggest you to start from the [ipyvizzu-story repo](https://github.com/vizzuhq/ipyvizzu-story) if you're interested in using animated charts to present your findings.
 
 Similarly to Vizzu, ipyvizzu utilizes a generic dataviz engine that generates many types of charts and seamlessly animates between them. It is designed for building animated data stories as it enables showing different perspectives of the data that the viewers can easily follow.
 
