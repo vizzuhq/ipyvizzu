@@ -1,6 +1,6 @@
 """
-Build animated charts in Jupyter Notebook and
-in many other environments with a simple Python syntax.
+Build animated charts in Jupyter Notebook
+and similar environments with a simple Python syntax.
 """
 
 from .chart import Chart
