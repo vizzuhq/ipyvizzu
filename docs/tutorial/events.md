@@ -85,7 +85,7 @@ chart.off(label_draw)
 ```
 
 The default behaviour of all events can be blocked by calling the event's
-`preventDefault` method. Here we block the drawing of the Vizzu Logo in the
+`preventDefault` method. Here we block the drawing of the `Vizzu` logo in the
 bottom right corner of the chart.
 
 <div id="tutorial_03"></div>

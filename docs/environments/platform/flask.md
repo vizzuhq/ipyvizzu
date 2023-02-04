@@ -1,8 +1,8 @@
-# Voilà
+# Flask
 
 ## Features
 
-The features of `ipyvizzu` that are available in `Voilà` are marked with a green
+The features of `ipyvizzu` that are available in `Flask` are marked with a green
 check.
 
 - [x] Change the url of `Vizzu` (`vizzu`)
@@ -12,15 +12,15 @@ check.
 
 Dislay features:
 
-- [x] Display all animations after `_repr_html_` method called
+- [ ] Display all animations after `_repr_html_` method called
+  (`display`=`DisplayTarget.MANUAL`) \*
+- [ ] Display all animations after `show` method called
   (`display`=`DisplayTarget.MANUAL`)
-- [x] Display all animations after `show` method called
-  (`display`=`DisplayTarget.MANUAL`)
-- [x] Automatically display all animations after the first cell
+- [ ] Automatically display all animations after the first cell
   (`display`=`DisplayTarget.BEGIN`)
-- [x] Automatically display all animations after the currently running cell
+- [ ] Automatically display all animations after the currently running cell
   (`display`=`DisplayTarget.ACTUAL`)
-- [x] Automatically display all animations after the last running cell
+- [ ] Automatically display all animations after the last running cell
   (`display`=`DisplayTarget.END`)
 - [ ] Rerun any cell without rerun the first cell
   (`display`!=`DisplayTarget.MANUAL`)
@@ -28,41 +28,36 @@ Dislay features:
 Check [Chart settings chapter](../../tutorial/chart_settings.md) for more
 details.
 
+\*you can display the `Chart` in other ways, see the sample below
+
 ## Installation
 
-Run the following command in your command line
-
-```sh
-pip install ipyvizzu voila
-```
-
-or place the following code into a notebook cell in order to install `ipyvizzu`
+Run the following command in your command line in order to install `ipyvizzu`
 (visit [Installation chapter](../../installation.md) for more options and
 details).
 
-```
-!pip install ipyvizzu
+```sh
+pip install ipyvizzu flask
 ```
 
 ## Sample
 
-Try `ipyvizzu` in `Voilà` with the following sample.
+Try `ipyvizzu` in `Flask` with the following sample.
 
 ```python
-# import pandas and ipyvizzu
+# import flask, pandas and ipyvizzu
 
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
+
+from flask import Flask, render_template
 
 
 # initialize Chart
 
 chart = Chart(
-    width="640px", height="360px"
-)  # or Chart(width="640px", height="360px", display=DisplayTarget.ACTUAL)
-# chart = Chart(width="640px", height="360px", display=DisplayTarget.BEGIN)
-# chart = Chart(width="640px", height="360px", display=DisplayTarget.END)
-# chart = Chart(width="640px", height="360px", display=DisplayTarget.MANUAL)
+    width="640px", height="360px", display=DisplayTarget.MANUAL
+)
 
 
 # add data to Chart
@@ -106,18 +101,38 @@ chart.animate(Config({"x": "Count", "y": ["Sex", "Survived"]}))
 chart.animate(Style({"title": {"fontSize": 35}}))
 
 
-# display Chart with show or _repr_html_ method (display=DisplayTarget.MANUAL)
+# display Chart
 
-# chart.show()
-# chart
+app = Flask(__name__)
+html = chart._repr_html_()
+
+
+@app.route("/")
+def vizzu():
+    return render_template("vizzu.html", mychart=html)
 ```
 
-Place the above code blocks into notebook cells in a notebook file (for example
-called `ipyvizzu_example.ipynb`) and run the following command in your command
-line in order to try it.
+Place the above code blocks into a python file (for example called
+`application.py`), create the html template (`templates/vizzu.html`) with the
+following content
+
+```html
+<!DOCTYPE html>
+<html>
+ <body>
+  <div class="container">
+   <iframe frameborder="0" height="480px" scrolling="no" src="data:text/html, {{ mychart }}" width="800px">
+   </iframe>
+  </div>
+ </body>
+</html>
+
+```
+
+and run the following command in your command line in order to try it.
 
 ```sh
-voila ipyvizzu_example.ipynb
+flask --app application run
 ```
 
 Check the [Tutorial](../../tutorial/index.md) for more info.

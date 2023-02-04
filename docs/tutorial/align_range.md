@@ -134,7 +134,7 @@ coordinates work differently, as you can see for yourself in the
 [Orientation, split & polar chapter](./orientation_split_polar.md).
 
 Whenever you want to set your ranges back to the default value, just set them to
-`auto`.
+`'auto'`.
 
 <div id="tutorial_06"></div>
 

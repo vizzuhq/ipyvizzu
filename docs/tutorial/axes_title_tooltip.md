@@ -99,8 +99,8 @@ chart.animate(Config({"title": "My first chart"}))
 ```
 
 Switching on the tooltips that appear on the chart elements when the user hovers
-over them with their mouse by adding the (tooltip, true) parameters to the
-chart.feature method.
+over them with their mouse by adding the (`"tooltip"`, `True`) parameters to the
+`chart.feature` method.
 
 <div id="tutorial_05"></div>
 

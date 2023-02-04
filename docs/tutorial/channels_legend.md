@@ -12,9 +12,9 @@ later in the
 [Without coordinates & noop channel](./without_coordinates_noop_channel.md)
 chapter.
 
-Data on the label channel will be written on the markers on the chart. ipyizzu
-automatically determines the best way to position these labels, but you can set
-them differently with the style object introduced in the
+Data on the label channel will be written on the markers on the chart.
+`ipyvizzu` automatically determines the best way to position these labels, but
+you can set them differently with the style object introduced in the
 [Color palette & fonts](./color_palette_fonts.md) chapter.
 
 <div id="tutorial_01"></div>

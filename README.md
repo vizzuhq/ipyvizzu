@@ -128,6 +128,7 @@ for more details.
   - [Noteable](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/noteable.html)
 - App platforms
   - [Streamlit](https://ipyvizzu.vizzuhq.com/mkdocs/environments/platform/streamlit.html)
+  - [Flask](https://ipyvizzu.vizzuhq.com/mkdocs/environments/platform/flask.html)
   - [Panel](https://ipyvizzu.vizzuhq.com/mkdocs/environments/platform/panel.html)
   - [Mercury/mljar](https://ipyvizzu.vizzuhq.com/mkdocs/environments/platform/mercury.html)
   - [Voilà](https://ipyvizzu.vizzuhq.com/mkdocs/environments/platform/voila.html)
