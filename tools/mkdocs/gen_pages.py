@@ -121,7 +121,7 @@ class Page:
     # pylint: disable=too-few-public-methods
 
     @staticmethod
-    def generate(src: Path, dst: str, site: str) -> None:
+    def generate(src: Path, dst: str, site: str, keep: bool = False) -> None:
         """
         A method for generating a page.
 
@@ -129,6 +129,7 @@ class Page:
             src: Source path.
             dst: Destination path.
             site: Site url.
+            keep: Place the original content into a pre tag.
         """
 
         with open(src, "rt", encoding="utf8") as f_src:
@@ -143,6 +144,9 @@ class Page:
             )
 
         content = content.replace(f"{site}/", "").replace(f"{site}", "./")
+
+        if keep:
+            content = f"<pre>{content}</pre>"
 
         mkdocs_gen_files.set_edit_path(dst, ".." / Path(dst).parent / Path(src).name)
         with mkdocs_gen_files.open(dst, "w") as f_dst:
@@ -181,6 +185,7 @@ def main() -> None:
         src=Path(__file__).parent / ".." / ".." / "LICENSE",
         dst="LICENSE.md",
         site=config["site_url"],
+        keep=True,
     )
 
 
