@@ -248,21 +248,21 @@ def main() -> None:
 
     presets = GenExamples(
         "Preset charts",
-        "test/integration/test_cases/web_content/preset",
+        "test/integration/test_cases/web_content/presets",
         "examples/presets",
     )
     presets.generate()
 
     static = GenExamples(
         "Static charts",
-        "test/integration/test_cases/web_content/sample_static",
+        "test/integration/test_cases/web_content/static",
         "examples/static",
     )
     static.generate()
 
     animated = GenExamples(
         "Animated charts",
-        "test/integration/test_cases/web_content/templates",
+        "test/integration/test_cases/web_content/animated",
         "examples/animated",
         video=True,
     )
