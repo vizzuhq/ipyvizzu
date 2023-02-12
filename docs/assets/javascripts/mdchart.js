@@ -19,7 +19,7 @@ class MdChart {
     const div = document.getElementById(this.id + "_" + number);
 
     return Promise.all([chart, prevChart]).then((results) => {
-      const chart = results[0];
+      let chart = results[0];
       const prevChart = results[1];
       div.classList.remove("loading");
       div.classList.add("playing");
@@ -37,7 +37,9 @@ class MdChart {
           }
         }
       }
-      return chart.animate(animTarget, 0);
+      chart = chart.animate(animTarget);
+      chart.activated.then((control) => control.seek("100%"));
+      return chart;
     });
   }
 
@@ -59,6 +61,7 @@ class MdChart {
       return chart;
     });
 
+    let firstRun = true;
     let clicked = false;
     div.onclick = () => {
       if (!clicked) {
@@ -71,13 +74,18 @@ class MdChart {
         });
         for (let i = 0; i < snippet.anims.length; i++) {
           chart = chart.then((chart) => {
-            return snippet.anims[i](chart, {});
+            chart = snippet.anims[i](chart, {});
+            if (firstRun) {
+              chart.activated.then((control) => control.seek("100%"));
+            }
+            return chart;
           });
         }
         chart.then(() => {
           div.classList.remove("playing");
           div.classList.add("replay");
           clicked = false;
+          firstRun = false;
         });
 
         return chart;
