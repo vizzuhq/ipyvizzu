@@ -51,7 +51,6 @@ from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 
 
 def create_chart():
-
     # initialize Chart
 
     chart = Chart(

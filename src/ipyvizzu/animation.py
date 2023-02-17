@@ -395,8 +395,8 @@ class ConfigAttr(type):
     """
 
     @classmethod
-    def __getattr__(cls, name):
-        config_attr = cls("ConfigAttr", (object,), {"name": name})
+    def __getattr__(mcs, name):
+        config_attr = mcs("ConfigAttr", (object,), {"name": name})
         return config_attr._get_preset  # pylint: disable=no-member
 
     def _get_preset(cls, preset):

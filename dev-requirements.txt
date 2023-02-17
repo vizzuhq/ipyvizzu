@@ -95,7 +95,7 @@ fqdn==1.5.1
     # via jsonschema
 ghp-import==2.1.0
     # via mkdocs
-griffe==0.25.4
+griffe==0.25.5
     # via mkdocstrings-python
 identify==2.5.18
     # via pre-commit
@@ -155,7 +155,7 @@ jsonschema[format-nongpl]==4.17.3
     # via
     #   jupyter-events
     #   nbformat
-jupyter-client==8.0.2
+jupyter-client==8.0.3
     # via
     #   ipykernel
     #   jupyter-server
@@ -174,7 +174,7 @@ jupyter-core==5.2.0
     #   notebook
 jupyter-events==0.6.3
     # via jupyter-server
-jupyter-server==2.2.1
+jupyter-server==2.3.0
     # via
     #   nbclassic
     #   notebook-shim
@@ -537,7 +537,7 @@ types-pyyaml==6.0.12.6
     # via -r dev-requirements.in
 types-setuptools==57.4.18
     # via beautysh
-typing-extensions==4.4.0
+typing-extensions==4.5.0
     # via
     #   astroid
     #   black
