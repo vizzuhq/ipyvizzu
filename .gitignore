@@ -12,7 +12,7 @@ tests/coverage
 
 vizzu-lib
 
-.venv
+.venv_ipyvizzu
 
 site
 node_modules

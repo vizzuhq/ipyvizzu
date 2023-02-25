@@ -1,12 +1,15 @@
+strict: true
+
 site_name: ipyvizzu
 site_url: https://ipyvizzu.vizzuhq.com/mkdocs
 copyright: Copyright &copy; 2022-2023 Vizzu
 
 docs_dir: ../../docs
+site_dir: ../../site
 
 repo_url: https://github.com/vizzuhq/ipyvizzu
 edit_uri: https://github.com/vizzuhq/ipyvizzu/edit/mkdocs/docs
-use_directory_urls: false
+use_directory_urls: true
 
 theme:
   name: material
@@ -59,6 +62,10 @@ markdown_extensions:
   - attr_list
   - md_in_html
   - admonition
+  - pymdownx.highlight:
+      use_pygments: false
+  - pymdownx.details
+  - pymdownx.superfences
 
 plugins:
   - search
@@ -97,7 +104,7 @@ plugins:
       include_source: True
       execute: False
       allow_errors: False
-      kernel_name: .venv
+      kernel_name: .venv_ipyvizzu
 
 nav:
   - Home: index.md
