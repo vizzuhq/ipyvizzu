@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "ipyvizzu-dev": "file:tools/javascripts"
+  }
+}
