@@ -75,7 +75,7 @@ class MdChart {
         for (let i = 0; i < snippet.anims.length; i++) {
           chart = chart.then((chart) => {
             chart = snippet.anims[i](chart, {});
-            if (firstRun && chart.activated) {
+            if (this.id === "tutorial" && firstRun && chart.activated) {
               chart.activated.then((control) => control.seek("100%"));
             }
             return chart;

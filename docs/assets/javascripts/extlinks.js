@@ -1,6 +1,9 @@
 function changeTarget(links, target) {
   for (let i = 0; i < links.length; i++) {
-    if (links[i].hostname !== window.location.hostname) {
+    if (
+      links[i].hostname !== window.location.hostname ||
+      links[i].href.includes("/assets/")
+    ) {
       links[i].target = target;
     }
   }
