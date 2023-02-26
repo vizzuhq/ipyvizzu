@@ -91,7 +91,7 @@ plugins:
   - gen-files:
       scripts:
         - gen_pages.py
-        - gen_examples.py
+        - examples/gen_examples.py
         - gen_reference.py
         - style/gen_style_reference.py
   - coverage:
