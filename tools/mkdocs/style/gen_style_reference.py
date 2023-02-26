@@ -1,16 +1,26 @@
 """A module for generating the style reference."""
 
+from pathlib import Path
 import sys
 
 import mkdocs_gen_files
 
-from ipyvizzu import Chart  # pylint: disable=unused-import
+
+REPO_PATH = Path(__file__).parent / ".." / ".." / ".."
+MKDOCS_PATH = REPO_PATH / "tools" / "mkdocs"
+GEN_PATH = MKDOCS_PATH / "style"
 
 
-sys.path.insert(0, "./tools/mkdocs")
+sys.path.insert(0, str(MKDOCS_PATH / "modules"))
 
+from context import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
+    chdir,
+)
 from node import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
     Node,
+)
+from vizzu import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
+    Vizzu,
 )
 
 
@@ -28,9 +38,10 @@ class StyleReference:
             dst: Destination path.
         """
 
-        content = Node.run(
-            "./tools/mkdocs/styles/gen_style_reference.mjs",
-            "https://vizzu-lib-main.storage.googleapis.com/lib/vizzu.min.js",  # Chart.VIZZU
+        content = Node.node(
+            True,
+            GEN_PATH / "gen_style_reference.mjs",
+            Vizzu.get_style_reference_url(),
         )
         with mkdocs_gen_files.open(dst, "a") as f_index:
             f_index.write(f"\n{content}\n")
@@ -42,7 +53,8 @@ def main() -> None:
     It generates the style reference.
     """
 
-    StyleReference.generate(dst="tutorial/style.md")
+    with chdir(REPO_PATH):
+        StyleReference.generate(dst="tutorial/style.md")
 
 
 main()

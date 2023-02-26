@@ -1,5 +1,15 @@
 import fs from "fs/promises";
 import puppeteer from "puppeteer";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const repoPath = __dirname + "/../../..";
+const mkdocsPath = `${repoPath}/tools/mkdocs`;
+const genPath = `${mkdocsPath}/style`;
+const jsAssetsPath = "../../assets/javascripts";
 
 function appendContent(obj, level) {
   const tab = "&emsp;";
@@ -33,10 +43,9 @@ const pageCreated = browserLaunched.then((browser) => {
   return browser.newPage();
 });
 
-const getStyleScriptLoaded = fs.readFile(
-  "./tools/mkdocs/styles/get_style.mjs",
-  { encoding: "utf8" }
-);
+const getStyleScriptLoaded = fs.readFile(`${genPath}/get_style_reference.mjs`, {
+  encoding: "utf8",
+});
 
 const pageModified = Promise.all([pageCreated, getStyleScriptLoaded]).then(
   (results) => {
@@ -74,25 +83,11 @@ Promise.all([browserLaunched, elementValue]).then((results) => {
   browser.close();
 });
 
-const setClickEventScriptLoaded = fs.readFile(
-  "./tools/mkdocs/styles/set_click_event.mjs",
-  { encoding: "utf8" }
-);
-
-const setAllScriptLoaded = fs.readFile("./tools/mkdocs/styles/set_all.mjs", {
-  encoding: "utf8",
+elementValue.then((elementValue) => {
+  let content = "";
+  content += `<p id="allbtn-style" class="allbtn-style"><button type="button">+&nbsp;expand all</button></p>`;
+  content += appendContent(JSON.parse(elementValue), 0);
+  content += `<script src="${jsAssetsPath}/style_ref_allbtn.js"></script>`;
+  content += `<script src="${jsAssetsPath}/style_ref_clickevent.js"></script>`;
+  console.log(content);
 });
-
-Promise.all([elementValue, setClickEventScriptLoaded, setAllScriptLoaded]).then(
-  (results) => {
-    const elementValue = results[0];
-    const setClickEventScript = results[1];
-    const setAllScript = results[2];
-    let content = "";
-    content += `<p id="allbtn-style" class="allbtn-style"><button type="button">+&nbsp;expand all</button></p>`;
-    content += appendContent(JSON.parse(elementValue), 0);
-    content += `<script>${setClickEventScript}</script>`;
-    content += `<script>${setAllScript}</script>`;
-    console.log(content);
-  }
-);

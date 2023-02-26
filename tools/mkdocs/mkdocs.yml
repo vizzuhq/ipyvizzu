@@ -93,7 +93,7 @@ plugins:
         - gen_pages.py
         - gen_examples.py
         - gen_reference.py
-        - gen_style_reference.py
+        - style/gen_style_reference.py
   - coverage:
       page_name: coverage
       html_report_dir: tests/coverage

@@ -11,7 +11,7 @@ import mkdocs_gen_files
 from ipyvizzu import Chart
 
 
-sys.path.insert(0, "./tools/mkdocs")
+sys.path.insert(0, "./tools/mkdocs/modules")
 
 from node import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
     Node,
