@@ -24,3 +24,12 @@
   display: block;
   text-align: right;
 }
+
+.showcase:before {
+  content: "Tap to reload";
+  color: #4171cd;
+  font-size: 0.95em;
+  width: auto;
+  display: block;
+  text-align: left;
+}
