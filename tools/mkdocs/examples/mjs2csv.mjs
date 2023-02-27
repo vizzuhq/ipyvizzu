@@ -13,14 +13,30 @@ class Js2csv {
 
   getDataLine(i) {
     const line = [];
-    for (const key in this.data.series) {
-      line.push(this.data.series[key].values[i]);
+    const record = {};
+    for (const j in this.data.series) {
+      record[this.data.series[j].name] = this.data.series[j].values[i];
+      line.push(this.data.series[j].values[i]);
+    }
+    if (this.data.filter) {
+      if (!this.data.filter(record)) {
+        return "";
+      }
     }
     return line.join(",") + "\n";
   }
 
   getRecordLine(i) {
     const line = this.data.records[i];
+    const record = {};
+    for (const j in this.data.series) {
+      record[this.data.series[j].name] = this.data.records[i][j];
+    }
+    if (this.data.filter) {
+      if (!this.data.filter(record)) {
+        return "";
+      }
+    }
     return line.join(",") + "\n";
   }
 
@@ -41,8 +57,9 @@ class Js2csv {
 }
 
 const inputFilename = process.argv[2];
+const dataName = process.argv[3];
 
 import(inputFilename).then((module) => {
-  const js2csv = new Js2csv(module.data);
+  const js2csv = new Js2csv(module[dataName]);
   console.log(js2csv.convert());
 });

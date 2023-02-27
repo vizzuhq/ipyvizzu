@@ -1,12 +1,12 @@
 <p align="center">
-  <a href="https://github.com/vizzuhq/ipyvizzu">
+  <a href="https://ipyvizzu.vizzuhq.com/latest/">
     <img src="https://github.com/vizzuhq/vizzu-lib-doc/raw/main/docs/readme/infinite-60.gif" alt="Vizzu" />
   </a>
   <p align="center"><b>ipyvizzu</b> Build animated charts in Jupyter Notebook and similar environments with a simple Python syntax</p>
   <p align="center">
-    <a href="https://ipyvizzu.vizzuhq.com/mkdocs/">Documentation</a>
-    · <a href="https://ipyvizzu.vizzuhq.com/mkdocs/examples/index.html">Examples</a>
-    · <a href="https://ipyvizzu.vizzuhq.com/mkdocs/reference/ipyvizzu/index.html">Code reference</a>
+    <a href="https://ipyvizzu.vizzuhq.com/latest/">Documentation</a>
+    · <a href="https://ipyvizzu.vizzuhq.com/latest/examples/">Examples</a>
+    · <a href="https://ipyvizzu.vizzuhq.com/latest/reference/ipyvizzu/">Code reference</a>
     · <a href="https://github.com/vizzuhq/ipyvizzu">Repository</a>
   </p>
 </p>
@@ -19,33 +19,33 @@
 
 ## About The Project
 
-ipyvizzu is an animated charting tool for [Jupyter](https://jupyter.org),
+`ipyvizzu` is an animated charting tool for [Jupyter](https://jupyter.org),
 [Google Colab](https://colab.research.google.com),
 [Databricks](https://docs.databricks.com/notebooks),
 [Kaggle](https://www.kaggle.com/code) and [Deepnote](https://deepnote.com)
-notebooks among other platforms. ipyvizzu enables data scientists and analysts
-to utilize animation for storytelling with data using Python. It's built on the
-open-source Javascript/C++ charting library
+notebooks among other platforms. `ipyvizzu` enables data scientists and analysts
+to utilize animation for storytelling with data using `Python`. It's built on
+the open-source `JavaScript`/`C++` charting library
 [Vizzu](https://github.com/vizzuhq/vizzu-lib).
 
-**There is a new extension of ipyvizzu,
+**There is a new extension of `ipyvizzu`,
 [ipyvizzu-story](https://vizzuhq.github.io/ipyvizzu-story/)** with which the
 animated charts can be presented right from the notebooks. Since
-ipyvizzu-story's syntax is a bit different to ipyvizzu's, we suggest you to
+`ipyvizzu-story`'s syntax is a bit different to `ipyvizzu`'s, we suggest you to
 start from the [ipyvizzu-story repo](https://github.com/vizzuhq/ipyvizzu-story)
 if you're interested in using animated charts to present your findings live or
 to share your presentation as an HTML file.
 
-Similarly to Vizzu, ipyvizzu utilizes a generic dataviz engine that generates
-many types of charts and seamlessly animates between them. It is designed for
-building animated data stories as it enables showing different perspectives of
-the data that the viewers can easily follow.
+Similarly to `Vizzu`, `ipyvizzu` utilizes a generic dataviz engine that
+generates many types of charts and seamlessly animates between them. It is
+designed for building animated data stories as it enables showing different
+perspectives of the data that the viewers can easily follow.
 
 Main features:
 
 - Designed with animation in focus;
 - Defaults based on data visualization guidelines;
-- Works with Pandas dataframe, while also JSON and inline data input is
+- Works with `Pandas` dataframe, while also `JSON` and inline data input is
   available;
 - Auto scrolling feature to keep the actual chart in position while executing
   multiple cells.
@@ -57,7 +57,7 @@ pip install ipyvizzu
 ```
 
 Visit
-[Installation chapter](https://ipyvizzu.vizzuhq.com/mkdocs/installation.html)
+[Installation chapter](https://ipyvizzu.vizzuhq.com/latest/installation.html)
 for more options and details.
 
 ## Usage
@@ -65,7 +65,7 @@ for more options and details.
 You can create the animation below with the following code snippet.
 
 <p align="center">
-  <img src="https://ipyvizzu.vizzuhq.com/mkdocs/assets/ipyvizzu-promo.gif" alt="ipyvizzu" />
+  <img src="https://github.com/vizzuhq/ipyvizzu/raw/main/docs/assets/ipyvizzu-promo.gif" alt="ipyvizzu" />
 </p>
 
 ```python
@@ -106,14 +106,14 @@ chart.animate(Config({"x": "Count", "y": ["Sex", "Survived"]}))
 
 ## Documentation
 
-Visit our [Documentation site](https://ipyvizzu.vizzuhq.com/mkdocs/) for more
-details and a step-by-step tutorial into ipyvizzu or check out our
-[Example gallery](https://ipyvizzu.vizzuhq.com/mkdocs/examples/index.html).
+Visit our [Documentation site](https://ipyvizzu.vizzuhq.com/latest/) for more
+details and a step-by-step tutorial into `ipyvizzu` or check out our
+[Example gallery](https://ipyvizzu.vizzuhq.com/latest/examples/index.md).
 
 ## Environments
 
-ipyvizzu can be used in a wide variety of environments, visit
-[Environments chapter](https://ipyvizzu.vizzuhq.com/mkdocs/environments/index.html)
+`ipyvizzu` can be used in a wide variety of environments, visit
+[Environments chapter](https://ipyvizzu.vizzuhq.com/latest/environments/index.md)
 for more details.
 
 - Notebooks
@@ -140,7 +140,7 @@ for more details.
 
 ## Extensions
 
-- [ipyvizzu-story](https://github.com/vizzuhq/ipyvizzu-story) adds presentation
+- [ipyvizzu-story](https://ipyvizzu-story.vizzuhq.com/) adds presentation
   controls to present data stories live or to share them as an interactive HTML
   file.
 

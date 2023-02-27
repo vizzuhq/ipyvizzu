@@ -13,30 +13,38 @@ class PresetsMock {
 }
 
 class VizzuMock {
-  constructor(title, dataFileName) {
+  constructor(title, data, dataFileName, dataName) {
+    this.data = data;
+
+    if (dataName !== "data") {
+      dataFileName = dataFileName + "_" + dataName;
+    }
+
     this.code = `---
-csv_url: ../../assets/data/${dataFileName}.csv
+csv_url: ../../../assets/data/${dataFileName}.csv
 ---
 
 # ${title}
 
 <div id="example_01"></div>
 
+??? info "Info - How to setup Chart"
+    \`\`\`python
+    import pandas as pd
+    from ipyvizzu import Chart, Data, Config, Style
+
+    data_frame = pd.read_csv(
+        '../../assets/data/${dataFileName}.csv',
+        dtype={"Year": str, "Timeseries": str},
+    )
+    data = Data()
+    data.add_data_frame(data_frame)
+
+    chart = Chart()
+    chart.animate(data)
+    \`\`\`
+
 \`\`\`python
-
-import pandas as pd
-from ipyvizzu import Chart, Data, Config, Style
-
-data_frame = pd.read_csv(
-    '../../assets/data/${dataFileName}.csv',
-    dtype={"Year": str, "Timeseries": str},
-)
-data = Data()
-data.add_data_frame(data_frame)
-
-chart = Chart()
-chart.animate(data)
-
 `;
 
     this.end = `
@@ -53,10 +61,12 @@ chart.animate(data)
     const params = [];
 
     if (chart.data && chart.data.filter) {
-      const fnCode = chart.data.filter
-        .toString()
-        .replace(/\s*record\s*=>\s*/, "");
-      params.push(`data.filter("""\n${fnCode.replace(/^\s*/gm, "")}\n""")`);
+      if (JSON.stringify(chart.data) !== JSON.stringify(this.data)) {
+        const fnCode = chart.data.filter
+          .toString()
+          .replace(/\s*record\s*=>\s*/, "");
+        params.push(`data.filter("""\n${fnCode.replace(/^\s*/gm, "")}\n""")`);
+      }
     }
     if (chart.config) {
       if (
@@ -102,10 +112,16 @@ chart.animate(data)
 }
 
 const inputFileName = process.argv[2];
-const dataFileName = process.argv[3];
-const title = process.argv[4];
-import(inputFileName).then((module) => {
-  const chart = new VizzuMock(title, dataFileName);
+const dataFilePath = process.argv[3];
+const dataFileName = process.argv[4];
+const dataName = process.argv[5];
+const title = process.argv[6];
+const inputFileLoaded = import(inputFileName);
+const dataFileLoaded = import(dataFilePath + "/" + dataFileName + ".mjs");
+Promise.all([inputFileLoaded, dataFileLoaded]).then((results) => {
+  const module = results[0];
+  const data = results[1][dataName];
+  const chart = new VizzuMock(title, data, dataFileName, dataName);
   for (const testStep of module.default) {
     testStep(chart);
   }
