@@ -21,7 +21,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
 
-data_frame = pd.read_csv("../assets/data/music_data.csv")
+data_frame = pd.read_csv("../../assets/data/music_data.csv")
 data1 = Data()
 data1.add_data_frame(data_frame)
 
@@ -103,4 +103,4 @@ chart.animate(data2)
     function saves the config and style parameters of the chart into a variable
     but not the data.
 
-<script src="./filter_add_new_records.js"></script>
+<script src="../filter_add_new_records.js"></script>

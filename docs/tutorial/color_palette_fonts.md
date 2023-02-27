@@ -1,5 +1,5 @@
 ---
-csv_url: ../assets/data/music_data.csv
+csv_url: ../../assets/data/music_data.csv
 ---
 
 # Color palette & fonts
@@ -27,7 +27,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style, ChartProperty
 
 
-data_frame = pd.read_csv("../assets/data/music_data.csv")
+data_frame = pd.read_csv("../../assets/data/music_data.csv")
 data = Data()
 data.add_data_frame(data_frame)
 
@@ -118,4 +118,4 @@ chart.animate(Style(None))
 For information on all available style parameters see the
 [reference](https://lib.vizzuhq.com/latest/reference/index.html) documentation.
 
-<script src="./color_palette_fonts.js"></script>
+<script src="../color_palette_fonts.js"></script>

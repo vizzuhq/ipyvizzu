@@ -1,5 +1,5 @@
 ---
-csv_url: ../assets/data/music_data.csv
+csv_url: ../../assets/data/music_data.csv
 ---
 
 # Without coordinates & noop channel
@@ -19,7 +19,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
 
-data_frame = pd.read_csv("../assets/data/music_data.csv")
+data_frame = pd.read_csv("../../assets/data/music_data.csv")
 data = Data()
 data.add_data_frame(data_frame)
 
@@ -105,4 +105,4 @@ chart.animate(
 )
 ```
 
-<script src="./without_coordinates_noop_channel.js"></script>
+<script src="../without_coordinates_noop_channel.js"></script>

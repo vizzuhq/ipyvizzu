@@ -1,5 +1,5 @@
 ---
-csv_url: ../assets/data/music_data.csv
+csv_url: ../../assets/data/music_data.csv
 ---
 
 # Orientation, split & polar
@@ -19,7 +19,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
 
-data_frame = pd.read_csv("../assets/data/music_data.csv")
+data_frame = pd.read_csv("../../assets/data/music_data.csv")
 data = Data()
 data.add_data_frame(data_frame)
 
@@ -131,4 +131,4 @@ chart.animate(
 )
 ```
 
-<script src="./orientation_split_polar.js"></script>
+<script src="../orientation_split_polar.js"></script>
