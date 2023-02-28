@@ -20,11 +20,14 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="Apache 2",
-    packages=["ipyvizzu"],
+    packages=["ipyvizzu", "ipyvizzu.fugue"],
     package_dir={"ipyvizzu": "src/ipyvizzu"},
     package_data={"ipyvizzu": ["py.typed", "templates/*.js"]},
     python_requires=">=3.6",
     install_requires=requirements,
+    extras_require={
+        "fugue": ["fugue>=0.8.1"],
+    },
     url="https://github.com/vizzuhq/ipyvizzu",
     project_urls={
         "Documentation": "https://ipyvizzu.vizzuhq.com",

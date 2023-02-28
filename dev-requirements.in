@@ -9,3 +9,4 @@ coverage
 notebook
 jupytext
 pandas
+fugue>=0.8.1
