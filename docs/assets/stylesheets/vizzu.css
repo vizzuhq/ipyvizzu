@@ -6,6 +6,8 @@
   --md-typeset-a-color: #4171cd;
 }
 
+.md-typeset details.tip,
+.md-typeset .admonition.tip,
 .md-typeset details.note,
 .md-typeset .admonition.note,
 .md-typeset details.info,
@@ -14,6 +16,24 @@
 .md-typeset .admonition.example {
   color: #666 !important;
   border-color: #4171cdff !important;
+}
+
+.md-typeset .tip > .admonition-title,
+.md-typeset .tip > summary {
+  color: #666 !important;
+  border-color: #4171cdff !important;
+  background-color: #4171cd20 !important;
+}
+.md-typeset .tip > .admonition-title::before,
+.md-typeset .tip > summary::before {
+  background-color: #4171cdff !important;
+  -webkit-mask-image: var(--md-admonition-icon--tip);
+  mask-image: var(--md-admonition-icon--tip);
+}
+.md-typeset .tip > summary::after {
+  background-color: #4171cdff !important;
+  -webkit-mask-image: var(--md-details-icon);
+  mask-image: var(--md-details-icon);
 }
 
 .md-typeset .note > .admonition-title,

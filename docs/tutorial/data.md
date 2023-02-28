@@ -4,7 +4,7 @@
 
 `ipyvizzu` currently supports two types of data series: dimensions and measures.
 Dimensions slice the data cube `ipyvizzu` uses, whereas measures are values
-within the cube. You should set the data in the first animate call.
+within the cube.
 
 Dimensions are categorical series that can contain strings and numbers, but both
 will be treated as strings. Temporal data such as dates or timestamps should
@@ -23,6 +23,13 @@ There are multiple ways you can add data to `ipyvizzu`.
 - Specify data by records - row after row
 - Using data cube form
 - Using JSON
+
+??? tip
+    You should set the data in the first animate call.
+
+    ```python
+    chart.animate(data)
+    ```
 
 ### Using `pandas` DataFrame
 
