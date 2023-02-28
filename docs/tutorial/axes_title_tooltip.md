@@ -36,8 +36,8 @@ chart.animate(
     Config(
         {
             "channels": {
-                "y": {"set": "Popularity"},
-                "x": {"set": "Genres"},
+                "y": {"set": ["Popularity"]},
+                "x": {"set": ["Genres"]},
             }
         }
     )
@@ -73,8 +73,8 @@ chart.animate(
     Config(
         {
             "channels": {
-                "y": {"detach": "Popularity"},
-                "x": {"attach": "Popularity"},
+                "y": {"detach": ["Popularity"]},
+                "x": {"attach": ["Popularity"]},
             }
         }
     )

@@ -12,7 +12,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
         (chart) => {
           return chart.animate({
             config: {
-              title: "Stack",
+              title: "Aggregate",
               channels: {
                 y: { set: ["Popularity", "Kinds"] },
                 x: { set: "Genres" },
@@ -40,6 +40,74 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
         (chart) => {
           return chart.animate({
             config: {
+              title: "Changing dimensions",
+            },
+          });
+        },
+        (chart) => {
+          return chart.animate({
+            config: {
+              channels: {
+                y: { detach: ["Kinds"] },
+                x: { set: ["Genres"] },
+                color: { set: null },
+              },
+            },
+          });
+        },
+      ],
+    },
+    {
+      anims: [
+        (chart) => {
+          return chart.animate({
+            config: {
+              title: "Changing dimensions by drilling down",
+            },
+          });
+        },
+        (chart) => {
+          return chart.animate(
+            {
+              config: {
+                channels: {
+                  x: { detach: ["Genres"], attach: ["Kinds"] },
+                },
+              },
+            },
+            { regroupStrategy: "drilldown" }
+          );
+        },
+      ],
+    },
+    {
+      anims: [
+        (chart) => {
+          return chart.animate({
+            config: {
+              title: "Changing dimensions with fading",
+            },
+          });
+        },
+        (chart) => {
+          return chart.animate(
+            {
+              config: {
+                channels: {
+                  x: { detach: ["Kinds"], attach: ["Genres"] },
+                },
+              },
+            },
+            { regroupStrategy: "fade" }
+          );
+        },
+      ],
+    },
+    {
+      anims: [
+        (chart) => {
+          return chart.animate({
+            config: {
               title: "Drill-down",
             },
           });
@@ -48,9 +116,8 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
           return chart.animate({
             config: {
               channels: {
-                x: {
-                  attach: "Genres",
-                },
+                y: { attach: ["Kinds"] },
+                color: { set: ["Kinds"] },
               },
             },
           });

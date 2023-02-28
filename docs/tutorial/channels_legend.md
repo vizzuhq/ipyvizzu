@@ -38,8 +38,8 @@ you can set them differently with the `Style` object introduced in the
         Config(
             {
                 "channels": {
-                    "y": {"set": "Popularity"},
-                    "x": {"set": "Genres"},
+                    "y": {"set": ["Popularity"]},
+                    "x": {"set": ["Genres"]},
                 },
             }
         )
@@ -48,7 +48,7 @@ you can set them differently with the `Style` object introduced in the
 
 ```python
 chart.animate(
-    Config({"channels": {"label": {"attach": "Popularity"}}})
+    Config({"channels": {"label": {"attach": ["Popularity"]}}})
 )
 ```
 
@@ -69,7 +69,7 @@ columns’ height and lightness represent the same values. The legend for the
 chart.animate(
     Config(
         {
-            "channels": {"lightness": {"attach": "Popularity"}},
+            "channels": {"lightness": {"attach": ["Popularity"]}},
             "legend": "lightness",
         }
     )
@@ -90,7 +90,7 @@ color. If a measure is put on the `color` channel, a color range will be used.
 chart.animate(
     Config(
         {
-            "channels": {"color": {"attach": "Genres"}},
+            "channels": {"color": {"attach": ["Genres"]}},
             "legend": "color",
         }
     )
@@ -108,7 +108,7 @@ change the geometry to circle in the example.
 chart.animate(
     Config(
         {
-            "channels": {"size": {"set": "Popularity"}},
+            "channels": {"size": {"set": ["Popularity"]}},
             "geometry": "circle",
         }
     )

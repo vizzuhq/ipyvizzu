@@ -34,10 +34,10 @@ the default animation options.
             {
                 "channels": {
                     "y": {"set": ["Popularity", "Kinds"]},
-                    "x": {"set": "Genres"},
+                    "x": {"set": ["Genres"]},
                 },
-                "label": {"attach": "Popularity"},
-                "color": {"set": "Kinds"},
+                "label": {"attach": ["Popularity"]},
+                "color": {"set": ["Kinds"]},
             }
         )
     )
@@ -48,8 +48,8 @@ chart.animate(
     Config(
         {
             "channels": {
-                "y": {"detach": "Kinds"},
-                "x": {"attach": "Kinds"},
+                "y": {"detach": ["Kinds"]},
+                "x": {"attach": ["Kinds"]},
             }
         }
     )
@@ -65,8 +65,8 @@ chart.animate(
     Config(
         {
             "channels": {
-                "x": {"detach": "Kinds"},
-                "y": {"attach": "Kinds"},
+                "x": {"detach": ["Kinds"]},
+                "y": {"attach": ["Kinds"]},
             }
         }
     )
@@ -84,8 +84,8 @@ chart.animate(
     Config(
         {
             "channels": {
-                "y": {"detach": "Kinds"},
-                "x": {"attach": "Kinds"},
+                "y": {"detach": ["Kinds"]},
+                "x": {"attach": ["Kinds"]},
             }
         }
     ),
@@ -103,8 +103,8 @@ chart.animate(
     Config(
         {
             "channels": {
-                "x": {"detach": "Kinds"},
-                "y": {"attach": "Kinds"},
+                "x": {"detach": ["Kinds"]},
+                "y": {"attach": ["Kinds"]},
             }
         }
     ),
@@ -125,8 +125,8 @@ chart.animate(
     Config(
         {
             "channels": {
-                "y": {"detach": "Kinds"},
-                "x": {"attach": "Kinds"},
+                "y": {"detach": ["Kinds"]},
+                "x": {"attach": ["Kinds"]},
             }
         }
     ),
@@ -146,8 +146,8 @@ chart.animate(
     Config(
         {
             "channels": {
-                "x": {"detach": "Kinds"},
-                "y": {"attach": "Kinds"},
+                "x": {"detach": ["Kinds"]},
+                "y": {"attach": ["Kinds"]},
             }
         }
     ),
