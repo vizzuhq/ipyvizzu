@@ -1,5 +1,10 @@
 # Streamlit
 
+There is a new `Streamlit` component,
+[streamlit-vizzu](https://github.com/vizzu-streamlit/streamlit-vizzu), that
+allow you to interact with an `ipyvizzu` chart within a `Streamlit` app without
+the chart being redrawn on every interaction.
+
 ## Features
 
 The features of `ipyvizzu` that are available in `Streamlit` are marked with a
