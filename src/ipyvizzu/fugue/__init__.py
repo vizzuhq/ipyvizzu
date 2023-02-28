@@ -1,3 +1,5 @@
+"""A module for Fugue integration."""
+
 from typing import Any, Dict, Tuple
 
 import pandas as pd
