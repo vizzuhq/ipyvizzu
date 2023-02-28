@@ -1,9 +1,9 @@
 # Tutorial
 
 This is the tutorial of `ipyvizzu` - the `Python` integration of the free,
-open-source JavaScript/C++ library [`Vizzu`](https://lib.vizzuhq.com/). You can
-create animated charts, data stories, interactive reports and dashboards with it
-in Jupyter and similar notebooks and app building platforms.
+open-source `JavaScript`/`C++` library [`Vizzu`](https://lib.vizzuhq.com/). You
+can create animated charts, data stories, interactive reports and dashboards
+with it in Jupyter and similar notebooks and app building platforms.
 
 This is an excellent starting point to get acquainted with `ipyvizzu`, as it
 walks you through the installation of the library, introduces the logic it
@@ -48,7 +48,7 @@ Visit [Installation chapter](../installation.md) for more options and details.
 ## Usage
 
 !!! note
-    `ipyvizzu` is to generate the JavaScript code, then the `Vizzu` calls are
+    `ipyvizzu` is to generate the `JavaScript` code, then the `Vizzu` calls are
     evaluated by the browser. Therefore if a blank space appears where the chart
     should be, check the console log of your browser where `Vizzu` reports its
     errors.

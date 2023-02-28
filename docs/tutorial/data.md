@@ -4,7 +4,7 @@
 
 `ipyvizzu` currently supports two types of data series: dimensions and measures.
 Dimensions slice the data cube `ipyvizzu` uses, whereas measures are values
-within the cube.
+within the cube. You should set the data in the first animate call.
 
 Dimensions are categorical series that can contain strings and numbers, but both
 will be treated as strings. Temporal data such as dates or timestamps should
@@ -285,10 +285,4 @@ from ipyvizzu import Data
 
 
 data = Data.from_json("../assets/data/music_data.json")
-```
-
-You should set the data in the first animate call:
-
-```python
-chart.animate(data)
 ```
