@@ -137,7 +137,6 @@ class GenExamples:
 
         content = Node.node(True, GEN_PATH / f"mjs2{dst_type}.mjs", *params)
         if dst_type == "md":
-            content = Vizzu.set_version(content)
             content = Md.format(content)
             with mkdocs_gen_files.open(
                 f"{self._dst}/{item.stem}.{dst_type}", "w"
@@ -208,10 +207,6 @@ class GenShowcases(GenExamples):
         items = list(src.rglob("*.js")) + list(src.rglob("main.html"))
         for item in items:
             content = GenExamples._get_content(item)
-            if item.suffix == ".js":
-                content = Vizzu.set_js_showcase_url(content)
-            elif item.suffix == ".html":
-                content = Vizzu.set_html_showcase_url(content)
             with mkdocs_gen_files.open(
                 self._dst + "/" + os.path.relpath(item, SHOWCASES_PATH), "w"
             ) as fh_js:

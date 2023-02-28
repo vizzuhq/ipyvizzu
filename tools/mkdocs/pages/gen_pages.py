@@ -159,14 +159,12 @@ class Page:
 
         content = content.replace(
             f"{Vizzu.get_vizzulibdoc_url()}/raw/main/docs/readme/",
-            f"{site}/latest/assets/readme/",
+            f"{Vizzu.get_vizzulibsite_url()}/{Vizzu.get_version()}/readme/",
         )
         content = content.replace(f"{site}/latest/", "").replace(f"{site}/latest", "./")
 
         if keep:
             content = f"<pre>{content}</pre>"
-
-        content = Vizzu.set_version(content)
 
         mkdocs_gen_files.set_edit_path(dst, ".." / Path(dst).parent / Path(src).name)
         with mkdocs_gen_files.open(dst, "w") as f_dst:
