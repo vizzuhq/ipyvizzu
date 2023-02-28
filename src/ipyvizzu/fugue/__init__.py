@@ -2,12 +2,12 @@
 
 from typing import Any, Dict, Tuple
 
-import pandas as pd
-from fugue import DataFrames, Outputter
-from fugue.exceptions import FugueWorkflowError
-from fugue.extensions import namespace_candidate
-from fugue.plugins import parse_outputter
-from triad import assert_or_throw
+import pandas as pd  # type: ignore
+from fugue import DataFrames, Outputter  # type: ignore
+from fugue.exceptions import FugueWorkflowError  # type: ignore
+from fugue.extensions import namespace_candidate  # type: ignore
+from fugue.plugins import parse_outputter  # type: ignore
+from triad import assert_or_throw  # type: ignore
 
 from ipyvizzu import Chart, Config, Data, DisplayTarget
 

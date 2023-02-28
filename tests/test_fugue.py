@@ -1,5 +1,5 @@
-import fugue.api as fa
-import pandas as pd
+import fugue.api as fa  # type: ignore
+import pandas as pd  # type: ignore
 
 # register the extension, not needed in practical use
 import ipyvizzu.fugue  # noqa # pylint: disable-all
