@@ -4,9 +4,23 @@ import os
 from pathlib import Path
 from typing import Union, Optional, List
 import re
+import sys
 
 import yaml
 import mkdocs_gen_files  # type: ignore
+
+
+REPO_PATH = Path(__file__).parent / ".." / ".." / ".."
+MKDOCS_PATH = REPO_PATH / "tools" / "mkdocs"
+
+sys.path.insert(0, str(MKDOCS_PATH / "modules"))
+
+from context import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
+    chdir,
+)
+from vizzu import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
+    Vizzu,
+)
 
 
 class MkdocsConfig:
@@ -143,10 +157,16 @@ class Page:
                 match[0], f"[{match[1]}]({match[3]}.md{match[5]})"
             )
 
-        content = content.replace(f"{site}/", "").replace(f"{site}", "./")
+        content = content.replace(
+            f"{Vizzu.get_vizzulibdoc_url()}/raw/main/docs/readme/",
+            f"{site}/latest/assets/readme/",
+        )
+        content = content.replace(f"{site}/latest/", "").replace(f"{site}/latest", "./")
 
         if keep:
             content = f"<pre>{content}</pre>"
+
+        content = Vizzu.set_version(content)
 
         mkdocs_gen_files.set_edit_path(dst, ".." / Path(dst).parent / Path(src).name)
         with mkdocs_gen_files.open(dst, "w") as f_dst:
@@ -159,34 +179,35 @@ def main() -> None:
     It prepares files for the documentation site.
     """
 
-    config = MkdocsConfig.load(Path(__file__).parent / "mkdocs.yml")
+    with chdir(REPO_PATH):
+        config = MkdocsConfig.load(MKDOCS_PATH / "mkdocs.yml")
 
-    IndexPages.generate(nav_item=config["nav"], skip=["examples/index.md"])
+        IndexPages.generate(nav_item=config["nav"], skip=["examples/index.md"])
 
-    Page.generate(
-        src=Path(__file__).parent / ".." / ".." / "README.md",
-        dst="index.md",
-        site=config["site_url"],
-    )
+        Page.generate(
+            src=REPO_PATH / "README.md",
+            dst="index.md",
+            site=config["site_url"],
+        )
 
-    Page.generate(
-        src=Path(__file__).parent / ".." / ".." / "CONTRIBUTING.md",
-        dst="CONTRIBUTING.md",
-        site=config["site_url"],
-    )
+        Page.generate(
+            src=REPO_PATH / "CONTRIBUTING.md",
+            dst="CONTRIBUTING.md",
+            site=config["site_url"],
+        )
 
-    Page.generate(
-        src=Path(__file__).parent / ".." / ".." / "CODE_OF_CONDUCT.md",
-        dst="CODE_OF_CONDUCT.md",
-        site=config["site_url"],
-    )
+        Page.generate(
+            src=REPO_PATH / "CODE_OF_CONDUCT.md",
+            dst="CODE_OF_CONDUCT.md",
+            site=config["site_url"],
+        )
 
-    Page.generate(
-        src=Path(__file__).parent / ".." / ".." / "LICENSE",
-        dst="LICENSE.md",
-        site=config["site_url"],
-        keep=True,
-    )
+        Page.generate(
+            src=REPO_PATH / "LICENSE",
+            dst="LICENSE.md",
+            site=config["site_url"],
+            keep=True,
+        )
 
 
 main()

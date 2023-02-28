@@ -90,7 +90,7 @@ plugins:
             - http://pandas.pydata.org/pandas-docs/stable/objects.inv
   - gen-files:
       scripts:
-        - gen_pages.py
+        - pages/gen_pages.py
         - examples/gen_examples.py
         - reference/gen_reference.py
         - style/gen_style_reference.py
