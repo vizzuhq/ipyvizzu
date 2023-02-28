@@ -10,25 +10,28 @@ as different elements of the chart we can bind data to. The simplest and most
 often used channels are the x and y-axes.
 
 The first step is to create a simple column chart, adding one of the dimensions
-from the data set we added in the previous chapter (Genre) to the x-axis and the
-measure (Popularity) to the y-axis using the set property.
+from the data set we added in the previous chapter (`Genres`) to the x-axis and
+the measure (`Popularity`) to the y-axis using the set property.
 
 <div id="tutorial_01"></div>
 
+??? info "Info - How to setup Chart"
+    ```python
+    import pandas as pd
+    from ipyvizzu import Chart, ChartProperty, Data, Config
+
+    data_frame = pd.read_csv(
+        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
+    )
+    data = Data()
+    data.add_data_frame(data_frame)
+
+    chart = Chart()
+
+    chart.animate(data)
+    ```
+
 ```python
-import pandas as pd
-from ipyvizzu import Chart, ChartProperty, Data, Config
-
-
-data_frame = pd.read_csv("../../assets/data/music_data.csv")
-data = Data()
-data.add_data_frame(data_frame)
-
-
-chart = Chart()
-
-chart.animate(data)
-
 chart.animate(
     Config(
         {

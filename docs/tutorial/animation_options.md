@@ -14,34 +14,36 @@ the default animation options.
 
 <div id="tutorial_01"></div>
 
-```python
-import pandas as pd
-from ipyvizzu import Chart, Data, Config
+??? info "Info - How to setup Chart"
+    ```python
+    import pandas as pd
+    from ipyvizzu import Chart, Data, Config
 
-
-data_frame = pd.read_csv("../../assets/data/music_data.csv")
-data = Data()
-data.add_data_frame(data_frame)
-
-
-chart = Chart()
-
-chart.animate(data)
-
-chart.animate(
-    Config(
-        {
-            "channels": {
-                "y": {"set": ["Popularity", "Kinds"]},
-                "x": {"set": "Genres"},
-            },
-            "label": {"attach": "Popularity"},
-            "color": {"set": "Kinds"},
-            "title": "Default options - step 1",
-        }
+    data_frame = pd.read_csv(
+        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
     )
-)
+    data = Data()
+    data.add_data_frame(data_frame)
 
+    chart = Chart()
+
+    chart.animate(data)
+
+    chart.animate(
+        Config(
+            {
+                "channels": {
+                    "y": {"set": ["Popularity", "Kinds"]},
+                    "x": {"set": "Genres"},
+                },
+                "label": {"attach": "Popularity"},
+                "color": {"set": "Kinds"},
+            }
+        )
+    )
+    ```
+
+```python
 chart.animate(
     Config(
         {
@@ -59,8 +61,6 @@ We stack the columns, still with the default options.
 <div id="tutorial_02"></div>
 
 ```python
-chart.animate(Config({"title": "Default options - step 2"}))
-
 chart.animate(
     Config(
         {
@@ -81,10 +81,6 @@ move from the center of the chart elements to the top of them.
 
 ```python
 chart.animate(
-    Config({"title": "Custom animation settings for specific groups"})
-)
-
-chart.animate(
     Config(
         {
             "channels": {
@@ -103,10 +99,6 @@ This is an example of changing the settings for the whole animation at once.
 <div id="tutorial_04"></div>
 
 ```python
-chart.animate(
-    Config({"title": "Custom options for the whole animation"})
-)
-
 chart.animate(
     Config(
         {
@@ -129,8 +121,6 @@ quicker since the duration of the whole animation is set to 1 second.
 <div id="tutorial_05"></div>
 
 ```python
-chart.animate(Config({"title": "Custom settings for both"}))
-
 chart.animate(
     Config(
         {
@@ -152,8 +142,6 @@ The default unit for animation is seconds, but you can set other units.
 <div id="tutorial_06"></div>
 
 ```python
-chart.animate(Config({"title": "Custom unit for duration"}))
-
 chart.animate(
     Config(
         {

@@ -21,36 +21,38 @@ whereas on a bar chart, horizontally.
 
 <div id="tutorial_01"></div>
 
-```python
-import pandas as pd
-from ipyvizzu import Chart, Data, Config
+??? info "Info - How to setup Chart"
+    ```python
+    import pandas as pd
+    from ipyvizzu import Chart, Data, Config
 
-
-data_frame = pd.read_csv("../../assets/data/music_data.csv")
-data = Data()
-data.add_data_frame(data_frame)
-
-
-chart = Chart()
-
-chart.animate(data)
-
-chart.animate(
-    Config(
-        {
-            "channels": {
-                "y": {"set": ["Popularity", "Kinds"]},
-                "x": {"set": "Genres"},
-                "label": {"attach": "Popularity"},
-            },
-            "color": {"attach": "Kinds"},
-            "title": "Align: center",
-        }
+    data_frame = pd.read_csv(
+        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
     )
-)
+    data = Data()
+    data.add_data_frame(data_frame)
 
-# Change align and
-# configures the y axis labels to disappear during the animation
+    chart = Chart()
+
+    chart.animate(data)
+
+    chart.animate(
+        Config(
+            {
+                "channels": {
+                    "y": {"set": ["Popularity", "Kinds"]},
+                    "x": {"set": "Genres"},
+                    "label": {"attach": "Popularity"},
+                },
+                "color": {"attach": "Kinds"},
+            }
+        )
+    )
+    ```
+
+Change align and configures the y axis labels to disappear during the animation.
+
+```python
 chart.animate(
     Config({"align": "center", "channels": {"y": {"labels": False}}})
 )
@@ -63,8 +65,6 @@ scale will also switch from values to percentages when used.
 <div id="tutorial_02"></div>
 
 ```python
-chart.animate(Config({"title": "Align: stretch = % view"}))
-
 chart.animate(Config({"align": "stretch"}))
 ```
 
@@ -73,8 +73,6 @@ Getting back to the default alignment.
 <div id="tutorial_03"></div>
 
 ```python
-chart.animate(Config({"title": "Align: none - default"}))
-
 chart.animate(
     Config({"align": "none", "channels": {"y": {"labels": True}}})
 )
@@ -89,10 +87,6 @@ the biggest element’s value.
 <div id="tutorial_04"></div>
 
 ```python
-chart.animate(
-    Config({"title": "Axis range set proportionally to shown values"})
-)
-
 chart.animate(Config({"channels": {"y": {"range": {"max": "150%"}}}}))
 ```
 
@@ -102,14 +96,6 @@ this feature to filter certain elements, just like in the following example.
 <div id="tutorial_05"></div>
 
 ```python
-chart.animate(
-    Config(
-        {
-            "title": "Axis range set explicitly on an axis with discrete series"
-        }
-    )
-)
-
 chart.animate(
     Config(
         {
@@ -139,8 +125,6 @@ Whenever you want to set your ranges back to the default value, just set them to
 <div id="tutorial_06"></div>
 
 ```python
-chart.animate(Config({"title": "Back to the default ranges"}))
-
 chart.animate(
     Config(
         {
