@@ -83,7 +83,7 @@ class GenExamples:
 
     def _add_image(self, item: Path, title: str) -> None:
         with mkdocs_gen_files.open(f"{self._dst}/index.md", "a") as fh_index:
-            url = f"{Vizzu.get_vizzulibsite_url()}/{Vizzu.get_version()}/{self._dst}"
+            url = f"{Vizzu.get_vizzulibsite_url()}/{Vizzu.get_vizzu_version()}/{self._dst}"
             fh_index.write(
                 "["
                 + f"![{title}]"
@@ -95,7 +95,7 @@ class GenExamples:
 
     def _add_video(self, item: Path, title: str) -> None:
         with mkdocs_gen_files.open(f"{self._dst}/index.md", "a") as fh_index:
-            url = f"{Vizzu.get_vizzulibsite_url()}/{Vizzu.get_version()}/{self._dst}"
+            url = f"{Vizzu.get_vizzulibsite_url()}/{Vizzu.get_vizzu_version()}/{self._dst}"
             fh_index.write(
                 f"<a href='./{item.stem}/' title='{title}'>"
                 + "<video nocontrols autoplay muted loop class='image-gallery'"
@@ -137,6 +137,7 @@ class GenExamples:
 
         content = Node.node(True, GEN_PATH / f"mjs2{dst_type}.mjs", *params)
         if dst_type == "md":
+            content = Vizzu.set_version(content)
             content = Md.format(content)
             with mkdocs_gen_files.open(
                 f"{self._dst}/{item.stem}.{dst_type}", "w"

@@ -1,7 +1,7 @@
 strict: true
 
 site_name: ipyvizzu
-site_url: https://ipyvizzu.vizzuhq.com/mkdocs
+site_url: https://ipyvizzu.vizzuhq.com/
 copyright: Copyright &copy; 2022-2023 Vizzu
 
 docs_dir: ../../docs

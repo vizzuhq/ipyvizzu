@@ -3,7 +3,6 @@
 import os
 from pathlib import Path
 from typing import Union, Optional, List
-import re
 import sys
 
 import yaml
@@ -149,17 +148,9 @@ class Page:
         with open(src, "rt", encoding="utf8") as f_src:
             content = f_src.read()
 
-        for match in re.finditer(
-            rf"\[([^]]*)\]\(({site}/)([^]]*)(.html)([^]]*)?\)",
-            content,
-        ):
-            content = content.replace(
-                match[0], f"[{match[1]}]({match[3]}.md{match[5]})"
-            )
-
         content = content.replace(
             f"{Vizzu.get_vizzulibdoc_url()}/raw/main/docs/readme/",
-            f"{Vizzu.get_vizzulibsite_url()}/{Vizzu.get_version()}/readme/",
+            f"{Vizzu.get_vizzulibsite_url()}/{Vizzu.get_vizzu_version()}/readme/",
         )
         content = content.replace(f"{site}/latest/", "").replace(f"{site}/latest", "./")
 
@@ -171,6 +162,34 @@ class Page:
             f_dst.write(content)
 
 
+class Docs:
+    """A class for creating docs pages."""
+
+    # pylint: disable=too-few-public-methods
+
+    @staticmethod
+    def generate(skip: Optional[List[str]] = None) -> None:
+        """
+        A method for generating docs pages.
+
+        Args:
+            skip: List of file names to skip.
+        """
+
+        docs_path = REPO_PATH / "docs"
+        for path in list(docs_path.rglob("*.md")) + list(docs_path.rglob("*.js")):
+            if skip and path.name in skip:
+                continue
+            with open(path, "rt", encoding="utf8") as f_src:
+                dst = path.relative_to(docs_path)
+                content = f_src.read()
+                if path.suffix == ".md":
+                    content = Vizzu.set_version(content)
+                    mkdocs_gen_files.set_edit_path(dst, dst)
+                with mkdocs_gen_files.open(dst, "w") as f_dst:
+                    f_dst.write(content)
+
+
 def main() -> None:
     """
     The main method.
@@ -179,6 +198,8 @@ def main() -> None:
 
     with chdir(REPO_PATH):
         config = MkdocsConfig.load(MKDOCS_PATH / "mkdocs.yml")
+
+        Docs.generate()
 
         IndexPages.generate(nav_item=config["nav"], skip=["examples/index.md"])
 

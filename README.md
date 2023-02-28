@@ -56,8 +56,7 @@ Main features:
 pip install ipyvizzu
 ```
 
-Visit
-[Installation chapter](https://ipyvizzu.vizzuhq.com/latest/installation.html)
+Visit [Installation chapter](https://ipyvizzu.vizzuhq.com/latest/installation/)
 for more options and details.
 
 ## Usage
@@ -113,30 +112,30 @@ details and a step-by-step tutorial into `ipyvizzu` or check out our
 ## Environments
 
 `ipyvizzu` can be used in a wide variety of environments, visit
-[Environments chapter](https://ipyvizzu.vizzuhq.com/latest/environments/index.md)
-for more details.
+[Environments chapter](https://ipyvizzu.vizzuhq.com/latest/environments/) for
+more details.
 
 - Notebooks
-  - [Jupyter Notebook](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/jupyternotebook.html)
-  - [Colab](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/colab.html)
-  - [Databricks](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/databricks.html)
-  - [DataCamp](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/datacamp.html)
-  - [Deepnote](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/deepnote.html)
-  - [JupyterLab](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/jupyterlab.html)
-  - [JupyterLite](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/jupyterlite.html)
-  - [Kaggle](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/kaggle.html)
-  - [Noteable](https://ipyvizzu.vizzuhq.com/mkdocs/environments/notebook/noteable.html)
+  - [Jupyter Notebook](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/jupyternotebook/)
+  - [Colab](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/colab/)
+  - [Databricks](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/databricks/)
+  - [DataCamp](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/datacamp/)
+  - [Deepnote](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/deepnote/)
+  - [JupyterLab](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/jupyterlab/)
+  - [JupyterLite](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/jupyterlite/)
+  - [Kaggle](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/kaggle/)
+  - [Noteable](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/noteable/)
 - App platforms
-  - [Streamlit](https://ipyvizzu.vizzuhq.com/mkdocs/environments/platform/streamlit.html)
-  - [Flask](https://ipyvizzu.vizzuhq.com/mkdocs/environments/platform/flask.html)
-  - [Panel](https://ipyvizzu.vizzuhq.com/mkdocs/environments/platform/panel.html)
-  - [Mercury/mljar](https://ipyvizzu.vizzuhq.com/mkdocs/environments/platform/mercury.html)
-  - [Voilà](https://ipyvizzu.vizzuhq.com/mkdocs/environments/platform/voila.html)
+  - [Streamlit](https://ipyvizzu.vizzuhq.com/latest/environments/platform/streamlit/)
+  - [Flask](https://ipyvizzu.vizzuhq.com/latest/environments/platform/flask/)
+  - [Panel](https://ipyvizzu.vizzuhq.com/latest/environments/platform/panel/)
+  - [Mercury/mljar](https://ipyvizzu.vizzuhq.com/latest/environments/platform/mercury/)
+  - [Voilà](https://ipyvizzu.vizzuhq.com/latest/environments/platform/voila/)
 - BI tools
-  - [Mode](https://ipyvizzu.vizzuhq.com/mkdocs/environments/bi/mode.html)
+  - [Mode](https://ipyvizzu.vizzuhq.com/latest/environments/bi/mode/)
 - IDEs
-  - [PyCharm](https://ipyvizzu.vizzuhq.com/mkdocs/environments/ide/pycharm.html)
-  - [VSCode Python](https://ipyvizzu.vizzuhq.com/mkdocs/environments/ide/vscode.html)
+  - [PyCharm](https://ipyvizzu.vizzuhq.com/latest/environments/ide/pycharm/)
+  - [VSCode Python](https://ipyvizzu.vizzuhq.com/latest/environments/ide/vscode/)
 
 ## Extensions
 
@@ -147,7 +146,7 @@ for more details.
 ## Contributing
 
 We welcome contributions to the project, visit our contributing
-[guide](https://ipyvizzu.vizzuhq.com/mkdocs/CONTRIBUTING.html) for further info.
+[guide](https://ipyvizzu.vizzuhq.com/latest/CONTRIBUTING/) for further info.
 
 ## Contact
 
@@ -161,4 +160,4 @@ We welcome contributions to the project, visit our contributing
 Copyright © 2022-2023 [Vizzu](https://vizzuhq.com).
 
 Released under the
-[Apache 2.0 License](https://ipyvizzu.vizzuhq.com/mkdocs/LICENSE.html).
+[Apache 2.0 License](https://ipyvizzu.vizzuhq.com/latest/LICENSE/).
