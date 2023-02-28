@@ -1,8 +1,20 @@
 """A module for generating the code reference."""
 
 from pathlib import Path
+import sys
 
 import mkdocs_gen_files  # type: ignore
+
+REPO_PATH = Path(__file__).parent / ".." / ".." / ".."
+MKDOCS_PATH = REPO_PATH / "tools" / "mkdocs"
+SRC_PATH = REPO_PATH / "src"
+
+
+sys.path.insert(0, str(MKDOCS_PATH))
+
+from context import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
+    chdir,
+)
 
 
 class Reference:
@@ -19,10 +31,10 @@ class Reference:
             folder: The destination folder of the code reference.
         """
 
-        for path in sorted(Path("src").rglob("*.py")):
-            module_path = path.relative_to("src").with_suffix("")
+        for path in sorted(SRC_PATH.rglob("*.py")):
+            module_path = path.relative_to(SRC_PATH).with_suffix("")
 
-            doc_path = path.relative_to("src").with_suffix(".md")
+            doc_path = path.relative_to(SRC_PATH).with_suffix(".md")
             full_doc_path = Path(folder, doc_path)
 
             parts = tuple(module_path.parts)
@@ -46,7 +58,8 @@ def main() -> None:
     It generates the code reference.
     """
 
-    Reference.generate("reference")
+    with chdir(REPO_PATH):
+        Reference.generate("reference")
 
 
 main()

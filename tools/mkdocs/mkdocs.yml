@@ -92,7 +92,7 @@ plugins:
       scripts:
         - gen_pages.py
         - examples/gen_examples.py
-        - gen_reference.py
+        - reference/gen_reference.py
         - style/gen_style_reference.py
   - coverage:
       page_name: coverage
