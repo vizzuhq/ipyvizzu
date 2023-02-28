@@ -11,34 +11,37 @@ setting up that state once again.
 
 <div id="tutorial_01"></div>
 
-```python
-import pandas as pd
-from ipyvizzu import Chart, Data, Config, Style
+??? info "Info - How to setup Chart"
+    ```python
+    import pandas as pd
+    from ipyvizzu import Chart, Data, Config, Style
 
-
-data_frame = pd.read_csv("../../assets/data/music_data.csv")
-data = Data()
-data.add_data_frame(data_frame)
-
-
-chart = Chart()
-
-chart.animate(data)
-
-chart.animate(
-    Config(
-        {
-            "title": "Store function",
-            "channels": {
-                "y": {"set": ["Popularity", "Kinds"]},
-                "x": {"set": "Genres"},
-            },
-            "label": {"attach": "Popularity"},
-            "color": {"set": "Kinds"},
-        }
+    data_frame = pd.read_csv(
+        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
     )
-)
+    data = Data()
+    data.add_data_frame(data_frame)
 
+    chart = Chart()
+
+    chart.animate(data)
+
+    chart.animate(
+        Config(
+            {
+                "title": "Store function",
+                "channels": {
+                    "y": {"set": ["Popularity", "Kinds"]},
+                    "x": {"set": ["Genres"]},
+                },
+                "label": {"attach": ["Popularity"]},
+                "color": {"set": ["Kinds"]},
+            }
+        )
+    )
+    ```
+
+```python
 chart.animate(
     Config(
         {
@@ -46,9 +49,11 @@ chart.animate(
         }
     )
 )
+```
 
-# Let's save this state by calling the store function.
+Let's save this state by calling the `store` function.
 
+```python
 snapshot = chart.store()
 ```
 
@@ -58,14 +63,6 @@ that series into an array.
 <div id="tutorial_02"></div>
 
 ```python
-chart.animate(
-    Config(
-        {
-            "title": "When just one series is used",
-        }
-    )
-)
-
 chart.animate(
     Config(
         {
@@ -90,14 +87,6 @@ can simply write the series' name after the channel name.
 chart.animate(
     Config(
         {
-            "title": "When you use set and no other channel options",
-        }
-    )
-)
-
-chart.animate(
-    Config(
-        {
             "channels": {
                 # "y": { "set": [ "Kinds", "Popularity" ] },
                 "y": ["Kinds", "Popularity"],
@@ -117,14 +106,6 @@ automatically recognize the channels by their names.
 chart.animate(
     Config(
         {
-            "title": "You don't have to use the channel object",
-        }
-    )
-)
-
-chart.animate(
-    Config(
-        {
             # "channels": {
             "y": "Kinds",
             "x": ["Genres", "Popularity"]
@@ -139,14 +120,6 @@ Instead of creating nested objects, you can set the styles like this.
 <div id="tutorial_05"></div>
 
 ```python
-chart.animate(
-    Config(
-        {
-            "title": "Shorthand for styles",
-        }
-    )
-)
-
 chart.animate(
     Style(
         {
@@ -164,14 +137,6 @@ This is how you can get back to a state that you previously stored.
 
 ```python
 chart.animate(snapshot)
-
-chart.animate(
-    Config(
-        {
-            "title": "Restoring a previously stored state",
-        }
-    )
-)
 ```
 
 <script src="../shorthands_store.js"></script>

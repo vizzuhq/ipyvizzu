@@ -14,43 +14,45 @@ only use temporarily.
 
 <div id="tutorial_01"></div>
 
-```python
-import pandas as pd
-from ipyvizzu import Chart, Data, Config
+??? info "Info - How to setup Chart"
+    ```python
+    import pandas as pd
+    from ipyvizzu import Chart, Data, Config
 
-
-data_frame = pd.read_csv("../../assets/data/music_data.csv")
-data = Data()
-data.add_data_frame(data_frame)
-
-
-chart = Chart()
-
-chart.animate(data)
-
-chart.animate(
-    Config(
-        {
-            "channels": {
-                "y": {"set": ["Popularity", "Kinds"]},
-                "x": {"set": "Genres"},
-                "label": {"attach": "Popularity"},
-            },
-            "color": {"attach": "Kinds"},
-            "title": "Switch the orientation = arrange by other axis",
-        }
+    data_frame = pd.read_csv(
+        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
     )
-)
+    data = Data()
+    data.add_data_frame(data_frame)
 
+    chart = Chart()
+
+    chart.animate(data)
+
+    chart.animate(
+        Config(
+            {
+                "channels": {
+                    "y": {"set": ["Popularity", "Kinds"]},
+                    "x": {"set": ["Genres"]},
+                    "label": {"attach": ["Popularity"]},
+                },
+                "color": {"attach": ["Kinds"]},
+            }
+        )
+    )
+    ```
+
+```python
 chart.animate(
     Config(
         {
             "channels": {
                 "y": {
-                    "detach": "Popularity",
+                    "detach": ["Popularity"],
                 },
                 "x": {
-                    "attach": "Popularity",
+                    "attach": ["Popularity"],
                 },
             }
         }
@@ -64,10 +66,6 @@ which enables the comparison of the components.
 <div id="tutorial_02"></div>
 
 ```python
-chart.animate(
-    Config({"title": "Split stacked values = show side-by-side"})
-)
-
 chart.animate(Config({"split": True}))
 ```
 
@@ -76,8 +74,6 @@ Merging the components by turning the split parameter off.
 <div id="tutorial_03"></div>
 
 ```python
-chart.animate(Config({"title": "Merge"}))
-
 chart.animate(Config({"split": False}))
 ```
 
@@ -86,14 +82,12 @@ We aggregate the data by removing the `Genres` dimension from the x-axis.
 <div id="tutorial_04"></div>
 
 ```python
-chart.animate(Config({"title": "Aggregate"}))
-
 chart.animate(
     Config(
         {
             "channels": {
                 "x": {
-                    "detach": "Genres",
+                    "detach": ["Genres"],
                 }
             }
         }
@@ -113,8 +107,6 @@ coordinates, just set the `coordSystem` parameter to `'cartesian'`.
 <div id="tutorial_05"></div>
 
 ```python
-chart.animate(Config({"title": "Polar coordinates"}))
-
 chart.animate(
     Config(
         {

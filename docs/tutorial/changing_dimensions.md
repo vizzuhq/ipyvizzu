@@ -148,4 +148,4 @@ chart.animate(
 )
 ```
 
-<script src="../aggregate_drilldown.js"></script>
+<script src="../changing_dimensions.js"></script>

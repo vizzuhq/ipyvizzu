@@ -119,7 +119,7 @@ nav:
       - Group/stack: tutorial/group_stack.md
       - tutorial/sorting.md
       - Align & range: tutorial/align_range.md
-      - Aggregate/drill-down: tutorial/aggregate_drilldown.md
+      - Changing dimensions: tutorial/changing_dimensions.md
       - Orientation, split & polar: tutorial/orientation_split_polar.md
       - Filtering & adding new records: tutorial/filter_add_new_records.md
       - Without coordinates & noop channel: tutorial/without_coordinates_noop_channel.md

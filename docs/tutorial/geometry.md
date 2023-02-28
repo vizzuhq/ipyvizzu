@@ -12,33 +12,35 @@ Switching the geometry to area.
 
 <div id="tutorial_01"></div>
 
-```python
-import pandas as pd
-from ipyvizzu import Chart, Data, Config
+??? info "Info - How to setup Chart"
+    ```python
+    import pandas as pd
+    from ipyvizzu import Chart, Data, Config
 
-
-data_frame = pd.read_csv("../../assets/data/music_data.csv")
-data = Data()
-data.add_data_frame(data_frame)
-
-
-chart = Chart()
-
-chart.animate(data)
-
-chart.animate(
-    Config(
-        {
-            "title": "Geometry",
-            "channels": {
-                "y": {"set": "Popularity"},
-                "x": {"set": "Genres"},
-            },
-        }
+    data_frame = pd.read_csv(
+        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
     )
-)
+    data = Data()
+    data.add_data_frame(data_frame)
 
-chart.animate(Config({"title": "Geometry: area", "geometry": "area"}))
+    chart = Chart()
+
+    chart.animate(data)
+
+    chart.animate(
+        Config(
+            {
+                "channels": {
+                    "y": {"set": ["Popularity"]},
+                    "x": {"set": ["Genres"]},
+                },
+            }
+        )
+    )
+    ```
+
+```python
+chart.animate(Config({"geometry": "area"}))
 ```
 
 Drawing a line chart.
@@ -46,7 +48,7 @@ Drawing a line chart.
 <div id="tutorial_02"></div>
 
 ```python
-chart.animate(Config({"title": "Geometry: line", "geometry": "line"}))
+chart.animate(Config({"geometry": "line"}))
 ```
 
 Switching the geometry to circle. This setting is the most useful when used
@@ -55,9 +57,7 @@ together with the size channel, as shown in the next chapter of the tutorial.
 <div id="tutorial_03"></div>
 
 ```python
-chart.animate(
-    Config({"title": "Geometry: circle", "geometry": "circle"})
-)
+chart.animate(Config({"geometry": "circle"}))
 ```
 
 Rectangle geometry is the default setting in `ipyvizzu`, used for most common
@@ -69,7 +69,6 @@ charts like bar and column charts.
 chart.animate(
     Config(
         {
-            "title": "Geometry: rectangle - default",
             "geometry": "rectangle ",
         }
     )

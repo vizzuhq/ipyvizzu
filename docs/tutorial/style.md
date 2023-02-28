@@ -2,7 +2,7 @@
 
 `ipyvizzu` offers a wide variety of styling options when you want to personalize
 the look and feel of your animated charts. The styling properties are organized
-into a hierarchical structure, where - similarly to CSS - when properties are
+into a hierarchical structure, where - similarly to `CSS` - when properties are
 set on a higher level of this hierarchy, they will be inherited on all lower
 levels. You can use absolute sizing (`px`, `pt`) and relative (`%`, `em`, `vw`).
 

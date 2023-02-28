@@ -13,34 +13,36 @@ ascending order.
 
 <div id="tutorial_01"></div>
 
-```python
-import pandas as pd
-from ipyvizzu import Chart, Data, Config
+??? info "Info - How to setup Chart"
+    ```python
+    import pandas as pd
+    from ipyvizzu import Chart, Data, Config
 
-
-data_frame = pd.read_csv("../../assets/data/music_data.csv")
-data = Data()
-data.add_data_frame(data_frame)
-
-
-chart = Chart()
-
-chart.animate(data)
-
-chart.animate(
-    Config(
-        {
-            "channels": {
-                "y": {"set": ["Popularity", "Kinds"]},
-                "x": {"set": "Genres"},
-                "label": {"attach": "Popularity"},
-            },
-            "color": {"attach": "Kinds"},
-            "title": "Switch to ascending order...",
-        }
+    data_frame = pd.read_csv(
+        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
     )
-)
+    data = Data()
+    data.add_data_frame(data_frame)
 
+    chart = Chart()
+
+    chart.animate(data)
+
+    chart.animate(
+        Config(
+            {
+                "channels": {
+                    "y": {"set": ["Popularity", "Kinds"]},
+                    "x": {"set": ["Genres"]},
+                    "label": {"attach": ["Popularity"]},
+                },
+                "color": {"attach": ["Kinds"]},
+            }
+        )
+    )
+    ```
+
+```python
 chart.animate(
     Config(
         {
@@ -50,15 +52,13 @@ chart.animate(
 )
 ```
 
-If you want descending order instead, you have to set the reverse parameter to
+If you want descending order instead, you have to set the `reverse` parameter to
 `True`. When used without setting the sorting to `byValue`, the elements will be
 in the opposite order than they are in the data set added to `ipyvizzu`.
 
 <div id="tutorial_02"></div>
 
 ```python
-chart.animate(Config({"title": "...or descending order."}))
-
 chart.animate(
     Config(
         {
@@ -73,8 +73,6 @@ This is how to switch back to the default sorting.
 <div id="tutorial_03"></div>
 
 ```python
-chart.animate(Config({"title": "Let's get back to where we were"}))
-
 chart.animate(
     Config(
         {
@@ -92,13 +90,11 @@ organized by `Genres`, and then we have one bar for each of `Kinds`.
 <div id="tutorial_04"></div>
 
 ```python
-chart.animate(Config({"title": "With two discretes on one axis..."}))
-
 chart.animate(
     Config(
         {
             "channels": {
-                "y": {"detach": "Kinds"},
+                "y": {"detach": ["Kinds"]},
                 "x": {"set": ["Genres", "Kinds"]},
             }
         }
@@ -115,10 +111,6 @@ the elements according to this new logic.
 <div id="tutorial_05"></div>
 
 ```python
-chart.animate(
-    Config({"title": "...grouping is determined by their order."})
-)
-
 chart.animate(
     Config(
         {

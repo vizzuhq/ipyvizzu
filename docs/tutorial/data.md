@@ -284,3 +284,9 @@ from ipyvizzu import Data
 
 data = Data.from_json("../assets/data/music_data.json")
 ```
+
+You should set the data in the first animate call:
+
+```python
+chart.animate(data)
+```

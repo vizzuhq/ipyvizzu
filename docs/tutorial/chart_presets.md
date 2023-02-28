@@ -12,35 +12,30 @@ this reason, `ipyvizzu` provides preset chart configurations for many known
 chart types. See the [preset gallery](../examples/presets/index.md) for all
 available presets.
 
-Use the methods of the presets static property of the `Config` class to build a
-chart based on a preset. These methods return chart configuration objects that
-can be passed to the `animate` method. For example, this is how to create a
-stacked bubble chart using its preset.
+Use the preset methods of the `Config` class to build a chart based on a preset.
+These methods return chart configuration objects that can be passed to the
+`animate` method. For example, this is how to create a stacked bubble chart
+using its preset.
 
 <div id="tutorial_01"></div>
 
-```python
-import pandas as pd
-from ipyvizzu import Chart, Data, Config, Style
+??? info "Info - How to setup Chart"
+    ```python
+    import pandas as pd
+    from ipyvizzu import Chart, Data, Config, Style
 
-
-data_frame = pd.read_csv("../../assets/data/music_data.csv")
-data = Data()
-data.add_data_frame(data_frame)
-
-
-chart = Chart()
-
-chart.animate(data)
-
-chart.animate(
-    Config(
-        {
-            "title": "Using a preset",
-        }
+    data_frame = pd.read_csv(
+        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
     )
-)
+    data = Data()
+    data.add_data_frame(data_frame)
 
+    chart = Chart()
+
+    chart.animate(data)
+    ```
+
+```python
 chart.animate(
     Config.stackedBubble(
         {
@@ -61,14 +56,6 @@ where chart elements are sorted by value.
 <div id="tutorial_02"></div>
 
 ```python
-chart.animate(
-    Config(
-        {
-            "title": "Set sorting for a chart preset",
-        }
-    )
-)
-
 chart.animate(
     Config.radialStackedBar(
         {
@@ -91,14 +78,6 @@ style or the underlying data.
 <div id="tutorial_03"></div>
 
 ```python
-chart.animate(
-    Config(
-        {
-            "title": "Setting style for a preset",
-        }
-    )
-)
-
 chart.animate(
     Config.radialBar(
         {

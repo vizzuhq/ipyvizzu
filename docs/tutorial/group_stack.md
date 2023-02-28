@@ -13,38 +13,40 @@ we also add the same dimension to the color channel.
 
 <div id="tutorial_01"></div>
 
-```python
-import pandas as pd
-from ipyvizzu import Chart, Data, Config
+??? info "Info - How to setup Chart"
+    ```python
+    import pandas as pd
+    from ipyvizzu import Chart, Data, Config
 
-
-data_frame = pd.read_csv("../../assets/data/music_data.csv")
-data = Data()
-data.add_data_frame(data_frame)
-
-
-chart = Chart()
-
-chart.animate(data)
-
-chart.animate(
-    Config(
-        {
-            "channels": {
-                "y": {"set": "Popularity"},
-                "x": {"set": "Genres"},
-            },
-            "title": "Creating a stacked chart",
-        }
+    data_frame = pd.read_csv(
+        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
     )
-)
+    data = Data()
+    data.add_data_frame(data_frame)
 
+    chart = Chart()
+
+    chart.animate(data)
+
+    chart.animate(
+        Config(
+            {
+                "channels": {
+                    "y": {"set": ["Popularity"]},
+                    "x": {"set": ["Genres"]},
+                },
+            }
+        )
+    )
+    ```
+
+```python
 chart.animate(
     Config(
         {
             "channels": {
-                "y": {"attach": "Kinds"},
-                "color": {"attach": "Kinds"},
+                "y": {"attach": ["Kinds"]},
+                "color": {"attach": ["Kinds"]},
             }
         }
     )
@@ -61,18 +63,26 @@ viewer.
 chart.animate(
     Config(
         {
-            "title": "...then you can add it to another channel"
-            + " = group elements..."
+            "channels": {
+                "y": {"detach": ["Kinds"]},
+                "x": {"attach": ["Kinds"]},
+            },
         }
     )
 )
+```
 
+In order to change the category via which the elements are grouped, just change
+the order of the dimension with another one on the same axis.
+
+<div id="tutorial_03"></div>
+
+```python
 chart.animate(
     Config(
         {
             "channels": {
-                "y": {"detach": "Kinds"},
-                "x": {"attach": "Kinds"},
+                "x": {"set": ["Kinds", "Genres"]},
             },
         }
     )
@@ -82,17 +92,9 @@ chart.animate(
 To stack a grouped chart, you just have to do the same thing the other way
 around: detach the dimension from the x-axis and attach it to the y-axis.
 
-<div id="tutorial_03"></div>
+<div id="tutorial_04"></div>
 
 ```python
-chart.animate(
-    Config(
-        {
-            "title": "...doing it the other way is how you stack your chart"
-        }
-    )
-)
-
 chart.animate(
     Config(
         {

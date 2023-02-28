@@ -42,7 +42,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
           return chart.animate({
             config: {
               title:
-                "...then you can add it to another channel = group elements...",
+                "...then you can add it to another channel = group elements",
             },
           });
         },
@@ -63,6 +63,26 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
         (chart) => {
           return chart.animate({
             config: {
+              title: "Regrouping the chart",
+            },
+          });
+        },
+        (chart) => {
+          return chart.animate({
+            config: {
+              channels: {
+                x: { set: ["Kinds", "Genres"] },
+              },
+            },
+          });
+        },
+      ],
+    },
+    {
+      anims: [
+        (chart) => {
+          return chart.animate({
+            config: {
               title: "...doing it the other way is how you stack your chart",
             },
           });
@@ -71,8 +91,8 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
           return chart.animate({
             config: {
               channels: {
-                y: { attach: "Kinds" },
                 x: { detach: "Kinds" },
+                y: { attach: "Kinds" },
               },
             },
           });

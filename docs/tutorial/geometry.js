@@ -12,7 +12,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
         (chart) => {
           return chart.animate({
             config: {
-              title: "Geometry",
+              title: "Geometry: area",
               channels: {
                 y: { set: "Popularity" },
                 x: { set: "Genres" },
@@ -22,7 +22,6 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
         },
         (chart) => {
           return chart.animate({
-            title: "Geometry: area",
             geometry: "area",
           });
         },
@@ -33,6 +32,10 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
         (chart) => {
           return chart.animate({
             title: "Geometry: line",
+          });
+        },
+        (chart) => {
+          return chart.animate({
             geometry: "line",
           });
         },
@@ -43,6 +46,10 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
         (chart) => {
           return chart.animate({
             title: "Geometry: circle",
+          });
+        },
+        (chart) => {
+          return chart.animate({
             geometry: "circle",
           });
         },
@@ -53,6 +60,10 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
         (chart) => {
           return chart.animate({
             title: "Geometry: rectangle - default",
+          });
+        },
+        (chart) => {
+          return chart.animate({
             geometry: "rectangle",
           });
         },

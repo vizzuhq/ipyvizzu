@@ -16,34 +16,36 @@ from the chart.
 
 <div id="tutorial_01"></div>
 
-```python
-import pandas as pd
-from ipyvizzu import Chart, Data, Config
+??? info "Info - How to setup Chart"
+    ```python
+    import pandas as pd
+    from ipyvizzu import Chart, Data, Config
 
-
-data_frame = pd.read_csv("../../assets/data/music_data.csv")
-data1 = Data()
-data1.add_data_frame(data_frame)
-
-
-chart = Chart()
-
-chart.animate(data1)
-
-chart.animate(
-    Config(
-        {
-            "channels": {
-                "y": {"set": ["Popularity", "Kinds"]},
-                "x": {"set": "Genres"},
-                "label": {"attach": "Popularity"},
-            },
-            "color": {"attach": "Kinds"},
-            "title": "Filter by one dimension",
-        }
+    data_frame = pd.read_csv(
+        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
     )
-)
+    data1 = Data()
+    data1.add_data_frame(data_frame)
 
+    chart = Chart()
+
+    chart.animate(data1)
+
+    chart.animate(
+        Config(
+            {
+                "channels": {
+                    "y": {"set": ["Popularity", "Kinds"]},
+                    "x": {"set": ["Genres"]},
+                    "label": {"attach": ["Popularity"]},
+                },
+                "color": {"attach": ["Kinds"]},
+            }
+        )
+    )
+    ```
+
+```python
 filter1 = Data.filter(
     "record['Genres'] == 'Pop' || record['Genres'] == 'Metal'"
 )
@@ -58,8 +60,6 @@ we weren't update the filter, `ipyvizzu` would use it in subsequent states.
 <div id="tutorial_02"></div>
 
 ```python
-chart.animate(Config({"title": "Filter by two dimensions"}))
-
 filter2 = Data.filter(
     "(record['Genres'] == 'Pop' || record['Genres'] == 'Metal')"
     + " && record['Kinds'] == 'Smooth'"
@@ -73,8 +73,6 @@ Switching the filter off to get back to the original view.
 <div id="tutorial_03"></div>
 
 ```python
-chart.animate(Config({"title": "Filter off"}))
-
 chart.animate(Data.filter(None))
 ```
 
@@ -83,8 +81,6 @@ Here we add another record to the data set and update the chart accordingly.
 <div id="tutorial_04"></div>
 
 ```python
-chart.animate(Config({"title": "Adding new records"}))
-
 records = [
     ["Soul", "Hard", 91],
     ["Soul", "Smooth", 57],

@@ -10,7 +10,7 @@ legend on the left. `ipyvizzu` automatically hides the legend when it’s
 unnecessary to show it. When the title is not in use, `ipyvizzu` hides that part
 automatically as well. Each of these parts have their own paddings on all four
 sides that adjust to the chart size by default, but can also be set with the
-appropriate settings in the style object. All size parameters can be set in
+appropriate settings in the `Style` object. All size parameters can be set in
 pixel, percentage and em.
 
 We add different background colors to the parts of the layout to show how they
@@ -18,34 +18,36 @@ are aligned.
 
 <div id="tutorial_01"></div>
 
-```python
-import pandas as pd
-from ipyvizzu import Chart, Data, Config, Style
+??? info "Info - How to setup Chart"
+    ```python
+    import pandas as pd
+    from ipyvizzu import Chart, Data, Config, Style
 
-
-data_frame = pd.read_csv("../../assets/data/music_data.csv")
-data = Data()
-data.add_data_frame(data_frame)
-
-
-chart = Chart()
-
-chart.animate(data)
-
-chart.animate(
-    Config(
-        {
-            "channels": {
-                "y": {"set": ["Popularity", "Kinds"]},
-                "x": {"set": "Genres"},
-            },
-            "label": {"attach": "Popularity"},
-            "color": {"set": "Kinds"},
-            "title": "Plot, title and legend background",
-        }
+    data_frame = pd.read_csv(
+        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
     )
-)
+    data = Data()
+    data.add_data_frame(data_frame)
 
+    chart = Chart()
+
+    chart.animate(data)
+
+    chart.animate(
+        Config(
+            {
+                "channels": {
+                    "y": {"set": ["Popularity", "Kinds"]},
+                    "x": {"set": ["Genres"]},
+                },
+                "label": {"attach": ["Popularity"]},
+                "color": {"set": ["Kinds"]},
+            }
+        )
+    )
+    ```
+
+```python
 chart.animate(
     Style(
         {
@@ -62,8 +64,6 @@ Setting the width of the legend.
 <div id="tutorial_02"></div>
 
 ```python
-chart.animate(Config({"title": "Legend width"}))
-
 chart.animate(Style({"legend": {"width": 50}}))
 ```
 
@@ -82,8 +82,6 @@ the text moving to the right.
 <div id="tutorial_04"></div>
 
 ```python
-chart.animate(Config({"title": "Title padding"}))
-
 chart.animate(
     Style(
         {
@@ -121,8 +119,6 @@ axes are drawn on the padding of the plot and not the plot itself.
 <div id="tutorial_06"></div>
 
 ```python
-chart.animate(Config({"title": "Plot padding"}))
-
 chart.animate(
     Style({"plot": {"paddingLeft": 100, "paddingRight": 100}})
 )
