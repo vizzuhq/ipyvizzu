@@ -143,8 +143,7 @@ chart.animate(
                 },
             }
         }
-    ),
-    regroupStrategy="fade",
+    )
 )
 ```
 
