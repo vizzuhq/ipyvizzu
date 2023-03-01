@@ -11,20 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Configure git
-        run: |
-          git config --global user.mail doc@github.com
-          git config --global user.name doc
-
-      - name: Switch to gh-pages branch
-        run: |
-          git branch -f gh-pages
-          git switch gh-pages
-
       - uses: actions/cache@v3
         with:
-          path: ./.venv
-          key: venv-${{ github.run_id }}
+          path: ./.venv_ipyvizzu
+          key: venv-ipyvizzu-${{ github.run_id }}
 
       - name: Touch dev environment
         run: make touch-dev
@@ -36,18 +26,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: vizzuhq/vizzu-lib
-          path: tools/example-generator/vizzu-lib
-
-      - name: Generate vizzu-lib ipynbs
-        run: ./run.sh ../../.venv
-        working-directory: tools/example-generator
+          path: vizzu-lib
 
       - name: Build documentation
         run: make doc
-
-      - name: Push to gh-pages branch
-        run: |
-          git add docs
-          git commit -am 'docs: update'
-          git push -f origin gh-pages
-        if: ( github.event_name == 'release' && github.event.action == 'published' ) || github.event_name == 'workflow_dispatch'
