@@ -2,7 +2,7 @@
   <a href="https://ipyvizzu.vizzuhq.com/latest/">
     <img src="https://github.com/vizzuhq/vizzu-lib-doc/raw/main/docs/readme/infinite-60.gif" alt="Vizzu" />
   </a>
-  <p align="center"><b>ipyvizzu</b> Build animated charts in Jupyter Notebook and similar environments with a simple Python syntax</p>
+  <p align="center"><b>ipyvizzu</b> - Build animated charts in Jupyter Notebook and similar environments with a simple Python syntax</p>
   <p align="center">
     <a href="https://ipyvizzu.vizzuhq.com/latest/">Documentation</a>
     · <a href="https://ipyvizzu.vizzuhq.com/latest/examples/">Examples</a>
