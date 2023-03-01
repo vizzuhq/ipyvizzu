@@ -38,7 +38,6 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
           legend: "size",
         },
         style: {
-          fontSize: 10,
           title: {
             fontWeight: 300,
             paddingTop: 50,

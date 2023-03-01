@@ -51,7 +51,6 @@ chart.animate(
     ),
     Style(
         {
-            "fontSize": 10,
             "title": {
                 "fontWeight": 300,
                 "paddingTop": 50,
