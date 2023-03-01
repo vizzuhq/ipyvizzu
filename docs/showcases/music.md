@@ -14,7 +14,10 @@ csv_url: ./music.csv
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style
 
-data_frame = pd.read_csv("./music.csv", dtype={"Year": str})
+data_frame = pd.read_csv(
+    "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/showcases/music/music.csv",
+    dtype={"Year": str},
+)
 data = Data()
 data.add_data_frame(data_frame)
 

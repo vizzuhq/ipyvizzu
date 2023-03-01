@@ -27,7 +27,7 @@ whereas on a bar chart, horizontally.
     from ipyvizzu import Chart, Data, Config
 
     data_frame = pd.read_csv(
-        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
+        "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/assets/data/music_data.csv"
     )
     data = Data()
     data.add_data_frame(data_frame)

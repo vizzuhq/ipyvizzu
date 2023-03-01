@@ -118,6 +118,10 @@ class Vizzu:
             f"https://ipyvizzu.vizzuhq.com/{ipyvizzu_version}/",
         )
         content = content.replace(
+            "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/",
+            f"https://ipyvizzu.vizzuhq.com/{ipyvizzu_version}/",
+        )
+        content = content.replace(
             "https://lib.vizzuhq.com/latest/",
             f"https://lib.vizzuhq.com/{vizzu_version}/",
         )

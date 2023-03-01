@@ -61,8 +61,7 @@ def create_chart():
 
     data = Data()
     data_frame = pd.read_csv(
-        "https://github.com/vizzuhq/ipyvizzu/raw/main/"
-        + "docs/examples/stories/titanic/titanic.csv"
+        "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/showcases/titanic/titanic.csv"
     )
     data.add_data_frame(data_frame)
 

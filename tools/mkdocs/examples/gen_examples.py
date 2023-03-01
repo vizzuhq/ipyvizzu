@@ -208,6 +208,7 @@ class GenShowcases(GenExamples):
         items = list(src.rglob("*.js")) + list(src.rglob("main.html"))
         for item in items:
             content = GenExamples._get_content(item)
+            content = Vizzu.set_version(content)
             with mkdocs_gen_files.open(
                 self._dst + "/" + os.path.relpath(item, SHOWCASES_PATH), "w"
             ) as fh_js:

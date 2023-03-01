@@ -64,8 +64,8 @@ chart = Chart(
 
 
 # add data to Chart
-# download data from https://github.com/
-# vizzuhq/ipyvizzu/raw/main/docs/examples/stories/titanic/titanic.csv
+# download data from
+# "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/showcases/titanic/titanic.csv"
 # and place it in your JupyterLite workspace
 
 DB_NAME = "JupyterLite Storage"

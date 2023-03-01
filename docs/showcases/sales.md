@@ -14,7 +14,9 @@ csv_url: ./sales.csv
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style
 
-data_frame = pd.read_csv("./sales.csv")
+data_frame = pd.read_csv(
+    "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/showcases/sales/sales.csv"
+)
 data = Data()
 data.add_data_frame(data_frame)
 

@@ -72,7 +72,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
 data_frame = pd.read_csv(
-    "https://raw.githubusercontent.com/vizzuhq/ipyvizzu/main/docs/examples/stories/titanic/titanic.csv"
+    "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/showcases/titanic/titanic.csv"
 )
 data = Data()
 data.add_data_frame(data_frame)
