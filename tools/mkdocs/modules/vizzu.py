@@ -31,7 +31,7 @@ class Vizzu:
 
         if VIZZU_LIB_SITE_URL:
             return VIZZU_LIB_SITE_URL
-        return "https://lib.vizzuhq.com/"
+        return "https://lib.vizzuhq.com"
 
     @staticmethod
     def get_vizzulibdoc_url() -> str:
