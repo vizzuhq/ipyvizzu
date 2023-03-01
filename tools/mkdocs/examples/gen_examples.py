@@ -215,12 +215,13 @@ class GenShowcases(GenExamples):
 
         items = list(src.rglob("*.md"))
         items.sort(key=lambda f: f.stem)
+        url = f"{Vizzu.get_vizzulibsite_url()}/{Vizzu.get_vizzu_version()}/{self._dst}"
         for item in items:
             with mkdocs_gen_files.open(f"{self._dst}/index.md", "a") as fh_index:
                 fh_index.write(
                     f"<a href='./{item.stem}/' title=''>"
                     + "<video nocontrols autoplay muted loop class='image-gallery'"
-                    + f"src='./{item.stem}.mp4'"
+                    + f"src='{url}/{item.stem}.mp4'"
                     + " type='video/mp4'></video>"
                     + "</a>\n"
                 )
