@@ -17,13 +17,18 @@ jobs:
         path: ./.venv_ipyvizzu
         key: venv-ipyvizzu-${{ github.run_id }}
 
+    - uses: actions/cache@v3
+      with:
+        path: ./tests/coverage
+        key: coverage-ipyvizzu-${{ inputs.run_id }}
+
     - name: Touch dev environment
       run: make touch-dev
           
     - name: Check format
       run: make check-format
 
-    - name: Run pylint
+    - name: Check lint
       run: make check-lint
 
     - name: Check typing

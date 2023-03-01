@@ -1,10 +1,10 @@
-name: Publish documentation
+name: Build documentation
 
 on:
   workflow_call:
 
 jobs:
-  publish_doc:
+  build_doc:
 
     runs-on: ubuntu-20.04
 
@@ -15,6 +15,11 @@ jobs:
         with:
           path: ./.venv_ipyvizzu
           key: venv-ipyvizzu-${{ github.run_id }}
+
+      - uses: actions/cache@v3
+        with:
+          path: ./tests/coverage
+          key: coverage-ipyvizzu-${{ inputs.run_id }}
 
       - name: Touch dev environment
         run: make touch-dev
