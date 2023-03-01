@@ -16,7 +16,7 @@ class Csv2Js {
           const keys = Object.keys(csvData[i]);
           for (const key of keys) {
             const numValue = +csvData[i][key];
-            if (!isNaN(numValue)) {
+            if (csvData[i][key] !== "" && !isNaN(numValue)) {
               record.push(numValue);
             } else {
               record.push(csvData[i][key]);
