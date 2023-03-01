@@ -1,11 +1,61 @@
-pre-commit
+#
+#
+# dev
+#
 pip-tools
-twine
+pre-commit
 black
 black[jupyter]
 pylint
 mypy
 coverage
+twine
+#
+#
+# mdformat
+#
+mdformat
+# mdformat codeformatters
+mdformat-beautysh
+mdformat-black
+mdformat-config
+mdformat-web
+# mdformat extensions
+mdformat-admon
+mdformat-gfm
+mdformat-tables
+mdformat-footnote
+mdformat-frontmatter
+mdformat-configurable-black
+#
+#
+# markdown extensions
+#
+mdx_truly_sane_lists
+#
+#
+# mkdocs
+#
+mkdocs
+mkdocs-material
+mkdocs-section-index
+mkdocs-literate-nav
+mkdocs-autorefs
+mkdocstrings[python]
+mkdocs-gen-files
+mkdocs-coverage
+mkdocs-jupyter
+#
+#
+# yaml
+#
+pyyaml
+types-pyyaml
+#
+#
+mike
+#
+#
+# environments
+#
 notebook
-jupytext
-pandas

@@ -1,11 +1,12 @@
 <p align="center">
-  <a href="https://github.com/vizzuhq/ipyvizzu">
+  <a href="https://ipyvizzu.vizzuhq.com/latest/">
     <img src="https://github.com/vizzuhq/vizzu-lib-doc/raw/main/docs/readme/infinite-60.gif" alt="Vizzu" />
   </a>
   <p align="center"><b>ipyvizzu</b> - Build animated charts in Jupyter Notebook and similar environments with a simple Python syntax</p>
   <p align="center">
-    <a href="https://ipyvizzu.vizzuhq.com/doc.html">Tutorial</a>
-    · <a href="http://ipyvizzu.vizzuhq.com/examples/examples.html">Examples</a>
+    <a href="https://ipyvizzu.vizzuhq.com/latest/">Documentation</a>
+    · <a href="https://ipyvizzu.vizzuhq.com/latest/examples/">Examples</a>
+    · <a href="https://ipyvizzu.vizzuhq.com/latest/reference/ipyvizzu/">Code reference</a>
     · <a href="https://github.com/vizzuhq/ipyvizzu">Repository</a>
   </p>
 </p>
@@ -14,30 +15,51 @@
 [![Conda Version](https://img.shields.io/conda/vn/conda-forge/ipyvizzu.svg)](https://anaconda.org/conda-forge/ipyvizzu)
 [![CI-CD](https://github.com/vizzuhq/ipyvizzu/actions/workflows/cicd.yml/badge.svg?branch=main)](https://github.com/vizzuhq/ipyvizzu/actions/workflows/cicd.yml)
 
-# About The Project
+# ipyvizzu
 
-ipyvizzu is an animated charting tool for [Jupyter](https://jupyter.org), [Google Colab](https://colab.research.google.com), [Databricks](https://docs.databricks.com/notebooks), [Kaggle](https://www.kaggle.com/code) and [Deepnote](https://deepnote.com) notebooks among other platforms. ipyvizzu enables data scientists and analysts to utilize animation for storytelling with data using Python. It's built on the open-source Javascript/C++ charting library [Vizzu](https://github.com/vizzuhq/vizzu-lib)
+## About The Project
 
-**There is a new extension of ipyvizzu, [ipyvizzu-story](https://github.com/vizzuhq/ipyvizzu-story)** with which the animated charts can be presented right from the notebooks and shared as an interactive HTML file. Since ipyvizzu-story's syntax is a bit different to ipyvizzu's, we suggest you to start from the [ipyvizzu-story repo](https://github.com/vizzuhq/ipyvizzu-story) if you're interested in using animated charts to present your findings.
+`ipyvizzu` is an animated charting tool for [Jupyter](https://jupyter.org),
+[Google Colab](https://colab.research.google.com),
+[Databricks](https://docs.databricks.com/notebooks),
+[Kaggle](https://www.kaggle.com/code) and [Deepnote](https://deepnote.com)
+notebooks among other platforms. `ipyvizzu` enables data scientists and analysts
+to utilize animation for storytelling with data using `Python`. It's built on
+the open-source `JavaScript`/`C++` charting library
+[Vizzu](https://github.com/vizzuhq/vizzu-lib).
 
-Similarly to Vizzu, ipyvizzu utilizes a generic dataviz engine that generates many types of charts and seamlessly animates between them. It is designed for building animated data stories as it enables showing different perspectives of the data that the viewers can easily follow.
+**There is a new extension of `ipyvizzu`,
+[ipyvizzu-story](https://vizzuhq.github.io/ipyvizzu-story/)** with which the
+animated charts can be presented right from the notebooks. Since
+`ipyvizzu-story`'s syntax is a bit different to `ipyvizzu`'s, we suggest you to
+start from the [ipyvizzu-story repo](https://github.com/vizzuhq/ipyvizzu-story)
+if you're interested in using animated charts to present your findings live or
+to share your presentation as an HTML file.
+
+Similarly to `Vizzu`, `ipyvizzu` utilizes a generic dataviz engine that
+generates many types of charts and seamlessly animates between them. It is
+designed for building animated data stories as it enables showing different
+perspectives of the data that the viewers can easily follow.
 
 Main features:
+
 - Designed with animation in focus;
 - Defaults based on data visualization guidelines;
-- Works with Pandas dataframe, while also JSON and inline data input is available;
-- Auto scrolling feature to keep the actual chart in position while executing multiple cells.
+- Works with `Pandas` dataframe, while also `JSON` and inline data input is
+  available;
+- Auto scrolling feature to keep the actual chart in position while executing
+  multiple cells.
 
-# Installation
-
-ipyvizzu requires the `IPython`, `jsonschema` and `pandas` packages.
+## Installation
 
 ```sh
 pip install ipyvizzu
 ```
-You can also use ipyvizzu by locally installing Vizzu, you can find more info about this in the [documentation](https://ipyvizzu.vizzuhq.com/doc.html)
 
-# Usage
+Visit [Installation chapter](https://ipyvizzu.vizzuhq.com/latest/installation/)
+for more options and details.
+
+## Usage
 
 You can create the animation below with the following code snippet.
 
@@ -50,7 +72,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
 data_frame = pd.read_csv(
-    "https://raw.githubusercontent.com/vizzuhq/ipyvizzu/main/docs/examples/stories/titanic/titanic.csv"
+    "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/showcases/titanic/titanic.csv"
 )
 data = Data()
 data.add_data_frame(data_frame)
@@ -81,60 +103,61 @@ chart.animate(
 chart.animate(Config({"x": "Count", "y": ["Sex", "Survived"]}))
 ```
 
-# Documentation
-Visit our [documentation](https://ipyvizzu.vizzuhq.com/doc.html) site for more details and a step-by-step tutorial into ipyvizzu
-or check out our [example gallery](http://ipyvizzu.vizzuhq.com/examples/examples.html).
+## Documentation
 
-# Tools Support
+Visit our [Documentation site](https://ipyvizzu.vizzuhq.com/latest/) for more
+details and a step-by-step tutorial into `ipyvizzu` or check out our
+[Example gallery](https://ipyvizzu.vizzuhq.com/latest/examples/index.md).
 
-ipyvizzu can be used in a wide variety of environments. We prepared examples and the list of supported/unsupported features for the following platforms:
+## Environments
 
-- [Databricks](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/databricks.md)
+`ipyvizzu` can be used in a wide variety of environments, visit
+[Environments chapter](https://ipyvizzu.vizzuhq.com/latest/environments/) for
+more details.
 
-- [DataCamp](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/datacamp.md)
+- Notebooks
+  - [Jupyter Notebook](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/jupyternotebook/)
+  - [Colab](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/colab/)
+  - [Databricks](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/databricks/)
+  - [DataCamp](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/datacamp/)
+  - [Deepnote](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/deepnote/)
+  - [JupyterLab](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/jupyterlab/)
+  - [JupyterLite](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/jupyterlite/)
+  - [Kaggle](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/kaggle/)
+  - [Noteable](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/noteable/)
+- App platforms
+  - [Streamlit](https://ipyvizzu.vizzuhq.com/latest/environments/platform/streamlit/)
+  - [Flask](https://ipyvizzu.vizzuhq.com/latest/environments/platform/flask/)
+  - [Panel](https://ipyvizzu.vizzuhq.com/latest/environments/platform/panel/)
+  - [Mercury/mljar](https://ipyvizzu.vizzuhq.com/latest/environments/platform/mercury/)
+  - [Voilà](https://ipyvizzu.vizzuhq.com/latest/environments/platform/voila/)
+- BI tools
+  - [Mode](https://ipyvizzu.vizzuhq.com/latest/environments/bi/mode/)
+- IDEs
+  - [PyCharm](https://ipyvizzu.vizzuhq.com/latest/environments/ide/pycharm/)
+  - [VSCode Python](https://ipyvizzu.vizzuhq.com/latest/environments/ide/vscode/)
 
-- [Deepnote](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/deepnote.md) and interactive demo [![View in Deepnote](https://deepnote.com/static/buttons/view-in-deepnote.svg)](https://deepnote.com/workspace/david-andras-vegh-bc03-79fd3a98-abaf-40c0-8b52-9f3e438a73fc/project/ipyvizzu-demo-dff3c2c3-f212-434e-8fa1-23d843c52fe3/%2Fipyvizzu_demo.ipynb)
+## Extensions
 
-- [Google Colab](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/colab.md) and interactive demo [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/19H4etDPuSyJ3LNJbshsfEAnxxwjJgZgq?usp=sharing)
+- [ipyvizzu-story](https://ipyvizzu-story.vizzuhq.com/) adds presentation
+  controls to present data stories live or to share them as an interactive HTML
+  file.
 
-- [JupyterLab](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/jupyterlab.md)
+## Contributing
 
-- [JupyterLite](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/jupyterlite.md)
+We welcome contributions to the project, visit our contributing
+[guide](https://ipyvizzu.vizzuhq.com/latest/CONTRIBUTING/) for further info.
 
-- [Kaggle](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/kaggle.md) and interactive demo [![Open in Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://www.kaggle.com/dvidandrsvgh/ipyvizzu-demo)
+## Contact
 
-- [Mercury](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/mercury.md) and interactive demo [![Open in Mercury](https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg)](https://huggingface.co/spaces/veghdev/ipyvizzu-demo)
+- Join our Slack if you have any questions or comments:
+  [vizzu-community.slack.com](https://join.slack.com/t/vizzu-community/shared_invite/zt-w2nqhq44-2CCWL4o7qn2Ns1EFSf9kEg)
+- Drop us a line at hello@vizzuhq.com
+- Follow us on Twitter: [VizzuHQ](https://twitter.com/VizzuHQ)
 
-- [Mode](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/mode.md)
+## License
 
-- [Noteable](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/noteable.md)
+Copyright © 2022-2023 [Vizzu](https://vizzuhq.com).
 
-- [Panel](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/panel.md)
-
-- [Streamlit](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/streamlit.md)
-
-- [PyCharm](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/pycharm.md)
-
-- [Voilà](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/voila.md)
-
-- [VSCode](https://github.com/vizzuhq/ipyvizzu/blob/main/docs/examples/environments/vscode.md)
-
-# Extensions
-
-- [ipyvizzu-story](https://github.com/vizzuhq/ipyvizzu-story) adds presentation controls to present data stories live or to share them as an interactive HTML file.
-
-# Contributing
-
-We welcome contributions to the project, visit our contributing [guide](https://github.com/vizzuhq/ipyvizzu/blob/main/CONTRIBUTING.md) for further info.
-
-# Contact
-
-* Join our Slack if you have any questions, comments or you need some assistance in using our tools: [vizzu-community.slack.com](https://join.slack.com/t/vizzu-community/shared_invite/zt-w2nqhq44-2CCWL4o7qn2Ns1EFSf9kEg)
-* Drop us a line at hello@vizzuhq.com
-* Follow us on Twitter: [VizzuHQ](https://twitter.com/VizzuHQ)
-
-# License
-
-Copyright © 2022 [Vizzu Kft.](https://vizzuhq.com).
-
-Released under the [Apache 2.0 License](https://github.com/vizzuhq/ipyvizzu/blob/main/LICENSE).
+Released under the
+[Apache 2.0 License](https://ipyvizzu.vizzuhq.com/latest/LICENSE/).

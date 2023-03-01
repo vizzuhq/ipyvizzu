@@ -1,7 +1,7 @@
 """
 ipyvizzu
-Build animated charts in Jupyter Notebook and
-in many other environments with a simple Python syntax.
+Build animated charts in Jupyter Notebook
+and similar environments with a simple Python syntax.
 """
 
 from setuptools import setup  # type: ignore
@@ -16,7 +16,7 @@ with open("README.md", encoding="utf8") as fp:
 setup(
     name="ipyvizzu",
     version="0.13.0",
-    description="Build animated charts in many environments with a simple Python syntax.",
+    description="Build animated charts in Jupyter Notebook and similar environments with a simple Python syntax.",  # pylint: disable=line-too-long
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="Apache 2",

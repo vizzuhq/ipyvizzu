@@ -21,11 +21,11 @@ repos:
       types: [python]
       pass_filenames: false
 
-    - id: lint
+    - id: check-lint
       stages: [push]
       name: lint
       entry: make
-      args: ["lint"]
+      args: ["check-lint"]
       language: system
       types: [python]
       pass_filenames: false

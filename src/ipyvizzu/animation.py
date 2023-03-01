@@ -257,7 +257,7 @@ class Data(dict, Animation):
 
     def add_data_frame(
         self,
-        data_frame: Union[pd.DataFrame, pd.core.series.Series],
+        data_frame: Union[pd.DataFrame, pd.Series],
         default_measure_value: Optional[Any] = 0,
         default_dimension_value: Optional[Any] = "",
     ) -> None:
@@ -271,7 +271,8 @@ class Data(dict, Animation):
             default_dimension_value: The default dimension value to fill the empty values.
 
         Raises:
-            TypeError: If `data_frame` is not instance of `pandas.DataFrame` or `pandas.Series`.
+            TypeError: If `data_frame` is not instance of [pd.DataFrame][pandas.DataFrame]
+                or [pd.Series][pandas.Series].
 
         Example:
             Adding a data frame to a [Data][ipyvizzu.animation.Data] class instance:
@@ -288,7 +289,7 @@ class Data(dict, Animation):
         """
 
         if not isinstance(data_frame, type(None)):
-            if isinstance(data_frame, pd.core.series.Series):
+            if isinstance(data_frame, pd.Series):
                 data_frame = pd.DataFrame(data_frame)
             if not isinstance(data_frame, pd.DataFrame):
                 raise TypeError(
@@ -320,7 +321,7 @@ class Data(dict, Animation):
 
     def add_data_frame_index(
         self,
-        data_frame: Union[pd.DataFrame, pd.core.series.Series],
+        data_frame: Union[pd.DataFrame, pd.Series],
         name: Optional[str],
     ) -> None:
         """
@@ -332,7 +333,8 @@ class Data(dict, Animation):
             name: The name of the index series.
 
         Raises:
-            TypeError: If `data_frame` is not instance of `pandas.DataFrame` or `pandas.Series`.
+            TypeError: If `data_frame` is not instance of [pd.DataFrame][pandas.DataFrame]
+                or [pd.Series][pandas.Series].
 
         Example:
             Adding a data frame's index to a [Data][ipyvizzu.animation.Data] class instance:
@@ -347,7 +349,7 @@ class Data(dict, Animation):
         """
 
         if data_frame is not None:
-            if isinstance(data_frame, pd.core.series.Series):
+            if isinstance(data_frame, pd.Series):
                 data_frame = pd.DataFrame(data_frame)
             if not isinstance(data_frame, pd.DataFrame):
                 raise TypeError(
@@ -477,7 +479,7 @@ class Snapshot(Animation):
     def dump(self) -> str:
         """
         A method for overwriting the
-        [Animation.build][ipyvizzu.animation.Animation.build] method.
+        [Animation.dump][ipyvizzu.animation.Animation.dump] method.
         It dumps the stored snapshot id as a string.
 
         Returns:

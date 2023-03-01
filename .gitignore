@@ -10,7 +10,10 @@ dist
 tests/coverage
 .test.*
 
-.venv
+vizzu-lib
 
+.venv_ipyvizzu
+
+site
 node_modules
 package-lock.json
