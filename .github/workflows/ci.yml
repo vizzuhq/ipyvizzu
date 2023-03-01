@@ -24,10 +24,13 @@ jobs:
       run: make check-format
 
     - name: Run pylint
-      run: make lint
+      run: make check-lint
 
     - name: Check typing
       run: make check-typing
 
     - name: Run test
       run: make test
+
+    - name: Check js
+      run: make check-js
