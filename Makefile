@@ -170,10 +170,13 @@ else
 	rm -rf `find . -name '__pycache__'`
 endif
 
+set-readme-urls: $(DEV_BUILD_FLAG)
+	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) tools/release/readme.py 
+
 build-release: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) -m build
 
 check-release: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) -m twine check dist/*.tar.gz dist/*.whl
 
-release: clean-build build-release check-release
+release: clean-build set-readme-urls build-release check-release
