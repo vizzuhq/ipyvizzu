@@ -159,7 +159,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
               return record.Year !== "Total" && record.Round === "F";
             },
           },
-          condig: {
+          config: {
             y: { set: "Round2", range: { max: 1, min: -5 } },
             x: "Count",
             lightness: null,
