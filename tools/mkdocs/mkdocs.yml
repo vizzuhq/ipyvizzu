@@ -8,7 +8,7 @@ docs_dir: ../../docs
 site_dir: ../../site
 
 repo_url: https://github.com/vizzuhq/ipyvizzu
-edit_uri: https://github.com/vizzuhq/ipyvizzu/edit/mkdocs/docs
+edit_uri: https://github.com/vizzuhq/ipyvizzu/edit/main/docs
 use_directory_urls: true
 
 theme:
