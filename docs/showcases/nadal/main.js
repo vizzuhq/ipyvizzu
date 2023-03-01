@@ -11,9 +11,12 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 
   const dataLoaded = Csv2Js.csv("./nadal.csv", [
     "Year",
+    "Round",
     "Round2",
     "Order_GS",
     "Order_all",
+    "Total_GS",
+    "Top",
   ]);
 
   dataLoaded.then((data) => {

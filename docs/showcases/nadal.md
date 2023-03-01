@@ -18,9 +18,12 @@ data_frame = pd.read_csv(
     "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/showcases/nadal/nadal.csv",
     dtype={
         "Year": str,
+        "Round": str,
         "Round2": str,
         "Order_GS": str,
         "Order_all": str,
+        "Total_GS": str,
+        "Top": str,
     },
 )
 data = Data()
