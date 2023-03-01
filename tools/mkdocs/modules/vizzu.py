@@ -9,7 +9,7 @@ from ipyvizzu import Chart
 REPO_PATH = Path(__file__).parent / ".." / ".." / ".."
 MKDOCS_PATH = REPO_PATH / "tools" / "mkdocs"
 
-IPYVIZZU_VERSION = "0.14"
+IPYVIZZU_VERSION = ""
 VIZZU_VERSION = ""
 VIZZU_BACKEND_URL = ""
 VIZZU_STYLE_REFERENCE_URL = ""
@@ -97,7 +97,16 @@ class Vizzu:
             ipyvizzu major.minor version.
         """
 
-        return IPYVIZZU_VERSION
+        if IPYVIZZU_VERSION:
+            return IPYVIZZU_VERSION
+        with open(
+            REPO_PATH / "setup.py",
+            "r",
+            encoding="utf8",
+        ) as f_version:
+            content = f_version.read()
+            version = re.search(r"version=\"(\d+).(\d+).(\d+)\"", content)
+            return f"{version.group(1)}.{version.group(2)}"  # type: ignore
 
     @staticmethod
     def set_version(content: str) -> str:
