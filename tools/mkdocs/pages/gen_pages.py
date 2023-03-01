@@ -152,7 +152,18 @@ class Page:
             f"{Vizzu.get_vizzulibdoc_url()}/raw/main/docs/readme/",
             f"{Vizzu.get_vizzulibsite_url()}/{Vizzu.get_vizzu_version()}/readme/",
         )
-        content = content.replace(f"{site}/latest/", "").replace(f"{site}/latest", "./")
+        base = "../"
+        if dst == "index.md":
+            base = "./"
+        content = content.replace(f"{site}/latest/", base).replace(
+            f"{site}/latest", base
+        )
+        if dst == "index.md":
+            example = "showcases/titanic/titanic.csv"
+            content = content.replace(
+                "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/{example}",
+                f"https://ipyvizzu.vizzuhq.com/{Vizzu.get_ipyvizzu_version()}/{example}",
+            )
 
         if keep:
             content = f"<pre>{content}</pre>"
@@ -218,6 +229,12 @@ def main() -> None:
         Page.generate(
             src=REPO_PATH / "CODE_OF_CONDUCT.md",
             dst="CODE_OF_CONDUCT.md",
+            site=config["site_url"],
+        )
+
+        Page.generate(
+            src=REPO_PATH / "CHANGELOG.md",
+            dst="CHANGELOG.md",
             site=config["site_url"],
         )
 
