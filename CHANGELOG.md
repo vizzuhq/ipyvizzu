@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.14.0] - 2023-03-01
+
 ### Fixed
 
 - Changed cdn url to jsdelivr style.
