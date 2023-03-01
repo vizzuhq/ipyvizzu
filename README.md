@@ -107,7 +107,7 @@ chart.animate(Config({"x": "Count", "y": ["Sex", "Survived"]}))
 
 Visit our [Documentation site](https://ipyvizzu.vizzuhq.com/latest/) for more
 details and a step-by-step tutorial into `ipyvizzu` or check out our
-[Example gallery](https://ipyvizzu.vizzuhq.com/latest/examples/index.md).
+[Example gallery](https://ipyvizzu.vizzuhq.com/latest/examples/).
 
 ## Environments
 
