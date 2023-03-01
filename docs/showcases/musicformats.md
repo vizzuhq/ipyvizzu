@@ -35,7 +35,6 @@ config = {
 
 style = Style(
     {
-        "title": {"fontWeight": 200},
         "plot": {
             "paddingLeft": 100,
             "paddingTop": 25,

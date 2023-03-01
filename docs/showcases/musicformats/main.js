@@ -27,7 +27,6 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
       };
 
       const style = {
-        title: { fontWeight: 200 },
         plot: {
           paddingLeft: 100,
           paddingTop: 25,
