@@ -1,68 +1,67 @@
-const csv2JsLoaded = import("../../../assets/javascripts/csv2js.js");
-const mdChartLoaded = import("../../../assets/javascripts/mdchart.js");
+const csv2JsLoaded = import("../../assets/javascripts/csv2js.js");
+const vizzuLoaded = import("../../assets/javascripts/vizzu.js").then(
+  (vizzuUrl) => {
+    return import(vizzuUrl.default);
+  }
+);
 
-Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
+Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
   const Csv2Js = results[0].default;
-  const MdChart = results[1].default;
+  const Vizzu = results[1].default;
 
-  const dataLoaded = Csv2Js.csv("./musicformats/musicformats.csv", ["Year"]);
+  const dataLoaded = Csv2Js.csv("./musicformats.csv", ["Year"]);
 
   dataLoaded.then((data) => {
-    const mdchart = new MdChart(data, "./vizzu.js", "example");
-
-    const config = {
-      channels: {
-        y: {
-          set: ["Format"],
+    new Vizzu("testVizzuCanvas", { data }).initializing.then((chart) => {
+      const config = {
+        channels: {
+          y: {
+            set: ["Format"],
+          },
+          x: { set: ["Revenue [m$]"] },
+          label: { set: ["Revenue [m$]"] },
+          color: { set: ["Format"] },
         },
-        x: { set: ["Revenue [m$]"] },
-        label: { set: ["Revenue [m$]"] },
-        color: { set: ["Format"] },
-      },
-      sort: "byValue",
-    };
+        sort: "byValue",
+        title: "Music Revenue by Format - Year by Year 1973",
+      };
 
-    const style = {
-      fontSize: 12.5,
-      title: { fontWeight: 200 },
-      plot: {
-        paddingLeft: 100,
-        paddingTop: 25,
-        yAxis: {
-          color: "#ffffff00",
-          label: { paddingRight: 10 },
+      const style = {
+        fontSize: 12.5,
+        title: { fontWeight: 200 },
+        plot: {
+          paddingLeft: 100,
+          paddingTop: 25,
+          yAxis: {
+            color: "#ffffff00",
+            label: { paddingRight: 10 },
+          },
+          xAxis: {
+            title: { color: "#ffffff00" },
+            label: { color: "#ffffff00", numberFormat: "grouped" },
+          },
+          marker: {
+            colorPalette:
+              "#b74c20FF #c47f58FF #1c9761FF #ea4549FF #875792FF #3562b6FF #ee7c34FF #efae3aFF",
+          },
         },
-        xAxis: {
-          title: { color: "#ffffff00" },
-          label: { color: "#ffffff00", numberFormat: "grouped" },
-        },
-        marker: {
-          colorPalette:
-            "#b74c20FF #c47f58FF #1c9761FF #ea4549FF #875792FF #3562b6FF #ee7c34FF #efae3aFF",
-        },
-      },
-    };
+      };
 
-    const anims = [];
-
-    anims.push((chart) => {
-      return chart.animate({
+      chart.animate({
+        config,
         style,
       });
-    });
 
-    for (let i = 1973; i < 2021; i++) {
-      const tmp = Object.assign({}, config);
-      tmp.title = `Music Revenue by Format - Year by Year ${i}`;
-      anims.push((chart) => {
-        return chart.animate(
+      for (let i = 1974; i < 2021; i++) {
+        const title = `Music Revenue by Format - Year by Year ${i}`;
+        chart.animate(
           {
             data: {
               filter: (record) => {
                 return parseInt(record.Year) === i;
               },
             },
-            config: tmp,
+            config: { title },
           },
           {
             duration: 0.2,
@@ -73,11 +72,9 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
             title: { duration: 0, delay: 0 },
           }
         );
-      });
-    }
+      }
 
-    anims.push((chart) => {
-      return chart.animate(
+      chart.animate(
         {
           config: {
             channels: { x: { attach: ["Year"] }, label: { set: null } },
@@ -87,10 +84,8 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
           duration: 0.3,
         }
       );
-    });
 
-    anims.push((chart) => {
-      return chart.animate(
+      chart.animate(
         {
           data: {
             filter: (record) => {
@@ -103,10 +98,8 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
           duration: 2,
         }
       );
-    });
 
-    anims.push((chart) => {
-      return chart.animate(
+      chart.animate(
         {
           config: { sort: "none" },
         },
@@ -115,11 +108,9 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
           duration: 2,
         }
       );
-    });
 
-    for (let i = 1973; i < 2020; i++) {
-      anims.push((chart) => {
-        return chart.animate(
+      for (let i = 1973; i < 2020; i++) {
+        chart.animate(
           {
             data: {
               filter: (record) => {
@@ -133,11 +124,9 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
             duration: 0.005,
           }
         );
-      });
-    }
+      }
 
-    anims.push((chart) => {
-      return chart.animate(
+      chart.animate(
         {
           data: {
             filter: (record) => {
@@ -150,10 +139,8 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
           duration: 1.5,
         }
       );
-    });
 
-    anims.push((chart) => {
-      return chart.animate(
+      chart.animate(
         {
           config: { channels: { x: { detach: ["Year"] } } },
         },
@@ -161,10 +148,8 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
           duration: 0,
         }
       );
-    });
 
-    anims.push((chart) => {
-      return chart.animate(
+      chart.animate(
         {
           config: { channels: { label: { set: ["Revenue [m$]"] } } },
         },
@@ -172,10 +157,8 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
           duration: 0.1,
         }
       );
-    });
 
-    anims.push((chart) => {
-      return chart.animate(
+      chart.animate(
         {
           config: {
             channels: {
@@ -188,10 +171,8 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
           duration: 1,
         }
       );
-    });
 
-    anims.push((chart) => {
-      return chart.animate(
+      chart.animate(
         {
           config: {
             channels: {
@@ -224,10 +205,8 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
           duration: 2,
         }
       );
-    });
 
-    anims.push((chart) => {
-      return chart.animate(
+      chart.animate(
         {
           config: {
             geometry: "area",
@@ -237,10 +216,8 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
           duration: 1,
         }
       );
-    });
 
-    anims.push((chart) => {
-      return chart.animate(
+      chart.animate(
         {
           config: {
             channels: {
@@ -259,11 +236,5 @@ Promise.all([csv2JsLoaded, mdChartLoaded]).then((results) => {
         }
       );
     });
-
-    mdchart.create([
-      {
-        anims,
-      },
-    ]);
   });
 });

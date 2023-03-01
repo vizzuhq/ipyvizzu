@@ -1,17 +1,21 @@
 ---
-csv_url: ./nadal/nadal.csv
+csv_url: ./nadal.csv
 ---
 
 # Rafael Nadal's matches at the Roland Garros
 
-<div id="example_01"></div>
+<div class="showcase">
+  <iframe  id="showcase" src='./main.html' width="100%" scrolling="no" frameborder="0"></iframe>
+</div>
+<script src="../../assets/javascripts/iframe/autoheight.js"></script>
+<script src="../../assets/javascripts/iframe/click.js"></script>
 
 ```python
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 
 data_frame = pd.read_csv(
-    "./nadal/nadal.csv",
+    "./nadal.csv",
     dtype={
         "Year": str,
         "Round2": str,
@@ -307,5 +311,3 @@ chart.animate(
     ),
 )
 ```
-
-<script src="./nadal/nadal.js"></script>

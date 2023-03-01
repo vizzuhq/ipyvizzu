@@ -1,16 +1,20 @@
 ---
-csv_url: ./titanic/titanic.csv
+csv_url: ./titanic.csv
 ---
 
 # Passengers of the Titanic
 
-<div id="example_01"></div>
+<div class="showcase">
+  <iframe  id="showcase" src='./main.html' width="100%" scrolling="no" frameborder="0"></iframe>
+</div>
+<script src="../../assets/javascripts/iframe/autoheight.js"></script>
+<script src="../../assets/javascripts/iframe/click.js"></script>
 
 ```python
 import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
-data_frame = pd.read_csv("./titanic/titanic.csv")
+data_frame = pd.read_csv("./titanic.csv")
 data = Data()
 data.add_data_frame(data_frame)
 
@@ -49,5 +53,3 @@ chart.animate(
     )
 )
 ```
-
-<script src="./titanic/titanic.js"></script>

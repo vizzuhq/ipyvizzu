@@ -1,16 +1,20 @@
 ---
-csv_url: ./sales/sales.csv
+csv_url: ./sales.csv
 ---
 
 # Sales of Shoes
 
-<div id="example_01"></div>
+<div class="showcase">
+  <iframe  id="showcase" src='./main.html' width="100%" scrolling="no" frameborder="0"></iframe>
+</div>
+<script src="../../assets/javascripts/iframe/autoheight.js"></script>
+<script src="../../assets/javascripts/iframe/click.js"></script>
 
 ```python
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style
 
-data_frame = pd.read_csv("./sales/sales.csv", dtype={"tenure": str})
+data_frame = pd.read_csv("./sales.csv")
 data = Data()
 data.add_data_frame(data_frame)
 
@@ -72,5 +76,3 @@ chart.animate(
     Config({"coordSystem": "polar", "sort": "byValue"}), delay=1
 )
 ```
-
-<script src="./sales/sales.js"></script>
