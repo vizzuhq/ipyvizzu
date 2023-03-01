@@ -159,10 +159,9 @@ class Page:
             f"{site}/latest", base
         )
         if dst == "index.md":
-            example = "showcases/titanic/titanic.csv"
             content = content.replace(
-                "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/{example}",
-                f"https://ipyvizzu.vizzuhq.com/{Vizzu.get_ipyvizzu_version()}/{example}",
+                "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/",
+                f"https://ipyvizzu.vizzuhq.com/{Vizzu.get_ipyvizzu_version()}/",
             )
 
         if keep:
