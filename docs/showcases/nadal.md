@@ -15,7 +15,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 
 data_frame = pd.read_csv(
-    "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/showcases/nadal/nadal.csv",
+    "https://ipyvizzu.vizzuhq.com/latest/showcases/nadal/nadal.csv",
     dtype={
         "Year": str,
         "Round": str,

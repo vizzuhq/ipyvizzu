@@ -15,7 +15,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style
 
 data_frame = pd.read_csv(
-    "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/showcases/music/music.csv",
+    "https://ipyvizzu.vizzuhq.com/latest/showcases/music/music.csv",
     dtype={"Year": str},
 )
 data = Data()

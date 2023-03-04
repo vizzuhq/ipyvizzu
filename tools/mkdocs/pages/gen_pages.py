@@ -134,13 +134,14 @@ class Page:
     # pylint: disable=too-few-public-methods
 
     @staticmethod
-    def generate(src: Path, dst: str, site: str, keep: bool = False) -> None:
+    def generate(src: Path, dst: str, pos: str, site: str, keep: bool = False) -> None:
         """
         A method for generating a page.
 
         Args:
             src: Source path.
             dst: Destination path.
+            pos: Destination relative pos to the index.
             site: Site url.
             keep: Place the original content into a pre tag.
         """
@@ -148,21 +149,13 @@ class Page:
         with open(src, "rt", encoding="utf8") as f_src:
             content = f_src.read()
 
-        content = content.replace(
-            f"{Vizzu.get_vizzulibdoc_url()}/raw/main/docs/readme/",
-            f"{Vizzu.get_vizzulibsite_url()}/{Vizzu.get_vizzu_version()}/readme/",
-        )
-        base = "../"
+        content = content.replace(f"{site}/latest/", pos).replace(f"{site}/latest", pos)
+
         if dst == "index.md":
-            base = "./"
-        content = content.replace(f"{site}/latest/", base).replace(
-            f"{site}/latest", base
-        )
-        if dst == "index.md":
-            content = content.replace(
-                "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/",
-                f"https://ipyvizzu.vizzuhq.com/{Vizzu.get_ipyvizzu_version()}/",
-            )
+            example = "./showcases/titanic/titanic.csv"
+            content = content.replace(example, f"{site}/latest/{example[2:]}")
+
+        content = Vizzu.set_version(content)
 
         if keep:
             content = f"<pre>{content}</pre>"
@@ -216,30 +209,35 @@ def main() -> None:
         Page.generate(
             src=REPO_PATH / "README.md",
             dst="index.md",
+            pos="./",
             site=config["site_url"],
         )
 
         Page.generate(
             src=REPO_PATH / "CONTRIBUTING.md",
             dst="CONTRIBUTING.md",
+            pos="../",
             site=config["site_url"],
         )
 
         Page.generate(
             src=REPO_PATH / "CODE_OF_CONDUCT.md",
             dst="CODE_OF_CONDUCT.md",
+            pos="../",
             site=config["site_url"],
         )
 
         Page.generate(
             src=REPO_PATH / "CHANGELOG.md",
             dst="CHANGELOG.md",
+            pos="../",
             site=config["site_url"],
         )
 
         Page.generate(
             src=REPO_PATH / "LICENSE",
             dst="LICENSE.md",
+            pos="../",
             site=config["site_url"],
             keep=True,
         )

@@ -30,18 +30,7 @@ class Readme:
         with open("README.md", "r", encoding="utf8") as fh_readme:
             content = fh_readme.read()
 
-        content = content.replace(
-            f"{Vizzu.get_vizzulibdoc_url()}/raw/main/docs/readme/",
-            f"{Vizzu.get_vizzulibsite_url()}/{Vizzu.get_vizzu_version()}/readme/",
-        )
-        content = content.replace(
-            "https://github.com/vizzuhq/ipyvizzu/raw/main/docs",
-            "https://ipyvizzu.vizzuhq.com/latest",
-        )
-        content = content.replace(
-            "https://ipyvizzu.vizzuhq.com/latest",
-            f"https://ipyvizzu.vizzuhq.com/{Vizzu.get_ipyvizzu_version()}",
-        )
+        content = Vizzu.set_version(content)
 
         with open("README.md", "w", encoding="utf8") as fh_readme:
             fh_readme.write(content)

@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://ipyvizzu.vizzuhq.com/latest/">
-    <img src="https://github.com/vizzuhq/vizzu-lib-doc/raw/main/docs/readme/infinite-60.gif" alt="Vizzu" />
+    <img src="https://lib.vizzuhq.com/latest/readme/infinite-60.gif" alt="Vizzu" />
   </a>
   <p align="center"><b>ipyvizzu</b> - Build animated charts in Jupyter Notebook and similar environments with a simple Python syntax</p>
   <p align="center">
@@ -64,7 +64,7 @@ for more options and details.
 You can create the animation below with the following code snippet.
 
 <p align="center">
-  <img src="https://github.com/vizzuhq/ipyvizzu/raw/main/docs/assets/ipyvizzu-promo.gif" alt="ipyvizzu" />
+  <img src="https://ipyvizzu.vizzuhq.com/latest/assets/ipyvizzu-promo.gif" alt="ipyvizzu" />
 </p>
 
 ```python
@@ -72,7 +72,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
 data_frame = pd.read_csv(
-    "https://github.com/vizzuhq/ipyvizzu/raw/main/docs/showcases/titanic/titanic.csv"
+    "https://ipyvizzu.vizzuhq.com/latest/showcases/titanic/titanic.csv"
 )
 data = Data()
 data.add_data_frame(data_frame)
