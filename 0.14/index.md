@@ -64,7 +64,7 @@ for more options and details.
 You can create the animation below with the following code snippet.
 
 <p align="center">
-  <img src="https://ipyvizzu.vizzuhq.com/0.14/assets/ipyvizzu-promo.gif" alt="ipyvizzu" />
+  <img src="./assets/ipyvizzu-promo.gif" alt="ipyvizzu" />
 </p>
 
 ```python
@@ -107,7 +107,7 @@ chart.animate(Config({"x": "Count", "y": ["Sex", "Survived"]}))
 
 Visit our [Documentation site](./) for more
 details and a step-by-step tutorial into `ipyvizzu` or check out our
-[Example gallery](./examples/index.md).
+[Example gallery](./examples/).
 
 ## Environments
 
