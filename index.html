@@ -1,16 +1,50 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Redirecting</title>
-  <noscript>
-    <meta http-equiv="refresh" content="1; url=latest/" />
-  </noscript>
-  <script>
-    window.location.replace("latest/" + window.location.hash);
-  </script>
-</head>
-<body>
-  Redirecting to <a href="latest/">latest/</a>...
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta property="og:type" content="website" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="ipyvizzu" />
+    <meta property="og:title" content="ipyvizzu" />
+    <meta
+      property="og:description"
+      content="ipyvizzu - Build animated charts in Jupyter Notebook and similar environments with a simple Python syntax"
+    />
+    <meta property="og:url" content="https://ipyvizzu.vizzuhq.com" />
+    <meta
+      property="og:image"
+      content="https://vizzuhq.com/images/logo/vizzu-twitter.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:video"
+      content="https://vizzuhq.com/images/logo/social-image-big.mp4"
+    />
+    <meta name="twitter:title" content="ipyvizzu" />
+    <meta
+      name="twitter:description"
+      content="ipyvizzu - Build animated charts in Jupyter Notebook and similar environments with a simple Python syntax"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@VizzuHQ" />
+    <meta name="twitter:creator" content="@VizzuHQ" />
+    <meta
+      name="twitter:image"
+      content="https://vizzuhq.com/images/logo/vizzu-twitter.png"
+    />
+    <title>Redirecting</title>
+    <noscript>
+      <meta http-equiv="refresh" content="1; url=latest/" />
+    </noscript>
+    <script>
+      window.location.replace(
+        "latest/" + window.location.search + window.location.hash
+      );
+    </script>
+  </head>
+  <body>
+    Redirecting to <a href="latest/">latest/</a>...
+  </body>
 </html>
