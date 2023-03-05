@@ -2,7 +2,7 @@
 csv_url: ./nadal.csv
 ---
 
-# Rafael Nadal's matches at the Roland Garros
+# Rafael Nadal's matches
 
 <div class="showcase">
   <iframe  id="showcase" src='./main.html' width="100%" scrolling="no" frameborder="0"></iframe>
