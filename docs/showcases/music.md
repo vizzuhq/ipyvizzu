@@ -2,7 +2,7 @@
 csv_url: ./music.csv
 ---
 
-# Music Revenue by Format
+# Music formats
 
 <div class="showcase">
   <iframe  id="showcase" src='./main.html' width="100%" scrolling="no" frameborder="0"></iframe>
