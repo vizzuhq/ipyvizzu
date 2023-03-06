@@ -392,6 +392,9 @@ class ConfigAttr(type):
     A metaclass class for the [Config][ipyvizzu.animation.Config] class.
     Returns a [Config][ipyvizzu.animation.Config] class with a chart preset
     if the `__getattr__` method called.
+
+    For information on all available chart presets see the
+    [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/modules/presets/#interfaces).
     """
 
     @classmethod
@@ -415,8 +418,11 @@ class Config(Animation, metaclass=ConfigAttr):
         Config constructor.
 
         Args:
-            data: A config animation dictionary.
-        """
+            data:
+                A config animation dictionary.
+                For information on all available config parameters see the
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/vizzu.Config.Chart/#properties).
+        """  # pylint: disable=line-too-long
 
         self._data = data
 
@@ -443,8 +449,12 @@ class Style(Animation):
         Style constructor.
 
         Args:
-            data: A style animation dictionary.
-        """
+            data:
+                A style animation dictionary.
+                For information on all available style parameters see the [Style][styling-properties]
+                chapter or the
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/vizzu.Styles.Chart/#properties).
+        """  # pylint: disable=line-too-long
 
         self._data = data
 

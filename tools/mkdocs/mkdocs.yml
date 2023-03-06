@@ -37,6 +37,7 @@ extra_css:
 
 extra_javascript:
   - assets/javascripts/extlinks.js
+  - assets/javascripts/codereflinks.js
   - //cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7/build/highlight.min.js
   - assets/javascripts/highlight.js
 

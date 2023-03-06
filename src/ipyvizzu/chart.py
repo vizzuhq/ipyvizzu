@@ -96,6 +96,8 @@ class Chart:
                 List of Animation objects such as [Data][ipyvizzu.animation.Data],
                 [Config][ipyvizzu.animation.Config] and [Style][ipyvizzu.animation.Style].
             **options: Dictionary of animation options for example `duration=1`.
+                For information on all available animation options see the
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/vizzu.Anim.Options/#properties).
 
         Raises:
             ValueError: If `animations` is not set.
@@ -104,7 +106,7 @@ class Chart:
             Reset the chart styles:
 
                 chart.animate(Style(None))
-        """
+        """  # pylint: disable=line-too-long
 
         if not animations:
             raise ValueError("No animation was set.")
@@ -139,14 +141,17 @@ class Chart:
         A method for turning on/off features of the chart.
 
         Args:
-            name: The name of the chart feature.
+            name:
+                The name of the chart feature.
+                For information on all available features see the
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/modules/vizzu/#feature).
             enabled: The new state of the chart feature.
 
         Example:
             Turn on `tooltip` of the chart:
 
                 chart.feature("tooltip", True)
-        """
+        """  # pylint: disable=line-too-long
 
         self._display(
             DisplayTemplate.FEATURE.format(
@@ -185,7 +190,10 @@ class Chart:
         A method for creating and turning on an event handler.
 
         Args:
-            event: The type of the event.
+            event:
+                The type of the event.
+                For information on all available events see the
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/modules/vizzu.Event/#type).
             handler: The JavaScript method of the event.
 
         Returns:
@@ -196,7 +204,7 @@ class Chart:
             when someone clicks on the chart:
 
                 handler = chart.on("click", "alert(JSON.stringify(event.data));")
-        """
+        """  # pylint: disable=line-too-long
 
         event_handler = EventHandler(event, handler)
         self._display(

@@ -10,5 +10,7 @@ Similarly to all other parameters of the animate method, `ipyizzu` will animate
 the changes in the styling of the charts. This provides an excellent opportunity
 to check and control the effect of these changes.
 
+## Styling properties
+
 You can find below the complete list of the available styling properties and
 their default values.

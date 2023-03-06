@@ -1,4 +1,4 @@
-"""A module for setting versions in readme."""
+"""A module for setting versions before release."""
 
 from pathlib import Path
 import sys
@@ -18,13 +18,11 @@ from vizzu import (  # pylint: disable=import-error, wrong-import-position, wron
 )
 
 
-class Readme:
-    """A class for setting versions in readme."""
-
-    # pylint: disable=too-few-public-methods
+class Version:
+    """A class for setting versions before release."""
 
     @staticmethod
-    def set_version() -> None:
+    def set_readme_version() -> None:
         """A method for setting versions in readme."""
 
         with open("README.md", "r", encoding="utf8") as fh_readme:
@@ -35,15 +33,29 @@ class Readme:
         with open("README.md", "w", encoding="utf8") as fh_readme:
             fh_readme.write(content)
 
+    @staticmethod
+    def set_src_version() -> None:
+        """A method for setting versions in src docstring."""
+
+        for item in (REPO_PATH / "src").rglob("*.py"):
+            with open(item, "r", encoding="utf8") as fh_item:
+                content = fh_item.read()
+
+            content = Vizzu.set_version(content)
+
+            with open(item, "w", encoding="utf8") as fh_item:
+                fh_item.write(content)
+
 
 def main() -> None:
     """
     The main method.
-    It set versions in readme.
+    It set versions before release.
     """
 
     with chdir(REPO_PATH):
-        Readme.set_version()
+        Version.set_readme_version()
+        Version.set_src_version()
 
 
 main()
