@@ -110,6 +110,6 @@ chart.animate(Style(None))
 
 For information on all available style parameters see the [Style](./style.md)
 chapter or the
-[Vizzu Code reference](https://lib.vizzuhq.com/0.7/reference/interfaces/vizzu.Styles.Chart/).
+[Vizzu Code reference](https://lib.vizzuhq.com/0.7/reference/interfaces/vizzu.Styles.Chart/#properties).
 
 <script src="../color_palette_fonts.js"></script>

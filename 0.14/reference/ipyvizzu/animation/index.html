@@ -5414,6 +5414,8 @@ It contains a <code>data</code> key whose value is the stored animation.</p></td
       <p>A metaclass class for the <a class="autorefs autorefs-internal" href="#ipyvizzu.animation.Config">Config</a> class.
 Returns a <a class="autorefs autorefs-internal" href="#ipyvizzu.animation.Config">Config</a> class with a chart preset
 if the <code>__getattr__</code> method called.</p>
+<p>For information on all available chart presets see the
+<a href="https://lib.vizzuhq.com/latest/reference/modules/presets/#interfaces">Vizzu Code reference</a>.</p>
 
 
         <details class="quote">
@@ -5423,6 +5425,9 @@ if the <code>__getattr__</code> method called.</p>
     A metaclass class for the [Config][ipyvizzu.animation.Config] class.
     Returns a [Config][ipyvizzu.animation.Config] class with a chart preset
     if the `__getattr__` method called.
+
+    For information on all available chart presets see the
+    [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/modules/presets/#interfaces).
     """
 
     @classmethod
@@ -5488,8 +5493,11 @@ It can build config option of the chart.</p>
         Config constructor.
 
         Args:
-            data: A config animation dictionary.
-        """
+            data:
+                A config animation dictionary.
+                For information on all available config parameters see the
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/vizzu.Config.Chart/#properties).
+        """  # pylint: disable=line-too-long
 
         self._data = data
 
@@ -5547,7 +5555,9 @@ It can build config option of the chart.</p>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>]</code>
           </td>
-          <td><p>A config animation dictionary.</p></td>
+          <td><p>A config animation dictionary.
+For information on all available config parameters see the
+<a href="https://lib.vizzuhq.com/latest/reference/interfaces/vizzu.Config.Chart/#properties">Vizzu Code reference</a>.</p></td>
           <td>
               <em>required</em>
           </td>
@@ -5562,8 +5572,11 @@ It can build config option of the chart.</p>
     Config constructor.
 
     Args:
-        data: A config animation dictionary.
-    """
+        data:
+            A config animation dictionary.
+            For information on all available config parameters see the
+            [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/vizzu.Config.Chart/#properties).
+    """  # pylint: disable=line-too-long
 
     self._data = data</code></pre>
       </details>
@@ -5662,8 +5675,12 @@ It can build style option of the chart.</p>
         Style constructor.
 
         Args:
-            data: A style animation dictionary.
-        """
+            data:
+                A style animation dictionary.
+                For information on all available style parameters see the [Style][styling-properties]
+                chapter or the
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/vizzu.Styles.Chart/#properties).
+        """  # pylint: disable=line-too-long
 
         self._data = data
 
@@ -5721,7 +5738,10 @@ It can build style option of the chart.</p>
           <td>
                 <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>]</code>
           </td>
-          <td><p>A style animation dictionary.</p></td>
+          <td><p>A style animation dictionary.
+For information on all available style parameters see the <a class="autorefs autorefs-internal" href="../../../tutorial/style/#styling-properties">Style</a>
+chapter or the
+<a href="https://lib.vizzuhq.com/latest/reference/interfaces/vizzu.Styles.Chart/#properties">Vizzu Code reference</a>.</p></td>
           <td>
               <em>required</em>
           </td>
@@ -5736,8 +5756,12 @@ It can build style option of the chart.</p>
     Style constructor.
 
     Args:
-        data: A style animation dictionary.
-    """
+        data:
+            A style animation dictionary.
+            For information on all available style parameters see the [Style][styling-properties]
+            chapter or the
+            [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/vizzu.Styles.Chart/#properties).
+    """  # pylint: disable=line-too-long
 
     self._data = data</code></pre>
       </details>
@@ -6382,6 +6406,8 @@ cannot be merged with other animations.</p></td>
       <script src="../../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
       
         <script src="../../../assets/javascripts/extlinks.js"></script>
+      
+        <script src="../../../assets/javascripts/codereflinks.js"></script>
       
         <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7/build/highlight.min.js"></script>
       
