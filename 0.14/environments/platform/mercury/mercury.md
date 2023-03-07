@@ -28,6 +28,10 @@ Dislay features:
 Check [Chart settings chapter](../../tutorial/chart_settings.md) for more
 details.
 
+## Live example
+
+[![Open in Mercury](https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg)](https://huggingface.co/spaces/veghdev/ipyvizzu-demo)
+
 ## Installation
 
 Add `ipyvizzu` to `requirements.txt`.
