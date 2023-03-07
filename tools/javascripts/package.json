@@ -18,7 +18,7 @@
   },
   "homepage": "https://ipyvizzu.vizzuhq.com/",
   "url": "https://github.com/vizzuhq/ipyvizzu/issues",
-  "author": "Vizzu Kft.",
+  "author": "Vizzu Inc.",
   "license": "Apache-2.0",
   "dependencies": {
     "npm-run-all": "*",
