@@ -2,7 +2,7 @@ strict: true
 
 site_name: ipyvizzu
 site_url: https://ipyvizzu.vizzuhq.com/
-copyright: Copyright &copy; 2022-2023 Vizzu
+copyright: Copyright &copy; 2022-2023 Vizzu Inc
 
 docs_dir: ../../docs
 site_dir: ../../site
