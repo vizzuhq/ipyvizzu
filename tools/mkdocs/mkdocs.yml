@@ -2,7 +2,7 @@ strict: true
 
 site_name: ipyvizzu
 site_url: https://ipyvizzu.vizzuhq.com/
-copyright: Copyright &copy; 2022-2023 Vizzu Inc
+copyright: Copyright &copy; 2022-2023 Vizzu Inc.
 
 docs_dir: ../../docs
 site_dir: ../../site
@@ -71,11 +71,11 @@ markdown_extensions:
   - pymdownx.superfences
 
 plugins:
-  #  - mike:
-  #      version_selector: false
-  #      alias_type: symlink
-  #      canonical_version: latest
-  #      redirect_template: ./tools/mkdocs/overrides/mike/redirect.html
+  - mike:
+      version_selector: false
+      alias_type: symlink
+      canonical_version: latest
+      redirect_template: ./tools/mkdocs/overrides/mike/redirect.html
   - search
   - section-index
   - literate-nav:
