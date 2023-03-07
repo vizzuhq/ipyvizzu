@@ -71,11 +71,11 @@ markdown_extensions:
   - pymdownx.superfences
 
 plugins:
-  - mike:
-      version_selector: false
-      alias_type: symlink
-      canonical_version: latest
-      redirect_template: ./tools/mkdocs/overrides/mike/redirect.html
+  #  - mike:
+  #      version_selector: false
+  #      alias_type: symlink
+  #      canonical_version: latest
+  #      redirect_template: ./tools/mkdocs/overrides/mike/redirect.html
   - search
   - section-index
   - literate-nav:
