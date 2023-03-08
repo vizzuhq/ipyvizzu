@@ -3159,8 +3159,8 @@ detailed description of how to do this in
 <a href="https://docs.github.com/en/get-started/quickstart/contributing-to-projects">Github's guide to contributing to projects</a>.</p>
 <h2 id="ci-cd">CI-CD</h2>
 <h3 id="development-environment">Development environment</h3>
-<p>You can initialize the development environment of ipyvizzu with python virtual
-env.</p>
+<p>You can initialize the development environment of <code>ipyvizzu</code> with <code>Python</code>
+virtual env.</p>
 <p>Run the <code>dev</code> make target to set up your environment.</p>
 <pre class="highlight"><code class="language-sh">make dev</code></pre>
 <p><strong>Note:</strong> The <code>dev</code> make target is going to set up pre-commit and pre-push hooks
@@ -3170,35 +3170,38 @@ into your local git repository. Pre-commit hook is going to format the code with
 <pre class="highlight"><code class="language-sh">make clean</code></pre>
 <h3 id="ci">CI</h3>
 <p>The CI steps check code formatting, run code analyses, check typing and run unit
-tests over the ipyvizzu project.</p>
+tests over the <code>ipyvizzu</code> project.</p>
 <p>The <code>check</code> make target collects the above tasks. Run the <code>check</code> make target to
 run the CI steps.</p>
 <pre class="highlight"><code class="language-sh">make check</code></pre>
 <h4 id="formatting">Formatting</h4>
-<p>The ipyvizzu project is formatted with <code>black</code>.</p>
+<p>The <code>ipyvizzu</code> project is formatted with <code>black</code>.</p>
 <p>Run the <code>format</code> make target to format your code.</p>
 <pre class="highlight"><code class="language-sh">make format</code></pre>
 <p>Run the <code>check-format</code> target to check code formatting.</p>
 <pre class="highlight"><code class="language-sh">make check-format</code></pre>
 <h4 id="code-analyses">Code analyses</h4>
-<p>The ipyvizzu project is analysed with <code>pylint</code>.</p>
-<p>Run the <code>lint</code> make target to run code analyses.</p>
-<pre class="highlight"><code class="language-sh">make lint</code></pre>
+<p>The <code>ipyvizzu</code> project is analysed with <code>pylint</code>.</p>
+<p>Run the <code>check-lint</code> make target to run code analyses.</p>
+<pre class="highlight"><code class="language-sh">make check-lint</code></pre>
 <h4 id="typing">Typing</h4>
-<p>The ipyvizzu project is using type hints.</p>
+<p>The <code>ipyvizzu</code> project is using type hints.</p>
 <p>Run the <code>check-typing</code> make target to run check code typing.</p>
 <pre class="highlight"><code class="language-sh">make check-typing</code></pre>
 <h4 id="testing">Testing</h4>
-<p>The ipyvizzu project is tested with <code>unittest</code> testing framework.</p>
-<p>Run the <code>test</code> make target to install ipyvizzu into your virtual environment and
-run the tests.</p>
+<p>The <code>ipyvizzu</code> project is tested with <code>unittest</code> testing framework.</p>
+<p>Run the <code>test</code> make target to run the tests.</p>
 <pre class="highlight"><code class="language-sh">make test</code></pre>
 <h3 id="documentation">Documentation</h3>
 <p>Run the <code>doc</code> make target to build the documentation.</p>
-<pre class="highlight"><code class="language-sh">make doc</code></pre>
-<p>The documentation will be published to the gh-pages branch with the <code>doc</code>
-workflow. Online version can be read at
-<a href="https://ipyvizzu.vizzuhq.com">ipyvizzu.com</a>.</p>
+<p>Note: If you modify the documentation, you also need to configure the
+<code>JavaScript</code> development environment.</p>
+<pre class="highlight"><code class="language-sh">make dev-js
+
+make check-js
+
+make doc</code></pre>
+<p>Online version can be read at <a href="https://ipyvizzu.vizzuhq.com">ipyvizzu.com</a>.</p>
 <p>The preset, static and animated chart examples are generated from the
 <a href="https://github.com/vizzuhq/vizzu-lib">vizzu-lib</a> repository. If you would like
 to build them too, run the following commands.</p>
@@ -3206,9 +3209,9 @@ to build them too, run the following commands.</p>
 
 make doc</code></pre>
 <h3 id="release">Release</h3>
-<p>ipyvizzu is distributed on <a href="https://pypi.org/project/ipyvizzu">pypi</a>. <strong>Note:</strong>
-You need to be an administrator to release the project.</p>
-<p>If you want to release ipyvizzu follow the steps below.</p>
+<p><code>ipyvizzu</code> is distributed on <a href="https://pypi.org/project/ipyvizzu">pypi</a>.
+<strong>Note:</strong> You need to be an administrator to release the project.</p>
+<p>If you want to release <code>ipyvizzu</code> follow the steps below.</p>
 <ul>
 <li>You should increase the version number in <code>setup.py</code>. The version bump should
   be in a separated commit.</li>
@@ -3219,7 +3222,7 @@ You need to be an administrator to release the project.</p>
   new release on <a href="https://github.com/vizzuhq/ipyvizzu/releases">Releases</a>.</li>
 </ul>
 <p><strong>Note:</strong> Publishing a new release will automatically trigger the <code>release</code>
-workflow which builds, checks and uploads the ipyvizzu package to
+workflow which builds, checks and uploads the <code>ipyvizzu</code> package to
 <a href="https://pypi.org/project/ipyvizzu">pypi</a>.</p>
 <p>You can build and check the package before a release with the <code>release</code> make
 target.</p>
