@@ -30,7 +30,7 @@ jobs:
     - name: Touch dev environment
       run: make touch-dev
 
-    - name: Touch dev-js environment
+    - name: Set dev-js environment
       run: make dev-js
           
     - name: Check format

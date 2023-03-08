@@ -12,7 +12,7 @@ endif
 
 .PHONY: clean \
 	clean-dev update-dev-req install-dev-req install-kernel install touch-dev \
-	touch-dev-js \
+	touch-dev-js dev-js \
 	check format check-format check-lint check-typing clean-test test \
 	check-js format-js check-format-js lint-js check-lint-js \
 	clean-doc doc \
@@ -54,7 +54,8 @@ touch-dev-js:
 
 dev: $(DEV_BUILD_FLAG)
 
-dev-js: $(DEV_BUILD_FLAG) $(DEV_JS_BUILD_FLAG)
+dev-js: $(DEV_BUILD_FLAG)
+	npm install ./tools/javascripts/
 
 $(DEV_BUILD_FLAG):
 	$(PYTHON_BIN) -m venv $(VIRTUAL_ENV)
