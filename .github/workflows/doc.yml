@@ -8,6 +8,9 @@ jobs:
 
     runs-on: ubuntu-20.04
 
+    env:
+      PUPPETEER_CACHE_DIR: .chromium
+
     steps:
       - uses: actions/checkout@v2
 
@@ -29,8 +32,8 @@ jobs:
       - name: Touch dev environment
         run: make touch-dev
 
-      - name: Set dev-js environment
-        run: make dev-js
+      - name: Touch dev-js environment
+        run: make touch-dev-js
 
       - name: Set Jupyter kernel
         run: make install-kernel
