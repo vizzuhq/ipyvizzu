@@ -1,3 +1,4 @@
+# pylint: disable=C0103,R1735
 """A module for Fugue integration."""
 
 from typing import Any, Dict, Tuple
