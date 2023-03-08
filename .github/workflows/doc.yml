@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     env:
-      PUPPETEER_CACHE_DIR: .chromium
+      PUPPETEER_CACHE_DIR: ${{ github.workspace }}/node_modules/.chromium
 
     steps:
       - uses: actions/checkout@v2
