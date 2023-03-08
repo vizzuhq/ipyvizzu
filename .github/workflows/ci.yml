@@ -31,7 +31,7 @@ jobs:
       run: make touch-dev
 
     - name: Touch dev-js environment
-      run: make touch-dev-js
+        run: make dev-js
           
     - name: Check format
       run: make check-format

@@ -30,7 +30,7 @@ jobs:
         run: make touch-dev
 
       - name: Touch dev-js environment
-        run: make touch-dev-js
+        run: make dev-js
 
       - name: Set Jupyter kernel
         run: make install-kernel
