@@ -17,5 +17,13 @@ jobs:
           path: ./.venv_ipyvizzu
           key: venv-ipyvizzu-${{ github.run_id }}
 
+      - uses: actions/cache@v3
+        with:
+          path: ./node_modules
+          key: nodemodules-ipyvizzu-${{ github.run_id }}
+
       - name: Init dev environment
         run: make dev
+
+      - name: Init dev-js environment
+        run: make dev-js

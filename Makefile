@@ -16,7 +16,7 @@ endif
 	check format check-format check-lint check-typing clean-test test \
 	check-js format-js check-format-js lint-js check-lint-js \
 	clean-doc doc \
-	clean-build build-release check-release release
+	clean-build set-version build-release check-release release
 
 VIRTUAL_ENV = .venv_ipyvizzu
 
@@ -54,7 +54,7 @@ touch-dev-js:
 
 dev: $(DEV_BUILD_FLAG)
 
-dev-js: $(DEV_BUILD_FLAG)
+dev-js: $(DEV_BUILD_FLAG) $(DEV_JS_BUILD_FLAG)
 
 $(DEV_BUILD_FLAG):
 	$(PYTHON_BIN) -m venv $(VIRTUAL_ENV)
@@ -127,7 +127,7 @@ format-js: $(DEV_JS_BUILD_FLAG)
 
 check-format-js: $(DEV_JS_BUILD_FLAG)
 	cd tools/javascripts && \
-		npm run prettier
+		npm run check-prettier
 
 lint-js: $(DEV_JS_BUILD_FLAG)
 	cd tools/javascripts && \
