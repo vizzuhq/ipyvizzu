@@ -10,7 +10,7 @@ MKDOCS_PATH = REPO_PATH / "tools" / "mkdocs"
 SRC_PATH = REPO_PATH / "src"
 
 
-sys.path.insert(0, str(MKDOCS_PATH))
+sys.path.insert(0, str(MKDOCS_PATH / "modules"))
 
 from context import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
     chdir,
