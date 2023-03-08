@@ -20,7 +20,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="Apache 2",
-    packages=["ipyvizzu", "ipyvizzu.fugue"],
+    packages=["ipyvizzu", "ipyvizzu.integrations"],
     package_dir={"ipyvizzu": "src/ipyvizzu"},
     package_data={"ipyvizzu": ["py.typed", "templates/*.js"]},
     python_requires=">=3.6",
