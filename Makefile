@@ -12,7 +12,7 @@ endif
 
 .PHONY: clean \
 	clean-dev update-dev-req install-dev-req install-kernel install touch-dev \
-	touch-dev-js \
+	clean-dev-js touch-dev-js \
 	check format check-format check-lint check-typing clean-test test \
 	check-js format-js check-format-js lint-js check-lint-js \
 	clean-doc doc \
@@ -25,7 +25,7 @@ DEV_JS_BUILD_FLAG = $(VIRTUAL_ENV)/DEV_JS_BUILD_FLAG
 
 
 
-clean: clean-dev clean-test clean-doc clean-build
+clean: clean-dev clean-dev-js clean-test clean-doc clean-build
 
 
 
@@ -33,6 +33,9 @@ clean: clean-dev clean-test clean-doc clean-build
 
 clean-dev:
 	$(PYTHON_BIN) -c "import os, shutil;shutil.rmtree('$(VIRTUAL_ENV)') if os.path.exists('$(VIRTUAL_ENV)') else print('Nothing to be done for \'clean-dev\'')"
+
+clean-dev-js:
+	$(PYTHON_BIN) -c "import os, shutil;shutil.rmtree('node_modules') if os.path.exists('node_modules') else print('Nothing to be done for \'clean-dev-js\'')"
 
 update-dev-req: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/pip-compile --upgrade dev-requirements.in
