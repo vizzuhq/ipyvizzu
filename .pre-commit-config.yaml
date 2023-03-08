@@ -23,7 +23,7 @@ repos:
 
     - id: check-lint
       stages: [push]
-      name: lint
+      name: check-lint
       entry: make
       args: ["check-lint"]
       language: system
