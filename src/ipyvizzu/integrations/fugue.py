@@ -79,12 +79,10 @@ class _Visualize(Outputter):
         df = df.sort_values(key).merge(idx)
         data.add_data_frame(df)
         chart.animate(data)
-        print(df)
 
         for i, k in enumerate(keys):
             _p2 = dict(_pc)
             _p2["title"] = (title % k) if "%s" in title else title
-            print(i, key)
             chart.animate(Data.filter(f"record._idx == {i}"), self._func(_p2), **conf)
 
 
