@@ -16,7 +16,7 @@ endif
 	check format check-format check-lint check-typing clean-test test \
 	check-js format-js check-format-js lint-js check-lint-js \
 	clean-doc doc deploy \
-	clean-build set-version restore-version build-release check-release release release-wo-restore
+	clean-build set-version restore-version build-release check-release release
 
 VIRTUAL_ENV = .venv_ipyvizzu
 
