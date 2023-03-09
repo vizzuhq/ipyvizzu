@@ -174,7 +174,10 @@ else
 endif
 
 set-version: $(DEV_BUILD_FLAG)
-	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) tools/release/set_version.py 
+	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) tools/release/set_version.py False
+
+restore-version: $(DEV_BUILD_FLAG)
+	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) tools/release/set_version.py True
 
 build-release: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) -m build
@@ -182,4 +185,6 @@ build-release: $(DEV_BUILD_FLAG)
 check-release: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) -m twine check dist/*.tar.gz dist/*.whl
 
-release: clean-build set-version build-release check-release
+release: clean-build set-version build-release check-release restore-version
+
+release-wo-restore: clean-build set-version build-release check-release

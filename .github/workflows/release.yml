@@ -21,7 +21,7 @@ jobs:
       run: make touch-dev
 
     - name: Build package
-      run: make release
+      run: make release-wo-restore
 
     - name: Release package
       run: ./.venv_ipyvizzu/bin/python -m twine upload -u "__token__" -p "${{ secrets.PYPI_API_TOKEN }}" dist/*.tar.gz  dist/*.whl
