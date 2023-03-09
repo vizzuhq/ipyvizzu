@@ -4,9 +4,9 @@
 
 !!! info
     `ipyvizzu` requires and downloads the
-    [Vizzu](https://lib.vizzuhq.com/0.7/) JavaScript/C++ library from
-    [jsDelivr CDN](https://www.jsdelivr.com/package/npm/vizzu), but you can also
-    use a self-hosted version of `Vizzu`. Check
+    [Vizzu](https://github.com/vizzuhq/vizzu-lib) `JavaScript`/`C++`
+    [library](https://www.jsdelivr.com/package/npm/vizzu) from `jsDelivr CDN`,
+    but you can also use a different or self-hosted version of it. Check
     [Chart settings chapter](./tutorial/chart_settings.md) for more details.
 
 ## pypi
