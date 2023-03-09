@@ -101,6 +101,7 @@ class Vizzu:
 
         Args:
             content: Content to be modified.
+            restore: A flag to restore the content.
 
         Returns:
             Modified content.
