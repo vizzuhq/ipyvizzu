@@ -16,7 +16,7 @@ endif
 	check format check-format check-lint check-typing clean-test test \
 	check-js format-js check-format-js lint-js check-lint-js \
 	clean-doc doc \
-	clean-build set-version build-release check-release release
+	clean-build set-version restore-version build-release check-release release release-wo-restore
 
 VIRTUAL_ENV = .venv_ipyvizzu
 
@@ -155,6 +155,9 @@ endif
 
 doc: $(DEV_BUILD_FLAG) $(DEV_JS_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/mkdocs build -f ./tools/mkdocs/mkdocs.yml
+
+deploy: $(DEV_BUILD_FLAG) $(DEV_JS_BUILD_FLAG)
+	. $(VIRTUAL_ENV)/$(BIN_PATH)/activate; $(PYTHON_BIN) tools/release/deploy.py
 
 
 

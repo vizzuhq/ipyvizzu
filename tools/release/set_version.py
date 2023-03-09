@@ -24,7 +24,12 @@ class Version:
 
     @staticmethod
     def set_readme_version(restore: bool) -> None:
-        """A method for setting versions in readme."""
+        """
+        A method for setting versions in readme.
+
+        Args:
+            restore: A flag to restore the content.
+        """
 
         with open("README.md", "r", encoding="utf8") as fh_readme:
             content = fh_readme.read()
@@ -36,7 +41,12 @@ class Version:
 
     @staticmethod
     def set_src_version(restore: bool) -> None:
-        """A method for setting versions in src docstring."""
+        """
+        A method for setting versions in src docstring.
+
+        Args:
+            restore: A flag to restore the content.
+        """
 
         for item in (REPO_PATH / "src").rglob("*.py"):
             with open(item, "r", encoding="utf8") as fh_item:
