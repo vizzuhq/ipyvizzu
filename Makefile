@@ -16,7 +16,7 @@ endif
 	check format check-format check-lint check-typing clean-test test \
 	check-js format-js check-format-js lint-js check-lint-js \
 	clean-doc doc deploy \
-	clean-build set-version restore-version build-release check-release release
+	clean-build set-version restore-version build-release check-release release release-wo-restore
 
 VIRTUAL_ENV = .venv_ipyvizzu
 
@@ -188,6 +188,6 @@ build-release: $(DEV_BUILD_FLAG)
 check-release: $(DEV_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) -m twine check dist/*.tar.gz dist/*.whl
 
-release: clean-build set-version build-release check-release restore-version
-
 release-wo-restore: clean-build set-version build-release check-release
+
+release: release-wo-restore restore-version
