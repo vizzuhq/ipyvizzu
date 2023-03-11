@@ -5,8 +5,6 @@ import sys
 
 import mkdocs_gen_files  # type: ignore
 
-import ipyvizzu
-
 
 REPO_PATH = Path(__file__).parent / ".." / ".." / ".."
 MKDOCS_PATH = REPO_PATH / "tools" / "mkdocs"
@@ -50,16 +48,9 @@ class Reference:
                 full_doc_path = full_doc_path.with_name("index.md")
 
             item = ".".join(parts)
-            if item == "ipyvizzu":
-                mkdocs_gen_files.set_edit_path(full_doc_path, ".." / path)
-                with mkdocs_gen_files.open(full_doc_path, "w") as f_md:
-                    f_md.write(f"# {item}\n")
-                    f_md.write(f"{ipyvizzu.__doc__}\n")
-            else:
-                mkdocs_gen_files.set_edit_path(full_doc_path, ".." / path)
-                with mkdocs_gen_files.open(full_doc_path, "w") as f_md:
-                    item = ".".join(parts)
-                    f_md.write(f"::: {item}")
+            mkdocs_gen_files.set_edit_path(full_doc_path, ".." / path)
+            with mkdocs_gen_files.open(full_doc_path, "w") as f_md:
+                f_md.write(f"::: {item}")
 
     @staticmethod
     def generate_version_script(file: str) -> None:
