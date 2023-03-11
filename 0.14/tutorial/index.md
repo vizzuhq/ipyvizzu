@@ -49,10 +49,12 @@ Visit [Installation chapter](../installation.md) for more options and details.
 ## Usage
 
 !!! note
-    `ipyvizzu` is to generate the `JavaScript` code, then the `Vizzu` calls are
-    evaluated by the browser. Therefore if a blank space appears where the chart
-    should be, check the console log of your browser where `Vizzu` reports its
-    errors.
+    `ipyvizzu` generates `JavaScript` code, then the `vizzu` calls are evaluated
+    by the browser. Therefore if a blank space appears where the chart should
+    be, check the console log of your browser. `vizzu` reports its errors there.
+    If you get a `vizzu` error in your browser console that is not
+    straightforward to understand, please clean your browser cache first,
+    because it might be caused by an older version being stored in your browser.
 
 * [Chart settings](chart_settings.md)
 * [Data](data.md)
