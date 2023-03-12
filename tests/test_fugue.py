@@ -1,9 +1,11 @@
+"""A module for testing the ipyvizzu.integrations.fugue module."""
+
 import fugue.api as fa  # type: ignore
 import pandas as pd  # type: ignore
 import unittest
 
 # register the extension, not needed in practical use
-import ipyvizzu.integrations.fugue  # noqa # pylint: disable-all
+import ipyvizzu.integrations.fugue  # pylint: disable-all
 
 
 class TestFugue(unittest.TestCase):
