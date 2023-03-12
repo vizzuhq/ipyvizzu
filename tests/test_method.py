@@ -2,7 +2,7 @@
 
 import unittest
 
-from ipyvizzu import (
+from tests import (
     Method,
     Animate,
     Feature,

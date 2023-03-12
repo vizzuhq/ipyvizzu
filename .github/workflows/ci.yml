@@ -14,20 +14,36 @@ jobs:
 
     - uses: actions/cache@v3
       with:
-        path: ./.venv
-        key: venv-${{ github.run_id }}
+        path: ./.venv_ipyvizzu
+        key: venv-ipyvizzu-${{ github.run_id }}
+
+    - uses: actions/cache@v3
+      with:
+        path: ./node_modules
+        key: nodemodules-ipyvizzu-${{ github.run_id }}
+
+    - uses: actions/cache@v3
+      with:
+        path: ./tests/coverage
+        key: coverage-ipyvizzu-${{ inputs.run_id }}
 
     - name: Touch dev environment
       run: make touch-dev
+
+    - name: Touch dev-js environment
+      run: make touch-dev-js
           
     - name: Check format
       run: make check-format
 
-    - name: Run pylint
-      run: make lint
+    - name: Check lint
+      run: make check-lint
 
     - name: Check typing
       run: make check-typing
 
     - name: Run test
-      run: make test-wo-install
+      run: make test
+
+    - name: Check js
+      run: make check-js

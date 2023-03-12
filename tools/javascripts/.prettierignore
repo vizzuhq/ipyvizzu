@@ -1,0 +1,7 @@
+node_modules
+package-lock.json
+
+coverage
+
+vizzu-lib
+*.md

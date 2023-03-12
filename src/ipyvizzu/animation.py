@@ -257,7 +257,7 @@ class Data(dict, Animation):
 
     def add_data_frame(
         self,
-        data_frame: Union[pd.DataFrame, pd.core.series.Series],
+        data_frame: Union[pd.DataFrame, pd.Series],
         default_measure_value: Optional[Any] = 0,
         default_dimension_value: Optional[Any] = "",
     ) -> None:
@@ -271,7 +271,8 @@ class Data(dict, Animation):
             default_dimension_value: The default dimension value to fill the empty values.
 
         Raises:
-            TypeError: If `data_frame` is not instance of `pandas.DataFrame` or `pandas.Series`.
+            TypeError: If `data_frame` is not instance of [pd.DataFrame][pandas.DataFrame]
+                or [pd.Series][pandas.Series].
 
         Example:
             Adding a data frame to a [Data][ipyvizzu.animation.Data] class instance:
@@ -288,7 +289,7 @@ class Data(dict, Animation):
         """
 
         if not isinstance(data_frame, type(None)):
-            if isinstance(data_frame, pd.core.series.Series):
+            if isinstance(data_frame, pd.Series):
                 data_frame = pd.DataFrame(data_frame)
             if not isinstance(data_frame, pd.DataFrame):
                 raise TypeError(
@@ -320,7 +321,7 @@ class Data(dict, Animation):
 
     def add_data_frame_index(
         self,
-        data_frame: Union[pd.DataFrame, pd.core.series.Series],
+        data_frame: Union[pd.DataFrame, pd.Series],
         name: Optional[str],
     ) -> None:
         """
@@ -332,7 +333,8 @@ class Data(dict, Animation):
             name: The name of the index series.
 
         Raises:
-            TypeError: If `data_frame` is not instance of `pandas.DataFrame` or `pandas.Series`.
+            TypeError: If `data_frame` is not instance of [pd.DataFrame][pandas.DataFrame]
+                or [pd.Series][pandas.Series].
 
         Example:
             Adding a data frame's index to a [Data][ipyvizzu.animation.Data] class instance:
@@ -347,7 +349,7 @@ class Data(dict, Animation):
         """
 
         if data_frame is not None:
-            if isinstance(data_frame, pd.core.series.Series):
+            if isinstance(data_frame, pd.Series):
                 data_frame = pd.DataFrame(data_frame)
             if not isinstance(data_frame, pd.DataFrame):
                 raise TypeError(
@@ -390,6 +392,9 @@ class ConfigAttr(type):
     A metaclass class for the [Config][ipyvizzu.animation.Config] class.
     Returns a [Config][ipyvizzu.animation.Config] class with a chart preset
     if the `__getattr__` method called.
+
+    For information on all available chart presets see the
+    [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/modules/presets/#interfaces).
     """
 
     @classmethod
@@ -413,8 +418,11 @@ class Config(Animation, metaclass=ConfigAttr):
         Config constructor.
 
         Args:
-            data: A config animation dictionary.
-        """
+            data:
+                A config animation dictionary.
+                For information on all available config parameters see the
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/vizzu.Config.Chart/#properties).
+        """  # pylint: disable=line-too-long
 
         self._data = data
 
@@ -441,8 +449,12 @@ class Style(Animation):
         Style constructor.
 
         Args:
-            data: A style animation dictionary.
-        """
+            data:
+                A style animation dictionary.
+                For information on all available style parameters see the [Style][styling-properties]
+                chapter or the
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/vizzu.Styles.Chart/#properties).
+        """  # pylint: disable=line-too-long
 
         self._data = data
 
@@ -477,7 +489,7 @@ class Snapshot(Animation):
     def dump(self) -> str:
         """
         A method for overwriting the
-        [Animation.build][ipyvizzu.animation.Animation.build] method.
+        [Animation.dump][ipyvizzu.animation.Animation.dump] method.
         It dumps the stored snapshot id as a string.
 
         Returns:

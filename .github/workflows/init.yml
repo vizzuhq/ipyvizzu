@@ -9,13 +9,24 @@ jobs:
 
     runs-on: ubuntu-20.04
 
+    env:
+      PUPPETEER_CACHE_DIR: ${{ github.workspace }}/node_modules/.chromium
+
     steps:
       - uses: actions/checkout@v2
 
       - uses: actions/cache@v3
         with:
-          path: ./.venv
-          key: venv-${{ github.run_id }}
+          path: ./.venv_ipyvizzu
+          key: venv-ipyvizzu-${{ github.run_id }}
+
+      - uses: actions/cache@v3
+        with:
+          path: ./node_modules
+          key: nodemodules-ipyvizzu-${{ github.run_id }}
 
       - name: Init dev environment
         run: make dev
+
+      - name: Init dev-js environment
+        run: make dev-js

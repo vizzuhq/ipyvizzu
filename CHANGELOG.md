@@ -2,9 +2,16 @@
 
 ## [Unreleased]
 
+## [0.14.0] - 2023-03-01
+
 ### Fixed
 
 - Changed cdn url to jsdelivr style.
+
+### Added
+
+- Changed Vizzu's version to 0.7.x.
+- Added: `__all__` into `__init__.py`
 
 ## [0.13.0] - 2022-10-19
 

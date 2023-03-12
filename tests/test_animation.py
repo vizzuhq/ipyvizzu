@@ -7,7 +7,7 @@ import unittest
 import jsonschema  # type: ignore
 import pandas as pd  # type: ignore
 
-from ipyvizzu import (
+from tests import (
     PlainAnimation,
     Data,
     Config,
