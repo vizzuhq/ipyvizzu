@@ -15,7 +15,8 @@ class Normalizer:
         """
 
         self.id1_pattern = re.compile(r"'[a-f0-9]{7}'", flags=re.MULTILINE)
-        self.id2_pattern = re.compile(r"\"[a-f0-9]{7}\"", flags=re.MULTILINE)
+        self.id2_pattern = re.compile(r"\\'[a-f0-9]{7}\\'", flags=re.MULTILINE)
+        self.id3_pattern = re.compile(r"\"[a-f0-9]{7}\"", flags=re.MULTILINE)
 
     def normalize_id(self, output: str) -> str:
         """
@@ -31,6 +32,7 @@ class Normalizer:
         normalized_output = output
         normalized_output = self.id1_pattern.sub("id", normalized_output)
         normalized_output = self.id2_pattern.sub("id", normalized_output)
+        normalized_output = self.id3_pattern.sub("id", normalized_output)
         return normalized_output
 
     def normalize_output(self, output: MagicMock, start_index: int = 0) -> str:
