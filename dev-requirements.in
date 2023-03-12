@@ -59,3 +59,4 @@ mike
 # environments
 #
 notebook
+fugue>=0.8.1
