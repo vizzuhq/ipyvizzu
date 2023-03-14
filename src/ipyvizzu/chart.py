@@ -2,7 +2,7 @@
 
 import pkgutil
 import uuid
-from typing import List, Optional, Union, Tuple
+from typing import List, Optional, Union
 
 from IPython.display import display_javascript  # type: ignore
 from IPython import get_ipython  # type: ignore
@@ -111,7 +111,7 @@ class Chart:
         if not animations:
             raise ValueError("No animation was set.")
 
-        animation = self._merge_animations(animations)
+        animation = AnimationMerger.merge_animations(animations)
         animate = Animate(animation, options)
 
         self._display(
@@ -122,19 +122,6 @@ class Chart:
                 **animate.dump(),
             )
         )
-
-    @staticmethod
-    def _merge_animations(
-        animations: Tuple[Animation, ...],
-    ) -> Union[Animation, AnimationMerger]:
-        if len(animations) == 1:
-            return animations[0]
-
-        merger = AnimationMerger()
-        for animation in animations:
-            merger.merge(animation)
-
-        return merger
 
     def feature(self, name: str, enabled: bool) -> None:
         """

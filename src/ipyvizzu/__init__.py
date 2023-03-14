@@ -18,6 +18,7 @@ and similar environments with a simple `Python` syntax.
 * [Data][ipyvizzu.animation.Data]
 * [Config][ipyvizzu.animation.Config]
 * [Style][ipyvizzu.animation.Style]
+* [Keyframe][ipyvizzu.animation.Keyframe]
 * [Snapshot][ipyvizzu.animation.Snapshot]
 * [InferType][ipyvizzu.animation.InferType]
 * [Animation][ipyvizzu.animation.Animation]
@@ -46,6 +47,7 @@ from .animation import (
     Data,
     Config,
     Style,
+    Keyframe,
     Snapshot,
     AnimationMerger,
 )
@@ -59,6 +61,7 @@ __all__ = [
     "Data",
     "Config",
     "Style",
+    "Keyframe",
     "Snapshot",
     "InferType",
     "Animation",
