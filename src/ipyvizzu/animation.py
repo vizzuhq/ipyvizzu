@@ -478,7 +478,7 @@ class Keyframe(Animation):
 
     def __init__(
         self,
-        *animations: Union[Data, Config, Style],
+        *animations: Animation,
         **options: Optional[Union[str, int, float, dict]],
     ):
         """
