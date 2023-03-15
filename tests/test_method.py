@@ -49,7 +49,7 @@ class TestMethod(unittest.TestCase):
         method = Animate(chart_target=animation)
         self.assertEqual(
             {
-                "chart_target": "'abc1234'",
+                "chart_target": '"abc1234"',
                 "chart_anim_opts": "undefined",
             },
             method.dump(),
@@ -98,7 +98,7 @@ class TestMethod(unittest.TestCase):
         method = Animate(chart_target=animation, chart_anim_opts=option)
         self.assertEqual(
             {
-                "chart_target": "'abc1234'",
+                "chart_target": '"abc1234"',
                 "chart_anim_opts": '{"duration": 1, "easing": "linear"}',
             },
             method.dump(),

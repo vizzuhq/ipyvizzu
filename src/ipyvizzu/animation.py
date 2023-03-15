@@ -495,15 +495,12 @@ class Keyframe(Animation):
         Raises:
             ValueError: If `animations` is not set.
             ValueError: If initialized with a `Keyframe`.
-            NotImplementedError: If initialized with a `Snapshot`.
         """  # pylint: disable=line-too-long
 
         if not animations:
             raise ValueError("No animation was set.")
         if [animation for animation in animations if isinstance(animation, Keyframe)]:
             raise ValueError("A Keyframe cannot contain a Keyframe.")
-        if [animation for animation in animations if isinstance(animation, Snapshot)]:
-            raise NotImplementedError("A Keyframe cannot contain a Snapshot.")
 
         self._keyframe = {}
         self._keyframe["target"] = AnimationMerger.merge_animations(animations).build()
@@ -539,30 +536,15 @@ class Snapshot(Animation):
 
         self._name = name
 
-    def dump(self) -> str:
+    def build(self) -> str:  # type: ignore
         """
-        A method for overwriting the
-        [Animation.dump][ipyvizzu.animation.Animation.dump] method.
-        It dumps the stored snapshot id as a string.
+        A method for returning the snapshot id str.
 
         Returns:
-            An str that contains the stored snapshot id.
+            An str snapshot id that stored in the snapshot animation object.
         """
 
-        return f"'{self._name}'"
-
-    def build(self) -> NotImplementedError:  # type: ignore
-        """
-        A method for preventing to merge [Snapshot][ipyvizzu.animation.Snapshot]
-        with other animations.
-
-        Raises:
-            NotImplementedError: If the [build][ipyvizzu.animation.Snapshot.build] method
-                has been called, because [Snapshot][ipyvizzu.animation.Snapshot]
-                cannot be merged with other animations.
-        """
-
-        raise NotImplementedError("Snapshot cannot be merged with other animations")
+        return self._name
 
 
 class AnimationMerger(Animation):
@@ -586,7 +568,7 @@ class AnimationMerger(Animation):
             An `AnimationMerger` class with the merged animations.
         """
 
-        if len(animations) == 1:
+        if len(animations) == 1 and not isinstance(animations[0], Keyframe):
             return animations[0]
 
         merger = cls()
@@ -609,25 +591,27 @@ class AnimationMerger(Animation):
 
         if isinstance(animation, Keyframe):
             if self._dict:
-                raise ValueError("Keyframe cannot be merged with other animations")
+                raise ValueError("Keyframe cannot be merged with other animations.")
             data = animation.build()
             self._list.append(data)
         else:
             if self._list:
-                raise ValueError("Keyframe cannot be merged with other animations")
+                raise ValueError("Keyframe cannot be merged with other animations.")
             data = self._validate(animation)
             self._dict.update(data)
 
     def _validate(self, animation: Animation) -> dict:
+        if isinstance(animation, Snapshot):
+            raise ValueError("Snapshot cannot be merged with other animations.")
         data = animation.build()
         common_keys = set(data).intersection(self._dict)
 
         if common_keys:
-            raise ValueError(f"Animation is already merged: {common_keys}")
+            raise ValueError(f"Animation is already merged: {common_keys}.")
 
         return data
 
-    def build(self) -> dict:
+    def build(self) -> Union[dict, list]:  # type: ignore
         """
         A method for returning a merged list of `Keyframes`
         or a merged dictionary from different types of `Animations`.
