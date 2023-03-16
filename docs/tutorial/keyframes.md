@@ -69,7 +69,4 @@ chart.animate(
 )
 ```
 
-The initial state of the animation can be set, too, by using the keyword
-arguments of the `animate` method.
-
 <script src="../keyframes.js"></script>
