@@ -69,8 +69,16 @@ if (!window.IpyVizzu) {
         if (displayTarget === "actual") this._moveHere(chartId, element);
         this._scroll(chartId, scrollEnabled);
         let chartTarget = getChartTarget(this.libs[chartId]);
-        if (typeof chartTarget === "string")
+        if (typeof chartTarget === "string") {
           chartTarget = this.snapshots[chartTarget];
+        } else if (Array.isArray(chartTarget)) {
+          for (let i = 0; i < chartTarget.length; i++) {
+            const target = chartTarget[i].target;
+            if (typeof target === "string") {
+              chartTarget[i].target = this.snapshots[target];
+            }
+          }
+        }
         return chart.animate(chartTarget, chartAnimOpts);
       });
     }

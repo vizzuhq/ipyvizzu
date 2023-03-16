@@ -12,6 +12,7 @@ from tests import (
     Data,
     Config,
     Style,
+    Keyframe,
     Snapshot,
     AnimationMerger,
 )
@@ -623,10 +624,98 @@ class TestStyle(unittest.TestCase):
         self.assertEqual({"style": None}, animation.build())
 
 
+class TestKeyframe(unittest.TestCase):
+    """A class for testing Keyframe class."""
+
+    def test_animation_has_to_be_passed_even_if_options_passed(
+        self,
+    ) -> None:
+        """
+        A method for testing Keyframe.
+        It raises an error if has ben initialized with options only.
+
+        Raises:
+            AssertionError: If ValueError is not occurred.
+        """
+
+        with self.assertRaises(ValueError):
+            Keyframe(duration="500ms")
+
+    def test_keyframe_cannot_be_passed(
+        self,
+    ) -> None:
+        """
+        A method for testing Keyframe.
+        It raises an error if has ben initialized with a Keyframe.
+
+        Raises:
+            AssertionError: If ValueError is not occurred.
+        """
+
+        with self.assertRaises(ValueError):
+            Keyframe(Keyframe(Style(None)))  # type: ignore
+
+    def test_keyframe(self) -> None:
+        """
+        A method for testing Keyframe.build method.
+
+        Raises:
+            AssertionError: If the built value is not correct.
+        """
+
+        animation = Keyframe(
+            Data.filter(None), Style(None), Config({"title": "Keyframe"})
+        )
+        self.assertEqual(
+            animation.build(),
+            {
+                "target": {
+                    "config": {"title": "Keyframe"},
+                    "data": {"filter": None},
+                    "style": None,
+                }
+            },
+        )
+
+    def test_keyframe_with_options(self) -> None:
+        """
+        A method for testing Keyframe.build method with options.
+
+        Raises:
+            AssertionError: If the built value is not correct.
+        """
+
+        animation = Keyframe(
+            Data.filter(None), Style(None), Config({"title": "Keyframe"}), duration=1
+        )
+        self.assertEqual(
+            animation.build(),
+            {
+                "target": {
+                    "config": {"title": "Keyframe"},
+                    "data": {"filter": None},
+                    "style": None,
+                },
+                "options": {"duration": 1},
+            },
+        )
+
+
 class TestSnapshot(unittest.TestCase):
     """A class for testing Snapshot class."""
 
     def test_snapshot(self) -> None:
+        """
+        A method for testing Snapshot.build method.
+
+        Raises:
+            AssertionError: If the built value is not correct.
+        """
+
+        animation = Snapshot("abc1234")
+        self.assertEqual("abc1234", animation.build())
+
+    def test_snapshot_dump(self) -> None:
         """
         A method for testing Snapshot.dump method.
 
@@ -635,19 +724,7 @@ class TestSnapshot(unittest.TestCase):
         """
 
         animation = Snapshot("abc1234")
-        self.assertEqual("'abc1234'", animation.dump())
-
-    def test_snapshot_can_not_be_built(self) -> None:
-        """
-        A method for testing Snapshot.build method.
-        It raises an error if has been called.
-
-        Raises:
-            AssertionError: f NotImplementedError is not occurred.
-        """
-
-        animation = Snapshot("abc1234")
-        self.assertRaises(NotImplementedError, animation.build)
+        self.assertEqual('"abc1234"', animation.dump())
 
 
 class TestMerger(unittest.TestCase):
@@ -704,13 +781,13 @@ class TestMerger(unittest.TestCase):
         It raises an error if has been called.
 
         Raises:
-            AssertionError: If NotImplementedError is not occurred.
+            AssertionError: If ValueError is not occurred.
         """
 
         self.merger.merge(self.data)
         self.merger.merge(self.config)
         self.merger.merge(Style({"title": {"backgroundColor": "#A0A0A0"}}))
-        self.assertRaises(NotImplementedError, self.merger.merge, Snapshot("abc1234"))
+        self.assertRaises(ValueError, self.merger.merge, Snapshot("abc1234"))
 
     def test_only_different_animations_can_be_merged(self) -> None:
         """
@@ -731,3 +808,70 @@ class TestMerger(unittest.TestCase):
         self.assertRaises(ValueError, self.merger.merge, data)
         self.assertRaises(ValueError, self.merger.merge, Config({"title": "Test"}))
         self.assertRaises(ValueError, self.merger.merge, Style(None))
+
+    def test_merge_keyframes(self) -> None:
+        """
+        A method for testing AnimationMerger.merge method with Keyframes.
+
+        Raises:
+            AssertionError: If the dumped value is not correct.
+        """
+
+        self.merger.merge(Keyframe(Style(None)))
+        self.merger.merge(Keyframe(Style(None), duration=0))
+        self.merger.merge(Keyframe(Style(None)))
+
+        self.assertEqual(
+            self.merger.dump(),
+            json.dumps(
+                [
+                    {"target": {"style": None}},
+                    {"target": {"style": None}, "options": {"duration": 0}},
+                    {"target": {"style": None}},
+                ]
+            ),
+        )
+
+    def test_keyframe_and_animation_can_not_be_merged(self) -> None:
+        """
+        A method for testing AnimationMerger.merge method with Keyframe and Animation.
+        It raises an error if has been called.
+
+        Raises:
+            AssertionError: If ValueError is not occurred.
+        """
+
+        self.merger.merge(Keyframe(Style(None)))
+        self.assertRaises(ValueError, self.merger.merge, self.data)
+
+    def test_animation_and_keyframe_can_not_be_merged(self) -> None:
+        """
+        A method for testing AnimationMerger.merge method with Animation and Keyframe.
+        It raises an error if has been called.
+
+        Raises:
+            AssertionError: If ValueError is not occurred.
+        """
+
+        self.merger.merge(self.data)
+        self.assertRaises(ValueError, self.merger.merge, Keyframe(Style(None)))
+
+    def test_merge_animations_keyframe(self) -> None:
+        """
+        A method for testing AnimationMerger.merge_animations method with a Keyframe.
+
+        Raises:
+            AssertionError: If the dumped value is not correct.
+        """
+
+        animations = tuple([Keyframe(Style(None))])
+        merger = AnimationMerger.merge_animations(animations)
+
+        self.assertEqual(
+            merger.dump(),
+            json.dumps(
+                [
+                    {"target": {"style": None}},
+                ]
+            ),
+        )

@@ -388,7 +388,7 @@ class TestChartMethods(TestChart):
         It raises an error if has ben called with multiple chart targets and Snapshot chart target.
 
         Raises:
-            AssertionError: If NotImplementedError is not occurred.
+            AssertionError: If ValueError is not occurred.
         """
 
         data = Data()
@@ -396,7 +396,7 @@ class TestChartMethods(TestChart):
         config = Config({"channels": {"label": {"attach": ["Popularity"]}}})
         style = Style({"title": {"backgroundColor": "#A0A0A0"}})
         snapshot = Snapshot("abc1234")
-        with self.assertRaises(NotImplementedError):
+        with self.assertRaises(ValueError):
             self.chart.animate(data, config, style, snapshot)
 
     def test_animate_more_calls(self) -> None:

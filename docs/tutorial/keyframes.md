@@ -1,0 +1,72 @@
+---
+csv_url: ../../assets/data/music_data.csv
+---
+
+# Keyframes
+
+You may want to control multiple animations as a single one.
+
+You can do this by boundling them together and passing them to a single
+`animate` call. To do this, you need to create a `Keyframe` object from the
+arguments of every single `animate` call and then passing them into a single
+`animate` call
+
+<div id="tutorial_01"></div>
+
+??? info "Info - How to setup Chart"
+    ```python
+    import pandas as pd
+    from ipyvizzu import Chart, Data, Config, Keyframe
+
+    data_frame = pd.read_csv(
+        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
+    )
+    data = Data()
+    data.add_data_frame(data_frame)
+
+    chart = Chart()
+
+    chart.animate(data)
+
+    chart.animate(
+        Config(
+            {
+                "channels": {
+                    "y": {"set": ["Popularity", "Kinds"]},
+                    "x": {"set": ["Genres"]},
+                    "label": {"attach": ["Popularity"]},
+                },
+                "color": {"attach": ["Kinds"]},
+            }
+        )
+    )
+    ```
+
+```python
+chart.animate(
+    Keyframe(
+        Config(
+            {
+                "channels": {
+                    "x": {"attach": ["Kinds"]},
+                    "y": {"detach": ["Kinds"]},
+                },
+            }
+        ),
+        duration=0.5,
+    ),
+    Keyframe(
+        Config(
+            {
+                "channels": {
+                    "x": {"detach": ["Kinds"]},
+                    "y": {"attach": ["Kinds"]},
+                }
+            }
+        ),
+        duration=1,
+    ),
+)
+```
+
+<script src="../keyframes.js"></script>

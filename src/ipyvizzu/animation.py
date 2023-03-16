@@ -4,7 +4,7 @@ import abc
 from enum import Enum
 from os import PathLike
 import json
-from typing import Optional, Union, List, Any
+from typing import Optional, Union, List, Any, Tuple
 import jsonschema  # type: ignore
 
 import pandas as pd  # type: ignore
@@ -470,6 +470,56 @@ class Style(Animation):
         return {"style": self._data}
 
 
+class Keyframe(Animation):
+    """
+    A class for representing keyframe animation.
+    It can build keyframe of the chart.
+    """
+
+    def __init__(
+        self,
+        *animations: Animation,
+        **options: Optional[Union[str, int, float, dict]],
+    ):
+        """
+        Keyframe constructor.
+
+        Args:
+            *animations:
+                List of Animation objects such as [Data][ipyvizzu.animation.Data],
+                [Config][ipyvizzu.animation.Config] and [Style][ipyvizzu.animation.Style].
+            **options: Dictionary of animation options for example `duration=1`.
+                For information on all available animation options see the
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/vizzu.Anim.Options/#properties).
+
+        Raises:
+            ValueError: If `animations` is not set.
+            ValueError: If initialized with a `Keyframe`.
+        """  # pylint: disable=line-too-long
+
+        if not animations:
+            raise ValueError("No animation was set.")
+        if [animation for animation in animations if isinstance(animation, Keyframe)]:
+            raise ValueError("A Keyframe cannot contain a Keyframe.")
+
+        self._keyframe = {}
+        self._keyframe["target"] = AnimationMerger.merge_animations(animations).build()
+        if options:
+            self._keyframe["options"] = options
+
+    def build(self) -> dict:
+        """
+        A method for returning the keyframe animation dictionary.
+
+        Returns:
+            A dictionary that stored in the keyframe animation object.
+                It contains a `target` key whose value is the stored animation
+                and an optional `options` key whose value is the stored animation options.
+        """
+
+        return self._keyframe
+
+
 class Snapshot(Animation):
     """
     A class for representing snapshot animation.
@@ -486,34 +536,46 @@ class Snapshot(Animation):
 
         self._name = name
 
-    def dump(self) -> str:
+    def build(self) -> str:  # type: ignore
         """
-        A method for overwriting the
-        [Animation.dump][ipyvizzu.animation.Animation.dump] method.
-        It dumps the stored snapshot id as a string.
+        A method for returning the snapshot id str.
 
         Returns:
-            An str that contains the stored snapshot id.
+            An str snapshot id that stored in the snapshot animation object.
         """
 
-        return f"'{self._name}'"
-
-    def build(self):
-        """
-        A method for preventing to merge [Snapshot][ipyvizzu.animation.Snapshot]
-        with other animations.
-
-        Raises:
-            NotImplementedError: If the [build][ipyvizzu.animation.Snapshot.build] method
-                has been called, because [Snapshot][ipyvizzu.animation.Snapshot]
-                cannot be merged with other animations.
-        """
-
-        raise NotImplementedError("Snapshot cannot be merged with other animations")
+        return self._name
 
 
-class AnimationMerger(dict, Animation):
+class AnimationMerger(Animation):
     """A class for merging different types of animations."""
+
+    def __init__(self):
+        """AnimationMerger constructor."""
+
+        self._dict = {}
+        self._list = []
+
+    @classmethod
+    def merge_animations(cls, animations: Tuple[Animation, ...]) -> Animation:
+        """
+        A class method for merging animations.
+
+        Args:
+            animations: List of `Animation` objects.
+
+        Returns:
+            An `AnimationMerger` class with the merged animations.
+        """
+
+        if len(animations) == 1 and not isinstance(animations[0], Keyframe):
+            return animations[0]
+
+        merger = cls()
+        for animation in animations:
+            merger.merge(animation)
+
+        return merger
 
     def merge(self, animation: Animation) -> None:
         """
@@ -524,29 +586,44 @@ class AnimationMerger(dict, Animation):
 
         Raises:
             ValueError: If the type of an animation is already merged.
+            ValueError: If `Keyframe` is merged with different type of animation.
         """
 
-        data = self._validate(animation)
-        self.update(data)
+        if isinstance(animation, Keyframe):
+            if self._dict:
+                raise ValueError("Keyframe cannot be merged with other animations.")
+            data = animation.build()
+            self._list.append(data)
+        else:
+            if self._list:
+                raise ValueError("Keyframe cannot be merged with other animations.")
+            data = self._validate(animation)
+            self._dict.update(data)
 
     def _validate(self, animation: Animation) -> dict:
+        if isinstance(animation, Snapshot):
+            raise ValueError("Snapshot cannot be merged with other animations.")
         data = animation.build()
-        common_keys = set(data).intersection(self)
+        common_keys = set(data).intersection(self._dict)
 
         if common_keys:
-            raise ValueError(f"Animation is already merged: {common_keys}")
+            raise ValueError(f"Animation is already merged: {common_keys}.")
 
         return data
 
-    def build(self) -> dict:
+    def build(self) -> Union[dict, list]:  # type: ignore
         """
-        A method for returning a merged dictionary from different types of animations.
+        A method for returning a merged list of `Keyframes`
+        or a merged dictionary from different types of `Animations`.
 
         Returns:
-            A merged dictionary from
+            A merged list of [Keyframes][ipyvizzu.animation.Keyframe] or
+                a merged dictionary from
                 [Data][ipyvizzu.animation.Data],
                 [Config][ipyvizzu.animation.Config] and
                 [Style][ipyvizzu.animation.Style] animations.
         """
 
-        return self
+        if self._dict:
+            return self._dict
+        return self._list

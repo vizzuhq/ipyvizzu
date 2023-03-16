@@ -135,6 +135,7 @@ nav:
       - Color palette & fonts: tutorial/color_palette_fonts.md
       - Chart layout: tutorial/chart_layout.md
       - Animation options: tutorial/animation_options.md
+      - Keyframes: tutorial/keyframes.md
       - tutorial/events.md
       - Shorthands & Store: tutorial/shorthands_store.md
       - Chart presets: tutorial/chart_presets.md

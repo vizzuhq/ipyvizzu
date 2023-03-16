@@ -16,6 +16,7 @@ from ipyvizzu import (  # pylint: disable=wrong-import-position
     EventOff,
     EventOn,
     Feature,
+    Keyframe,
     Log,
     Method,
     PlainAnimation,
