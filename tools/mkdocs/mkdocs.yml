@@ -27,6 +27,7 @@ theme:
     - search.highlight
     - navigation.top
     - navigation.footer
+    - content.code.copy
 
 extra_css:
   - assets/stylesheets/vizzu.css
@@ -106,14 +107,6 @@ plugins:
   - coverage:
       page_name: coverage
       html_report_dir: tests/coverage
-  - mkdocs-jupyter:
-      include: []
-      ignore: []
-      ignore_h1_titles: False
-      include_source: True
-      execute: False
-      allow_errors: False
-      kernel_name: .venv_ipyvizzu
 
 nav:
   - Home: index.md
