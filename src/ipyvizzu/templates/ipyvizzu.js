@@ -27,6 +27,7 @@ if (!window.IpyVizzu) {
 
       this.elements = {};
       this.charts = {};
+      this.controls = {};
 
       this.snapshots = {};
       this.displays = {};
@@ -58,6 +59,7 @@ if (!window.IpyVizzu) {
     animate(
       element,
       chartId,
+      animId,
       displayTarget,
       scrollEnabled,
       getChartTarget,
@@ -65,6 +67,7 @@ if (!window.IpyVizzu) {
     ) {
       if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
       if (displayTarget === "end") this._moveHere(chartId, element);
+      this.controls[chartId] = this.charts[chartId];
       this.charts[chartId] = this.charts[chartId].then((chart) => {
         if (displayTarget === "actual") this._moveHere(chartId, element);
         this._scroll(chartId, scrollEnabled);
@@ -79,7 +82,9 @@ if (!window.IpyVizzu) {
             }
           }
         }
-        return chart.animate(chartTarget, chartAnimOpts);
+        chart = chart.animate(chartTarget, chartAnimOpts);
+        this.controls[animId] = chart;
+        return chart;
       });
     }
 
@@ -121,6 +126,48 @@ if (!window.IpyVizzu) {
       this.charts[chartId] = this.charts[chartId].then((chart) => {
         console.log(chart[chartProperty]);
         return chart;
+      });
+    }
+
+    cancel(element, prevId, lastId) {
+      if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
+      this.controls[prevId].then(() => {
+        this.controls[lastId].activated.then((control) => control.cancel());
+      });
+    }
+
+    pause(element, prevId, lastId) {
+      if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
+      this.controls[prevId].then(() => {
+        this.controls[lastId].activated.then((control) => control.pause());
+      });
+    }
+
+    play(element, prevId, lastId) {
+      if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
+      this.controls[prevId].then(() => {
+        this.controls[lastId].activated.then((control) => control.play());
+      });
+    }
+
+    reverse(element, prevId, lastId) {
+      if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
+      this.controls[prevId].then(() => {
+        this.controls[lastId].activated.then((control) => control.reverse());
+      });
+    }
+
+    seek(element, prevId, lastId, value) {
+      if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
+      this.controls[prevId].then(() => {
+        this.controls[lastId].activated.then((control) => control.seek(value));
+      });
+    }
+
+    stop(element, prevId, lastId) {
+      if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
+      this.controls[prevId].then(() => {
+        this.controls[lastId].activated.then((control) => control.stop());
       });
     }
 

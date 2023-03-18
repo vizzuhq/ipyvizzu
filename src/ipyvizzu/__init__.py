@@ -6,6 +6,7 @@ and similar environments with a simple `Python` syntax.
 
 * [Chart][ipyvizzu.chart]
 * [Animation][ipyvizzu.animation]
+* [Animation Control][ipyvizzu.animationcontrol]
 * [Method][ipyvizzu.method]
 * [Event][ipyvizzu.event]
 * [Json][ipyvizzu.json]
@@ -24,6 +25,7 @@ and similar environments with a simple `Python` syntax.
 * [Animation][ipyvizzu.animation.Animation]
 * [PlainAnimation][ipyvizzu.animation.PlainAnimation]
 * [AnimationMerger][ipyvizzu.animation.AnimationMerger]
+* [AnimationControl][ipyvizzu.animationcontrol.AnimationControl]
 * [Animate][ipyvizzu.method.Animate]
 * [Feature][ipyvizzu.method.Feature]
 * [Store][ipyvizzu.method.Store]
@@ -51,6 +53,7 @@ from .animation import (
     Snapshot,
     AnimationMerger,
 )
+from .animationcontrol import AnimationControl
 from .method import Method, Animate, Feature, Store, EventOn, EventOff, Log
 from .json import RawJavaScript, RawJavaScriptEncoder
 from .template import ChartProperty, DisplayTarget, DisplayTemplate
@@ -73,6 +76,7 @@ __all__ = [
     "EventOn",
     "EventOff",
     "Log",
+    "AnimationControl",
     "Method",
     "EventHandler",
     "RawJavaScript",
