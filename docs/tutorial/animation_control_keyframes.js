@@ -12,13 +12,74 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
         (chart) => {
           return chart.animate({
             config: {
-              title: "Using keyframes",
+              title:
+                "Jumping from 0% to 50% progress at the begining of the animation",
               channels: {
                 y: { set: ["Popularity", "Kinds"] },
                 x: { set: "Genres" },
                 label: { attach: "Popularity" },
               },
               color: { set: "Kinds" },
+            },
+          });
+        },
+        (chart) => {
+          chart = chart.animate({
+            config: {
+              channels: {
+                x: {
+                  attach: "Kinds",
+                },
+                y: {
+                  detach: "Kinds",
+                },
+              },
+            },
+          });
+          chart.activated.then((control) => control.seek("50%"));
+          return chart;
+        },
+      ],
+    },
+    {
+      anims: [
+        (chart) => {
+          return chart.animate({
+            config: {
+              title: "Using initial animation control parameters",
+            },
+          });
+        },
+        (chart) => {
+          chart = chart.animate(
+            {
+              config: {
+                channels: {
+                  x: {
+                    detach: ["Kinds"],
+                  },
+                  y: {
+                    attach: ["Kinds"],
+                  },
+                },
+              },
+            },
+            {
+              playState: "paused",
+              position: 0.5,
+            }
+          );
+          chart.activated.then((control) => control.play());
+          return chart;
+        },
+      ],
+    },
+    {
+      anims: [
+        (chart) => {
+          return chart.animate({
+            config: {
+              title: "Using keyframes",
             },
           });
         },
