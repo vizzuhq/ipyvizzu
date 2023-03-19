@@ -115,6 +115,50 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
     {
       anims: [
         (chart) => {
+          return chart.animate(
+            {
+              style: null,
+              config: {
+                title: "Store function",
+                align: "stretch",
+                channels: {
+                  y: { set: ["Popularity", "Kinds"] },
+                  x: { set: "Genres" },
+                  label: { attach: "Popularity" },
+                },
+                color: { set: "Kinds" },
+              },
+            },
+            0
+          );
+        },
+        (chart) => {
+          return chart.animate({
+            config: {
+              title: "When you use set and no other channel options",
+            },
+          });
+        },
+        (chart) => {
+          return chart.animate({
+            channels: {
+              // x: { attach: [ 'Kinds' ] },
+              x: {
+                attach: "Kinds",
+              },
+              // y: { detach: [ 'Kinds' ] },
+              y: {
+                detach: "Kinds",
+              },
+            },
+            align: "none",
+          });
+        },
+      ],
+    },
+    {
+      anims: [
+        (chart) => {
           return chart.animate({
             style: null,
             config: {
@@ -126,13 +170,6 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
                 label: { attach: "Popularity" },
               },
               color: { set: "Kinds" },
-            },
-          });
-        },
-        (chart) => {
-          return chart.animate({
-            config: {
-              title: "Restoring a previously stored state",
             },
           });
         },

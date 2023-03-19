@@ -29,7 +29,7 @@ if (!window.IpyVizzu) {
       this.charts = {};
       this.controls = {};
 
-      this.snapshots = {};
+      this.storage = {};
       this.displays = {};
 
       this.events = {};
@@ -73,12 +73,12 @@ if (!window.IpyVizzu) {
         this._scroll(chartId, scrollEnabled);
         let chartTarget = getChartTarget(this.libs[chartId]);
         if (typeof chartTarget === "string") {
-          chartTarget = this.snapshots[chartTarget];
+          chartTarget = this.storage[chartTarget];
         } else if (Array.isArray(chartTarget)) {
           for (let i = 0; i < chartTarget.length; i++) {
             const target = chartTarget[i].target;
             if (typeof target === "string") {
-              chartTarget[i].target = this.snapshots[target];
+              chartTarget[i].target = this.storage[target];
             }
           }
         }
@@ -91,7 +91,7 @@ if (!window.IpyVizzu) {
     store(element, chartId, id) {
       if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
       this.charts[chartId] = this.charts[chartId].then((chart) => {
-        this.snapshots[id] = chart.store();
+        this.storage[id] = chart.store();
         return chart;
       });
     }
@@ -136,6 +136,11 @@ if (!window.IpyVizzu) {
           if (method === "seek") {
             const value = params[0];
             control[method](value);
+            return;
+          }
+          if (method === "store") {
+            const id = params[0];
+            this.storage[id] = control[method]();
             return;
           }
           control[method]();

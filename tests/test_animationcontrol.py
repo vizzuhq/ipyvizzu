@@ -116,3 +116,19 @@ class TestAnimationControl(TestChart):
                 self.normalizer.normalize_output(output, 1),
                 "window.ipyvizzu.control(element, 'stop', id, id);",
             )
+
+    def test_store(self) -> None:
+        """
+        A method for testing AnimationControl.store method.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
+
+        with unittest.mock.patch(self.mock) as output:
+            self.chart.animate(Style(None))
+            self.chart.previous.store()
+            self.assertEqual(
+                self.normalizer.normalize_output(output, 1),
+                "window.ipyvizzu.control(element, 'store', id, id, id);",
+            )

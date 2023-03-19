@@ -522,19 +522,19 @@ class Keyframe(AbstractAnimation):
 
 class Snapshot(AbstractAnimation):
     """
-    A class for representing snapshot animation.
+    A class for representing chart state snapshot.
     It can build the snapshot id of the chart.
     """
 
-    def __init__(self, name: str):
+    def __init__(self, snapshot_id: str):
         """
         Snapshot constructor.
 
         Args:
-            name: A snapshot id.
+            snapshot_id: A snapshot id.
         """
 
-        self._name = name
+        self._snapshot_id = snapshot_id
 
     def build(self) -> str:  # type: ignore
         """
@@ -544,7 +544,14 @@ class Snapshot(AbstractAnimation):
             An str snapshot id that stored in the snapshot animation object.
         """
 
-        return self._name
+        return self._snapshot_id
+
+
+class AnimationSnapshot(Snapshot):
+    """
+    A class for representing animation state snapshot.
+    It can build the snapshot id of the animation.
+    """
 
 
 class AnimationMerger(AbstractAnimation):

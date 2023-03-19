@@ -5,9 +5,11 @@ csv_url: ../../assets/data/music_data.csv
 # Shorthands & Store
 
 To assist you with the development we added various shorthands that will make
-your code more compact. And we also added the store function, which enables you
-to save a chart state into a variable that you can reuse later instead of
-setting up that state once again.
+your code more compact.
+
+We also added store functions, which enable you to save either a chart state or
+a whole animation into a variable that you can reuse later instead of setting up
+that state or animation once again.
 
 <div id="tutorial_01"></div>
 
@@ -58,7 +60,8 @@ snapshot = chart.store()
 ```
 
 If you set/attach/detach just one series on a channel, you don't have to put
-that series into an array.
+that series into an array. Also, let's save this animation by calling the
+`store` method of the `previous` chart object.
 
 <div id="tutorial_02"></div>
 
@@ -69,12 +72,15 @@ chart.animate(
             "channels": {
                 # "x": { "attach": [ "Kinds" ] },
                 "x": {"attach": "Kinds"},
+                # "y": { "detach": [ "Kinds" ] },
                 "y": {"detach": "Kinds"},
             },
             "align": "none",
         }
     )
 )
+
+animation = chart.previous.store()
 ```
 
 If you use set on a channel and no other options like range, you don't have to
@@ -90,6 +96,7 @@ chart.animate(
             "channels": {
                 # "y": { "set": [ "Kinds", "Popularity" ] },
                 "y": ["Kinds", "Popularity"],
+                # "x": { "set": [ "Genres" ] },
                 "x": "Genres",
             }
         }
@@ -97,7 +104,7 @@ chart.animate(
 )
 ```
 
-In any case, you can simply omit the channel object, `ipyvizzu` will
+In any case, you can simply omit the `channel` object, `ipyvizzu` will
 automatically recognize the channels by their names.
 
 <div id="tutorial_04"></div>
@@ -131,9 +138,17 @@ chart.animate(
 )
 ```
 
-This is how you can get back to a state that you previously stored.
+This is how you can reuse a previously stored animation.
 
 <div id="tutorial_06"></div>
+
+```python
+chart.animate(animation)
+```
+
+You can also get back to a state that you previously stored.
+
+<div id="tutorial_07"></div>
 
 ```python
 chart.animate(snapshot)

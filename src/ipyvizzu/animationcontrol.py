@@ -1,8 +1,10 @@
 """A module for working with animation control."""
 
 from typing import Union, Callable
+import uuid
 
 from ipyvizzu.template import DisplayTemplate
+from ipyvizzu.animation import AnimationSnapshot
 
 
 class AnimationControl:
@@ -88,3 +90,21 @@ class AnimationControl:
                 params=self._ids,
             )
         )
+
+    def store(self) -> AnimationSnapshot:
+        """
+        A method for saving and storing the actual state of the animation.
+
+        Returns:
+            A AnimationSnapshot object wich stores the actual state of the animation.
+        """
+
+        snapshot_id = uuid.uuid4().hex[:7]
+        params = ", ".join([self._ids, f"'{snapshot_id}'"])
+        self._display(
+            DisplayTemplate.CONTROL.format(
+                method="store",
+                params=params,
+            )
+        )
+        return AnimationSnapshot(snapshot_id)
