@@ -72,7 +72,7 @@ class DisplayTemplate:
     LOG: str = "window.ipyvizzu.log(element, '{chart_id}', '{chart_property}');"
     """Call log JavaScript method."""
 
-    CONTROL: str = "window.ipyvizzu.{method}(element, {params});"
+    CONTROL: str = "window.ipyvizzu.control(element, '{method}', {params});"
     """Call animation control JavaScript methods."""
 
     CLEAR_INHIBITSCROLL: str = (

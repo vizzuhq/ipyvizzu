@@ -129,45 +129,17 @@ if (!window.IpyVizzu) {
       });
     }
 
-    cancel(element, prevId, lastId) {
+    control(element, method, prevId, lastId, ...params) {
       if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
       this.controls[prevId].then(() => {
-        this.controls[lastId].activated.then((control) => control.cancel());
-      });
-    }
-
-    pause(element, prevId, lastId) {
-      if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
-      this.controls[prevId].then(() => {
-        this.controls[lastId].activated.then((control) => control.pause());
-      });
-    }
-
-    play(element, prevId, lastId) {
-      if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
-      this.controls[prevId].then(() => {
-        this.controls[lastId].activated.then((control) => control.play());
-      });
-    }
-
-    reverse(element, prevId, lastId) {
-      if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
-      this.controls[prevId].then(() => {
-        this.controls[lastId].activated.then((control) => control.reverse());
-      });
-    }
-
-    seek(element, prevId, lastId, value) {
-      if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
-      this.controls[prevId].then(() => {
-        this.controls[lastId].activated.then((control) => control.seek(value));
-      });
-    }
-
-    stop(element, prevId, lastId) {
-      if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
-      this.controls[prevId].then(() => {
-        this.controls[lastId].activated.then((control) => control.stop());
+        this.controls[lastId].activated.then((control) => {
+          if (method === "seek") {
+            const value = params[0];
+            control[method](value);
+            return;
+          }
+          control[method]();
+        });
       });
     }
 

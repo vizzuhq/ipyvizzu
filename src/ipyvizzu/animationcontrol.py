@@ -28,7 +28,7 @@ class AnimationControl:
 
         self._display(
             DisplayTemplate.CONTROL.format(
-                method=self.cancel.__name__,
+                method="cancel",
                 params=self._ids,
             )
         )
@@ -38,7 +38,7 @@ class AnimationControl:
 
         self._display(
             DisplayTemplate.CONTROL.format(
-                method=self.pause.__name__,
+                method="pause",
                 params=self._ids,
             )
         )
@@ -48,7 +48,7 @@ class AnimationControl:
 
         self._display(
             DisplayTemplate.CONTROL.format(
-                method=self.play.__name__,
+                method="play",
                 params=self._ids,
             )
         )
@@ -58,7 +58,7 @@ class AnimationControl:
 
         self._display(
             DisplayTemplate.CONTROL.format(
-                method=self.reverse.__name__,
+                method="reverse",
                 params=self._ids,
             )
         )
@@ -74,7 +74,7 @@ class AnimationControl:
         params = ", ".join([self._ids, f"'{value}'"])
         self._display(
             DisplayTemplate.CONTROL.format(
-                method=self.seek.__name__,
+                method="seek",
                 params=params,
             )
         )
@@ -84,7 +84,7 @@ class AnimationControl:
 
         self._display(
             DisplayTemplate.CONTROL.format(
-                method=self.stop.__name__,
+                method="stop",
                 params=self._ids,
             )
         )

@@ -34,7 +34,7 @@ class TestAnimationControl(TestChart):
             self.chart.previous.cancel()
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
-                "window.ipyvizzu.cancel(element, id, id);",
+                "window.ipyvizzu.control(element, 'cancel', id, id);",
             )
 
     def test_pause(self) -> None:
@@ -50,7 +50,7 @@ class TestAnimationControl(TestChart):
             self.chart.previous.pause()
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
-                "window.ipyvizzu.pause(element, id, id);",
+                "window.ipyvizzu.control(element, 'pause', id, id);",
             )
 
     def test_play(self) -> None:
@@ -66,7 +66,7 @@ class TestAnimationControl(TestChart):
             self.chart.previous.play()
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
-                "window.ipyvizzu.play(element, id, id);",
+                "window.ipyvizzu.control(element, 'play', id, id);",
             )
 
     def test_reverse(self) -> None:
@@ -82,7 +82,7 @@ class TestAnimationControl(TestChart):
             self.chart.previous.reverse()
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
-                "window.ipyvizzu.reverse(element, id, id);",
+                "window.ipyvizzu.control(element, 'reverse', id, id);",
             )
 
     def test_seek(self) -> None:
@@ -98,7 +98,7 @@ class TestAnimationControl(TestChart):
             self.chart.previous.seek("50%")
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
-                "window.ipyvizzu.seek(element, id, id, '50%');",
+                "window.ipyvizzu.control(element, 'seek', id, id, '50%');",
             )
 
     def test_stop(self) -> None:
@@ -114,5 +114,5 @@ class TestAnimationControl(TestChart):
             self.chart.previous.stop()
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
-                "window.ipyvizzu.stop(element, id, id);",
+                "window.ipyvizzu.control(element, 'stop', id, id);",
             )
