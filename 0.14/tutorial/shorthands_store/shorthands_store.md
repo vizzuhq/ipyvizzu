@@ -69,6 +69,7 @@ chart.animate(
             "channels": {
                 # "x": { "attach": [ "Kinds" ] },
                 "x": {"attach": "Kinds"},
+                # "y": { "detach": [ "Kinds" ] },
                 "y": {"detach": "Kinds"},
             },
             "align": "none",
@@ -90,6 +91,7 @@ chart.animate(
             "channels": {
                 # "y": { "set": [ "Kinds", "Popularity" ] },
                 "y": ["Kinds", "Popularity"],
+                # "x": { "set": [ "Genres" ] },
                 "x": "Genres",
             }
         }
