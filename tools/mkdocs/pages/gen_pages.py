@@ -228,13 +228,6 @@ def main() -> None:
         )
 
         Page.generate(
-            src=REPO_PATH / "CHANGELOG.md",
-            dst="CHANGELOG.md",
-            pos="../",
-            site=config["site_url"],
-        )
-
-        Page.generate(
             src=REPO_PATH / "LICENSE",
             dst="LICENSE.md",
             pos="../",

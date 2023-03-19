@@ -131,9 +131,8 @@ If you want to release `ipyvizzu` follow the steps below.
 - You should increase the version number in `setup.py`. The version bump should
   be in a separated commit.
 
-- Create the release notes from the
-  [CHANGELOG](https://ipyvizzu.vizzuhq.com/latest/CHANGELOG/) and publish the
-  new release on [Releases](https://github.com/vizzuhq/ipyvizzu/releases).
+- Generate the release notes and publish the new release on
+  [Releases](https://github.com/vizzuhq/ipyvizzu/releases).
 
 **Note:** Publishing a new release will automatically trigger the `release`
 workflow which builds, checks and uploads the `ipyvizzu` package to
