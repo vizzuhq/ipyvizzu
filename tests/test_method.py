@@ -37,7 +37,7 @@ class TestMethod(unittest.TestCase):
     def test_animate_with_anim_without_option(self) -> None:
         """
         A method for testing Animate class which is
-        initialized with an Animation as `chart_target` and
+        initialized with an animation as `chart_target` and
         without `chart_anim_opts` parameters.
         It tests Animate.dump method return value.
 
@@ -85,7 +85,7 @@ class TestMethod(unittest.TestCase):
     def test_animate_with_anim_with_option(self) -> None:
         """
         A method for testing Animate class which is
-        initialized with an Animation as `chart_target` and
+        initialized with an animation as `chart_target` and
         with `chart_anim_opts` parameters.
         It tests Animate.dump method return value.
 

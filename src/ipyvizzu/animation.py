@@ -14,7 +14,7 @@ from ipyvizzu.json import RawJavaScript, RawJavaScriptEncoder
 from ipyvizzu.schema import DATA_SCHEMA
 
 
-class Animation:
+class AbstractAnimation:
     """
     An abstract class for representing animation objects
     that have `dump` and `build` methods.
@@ -42,7 +42,7 @@ class Animation:
         """
 
 
-class PlainAnimation(dict, Animation):
+class PlainAnimation(dict, AbstractAnimation):
     """
     A class for representing plain animation.
     It can build any dictionary.
@@ -69,7 +69,7 @@ class InferType(Enum):
     """An enum key-value for storing measure infer type."""
 
 
-class Data(dict, Animation):
+class Data(dict, AbstractAnimation):
     """
     A class for representing data animation.
     It can build data option of the chart.
@@ -407,7 +407,7 @@ class ConfigAttr(type):
         return config
 
 
-class Config(Animation, metaclass=ConfigAttr):
+class Config(AbstractAnimation, metaclass=ConfigAttr):
     """
     A class for representing config animation.
     It can build config option of the chart.
@@ -438,7 +438,7 @@ class Config(Animation, metaclass=ConfigAttr):
         return {"config": self._data}
 
 
-class Style(Animation):
+class Style(AbstractAnimation):
     """
     A class for representing style animation.
     It can build style option of the chart.
@@ -470,7 +470,7 @@ class Style(Animation):
         return {"style": self._data}
 
 
-class Keyframe(Animation):
+class Keyframe(AbstractAnimation):
     """
     A class for representing keyframe animation.
     It can build keyframe of the chart.
@@ -478,7 +478,7 @@ class Keyframe(Animation):
 
     def __init__(
         self,
-        *animations: Animation,
+        *animations: AbstractAnimation,
         **options: Optional[Union[str, int, float, dict]],
     ):
         """
@@ -486,7 +486,7 @@ class Keyframe(Animation):
 
         Args:
             *animations:
-                List of Animation objects such as [Data][ipyvizzu.animation.Data],
+                List of AbstractAnimation inherited objects such as [Data][ipyvizzu.animation.Data],
                 [Config][ipyvizzu.animation.Config] and [Style][ipyvizzu.animation.Style].
             **options: Dictionary of animation options for example `duration=1`.
                 For information on all available animation options see the
@@ -520,7 +520,7 @@ class Keyframe(Animation):
         return self._keyframe
 
 
-class Snapshot(Animation):
+class Snapshot(AbstractAnimation):
     """
     A class for representing snapshot animation.
     It can build the snapshot id of the chart.
@@ -547,7 +547,7 @@ class Snapshot(Animation):
         return self._name
 
 
-class AnimationMerger(Animation):
+class AnimationMerger(AbstractAnimation):
     """A class for merging different types of animations."""
 
     def __init__(self):
@@ -557,12 +557,14 @@ class AnimationMerger(Animation):
         self._list = []
 
     @classmethod
-    def merge_animations(cls, animations: Tuple[Animation, ...]) -> Animation:
+    def merge_animations(
+        cls, animations: Tuple[AbstractAnimation, ...]
+    ) -> AbstractAnimation:
         """
         A class method for merging animations.
 
         Args:
-            animations: List of `Animation` objects.
+            animations: List of `AbstractAnimation` inherited objects.
 
         Returns:
             An `AnimationMerger` class with the merged animations.
@@ -577,7 +579,7 @@ class AnimationMerger(Animation):
 
         return merger
 
-    def merge(self, animation: Animation) -> None:
+    def merge(self, animation: AbstractAnimation) -> None:
         """
         A method for merging an animation with the previously merged animations.
 
@@ -600,21 +602,21 @@ class AnimationMerger(Animation):
             data = self._validate(animation)
             self._dict.update(data)
 
-    def _validate(self, animation: Animation) -> dict:
+    def _validate(self, animation: AbstractAnimation) -> dict:
         if isinstance(animation, Snapshot):
             raise ValueError("Snapshot cannot be merged with other animations.")
         data = animation.build()
         common_keys = set(data).intersection(self._dict)
 
         if common_keys:
-            raise ValueError(f"Animation is already merged: {common_keys}.")
+            raise ValueError(f"{common_keys} is already merged.")
 
         return data
 
     def build(self) -> Union[dict, list]:  # type: ignore
         """
         A method for returning a merged list of `Keyframes`
-        or a merged dictionary from different types of `Animations`.
+        or a merged dictionary from different types of animations.
 
         Returns:
             A merged list of [Keyframes][ipyvizzu.animation.Keyframe] or

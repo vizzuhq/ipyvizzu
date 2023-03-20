@@ -22,7 +22,7 @@ and similar environments with a simple `Python` syntax.
 * [Keyframe][ipyvizzu.animation.Keyframe]
 * [Snapshot][ipyvizzu.animation.Snapshot]
 * [InferType][ipyvizzu.animation.InferType]
-* [Animation][ipyvizzu.animation.Animation]
+* [AbstractAnimation][ipyvizzu.animation.AbstractAnimation]
 * [PlainAnimation][ipyvizzu.animation.PlainAnimation]
 * [AnimationMerger][ipyvizzu.animation.AnimationMerger]
 * [AnimationControl][ipyvizzu.animationcontrol.AnimationControl]
@@ -43,7 +43,7 @@ and similar environments with a simple `Python` syntax.
 
 from .chart import Chart
 from .animation import (
-    Animation,
+    AbstractAnimation,
     PlainAnimation,
     InferType,
     Data,
@@ -67,7 +67,7 @@ __all__ = [
     "Keyframe",
     "Snapshot",
     "InferType",
-    "Animation",
+    "AbstractAnimation",
     "PlainAnimation",
     "AnimationMerger",
     "Animate",

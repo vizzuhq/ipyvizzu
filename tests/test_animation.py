@@ -834,7 +834,7 @@ class TestMerger(unittest.TestCase):
 
     def test_keyframe_and_animation_can_not_be_merged(self) -> None:
         """
-        A method for testing AnimationMerger.merge method with Keyframe and Animation.
+        A method for testing AnimationMerger.merge method with Keyframe and animation.
         It raises an error if has been called.
 
         Raises:
@@ -846,7 +846,7 @@ class TestMerger(unittest.TestCase):
 
     def test_animation_and_keyframe_can_not_be_merged(self) -> None:
         """
-        A method for testing AnimationMerger.merge method with Animation and Keyframe.
+        A method for testing AnimationMerger.merge method with animation and Keyframe.
         It raises an error if has been called.
 
         Raises:

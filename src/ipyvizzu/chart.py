@@ -7,7 +7,7 @@ from typing import List, Optional, Union
 from IPython.display import display_javascript  # type: ignore
 from IPython import get_ipython  # type: ignore
 
-from ipyvizzu.animation import Animation, Snapshot, AnimationMerger
+from ipyvizzu.animation import AbstractAnimation, Snapshot, AnimationMerger
 from ipyvizzu.animationcontrol import AnimationControl
 from ipyvizzu.method import Animate, Feature, Store, EventOn, EventOff, Log
 from ipyvizzu.template import ChartProperty, DisplayTarget, DisplayTemplate
@@ -102,14 +102,16 @@ class Chart:
         return AnimationControl(self._chart_id, self._last_anim, self._display)
 
     def animate(
-        self, *animations: Animation, **options: Optional[Union[str, int, float, dict]]
+        self,
+        *animations: AbstractAnimation,
+        **options: Optional[Union[str, int, float, dict]],
     ) -> None:
         """
         A method for changing the state of the chart.
 
         Args:
             *animations:
-                List of Animation objects such as [Data][ipyvizzu.animation.Data],
+                List of AbstractAnimation inherited objects such as [Data][ipyvizzu.animation.Data],
                 [Config][ipyvizzu.animation.Config] and [Style][ipyvizzu.animation.Style].
             **options: Dictionary of animation options for example `duration=1`.
                 For information on all available animation options see the
