@@ -1,9 +1,9 @@
 """A module for working with template methods."""
 
 import json
-from typing import Optional, Union
+from typing import Optional
 
-from ipyvizzu.animation import PlainAnimation, Animation, AnimationMerger
+from ipyvizzu.animation import AbstractAnimation, PlainAnimation
 from ipyvizzu.event import EventHandler
 from ipyvizzu.template import ChartProperty
 
@@ -36,7 +36,7 @@ class Animate(Method):
 
     def __init__(
         self,
-        chart_target: Union[Animation, AnimationMerger],
+        chart_target: AbstractAnimation,
         chart_anim_opts: Optional[dict] = None,
     ):
         """
@@ -46,7 +46,7 @@ class Animate(Method):
 
         Args:
             chart_target:
-                Animation object such as
+                AbstractAnimation inherited object such as
                 [Data][ipyvizzu.animation.Data]
                 [Config][ipyvizzu.animation.Config] or
                 [Style][ipyvizzu.animation.Style].
