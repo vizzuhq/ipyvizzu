@@ -88,7 +88,7 @@ class Chart:
         self._scroll_into_view = bool(scroll_into_view)
 
     @property
-    def previous(self) -> AnimationControl:
+    def control(self) -> AnimationControl:
         """
         A property for returning a control object of the last animation.
 

@@ -19,7 +19,7 @@ class TestAnimationControl(TestChart):
         """
 
         with self.assertRaises(AssertionError):
-            self.chart.previous.seek("50%")
+            self.chart.control.seek("50%")
 
     def test_cancel(self) -> None:
         """
@@ -31,7 +31,7 @@ class TestAnimationControl(TestChart):
 
         with unittest.mock.patch(self.mock) as output:
             self.chart.animate(Style(None))
-            self.chart.previous.cancel()
+            self.chart.control.cancel()
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
                 "window.ipyvizzu.control(element, 'cancel', id, id);",
@@ -47,7 +47,7 @@ class TestAnimationControl(TestChart):
 
         with unittest.mock.patch(self.mock) as output:
             self.chart.animate(Style(None))
-            self.chart.previous.pause()
+            self.chart.control.pause()
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
                 "window.ipyvizzu.control(element, 'pause', id, id);",
@@ -63,7 +63,7 @@ class TestAnimationControl(TestChart):
 
         with unittest.mock.patch(self.mock) as output:
             self.chart.animate(Style(None))
-            self.chart.previous.play()
+            self.chart.control.play()
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
                 "window.ipyvizzu.control(element, 'play', id, id);",
@@ -79,7 +79,7 @@ class TestAnimationControl(TestChart):
 
         with unittest.mock.patch(self.mock) as output:
             self.chart.animate(Style(None))
-            self.chart.previous.reverse()
+            self.chart.control.reverse()
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
                 "window.ipyvizzu.control(element, 'reverse', id, id);",
@@ -95,7 +95,7 @@ class TestAnimationControl(TestChart):
 
         with unittest.mock.patch(self.mock) as output:
             self.chart.animate(Style(None))
-            self.chart.previous.seek("50%")
+            self.chart.control.seek("50%")
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
                 "window.ipyvizzu.control(element, 'seek', id, id, '50%');",
@@ -111,7 +111,7 @@ class TestAnimationControl(TestChart):
 
         with unittest.mock.patch(self.mock) as output:
             self.chart.animate(Style(None))
-            self.chart.previous.stop()
+            self.chart.control.stop()
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
                 "window.ipyvizzu.control(element, 'stop', id, id);",
@@ -127,7 +127,7 @@ class TestAnimationControl(TestChart):
 
         with unittest.mock.patch(self.mock) as output:
             self.chart.animate(Style(None))
-            self.chart.previous.store()
+            self.chart.control.store()
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
                 "window.ipyvizzu.control(element, 'store', id, id, id);",

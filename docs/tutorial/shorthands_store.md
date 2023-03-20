@@ -61,7 +61,7 @@ snapshot = chart.store()
 
 If you set/attach/detach just one series on a channel, you don't have to put
 that series into an array. Also, let's save this animation by calling the
-`store` method of the `previous` chart object.
+`store` method of the `control` chart object.
 
 <div id="tutorial_02"></div>
 
@@ -80,7 +80,7 @@ chart.animate(
     )
 )
 
-animation = chart.previous.store()
+animation = chart.control.store()
 ```
 
 If you use set on a channel and no other options like range, you don't have to

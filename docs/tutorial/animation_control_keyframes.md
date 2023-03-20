@@ -4,7 +4,7 @@ csv_url: ../../assets/data/music_data.csv
 
 # Animation control & keyframes
 
-Using the `previous` property provided by the chart you can play, pause, stop,
+Using the `control` property provided by the chart you can play, pause, stop,
 seek or reverse the animations.
 
 In this step, we seek forward to `50%` of progress after the animation starts.
@@ -51,7 +51,7 @@ chart.animate(
         }
     )
 )
-chart.previous.seek("50%")
+chart.control.seek("50%")
 ```
 
 You can also control the initial position and play state of the animation
@@ -72,7 +72,7 @@ chart.animate(
     playState="paused",
     position=0.5,
 )
-chart.previous.play()
+chart.control.play()
 ```
 
 You may want to control multiple animations as a single one.
