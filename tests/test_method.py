@@ -45,7 +45,7 @@ class TestMethod(unittest.TestCase):
             AssertionError: If the dumped value is not correct.
         """
 
-        animation = Snapshot(name="abc1234")
+        animation = Snapshot("abc1234")
         method = Animate(chart_target=animation)
         self.assertEqual(
             {
@@ -93,7 +93,7 @@ class TestMethod(unittest.TestCase):
             AssertionError: If the dumped value is not correct.
         """
 
-        animation = Snapshot(name="abc1234")
+        animation = Snapshot("abc1234")
         option = {"duration": 1, "easing": "linear"}
         method = Animate(chart_target=animation, chart_anim_opts=option)
         self.assertEqual(

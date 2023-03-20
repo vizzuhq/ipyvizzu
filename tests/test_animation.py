@@ -14,6 +14,7 @@ from tests import (
     Style,
     Keyframe,
     Snapshot,
+    Animation,
     AnimationMerger,
 )
 
@@ -655,6 +656,35 @@ class TestKeyframe(unittest.TestCase):
         with self.assertRaises(ValueError):
             Keyframe(Keyframe(Style(None)))  # type: ignore
 
+    def test_animation_and_snapshot_cannot_be_passed(
+        self,
+    ) -> None:
+        """
+        A method for testing Keyframe.
+        It raises an error if has ben initialized with an animation and a snapshot.
+
+        Raises:
+            AssertionError: If ValueError is not occurred.
+        """
+
+        with self.assertRaises(ValueError):
+            Keyframe(Keyframe(Style(None), Snapshot("abc123")))
+
+    def test_animation_and_stored_animation_cannot_be_passed(
+        self,
+    ) -> None:
+        """
+        A method for testing Keyframe.
+        It raises an error if has ben initialized
+        with an animation and a stored animation.
+
+        Raises:
+            AssertionError: If ValueError is not occurred.
+        """
+
+        with self.assertRaises(ValueError):
+            Keyframe(Keyframe(Style(None), Animation("abc123")))
+
     def test_keyframe(self) -> None:
         """
         A method for testing Keyframe.build method.
@@ -674,6 +704,38 @@ class TestKeyframe(unittest.TestCase):
                     "data": {"filter": None},
                     "style": None,
                 }
+            },
+        )
+
+    def test_keyframe_with_snapshot(self) -> None:
+        """
+        A method for testing Keyframe.build method with snapshot.
+
+        Raises:
+            AssertionError: If the built value is not correct.
+        """
+
+        animation = Keyframe(Snapshot("abc123"))
+        self.assertEqual(
+            animation.build(),
+            {
+                "target": "abc123",
+            },
+        )
+
+    def test_keyframe_with_stored_animation(self) -> None:
+        """
+        A method for testing Keyframe.build method with a stored animation.
+
+        Raises:
+            AssertionError: If the built value is not correct.
+        """
+
+        animation = Keyframe(Animation("abc123"))
+        self.assertEqual(
+            animation.build(),
+            {
+                "target": "abc123",
             },
         )
 
@@ -724,6 +786,32 @@ class TestSnapshot(unittest.TestCase):
         """
 
         animation = Snapshot("abc1234")
+        self.assertEqual('"abc1234"', animation.dump())
+
+
+class TestAnimation(unittest.TestCase):
+    """A class for testing Animation class."""
+
+    def test_animation(self) -> None:
+        """
+        A method for testing Animation.build method.
+
+        Raises:
+            AssertionError: If the built value is not correct.
+        """
+
+        animation = Animation("abc1234")
+        self.assertEqual("abc1234", animation.build())
+
+    def test_animation_dump(self) -> None:
+        """
+        A method for testing Animation.dump method.
+
+        Raises:
+            AssertionError: If the dumped value is not correct.
+        """
+
+        animation = Animation("abc1234")
         self.assertEqual('"abc1234"', animation.dump())
 
 
@@ -788,6 +876,20 @@ class TestMerger(unittest.TestCase):
         self.merger.merge(self.config)
         self.merger.merge(Style({"title": {"backgroundColor": "#A0A0A0"}}))
         self.assertRaises(ValueError, self.merger.merge, Snapshot("abc1234"))
+
+    def test_stored_animation_can_not_be_merged(self) -> None:
+        """
+        A method for testing AnimationMerger.merge method with Animation.
+        It raises an error if has been called.
+
+        Raises:
+            AssertionError: If ValueError is not occurred.
+        """
+
+        self.merger.merge(self.data)
+        self.merger.merge(self.config)
+        self.merger.merge(Style({"title": {"backgroundColor": "#A0A0A0"}}))
+        self.assertRaises(ValueError, self.merger.merge, Animation("abc1234"))
 
     def test_only_different_animations_can_be_merged(self) -> None:
         """

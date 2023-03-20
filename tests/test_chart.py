@@ -6,7 +6,16 @@ import unittest.mock
 from typing import Callable
 
 from tests.normalizer import Normalizer
-from tests import Chart, ChartProperty, Data, Config, Snapshot, Style, EventHandler
+from tests import (
+    Chart,
+    ChartProperty,
+    Data,
+    Config,
+    Snapshot,
+    Style,
+    EventHandler,
+    Animation,
+)
 
 
 class TestChart(unittest.TestCase, abc.ABC):
@@ -310,6 +319,25 @@ class TestChartMethods(TestChart):
         with unittest.mock.patch(self.mock) as output:
             snapshot = Snapshot("abc1234")
             self.chart.animate(snapshot, duration="500ms")
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.animate(element, id, id, 'actual', false, "
+                + "lib => { return id }, "
+                + '{"duration": "500ms"});',
+            )
+
+    def test_animate_stored_animation_chart_target(self) -> None:
+        """
+        A method for testing Chart.animate method.
+        It tests with Animation chart target.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
+
+        with unittest.mock.patch(self.mock) as output:
+            animation = Animation("abc1234")
+            self.chart.animate(animation, duration="500ms")
             self.assertEqual(
                 self.normalizer.normalize_output(output),
                 "window.ipyvizzu.animate(element, id, id, 'actual', false, "

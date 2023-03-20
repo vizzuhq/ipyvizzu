@@ -88,7 +88,7 @@ class Chart:
         self._scroll_into_view = bool(scroll_into_view)
 
     @property
-    def previous(self) -> AnimationControl:
+    def control(self) -> AnimationControl:
         """
         A property for returning a control object of the last animation.
 
@@ -172,7 +172,7 @@ class Chart:
         A method for saving and storing the actual state of the chart.
 
         Returns:
-            A snapshot animation object wich stores the actual state of the chart.
+            A Snapshot object wich stores the actual state of the chart.
 
         Example:
             Save and restore the actual state of the chart:

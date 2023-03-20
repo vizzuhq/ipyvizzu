@@ -23,6 +23,7 @@ from ipyvizzu import (  # pylint: disable=wrong-import-position
     RawJavaScript,
     RawJavaScriptEncoder,
     Snapshot,
+    Animation,
     Store,
     Style,
 )
