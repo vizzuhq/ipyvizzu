@@ -45,7 +45,7 @@ class DisplayTemplate:
 
     ANIMATE: str = (
         "window.ipyvizzu.animate(element, "
-        + "'{chart_id}', '{display_target}', {scroll}, "
+        + "'{chart_id}', '{anim_id}', '{display_target}', {scroll}, "
         + "lib => {{ return {chart_target} }}, {chart_anim_opts});"
     )
     """Call animate JavaScript method."""
@@ -71,6 +71,9 @@ class DisplayTemplate:
 
     LOG: str = "window.ipyvizzu.log(element, '{chart_id}', '{chart_property}');"
     """Call log JavaScript method."""
+
+    CONTROL: str = "window.ipyvizzu.control(element, '{method}', {params});"
+    """Call animation control JavaScript methods."""
 
     CLEAR_INHIBITSCROLL: str = (
         "if (window.IpyVizzu) { window.IpyVizzu.clearInhibitScroll(element); }"

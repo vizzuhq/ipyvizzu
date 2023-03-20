@@ -8,6 +8,7 @@ from IPython.display import display_javascript  # type: ignore
 from IPython import get_ipython  # type: ignore
 
 from ipyvizzu.animation import Animation, Snapshot, AnimationMerger
+from ipyvizzu.animationcontrol import AnimationControl
 from ipyvizzu.method import Animate, Feature, Store, EventOn, EventOff, Log
 from ipyvizzu.template import ChartProperty, DisplayTarget, DisplayTemplate
 from ipyvizzu.event import EventHandler
@@ -36,13 +37,14 @@ class Chart:
             display: The display behaviour of the chart.
         """
 
-        self._chart_id = uuid.uuid4().hex[:7]
+        self._chart_id: str = uuid.uuid4().hex[:7]
 
-        self._display_target = DisplayTarget(display)
+        self._display_target: DisplayTarget = DisplayTarget(display)
         self._calls: List[str] = []
-        self._showed = False
+        self._last_anim: Optional[str] = None
+        self._showed: bool = False
 
-        self._scroll_into_view = False
+        self._scroll_into_view: bool = False
 
         ipyvizzurawjs = pkgutil.get_data(__name__, "templates/ipyvizzu.js")
         ipyvizzujs = ipyvizzurawjs.decode("utf-8")  # type: ignore
@@ -85,6 +87,20 @@ class Chart:
     def scroll_into_view(self, scroll_into_view: Optional[bool]):
         self._scroll_into_view = bool(scroll_into_view)
 
+    @property
+    def previous(self) -> AnimationControl:
+        """
+        A property for returning a control object of the last animation.
+
+        Raises:
+            AssertionError: If called before any animation plays.
+
+        Returns:
+            The control object of the last animation.
+        """
+        assert self._last_anim, "must be used after an animation."
+        return AnimationControl(self._chart_id, self._last_anim, self._display)
+
     def animate(
         self, *animations: Animation, **options: Optional[Union[str, int, float, dict]]
     ) -> None:
@@ -114,10 +130,12 @@ class Chart:
         animation = AnimationMerger.merge_animations(animations)
         animate = Animate(animation, options)
 
+        self._last_anim = uuid.uuid4().hex[:7]
         self._display(
             DisplayTemplate.ANIMATE.format(
                 display_target=self._display_target.value,
                 chart_id=self._chart_id,
+                anim_id=self._last_anim,
                 scroll=str(self._scroll_into_view).lower(),
                 **animate.dump(),
             )

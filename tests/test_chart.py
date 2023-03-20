@@ -128,7 +128,7 @@ class TestChartInit(TestChart):
             self.chart.animate(Snapshot("abc1234"))
             self.assertEqual(
                 self.normalizer.normalize_output(output),
-                "window.ipyvizzu.animate(element, id, 'begin', false, "
+                "window.ipyvizzu.animate(element, id, id, 'begin', false, "
                 + "lib => { return id }, "
                 + "undefined);",
             )
@@ -146,7 +146,7 @@ class TestChartInit(TestChart):
             self.chart.animate(Snapshot("abc1234"))
             self.assertEqual(
                 self.normalizer.normalize_output(output),
-                "window.ipyvizzu.animate(element, id, 'actual', false, "
+                "window.ipyvizzu.animate(element, id, id, 'actual', false, "
                 + "lib => { return id }, "
                 + "undefined);",
             )
@@ -164,7 +164,7 @@ class TestChartInit(TestChart):
             self.chart.animate(Snapshot("abc1234"))
             self.assertEqual(
                 self.normalizer.normalize_output(output),
-                "window.ipyvizzu.animate(element, id, 'end', false, "
+                "window.ipyvizzu.animate(element, id, id, 'end', false, "
                 + "lib => { return id }, "
                 + "undefined);",
             )
@@ -254,7 +254,7 @@ class TestChartMethods(TestChart):
             self.chart.animate(data)
             self.assertEqual(
                 self.normalizer.normalize_output(output),
-                "window.ipyvizzu.animate(element, id, 'actual', false, "
+                "window.ipyvizzu.animate(element, id, id, 'actual', false, "
                 + 'lib => { return {"data": {"records": [["Rock", "Hard", 96]]}} }, '
                 + "undefined);",
             )
@@ -274,7 +274,7 @@ class TestChartMethods(TestChart):
             self.chart.animate(data, duration="500ms")
             self.assertEqual(
                 self.normalizer.normalize_output(output),
-                "window.ipyvizzu.animate(element, id, 'actual', false, "
+                "window.ipyvizzu.animate(element, id, id, 'actual', false, "
                 + 'lib => { return {"data": {"records": [["Rock", "Hard", 96]]}} }, '
                 + '{"duration": "500ms"});',
             )
@@ -293,7 +293,7 @@ class TestChartMethods(TestChart):
             self.chart.animate(snapshot)
             self.assertEqual(
                 self.normalizer.normalize_output(output),
-                "window.ipyvizzu.animate(element, id, 'actual', false, "
+                "window.ipyvizzu.animate(element, id, id, 'actual', false, "
                 + "lib => { return id }, "
                 + "undefined);",
             )
@@ -312,7 +312,7 @@ class TestChartMethods(TestChart):
             self.chart.animate(snapshot, duration="500ms")
             self.assertEqual(
                 self.normalizer.normalize_output(output),
-                "window.ipyvizzu.animate(element, id, 'actual', false, "
+                "window.ipyvizzu.animate(element, id, id, 'actual', false, "
                 + "lib => { return id }, "
                 + '{"duration": "500ms"});',
             )
@@ -334,7 +334,7 @@ class TestChartMethods(TestChart):
             self.chart.animate(data, config, style)
             self.assertEqual(
                 self.normalizer.normalize_output(output),
-                "window.ipyvizzu.animate(element, id, 'actual', false, "
+                "window.ipyvizzu.animate(element, id, id, 'actual', false, "
                 + 'lib => { return {"data": {"records": [["Rock", "Hard", 96]]}, '
                 + '"config": {"channels": {"label": {"attach": ["Popularity"]}}}, '
                 + '"style": {"title": {"backgroundColor": "#A0A0A0"}}} }, '
@@ -358,7 +358,7 @@ class TestChartMethods(TestChart):
             self.chart.animate(data, config, style, duration="500ms")
             self.assertEqual(
                 self.normalizer.normalize_output(output),
-                "window.ipyvizzu.animate(element, id, 'actual', false, "
+                "window.ipyvizzu.animate(element, id, id, 'actual', false, "
                 + 'lib => { return {"data": {"records": [["Rock", "Hard", 96]]}, '
                 + '"config": {"channels": {"label": {"attach": ["Popularity"]}}}, '
                 + '"style": {"title": {"backgroundColor": "#A0A0A0"}}} }, '
@@ -418,12 +418,12 @@ class TestChartMethods(TestChart):
             self.chart.animate(config2)
             self.assertEqual(
                 self.normalizer.normalize_output(output),
-                "window.ipyvizzu.animate(element, id, 'actual', false, "
+                "window.ipyvizzu.animate(element, id, id, 'actual', false, "
                 + 'lib => { return {"data": {"records": [["Rock", "Hard", 96]]}, '
                 + '"config": {"channels": {"label": {"attach": ["Popularity"]}}}, '
                 + '"style": {"title": {"backgroundColor": "#A0A0A0"}}} }, '
                 + "undefined);\n"
-                + "window.ipyvizzu.animate(element, id, 'actual', false, "
+                + "window.ipyvizzu.animate(element, id, id, 'actual', false, "
                 + 'lib => { return {"config": {"title": "Test"}} }, '
                 + "undefined);",
             )
@@ -445,7 +445,8 @@ class TestChartMethods(TestChart):
             self.chart.animate(data)
             self.assertEqual(
                 self.normalizer.normalize_output(output),
-                f"window.ipyvizzu.animate(element, id, 'actual', {str(scroll_into_view).lower()}, "
+                "window.ipyvizzu.animate("
+                + f"element, id, id, 'actual', {str(scroll_into_view).lower()}, "
                 + 'lib => { return {"data": {"records": [["Rock", "Hard", 96]]}} }, '
                 + "undefined);",
             )
@@ -627,7 +628,7 @@ class TestChartDisplay(TestChart):
             )
             self.assertEqual(
                 self.normalizer.normalize_output(output),
-                "window.ipyvizzu.animate(element, id, 'manual', false, "
+                "window.ipyvizzu.animate(element, id, id, 'manual', false, "
                 + "lib => { return id }, "
                 + "undefined);",
             )
@@ -655,7 +656,7 @@ class TestChartDisplay(TestChart):
             )
             self.assertEqual(
                 self.normalizer.normalize_output(output),
-                "window.ipyvizzu.animate(element, id, 'manual', false, "
+                "window.ipyvizzu.animate(element, id, id, 'manual', false, "
                 + "lib => { return id }, "
                 + "undefined);",
             )

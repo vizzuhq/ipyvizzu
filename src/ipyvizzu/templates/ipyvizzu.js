@@ -27,6 +27,7 @@ if (!window.IpyVizzu) {
 
       this.elements = {};
       this.charts = {};
+      this.controls = {};
 
       this.snapshots = {};
       this.displays = {};
@@ -58,6 +59,7 @@ if (!window.IpyVizzu) {
     animate(
       element,
       chartId,
+      animId,
       displayTarget,
       scrollEnabled,
       getChartTarget,
@@ -65,6 +67,7 @@ if (!window.IpyVizzu) {
     ) {
       if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
       if (displayTarget === "end") this._moveHere(chartId, element);
+      this.controls[chartId] = this.charts[chartId];
       this.charts[chartId] = this.charts[chartId].then((chart) => {
         if (displayTarget === "actual") this._moveHere(chartId, element);
         this._scroll(chartId, scrollEnabled);
@@ -79,7 +82,9 @@ if (!window.IpyVizzu) {
             }
           }
         }
-        return chart.animate(chartTarget, chartAnimOpts);
+        chart = chart.animate(chartTarget, chartAnimOpts);
+        this.controls[animId] = chart;
+        return chart;
       });
     }
 
@@ -121,6 +126,20 @@ if (!window.IpyVizzu) {
       this.charts[chartId] = this.charts[chartId].then((chart) => {
         console.log(chart[chartProperty]);
         return chart;
+      });
+    }
+
+    control(element, method, prevId, lastId, ...params) {
+      if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
+      this.controls[prevId].then(() => {
+        this.controls[lastId].activated.then((control) => {
+          if (method === "seek") {
+            const value = params[0];
+            control[method](value);
+            return;
+          }
+          control[method]();
+        });
       });
     }
 
