@@ -282,16 +282,16 @@ class Chart:
         ), "chart._repr_html_() can be used with display=DisplayTarget.MANUAL only"
         assert not self._showed, "cannot be used after chart displayed."
         self._showed = True
+        if not self._initialized:
+            return ""
         html_id = uuid.uuid4().hex[:7]
-        script = ""
-        if len(self._calls) > 2:
-            script = (
-                self._calls[0]
-                + "\n"
-                + "\n".join(self._calls[1:]).replace(
-                    "element", f'document.getElementById("{html_id}")'
-                )
+        script = (
+            self._calls[0]
+            + "\n"
+            + "\n".join(self._calls[1:]).replace(
+                "element", f'document.getElementById("{html_id}")'
             )
+        )
         return f'<div id="{html_id}"><script>{script}</script></div>'
 
     def show(self) -> None:
