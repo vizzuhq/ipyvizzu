@@ -34,6 +34,7 @@ class TestChart(unittest.TestCase, abc.ABC):
         self.patch = unittest.mock.patch(self.mock)
         self.trash = self.patch.start()
         self.chart = Chart()
+        self.chart.initializing()
 
     def tearDown(self) -> None:
         self.patch.stop()
@@ -65,7 +66,8 @@ class TestChartInit(TestChart):
         """
 
         with unittest.mock.patch(self.mock) as output:
-            Chart()
+            chart = Chart()
+            chart.initializing()
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
                 "window.ipyvizzu.createChart("
@@ -84,7 +86,10 @@ class TestChartInit(TestChart):
         """
 
         with unittest.mock.patch(self.mock) as output:
-            Chart(vizzu="https://cdn.jsdelivr.net/npm/vizzu@0.4.1/dist/vizzu.min.js")
+            chart = Chart(
+                vizzu="https://cdn.jsdelivr.net/npm/vizzu@0.4.1/dist/vizzu.min.js"
+            )
+            chart.initializing()
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
                 "window.ipyvizzu.createChart("
@@ -103,7 +108,8 @@ class TestChartInit(TestChart):
         """
 
         with unittest.mock.patch(self.mock) as output:
-            Chart(width="400px", height="240px")
+            chart = Chart(width="400px", height="240px")
+            chart.initializing()
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
                 "window.ipyvizzu.createChart("
@@ -132,11 +138,11 @@ class TestChartInit(TestChart):
             AssertionError: If the normalized output is not correct.
         """
 
-        self.chart = Chart(display="begin")
         with unittest.mock.patch(self.mock) as output:
-            self.chart.animate(Snapshot("abc1234"))
+            chart = Chart(display="begin")
+            chart.animate(Snapshot("abc1234"))
             self.assertEqual(
-                self.normalizer.normalize_output(output),
+                self.normalizer.normalize_output(output, 2),
                 "window.ipyvizzu.animate(element, id, id, 'begin', false, "
                 + "lib => { return id }, "
                 + "undefined);",
@@ -150,11 +156,11 @@ class TestChartInit(TestChart):
             AssertionError: If the normalized output is not correct.
         """
 
-        self.chart = Chart(display="actual")
         with unittest.mock.patch(self.mock) as output:
-            self.chart.animate(Snapshot("abc1234"))
+            chart = Chart(display="actual")
+            chart.animate(Snapshot("abc1234"))
             self.assertEqual(
-                self.normalizer.normalize_output(output),
+                self.normalizer.normalize_output(output, 2),
                 "window.ipyvizzu.animate(element, id, id, 'actual', false, "
                 + "lib => { return id }, "
                 + "undefined);",
@@ -168,12 +174,32 @@ class TestChartInit(TestChart):
             AssertionError: If the normalized output is not correct.
         """
 
-        self.chart = Chart(display="end")
         with unittest.mock.patch(self.mock) as output:
+            chart = Chart(display="end")
+            chart.animate(Snapshot("abc1234"))
+            self.assertEqual(
+                self.normalizer.normalize_output(output, 2),
+                "window.ipyvizzu.animate(element, id, id, 'end', false, "
+                + "lib => { return id }, "
+                + "undefined);",
+            )
+
+    def test_manual_init(self) -> None:
+        """
+        A method for testing multiple manual init.
+
+        Raises:
+            AssertionError: If the normalized output is not correct.
+        """
+
+        with unittest.mock.patch(self.mock) as output:
+            self.chart.initializing()
+            self.chart.initializing()
+            self.chart.initializing()
             self.chart.animate(Snapshot("abc1234"))
             self.assertEqual(
                 self.normalizer.normalize_output(output),
-                "window.ipyvizzu.animate(element, id, id, 'end', false, "
+                "window.ipyvizzu.animate(element, id, id, 'actual', false, "
                 + "lib => { return id }, "
                 + "undefined);",
             )
@@ -209,9 +235,10 @@ class TestChartInit(TestChart):
         get_ipython_mock = "ipyvizzu.chart.get_ipython"
         with unittest.mock.patch(get_ipython_mock, return_value=IPy()):
             with unittest.mock.patch(self.mock) as output:
-                Chart()
+                chart = Chart()
+                chart.initializing()
                 self.assertEqual(
-                    self.normalizer.normalize_output(output, 2),
+                    self.normalizer.normalize_output(output, 1, 2),
                     "if (window.IpyVizzu) { window.IpyVizzu.clearInhibitScroll(element); }",
                 )
 
@@ -641,17 +668,17 @@ class TestChartDisplay(TestChart):
             AssertionError: If the normalized output is not correct.
         """
 
-        self.chart = Chart(display="manual")
         display_mock = "ipyvizzu.Chart._display"
         with unittest.mock.patch(display_mock) as output:
-            self.chart.animate(Snapshot("abc1234"))
+            chart = Chart(display="manual")
+            chart.animate(Snapshot("abc1234"))
             self.assertEqual(
-                self.chart._showed,  # pylint: disable=protected-access
+                chart._showed,  # pylint: disable=protected-access
                 False,
             )
-            self.chart._repr_html_()  # pylint: disable=protected-access
+            chart._repr_html_()  # pylint: disable=protected-access
             self.assertEqual(
-                self.chart._showed,  # pylint: disable=protected-access
+                chart._showed,  # pylint: disable=protected-access
                 True,
             )
             self.assertEqual(

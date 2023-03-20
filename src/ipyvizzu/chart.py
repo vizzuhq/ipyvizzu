@@ -17,15 +17,17 @@ from ipyvizzu.event import EventHandler
 class Chart:
     """A class for representing a wrapper over Vizzu chart."""
 
+    # pylint: disable=too-many-instance-attributes
+
     VIZZU: str = "https://cdn.jsdelivr.net/npm/vizzu@0.7/dist/vizzu.min.js"
     """A variable for storing the default url of vizzu package."""
 
     def __init__(
         self,
-        vizzu: Optional[str] = VIZZU,
-        width: Optional[str] = "800px",
-        height: Optional[str] = "480px",
-        display: Optional[Union[DisplayTarget, str]] = DisplayTarget.ACTUAL,
+        vizzu: str = VIZZU,
+        width: str = "800px",
+        height: str = "480px",
+        display: Union[DisplayTarget, str] = DisplayTarget.ACTUAL,
     ):
         """
         Chart constructor.
@@ -39,28 +41,17 @@ class Chart:
 
         self._chart_id: str = uuid.uuid4().hex[:7]
 
+        self._vizzu: str = vizzu
+        self._width: str = width
+        self._height: str = height
+
         self._display_target: DisplayTarget = DisplayTarget(display)
         self._calls: List[str] = []
         self._last_anim: Optional[str] = None
         self._showed: bool = False
 
+        self._initialized: bool = False
         self._scroll_into_view: bool = False
-
-        ipyvizzurawjs = pkgutil.get_data(__name__, "templates/ipyvizzu.js")
-        ipyvizzujs = ipyvizzurawjs.decode("utf-8")  # type: ignore
-        self._display(DisplayTemplate.IPYVIZZUJS.format(ipyvizzujs=ipyvizzujs))
-
-        self._display(
-            DisplayTemplate.INIT.format(
-                chart_id=self._chart_id,
-                vizzu=vizzu,
-                div_width=width,
-                div_height=height,
-            )
-        )
-
-        if self._display_target != DisplayTarget.MANUAL:
-            self._register_events()
 
     @staticmethod
     def _register_events() -> None:
@@ -100,6 +91,27 @@ class Chart:
         """
         assert self._last_anim, "must be used after an animation."
         return AnimationControl(self._chart_id, self._last_anim, self._display)
+
+    def initializing(self) -> None:
+        """A method for initializing the chart."""
+
+        if not self._initialized:
+            self._initialized = True
+            ipyvizzurawjs = pkgutil.get_data(__name__, "templates/ipyvizzu.js")
+            ipyvizzujs = ipyvizzurawjs.decode("utf-8")  # type: ignore
+            self._display(DisplayTemplate.IPYVIZZUJS.format(ipyvizzujs=ipyvizzujs))
+
+            if self._display_target != DisplayTarget.MANUAL:
+                Chart._register_events()
+
+            self._display(
+                DisplayTemplate.INIT.format(
+                    chart_id=self._chart_id,
+                    vizzu=self._vizzu,
+                    div_width=self._width,
+                    div_height=self._height,
+                )
+            )
 
     def animate(
         self,
@@ -271,13 +283,15 @@ class Chart:
         assert not self._showed, "cannot be used after chart displayed."
         self._showed = True
         html_id = uuid.uuid4().hex[:7]
-        script = (
-            self._calls[0]
-            + "\n"
-            + "\n".join(self._calls[1:]).replace(
-                "element", f'document.getElementById("{html_id}")'
+        script = ""
+        if len(self._calls) > 2:
+            script = (
+                self._calls[0]
+                + "\n"
+                + "\n".join(self._calls[1:]).replace(
+                    "element", f'document.getElementById("{html_id}")'
+                )
             )
-        )
         return f'<div id="{html_id}"><script>{script}</script></div>'
 
     def show(self) -> None:
@@ -301,6 +315,8 @@ class Chart:
         self._showed = True
 
     def _display(self, javascript: str) -> None:
+        if not self._initialized:
+            self.initializing()
         if self._display_target != DisplayTarget.MANUAL:
             display_javascript(
                 javascript,

@@ -1,6 +1,7 @@
 """A module for postprocessing mocked test outputs."""
 
 import re
+from typing import Optional
 from unittest.mock import MagicMock
 
 
@@ -35,7 +36,9 @@ class Normalizer:
         normalized_output = self.id3_pattern.sub("id", normalized_output)
         return normalized_output
 
-    def normalize_output(self, output: MagicMock, start_index: int = 0) -> str:
+    def normalize_output(
+        self, output: MagicMock, start_index: int = 0, end_index: Optional[int] = None
+    ) -> str:
         """
         A method for merging and normalizing mocked test outputs.
 
@@ -48,6 +51,8 @@ class Normalizer:
         """
 
         output_items = []
-        for block in output.call_args_list[start_index:]:
+        if not end_index:
+            end_index = len(output.call_args_list)
+        for block in output.call_args_list[start_index:end_index]:
             output_items.append(block.args[0])
         return self.normalize_id("\n".join(output_items)).strip()
