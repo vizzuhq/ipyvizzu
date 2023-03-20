@@ -4,7 +4,7 @@ from typing import Union, Callable
 import uuid
 
 from ipyvizzu.template import DisplayTemplate
-from ipyvizzu.animation import AnimationSnapshot
+from ipyvizzu.animation import Animation
 
 
 class AnimationControl:
@@ -91,20 +91,20 @@ class AnimationControl:
             )
         )
 
-    def store(self) -> AnimationSnapshot:
+    def store(self) -> Animation:
         """
         A method for saving and storing the actual state of the animation.
 
         Returns:
-            A AnimationSnapshot object wich stores the actual state of the animation.
+            A Animation object wich stores the actual state of the animation.
         """
 
-        snapshot_id = uuid.uuid4().hex[:7]
-        params = ", ".join([self._ids, f"'{snapshot_id}'"])
+        animation_id = uuid.uuid4().hex[:7]
+        params = ", ".join([self._ids, f"'{animation_id}'"])
         self._display(
             DisplayTemplate.CONTROL.format(
                 method="store",
                 params=params,
             )
         )
-        return AnimationSnapshot(snapshot_id)
+        return Animation(animation_id)

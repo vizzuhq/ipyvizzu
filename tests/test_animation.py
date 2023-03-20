@@ -14,7 +14,7 @@ from tests import (
     Style,
     Keyframe,
     Snapshot,
-    AnimationSnapshot,
+    Animation,
     AnimationMerger,
 )
 
@@ -670,20 +670,20 @@ class TestKeyframe(unittest.TestCase):
         with self.assertRaises(ValueError):
             Keyframe(Keyframe(Style(None), Snapshot("abc123")))
 
-    def test_animation_and_animation_snapshot_cannot_be_passed(
+    def test_animation_and_stored_animation_cannot_be_passed(
         self,
     ) -> None:
         """
         A method for testing Keyframe.
         It raises an error if has ben initialized
-        with an animation and an animation snapshot.
+        with an animation and a stored animation.
 
         Raises:
             AssertionError: If ValueError is not occurred.
         """
 
         with self.assertRaises(ValueError):
-            Keyframe(Keyframe(Style(None), AnimationSnapshot("abc123")))
+            Keyframe(Keyframe(Style(None), Animation("abc123")))
 
     def test_keyframe(self) -> None:
         """
@@ -723,15 +723,15 @@ class TestKeyframe(unittest.TestCase):
             },
         )
 
-    def test_keyframe_with_animation_snapshot(self) -> None:
+    def test_keyframe_with_stored_animation(self) -> None:
         """
-        A method for testing Keyframe.build method with animation snapshot.
+        A method for testing Keyframe.build method with a stored animation.
 
         Raises:
             AssertionError: If the built value is not correct.
         """
 
-        animation = Keyframe(AnimationSnapshot("abc123"))
+        animation = Keyframe(Animation("abc123"))
         self.assertEqual(
             animation.build(),
             {
@@ -789,29 +789,29 @@ class TestSnapshot(unittest.TestCase):
         self.assertEqual('"abc1234"', animation.dump())
 
 
-class TestAnimationSnapshot(unittest.TestCase):
-    """A class for testing AnimationSnapshot class."""
+class TestAnimation(unittest.TestCase):
+    """A class for testing Animation class."""
 
-    def test_animation_snapshot(self) -> None:
+    def test_animation(self) -> None:
         """
-        A method for testing AnimationSnapshot.build method.
+        A method for testing Animation.build method.
 
         Raises:
             AssertionError: If the built value is not correct.
         """
 
-        animation = AnimationSnapshot("abc1234")
+        animation = Animation("abc1234")
         self.assertEqual("abc1234", animation.build())
 
-    def test_animation_snapshot_dump(self) -> None:
+    def test_animation_dump(self) -> None:
         """
-        A method for testing AnimationSnapshot.dump method.
+        A method for testing Animation.dump method.
 
         Raises:
             AssertionError: If the dumped value is not correct.
         """
 
-        animation = AnimationSnapshot("abc1234")
+        animation = Animation("abc1234")
         self.assertEqual('"abc1234"', animation.dump())
 
 
@@ -877,9 +877,9 @@ class TestMerger(unittest.TestCase):
         self.merger.merge(Style({"title": {"backgroundColor": "#A0A0A0"}}))
         self.assertRaises(ValueError, self.merger.merge, Snapshot("abc1234"))
 
-    def test_animation_snapshot_can_not_be_merged(self) -> None:
+    def test_stored_animation_can_not_be_merged(self) -> None:
         """
-        A method for testing AnimationMerger.merge method with AnimationSnapshot.
+        A method for testing AnimationMerger.merge method with Animation.
         It raises an error if has been called.
 
         Raises:
@@ -889,7 +889,7 @@ class TestMerger(unittest.TestCase):
         self.merger.merge(self.data)
         self.merger.merge(self.config)
         self.merger.merge(Style({"title": {"backgroundColor": "#A0A0A0"}}))
-        self.assertRaises(ValueError, self.merger.merge, AnimationSnapshot("abc1234"))
+        self.assertRaises(ValueError, self.merger.merge, Animation("abc1234"))
 
     def test_only_different_animations_can_be_merged(self) -> None:
         """

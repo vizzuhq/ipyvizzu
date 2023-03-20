@@ -522,7 +522,7 @@ class Keyframe(AbstractAnimation):
 
 class Snapshot(AbstractAnimation):
     """
-    A class for representing chart state snapshot.
+    A class for representing a stored chart state.
     It can build the snapshot id of the chart.
     """
 
@@ -547,9 +547,9 @@ class Snapshot(AbstractAnimation):
         return self._snapshot_id
 
 
-class AnimationSnapshot(Snapshot):
+class Animation(Snapshot):
     """
-    A class for representing animation state snapshot.
+    A class for representing a stored animation.
     It can build the snapshot id of the animation.
     """
 

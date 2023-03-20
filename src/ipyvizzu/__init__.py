@@ -21,7 +21,7 @@ and similar environments with a simple `Python` syntax.
 * [Style][ipyvizzu.animation.Style]
 * [Keyframe][ipyvizzu.animation.Keyframe]
 * [Snapshot][ipyvizzu.animation.Snapshot]
-* [AnimationSnapshot][ipyvizzu.animation.AnimationSnapshot]
+* [Animation][ipyvizzu.animation.Animation]
 * [InferType][ipyvizzu.animation.InferType]
 * [AbstractAnimation][ipyvizzu.animation.AbstractAnimation]
 * [PlainAnimation][ipyvizzu.animation.PlainAnimation]
@@ -52,7 +52,7 @@ from .animation import (
     Style,
     Keyframe,
     Snapshot,
-    AnimationSnapshot,
+    Animation,
     AnimationMerger,
 )
 from .animationcontrol import AnimationControl
@@ -68,7 +68,7 @@ __all__ = [
     "Style",
     "Keyframe",
     "Snapshot",
-    "AnimationSnapshot",
+    "Animation",
     "InferType",
     "AbstractAnimation",
     "PlainAnimation",

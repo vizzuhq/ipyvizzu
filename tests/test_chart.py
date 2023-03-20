@@ -14,7 +14,7 @@ from tests import (
     Snapshot,
     Style,
     EventHandler,
-    AnimationSnapshot,
+    Animation,
 )
 
 
@@ -326,17 +326,17 @@ class TestChartMethods(TestChart):
                 + '{"duration": "500ms"});',
             )
 
-    def test_animate_animation_snapshot_chart_target(self) -> None:
+    def test_animate_stored_animation_chart_target(self) -> None:
         """
         A method for testing Chart.animate method.
-        It tests with AnimationSnapshot chart target.
+        It tests with Animation chart target.
 
         Raises:
             AssertionError: If the normalized output is not correct.
         """
 
         with unittest.mock.patch(self.mock) as output:
-            animation = AnimationSnapshot("abc1234")
+            animation = Animation("abc1234")
             self.chart.animate(animation, duration="500ms")
             self.assertEqual(
                 self.normalizer.normalize_output(output),
