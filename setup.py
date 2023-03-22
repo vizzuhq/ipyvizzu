@@ -15,7 +15,7 @@ with open("README.md", encoding="utf8") as fp:
 
 setup(
     name="ipyvizzu",
-    version="0.14.0",
+    version="0.15.0",
     description="Build animated charts in Jupyter Notebook and similar environments with a simple Python syntax.",  # pylint: disable=line-too-long
     long_description=long_description,
     long_description_content_type="text/markdown",
