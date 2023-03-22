@@ -1,0 +1,11 @@
+.image-gallery {
+  max-width: 320px;
+  border: 1px solid #ddd;
+  margin: 20px;
+}
+
+.image-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
