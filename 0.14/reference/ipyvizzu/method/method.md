@@ -1,1 +1,0 @@
-::: ipyvizzu.method
