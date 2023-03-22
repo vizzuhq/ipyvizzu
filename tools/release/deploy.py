@@ -59,7 +59,7 @@ class Deploy:
         if not restore:
             content = content.replace("  #  - mike:", "  - mike:")
             content = content.replace(
-                "  #      version_selector: false", "      version_selector: false"
+                "  #      version_selector: true", "      version_selector: true"
             )
             content = content.replace(
                 "  #      alias_type: symlink", "      alias_type: symlink"
@@ -74,7 +74,7 @@ class Deploy:
         else:
             content = content.replace("  - mike:", "  #  - mike:")
             content = content.replace(
-                "      version_selector: false", "  #      version_selector: false"
+                "      version_selector: true", "  #      version_selector: true"
             )
             content = content.replace(
                 "      alias_type: symlink", "  #      alias_type: symlink"

@@ -43,8 +43,9 @@ extra_javascript:
   - assets/javascripts/highlight.js
 
 extra:
-  #  version:
-  #    provider: mike
+  version:
+    provider: mike
+    default: latest
   social:
     - icon: fontawesome/brands/slack
       name: Vizzu on Slack
@@ -73,7 +74,7 @@ markdown_extensions:
 
 plugins:
   #  - mike:
-  #      version_selector: false
+  #      version_selector: true
   #      alias_type: symlink
   #      canonical_version: latest
   #      redirect_template: ./tools/mkdocs/overrides/mike/redirect.html

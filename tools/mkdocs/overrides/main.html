@@ -30,6 +30,10 @@
   name="twitter:image"
   content="https://vizzuhq.com/images/logo/vizzu-twitter.png"
 />
+{% endblock %} {% block outdated %} You're not viewing the latest version.
+<a href="{{ '../' ~ base_url }}">
+  <strong>Click here to go to latest.</strong>
+</a>
 {% endblock %} {% block content %} {% if page.nb_url %}
 <a
   href="{{ page.nb_url }}"
