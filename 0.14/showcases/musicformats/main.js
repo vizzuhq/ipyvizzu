@@ -46,6 +46,11 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
       };
 
       chart.animate({
+        data: {
+          filter: (record) => {
+            return parseInt(record.Year) === 1973;
+          },
+        },
         config,
         style,
       });
@@ -107,7 +112,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         }
       );
 
-      for (let i = 1973; i < 2020; i++) {
+      for (let i = 2019; i > 1972; i--) {
         chart.animate(
           {
             data: {
