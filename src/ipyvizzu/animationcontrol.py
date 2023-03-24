@@ -96,7 +96,7 @@ class AnimationControl:
         A method for saving and storing the actual state of the animation.
 
         Returns:
-            An Animation object wich stores the actual state of the animation.
+            An `Animation` object wich stores the actual state of the animation.
         """
 
         animation_id = uuid.uuid4().hex[:7]
