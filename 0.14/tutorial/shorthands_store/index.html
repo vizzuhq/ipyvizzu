@@ -3033,7 +3033,6 @@ that series into an array.</p>
             "channels": {
                 # "x": { "attach": [ "Kinds" ] },
                 "x": {"attach": "Kinds"},
-                # "y": { "detach": [ "Kinds" ] },
                 "y": {"detach": "Kinds"},
             },
             "align": "none",
@@ -3051,7 +3050,6 @@ can simply write the series' name after the channel name.</p>
             "channels": {
                 # "y": { "set": [ "Kinds", "Popularity" ] },
                 "y": ["Kinds", "Popularity"],
-                # "x": { "set": [ "Genres" ] },
                 "x": "Genres",
             }
         }
@@ -3218,6 +3216,8 @@ automatically recognize the channels by their names.</p>
         <script src="../../assets/javascripts/codereflinks.js"></script>
       
         <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7/build/highlight.min.js"></script>
+      
+        <script src="//cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js"></script>
       
         <script src="../../assets/javascripts/highlight.js"></script>
       
