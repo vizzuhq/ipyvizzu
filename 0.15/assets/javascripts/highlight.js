@@ -9,5 +9,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
     hljs.highlightElement(el); // eslint-disable-line no-undef
+    if (
+      window.location.href.includes("/examples/") ||
+      window.location.href.includes("/showcases/") ||
+      window.location.href.includes("/reference/") ||
+      window.location.href.includes("/environments/")
+    ) {
+      hljs.lineNumbersBlock(el); // eslint-disable-line no-undef
+    }
   });
 });
