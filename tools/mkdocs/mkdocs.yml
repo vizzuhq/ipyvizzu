@@ -40,6 +40,7 @@ extra_javascript:
   - assets/javascripts/extlinks.js
   - assets/javascripts/codereflinks.js
   - //cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7/build/highlight.min.js
+  - //cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.8.0/dist/highlightjs-line-numbers.min.js
   - assets/javascripts/highlight.js
 
 extra:
