@@ -92,6 +92,29 @@ data = Data()
 data.add_data_frame(data_frame)
 data.add_data_frame_index(data_frame, "DataFrameIndex")
 ```
+Here is how you can load data from excel or Google Sheets
+- For `excel sheets` 
+```
+import pandas as pd
+df = pd.read_excel(r"D:\DEKSTOP,DOCUMENTS,PICTURE,VIDEOES,MUSIC\Documents\DEMO.xlsx")
+print(df)
+```
+- For `Google Sheets`
+```
+import pandas as pd
+
+googleSheetId = '<Google_sheet id>'
+worksheetName = '<sheet_name>'
+
+URL = 'https://docs.google.com/spreadsheets/d/{0}/gviz/tq?tqx=out:csv&sheet={1}'.format( 
+  googleSheetId,
+  worksheetName
+)
+
+df = pd.read_csv(URL)
+print(df)
+```
+for example if the url is https://docs.google.com/spreadsheets/d/143LLMY9rKHiKd67XyyaENqTPXmzKwuZWNEk4g6AxoV8/edit#gid=0 then id here is `143LLMY9rKHiKd67XyyaENqTPXmzKwuZWNEk4g6AxoV8`
 
 ### Specify data by series
 
