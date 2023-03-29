@@ -16,14 +16,21 @@ readme = "README.md"
 repository = "https://github.com/vizzuhq/ipyvizzu"
 documentation = "https://ipyvizzu.vizzuhq.com"
 keywords = [
-    "jupyter",
+    "python",
+    "chart",
     "charts",
+    "dataviz",
+    "jupyter",
     "animation",
     "ipython",
     "graphs",
     "storytelling",
+    "jupyter-notebook",
     "data-visualization",
-    "plotting"
+    "graphing",
+    "plotting",
+    "charting",
+    "vizzu"
 ]
 packages = [{ include = "ipyvizzu", from = "src/ipyvizzu" }, { include = "ipyvizzu.integrations" }]
 classifiers = [
