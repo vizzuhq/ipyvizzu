@@ -8,6 +8,7 @@ black
 black[jupyter]
 pylint
 mypy
+openpyxl
 coverage
 twine
 #

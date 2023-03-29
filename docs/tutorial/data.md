@@ -31,6 +31,21 @@ There are multiple ways you can add data to `ipyvizzu`.
     chart.animate(data)
     ```
 
+| Genres | Kinds        | Popularity |
+| ------ | ------------ | ---------- |
+| Pop    | Hard         | 114        |
+| Rock   | Hard         | 96         |
+| Jazz   | Hard         | 78         |
+| Metal  | Hard         | 52         |
+| Pop    | Smooth       | 56         |
+| Rock   | Smooth       | 36         |
+| Jazz   | Smooth       | 174        |
+| Metal  | Smooth       | 121        |
+| Pop    | Experimental | 127        |
+| Rock   | Experimental | 83         |
+| Jazz   | Experimental | 94         |
+| Metal  | Experimental | 58         |
+
 ### Using `pandas` DataFrame
 
 Use
@@ -38,35 +53,59 @@ Use
 method for adding data frame to
 [`Data`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data).
 
-`music_data.csv`:
-
-```
-Genres,Kinds,Popularity
-Pop,Hard,114
-Rock,Hard,96
-Jazz,Hard,78
-Metal,Hard,52
-Pop,Smooth,56
-Rock,Smooth,36
-Jazz,Smooth,174
-Metal,Smooth,121
-Pop,Experimental,127
-Rock,Experimental,83
-Jazz,Experimental,94
-Metal,Experimental,58
-```
-
 ```python
 import pandas as pd
 from ipyvizzu import Data
 
 
-data_frame = pd.read_csv(
-    "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
-)
+data = {
+    "Genres": [
+        "Pop",
+        "Rock",
+        "Jazz",
+        "Metal",
+        "Pop",
+        "Rock",
+        "Jazz",
+        "Metal",
+        "Pop",
+        "Rock",
+        "Jazz",
+        "Metal",
+    ],
+    "Kinds": [
+        "Hard",
+        "Hard",
+        "Hard",
+        "Hard",
+        "Smooth",
+        "Smooth",
+        "Smooth",
+        "Smooth",
+        "Experimental",
+        "Experimental",
+        "Experimental",
+        "Experimental",
+    ],
+    "Popularity": [
+        114,
+        96,
+        78,
+        52,
+        56,
+        36,
+        174,
+        121,
+        127,
+        83,
+        94,
+        58,
+    ],
+}
+df = pd.DataFrame(data)
 
 data = Data()
-data.add_data_frame(data_frame)
+data.add_data_frame(df)
 ```
 
 !!! info
@@ -84,65 +123,75 @@ import pandas as pd
 from ipyvizzu import Data
 
 
-data_frame = pd.DataFrame(
+df = pd.DataFrame(
     {"Popularity": [114, 96, 78]}, index=["x", "y", "z"]
 )
 
 data = Data()
-data.add_data_frame(data_frame)
-data.add_data_frame_index(data_frame, "DataFrameIndex")
+data.add_data_frame(df)
+data.add_data_frame_index(df, "DataFrameIndex")
 ```
 
-Here is how you can load data from excel or Google Sheets
+#### Using csv
 
-- For `excel sheets`
-
-```
-import pandas as pd
-df = pd.read_excel(r"D:\DEKSTOP,DOCUMENTS,PICTURE,VIDEOES,MUSIC\Documents\DEMO.xlsx")
-print(df)
-```
-
-- For `Google Sheets`
+Download `music_data.csv` [here](../assets/data/music_data.csv).
 
 ```
 import pandas as pd
+from ipyvizzu import Data
 
-googleSheetId = '<Google_sheet id>'
-worksheetName = '<sheet_name>'
 
-URL = 'https://docs.google.com/spreadsheets/d/{0}/gviz/tq?tqx=out:csv&sheet={1}'.format( 
-  googleSheetId,
-  worksheetName
+df = pd.read_csv(
+    "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
 )
 
-df = pd.read_csv(URL)
-print(df)
+data = Data()
+data.add_data_frame(df)
 ```
 
-for example if the url is
-https://docs.google.com/spreadsheets/d/143LLMY9rKHiKd67XyyaENqTPXmzKwuZWNEk4g6AxoV8/edit#gid=0
-then id here is `143LLMY9rKHiKd67XyyaENqTPXmzKwuZWNEk4g6AxoV8`
+#### Using Excel spreadsheet
+
+Download `music_data.xlsx` [here](../assets/data/music_data.xlsx).
+
+```
+import pandas as pd
+from ipyvizzu import Data
+
+
+df = pd.read_excel(
+    "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.xlsx"
+)
+
+data = Data()
+data.add_data_frame(df)
+```
+
+#### Using Google Sheets
+
+```
+import pandas as pd
+from ipyvizzu import Data
+
+
+google_sheet_id = "<Google Sheet id>"
+worksheet_name = "<Worksheet name>"
+
+df = pd.read_csv(
+    f"https://docs.google.com/spreadsheets/d/{google_sheet_id}/gviz/tq?tqx=out:csv&sheet={worksheet_name}"
+)
+
+data = Data()
+data.add_data_frame(df)
+```
+
+For example if the url is
+`https://docs.google.com/spreadsheets/d/abcd1234/edit#gid=0` then
+`google_sheet_id` here is `abcd1234`.
 
 ### Specify data by series
 
 When you specify the data by series or by records, it has to be in first normal
 form. Here is an example of that:
-
-| Genres | Kinds        | Popularity |
-| ------ | ------------ | ---------- |
-| Pop    | Hard         | 114        |
-| Rock   | Hard         | 96         |
-| Jazz   | Hard         | 78         |
-| Metal  | Hard         | 52         |
-| Pop    | Smooth       | 56         |
-| Rock   | Smooth       | 36         |
-| Jazz   | Smooth       | 174        |
-| Metal  | Smooth       | 121        |
-| Pop    | Experimental | 127        |
-| Rock   | Experimental | 83         |
-| Jazz   | Experimental | 94         |
-| Metal  | Experimental | 58         |
 
 ```python
 from ipyvizzu import Data
@@ -267,56 +316,8 @@ data.add_measure(
 
 ### Using JSON
 
-`music_data.json` (in this example the data stored in the data cube form):
-
-```json
-{
-  "dimensions": [
-    {
-      "name": "Genres",
-      "values": [
-        "Pop",
-        "Rock",
-        "Jazz",
-        "Metal"
-      ]
-    },
-    {
-      "name": "Kinds",
-      "values": [
-        "Hard",
-        "Smooth",
-        "Experimental"
-      ]
-    }
-  ],
-  "measures": [
-    {
-      "name": "Popularity",
-      "values": [
-        [
-          114,
-          96,
-          78,
-          52
-        ],
-        [
-          56,
-          36,
-          174,
-          121
-        ],
-        [
-          127,
-          83,
-          94,
-          58
-        ]
-      ]
-    }
-  ]
-}
-```
+Download `music_data.json` [here](../assets/data/music_data.json) (in this
+example the data stored in the data cube form).
 
 ```python
 from ipyvizzu import Data

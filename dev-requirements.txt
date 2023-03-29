@@ -25,7 +25,7 @@ argon2-cffi-bindings==21.2.0
     # via argon2-cffi
 arrow==1.2.3
     # via isoduration
-astroid==2.15.0
+astroid==2.15.1
     # via pylint
 asttokens==2.2.1
     # via stack-data
@@ -33,13 +33,13 @@ attrs==22.2.0
     # via jsonschema
 backcall==0.2.0
     # via ipython
-beautifulsoup4[lxml]==4.11.2
+beautifulsoup4[lxml]==4.12.0
     # via
     #   mdformat-web
     #   nbconvert
 beautysh==6.2.1
     # via mdformat-beautysh
-black[jupyter]==23.1.0
+black[jupyter]==23.3.0
     # via
     #   -r dev-requirements.in
     #   mdformat-black
@@ -70,11 +70,11 @@ colorama==0.4.6
     #   beautysh
     #   griffe
     #   mkdocs-material
-comm==0.1.2
+comm==0.1.3
     # via ipykernel
 coverage==7.2.2
     # via -r dev-requirements.in
-cryptography==39.0.2
+cryptography==40.0.1
     # via secretstorage
 cssbeautifier==1.14.7
     # via mdformat-web
@@ -94,34 +94,34 @@ editorconfig==0.12.3
     # via
     #   cssbeautifier
     #   jsbeautifier
+et-xmlfile==1.1.0
+    # via openpyxl
 executing==1.2.0
     # via stack-data
 fastjsonschema==2.16.3
     # via nbformat
-filelock==3.10.0
+filelock==3.10.7
     # via virtualenv
 fqdn==1.5.1
     # via jsonschema
 fs==2.4.16
     # via triad
-fugue==0.8.1
+fugue==0.8.2
     # via -r dev-requirements.in
-fugue-sql-antlr==0.1.5
+fugue-sql-antlr==0.1.6
     # via fugue
 ghp-import==2.1.0
     # via mkdocs
-greenlet==2.0.2
-    # via sqlalchemy
 griffe==0.25.5
     # via mkdocstrings-python
-identify==2.5.21
+identify==2.5.22
     # via pre-commit
 idna==3.4
     # via
     #   anyio
     #   jsonschema
     #   requests
-importlib-metadata==6.0.0
+importlib-metadata==6.1.0
     # via
     #   jupyter-client
     #   keyring
@@ -130,7 +130,7 @@ importlib-metadata==6.0.0
     #   mkdocs
     #   nbconvert
     #   twine
-ipykernel==6.21.3
+ipykernel==6.22.0
     # via
     #   nbclassic
     #   notebook
@@ -176,7 +176,7 @@ jsonschema[format-nongpl]==4.17.3
     # via
     #   jupyter-events
     #   nbformat
-jupyter-client==8.0.3
+jupyter-client==8.1.0
     # via
     #   ipykernel
     #   jupyter-server
@@ -309,7 +309,7 @@ mkdocs-gen-files==0.4.0
     # via -r dev-requirements.in
 mkdocs-literate-nav==0.6.0
     # via -r dev-requirements.in
-mkdocs-material==9.1.3
+mkdocs-material==9.1.4
     # via -r dev-requirements.in
 mkdocs-material-extensions==1.1.1
     # via mkdocs-material
@@ -338,7 +338,7 @@ nbconvert==7.2.10
     #   jupyter-server
     #   nbclassic
     #   notebook
-nbformat==5.7.3
+nbformat==5.8.0
     # via
     #   jupyter-server
     #   nbclassic
@@ -361,6 +361,8 @@ numpy==1.24.2
     #   pandas
     #   pyarrow
     #   triad
+openpyxl==3.1.2
+    # via -r dev-requirements.in
 packaging==23.0
     # via
     #   black
@@ -388,13 +390,13 @@ pip-tools==6.12.3
     # via -r dev-requirements.in
 pkginfo==1.9.6
     # via twine
-platformdirs==3.1.1
+platformdirs==3.2.0
     # via
     #   black
     #   jupyter-core
     #   pylint
     #   virtualenv
-pre-commit==3.1.1
+pre-commit==3.2.1
     # via -r dev-requirements.in
 prometheus-client==0.16.0
     # via
@@ -424,7 +426,7 @@ pygments==2.14.0
     #   nbconvert
     #   readme-renderer
     #   rich
-pylint==2.17.0
+pylint==2.17.1
     # via -r dev-requirements.in
 pymdown-extensions==9.10
     # via
@@ -442,7 +444,7 @@ python-dateutil==2.8.2
     #   pandas
 python-json-logger==2.0.7
     # via jupyter-events
-pytz==2022.7.1
+pytz==2023.3
     # via pandas
 pyyaml==6.0
     # via
@@ -455,7 +457,7 @@ pyyaml==6.0
     #   pyyaml-env-tag
 pyyaml-env-tag==0.1
     # via mkdocs
-pyzmq==25.0.1
+pyzmq==25.0.2
     # via
     #   ipykernel
     #   jupyter-client
@@ -466,7 +468,7 @@ qpd==0.4.0
     # via fugue
 readme-renderer==37.3
     # via twine
-regex==2022.10.31
+regex==2023.3.23
     # via mkdocs-material
 requests==2.28.2
     # via
@@ -485,7 +487,7 @@ rfc3986-validator==0.1.1
     # via
     #   jsonschema
     #   jupyter-events
-rich==13.3.2
+rich==13.3.3
     # via twine
 ruamel-yaml==0.17.21
     # via
@@ -514,9 +516,7 @@ sniffio==1.3.0
     # via anyio
 soupsieve==2.4
     # via beautifulsoup4
-sqlalchemy==2.0.6
-    # via fugue
-sqlglot==11.3.7
+sqlglot==11.4.4
     # via fugue
 stack-data==0.6.2
     # via ipython
@@ -540,7 +540,7 @@ tomli==2.0.1
     #   mypy
     #   pylint
     #   pyproject-hooks
-tomlkit==0.11.6
+tomlkit==0.11.7
     # via pylint
 tornado==6.2
     # via
@@ -565,7 +565,7 @@ traitlets==5.9.0
     #   nbconvert
     #   nbformat
     #   notebook
-triad==0.8.3
+triad==0.8.4
     # via
     #   adagio
     #   fugue
@@ -573,9 +573,9 @@ triad==0.8.3
     #   qpd
 twine==4.0.2
     # via -r dev-requirements.in
-types-colorama==0.4.15.8
+types-colorama==0.4.15.9
     # via beautysh
-types-pyyaml==6.0.12.8
+types-pyyaml==6.0.12.9
     # via -r dev-requirements.in
 types-setuptools==57.4.18
     # via beautysh
@@ -585,7 +585,6 @@ typing-extensions==4.5.0
     #   black
     #   mypy
     #   pylint
-    #   sqlalchemy
 uc-micro-py==1.0.1
     # via linkify-it-py
 uri-template==1.2.0
@@ -598,11 +597,11 @@ verspec==0.1.0
     # via mike
 virtualenv==20.21.0
     # via pre-commit
-watchdog==2.3.1
+watchdog==3.0.0
     # via mkdocs
 wcwidth==0.2.6
     # via prompt-toolkit
-webcolors==1.12
+webcolors==1.13
     # via jsonschema
 webencodings==0.5.1
     # via
