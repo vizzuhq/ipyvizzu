@@ -17,7 +17,7 @@
         <link rel="next" href="../axes_title_tooltip/">
       
       <link rel="icon" href="../../assets/favicon.svg">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.3">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.4">
     
     
       
@@ -25,7 +25,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.c4a75a56.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.240905d7.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.a0c5b2b5.min.css">
@@ -404,6 +404,33 @@
   <a href="#using-pandas-dataframe" class="md-nav__link">
     Using pandas DataFrame
   </a>
+  
+    <nav class="md-nav" aria-label="Using pandas DataFrame">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-csv" class="md-nav__link">
+    Using csv
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-excel-spreadsheet" class="md-nav__link">
+    Using Excel spreadsheet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-google-sheets" class="md-nav__link">
+    Using Google Sheets
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -3141,6 +3168,33 @@
     Using pandas DataFrame
   </a>
   
+    <nav class="md-nav" aria-label="Using pandas DataFrame">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-csv" class="md-nav__link">
+    Using csv
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-excel-spreadsheet" class="md-nav__link">
+    Using Excel spreadsheet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-google-sheets" class="md-nav__link">
+    Using Google Sheets
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3224,59 +3278,6 @@ temporal data in a sorted format from oldest to newest.</p>
 <p>You should set the data in the first animate call.</p>
 <pre class="highlight"><code class="language-python">chart.animate(data)</code></pre>
 </details>
-<h3 id="using-pandas-dataframe">Using <code>pandas</code> DataFrame</h3>
-<p>Use
-<a href="../../reference/ipyvizzu/animation/#ipyvizzu.animation.Data.add_data_frame"><code>add_data_frame</code></a>
-method for adding data frame to
-<a href="../../reference/ipyvizzu/animation/#ipyvizzu.animation.Data"><code>Data</code></a>.</p>
-<p><code>music_data.csv</code>:</p>
-<pre class="highlight"><code>Genres,Kinds,Popularity
-Pop,Hard,114
-Rock,Hard,96
-Jazz,Hard,78
-Metal,Hard,52
-Pop,Smooth,56
-Rock,Smooth,36
-Jazz,Smooth,174
-Metal,Smooth,121
-Pop,Experimental,127
-Rock,Experimental,83
-Jazz,Experimental,94
-Metal,Experimental,58</code></pre>
-<pre class="highlight"><code class="language-python">import pandas as pd
-from ipyvizzu import Data
-
-
-data_frame = pd.read_csv(
-    "https://ipyvizzu.vizzuhq.com/0.15/assets/data/music_data.csv"
-)
-
-data = Data()
-data.add_data_frame(data_frame)</code></pre>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p><code>ipyvizzu</code> makes a difference between two types of data, numeric (measure)
-and not numeric (dimension). A column's <code>dtype</code> specifies that the column is
-handled as a measure or as a dimension.</p>
-</div>
-<p>It is also possible to add data frame index to
-<a href="../../reference/ipyvizzu/animation/#ipyvizzu.animation.Data"><code>Data</code></a> with the
-<a href="../../reference/ipyvizzu/animation/#ipyvizzu.animation.Data.add_data_frame_index"><code>add_data_frame_index</code></a>
-method.</p>
-<pre class="highlight"><code class="language-python">import pandas as pd
-from ipyvizzu import Data
-
-
-data_frame = pd.DataFrame(
-    {"Popularity": [114, 96, 78]}, index=["x", "y", "z"]
-)
-
-data = Data()
-data.add_data_frame(data_frame)
-data.add_data_frame_index(data_frame, "DataFrameIndex")</code></pre>
-<h3 id="specify-data-by-series">Specify data by series</h3>
-<p>When you specify the data by series or by records, it has to be in first normal
-form. Here is an example of that:</p>
 <table>
 <thead>
 <tr>
@@ -3348,6 +3349,128 @@ form. Here is an example of that:</p>
 </tr>
 </tbody>
 </table>
+<h3 id="using-pandas-dataframe">Using <code>pandas</code> DataFrame</h3>
+<p>Use
+<a href="../../reference/ipyvizzu/animation/#ipyvizzu.animation.Data.add_data_frame"><code>add_data_frame</code></a>
+method for adding data frame to
+<a href="../../reference/ipyvizzu/animation/#ipyvizzu.animation.Data"><code>Data</code></a>.</p>
+<pre class="highlight"><code class="language-python">import pandas as pd
+from ipyvizzu import Data
+
+
+data = {
+    "Genres": [
+        "Pop",
+        "Rock",
+        "Jazz",
+        "Metal",
+        "Pop",
+        "Rock",
+        "Jazz",
+        "Metal",
+        "Pop",
+        "Rock",
+        "Jazz",
+        "Metal",
+    ],
+    "Kinds": [
+        "Hard",
+        "Hard",
+        "Hard",
+        "Hard",
+        "Smooth",
+        "Smooth",
+        "Smooth",
+        "Smooth",
+        "Experimental",
+        "Experimental",
+        "Experimental",
+        "Experimental",
+    ],
+    "Popularity": [
+        114,
+        96,
+        78,
+        52,
+        56,
+        36,
+        174,
+        121,
+        127,
+        83,
+        94,
+        58,
+    ],
+}
+df = pd.DataFrame(data)
+
+data = Data()
+data.add_data_frame(df)</code></pre>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p><code>ipyvizzu</code> makes a difference between two types of data, numeric (measure)
+and not numeric (dimension). A column's <code>dtype</code> specifies that the column is
+handled as a measure or as a dimension.</p>
+</div>
+<p>It is also possible to add data frame index to
+<a href="../../reference/ipyvizzu/animation/#ipyvizzu.animation.Data"><code>Data</code></a> with the
+<a href="../../reference/ipyvizzu/animation/#ipyvizzu.animation.Data.add_data_frame_index"><code>add_data_frame_index</code></a>
+method.</p>
+<pre class="highlight"><code class="language-python">import pandas as pd
+from ipyvizzu import Data
+
+
+df = pd.DataFrame(
+    {"Popularity": [114, 96, 78]}, index=["x", "y", "z"]
+)
+
+data = Data()
+data.add_data_frame(df)
+data.add_data_frame_index(df, "DataFrameIndex")</code></pre>
+<h4 id="using-csv">Using csv</h4>
+<p>Download <code>music_data.csv</code> <a href="../../assets/data/music_data.csv">here</a>.</p>
+<pre class="highlight"><code>import pandas as pd
+from ipyvizzu import Data
+
+
+df = pd.read_csv(
+    "https://ipyvizzu.vizzuhq.com/0.15/assets/data/music_data.csv"
+)
+
+data = Data()
+data.add_data_frame(df)</code></pre>
+<h4 id="using-excel-spreadsheet">Using Excel spreadsheet</h4>
+<p>Download <code>music_data.xlsx</code> <a href="../../assets/data/music_data.xlsx">here</a>.</p>
+<pre class="highlight"><code>import pandas as pd
+from ipyvizzu import Data
+
+
+df = pd.read_excel(
+    "https://ipyvizzu.vizzuhq.com/0.15/assets/data/music_data.xlsx"
+)
+
+data = Data()
+data.add_data_frame(df)</code></pre>
+<h4 id="using-google-sheets">Using Google Sheets</h4>
+<pre class="highlight"><code>import pandas as pd
+from ipyvizzu import Data
+
+
+google_sheet_id = "&lt;Google Sheet id&gt;"
+worksheet_name = "&lt;Worksheet name&gt;"
+
+df = pd.read_csv(
+    f"https://docs.google.com/spreadsheets/d/{google_sheet_id}/gviz/tq?tqx=out:csv&amp;sheet={worksheet_name}"
+)
+
+data = Data()
+data.add_data_frame(df)</code></pre>
+<p>For example if the url is
+<code>https://docs.google.com/spreadsheets/d/abcd1234/edit#gid=0</code> then
+<code>google_sheet_id</code> here is <code>abcd1234</code>.</p>
+<h3 id="specify-data-by-series">Specify data by series</h3>
+<p>When you specify the data by series or by records, it has to be in first normal
+form. Here is an example of that:</p>
 <pre class="highlight"><code class="language-python">from ipyvizzu import Data
 
 
@@ -3459,53 +3582,8 @@ data.add_measure(
     ],
 )</code></pre>
 <h3 id="using-json">Using JSON</h3>
-<p><code>music_data.json</code> (in this example the data stored in the data cube form):</p>
-<pre class="highlight"><code class="language-json">{
-  "dimensions": [
-    {
-      "name": "Genres",
-      "values": [
-        "Pop",
-        "Rock",
-        "Jazz",
-        "Metal"
-      ]
-    },
-    {
-      "name": "Kinds",
-      "values": [
-        "Hard",
-        "Smooth",
-        "Experimental"
-      ]
-    }
-  ],
-  "measures": [
-    {
-      "name": "Popularity",
-      "values": [
-        [
-          114,
-          96,
-          78,
-          52
-        ],
-        [
-          56,
-          36,
-          174,
-          121
-        ],
-        [
-          127,
-          83,
-          94,
-          58
-        ]
-      ]
-    }
-  ]
-}</code></pre>
+<p>Download <code>music_data.json</code> <a href="../../assets/data/music_data.json">here</a> (in this
+example the data stored in the data cube form).</p>
 <pre class="highlight"><code class="language-python">from ipyvizzu import Data
 
 
@@ -3633,7 +3711,7 @@ data = Data.from_json("../assets/data/music_data.json")</code></pre>
     <script id="__config" type="application/json">{"base": "../..", "features": ["toc.follow", "search.suggest", "search.highlight", "navigation.top", "navigation.footer", "content.code.copy", "content.action.edit"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.efa0ade1.min.js"></script>
+      <script src="../../assets/javascripts/bundle.19047be9.min.js"></script>
       
         <script src="../../assets/javascripts/extlinks.js"></script>
       
