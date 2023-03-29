@@ -1,3 +1,5 @@
+# This is a draft! The project currently uses setup.py.
+
 [build-system]
 build-backend = "setuptools.build_meta"
 requires = [
