@@ -136,7 +136,7 @@ data.add_data_frame_index(df, "DataFrameIndex")
 
 Download `music_data.csv` [here](../assets/data/music_data.csv).
 
-```
+```python
 import pandas as pd
 from ipyvizzu import Data
 
@@ -153,7 +153,7 @@ data.add_data_frame(df)
 
 Download `music_data.xlsx` [here](../assets/data/music_data.xlsx).
 
-```
+```python
 import pandas as pd
 from ipyvizzu import Data
 
@@ -168,7 +168,7 @@ data.add_data_frame(df)
 
 #### Using Google Sheets
 
-```
+```python
 import pandas as pd
 from ipyvizzu import Data
 
