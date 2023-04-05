@@ -11,7 +11,7 @@ name = "ipyvizzu"
 version = "0.15.0"
 description = "Build animated charts in Jupyter Notebook and similar environments with a simple Python syntax"
 license = "Apache-2.0"
-authors = [{name = "Vizzu Inc.", email = "hello@vizzuhq.com"}]
+authors = ["Vizzu Inc. <hello@vizzuhq.com>"]
 readme = "README.md"
 repository = "https://github.com/vizzuhq/ipyvizzu"
 documentation = "https://ipyvizzu.vizzuhq.com"
@@ -39,13 +39,16 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3"
 ]
-requires-python = ">=3.6"
-dependencies = [
-    "IPython",
-    "jsonschema",
-    "pandas",
-    "fugue>=0.8.1"
-]
+
+[tool.poetry.dependencies]
+IPython = "^7.31.0"
+jsonschema = "^4.0.1"
+pandas = { version = "^1.2.1", python = "^3.8" }
+python = "^3.7"
+fugue = { version = "^0.8.1", python = "^3.7", optional = true}
+
+[tool.poetry.extras]
+extras = ["fugue"]
 
 [tool.poetry.urls]
 "Tracker" = "https://github.com/vizzuhq/ipyvizzu/issues"
