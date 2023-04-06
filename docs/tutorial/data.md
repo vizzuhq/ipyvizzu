@@ -188,6 +188,94 @@ For example if the url is
 `https://docs.google.com/spreadsheets/d/abcd1234/edit#gid=0` then
 `google_sheet_id` here is `abcd1234`.
 
+#### Using SQLite
+
+```python
+import pandas as pd
+import sqlite3
+from ipyvizzu import Data
+
+# establish a connection to the SQLite database
+conn = sqlite3.connect('mydatabase.db')
+# read data from a SQLite table into a pandas DataFrame
+df = pd.read_sql('SELECT * FROM mytable', conn)
+# close the connection
+conn.close()
+
+data = Data()
+data.add_data_frame(df)
+```
+
+Note that you'll need to adjust the SQL query and the database connection parameters to match your specific use case.
+
+#### Using MySQL
+
+```python
+import pandas as pd
+import mysql.connector
+from ipyvizzu import Data
+
+# establish a connection to the MySQL database
+conn = mysql.connector.connect(user='myusername', password='mypassword',
+                              host='myhost', database='mydatabase')
+# read data from a MySQL table into a pandas DataFrame
+df = pd.read_sql('SELECT * FROM mytable', con=conn)
+# close the connection
+conn.close()
+
+data = Data()
+data.add_data_frame(df)
+```
+
+Note that you'll need to adjust the SQL query and the database connection parameters to match your specific use case.
+
+#### Using PostgreSQL
+
+```python
+import pandas as pd
+import psycopg2
+from ipyvizzu import Data
+
+# establish a connection to the PostgreSQL database
+conn = psycopg2.connect(user="myusername", password="mypassword",
+                        host="myhost", port="5432", database="mydatabase")
+# read data from a PostgreSQL table into a pandas DataFrame
+df = pd.read_sql('SELECT * FROM mytable', con=conn)
+# close the connection
+conn.close()
+
+data = Data()
+data.add_data_frame(df)
+```
+
+Note that you'll need to adjust the SQL query and the database connection parameters to match your specific use case.
+
+#### Using Microsoft SQL Server
+
+```python
+import pandas as pd
+import pyodbc
+from ipyvizzu import Data
+
+# establish a connection to the Microsoft SQL Server database
+conn = pyodbc.connect('Driver={SQL Server};'
+                      'Server=myserver;'
+                      'Database=mydatabase;'
+                      'UID=myusername;'
+                      'PWD=mypassword')
+# read data from a SQL Server table into a pandas DataFrame
+df = pd.read_sql('SELECT * FROM mytable', con=conn)
+# close the connection
+conn.close()
+
+
+data = Data()
+data.add_data_frame(df)
+```
+
+Note that you'll need to adjust the SQL query and the database connection parameters to match your specific use case.
+
+
 ### Specify data by series
 
 When you specify the data by series or by records, it has to be in first normal
