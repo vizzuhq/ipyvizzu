@@ -429,6 +429,34 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#using-sqlite" class="md-nav__link">
+    Using SQLite
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-mysql" class="md-nav__link">
+    Using MySQL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-postgresql" class="md-nav__link">
+    Using PostgreSQL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-microsoft-sql-server" class="md-nav__link">
+    Using Microsoft SQL Server
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3192,6 +3220,34 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#using-sqlite" class="md-nav__link">
+    Using SQLite
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-mysql" class="md-nav__link">
+    Using MySQL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-postgresql" class="md-nav__link">
+    Using PostgreSQL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-microsoft-sql-server" class="md-nav__link">
+    Using Microsoft SQL Server
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3429,7 +3485,7 @@ data.add_data_frame(df)
 data.add_data_frame_index(df, "DataFrameIndex")</code></pre>
 <h4 id="using-csv">Using csv</h4>
 <p>Download <code>music_data.csv</code> <a href="../../assets/data/music_data.csv">here</a>.</p>
-<pre class="highlight"><code>import pandas as pd
+<pre class="highlight"><code class="language-python">import pandas as pd
 from ipyvizzu import Data
 
 
@@ -3441,7 +3497,7 @@ data = Data()
 data.add_data_frame(df)</code></pre>
 <h4 id="using-excel-spreadsheet">Using Excel spreadsheet</h4>
 <p>Download <code>music_data.xlsx</code> <a href="../../assets/data/music_data.xlsx">here</a>.</p>
-<pre class="highlight"><code>import pandas as pd
+<pre class="highlight"><code class="language-python">import pandas as pd
 from ipyvizzu import Data
 
 
@@ -3452,7 +3508,7 @@ df = pd.read_excel(
 data = Data()
 data.add_data_frame(df)</code></pre>
 <h4 id="using-google-sheets">Using Google Sheets</h4>
-<pre class="highlight"><code>import pandas as pd
+<pre class="highlight"><code class="language-python">import pandas as pd
 from ipyvizzu import Data
 
 
@@ -3468,6 +3524,103 @@ data.add_data_frame(df)</code></pre>
 <p>For example if the url is
 <code>https://docs.google.com/spreadsheets/d/abcd1234/edit#gid=0</code> then
 <code>google_sheet_id</code> here is <code>abcd1234</code>.</p>
+<h4 id="using-sqlite">Using SQLite</h4>
+<pre class="highlight"><code class="language-python">import pandas as pd
+import sqlite3
+from ipyvizzu import Data
+
+
+# establish a connection to the SQLite database
+conn = sqlite3.connect("mydatabase.db")
+# read data from a SQLite table into a pandas DataFrame
+df = pd.read_sql("SELECT * FROM mytable", conn)
+# close the connection
+conn.close()
+
+data = Data()
+data.add_data_frame(df)</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You'll need to adjust the SQL query and the database connection parameters
+to match your specific use case.</p>
+</div>
+<h4 id="using-mysql">Using MySQL</h4>
+<pre class="highlight"><code class="language-python">import pandas as pd
+import mysql.connector
+from ipyvizzu import Data
+
+
+# establish a connection to the MySQL database
+conn = mysql.connector.connect(
+    user="myusername",
+    password="mypassword",
+    host="myhost",
+    database="mydatabase",
+)
+# read data from a MySQL table into a pandas DataFrame
+df = pd.read_sql("SELECT * FROM mytable", con=conn)
+# close the connection
+conn.close()
+
+data = Data()
+data.add_data_frame(df)</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You'll need to adjust the SQL query and the database connection parameters
+to match your specific use case.</p>
+</div>
+<h4 id="using-postgresql">Using PostgreSQL</h4>
+<pre class="highlight"><code class="language-python">import pandas as pd
+import psycopg2
+from ipyvizzu import Data
+
+
+# establish a connection to the PostgreSQL database
+conn = psycopg2.connect(
+    user="myusername",
+    password="mypassword",
+    host="myhost",
+    port="5432",
+    database="mydatabase",
+)
+# read data from a PostgreSQL table into a pandas DataFrame
+df = pd.read_sql("SELECT * FROM mytable", con=conn)
+# close the connection
+conn.close()
+
+data = Data()
+data.add_data_frame(df)</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You'll need to adjust the SQL query and the database connection parameters
+to match your specific use case.</p>
+</div>
+<h4 id="using-microsoft-sql-server">Using Microsoft SQL Server</h4>
+<pre class="highlight"><code class="language-python">import pandas as pd
+import pyodbc
+from ipyvizzu import Data
+
+
+# establish a connection to the Microsoft SQL Server database
+conn = pyodbc.connect(
+    "Driver={SQL Server};"
+    "Server=myserver;"
+    "Database=mydatabase;"
+    "UID=myusername;"
+    "PWD=mypassword"
+)
+# read data from a SQL Server table into a pandas DataFrame
+df = pd.read_sql("SELECT * FROM mytable", con=conn)
+# close the connection
+conn.close()
+
+data = Data()
+data.add_data_frame(df)</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You'll need to adjust the SQL query and the database connection parameters
+to match your specific use case.</p>
+</div>
 <h3 id="specify-data-by-series">Specify data by series</h3>
 <p>When you specify the data by series or by records, it has to be in first normal
 form. Here is an example of that:</p>
