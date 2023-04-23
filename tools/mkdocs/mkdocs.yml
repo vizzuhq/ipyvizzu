@@ -139,7 +139,19 @@ nav:
   - Examples:
       - examples/index.md
       - Preset charts: examples/presets/
-      - Animated charts: examples/animated/
+      - Analytical operations:
+          - examples/analytical_operations/index.md
+          - Drill down: examples/analytical_operations/drilldown/
+          - Sum: examples/analytical_operations/sum/
+          - Total: examples/analytical_operations/total/
+          - Compare: examples/analytical_operations/compare/
+          - Separate: examples/analytical_operations/separate/
+          - Stretch to proportion: examples/analytical_operations/stretch_to_proportion/
+          - Distribute: examples/analytical_operations/distribute/
+          - Filter: examples/analytical_operations/filter_zoom/
+          - Change dimension: examples/analytical_operations/change_dimension/
+          - Add to / exclude from: examples/analytical_operations/add_to_and_exclude_from/
+          - Miscellaneous: examples/analytical_operations/other/
       - Static charts: examples/static/
   - Showcases: showcases/
   - Code reference: reference/ipyvizzu/
