@@ -7,10 +7,10 @@ jobs:
 
   check_ci:
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - uses: actions/cache@v3
       with:
@@ -25,7 +25,7 @@ jobs:
     - uses: actions/cache@v3
       with:
         path: ./tests/coverage
-        key: coverage-ipyvizzu-${{ inputs.run_id }}
+        key: coverage-ipyvizzu-${{ github.run_id }}
 
     - name: Touch dev environment
       run: make touch-dev

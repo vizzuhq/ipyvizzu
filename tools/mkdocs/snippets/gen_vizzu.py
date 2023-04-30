@@ -37,7 +37,7 @@ class VizzuUrl:
         """
 
         with mkdocs_gen_files.open(dst, "w") as f_vizzu:
-            f_vizzu.write(VizzuUrl.TEMPLATE.format(vizzu=Vizzu.get_backend_url()))
+            f_vizzu.write(VizzuUrl.TEMPLATE.format(vizzu=Vizzu.get_vizzu_backend_url()))
 
 
 def main() -> None:

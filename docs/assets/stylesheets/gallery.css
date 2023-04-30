@@ -18,6 +18,8 @@
 .image-caption {
   margin: 0px;
   margin-bottom: 20px !important;
+  font-family: "Roboto" !important;
+  font-style: normal !important;
 }
 
 .image-center {

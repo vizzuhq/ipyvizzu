@@ -42,6 +42,7 @@ from md import (  # pylint: disable=import-error, wrong-import-position, wrong-i
 )
 from vizzu import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
     Vizzu,
+    VIZZU_SITE_URL,
 )
 
 
@@ -224,7 +225,7 @@ class GenExamples:
 
     def _add_image(self, index: str, title: str, href: str, thumbnail: str) -> None:
         with mkdocs_gen_files.open(f"{index}/index.md", "a") as fh_index:
-            url = f"{Vizzu.get_vizzulibsite_url()}/{Vizzu.get_vizzu_version()}/{self._dst}"
+            url = f"{VIZZU_SITE_URL}/{Vizzu.get_vizzu_version()}/{self._dst}"
             fh_index.write(
                 "["
                 + f"![{title}]"
@@ -237,7 +238,7 @@ class GenExamples:
     def _add_video(  # pylint: disable=too-many-arguments
         self, index: str, title: str, href: str, thumbnail: str, figcaption: bool
     ) -> None:
-        url = f"{Vizzu.get_vizzulibsite_url()}/{Vizzu.get_vizzu_version()}/{self._dst}"
+        url = f"{VIZZU_SITE_URL}/{Vizzu.get_vizzu_version()}/{self._dst}"
         with mkdocs_gen_files.open(f"{index}/index.md", "a") as fh_index:
             html = []
             html.append(f"<a href='./{href}/' title='{title}'>")

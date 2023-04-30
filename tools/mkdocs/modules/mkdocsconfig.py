@@ -27,8 +27,10 @@ class MkdocsConfig:
     def load(config: Path) -> dict:
         """
         A method for loading mkdocs configuration from yaml file.
+
         Args:
             config: The path of the yaml configuration file.
+
         Returns:
             A dictionary that contains the mkdocs configuration.
         """

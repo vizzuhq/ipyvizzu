@@ -41,7 +41,7 @@ class StyleReference:
         content = Node.node(
             True,
             GEN_PATH / "gen_style_reference.mjs",
-            Vizzu.get_style_reference_url(),
+            Vizzu.get_vizzu_styleref_backend_url(),
         )
         with mkdocs_gen_files.open(dst, "a") as f_index:
             f_index.write(f"\n{content}\n")

@@ -107,9 +107,9 @@ ${this.description}
   }
 
   on(eventName, handler) {
-    const entire = handler.toString(); 
+    const entire = handler.toString();
     const body = entire.slice(entire.indexOf("{") + 1, entire.lastIndexOf("}"));
-    this.code += `handler = """${body}"""\n`
+    this.code += `handler = """${body}"""\n`;
     this.code += `chart.on('${eventName}', handler)\n\n`;
   }
 
