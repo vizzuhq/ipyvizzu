@@ -34,13 +34,13 @@
 <a href="{{ '../' ~ base_url }}">
   <strong>Click here to go to latest.</strong>
 </a>
-{% endblock %} {% block content %} {% if page.nb_url %}
+{% endblock %} {% block content %} {% if page.meta.data_url %}
 <a
-  href="{{ page.nb_url }}"
-  title="Download Notebook"
+  href="{{ page.meta.data_url }}"
+  title="Download data"
   class="md-content__button md-icon"
 >
-  {% include ".icons/material/download.svg" %}
+  {% include ".icons/material/database.svg" %}
 </a>
 {% endif %} {% if page.meta.csv_url %}
 <a
