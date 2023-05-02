@@ -10,18 +10,17 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data_4,
-            config: chart.constructor.presets.mekko({
-                x: 'Value 1 (+)',
-                y: 'Value 2 (+)',
-                stackedBy: 'Joy factors',
-                groupedBy: 'Country',
-                title: 'Stacked Mekko Chart'
-            })
-        }
-    )
+        (chart) =>
+    chart.animate({
+      data: data_4,
+      config: chart.constructor.presets.mekko({
+        x: "Value 1 (+)",
+        y: "Value 2 (+)",
+        stackedBy: "Joy factors",
+        groupedBy: "Country",
+        title: "Stacked Mekko Chart",
+      }),
+    })
       ]
     }
   ]);

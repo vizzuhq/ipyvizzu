@@ -10,29 +10,30 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-        data: data,
-        config: {
-            channels: {
-                x: ['Joy factors', 'Country'],
-                y: 'Value 5 (+/-)',
-                color: 'Joy factors',
-                label: 'Value 5 (+/-)'
-            },
-            title: 'Grouped Column Chart'
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: {
+        channels: {
+          x: ["Joy factors", "Country"],
+          y: "Value 5 (+/-)",
+          color: "Joy factors",
+          label: "Value 5 (+/-)",
         },
-        // Labels have to be rotated on this chart.
-        style: { 
-            plot: {
-                marker: {
-                    label: {
-                        fontSize: 6,
-                        orientation: 'vertical',
-                        angle: 3.14 * -1
-                    }
-                }
-            }
-        }
+        title: "Grouped Column Chart",
+      },
+      // Labels have to be rotated on this chart.
+      style: {
+        plot: {
+          marker: {
+            label: {
+              fontSize: 6,
+              orientation: "vertical",
+              angle: 3.14 * -1,
+            },
+          },
+        },
+      },
     })
       ]
     }

@@ -10,17 +10,16 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data,
-            config: chart.constructor.presets.variableRadiusPie({
-                angle: 'Value 2 (+)',
-                radius: 'Value 1 (+)',
-                by: 'Joy factors',
-                title: 'Variable Radius Pie Chart'
-            })
-        }
-    )
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: chart.constructor.presets.variableRadiusPie({
+        angle: "Value 2 (+)",
+        radius: "Value 1 (+)",
+        by: "Joy factors",
+        title: "Variable Radius Pie Chart",
+      }),
+    })
       ]
     }
   ]);

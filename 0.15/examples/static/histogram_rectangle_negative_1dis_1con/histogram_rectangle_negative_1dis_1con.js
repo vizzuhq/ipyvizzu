@@ -10,23 +10,24 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-    data: data,
-    config: {
-      channels: {
-        x: 'Year',
-        y: 'Value 5 (+/-)',
-        label: 'Value 5 (+/-)'
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: {
+        channels: {
+          x: "Year",
+          y: "Value 5 (+/-)",
+          label: "Value 5 (+/-)",
+        },
+        title: "Histogram",
+        align: "none",
       },
-      title: 'Histogram',
-      align: 'none'
-    },
-    /* Spaces between markers should be
+      /* Spaces between markers should be
     eliminated on this chart. */
-    style: { 
-      'plot.marker.rectangleSpacing': 0.07
-    }
-  })
+      style: {
+        "plot.marker.rectangleSpacing": 0.07,
+      },
+    })
       ]
     }
   ]);

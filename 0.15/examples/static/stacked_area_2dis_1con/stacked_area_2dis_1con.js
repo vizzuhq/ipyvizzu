@@ -10,17 +10,18 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-        data: data,
-        config: {
-            channels: {
-                x: 'Year',
-                y: ['Country', 'Value 2 (+)'],
-                color: 'Country'
-            },
-            title: 'Stacked Area Chart',
-            geometry: 'area'
-        }
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: {
+        channels: {
+          x: "Year",
+          y: ["Country", "Value 2 (+)"],
+          color: "Country",
+        },
+        title: "Stacked Area Chart",
+        geometry: "area",
+      },
     })
       ]
     }

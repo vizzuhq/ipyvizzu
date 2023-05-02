@@ -10,21 +10,23 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-        data: data_6,
-        config: {
-            channels: {
-                x: ['Value 3 (+)', 'Country'],
-                y: ['Year', 'Joy factors'],
-                color: 'Country'
-            },
-            title: 'Stacked Bar Chart'
-        }
-    }),chart => chart.animate({
-        config: {
-            title: 'Split Bar Chart',
-            split: true
-        }
+        (chart) =>
+    chart.animate({
+      data: data_6,
+      config: {
+        channels: {
+          x: ["Value 3 (+)", "Country"],
+          y: ["Year", "Joy factors"],
+          color: "Country",
+        },
+        title: "Stacked Bar Chart",
+      },
+    }),(chart) =>
+    chart.animate({
+      config: {
+        title: "Split Bar Chart",
+        split: true,
+      },
     })
       ]
     }

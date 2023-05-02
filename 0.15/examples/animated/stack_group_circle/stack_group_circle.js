@@ -10,24 +10,26 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-        data: data,
-        config: {
-            channels: {
-                color: 'Joy factors',
-                size: 'Value 2 (+)',
-                label: 'Country_code'
-            },
-            title: 'Bubble Chart',
-            geometry: 'circle'
-        }
-    }),chart => chart.animate({
-        config: {
-            channels: {
-                size: ['Value 2 (+)', 'Country_code']
-            },
-            title: 'Stacked Bubble Chart'
-        }
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: {
+        channels: {
+          color: "Joy factors",
+          size: "Value 2 (+)",
+          label: "Country_code",
+        },
+        title: "Bubble Chart",
+        geometry: "circle",
+      },
+    }),(chart) =>
+    chart.animate({
+      config: {
+        channels: {
+          size: ["Value 2 (+)", "Country_code"],
+        },
+        title: "Stacked Bubble Chart",
+      },
     })
       ]
     }

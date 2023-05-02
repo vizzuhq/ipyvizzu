@@ -10,17 +10,16 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data,
-            config: chart.constructor.presets.percentageArea({
-                x: 'Year',
-                y: 'Value 2 (+)',
-                stackedBy: 'Country',
-                title: 'Percentage Area Chart'
-            })
-        }
-    )
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: chart.constructor.presets.percentageArea({
+        x: "Year",
+        y: "Value 2 (+)",
+        stackedBy: "Country",
+        title: "Percentage Area Chart",
+      }),
+    })
       ]
     }
   ]);

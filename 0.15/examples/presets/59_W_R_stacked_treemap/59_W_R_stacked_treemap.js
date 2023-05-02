@@ -10,17 +10,16 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data,
-            config: chart.constructor.presets.stackedTreemap({
-                size: 'Value 2 (+)',
-                color: 'Joy factors',
-                title: 'Stacked Treemap',
-                dividedBy: 'Country_code'
-            })
-        }
-    )
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: chart.constructor.presets.stackedTreemap({
+        size: "Value 2 (+)",
+        color: "Joy factors",
+        title: "Stacked Treemap",
+        dividedBy: "Country_code",
+      }),
+    })
       ]
     }
   ]);

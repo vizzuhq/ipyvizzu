@@ -10,16 +10,15 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data_6,
-            config: chart.constructor.presets.bar({
-                x: 'Value 5 (+/-)',
-                y: 'Country',
-                title: 'Bar Chart'
-            })
-        }
-    )
+        (chart) =>
+    chart.animate({
+      data: data_6,
+      config: chart.constructor.presets.bar({
+        x: "Value 5 (+/-)",
+        y: "Country",
+        title: "Bar Chart",
+      }),
+    })
       ]
     }
   ]);

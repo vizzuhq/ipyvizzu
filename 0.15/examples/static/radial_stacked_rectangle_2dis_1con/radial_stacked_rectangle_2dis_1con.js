@@ -10,27 +10,39 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-        data: Object.assign(data, {
-            filter: record =>
-            ['10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
-            .includes(record.Year)
-    }),
-        config: {
-            channels: {
-                x: ['Country', 'Value 2 (+)'],
-                y: {
-                    set: ['Year'],
-                    /* Setting the radius of the empty circle
+        (chart) =>
+    chart.animate({
+      data: Object.assign(data, {
+        filter: (record) =>
+          [
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+          ].includes(record.Year),
+      }),
+      config: {
+        channels: {
+          x: ["Country", "Value 2 (+)"],
+          y: {
+            set: ["Year"],
+            /* Setting the radius of the empty circle
                     in the centre. */
-                    range: { min: '-20%' }
-                },
-                color: 'Country',
-                lightness: 'Year'
-            },
-            title: 'Stacked Radial Bar Chart',
-            coordSystem: 'polar'
-        }
+            range: { min: "-20%" },
+          },
+          color: "Country",
+          lightness: "Year",
+        },
+        title: "Stacked Radial Bar Chart",
+        coordSystem: "polar",
+      },
     })
       ]
     }

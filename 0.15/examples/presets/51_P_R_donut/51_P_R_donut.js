@@ -10,16 +10,15 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data,
-            config: chart.constructor.presets.donut({
-                angle: 'Value 2 (+)',
-                stackedBy: 'Joy factors',
-                title: 'Donut Chart'
-            })
-        }
-    )
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: chart.constructor.presets.donut({
+        angle: "Value 2 (+)",
+        stackedBy: "Joy factors",
+        title: "Donut Chart",
+      }),
+    })
       ]
     }
   ]);

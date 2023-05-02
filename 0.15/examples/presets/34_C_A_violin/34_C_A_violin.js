@@ -10,28 +10,23 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data,
-            config: chart.constructor.presets.violin({
-                x: 'Year',
-                y: 'Revenue [m$]',
-                splittedBy: 'Format',
-                title: 'Violin Graph'
-            }),
-            style: {
-                plot: {
-                    yAxis: {
-                        interlacing: { color: '#ffffff00' }
-                    },
-                    xAxis: {
-                        label: {
-                            angle: '-45deg'
-                        }
-                    }
-                }
-            }
-        })
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: chart.constructor.presets.violin({
+        x: "Year",
+        y: "Revenue [$]",
+        splittedBy: "Format",
+        title: "Violin Graph",
+      }),
+      style: {
+        plot: {
+          yAxis: { interlacing: { color: "#ffffff00" } },
+          yAxis: { label: { numberScale: "K, M, B, T" } },
+          xAxis: { label: { angle: "-45deg" } },
+        },
+      },
+    })
       ]
     }
   ]);

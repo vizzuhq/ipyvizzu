@@ -10,17 +10,16 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data_6,
-            config: chart.constructor.presets.splittedArea({
-                x: 'Year',
-                y: 'Value 2 (+)',
-                splittedBy: 'Country',
-                title: 'Splitted Area Chart'
-            })
-        }
-    )
+        (chart) =>
+    chart.animate({
+      data: data_6,
+      config: chart.constructor.presets.splittedArea({
+        x: "Year",
+        y: "Value 2 (+)",
+        splittedBy: "Country",
+        title: "Splitted Area Chart",
+      }),
+    })
       ]
     }
   ]);

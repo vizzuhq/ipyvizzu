@@ -10,16 +10,15 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data_6,
-            config: chart.constructor.presets.radialBar({
-                angle: 'Value 1 (+)',
-                radius: 'Country',
-                title: 'Radial Bar Chart'
-            })
-        }
-    )
+        (chart) =>
+    chart.animate({
+      data: data_6,
+      config: chart.constructor.presets.radialBar({
+        angle: "Value 1 (+)",
+        radius: "Country",
+        title: "Radial Bar Chart",
+      }),
+    })
       ]
     }
   ]);

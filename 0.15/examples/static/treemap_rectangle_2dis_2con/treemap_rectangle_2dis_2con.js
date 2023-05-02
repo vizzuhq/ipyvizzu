@@ -10,17 +10,18 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-        data: data,
-        config: {
-            channels: {
-                color: 'Joy factors',
-                size: ['Value 2 (+)', 'Country_code'],
-                label: 'Country_code',
-                lightness: 'Value 2 (+)'
-            },
-            title: 'Stacked Treemap'
-        }
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: {
+        channels: {
+          color: "Joy factors",
+          size: ["Value 2 (+)", "Country_code"],
+          label: "Country_code",
+          lightness: "Value 2 (+)",
+        },
+        title: "Stacked Treemap",
+      },
     })
       ]
     }

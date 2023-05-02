@@ -10,15 +10,16 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-        data: data,
-        config: {
-            channels: {
-                x: ['Year', 'Value 5 (+/-)']
-            },
-            title: 'Dot Plot',
-            geometry: 'circle'
-        }
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: {
+        channels: {
+          x: ["Year", "Value 5 (+/-)"],
+        },
+        title: "Dot Plot",
+        geometry: "circle",
+      },
     })
       ]
     }

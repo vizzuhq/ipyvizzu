@@ -10,35 +10,36 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-        data: data_6,
-        config: {
-            channels: {
-                x: ['Year', 'Joy factors'],
-                y: ['Value 3 (+)', 'Country'],
-                color: 'Country'
-            },
-            title: 'Stacked Streamgraph',
-            geometry: 'area',
-            align: 'center'
-        }
-    }),chart => chart.animate(
-        {
-            config: {
-                channels: {
-                    y: {
-                        /* Making the chart elements fill the whole of
+        (chart) =>
+    chart.animate({
+      data: data_6,
+      config: {
+        channels: {
+          x: ["Year", "Joy factors"],
+          y: ["Value 3 (+)", "Country"],
+          color: "Country",
+        },
+        title: "Stacked Streamgraph",
+        geometry: "area",
+        align: "center",
+      },
+    }),(chart) =>
+    chart.animate({
+      config: {
+        channels: {
+          y: {
+            /* Making the chart elements fill the whole of
                         the y-axis as the default value is now 110% */
-                        range: {
-                            max: '100%' 
-                        }
-                    }
-                },
-                title: 'Split Area Chart',
-                split: true,
-                align: 'min'
-            }
-        })
+            range: {
+              max: "100%",
+            },
+          },
+        },
+        title: "Split Area Chart",
+        split: true,
+        align: "min",
+      },
+    })
       ]
     }
   ]);

@@ -10,33 +10,36 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-        data: data_6,
-        config: {
-            channels: {
-                x: 'Year',
-                y: 'Value 3 (+)'
-            },
-            title: 'Single Line Chart',
-            geometry: 'line'
-        }
-    }),chart => chart.animate({
-        config: {
-            channels: {
-                y: ['Country', 'Value 3 (+)'],
-                color: 'Country'
-            },
-            title: 'Drill down',
-            geometry: 'area'
-        }
-    }),chart => chart.animate({
-        config: {
-            channels: {
-                y: 'Value 3 (+)'
-            },
-            title: 'Line Chart I',
-            geometry: 'line'
-        }
+        (chart) =>
+    chart.animate({
+      data: data_6,
+      config: {
+        channels: {
+          x: "Year",
+          y: "Value 3 (+)",
+        },
+        title: "Single Line Chart",
+        geometry: "line",
+      },
+    }),(chart) =>
+    chart.animate({
+      config: {
+        channels: {
+          y: ["Country", "Value 3 (+)"],
+          color: "Country",
+        },
+        title: "Drill down",
+        geometry: "area",
+      },
+    }),(chart) =>
+    chart.animate({
+      config: {
+        channels: {
+          y: "Value 3 (+)",
+        },
+        title: "Line Chart I",
+        geometry: "line",
+      },
     })
       ]
     }

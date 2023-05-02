@@ -10,34 +10,35 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-        data: data,
-        config: {
-            channels: {
-                x: 'Country',
-                y: ['Joy factors', 'Value 2 (+)'],
-                color: 'Joy factors',
-                label: 'Value 2 (+)'
-            },
-            title: 'Stacked Column Chart'
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: {
+        channels: {
+          x: "Country",
+          y: ["Joy factors", "Value 2 (+)"],
+          color: "Joy factors",
+          label: "Value 2 (+)",
         },
-        // Labels have to be rotated on this chart.
-        style: { 
-            plot: {
-                xAxis: {
-                    label: {
-                        angle: 2.3
-                    }
-                },
-                marker: {
-                    label: {
-                        fontSize: 7,
-                        orientation: 'vertical',
-                        angle: 3.14 * -1
-                    }
-                }
-            }
-        }
+        title: "Stacked Column Chart",
+      },
+      // Labels have to be rotated on this chart.
+      style: {
+        plot: {
+          xAxis: {
+            label: {
+              angle: 2.3,
+            },
+          },
+          marker: {
+            label: {
+              fontSize: 7,
+              orientation: "vertical",
+              angle: 3.14 * -1,
+            },
+          },
+        },
+      },
     })
       ]
     }
