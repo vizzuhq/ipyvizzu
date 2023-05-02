@@ -6,13 +6,13 @@ on:
 jobs:
   build_doc:
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     env:
       PUPPETEER_CACHE_DIR: ${{ github.workspace }}/node_modules/.chromium
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: actions/cache@v3
         with:
@@ -27,7 +27,7 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: ./tests/coverage
-          key: coverage-ipyvizzu-${{ inputs.run_id }}
+          key: coverage-ipyvizzu-${{ github.run_id }}
 
       - name: Touch dev environment
         run: make touch-dev

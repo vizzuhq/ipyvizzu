@@ -20,6 +20,7 @@ from context import (  # pylint: disable=import-error, wrong-import-position, wr
 )
 from vizzu import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
     Vizzu,
+    VIZZU_SITE_URL,
 )
 
 
@@ -75,7 +76,6 @@ class Reference:
         """
 
         with mkdocs_gen_files.open(file, "w") as f_js:
-            vizzulibsite_url = Vizzu.get_vizzulibsite_url()
             vizzu_version = Vizzu.get_vizzu_version()
             f_js.write(
                 f"""
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", (event) => {{
     for (let i = 0; i < links.length; i++) {{
       if (
         links[i].hostname !== window.location.hostname &&
-        links[i].href.includes("{vizzulibsite_url}")
+        links[i].href.includes("{VIZZU_SITE_URL}")
       ) {{
         links[i].href = links[i].href.replace("latest", "{vizzu_version}");
       }}

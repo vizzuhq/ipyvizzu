@@ -9,31 +9,22 @@ from ipyvizzu import Chart
 REPO_PATH = Path(__file__).parent / ".." / ".." / ".."
 MKDOCS_PATH = REPO_PATH / "tools" / "mkdocs"
 
+VIZZU_BACKEND_URL = ""
+VIZZU_STYLEREF_BACKEND_URL = ""
+
 IPYVIZZU_VERSION = ""
 VIZZU_VERSION = ""
-VIZZU_BACKEND_URL = ""
-VIZZU_STYLE_REFERENCE_URL = ""
-VIZZU_LIB_SITE_URL = ""
+
+IPYVIZZU_SITE_URL = "https://ipyvizzu.vizzuhq.com"
+VIZZU_SITE_URL = "https://lib.vizzuhq.com"
+VIZZU_CDN_URL = "https://cdn.jsdelivr.net/npm/vizzu"
 
 
 class Vizzu:
     """A class for working with Vizzu."""
 
     @staticmethod
-    def get_vizzulibsite_url() -> str:
-        """
-        A static method for returning vizzu site doc url.
-
-        Returns:
-            Backend vizzu lib site url.
-        """
-
-        if VIZZU_LIB_SITE_URL:
-            return VIZZU_LIB_SITE_URL
-        return "https://lib.vizzuhq.com"
-
-    @staticmethod
-    def get_backend_url() -> str:
+    def get_vizzu_backend_url() -> str:
         """
         A static method for returning backend vizzu url.
 
@@ -44,21 +35,21 @@ class Vizzu:
         if VIZZU_BACKEND_URL:
             return VIZZU_BACKEND_URL
         version = Vizzu.get_vizzu_version()
-        return f"https://cdn.jsdelivr.net/npm/vizzu@{version}/dist/vizzu.min.js"
+        return f"{VIZZU_CDN_URL}@{version}/dist/vizzu.min.js"
 
     @staticmethod
-    def get_style_reference_url() -> str:
+    def get_vizzu_styleref_backend_url() -> str:
         """
-        A static method for returning style reference vizzu url.
+        A static method for returning backend vizzu style reference url.
 
         Returns:
-            Style reference vizzu url.
+            Backend vizzu style reference url.
         """
 
-        if VIZZU_STYLE_REFERENCE_URL:
-            return VIZZU_STYLE_REFERENCE_URL
+        if VIZZU_STYLEREF_BACKEND_URL:
+            return VIZZU_STYLEREF_BACKEND_URL
         version = Vizzu.get_vizzu_version()
-        return f"https://cdn.jsdelivr.net/npm/vizzu@{version}/dist/vizzu.min.js"
+        return f"{VIZZU_CDN_URL}@{version}/dist/vizzu.min.js"
 
     @staticmethod
     def get_vizzu_version() -> str:
@@ -111,20 +102,20 @@ class Vizzu:
         ipyvizzu_version = Vizzu.get_ipyvizzu_version()
         if not restore:
             content = content.replace(
-                "https://ipyvizzu.vizzuhq.com/latest/",
-                f"https://ipyvizzu.vizzuhq.com/{ipyvizzu_version}/",
+                f"{IPYVIZZU_SITE_URL}/latest/",
+                f"{IPYVIZZU_SITE_URL}/{ipyvizzu_version}/",
             )
             content = content.replace(
-                "https://lib.vizzuhq.com/latest/",
-                f"https://lib.vizzuhq.com/{vizzu_version}/",
+                f"{VIZZU_SITE_URL}/latest/",
+                f"{VIZZU_SITE_URL}/{vizzu_version}/",
             )
         else:
             content = content.replace(
-                f"https://ipyvizzu.vizzuhq.com/{ipyvizzu_version}/",
-                "https://ipyvizzu.vizzuhq.com/latest/",
+                f"{IPYVIZZU_SITE_URL}/{ipyvizzu_version}/",
+                f"{IPYVIZZU_SITE_URL}/latest/",
             )
             content = content.replace(
-                f"https://lib.vizzuhq.com/{vizzu_version}/",
-                "https://lib.vizzuhq.com/latest/",
+                f"{VIZZU_SITE_URL}/{vizzu_version}/",
+                f"{VIZZU_SITE_URL}/latest/",
             )
         return content

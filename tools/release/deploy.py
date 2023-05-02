@@ -77,6 +77,7 @@ class Deploy:
                 "  #      redirect_template: ./tools/mkdocs/overrides/mike/redirect.html",
                 "      redirect_template: ./tools/mkdocs/overrides/mike/redirect.html",
             )
+
             if not Deploy.latest:
                 content = content.replace(
                     "- content.action.edit",
@@ -97,6 +98,7 @@ class Deploy:
                 "      redirect_template: ./tools/mkdocs/overrides/mike/redirect.html",
                 "  #      redirect_template: ./tools/mkdocs/overrides/mike/redirect.html",
             )
+
             if not Deploy.latest:
                 content = content.replace(
                     "# - content.action.edit",
