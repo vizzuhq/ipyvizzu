@@ -76,6 +76,7 @@ class GenExamples:
     def merge_subfolders(self) -> bool:
         """
         A property for merging subfolders.
+
         Returns:
             `merge_subfolders` value.
         """
@@ -89,6 +90,7 @@ class GenExamples:
     def video_thumbnails(self) -> bool:
         """
         A property for using video thumbnails.
+
         Returns:
             `video_thumbnails` value.
         """
@@ -102,6 +104,7 @@ class GenExamples:
     def filename_title(self) -> bool:
         """
         A property for using title from file names.
+
         Returns:
             `filename_title` value.
         """
@@ -115,6 +118,7 @@ class GenExamples:
     def blocked(self) -> List[str]:
         """
         A method for setting blocked examples.
+
         Returns:
             Blocked examples.
         """
@@ -133,12 +137,6 @@ class GenExamples:
     def _get_title(self, item: Path, content: str) -> str:
         if self._filename_title:
             title_parts = str(item.stem).split("_")
-            for index, value in enumerate(title_parts):
-                try:
-                    tmp = int(value)
-                    title_parts[index] = str(tmp)
-                except ValueError:
-                    continue
             title = " ".join(title_parts[1:])
             return title
 
@@ -225,7 +223,7 @@ class GenExamples:
 
     def _add_image(self, index: str, title: str, href: str, thumbnail: str) -> None:
         with mkdocs_gen_files.open(f"{index}/index.md", "a") as fh_index:
-            url = f"{VIZZU_SITE_URL}/{Vizzu.get_vizzu_version()}/{self._dst}"
+            url = f"{VIZZU_SITE_URL}/{Vizzu.get_vizzu_version()}/{index}"
             fh_index.write(
                 "["
                 + f"![{title}]"
@@ -238,7 +236,7 @@ class GenExamples:
     def _add_video(  # pylint: disable=too-many-arguments
         self, index: str, title: str, href: str, thumbnail: str, figcaption: bool
     ) -> None:
-        url = f"{VIZZU_SITE_URL}/{Vizzu.get_vizzu_version()}/{self._dst}"
+        url = f"{VIZZU_SITE_URL}/{Vizzu.get_vizzu_version()}/{index}"
         with mkdocs_gen_files.open(f"{index}/index.md", "a") as fh_index:
             html = []
             html.append(f"<a href='./{href}/' title='{title}'>")
