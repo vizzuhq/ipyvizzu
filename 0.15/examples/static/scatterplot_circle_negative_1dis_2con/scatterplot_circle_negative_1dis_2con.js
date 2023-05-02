@@ -10,18 +10,19 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-        data: data,
-        config: {
-            channels: {
-                x: 'Value 6 (+/-)',
-                y: 'Value 5 (+/-)',
-                noop: 'Year',
-                label: 'Year'
-            },
-            title: 'Scatter Plot',
-            geometry: 'circle'
-        }
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: {
+        channels: {
+          x: "Value 6 (+/-)",
+          y: "Value 5 (+/-)",
+          noop: "Year",
+          label: "Year",
+        },
+        title: "Scatter Plot",
+        geometry: "circle",
+      },
     })
       ]
     }

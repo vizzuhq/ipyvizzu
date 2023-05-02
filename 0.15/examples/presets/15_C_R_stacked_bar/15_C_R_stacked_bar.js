@@ -10,17 +10,16 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data_6,
-            config: chart.constructor.presets.stackedBar({
-                x: 'Value 2 (+)',
-                y: 'Country',
-                stackedBy: 'Joy factors',
-                title: 'Stacked Bar Chart'
-            })
-        }
-    )
+        (chart) =>
+    chart.animate({
+      data: data_6,
+      config: chart.constructor.presets.stackedBar({
+        x: "Value 2 (+)",
+        y: "Country",
+        stackedBy: "Joy factors",
+        title: "Stacked Bar Chart",
+      }),
+    })
       ]
     }
   ]);

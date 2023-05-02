@@ -10,16 +10,15 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data,
-            config: chart.constructor.presets.bubble({
-                size: 'Value 5 (+/-)',
-                color: 'Country_code',
-                title: 'Bubble Chart'
-            })
-        }
-    )
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: chart.constructor.presets.bubble({
+        size: "Value 5 (+/-)",
+        color: "Country_code",
+        title: "Bubble Chart",
+      }),
+    })
       ]
     }
   ]);

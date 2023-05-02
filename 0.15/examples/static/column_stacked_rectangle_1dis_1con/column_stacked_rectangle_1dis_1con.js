@@ -10,17 +10,18 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-    data: data,
-    config: {
-      channels: {
-        y: ['Joy factors', 'Value 2 (+)'],
-        color: 'Joy factors',
-        label: 'Value 2 (+)'
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: {
+        channels: {
+          y: ["Joy factors", "Value 2 (+)"],
+          color: "Joy factors",
+          label: "Value 2 (+)",
+        },
+        title: "Single Stacked Column Chart",
       },
-      title: 'Single Stacked Column Chart'
-    }
-  })
+    })
       ]
     }
   ]);

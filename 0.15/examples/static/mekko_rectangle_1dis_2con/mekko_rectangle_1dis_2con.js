@@ -10,19 +10,19 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-        data: data_4,
-        config: {
-            channels: {
-                x: ['Country', 'Value 2 (+)'],
-                y: { set: ['Value 1 (+)'], range: { max: '110%' } },
-                color: 'Country',
-                label: ['Value 2 (+)', 'Country']
-            },
-            title: 'Mekko Chart'
-        }
-    }
-    )
+        (chart) =>
+    chart.animate({
+      data: data_4,
+      config: {
+        channels: {
+          x: ["Country", "Value 2 (+)"],
+          y: { set: ["Value 1 (+)"], range: { max: "110%" } },
+          color: "Country",
+          label: ["Value 2 (+)", "Country"],
+        },
+        title: "Mekko Chart",
+      },
+    })
       ]
     }
   ]);

@@ -10,16 +10,15 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data,
-            config: chart.constructor.presets.pie({
-                angle: 'Value 2 (+)',
-                by: 'Joy factors',
-                title: 'Pie Chart'
-            })
-        }
-    )
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: chart.constructor.presets.pie({
+        angle: "Value 2 (+)",
+        by: "Joy factors",
+        title: "Pie Chart",
+      }),
+    })
       ]
     }
   ]);

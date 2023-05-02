@@ -10,17 +10,16 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data_6,
-            config: chart.constructor.presets.groupedBar({
-                x: 'Value 5 (+/-)',
-                y: 'Country',
-                groupedBy: 'Joy factors',
-                title: 'Grouped Bar Chart'
-            })
-        }
-    )
+        (chart) =>
+    chart.animate({
+      data: data_6,
+      config: chart.constructor.presets.groupedBar({
+        x: "Value 5 (+/-)",
+        y: "Country",
+        groupedBy: "Joy factors",
+        title: "Grouped Bar Chart",
+      }),
+    })
       ]
     }
   ]);

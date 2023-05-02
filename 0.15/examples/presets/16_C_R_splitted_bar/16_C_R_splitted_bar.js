@@ -10,17 +10,16 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data,
-            config: chart.constructor.presets.splittedBar({
-                x: 'Value 2 (+)',
-                y: 'Year',
-                splittedBy: 'Joy factors',
-                title: 'Splitted Bar Chart'
-            })
-        }
-    )
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: chart.constructor.presets.splittedBar({
+        x: "Value 2 (+)",
+        y: "Year",
+        splittedBy: "Joy factors",
+        title: "Splitted Bar Chart",
+      }),
+    })
       ]
     }
   ]);

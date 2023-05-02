@@ -10,16 +10,15 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data,
-            config: chart.constructor.presets.lollipop({
-                x: 'Year',
-                y: 'Value 1 (+)',
-                title: 'Lollipop Chart'
-            })
-        }
-    )
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: chart.constructor.presets.lollipop({
+        x: "Year",
+        y: "Value 1 (+)",
+        title: "Lollipop Chart",
+      }),
+    })
       ]
     }
   ]);

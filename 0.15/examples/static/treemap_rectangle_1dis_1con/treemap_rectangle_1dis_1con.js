@@ -10,15 +10,16 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-        data: data,
-        config: {
-            channels: {
-                label: 'Country_code',
-                size: 'Value 2 (+)',
-            },
-            title: 'Treemap'
-        }
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: {
+        channels: {
+          label: "Country_code",
+          size: "Value 2 (+)",
+        },
+        title: "Treemap",
+      },
     })
       ]
     }

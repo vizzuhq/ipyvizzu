@@ -10,17 +10,18 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-        data: data,
-        config: {
-            channels: {
-                color: 'Country_code',
-                label: 'Country_code',
-                size: 'Value 5 (+/-)'
-            },
-            title: 'Bubble Chart',
-            geometry: 'circle'
-        }
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: {
+        channels: {
+          color: "Country_code",
+          label: "Country_code",
+          size: "Value 5 (+/-)",
+        },
+        title: "Bubble Chart",
+        geometry: "circle",
+      },
     })
       ]
     }

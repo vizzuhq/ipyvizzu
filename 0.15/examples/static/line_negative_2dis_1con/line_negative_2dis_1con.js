@@ -10,17 +10,18 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-        data: data,
-        config: {
-            channels: {
-                x: 'Year',
-                y: 'Value 5 (+/-)',
-                color: 'Country'
-            },
-            title: 'Line Chart',
-            geometry: 'line'
-        }
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: {
+        channels: {
+          x: "Year",
+          y: "Value 5 (+/-)",
+          color: "Country",
+        },
+        title: "Line Chart",
+        geometry: "line",
+      },
     })
       ]
     }

@@ -10,16 +10,15 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data,
-            config: chart.constructor.presets.area({
-                x: 'Year',
-                y: 'Value 5 (+/-)',
-                title: 'Area Chart'
-            })
-        }
-    )
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: chart.constructor.presets.area({
+        x: "Year",
+        y: "Value 5 (+/-)",
+        title: "Area Chart",
+      }),
+    })
       ]
     }
   ]);

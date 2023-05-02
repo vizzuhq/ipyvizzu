@@ -10,17 +10,16 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data,
-            config: chart.constructor.presets.scatter({
-                x: 'Value 6 (+/-)',
-                y: 'Value 5 (+/-)',
-                dividedBy: 'Year',
-                title: 'Scatter Plot'
-            })
-        }
-    )
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: chart.constructor.presets.scatter({
+        x: "Value 6 (+/-)",
+        y: "Value 5 (+/-)",
+        dividedBy: "Year",
+        title: "Scatter Plot",
+      }),
+    })
       ]
     }
   ]);

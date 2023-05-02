@@ -10,16 +10,15 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data,
-            config: chart.constructor.presets.treemap({
-                size: 'Value 2 (+)',
-                color: 'Country_code',
-                title: 'Treemap'
-            })
-        }
-    )
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: chart.constructor.presets.treemap({
+        size: "Value 2 (+)",
+        color: "Country_code",
+        title: "Treemap",
+      }),
+    })
       ]
     }
   ]);

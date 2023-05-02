@@ -10,28 +10,23 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate(
-        {
-            data: data,
-            config: chart.constructor.presets.stream({
-                x: 'Year',
-                y: 'Revenue [m$]',
-                stackedBy: 'Format',
-                title: 'Stream Graph'
-            }),
-            style: {
-                plot: {
-                    yAxis: {
-                        interlacing: { color: '#ffffff00' }
-                    },
-                    xAxis: {
-                        label: {
-                            angle: '-45deg'
-                        }
-                    }
-                }
-            }
-        })
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: chart.constructor.presets.stream({
+        x: "Year",
+        y: "Revenue [$]",
+        stackedBy: "Format",
+        title: "Stream Graph",
+      }),
+      style: {
+        plot: {
+          yAxis: { interlacing: { color: "#ffffff00" } },
+          yAxis: { label: { numberScale: "K, M, B, T" } },
+          xAxis: { label: { angle: "-45deg" } },
+        },
+      },
+    })
       ]
     }
   ]);

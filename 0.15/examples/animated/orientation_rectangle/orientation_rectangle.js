@@ -10,28 +10,30 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-    data: data,
-    config: {
-      channels: {
-        x: 'Timeseries',
-        y: ['Values 1', 'Categ. Parent'],
-        color: 'Categ. Parent',
-        label: 'Values 1'
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: {
+        channels: {
+          x: "Timeseries",
+          y: ["Values 1", "Categ. Parent"],
+          color: "Categ. Parent",
+          label: "Values 1",
+        },
+        title: "Stacked Column Chart",
       },
-      title: 'Stacked Column Chart'
-    }
-  }),chart => chart.animate({
-    config: {
-      channels: {
-        /* Taking the dimension off to show the sum of
+    }),(chart) =>
+    chart.animate({
+      config: {
+        channels: {
+          /* Taking the dimension off to show the sum of
         the newly stacked elements. */
-        x: 'Values 1',
-        y: 'Categ. Parent', 
+          x: "Values 1",
+          y: "Categ. Parent",
+        },
+        title: "Bar Chart",
       },
-      title: 'Bar Chart'
-    }
-  })
+    })
       ]
     }
   ]);

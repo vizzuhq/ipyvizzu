@@ -10,26 +10,28 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   mdchart.create([
     {
       anims: [
-        chart => chart.animate({
-        data: data,
-        config: {
-            channels: {
-                x: ['Joy factors', 'Value 2 (+)'],
-                color: 'Joy factors',
-                label: 'Value 2 (+)'
-            },
-            title: 'Pie Chart',
-            coordSystem: 'polar'
-        }
-    }),chart => chart.animate({
-        config: {
-            channels: {
-                /* Setting the radius of
+        (chart) =>
+    chart.animate({
+      data: data,
+      config: {
+        channels: {
+          x: ["Joy factors", "Value 2 (+)"],
+          color: "Joy factors",
+          label: "Value 2 (+)",
+        },
+        title: "Pie Chart",
+        coordSystem: "polar",
+      },
+    }),(chart) =>
+    chart.animate({
+      config: {
+        channels: {
+          /* Setting the radius of
                 the empty circle in the centre. */
-                y: { range: { min: '-200%' } }  
-            },
-            title: 'Donut Chart'
-        }
+          y: { range: { min: "-200%" } },
+        },
+        title: "Donut Chart",
+      },
     })
       ]
     }
