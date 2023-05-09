@@ -1,5 +1,4 @@
 # Code of Conduct
 
-See
-[Code of Conduct](https://github.com/vizzuhq/vizzu-lib/blob/main/CODE_OF_CONDUCT.md)
-of the Vizzu community.
+See [Code of Conduct](https://lib.vizzuhq.com/latest/CODE_OF_CONDUCT/) of the Vizzu
+community.
