@@ -23,6 +23,9 @@ VIZZU_CDN_URL = "https://cdn.jsdelivr.net/npm/vizzu"
 class Vizzu:
     """A class for working with Vizzu."""
 
+    _ipyvizzu_version = ""
+    _vizzu_version = ""
+
     @staticmethod
     def get_vizzu_backend_url() -> str:
         """
@@ -62,8 +65,10 @@ class Vizzu:
 
         if VIZZU_VERSION:
             return VIZZU_VERSION
-        cdn = Chart.VIZZU
-        return re.search(r"vizzu@([\d.]+)/", cdn).group(1)  # type: ignore
+        if not Vizzu._vizzu_version:
+            cdn = Chart.VIZZU
+            Vizzu._vizzu_version = re.search(r"vizzu@([\d.]+)/", cdn).group(1)  # type: ignore
+        return Vizzu._vizzu_version
 
     @staticmethod
     def get_ipyvizzu_version() -> str:
@@ -76,14 +81,16 @@ class Vizzu:
 
         if IPYVIZZU_VERSION:
             return IPYVIZZU_VERSION
-        with open(
-            REPO_PATH / "setup.py",
-            "r",
-            encoding="utf8",
-        ) as f_version:
-            content = f_version.read()
-            version = re.search(r"version=\"(\d+).(\d+).(\d+)\"", content)
-            return f"{version.group(1)}.{version.group(2)}"  # type: ignore
+        if not Vizzu._ipyvizzu_version:
+            with open(
+                REPO_PATH / "setup.py",
+                "r",
+                encoding="utf8",
+            ) as f_version:
+                content = f_version.read()
+                version = re.search(r"version=\"(\d+).(\d+).(\d+)\"", content)
+                Vizzu._ipyvizzu_version = f"{version.group(1)}.{version.group(2)}"  # type: ignore
+        return Vizzu._ipyvizzu_version
 
     @staticmethod
     def set_version(content: str, restore: bool = False) -> str:
