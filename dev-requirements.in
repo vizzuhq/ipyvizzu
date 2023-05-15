@@ -53,6 +53,11 @@ pyyaml
 types-pyyaml
 #
 #
+# requests
+#
+types-requests
+#
+#
 # markdown
 #
 markdown

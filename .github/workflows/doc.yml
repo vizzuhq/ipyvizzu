@@ -1,10 +1,16 @@
-name: Build documentation
+name: Documentation
 
 on:
+  workflow_dispatch:
+  release:
+    types: [published]
   workflow_call:
 
 jobs:
-  build_doc:
+
+  create_doc:
+
+    if: ${{ !((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
 
     runs-on: ubuntu-latest
 
@@ -12,22 +18,24 @@ jobs:
       PUPPETEER_CACHE_DIR: ${{ github.workspace }}/node_modules/.chromium
 
     steps:
-      - uses: actions/checkout@v3
-
-      - uses: actions/cache@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
         with:
-          path: ./.venv_ipyvizzu
-          key: venv-ipyvizzu-${{ github.run_id }}
+          fetch-depth: 1
 
-      - uses: actions/cache@v3
+      - name: Cache repo
+        uses: actions/cache@v3
         with:
-          path: ./node_modules
-          key: nodemodules-ipyvizzu-${{ github.run_id }}
+          path: |
+            ./*
+            !.git
+          key: ipyvizzu-${{ github.run_id }}
 
-      - uses: actions/cache@v3
+      - name: Cache coverage
+        uses: actions/cache@v3
         with:
           path: ./tests/coverage
-          key: coverage-ipyvizzu-${{ github.run_id }}
+          key: ipyvizzu-coverage-${{ github.run_id }}
 
       - name: Touch dev environment
         run: make touch-dev
@@ -35,14 +43,110 @@ jobs:
       - name: Touch dev-js environment
         run: make touch-dev-js
 
-      - name: Set Jupyter kernel
-        run: make install-kernel
+      - name: Get vizzu-lib tag
+        id: vizzu_tag
+        run: |
+          vizzu_tag=$(./.venv_ipyvizzu/bin/python ./tools/release/tag.py)
+          echo "vizzu_tag=${vizzu_tag}" >> $GITHUB_OUTPUT
 
       - name: Checkout vizzu-lib
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: vizzuhq/vizzu-lib
+          fetch-depth: 1
+          ref: ${{ steps.vizzu_tag.outputs.vizzu_tag }}
           path: vizzu-lib
+
+      - name: Cache vizzu-lib
+        uses: actions/cache@v3
+        with:
+          path: vizzu-lib
+          key: ipyvizzu-vizzu-lib-${{ github.run_id }}
 
       - name: Build documentation
         run: make doc
+
+  publish_doc:
+
+    if: ${{ ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
+
+    runs-on: ubuntu-latest
+
+    env:
+      PUPPETEER_CACHE_DIR: ${{ github.workspace }}/node_modules/.chromium
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Get workflow ID
+        id: workflow_id
+        run: |
+          workflow_data=$(curl -s -X GET \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows")
+          workflow_id=$(echo $workflow_data | jq -r '.workflows[] | select(.name == "CI-CD") | .id')
+          echo "workflow_id=${workflow_id}" >> $GITHUB_OUTPUT
+
+      - name: Get run ID
+        id: run_id
+        run: |
+          run_data=$(curl -s -X GET \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/${{ steps.workflow_id.outputs.workflow_id }}/runs?branch=main")
+          run_id=$(echo $run_data | jq -r '.workflow_runs[0].id')
+          echo "run_id=${run_id}" >> $GITHUB_OUTPUT
+
+      - name: Cache repo
+        uses: actions/cache@v3
+        with:
+          path: |
+            ./*
+            !.git
+          key: ipyvizzu-${{ steps.run_id.outputs.run_id }}
+
+      - name: Cache coverage
+        uses: actions/cache@v3
+        with:
+          path: ./tests/coverage
+          key: ipyvizzu-coverage-${{ steps.run_id.outputs.run_id }}
+
+      - name: Cache vizzu-lib
+        uses: actions/cache@v3
+        with:
+          path: vizzu-lib
+          key: ipyvizzu-vizzu-lib-${{ steps.run_id.outputs.run_id }}
+
+      - name: Touch dev environment
+        run: make touch-dev
+
+      - name: Touch dev-js environment
+        run: make touch-dev-js
+
+      - name: Checkout mike
+        uses: actions/checkout@v3
+        with:
+          repository: jimporter/mike
+          fetch-depth: 1
+          path: mike
+
+      - name: Install mike
+        run: ./.venv_ipyvizzu/bin/pip install mike/
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "${{ env.GIT_USER_NAME }}"
+          git config --global user.email "${{ env.GIT_USER_EMAIL }}"
+        env:
+          GIT_USER_NAME: David Vegh
+          GIT_USER_EMAIL: david.andras.vegh+github@gmail.com
+
+      - name: Deploy documentation
+        run: |
+          git fetch origin gh-pages || echo "gh-pages does not exist"
+          make deploy
+          git push origin gh-pages

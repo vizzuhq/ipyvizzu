@@ -1,8 +1,6 @@
 name: CI-CD
 
 on:
-  release:
-    types: [published]
   push:
     branches: [ main ]
   pull_request:

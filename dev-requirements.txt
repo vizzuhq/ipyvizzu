@@ -25,7 +25,7 @@ argon2-cffi-bindings==21.2.0
     # via argon2-cffi
 arrow==1.2.3
     # via isoduration
-astroid==2.15.3
+astroid==2.15.5
     # via pylint
 asttokens==2.2.1
     # via stack-data
@@ -50,7 +50,7 @@ bleach==6.0.0
     #   readme-renderer
 build==0.10.0
     # via pip-tools
-certifi==2022.12.7
+certifi==2023.5.7
     # via requests
 cffi==1.15.1
     # via
@@ -72,7 +72,7 @@ colorama==0.4.6
     #   mkdocs-material
 comm==0.1.3
     # via ipykernel
-coverage==7.2.3
+coverage==7.2.5
     # via -r dev-requirements.in
 cryptography==40.0.2
     # via secretstorage
@@ -88,7 +88,7 @@ dill==0.3.6
     # via pylint
 distlib==0.3.6
     # via virtualenv
-docutils==0.19
+docutils==0.20
     # via readme-renderer
 editorconfig==0.12.3
     # via
@@ -112,9 +112,9 @@ fugue-sql-antlr==0.1.6
     # via fugue
 ghp-import==2.1.0
     # via mkdocs
-griffe==0.27.1
+griffe==0.27.5
     # via mkdocstrings-python
-identify==2.5.22
+identify==2.5.24
     # via pre-commit
 idna==3.4
     # via
@@ -130,11 +130,11 @@ importlib-metadata==6.6.0
     #   mkdocs
     #   nbconvert
     #   twine
-ipykernel==6.22.0
+ipykernel==6.23.0
     # via
     #   nbclassic
     #   notebook
-ipython==8.12.0
+ipython==8.13.2
     # via
     #   black
     #   ipykernel
@@ -207,7 +207,7 @@ keyring==23.13.1
     # via twine
 lazy-object-proxy==1.9.0
     # via astroid
-linkify-it-py==2.0.0
+linkify-it-py==2.0.2
     # via markdown-it-py
 lxml==4.9.2
     # via beautifulsoup4
@@ -289,7 +289,7 @@ mike==1.1.2
     # via -r dev-requirements.in
 mistune==2.0.5
     # via nbconvert
-mkdocs==1.4.2
+mkdocs==1.4.3
     # via
     #   -r dev-requirements.in
     #   mike
@@ -306,11 +306,11 @@ mkdocs-autorefs==0.4.1
     #   mkdocstrings
 mkdocs-coverage==0.2.7
     # via -r dev-requirements.in
-mkdocs-gen-files==0.4.0
+mkdocs-gen-files==0.5.0
     # via -r dev-requirements.in
 mkdocs-literate-nav==0.6.0
     # via -r dev-requirements.in
-mkdocs-material==9.1.7
+mkdocs-material==9.1.12
     # via -r dev-requirements.in
 mkdocs-material-extensions==1.1.1
     # via mkdocs-material
@@ -320,21 +320,21 @@ mkdocstrings[python]==0.21.2
     # via
     #   -r dev-requirements.in
     #   mkdocstrings-python
-mkdocstrings-python==0.9.0
+mkdocstrings-python==1.0.0
     # via mkdocstrings
 more-itertools==9.1.0
     # via jaraco-classes
-mypy==1.2.0
+mypy==1.3.0
     # via -r dev-requirements.in
 mypy-extensions==1.0.0
     # via
     #   black
     #   mypy
-nbclassic==0.5.5
+nbclassic==1.0.0
     # via notebook
-nbclient==0.7.3
+nbclient==0.7.4
     # via nbconvert
-nbconvert==7.3.1
+nbconvert==7.4.0
     # via
     #   jupyter-server
     #   nbclassic
@@ -351,11 +351,11 @@ nest-asyncio==1.5.6
     #   ipykernel
     #   nbclassic
     #   notebook
-nodeenv==1.7.0
+nodeenv==1.8.0
     # via pre-commit
 notebook==6.5.4
     # via -r dev-requirements.in
-notebook-shim==0.2.2
+notebook-shim==0.2.3
     # via nbclassic
 numpy==1.24.3
     # via
@@ -391,13 +391,13 @@ pip-tools==6.13.0
     # via -r dev-requirements.in
 pkginfo==1.9.6
     # via twine
-platformdirs==3.2.0
+platformdirs==3.5.1
     # via
     #   black
     #   jupyter-core
     #   pylint
     #   virtualenv
-pre-commit==3.2.2
+pre-commit==3.3.1
     # via -r dev-requirements.in
 prometheus-client==0.16.0
     # via
@@ -414,7 +414,7 @@ ptyprocess==0.7.0
     #   terminado
 pure-eval==0.2.2
     # via stack-data
-pyarrow==11.0.0
+pyarrow==12.0.0
     # via
     #   fugue
     #   triad
@@ -427,7 +427,7 @@ pygments==2.15.1
     #   nbconvert
     #   readme-renderer
     #   rich
-pylint==2.17.2
+pylint==2.17.4
     # via -r dev-requirements.in
 pymdown-extensions==9.11
     # via
@@ -469,14 +469,14 @@ qpd==0.4.1
     # via fugue
 readme-renderer==37.3
     # via twine
-regex==2023.3.23
+regex==2023.5.5
     # via mkdocs-material
-requests==2.28.2
+requests==2.30.0
     # via
     #   mkdocs-material
     #   requests-toolbelt
     #   twine
-requests-toolbelt==0.10.1
+requests-toolbelt==1.0.0
     # via twine
 rfc3339-validator==0.1.4
     # via
@@ -488,9 +488,9 @@ rfc3986-validator==0.1.1
     # via
     #   jsonschema
     #   jupyter-events
-rich==13.3.4
+rich==13.3.5
     # via twine
-ruamel-yaml==0.17.21
+ruamel-yaml==0.17.26
     # via
     #   mdformat-config
     #   mdformat-frontmatter
@@ -498,7 +498,7 @@ ruamel-yaml-clib==0.2.7
     # via ruamel-yaml
 secretstorage==3.3.3
     # via keyring
-send2trash==1.8.0
+send2trash==1.8.2
     # via
     #   jupyter-server
     #   nbclassic
@@ -517,7 +517,7 @@ sniffio==1.3.0
     # via anyio
 soupsieve==2.4.1
     # via beautifulsoup4
-sqlglot==11.5.5
+sqlglot==12.4.0
     # via fugue
 stack-data==0.6.2
     # via ipython
@@ -541,9 +541,9 @@ tomli==2.0.1
     #   mypy
     #   pylint
     #   pyproject-hooks
-tomlkit==0.11.7
+tomlkit==0.11.8
     # via pylint
-tornado==6.3.1
+tornado==6.3.2
     # via
     #   ipykernel
     #   jupyter-client
@@ -566,7 +566,7 @@ traitlets==5.9.0
     #   nbconvert
     #   nbformat
     #   notebook
-triad==0.8.6
+triad==0.8.7
     # via
     #   adagio
     #   fugue
@@ -576,12 +576,16 @@ twine==4.0.2
     # via -r dev-requirements.in
 types-colorama==0.4.15.11
     # via beautysh
-types-markdown==3.4.2.7
+types-markdown==3.4.2.9
     # via -r dev-requirements.in
 types-pyyaml==6.0.12.9
     # via -r dev-requirements.in
+types-requests==2.30.0.0
+    # via -r dev-requirements.in
 types-setuptools==57.4.18
     # via beautysh
+types-urllib3==1.26.25.13
+    # via types-requests
 typing-extensions==4.5.0
     # via
     #   astroid
@@ -590,17 +594,17 @@ typing-extensions==4.5.0
     #   mkdocstrings
     #   mypy
     #   pylint
-uc-micro-py==1.0.1
+uc-micro-py==1.0.2
     # via linkify-it-py
 uri-template==1.2.0
     # via jsonschema
-urllib3==1.26.15
+urllib3==2.0.2
     # via
     #   requests
     #   twine
 verspec==0.1.0
     # via mike
-virtualenv==20.22.0
+virtualenv==20.23.0
     # via pre-commit
 watchdog==3.0.0
     # via mkdocs

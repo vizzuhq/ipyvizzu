@@ -1,21 +1,31 @@
 name: Release
 
 on:
+  release:
+    types: [published]
   workflow_call:
 
 jobs:
 
-  release_package:
+  create_release:
+
+    if: ${{ !(github.event_name == 'release' && github.event.action == 'published') }}
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-
-    - uses: actions/cache@v3
+    - name: Checkout repo
+      uses: actions/checkout@v3
       with:
-        path: ./.venv_ipyvizzu
-        key: venv-ipyvizzu-${{ github.run_id }}
+        fetch-depth: 1
+
+    - name: Cache repo
+      uses: actions/cache@v3
+      with:
+        path: |
+          ./*
+          !.git
+        key: ipyvizzu-${{ github.run_id }}
 
     - name: Touch dev environment
       run: make touch-dev
@@ -23,12 +33,62 @@ jobs:
     - name: Build package
       run: make release-wo-restore
 
+    - name: Cache release files
+      uses: actions/cache@v3
+      with:
+        path: dist/
+        key: ipyvizzu-release-${{ github.run_id }}
+
+  publish_release:
+
+    if: ${{ (github.event_name == 'release' && github.event.action == 'published') }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 1
+
+    - name: Get workflow ID
+      id: workflow_id
+      run: |
+        workflow_data=$(curl -s -X GET \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows")
+        workflow_id=$(echo $workflow_data | jq -r '.workflows[] | select(.name == "CI-CD") | .id')
+        echo "workflow_id=${workflow_id}" >> $GITHUB_OUTPUT
+
+    - name: Get run ID
+      id: run_id
+      run: |
+        run_data=$(curl -s -X GET \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/${{ steps.workflow_id.outputs.workflow_id }}/runs?branch=main")
+        run_id=$(echo $run_data | jq -r '.workflow_runs[0].id')
+        echo "run_id=${run_id}" >> $GITHUB_OUTPUT
+
+    - name: Cache repo
+      uses: actions/cache@v3
+      with:
+        path: |
+          ./*
+          !.git
+        key: ipyvizzu-${{ steps.run_id.outputs.run_id }}
+
+    - name: Cache release files
+      uses: actions/cache@v3
+      with:
+        path: dist/
+        key: ipyvizzu-release-${{ steps.run_id.outputs.run_id }}
+
     - name: Release package
       run: ./.venv_ipyvizzu/bin/python -m twine upload -u "__token__" -p "${{ secrets.PYPI_API_TOKEN }}" dist/*.tar.gz  dist/*.whl
-      if: ( github.event_name == 'release' && github.event.action == 'published' )
     
     - name: Upload package
       run: |
         echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
         gh release upload ${{ github.event.release.tag_name }} dist/*.tar.gz  dist/*.whl --clobber
-      if: ( github.event_name == 'release' && github.event.action == 'published' )

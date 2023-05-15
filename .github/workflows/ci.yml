@@ -10,22 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-
-    - uses: actions/cache@v3
+    - name: Checkout repo
+      uses: actions/checkout@v3
       with:
-        path: ./.venv_ipyvizzu
-        key: venv-ipyvizzu-${{ github.run_id }}
+        fetch-depth: 1
 
-    - uses: actions/cache@v3
+    - name: Cache repo
+      uses: actions/cache@v3
       with:
-        path: ./node_modules
-        key: nodemodules-ipyvizzu-${{ github.run_id }}
+        path: |
+          ./*
+          !.git
+        key: ipyvizzu-${{ github.run_id }}
 
-    - uses: actions/cache@v3
+    - name: Cache coverage
+      uses: actions/cache@v3
       with:
         path: ./tests/coverage
-        key: coverage-ipyvizzu-${{ github.run_id }}
+        key: ipyvizzu-coverage-${{ github.run_id }}
 
     - name: Touch dev environment
       run: make touch-dev
