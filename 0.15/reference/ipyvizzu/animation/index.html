@@ -17,7 +17,7 @@
         <link rel="next" href="../animationcontrol/">
       
       <link rel="icon" href="../../../assets/favicon.svg">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.7">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
     
     
       
@@ -25,10 +25,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.ded33207.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.85bb2934.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a0c5b2b5.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.a6bdf11c.min.css">
       
       
 
@@ -168,6 +168,8 @@
         </div>
       </div>
     </div>
+    
+      
     
     
     
@@ -5696,6 +5698,7 @@ It can build any dictionary.</p>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
   </span>
 
 </h4>
@@ -5717,6 +5720,7 @@ It can build any dictionary.</p>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
   </span>
 
 </h4>
@@ -6152,7 +6156,7 @@ class instance with a data filter.</p>
     </tbody>
   </table>
 
-<details class="example">
+<details class="example" open>
   <summary>Example</summary>
   <p>Create a <a class="autorefs autorefs-internal" href="#ipyvizzu.animation.Data">Data</a> class with a data filter:</p>
 <pre class="highlight"><code>filter = Data.filter("record['Genres'] == 'Pop'")</code></pre>
@@ -6224,7 +6228,7 @@ def filter(cls, filter_expr: Optional[str] = None):  # -&gt; Data:
     </tbody>
   </table>
 
-<details class="example">
+<details class="example" open>
   <summary>Example</summary>
   <p>Add a data filter to a <a class="autorefs autorefs-internal" href="#ipyvizzu.animation.Data">Data</a> class instance:</p>
 <pre class="highlight"><code>data = Data()
@@ -6380,7 +6384,7 @@ def from_json(cls, filename: Union[str, bytes, PathLike]):  # -&gt; Data:
     </tbody>
   </table>
 
-<details class="example">
+<details class="example" open>
   <summary>Example</summary>
   <p>Adding a record to a <a class="autorefs autorefs-internal" href="#ipyvizzu.animation.Data">Data</a> class instance:</p>
 <pre class="highlight"><code>data = Data()
@@ -6450,7 +6454,7 @@ data.add_record(record)</code></pre>
     </tbody>
   </table>
 
-<details class="example">
+<details class="example" open>
   <summary>Example</summary>
   <p>Adding records to a <a class="autorefs autorefs-internal" href="#ipyvizzu.animation.Data">Data</a> class instance:</p>
 <pre class="highlight"><code>data = Data()
@@ -6551,7 +6555,7 @@ data.add_records(records)</code></pre>
     </tbody>
   </table>
 
-<details class="example">
+<details class="example" open>
   <summary>Example</summary>
   <p>Adding a series without values to a <a class="autorefs autorefs-internal" href="#ipyvizzu.animation.Data">Data</a> class instance:</p>
 <pre class="highlight"><code>data = Data()
@@ -6666,7 +6670,7 @@ data.add_series(
     </tbody>
   </table>
 
-<details class="example">
+<details class="example" open>
   <summary>Example</summary>
   <p>Adding a dimension with values to a <a class="autorefs autorefs-internal" href="#ipyvizzu.animation.Data">Data</a> class instance:</p>
 <pre class="highlight"><code>data = Data()
@@ -6756,7 +6760,7 @@ data.add_dimension("Genres", ["Pop", "Rock"])</code></pre>
     </tbody>
   </table>
 
-<details class="example">
+<details class="example" open>
   <summary>Example</summary>
   <p>Adding a measure with values to a <a class="autorefs autorefs-internal" href="#ipyvizzu.animation.Data">Data</a> class instance:</p>
 <pre class="highlight"><code>data = Data()
@@ -6877,7 +6881,7 @@ or <a class="autorefs autorefs-external" href="http://pandas.pydata.org/pandas-d
     </tbody>
   </table>
 
-<details class="example">
+<details class="example" open>
   <summary>Example</summary>
   <p>Adding a data frame to a <a class="autorefs autorefs-internal" href="#ipyvizzu.animation.Data">Data</a> class instance:</p>
 <pre class="highlight"><code>data_frame = pd.DataFrame(
@@ -7028,7 +7032,7 @@ or <a class="autorefs autorefs-external" href="http://pandas.pydata.org/pandas-d
     </tbody>
   </table>
 
-<details class="example">
+<details class="example" open>
   <summary>Example</summary>
   <p>Adding a data frame's index to a <a class="autorefs autorefs-internal" href="#ipyvizzu.animation.Data">Data</a> class instance:</p>
 <pre class="highlight"><code>data_frame = pd.DataFrame(
@@ -8560,7 +8564,7 @@ a merged dictionary from
     <script id="__config" type="application/json">{"base": "../../..", "features": ["toc.follow", "search.suggest", "search.highlight", "navigation.top", "navigation.footer", "content.code.copy", "content.action.edit"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.51198bba.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.c2be25ad.min.js"></script>
       
         <script src="../../../assets/javascripts/extlinks.js"></script>
       
