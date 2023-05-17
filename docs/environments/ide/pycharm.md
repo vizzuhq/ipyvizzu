@@ -10,7 +10,7 @@ marked with a green check.
 - [x] Change the height of the `Chart` (`height`)
 - [ ] Use scroll into view (`scroll_into_view`=`True`)
 
-Dislay features:
+Display features:
 
 - [x] Display all animations after `_repr_html_` method called
   (`display`=`DisplayTarget.MANUAL`)
