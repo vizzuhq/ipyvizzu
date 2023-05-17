@@ -60,7 +60,7 @@ import mercury as mr
 
 # setup Mercury App
 app = mr.App(
-    title="Data animation", description="Titanic data animation"
+    title="ipyvizzu demo", description="ipyvizzu demo with mercury"
 )
 
 
