@@ -1,8 +1,10 @@
-# Mercury/mljar
+# Mercury
+
+The [`Mercury`](https://github.com/mljar/mercury) framework convert Jupyter Notebooks to interactive Web Apps. It integrates great with `ipyvizzu`.
 
 ## Features
 
-The features of `ipyvizzu` that are available in `Mercury/mljar` are marked with
+The features of `ipyvizzu` that are available in `Mercury` are marked with
 a green check.
 
 - [x] Change the url of `Vizzu` (`vizzu`)
@@ -10,7 +12,7 @@ a green check.
 - [x] Change the height of the `Chart` (`height`)
 - [x] Use scroll into view (`scroll_into_view`=`True`)
 
-Dislay features:
+Display features:
 
 - [ ] Display all animations after `_repr_html_` method called
   (`display`=`DisplayTarget.MANUAL`)
@@ -30,7 +32,7 @@ details.
 
 ## Live example
 
-[![Open in Mercury](https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg)](https://huggingface.co/spaces/veghdev/ipyvizzu-demo)
+[![Open in Mercury](https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg)](https://huggingface.co/spaces/pplonski/ipyvizzu-demo)
 
 ## Installation
 
@@ -39,43 +41,34 @@ Add `ipyvizzu` to `requirements.txt`.
 ```
 python-dotenv
 pandas
-mljar-mercury
+mercury
 ipyvizzu
 ```
 
 ## Sample
 
-Try `ipyvizzu` in `Mercury/mljar` with the following sample.
+Try `ipyvizzu` in `Mercury` with the following sample.
 
-```
-# configure application
-
----
-title: ipyvizzu demo
-description: ipyvizzu mercury demo
-show-code: False
-params:
-params:
-    gender:
-        input: select
-        label: select the gender
-        choices: [male, female]
-        multi: False
----
-```
-
-```python
-# configure default choice
-
-gender = "male"
-```
 
 ```python
 # import pandas and ipyvizzu
 
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
+import mercury as mr 
+```
 
+```python
+# Setup Mercury App
+app = mr.App(title="Data animation", description="Titanic data animation")
+```
+
+```python
+# Add widget
+gender = mr.Select(label="Select sex", value="female", choices=["female", "male"])
+```
+
+```python
 
 # initialize Chart
 
@@ -129,7 +122,7 @@ chart.animate(Style({"title": {"fontSize": 35}}))
 
 # filter data by the selected gender to Chart
 
-data_filter = Data.filter(f"record['Sex'] == '{gender}'")
+data_filter = Data.filter(f"record['Sex'] == '{gender.value}'")
 chart.animate(data_filter)
 
 
