@@ -1,16 +1,17 @@
 # Mercury
 
-The [`Mercury`](https://github.com/mljar/mercury) framework convert Jupyter Notebooks to interactive Web Apps. It integrates great with `ipyvizzu`.
+The [`Mercury`](https://github.com/mljar/mercury) framework convert Jupyter
+Notebooks to interactive Web Apps. It integrates great with `ipyvizzu`.
 
 ## Features
 
-The features of `ipyvizzu` that are available in `Mercury` are marked with
-a green check.
+The features of `ipyvizzu` that are available in `Mercury` are marked with a
+green check.
 
 - [x] Change the url of `Vizzu` (`vizzu`)
 - [x] Change the width of the `Chart` (`width`)
-- [x] Change the height of the `Chart` (`height`)
-- [x] Use scroll into view (`scroll_into_view`=`True`)
+- [x] Change the height of the `Chart` (`height`) DisplayUse scroll into view
+  (`scroll_into_view`=`True`)
 
 Display features:
 
@@ -32,7 +33,7 @@ details.
 
 ## Live example
 
-[![Open in Mercury](https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg)](https://huggingface.co/spaces/pplonski/ipyvizzu-demo)
+[![Open in Mercury](https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg)](https://veghdev-ipyvizzu-demo.hf.space/app/ipyvizzu_demo)
 
 ## Installation
 
@@ -49,26 +50,25 @@ ipyvizzu
 
 Try `ipyvizzu` in `Mercury` with the following sample.
 
-
 ```python
 # import pandas and ipyvizzu
 
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
-import mercury as mr 
-```
+import mercury as mr
 
-```python
-# Setup Mercury App
-app = mr.App(title="Data animation", description="Titanic data animation")
-```
 
-```python
-# Add widget
-gender = mr.Select(label="Select sex", value="female", choices=["female", "male"])
-```
+# setup Mercury App
+app = mr.App(
+    title="Data animation", description="Titanic data animation"
+)
 
-```python
+
+# add widget
+gender = mr.Select(
+    label="Select sex", value="female", choices=["female", "male"]
+)
+
 
 # initialize Chart
 

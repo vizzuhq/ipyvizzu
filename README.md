@@ -129,7 +129,7 @@ more details.
   - [Streamlit](https://ipyvizzu.vizzuhq.com/latest/environments/platform/streamlit/)
   - [Flask](https://ipyvizzu.vizzuhq.com/latest/environments/platform/flask/)
   - [Panel](https://ipyvizzu.vizzuhq.com/latest/environments/platform/panel/)
-  - [Mercury/mljar](https://ipyvizzu.vizzuhq.com/latest/environments/platform/mercury/)
+  - [Mercury](https://ipyvizzu.vizzuhq.com/latest/environments/platform/mercury/)
   - [Voilà](https://ipyvizzu.vizzuhq.com/latest/environments/platform/voila/)
 - BI tools
   - [Mode](https://ipyvizzu.vizzuhq.com/latest/environments/bi/mode/)
