@@ -17,11 +17,11 @@
         <link rel="next" href="../voila/">
       
       <link rel="icon" href="../../../assets/favicon.svg">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.13">
     
     
       
-        <title>Mercury/mljar - ipyvizzu</title>
+        <title>Mercury - ipyvizzu</title>
       
     
     
@@ -113,7 +113,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#mercurymljar" class="md-skip">
+        <a href="#mercury" class="md-skip">
           Skip to content
         </a>
       
@@ -162,7 +162,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Mercury/mljar
+              Mercury
             
           </span>
         </div>
@@ -4343,12 +4343,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Mercury/mljar
+          Mercury
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Mercury/mljar
+        Mercury
       </a>
       
         
@@ -4727,17 +4727,19 @@
   
 
 
-<h1 id="mercurymljar">Mercury/mljar</h1>
+<h1 id="mercury">Mercury</h1>
+<p>The <a href="https://github.com/mljar/mercury"><code>Mercury</code></a> framework convert Jupyter
+Notebooks to interactive Web Apps. It integrates great with <code>ipyvizzu</code>.</p>
 <h2 id="features">Features</h2>
-<p>The features of <code>ipyvizzu</code> that are available in <code>Mercury/mljar</code> are marked with
-a green check.</p>
+<p>The features of <code>ipyvizzu</code> that are available in <code>Mercury</code> are marked with a
+green check.</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Change the url of <code>Vizzu</code> (<code>vizzu</code>)</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Change the width of the <code>Chart</code> (<code>width</code>)</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Change the height of the <code>Chart</code> (<code>height</code>)</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Use scroll into view (<code>scroll_into_view</code>=<code>True</code>)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Change the height of the <code>Chart</code> (<code>height</code>) DisplayUse scroll into view
+  (<code>scroll_into_view</code>=<code>True</code>)</li>
 </ul>
-<p>Dislay features:</p>
+<p>Display features:</p>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Display all animations after <code>_repr_html_</code> method called
   (<code>display</code>=<code>DisplayTarget.MANUAL</code>)</li>
@@ -4755,36 +4757,32 @@ a green check.</p>
 <p>Check <a href="../../../tutorial/chart_settings/">Chart settings chapter</a> for more
 details.</p>
 <h2 id="live-example">Live example</h2>
-<p><a href="https://huggingface.co/spaces/veghdev/ipyvizzu-demo"><img alt="Open in Mercury" src="https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg" /></a></p>
+<p><a href="https://veghdev-ipyvizzu-demo.hf.space/app/ipyvizzu_demo"><img alt="Open in Mercury" src="https://raw.githubusercontent.com/mljar/mercury/main/docs/media/open_in_mercury.svg" /></a></p>
 <h2 id="installation">Installation</h2>
 <p>Add <code>ipyvizzu</code> to <code>requirements.txt</code>.</p>
 <pre class="highlight"><code>python-dotenv
 pandas
-mljar-mercury
+mercury
 ipyvizzu</code></pre>
 <h2 id="sample">Sample</h2>
-<p>Try <code>ipyvizzu</code> in <code>Mercury/mljar</code> with the following sample.</p>
-<pre class="highlight"><code># configure application
-
----
-title: ipyvizzu demo
-description: ipyvizzu mercury demo
-show-code: False
-params:
-params:
-    gender:
-        input: select
-        label: select the gender
-        choices: [male, female]
-        multi: False
----</code></pre>
-<pre class="highlight"><code class="language-python"># configure default choice
-
-gender = "male"</code></pre>
+<p>Try <code>ipyvizzu</code> in <code>Mercury</code> with the following sample.</p>
 <pre class="highlight"><code class="language-python"># import pandas and ipyvizzu
 
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
+import mercury as mr
+
+
+# setup Mercury App
+app = mr.App(
+    title="Data animation", description="Titanic data animation"
+)
+
+
+# add widget
+gender = mr.Select(
+    label="Select sex", value="female", choices=["female", "male"]
+)
 
 
 # initialize Chart
@@ -4839,7 +4837,7 @@ chart.animate(Style({"title": {"fontSize": 35}}))
 
 # filter data by the selected gender to Chart
 
-data_filter = Data.filter(f"record['Sex'] == '{gender}'")
+data_filter = Data.filter(f"record['Sex'] == '{gender.value}'")
 chart.animate(data_filter)
 
 
@@ -4970,7 +4968,7 @@ chart.animate(data_filter)
     <script id="__config" type="application/json">{"base": "../../..", "features": ["toc.follow", "search.suggest", "search.highlight", "navigation.top", "navigation.footer", "content.code.copy", "content.action.edit"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.b4d07000.min.js"></script>
       
         <script src="../../../assets/javascripts/extlinks.js"></script>
       
