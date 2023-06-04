@@ -11,8 +11,8 @@ endif
 
 
 .PHONY: clean \
-	clean-dev update-dev-req install-dev-req install-kernel install touch-dev \
-	clean-dev-js touch-dev-js \
+	clean-dev-py update-dev-py-req install-dev-py-req install-kernel install check-dev-py \
+	clean-dev-js check-dev-js \
 	check format check-format check-lint check-typing clean-test test \
 	check-js format-js check-format-js lint-js check-lint-js \
 	clean-doc doc deploy \
@@ -20,57 +20,57 @@ endif
 
 VIRTUAL_ENV = .venv_ipyvizzu
 
-DEV_BUILD_FLAG = $(VIRTUAL_ENV)/DEV_BUILD_FLAG
-DEV_JS_BUILD_FLAG = $(VIRTUAL_ENV)/DEV_JS_BUILD_FLAG
+DEV_PY_BUILD_FLAG = $(VIRTUAL_ENV)/DEV_PY_BUILD_FLAG
+DEV_JS_BUILD_FLAG = node_modules/DEV_JS_BUILD_FLAG
 
 
 
-clean: clean-dev clean-dev-js clean-test clean-doc clean-build
+clean: clean-dev-py clean-dev-js clean-test clean-doc clean-build
 
 
 
 # init
 
-clean-dev:
+clean-dev-py:
 	$(PYTHON_BIN) -c "import os, shutil;shutil.rmtree('$(VIRTUAL_ENV)') if os.path.exists('$(VIRTUAL_ENV)') else print('Nothing to be done for \'clean-dev\'')"
 
 clean-dev-js:
 	$(PYTHON_BIN) -c "import os, shutil;shutil.rmtree('node_modules') if os.path.exists('node_modules') else print('Nothing to be done for \'clean-dev-js\'')"
 
-update-dev-req: $(DEV_BUILD_FLAG)
+update-dev-py-req: $(DEV_PY_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/pip-compile --upgrade dev-requirements.in
 
-install-dev-req:
+install-dev-py-req: $(DEV_PY_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/pip install -r dev-requirements.txt
 
-install-kernel:
+install-kernel: $(DEV_PY_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/ipython kernel install --user --name "$(VIRTUAL_ENV)"
 
-install:
+install: $(DEV_PY_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/pip install --use-pep517 .
 
-touch-dev:
-	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) tools/make/touch.py -f $(DEV_BUILD_FLAG)
+check-dev-py:
+	$(PYTHON_BIN) tools/make/touch.py -f $(DEV_PY_BUILD_FLAG) --check
 
-touch-dev-js:
-	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) tools/make/touch.py -f $(DEV_JS_BUILD_FLAG)
+check-dev-js:
+	$(PYTHON_BIN) tools/make/touch.py -f $(DEV_JS_BUILD_FLAG) --check
 
-dev: $(DEV_BUILD_FLAG)
+dev-py: $(DEV_PY_BUILD_FLAG)
 
-dev-js: $(DEV_BUILD_FLAG) $(DEV_JS_BUILD_FLAG)
+dev-js: $(DEV_JS_BUILD_FLAG)
 
-$(DEV_BUILD_FLAG):
+$(DEV_PY_BUILD_FLAG):
 	$(PYTHON_BIN) -m venv $(VIRTUAL_ENV)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) -m pip install --upgrade pip
-	$(MAKE) -f Makefile install
-	$(MAKE) -f Makefile install-dev-req
-	$(MAKE) -f Makefile install-kernel
+	$(VIRTUAL_ENV)/$(BIN_PATH)/pip install --use-pep517 .
+	$(VIRTUAL_ENV)/$(BIN_PATH)/pip-compile --upgrade dev-requirements.in
+	$(VIRTUAL_ENV)/$(BIN_PATH)/ipython kernel install --user --name "$(VIRTUAL_ENV)"
 	$(VIRTUAL_ENV)/$(BIN_PATH)/pre-commit install --hook-type pre-commit --hook-type pre-push
-	$(MAKE) -f Makefile touch-dev
+	$(PYTHON_BIN) tools/make/touch.py -f $(DEV_PY_BUILD_FLAG)
 
 $(DEV_JS_BUILD_FLAG):
-	npm install ./tools/javascripts/
-	$(MAKE) -f Makefile touch-dev-js
+	npm install .
+	$(PYTHON_BIN) tools/make/touch.py -f $(DEV_JS_BUILD_FLAG)
 
 
 
@@ -78,7 +78,7 @@ $(DEV_JS_BUILD_FLAG):
 
 check: check-format check-lint check-typing test
 
-format: $(DEV_BUILD_FLAG)
+format: $(DEV_PY_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/black src tests tools setup.py
 	$(VIRTUAL_ENV)/$(BIN_PATH)/black -l 70 docs
 	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) tools/mdformat/mdformat.py $(VIRTUAL_ENV)/$(BIN_PATH)/mdformat \
@@ -87,7 +87,7 @@ format: $(DEV_BUILD_FLAG)
 		--line-length 70 \
 		docs README.md CONTRIBUTING.md CODE_OF_CONDUCT.md
 
-check-format: $(DEV_BUILD_FLAG)
+check-format: $(DEV_PY_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/black --check src tests tools setup.py
 	$(VIRTUAL_ENV)/$(BIN_PATH)/black --check -l 70 docs
 	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) tools/mdformat/mdformat.py $(VIRTUAL_ENV)/$(BIN_PATH)/mdformat \
@@ -97,10 +97,10 @@ check-format: $(DEV_BUILD_FLAG)
 		--line-length 70 \
 		docs README.md CONTRIBUTING.md CODE_OF_CONDUCT.md
 
-check-lint: $(DEV_BUILD_FLAG)
+check-lint: $(DEV_PY_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/pylint src tests tools setup.py
 
-check-typing: $(DEV_BUILD_FLAG)
+check-typing: $(DEV_PY_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/mypy src tests tools setup.py
 
 clean-test:
@@ -110,7 +110,7 @@ else
 	rm -rf tests/coverage
 endif
 
-test: $(DEV_BUILD_FLAG)
+test: $(DEV_PY_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/coverage run \
 		--data-file tests/coverage/.coverage --branch --source ipyvizzu -m unittest discover tests
 	$(VIRTUAL_ENV)/$(BIN_PATH)/coverage html \
@@ -121,24 +121,19 @@ test: $(DEV_BUILD_FLAG)
 
 
 check-js: $(DEV_JS_BUILD_FLAG)
-	cd tools/javascripts && \
-		npm run check
+	npm run check
 
 format-js: $(DEV_JS_BUILD_FLAG)
-	cd tools/javascripts && \
-		npm run prettier
+	npm run prettier
 
 check-format-js: $(DEV_JS_BUILD_FLAG)
-	cd tools/javascripts && \
-		npm run check-prettier
+	npm run check-prettier
 
 lint-js: $(DEV_JS_BUILD_FLAG)
-	cd tools/javascripts && \
-		npm run eslint
+	npm run eslint
 
 check-lint-js: $(DEV_JS_BUILD_FLAG)
-	cd tools/javascripts && \
-		npm run check-eslint
+	npm run check-eslint
 
 
 
@@ -153,10 +148,10 @@ else
 	rm -rf `find docs -name '.ipynb_checkpoints'`
 endif
 
-doc: $(DEV_BUILD_FLAG) $(DEV_JS_BUILD_FLAG)
+doc: $(DEV_PY_BUILD_FLAG) $(DEV_JS_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/mkdocs build -f ./tools/mkdocs/mkdocs.yml
 
-deploy: $(DEV_BUILD_FLAG) $(DEV_JS_BUILD_FLAG) install
+deploy: $(DEV_PY_BUILD_FLAG) $(DEV_JS_BUILD_FLAG) install
 	. $(VIRTUAL_ENV)/$(BIN_PATH)/activate; $(PYTHON_BIN) tools/release/deploy.py
 
 
@@ -176,16 +171,16 @@ else
 	rm -rf `find . -name '__pycache__'`
 endif
 
-set-version: $(DEV_BUILD_FLAG)
+set-version: $(DEV_PY_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) tools/release/set_version.py False
 
-restore-version: $(DEV_BUILD_FLAG)
+restore-version: $(DEV_PY_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) tools/release/set_version.py True
 
-build-release: $(DEV_BUILD_FLAG)
+build-release: $(DEV_PY_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) -m build
 
-check-release: $(DEV_BUILD_FLAG)
+check-release: $(DEV_PY_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) -m twine check dist/*.tar.gz dist/*.whl
 
 release-wo-restore: clean-build set-version build-release check-release

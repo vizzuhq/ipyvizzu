@@ -20,15 +20,15 @@ detailed description of how to do this in
 You can initialize the development environment of `ipyvizzu` with `Python`
 virtual env.
 
-Run the `dev` make target to set up your environment.
+Run the `dev-py` make target to set up your environment.
 
 ```sh
-make dev
+make dev-py
 ```
 
-**Note:** The `dev` make target is going to set up pre-commit and pre-push hooks
-into your local git repository. Pre-commit hook is going to format the code with
-`black` and pre-push hook is going to run the CI steps.
+**Note:** The `dev-py` make target is going to set up pre-commit and pre-push
+hooks into your local git repository. Pre-commit hook is going to format the
+code with `black` and pre-push hook is going to run the CI steps.
 
 Run the `clean` make target to clear your environment.
 

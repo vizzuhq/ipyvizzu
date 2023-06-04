@@ -1,5 +1,28 @@
 {
+  "name": "ipyvizzu-dev",
+  "description": "ipyvizzu development",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check": "npm-run-all check-prettier check-eslint",
+    "prettier": "prettier -w src/ docs/ tools/ .github/",
+    "check-prettier": "prettier -c src/ docs/ tools/ .github/",
+    "eslint": "eslint --ext .js,.cjs,.mjs -c .eslintrc.cjs --fix src/ docs/ tools/",
+    "check-eslint": "eslint --ext .js,.cjs,.mjs -c .eslintrc.cjs src/ docs/ tools/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vizzuhq/ipyvizzu.git"
+  },
+  "homepage": "https://ipyvizzu.vizzuhq.com/",
+  "url": "https://github.com/vizzuhq/ipyvizzu/issues",
+  "author": "Vizzu Inc.",
+  "license": "Apache-2.0",
   "dependencies": {
-    "ipyvizzu-dev": "file:tools/javascripts"
+    "npm-run-all": "*",
+    "prettier": "*",
+    "eslint": "*",
+    "eslint-config-standard": "*",
+    "eslint-config-prettier": "*",
+    "puppeteer": "^19.7.0"
   }
 }

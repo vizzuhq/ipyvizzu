@@ -4,48 +4,57 @@ on:
   workflow_call:
 
 jobs:
-
   check_ci:
-
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 1
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
 
-    - name: Cache repo
-      uses: actions/cache@v3
-      with:
-        path: |
-          ./*
-          !.git
-        key: ipyvizzu-${{ github.run_id }}
+      - name: Cache dev-py environment
+        uses: actions/cache@v3
+        with:
+          path: .venv_ipyvizzu
+          key: dev-py-${{ hashFiles('dev-requirements.txt') }}
 
-    - name: Cache coverage
-      uses: actions/cache@v3
-      with:
-        path: ./tests/coverage
-        key: ipyvizzu-coverage-${{ github.run_id }}
+      - name: Init dev-py environment
+        run: |
+          make check-dev-py
+          make dev-py
 
-    - name: Touch dev environment
-      run: make touch-dev
+      - name: Check format
+        run: make check-format
 
-    - name: Touch dev-js environment
-      run: make touch-dev-js
-          
-    - name: Check format
-      run: make check-format
+      - name: Check lint
+        run: make check-lint
 
-    - name: Check lint
-      run: make check-lint
+      - name: Check typing
+        run: make check-typing
 
-    - name: Check typing
-      run: make check-typing
+      - name: Run test
+        run: make test
 
-    - name: Run test
-      run: make test
+      - name: Cache coverage
+        uses: actions/cache@v3
+        with:
+          path: ./tests/coverage
+          key: coverage-${{ github.run_id }}
 
-    - name: Check js
-      run: make check-js
+      - name: Cache dev-js environment
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: dev-js-${{ hashFiles('package-lock.json') }}
+
+      - name: Init dev-js environment
+        run: |
+          make check-dev-js
+          make dev-js
+
+      - name: Check format-js
+        run: make check-format-js
+
+      - name: Check lint-js
+        run: make check-lint-js

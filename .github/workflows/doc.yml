@@ -7,9 +7,7 @@ on:
   workflow_call:
 
 jobs:
-
   create_doc:
-
     if: ${{ !((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
 
     runs-on: ubuntu-latest
@@ -23,25 +21,33 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Cache repo
+      - name: Cache dev-py environment
         uses: actions/cache@v3
         with:
-          path: |
-            ./*
-            !.git
-          key: ipyvizzu-${{ github.run_id }}
+          path: .venv_ipyvizzu
+          key: dev-py-${{ hashFiles('dev-requirements.txt') }}
+
+      - name: Init dev-py environment
+        run: |
+          make check-dev-py
+          make dev-py
+
+      - name: Cache dev-js environment
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: dev-js-${{ hashFiles('package-lock.json') }}
+
+      - name: Init dev-js environment
+        run: |
+          make check-dev-js
+          make dev-js
 
       - name: Cache coverage
         uses: actions/cache@v3
         with:
           path: ./tests/coverage
-          key: ipyvizzu-coverage-${{ github.run_id }}
-
-      - name: Touch dev environment
-        run: make touch-dev
-
-      - name: Touch dev-js environment
-        run: make touch-dev-js
+          key: coverage-${{ github.run_id }}
 
       - name: Get vizzu-lib tag
         id: vizzu_tag
@@ -57,17 +63,10 @@ jobs:
           ref: ${{ steps.vizzu_tag.outputs.vizzu_tag }}
           path: vizzu-lib
 
-      - name: Cache vizzu-lib
-        uses: actions/cache@v3
-        with:
-          path: vizzu-lib
-          key: ipyvizzu-vizzu-lib-${{ github.run_id }}
-
       - name: Build documentation
         run: make doc
 
   publish_doc:
-
     if: ${{ ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
 
     runs-on: ubuntu-latest
@@ -80,6 +79,28 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 1
+
+      - name: Cache dev-py environment
+        uses: actions/cache@v3
+        with:
+          path: .venv_ipyvizzu
+          key: dev-py-${{ hashFiles('dev-requirements.txt') }}
+
+      - name: Init dev-py environment
+        run: |
+          make check-dev-py
+          make dev-py
+
+      - name: Cache dev-js environment
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: dev-js-${{ hashFiles('package-lock.json') }}
+
+      - name: Init dev-js environment
+        run: |
+          make check-dev-js
+          make dev-js
 
       - name: Get workflow ID
         id: workflow_id
@@ -101,31 +122,25 @@ jobs:
           run_id=$(echo $run_data | jq -r '.workflow_runs[0].id')
           echo "run_id=${run_id}" >> $GITHUB_OUTPUT
 
-      - name: Cache repo
-        uses: actions/cache@v3
-        with:
-          path: |
-            ./*
-            !.git
-          key: ipyvizzu-${{ steps.run_id.outputs.run_id }}
-
       - name: Cache coverage
         uses: actions/cache@v3
         with:
           path: ./tests/coverage
-          key: ipyvizzu-coverage-${{ steps.run_id.outputs.run_id }}
+          key: coverage-${{ steps.run_id.outputs.run_id }}
 
-      - name: Cache vizzu-lib
-        uses: actions/cache@v3
+      - name: Get vizzu-lib tag
+        id: vizzu_tag
+        run: |
+          vizzu_tag=$(./.venv_ipyvizzu/bin/python ./tools/release/tag.py)
+          echo "vizzu_tag=${vizzu_tag}" >> $GITHUB_OUTPUT
+
+      - name: Checkout vizzu-lib
+        uses: actions/checkout@v3
         with:
+          repository: vizzuhq/vizzu-lib
+          fetch-depth: 1
+          ref: ${{ steps.vizzu_tag.outputs.vizzu_tag }}
           path: vizzu-lib
-          key: ipyvizzu-vizzu-lib-${{ steps.run_id.outputs.run_id }}
-
-      - name: Touch dev environment
-        run: make touch-dev
-
-      - name: Touch dev-js environment
-        run: make touch-dev-js
 
       - name: Checkout mike
         uses: actions/checkout@v3

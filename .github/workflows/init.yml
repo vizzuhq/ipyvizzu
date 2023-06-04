@@ -4,9 +4,7 @@ on:
   workflow_call:
 
 jobs:
-
   init_dev:
-
     runs-on: ubuntu-latest
 
     env:
@@ -18,16 +16,24 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Cache repo
+      - name: Cache dev-py environment
         uses: actions/cache@v3
         with:
-          path: |
-            ./*
-            !.git
-          key: ipyvizzu-${{ github.run_id }}
+          path: .venv_ipyvizzu
+          key: dev-py-${{ hashFiles('dev-requirements.txt') }}
 
-      - name: Init dev environment
-        run: make dev
+      - name: Init dev-py environment
+        run: |
+          make check-dev-py
+          make dev-py
+
+      - name: Cache dev-js environment
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: dev-js-${{ hashFiles('package-lock.json') }}
 
       - name: Init dev-js environment
-        run: make dev-js
+        run: |
+          make check-dev-js
+          make dev-js
