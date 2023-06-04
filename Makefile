@@ -63,7 +63,7 @@ $(DEV_PY_BUILD_FLAG):
 	$(PYTHON_BIN) -m venv $(VIRTUAL_ENV)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) -m pip install --upgrade pip
 	$(VIRTUAL_ENV)/$(BIN_PATH)/pip install --use-pep517 .
-	$(VIRTUAL_ENV)/$(BIN_PATH)/pip-compile --upgrade dev-requirements.in
+	$(VIRTUAL_ENV)/$(BIN_PATH)/pip install --use-pep517 -r dev-requirements.txt
 	$(VIRTUAL_ENV)/$(BIN_PATH)/ipython kernel install --user --name "$(VIRTUAL_ENV)"
 	$(VIRTUAL_ENV)/$(BIN_PATH)/pre-commit install --hook-type pre-commit --hook-type pre-push
 	$(PYTHON_BIN) tools/make/touch.py -f $(DEV_PY_BUILD_FLAG)
