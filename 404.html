@@ -1,5 +1,18 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<title>Redirecting to 404</title>
-<meta http-equiv="refresh" content="0; URL=/latest/404.html">
-<link rel="canonical" href="/latest/404.html">
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting to 404</title>
+  <meta http-equiv="refresh" content="0; URL=/latest/404.html">
+  <link rel="canonical" href="/latest/404.html">
+  <script defer data-domain="ipyvizzu.vizzuhq.com" src="https://plausible.io/js/script.outbound-links.js"></script>
+  <script>
+    window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) };
+  </script>
+</head>
+<body>
+  <script>
+    plausible("404", { props: { path: document.location.pathname } });
+  </script>
+</body>
+</html>
