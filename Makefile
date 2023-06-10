@@ -38,10 +38,11 @@ clean-dev-js:
 	$(PYTHON_BIN) -c "import os, shutil;shutil.rmtree('node_modules') if os.path.exists('node_modules') else print('Nothing to be done for \'clean-dev-js\'')"
 
 update-dev-py-req: $(DEV_PY_BUILD_FLAG)
-	$(VIRTUAL_ENV)/$(BIN_PATH)/pip-compile --upgrade dev-requirements.in
+	$(VIRTUAL_ENV)/$(BIN_PATH)/pip-compile --upgrade dev-requirements.in --resolver=backtracking
 
 install-dev-py-req: $(DEV_PY_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/pip install -r dev-requirements.txt
+	$(VIRTUAL_ENV)/$(BIN_PATH)/pip install --use-pep517 git+https://github.com/jimporter/mike.git
 
 install-kernel: $(DEV_PY_BUILD_FLAG)
 	$(VIRTUAL_ENV)/$(BIN_PATH)/ipython kernel install --user --name "$(VIRTUAL_ENV)"
@@ -64,6 +65,7 @@ $(DEV_PY_BUILD_FLAG):
 	$(VIRTUAL_ENV)/$(BIN_PATH)/$(PYTHON_BIN) -m pip install --upgrade pip
 	$(VIRTUAL_ENV)/$(BIN_PATH)/pip install --use-pep517 .
 	$(VIRTUAL_ENV)/$(BIN_PATH)/pip install --use-pep517 -r dev-requirements.txt
+	$(VIRTUAL_ENV)/$(BIN_PATH)/pip install --use-pep517 git+https://github.com/jimporter/mike.git
 	$(VIRTUAL_ENV)/$(BIN_PATH)/ipython kernel install --user --name "$(VIRTUAL_ENV)"
 	$(VIRTUAL_ENV)/$(BIN_PATH)/pre-commit install --hook-type pre-commit --hook-type pre-push
 	$(PYTHON_BIN) tools/make/touch.py -f $(DEV_PY_BUILD_FLAG)

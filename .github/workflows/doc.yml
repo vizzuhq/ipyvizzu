@@ -142,16 +142,6 @@ jobs:
           ref: ${{ steps.vizzu_tag.outputs.vizzu_tag }}
           path: vizzu-lib
 
-      - name: Checkout mike
-        uses: actions/checkout@v3
-        with:
-          repository: jimporter/mike
-          fetch-depth: 1
-          path: mike
-
-      - name: Install mike
-        run: ./.venv_ipyvizzu/bin/pip install mike/
-
       - name: Configure Git
         run: |
           git config --global user.name "${{ env.GIT_USER_NAME }}"

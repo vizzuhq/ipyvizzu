@@ -63,42 +63,12 @@ class Deploy:
             content = fh_readme.read()
 
         if not restore:
-            content = content.replace("  #  - mike:", "  - mike:")
-            content = content.replace(
-                "  #      version_selector: true", "      version_selector: true"
-            )
-            content = content.replace(
-                "  #      alias_type: symlink", "      alias_type: symlink"
-            )
-            content = content.replace(
-                "  #      canonical_version: latest", "      canonical_version: latest"
-            )
-            content = content.replace(
-                "  #      redirect_template: ./tools/mkdocs/overrides/mike/redirect.html",
-                "      redirect_template: ./tools/mkdocs/overrides/mike/redirect.html",
-            )
-
             if not Deploy.latest:
                 content = content.replace(
                     "- content.action.edit",
                     "# - content.action.edit",
                 )
         else:
-            content = content.replace("  - mike:", "  #  - mike:")
-            content = content.replace(
-                "      version_selector: true", "  #      version_selector: true"
-            )
-            content = content.replace(
-                "      alias_type: symlink", "  #      alias_type: symlink"
-            )
-            content = content.replace(
-                "      canonical_version: latest", "  #      canonical_version: latest"
-            )
-            content = content.replace(
-                "      redirect_template: ./tools/mkdocs/overrides/mike/redirect.html",
-                "  #      redirect_template: ./tools/mkdocs/overrides/mike/redirect.html",
-            )
-
             if not Deploy.latest:
                 content = content.replace(
                     "# - content.action.edit",

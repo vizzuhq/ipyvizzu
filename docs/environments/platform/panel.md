@@ -5,24 +5,24 @@
 The features of `ipyvizzu` that are available in `Panel` are marked with a green
 check.
 
-- [x] Change the url of `Vizzu` (`vizzu`)
-- [x] Change the width of the `Chart` (`width`)
-- [x] Change the height of the `Chart` (`height`)
-- [x] Use scroll into view (`scroll_into_view`=`True`)
+- [x]  Change the url of `Vizzu` (`vizzu`)
+- [x]  Change the width of the `Chart` (`width`)
+- [x]  Change the height of the `Chart` (`height`)
+- [x]  Use scroll into view (`scroll_into_view`=`True`)
 
 Display features:
 
-- [x] Display all animations after `_repr_html_` method called
+- [x]  Display all animations after `_repr_html_` method called
   (`display`=`DisplayTarget.MANUAL`)
-- [ ] Display all animations after `show` method called
+- [ ]  Display all animations after `show` method called
   (`display`=`DisplayTarget.MANUAL`)
-- [ ] Automatically display all animations after the first cell
+- [ ]  Automatically display all animations after the first cell
   (`display`=`DisplayTarget.BEGIN`)
-- [ ] Automatically display all animations after the currently running cell
+- [ ]  Automatically display all animations after the currently running cell
   (`display`=`DisplayTarget.ACTUAL`)
-- [ ] Automatically display all animations after the last running cell
+- [ ]  Automatically display all animations after the last running cell
   (`display`=`DisplayTarget.END`)
-- [ ] Rerun any cell without rerun the first cell
+- [ ]  Rerun any cell without rerun the first cell
   (`display`!=`DisplayTarget.MANUAL`)
 
 Check [Chart settings chapter](../../tutorial/chart_settings.md) for more
