@@ -31,6 +31,7 @@ jobs:
         run: |
           make check-dev-py
           make dev-py
+          make install
 
       - name: Cache dev-js environment
         uses: actions/cache@v3
@@ -90,6 +91,7 @@ jobs:
         run: |
           make check-dev-py
           make dev-py
+          make install
 
       - name: Cache dev-js environment
         uses: actions/cache@v3

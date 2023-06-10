@@ -27,6 +27,7 @@ jobs:
         run: |
           make check-dev-py
           make dev-py
+          make install
 
       - name: Build package
         run: make release-wo-restore
@@ -58,6 +59,7 @@ jobs:
         run: |
           make check-dev-py
           make dev-py
+          make install
 
       - name: Get workflow ID
         id: workflow_id
