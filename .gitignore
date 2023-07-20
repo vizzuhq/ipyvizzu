@@ -12,7 +12,8 @@ tests/coverage
 
 vizzu-lib
 
-.venv_ipyvizzu
+.venv
+.pdm-python
 
 site
 .chromium

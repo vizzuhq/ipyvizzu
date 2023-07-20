@@ -1,0 +1,114 @@
+[project]
+name = "ipyvizzu"
+version = "0.15.0"
+description = "Build animated charts in Jupyter Notebook and similar environments with a simple Python syntax."
+authors = [
+    {name = "Vizzu Inc.", email = "hello@vizzuhq.com"},
+]
+readme = "README.md"
+requires-python = ">=3.6"
+dependencies = [
+    "IPython",
+    "jsonschema",
+    "pandas",
+]
+license = {text = "Apache-2.0"}
+classifiers = [
+    "Environment :: Console",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+]
+keywords = [
+    "python",
+    "chart",
+    "charts",
+    "dataviz",
+    "jupyter",
+    "animation",
+    "ipython",
+    "graphs",
+    "storytelling",
+    "jupyter-notebook",
+    "data-visualization",
+    "graphing",
+    "plotting",
+    "charting",
+    "vizzu"
+]
+
+[project.optional-dependencies]
+fugue = [
+    "fugue >= 0.8.1 ; python_version >= '3.7'",
+]
+
+[project.urls]
+Homepage = "https://ipyvizzu.vizzuhq.com"
+Documentation = "https://ipyvizzu.vizzuhq.com"
+Source = "https://github.com/vizzuhq/ipyvizzu"
+Tracker = "https://github.com/vizzuhq/ipyvizzu/issues"
+
+[tool.pdm.scripts]
+init = "pdm install"
+
+format = "black"
+formatted = "black --check"
+lint = "pylint src tests"
+typing = "mypy src tests"
+ci = {composite = ["formatted src tests", "lint src tests", "typing src tests"]}
+
+[tool.pdm.dev-dependencies]
+packagetool = [
+    "pdm ; python_version >= '3.10'",
+]
+packagedeps = [
+    "IPython ; python_version >= '3.10'",
+    "jsonschema ; python_version >= '3.10'",
+    "pandas ; python_version >= '3.10'",
+    "fugue >= 0.8.1 ; python_version >= '3.10'",
+]
+codequality = [
+    "black ; python_version >= '3.10'",
+    "pylint ; python_version >= '3.10'",
+    "mypy ; python_version >= '3.10'",
+]
+test = [
+    "coverage ; python_version >= '3.10'",
+    "openpyxl ; python_version >= '3.10'",
+    "notebook ; python_version >= '3.10'",
+]
+docs = [
+    "mdformat ; python_version >= '3.10'",
+    "mdformat-beautysh ; python_version >= '3.10'",
+    "mdformat-black ; python_version >= '3.10'",
+    "mdformat-configurable-black ; python_version >= '3.10'",
+    "mdformat-config ; python_version >= '3.10'",
+    "mdformat-web ; python_version >= '3.10'",
+    "mdformat-admon ; python_version >= '3.10'",
+    "mdformat-gfm ; python_version >= '3.10'",
+    "mdformat-tables ; python_version >= '3.10'",
+    "mdformat-footnote ; python_version >= '3.10'",
+    "mdformat-frontmatter ; python_version >= '3.10'",
+    "mdx_truly_sane_lists ; python_version >= '3.10'",
+    "markdown ; python_version >= '3.10'",
+    "types-Markdown ; python_version >= '3.10'",
+    "pyyaml ; python_version >= '3.10'",
+    "types-pyyaml ; python_version >= '3.10'",
+    "requests ; python_version >= '3.10'",
+    "types-requests ; python_version >= '3.10'",
+    "mkdocs ; python_version >= '3.10'",
+    "mkdocs-material ; python_version >= '3.10'",
+    "mkdocs-section-index ; python_version >= '3.10'",
+    "mkdocs-literate-nav ; python_version >= '3.10'",
+    "mkdocs-autorefs ; python_version >= '3.10'",
+    "mkdocstrings[python] ; python_version >= '3.10'",
+    "mkdocs-gen-files ; python_version >= '3.10'",
+    "mkdocs-coverage ; python_version >= '3.10'",
+]
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm.package-dir]
+ipyvizzu = "src/ipyvizzu"
