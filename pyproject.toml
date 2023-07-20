@@ -49,13 +49,21 @@ Source = "https://github.com/vizzuhq/ipyvizzu"
 Tracker = "https://github.com/vizzuhq/ipyvizzu/issues"
 
 [tool.pdm.scripts]
-init = "pdm install"
+init-py = "pdm install"
+init-js = "npm install"
+init-package = "pip install ."
+
+init = {composite = ["init-py", "init-package"]}
+init-docs = {composite = ["init-py", "init-package", "init-js"]}
 
 format = "black"
 formatted = "black --check"
-lint = "pylint src tests"
-typing = "mypy src tests"
+lint = "pylint"
+typing = "mypy"
 ci = {composite = ["formatted src tests", "lint src tests", "typing src tests"]}
+
+ci-docs = {composite = ["formatted tools", "lint tools", "typing tools"]}
+docs = "mkdocs build -f ./tools/mkdocs/mkdocs.yml"
 
 [tool.pdm.dev-dependencies]
 packagetool = [
@@ -73,6 +81,7 @@ codequality = [
     "mypy ; python_version >= '3.10'",
 ]
 test = [
+    "tox ; python_version >= '3.10'",
     "coverage ; python_version >= '3.10'",
     "openpyxl ; python_version >= '3.10'",
     "notebook ; python_version >= '3.10'",
@@ -104,6 +113,7 @@ docs = [
     "mkdocstrings[python] ; python_version >= '3.10'",
     "mkdocs-gen-files ; python_version >= '3.10'",
     "mkdocs-coverage ; python_version >= '3.10'",
+    "mike @ git+https://github.com/jimporter/mike.git@master",
 ]
 
 [build-system]
