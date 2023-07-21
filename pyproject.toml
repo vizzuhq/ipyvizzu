@@ -79,11 +79,14 @@ codequality = [
     "black ; python_version >= '3.10'",
     "pylint ; python_version >= '3.10'",
     "mypy ; python_version >= '3.10'",
+    "tox ; python_version >= '3.10'",
+    "tox-pdm ; python_version >= '3.10'",
 ]
 test = [
-    "tox ; python_version >= '3.10'",
     "coverage ; python_version >= '3.10'",
     "openpyxl ; python_version >= '3.10'",
+]
+env = [
     "notebook ; python_version >= '3.10'",
 ]
 docs = [

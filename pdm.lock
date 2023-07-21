@@ -2,11 +2,11 @@
 # It is not intended for manual editing.
 
 [metadata]
-groups = ["codequality", "docs", "packagedeps", "packagetool", "test"]
+groups = ["codequality", "docs", "env", "packagedeps", "packagetool", "test"]
 cross_platform = true
 static_urls = false
 lock_version = "4.3"
-content_hash = "sha256:9d7335912863185b11ed3d34d436a36454a43543607dd9a050ac818607aaebda"
+content_hash = "sha256:a8d61310ccb0c73f7cc7f2dfc0e0580e09deb479a98050c5208ad4c186f30840"
 
 [[package]]
 name = "adagio"
@@ -3041,11 +3041,11 @@ files = [
 
 [[package]]
 name = "sqlglot"
-version = "17.6.0"
+version = "17.6.1"
 summary = "An easily customizable SQL parser and transpiler"
 files = [
-    {file = "sqlglot-17.6.0-py3-none-any.whl", hash = "sha256:0d4a88c69576f53d8cb47bfc42b9e25bd935cb797308c3b40e41ee5bbd494dd8"},
-    {file = "sqlglot-17.6.0.tar.gz", hash = "sha256:b03189744635013d4a8f673c7558edb6c480221cd1a47b8d7d00a10ed0c5713a"},
+    {file = "sqlglot-17.6.1-py3-none-any.whl", hash = "sha256:afbfe58e3b92f86e6313f18a94b4cf8152048a8393008adbe83a38685eddd744"},
+    {file = "sqlglot-17.6.1.tar.gz", hash = "sha256:ed2b974021cb39098efbfc8dbc9fb9fe0a4b770cb3d472da58566b2070198ae5"},
 ]
 
 [[package]]
@@ -3162,6 +3162,20 @@ files = [
 ]
 
 [[package]]
+name = "tox-pdm"
+version = "0.6.1"
+requires_python = ">=3.7"
+summary = "A plugin for tox that utilizes PDM as the package manager and installer"
+dependencies = [
+    "tomli; python_version < \"3.11\"",
+    "tox>=3.18.0",
+]
+files = [
+    {file = "tox-pdm-0.6.1.tar.gz", hash = "sha256:952ea67f2ec891f11eb00749f63fc0f980384435ca782c448d154390f9f42f5e"},
+    {file = "tox_pdm-0.6.1-py3-none-any.whl", hash = "sha256:9e3cf83b7b55c3e33aaee0e65cf341739581ff4604a4178f0ef7dbab73a0bb35"},
+]
+
+[[package]]
 name = "traitlets"
 version = "5.9.0"
 requires_python = ">=3.7"
@@ -3191,41 +3205,41 @@ files = [
 
 [[package]]
 name = "types-colorama"
-version = "0.4.15.11"
+version = "0.4.15.12"
 summary = "Typing stubs for colorama"
 files = [
-    {file = "types-colorama-0.4.15.11.tar.gz", hash = "sha256:a9421eb24d9cfc584880dc1d33b7fd406a14227c1f99f50c5ab9265e04d07638"},
-    {file = "types_colorama-0.4.15.11-py3-none-any.whl", hash = "sha256:d1e37571a19e152c930b3e789c316e9332e51a43bfcd4470b98225be974fb90c"},
+    {file = "types-colorama-0.4.15.12.tar.gz", hash = "sha256:fbdfc5d9d24d85c33bd054fbe33adc6cec44eedb19cfbbabfbbb57dc257ae4b8"},
+    {file = "types_colorama-0.4.15.12-py3-none-any.whl", hash = "sha256:23c9d4a00961227f7ef018d5a1c190c4bbc282119c3ee76a17677a793f13bb82"},
 ]
 
 [[package]]
 name = "types-markdown"
-version = "3.4.2.9"
+version = "3.4.2.10"
 summary = "Typing stubs for Markdown"
 files = [
-    {file = "types-Markdown-3.4.2.9.tar.gz", hash = "sha256:0930057bea0a534e06bbc021d57520720ad2a65b363612614ab0599cc7f606a9"},
-    {file = "types_Markdown-3.4.2.9-py3-none-any.whl", hash = "sha256:c23a8a4dd9313539a446ba3dc673a6a920d79580c406de10a5c85a16733890a7"},
+    {file = "types-Markdown-3.4.2.10.tar.gz", hash = "sha256:11e3558d50e3bc1e3f52f3fe073788f4ab917a829374fb354476221c700629e8"},
+    {file = "types_Markdown-3.4.2.10-py3-none-any.whl", hash = "sha256:543ff3027fda21c3149780bf835a721cd094c5729e9a87725f180569c960bff8"},
 ]
 
 [[package]]
 name = "types-pyyaml"
-version = "6.0.12.10"
+version = "6.0.12.11"
 summary = "Typing stubs for PyYAML"
 files = [
-    {file = "types-PyYAML-6.0.12.10.tar.gz", hash = "sha256:ebab3d0700b946553724ae6ca636ea932c1b0868701d4af121630e78d695fc97"},
-    {file = "types_PyYAML-6.0.12.10-py3-none-any.whl", hash = "sha256:662fa444963eff9b68120d70cda1af5a5f2aa57900003c2006d7626450eaae5f"},
+    {file = "types-PyYAML-6.0.12.11.tar.gz", hash = "sha256:7d340b19ca28cddfdba438ee638cd4084bde213e501a3978738543e27094775b"},
+    {file = "types_PyYAML-6.0.12.11-py3-none-any.whl", hash = "sha256:a461508f3096d1d5810ec5ab95d7eeecb651f3a15b71959999988942063bf01d"},
 ]
 
 [[package]]
 name = "types-requests"
-version = "2.31.0.1"
+version = "2.31.0.2"
 summary = "Typing stubs for requests"
 dependencies = [
     "types-urllib3",
 ]
 files = [
-    {file = "types-requests-2.31.0.1.tar.gz", hash = "sha256:3de667cffa123ce698591de0ad7db034a5317457a596eb0b4944e5a9d9e8d1ac"},
-    {file = "types_requests-2.31.0.1-py3-none-any.whl", hash = "sha256:afb06ef8f25ba83d59a1d424bd7a5a939082f94b94e90ab5e6116bd2559deaa3"},
+    {file = "types-requests-2.31.0.2.tar.gz", hash = "sha256:6aa3f7faf0ea52d728bb18c0a0d1522d9bfd8c72d26ff6f61bfc3d06a411cf40"},
+    {file = "types_requests-2.31.0.2-py3-none-any.whl", hash = "sha256:56d181c85b5925cbc59f4489a57e72a8b2166f18273fd8ba7b6fe0c0b986f12a"},
 ]
 
 [[package]]
@@ -3239,11 +3253,11 @@ files = [
 
 [[package]]
 name = "types-urllib3"
-version = "1.26.25.13"
+version = "1.26.25.14"
 summary = "Typing stubs for urllib3"
 files = [
-    {file = "types-urllib3-1.26.25.13.tar.gz", hash = "sha256:3300538c9dc11dad32eae4827ac313f5d986b8b21494801f1bf97a1ac6c03ae5"},
-    {file = "types_urllib3-1.26.25.13-py3-none-any.whl", hash = "sha256:5dbd1d2bef14efee43f5318b5d36d805a489f6600252bb53626d4bfafd95e27c"},
+    {file = "types-urllib3-1.26.25.14.tar.gz", hash = "sha256:229b7f577c951b8c1b92c1bc2b2fdb0b49847bd2af6d1cc2a2e3dd340f3bda8f"},
+    {file = "types_urllib3-1.26.25.14-py3-none-any.whl", hash = "sha256:9683bbb7fb72e32bfe9d2be6e04875fbe1b3eeec3cbb4ea231435aa7fd6b4f0e"},
 ]
 
 [[package]]
