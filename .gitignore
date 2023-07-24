@@ -7,13 +7,11 @@ build
 dist
 *.egg-info
 
-tests/coverage
-.test.*
-
 vizzu-lib
 
 .venv
 .pdm-python
+.tox
 
 site
 .chromium

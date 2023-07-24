@@ -1,17 +1,25 @@
 """A module for testing the ipyvizzu.integrations.fugue module."""
 
+import sys
 import io
 from contextlib import redirect_stdout
 import pathlib
-import fugue.api as fa  # type: ignore
 import pandas as pd  # type: ignore
 import unittest
 
-# register the extension, not needed in practical use
-import ipyvizzu.integrations.fugue  # pylint: disable-all
 from tests.normalizer import Normalizer
 
 
+# TODO: remove once support for Python 3.6 is dropped
+if sys.version_info >= (3, 7):
+    import fugue.api as fa  # type: ignore
+
+    # register the extension, not needed in practical use
+    import ipyvizzu.integrations.fugue  # pylint: disable-all
+
+
+# TODO: remove once support for Python 3.6 is dropped
+@unittest.skipUnless(sys.version_info >= (3, 7), "requires Python 3.7")
 class TestFugue(unittest.TestCase):
     """
     A class for testing Fugue integration.
