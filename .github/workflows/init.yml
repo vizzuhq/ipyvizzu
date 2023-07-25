@@ -17,23 +17,29 @@ jobs:
           fetch-depth: 1
 
       - name: Cache dev-py environment
+        id: cache_dev_py
         uses: actions/cache@v3
         with:
-          path: .venv_ipyvizzu
-          key: dev-py-${{ hashFiles('dev-requirements.txt') }}
+          path: .venv
+          key: dev-py-${{ hashFiles('pdm.lock') }}
 
       - name: Init dev-py environment
+        if: steps.cache_dev_py.outputs.cache-hit != 'true'
         run: |
-          make check-dev-py
-          make dev-py
+          python3.10 -m venv ".venv"
+          source .venv/bin/activate
+          pip install pdm
+          pdm init_py
 
       - name: Cache dev-js environment
+        id: cache_dev_js
         uses: actions/cache@v3
         with:
           path: node_modules
           key: dev-js-${{ hashFiles('package-lock.json') }}
 
       - name: Init dev-js environment
+        if: steps.cache_dev_js.outputs.cache-hit != 'true'
         run: |
-          make check-dev-js
-          make dev-js
+          source .venv/bin/activate
+          pdm init_js
