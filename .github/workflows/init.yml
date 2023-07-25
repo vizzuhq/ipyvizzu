@@ -60,7 +60,7 @@ jobs:
           path: .venv
           key: dev-py-depr-${{ hashFiles('pdm.lock') }}
 
-      - name: Set up Python
+      - name: Set up Python 3.10
         if: steps.cache_dev_py_depr.outputs.cache-hit != 'true'
         uses: actions/setup-python@v4
         with:
