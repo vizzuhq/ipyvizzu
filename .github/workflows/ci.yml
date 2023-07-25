@@ -182,12 +182,12 @@ jobs:
           path: .venv
           key: dev-py-depr-${{ hashFiles('pdm.lock') }}
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: |
-            ${{ matrix.python-version }}
             "3.10"
+            ${{ matrix.python-version }}
 
       - name: Test
         run: |
