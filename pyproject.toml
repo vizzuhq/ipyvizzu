@@ -124,6 +124,7 @@ ci = {composite = ["ci_src", "ci_docs", "ci_tools"]}
 
 
 docs_build = "mkdocs build -f ./tools/docs/mkdocs.yml"
+docs_deploy = {composite = ["init_pkg", "python ./tools/docs/deploy.py"]}
 
 [tool.tox]
 legacy_tox_ini = """
