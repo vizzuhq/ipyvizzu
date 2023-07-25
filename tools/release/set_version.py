@@ -6,7 +6,7 @@ import sys
 
 
 REPO_PATH = Path(__file__).parent / ".." / ".."
-MKDOCS_PATH = REPO_PATH / "tools" / "mkdocs"
+MKDOCS_PATH = REPO_PATH / "tools" / "docs"
 
 
 sys.path.insert(0, str(MKDOCS_PATH / "modules"))

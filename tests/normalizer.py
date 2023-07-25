@@ -1,4 +1,4 @@
-"""A module for postprocessing mocked test outputs."""
+# pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
 import re
 from typing import Optional
@@ -6,30 +6,12 @@ from unittest.mock import MagicMock
 
 
 class Normalizer:
-    """A class for normalizing mocked test outputs."""
-
     def __init__(self):
-        """
-        Normalizer constructor.
-
-        It compiles regex expressions.
-        """
-
         self.id1_pattern = re.compile(r"'[a-f0-9]{7}'", flags=re.MULTILINE)
         self.id2_pattern = re.compile(r"\\'[a-f0-9]{7}\\'", flags=re.MULTILINE)
         self.id3_pattern = re.compile(r"\"[a-f0-9]{7}\"", flags=re.MULTILINE)
 
     def normalize_id(self, output: str) -> str:
-        """
-        A method for replacing uuids with the `id` strings.
-
-        Args:
-            output: The original output.
-
-        Returns:
-            The normalized output.
-        """
-
         normalized_output = output
         normalized_output = self.id1_pattern.sub("id", normalized_output)
         normalized_output = self.id2_pattern.sub("id", normalized_output)
@@ -39,17 +21,6 @@ class Normalizer:
     def normalize_output(
         self, output: MagicMock, start_index: int = 0, end_index: Optional[int] = None
     ) -> str:
-        """
-        A method for merging and normalizing mocked test outputs.
-
-        Args:
-            output: The original output object.
-            start_index: The start index of merging.
-
-        Returns:
-            The merged and normalized output.
-        """
-
         output_items = []
         if not end_index:
             end_index = len(output.call_args_list)

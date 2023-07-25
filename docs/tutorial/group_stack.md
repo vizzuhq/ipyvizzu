@@ -18,11 +18,11 @@ we also add the same dimension to the color channel.
     import pandas as pd
     from ipyvizzu import Chart, Data, Config
 
-    data_frame = pd.read_csv(
+    df = pd.read_csv(
         "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
     )
     data = Data()
-    data.add_data_frame(data_frame)
+    data.add_data_frame(df)
 
     chart = Chart()
 

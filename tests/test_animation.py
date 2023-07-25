@@ -1,5 +1,4 @@
-"""A module for testing the ipyvizzu.animation module."""
-
+# pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
 import json
 import pathlib
@@ -20,59 +19,26 @@ from tests import (
 
 
 class TestPlainAnimation(unittest.TestCase):
-    """A class for testing PlainAnimation class."""
-
     def test_plainanimation(self) -> None:
-        """A method for testing PlainAnimation.build."""
-
         animation = PlainAnimation(geometry="circle")
         self.assertEqual({"geometry": "circle"}, animation.build())
 
 
 class TestDataSchema(unittest.TestCase):
-    """
-    A class for testing Data class.
-    It tests the data schema validation.
-    """
-
     def setUp(self) -> None:
         self.data = Data()
 
     def test_schema_dimension_only(self) -> None:
-        """
-        A method for testing Data.build method.
-        It raises an error if added dimension without measure.
-
-        Raises:
-            AssertionError: If jsonschema.ValidationError is not occurred.
-        """
-
         self.data.add_dimension("Genres", ["Pop", "Rock"])
         with self.assertRaises(jsonschema.ValidationError):
             self.data.build()
 
     def test_schema_measure_only(self) -> None:
-        """
-        A method for testing Data.build method.
-        It raises an error if added measure without dimension.
-
-        Raises:
-            AssertionError: If jsonschema.ValidationError is not occurred.
-        """
-
         self.data.add_measure("Popularity", [[114, 96]])
         with self.assertRaises(jsonschema.ValidationError):
             self.data.build()
 
     def test_schema_data_cube_and_series(self) -> None:
-        """
-        A method for testing Data.build method.
-        It raises an error if added both dimension/measure and series.
-
-        Raises:
-            AssertionError: If jsonschema.ValidationError is not occurred.
-        """
-
         self.data.add_dimension("Genres", ["Pop", "Rock"])
         self.data.add_measure("Popularity", [[114, 96]])
         self.data.add_series("Kinds", ["Hard"])
@@ -80,14 +46,6 @@ class TestDataSchema(unittest.TestCase):
             self.data.build()
 
     def test_schema_data_cube_and_records(self) -> None:
-        """
-        A method for testing Data.build method.
-        It raises an error if added both dimension/measure and records.
-
-        Raises:
-            AssertionError: If jsonschema.ValidationError is not occurred.
-        """
-
         self.data.add_dimension("Genres", ["Pop", "Rock"])
         self.data.add_measure("Popularity", [[114, 96]])
         self.data.add_records([["Rock", "Hard", 96], ["Pop", "Hard", 114]])
@@ -96,10 +54,6 @@ class TestDataSchema(unittest.TestCase):
 
 
 class TestDataClassmethods(unittest.TestCase):
-    """
-    A class for testing Data class.
-    It tests the classmethods.
-    """
 
     asset_dir: pathlib.Path
 
@@ -108,13 +62,6 @@ class TestDataClassmethods(unittest.TestCase):
         cls.asset_dir = pathlib.Path(__file__).parent / "assets"
 
     def test_filter(self) -> None:
-        """
-        A method for testing Data.filter method with string.
-
-        Raises:
-            AssertionError: If the dumped value is not correct.
-        """
-
         data = Data.filter("filter_expr")
         # instead of build() test with dump() because contains raw js
         self.assertEqual(
@@ -123,13 +70,6 @@ class TestDataClassmethods(unittest.TestCase):
         )
 
     def test_filter_multiline(self) -> None:
-        """
-        A method for testing Data.filter method with multi-line string.
-
-        Raises:
-            AssertionError: If the dumped value is not correct.
-        """
-
         filter_expr = """
         A && 
             B ||
@@ -143,13 +83,6 @@ class TestDataClassmethods(unittest.TestCase):
         )
 
     def test_filter_can_be_none(self) -> None:
-        """
-        A method for testing Data.filter method with None.
-
-        Raises:
-            AssertionError: If the dumped value is not correct.
-        """
-
         data = Data.filter(None)
         # instead of build() test with dump() because contains raw js
         self.assertEqual(
@@ -158,13 +91,6 @@ class TestDataClassmethods(unittest.TestCase):
         )
 
     def test_from_json(self) -> None:
-        """
-        A method for testing Data.from_json method.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         data = Data.from_json(self.asset_dir / "data_from_json.json")
         self.assertEqual(
             {
@@ -181,10 +107,6 @@ class TestDataClassmethods(unittest.TestCase):
 
 
 class TestData(unittest.TestCase):
-    """
-    A class for testing Data class.
-    It tests the instance methods.
-    """
 
     asset_dir: pathlib.Path
 
@@ -196,13 +118,6 @@ class TestData(unittest.TestCase):
         self.data = Data()
 
     def test_set_filter(self) -> None:
-        """
-        A method for testing Data.set_filter method with string.
-
-        Raises:
-            AssertionError: If the dumped value is not correct.
-        """
-
         self.data.add_records([["Rock", "Hard", 96], ["Pop", "Hard", 114]])
         self.data.set_filter("filter_expr")
         self.assertEqual(
@@ -213,13 +128,6 @@ class TestData(unittest.TestCase):
         )
 
     def test_set_filter_can_be_none(self) -> None:
-        """
-        A method for testing Data.set_filter method with None.
-
-        Raises:
-            AssertionError: If the dumped value is not correct.
-        """
-
         self.data.add_records([["Rock", "Hard", 96], ["Pop", "Hard", 114]])
         self.data.set_filter(None)
         self.assertEqual(
@@ -228,13 +136,6 @@ class TestData(unittest.TestCase):
         )
 
     def test_record(self) -> None:
-        """
-        A method for testing Data.add_record method.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         self.data.add_record(["Rock", "Hard", 96])
         self.data.add_record(["Pop", "Hard", 114])
         self.assertEqual(
@@ -243,13 +144,6 @@ class TestData(unittest.TestCase):
         )
 
     def test_records(self) -> None:
-        """
-        A method for testing Data.add_records method.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         self.data.add_records([["Rock", "Hard", 96], ["Pop", "Hard", 114]])
         self.assertEqual(
             {"data": {"records": [["Rock", "Hard", 96], ["Pop", "Hard", 114]]}},
@@ -257,13 +151,6 @@ class TestData(unittest.TestCase):
         )
 
     def test_series(self) -> None:
-        """
-        A method for testing Data.add_series method with values.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         self.data.add_series("Genres", ["Rock", "Pop"], type="dimension")
         self.data.add_series("Kinds", ["Hard"])
         self.data.add_series("Popularity", [96, 114], type="measure")
@@ -285,13 +172,6 @@ class TestData(unittest.TestCase):
         )
 
     def test_series_without_values(self) -> None:
-        """
-        A method for testing Data.add_series method without values.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         self.data.add_series("Genres", type="dimension")
         self.data.add_series("Kinds", type="dimension")
         self.data.add_series("Popularity", type="measure")
@@ -312,13 +192,6 @@ class TestData(unittest.TestCase):
         )
 
     def test_data_cube(self) -> None:
-        """
-        A method for testing Data.add_dimension and Data.add_measure methods.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         self.data.add_dimension("Genres", ["Pop", "Rock"])
         self.data.add_dimension("Kinds", ["Hard"])
         self.data.add_measure("Popularity", [[114, 96]])
@@ -341,27 +214,11 @@ class TestData(unittest.TestCase):
         )
 
     def test_data_frame_with_not_df(self) -> None:
-        """
-        A method for testing Data.add_data_frame method.
-        It raises an error if has been called with not valid dataframe.
-
-        Raises:
-            AssertionError: If TypeError is not occurred.
-        """
-
         data = Data()
         with self.assertRaises(TypeError):
             data.add_data_frame("")
 
     def test_data_frame_with_none(self) -> None:
-        """
-        A method for testing Data.add_data_frame method.
-        It tests with None.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         data = Data()
         data.add_data_frame(None)
         self.assertEqual(
@@ -370,40 +227,24 @@ class TestData(unittest.TestCase):
         )
 
     def test_data_frame(self) -> None:
-        """
-        A method for testing Data.add_data_frame method.
-        It tests with dataframe.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
-        with open(self.asset_dir / "data_frame_in.json", encoding="UTF-8") as fh_in:
+        with open(self.asset_dir / "data_frame_in.json", encoding="utf8") as fh_in:
             fc_in = json.load(fh_in)
-        with open(self.asset_dir / "data_frame_out.json", encoding="UTF-8") as fh_out:
+        with open(self.asset_dir / "data_frame_out.json", encoding="utf8") as fh_out:
             fc_out = json.load(fh_out)
 
-        data_frame = pd.DataFrame(fc_in)
-        data_frame = data_frame.astype({"PopularityAsDimension": str})
-        self.data.add_data_frame(data_frame)
+        df = pd.DataFrame(fc_in)
+        df = df.astype({"PopularityAsDimension": str})
+        self.data.add_data_frame(df)
         self.assertEqual(
             fc_out,
             self.data.build(),
         )
 
     def test_data_frame_na(self) -> None:
-        """
-        A method for testing Data.add_data_frame method.
-        It tests with dataframe that contains na values.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
-        data_frame = pd.read_csv(
+        df = pd.read_csv(
             self.asset_dir / "data_frame_na.csv", dtype={"PopularityAsDimension": str}
         )
-        self.data.add_data_frame(data_frame)
+        self.data.add_data_frame(df)
         self.assertEqual(
             {
                 "data": {
@@ -425,14 +266,6 @@ class TestData(unittest.TestCase):
         )
 
     def test_data_frame_with_pd_series(self) -> None:
-        """
-        A method for testing Data.add_data_frame method.
-        It tests with pd.Series.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         data = Data()
         data.add_data_frame(pd.Series([1, 2], name="series1"))
         data.add_data_frame(
@@ -451,27 +284,11 @@ class TestData(unittest.TestCase):
         )
 
     def test_data_frame_index_with_not_df(self) -> None:
-        """
-        A method for testing Data.add_data_frame_index method.
-        It raises an error if has been called with not valid dataframe.
-
-        Raises:
-            AssertionError: If TypeError is not occurred.
-        """
-
         data = Data()
         with self.assertRaises(TypeError):
             data.add_data_frame_index(data_frame="", name="")
 
     def test_data_frame_index_with_none_and_none(self) -> None:
-        """
-        A method for testing Data.add_data_frame_index method.
-        It tests with (None, None).
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         data = Data()
         data.add_data_frame_index(data_frame=None, name=None)
         self.assertEqual(
@@ -480,20 +297,12 @@ class TestData(unittest.TestCase):
         )
 
     def test_data_frame_index_with_df_and_none(self) -> None:
-        """
-        A method for testing Data.add_data_frame_index method.
-        It tests with (dataframe, None).
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         data = Data()
-        data_frame = pd.DataFrame(
+        df = pd.DataFrame(
             pd.Series({"x": 1, "y": 2, "z": 3}, index=["x", "y"], name="series")
         )
-        data.add_data_frame_index(data_frame=data_frame, name=None)
-        data.add_data_frame(data_frame)
+        data.add_data_frame_index(data_frame=df, name=None)
+        data.add_data_frame(df)
         self.assertEqual(
             {
                 "data": {
@@ -507,18 +316,10 @@ class TestData(unittest.TestCase):
         )
 
     def test_data_frame_index_with_df_and_index(self) -> None:
-        """
-        A method for testing Data.add_data_frame_index method.
-        It tests with (dataframe, index).
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         data = Data()
-        data_frame = pd.DataFrame({"series": [1, 2, 3]}, index=["x", "y", "z"])
-        data.add_data_frame_index(data_frame=data_frame, name="Index")
-        data.add_data_frame(data_frame)
+        df = pd.DataFrame({"series": [1, 2, 3]}, index=["x", "y", "z"])
+        data.add_data_frame_index(data_frame=df, name="Index")
+        data.add_data_frame(df)
         self.assertEqual(
             {
                 "data": {
@@ -540,20 +341,10 @@ class TestData(unittest.TestCase):
         )
 
     def test_data_frame_index_with_pd_series(self) -> None:
-        """
-        A method for testing Data.add_data_frame_index method.
-        It tests with (pd.Series, index).
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         data = Data()
-        data_frame = pd.Series(
-            {"x": 1, "y": 2, "z": 3}, index=["x", "y"], name="series"
-        )
-        data.add_data_frame_index(data_frame=data_frame, name="Index")
-        data.add_data_frame(data_frame)
+        df = pd.Series({"x": 1, "y": 2, "z": 3}, index=["x", "y"], name="series")
+        data.add_data_frame_index(data_frame=df, name="Index")
+        data.add_data_frame(df)
         self.assertEqual(
             {
                 "data": {
@@ -568,27 +359,11 @@ class TestData(unittest.TestCase):
 
 
 class TestConfig(unittest.TestCase):
-    """A class for testing Config class."""
-
     def test_config(self) -> None:
-        """
-        A method for testing Config.build method.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         animation = Config({"color": {"set": ["Genres"]}})
         self.assertEqual({"config": {"color": {"set": ["Genres"]}}}, animation.build())
 
     def test_config_preset(self) -> None:
-        """
-        A method for testing Config.__getattr__ method.
-
-        Raises:
-            AssertionError: If the dumped value is not correct.
-        """
-
         animation = Config.column({"x": "foo", "y": "bar"})
         # instead of build() test with dump() because contains raw js
         self.assertEqual(
@@ -598,101 +373,43 @@ class TestConfig(unittest.TestCase):
 
 
 class TestStyle(unittest.TestCase):
-    """A class for testing Style class."""
-
     def test_style(self) -> None:
-        """
-        A method for testing Style.build method with dictionary.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         animation = Style({"title": {"backgroundColor": "#A0A0A0"}})
         self.assertEqual(
             {"style": {"title": {"backgroundColor": "#A0A0A0"}}}, animation.build()
         )
 
     def test_style_can_be_none(self) -> None:
-        """
-        A method for testing Style.build method with None.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         animation = Style(None)
         self.assertEqual({"style": None}, animation.build())
 
 
 class TestKeyframe(unittest.TestCase):
-    """A class for testing Keyframe class."""
-
     def test_animation_has_to_be_passed_even_if_options_passed(
         self,
     ) -> None:
-        """
-        A method for testing Keyframe.
-        It raises an error if has ben initialized with options only.
-
-        Raises:
-            AssertionError: If ValueError is not occurred.
-        """
-
         with self.assertRaises(ValueError):
             Keyframe(duration="500ms")
 
     def test_keyframe_cannot_be_passed(
         self,
     ) -> None:
-        """
-        A method for testing Keyframe.
-        It raises an error if has ben initialized with a Keyframe.
-
-        Raises:
-            AssertionError: If ValueError is not occurred.
-        """
-
         with self.assertRaises(ValueError):
             Keyframe(Keyframe(Style(None)))  # type: ignore
 
     def test_animation_and_snapshot_cannot_be_passed(
         self,
     ) -> None:
-        """
-        A method for testing Keyframe.
-        It raises an error if has ben initialized with an animation and a snapshot.
-
-        Raises:
-            AssertionError: If ValueError is not occurred.
-        """
-
         with self.assertRaises(ValueError):
             Keyframe(Keyframe(Style(None), Snapshot("abc123")))
 
     def test_animation_and_stored_animation_cannot_be_passed(
         self,
     ) -> None:
-        """
-        A method for testing Keyframe.
-        It raises an error if has ben initialized
-        with an animation and a stored animation.
-
-        Raises:
-            AssertionError: If ValueError is not occurred.
-        """
-
         with self.assertRaises(ValueError):
             Keyframe(Keyframe(Style(None), Animation("abc123")))
 
     def test_keyframe(self) -> None:
-        """
-        A method for testing Keyframe.build method.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         animation = Keyframe(
             Data.filter(None), Style(None), Config({"title": "Keyframe"})
         )
@@ -708,13 +425,6 @@ class TestKeyframe(unittest.TestCase):
         )
 
     def test_keyframe_with_snapshot(self) -> None:
-        """
-        A method for testing Keyframe.build method with snapshot.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         animation = Keyframe(Snapshot("abc123"))
         self.assertEqual(
             animation.build(),
@@ -724,13 +434,6 @@ class TestKeyframe(unittest.TestCase):
         )
 
     def test_keyframe_with_stored_animation(self) -> None:
-        """
-        A method for testing Keyframe.build method with a stored animation.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         animation = Keyframe(Animation("abc123"))
         self.assertEqual(
             animation.build(),
@@ -740,13 +443,6 @@ class TestKeyframe(unittest.TestCase):
         )
 
     def test_keyframe_with_options(self) -> None:
-        """
-        A method for testing Keyframe.build method with options.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         animation = Keyframe(
             Data.filter(None), Style(None), Config({"title": "Keyframe"}), duration=1
         )
@@ -764,60 +460,26 @@ class TestKeyframe(unittest.TestCase):
 
 
 class TestSnapshot(unittest.TestCase):
-    """A class for testing Snapshot class."""
-
     def test_snapshot(self) -> None:
-        """
-        A method for testing Snapshot.build method.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         animation = Snapshot("abc1234")
         self.assertEqual("abc1234", animation.build())
 
     def test_snapshot_dump(self) -> None:
-        """
-        A method for testing Snapshot.dump method.
-
-        Raises:
-            AssertionError: If the dumped value is not correct.
-        """
-
         animation = Snapshot("abc1234")
         self.assertEqual('"abc1234"', animation.dump())
 
 
 class TestAnimation(unittest.TestCase):
-    """A class for testing Animation class."""
-
     def test_animation(self) -> None:
-        """
-        A method for testing Animation.build method.
-
-        Raises:
-            AssertionError: If the built value is not correct.
-        """
-
         animation = Animation("abc1234")
         self.assertEqual("abc1234", animation.build())
 
     def test_animation_dump(self) -> None:
-        """
-        A method for testing Animation.dump method.
-
-        Raises:
-            AssertionError: If the dumped value is not correct.
-        """
-
         animation = Animation("abc1234")
         self.assertEqual('"abc1234"', animation.dump())
 
 
 class TestMerger(unittest.TestCase):
-    """A class for testing AnimationMerger class."""
-
     def setUp(self) -> None:
         self.merger = AnimationMerger()
 
@@ -827,13 +489,6 @@ class TestMerger(unittest.TestCase):
         self.config = Config({"channels": {"label": {"attach": ["Popularity"]}}})
 
     def test_merge(self) -> None:
-        """
-        A method for testing AnimationMerger.merge method with animations.
-
-        Raises:
-            AssertionError: If the dumped value is not correct.
-        """
-
         self.merger.merge(self.data)
         self.merger.merge(self.config)
         self.merger.merge(Style({"title": {"backgroundColor": "#A0A0A0"}}))
@@ -849,13 +504,6 @@ class TestMerger(unittest.TestCase):
         )
 
     def test_merge_none(self) -> None:
-        """
-        A method for testing AnimationMerger.merge method with animation that contains None.
-
-        Raises:
-            AssertionError: If the dumped value is not correct.
-        """
-
         self.merger.merge(self.config)
         self.merger.merge(Style(None))
         self.assertEqual(
@@ -864,42 +512,18 @@ class TestMerger(unittest.TestCase):
         )
 
     def test_snapshot_can_not_be_merged(self) -> None:
-        """
-        A method for testing AnimationMerger.merge method with Snapshot.
-        It raises an error if has been called.
-
-        Raises:
-            AssertionError: If ValueError is not occurred.
-        """
-
         self.merger.merge(self.data)
         self.merger.merge(self.config)
         self.merger.merge(Style({"title": {"backgroundColor": "#A0A0A0"}}))
         self.assertRaises(ValueError, self.merger.merge, Snapshot("abc1234"))
 
     def test_stored_animation_can_not_be_merged(self) -> None:
-        """
-        A method for testing AnimationMerger.merge method with Animation.
-        It raises an error if has been called.
-
-        Raises:
-            AssertionError: If ValueError is not occurred.
-        """
-
         self.merger.merge(self.data)
         self.merger.merge(self.config)
         self.merger.merge(Style({"title": {"backgroundColor": "#A0A0A0"}}))
         self.assertRaises(ValueError, self.merger.merge, Animation("abc1234"))
 
     def test_only_different_animations_can_be_merged(self) -> None:
-        """
-        A method for testing AnimationMerger.merge method with same types of animations.
-        It raises an error if has been called.
-
-        Raises:
-            AssertionError: If ValueError is not occurred.
-        """
-
         self.merger.merge(self.data)
         self.merger.merge(self.config)
         self.merger.merge(Style({"title": {"backgroundColor": "#A0A0A0"}}))
@@ -912,13 +536,6 @@ class TestMerger(unittest.TestCase):
         self.assertRaises(ValueError, self.merger.merge, Style(None))
 
     def test_merge_keyframes(self) -> None:
-        """
-        A method for testing AnimationMerger.merge method with Keyframes.
-
-        Raises:
-            AssertionError: If the dumped value is not correct.
-        """
-
         self.merger.merge(Keyframe(Style(None)))
         self.merger.merge(Keyframe(Style(None), duration=0))
         self.merger.merge(Keyframe(Style(None)))
@@ -935,37 +552,14 @@ class TestMerger(unittest.TestCase):
         )
 
     def test_keyframe_and_animation_can_not_be_merged(self) -> None:
-        """
-        A method for testing AnimationMerger.merge method with Keyframe and animation.
-        It raises an error if has been called.
-
-        Raises:
-            AssertionError: If ValueError is not occurred.
-        """
-
         self.merger.merge(Keyframe(Style(None)))
         self.assertRaises(ValueError, self.merger.merge, self.data)
 
     def test_animation_and_keyframe_can_not_be_merged(self) -> None:
-        """
-        A method for testing AnimationMerger.merge method with animation and Keyframe.
-        It raises an error if has been called.
-
-        Raises:
-            AssertionError: If ValueError is not occurred.
-        """
-
         self.merger.merge(self.data)
         self.assertRaises(ValueError, self.merger.merge, Keyframe(Style(None)))
 
     def test_merge_animations_keyframe(self) -> None:
-        """
-        A method for testing AnimationMerger.merge_animations method with a Keyframe.
-
-        Raises:
-            AssertionError: If the dumped value is not correct.
-        """
-
         animations = tuple([Keyframe(Style(None))])
         merger = AnimationMerger.merge_animations(animations)
 

@@ -1,4 +1,4 @@
-"""A module for generating the code reference."""
+# pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
 from pathlib import Path
 import sys
@@ -8,14 +8,13 @@ import mkdocs_gen_files  # type: ignore
 
 import ipyvizzu
 
-
 REPO_PATH = Path(__file__).parent / ".." / ".." / ".."
-MKDOCS_PATH = REPO_PATH / "tools" / "mkdocs"
+TOOLS_PATH = REPO_PATH / "tools"
+MKDOCS_PATH = TOOLS_PATH / "docs"
 
+sys.path.insert(0, str(TOOLS_PATH / "modules"))
 
-sys.path.insert(0, str(MKDOCS_PATH / "modules"))
-
-from context import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
+from chdir import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
     chdir,
 )
 from vizzu import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
@@ -25,18 +24,8 @@ from vizzu import (  # pylint: disable=import-error, wrong-import-position, wron
 
 
 class Reference:
-    """A class for generating the code reference."""
-
     @staticmethod
     def generate(package: ModuleType, folder: str) -> None:
-        """
-        A method for generating the code reference.
-
-        Args:
-            package: The src package.
-            folder: The destination folder of the code reference.
-        """
-
         for path in sorted(Path("src").rglob("*.py")):
             module_path = path.relative_to("src").with_suffix("")
 
@@ -68,13 +57,6 @@ class Reference:
 
     @staticmethod
     def generate_version_script(file: str) -> None:
-        """
-        A method for generating an external JavaScript file that sets vizzu-lib version.
-
-        Args:
-            file: The destination file.
-        """
-
         with mkdocs_gen_files.open(file, "w") as f_js:
             vizzu_version = Vizzu.get_vizzu_version()
             f_js.write(
@@ -97,11 +79,6 @@ document.addEventListener("DOMContentLoaded", (event) => {{
 
 
 def main() -> None:
-    """
-    The main method.
-    It generates the code reference.
-    """
-
     with chdir(REPO_PATH):
         Reference.generate(ipyvizzu, "reference")
         Reference.generate_version_script("assets/javascripts/codereflinks.js")

@@ -1,15 +1,10 @@
-"""Communicate with process and check the output."""
+# pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
 import sys
 import subprocess
 
 
 def main() -> None:
-    """
-    The main method.
-    Communicate with process and check the output.
-    """
-
     with subprocess.Popen(
         sys.argv[1:], stdout=subprocess.PIPE, stderr=subprocess.PIPE
     ) as process:

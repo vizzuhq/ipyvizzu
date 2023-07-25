@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const repoPath = __dirname + "/../../..";
-const mkdocsPath = `${repoPath}/tools/mkdocs`;
+const mkdocsPath = `${repoPath}/tools/docs`;
 const genPath = `${mkdocsPath}/style`;
 const jsAssetsPath = "../../assets/javascripts";
 

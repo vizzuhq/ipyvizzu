@@ -79,11 +79,9 @@ plugins:
       version_selector: true
       alias_type: symlink
       canonical_version: latest
-      redirect_template: ./tools/mkdocs/overrides/mike/redirect.html
+      redirect_template: ./tools/docs/overrides/mike/redirect.html
   - search
   - section-index
-  - literate-nav:
-      implicit_index: true
   - autorefs
   - mkdocstrings:
       enable_inventory: true
@@ -109,7 +107,9 @@ plugins:
         - style/gen_style_reference.py
   - coverage:
       page_name: coverage
-      html_report_dir: tests/coverage
+      html_report_dir: .tox/py310/coverage
+  - literate-nav:
+      implicit_index: true
 
 nav:
   - Home: index.md

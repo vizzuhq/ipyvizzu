@@ -1,11 +1,12 @@
-"""A module for testing the ipyvizzu.integrations.fugue module."""
+# pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
 import sys
 import io
 from contextlib import redirect_stdout
 import pathlib
-import pandas as pd  # type: ignore
 import unittest
+import pandas as pd  # type: ignore
+
 
 from tests.normalizer import Normalizer
 
@@ -13,24 +14,17 @@ from tests.normalizer import Normalizer
 # TODO: remove once support for Python 3.6 is dropped
 if sys.version_info >= (3, 7):
     import fugue.api as fa  # type: ignore
-
-    # register the extension, not needed in practical use
-    import ipyvizzu.integrations.fugue  # pylint: disable-all
+    import ipyvizzu.integrations.fugue  # register the extension  # pylint: disable=unused-import
 
 
 # TODO: remove once support for Python 3.6 is dropped
 @unittest.skipUnless(sys.version_info >= (3, 7), "requires Python 3.7")
 class TestFugue(unittest.TestCase):
-    """
-    A class for testing Fugue integration.
-    """
-
-    def test_fugue_extension_preset(self):
-        """Test Fugue extension - preset"""
+    def test_fugue_extension_preset(self) -> None:
         ref = pathlib.Path(__file__).parent / "assets" / "fugue_preset.txt"
-        with open(ref, "r") as f_ref:
+        with open(ref, "r", encoding="utf8") as f_ref:
             ref_content = f_ref.read()
-        df = pd.DataFrame(dict(a=list("abcde"), b=range(5)))
+        df = pd.DataFrame({"a": list("abcde"), "b": range(5)})
         stdout = io.StringIO()
         with redirect_stdout(stdout):
             fa.fugue_sql_flow(
@@ -46,12 +40,11 @@ class TestFugue(unittest.TestCase):
             ref_content,
         )
 
-    def test_fugue_extension_timeline(self):
-        """Test Fugue extension - timeline"""
+    def test_fugue_extension_timeline(self) -> None:
         ref = pathlib.Path(__file__).parent / "assets" / "fugue_timeline.txt"
-        with open(ref, "r") as f_ref:
+        with open(ref, "r", encoding="utf8") as f_ref:
             ref_content = f_ref.read()
-        df = pd.DataFrame(dict(a=list("abcde"), b=range(5), c=[1, 1, 2, 2, 3]))
+        df = pd.DataFrame({"a": list("abcde"), "b": range(5), "c": [1, 1, 2, 2, 3]})
         stdout = io.StringIO()
         with redirect_stdout(stdout):
             fa.fugue_sql_flow(

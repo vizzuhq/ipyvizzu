@@ -102,8 +102,8 @@ async def get_contents(path):
 
 data = Data()
 data_csv = await get_contents("titanic.csv")
-data_frame = pd.read_csv(StringIO(data_csv["content"]))
-data.add_data_frame(data_frame)
+df = pd.read_csv(StringIO(data_csv["content"]))
+data.add_data_frame(df)
 
 chart.animate(data)
 

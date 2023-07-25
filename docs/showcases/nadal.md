@@ -14,7 +14,7 @@ csv_url: ./nadal.csv
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style, DisplayTarget
 
-data_frame = pd.read_csv(
+df = pd.read_csv(
     "https://ipyvizzu.vizzuhq.com/latest/showcases/nadal/nadal.csv",
     dtype={
         "Year": str,
@@ -27,7 +27,7 @@ data_frame = pd.read_csv(
     },
 )
 data = Data()
-data.add_data_frame(data_frame)
+data.add_data_frame(df)
 
 chart = Chart(display=DisplayTarget.END)
 chart.animate(data)

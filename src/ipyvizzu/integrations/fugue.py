@@ -84,9 +84,9 @@ class _Visualize(Outputter):
         data.add_data_frame(df)
         chart.animate(data)
 
-        for i, k in enumerate(keys):
+        for i, key in enumerate(keys):
             _p2 = dict(_pc)
-            _p2["title"] = (title % k) if "%s" in title else title
+            _p2["title"] = (title % key) if "%s" in title else title
             chart.animate(Data.filter(f"record._idx == {i}"), self._func(_p2), **conf)
 
 

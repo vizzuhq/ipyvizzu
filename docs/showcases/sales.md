@@ -14,11 +14,11 @@ csv_url: ./sales.csv
 import pandas as pd
 from ipyvizzu import Chart, Data, Config, Style
 
-data_frame = pd.read_csv(
+df = pd.read_csv(
     "https://ipyvizzu.vizzuhq.com/latest/showcases/sales/sales.csv"
 )
 data = Data()
-data.add_data_frame(data_frame)
+data.add_data_frame(df)
 
 chart = Chart()
 

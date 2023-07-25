@@ -1,4 +1,4 @@
-"""A module for generating the example gallery."""
+# pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
 import os
 from pathlib import Path
@@ -11,7 +11,8 @@ import markdown
 
 
 REPO_PATH = Path(__file__).parent / ".." / ".." / ".."
-MKDOCS_PATH = REPO_PATH / "tools" / "mkdocs"
+TOOLS_PATH = REPO_PATH / "tools"
+MKDOCS_PATH = TOOLS_PATH / "docs"
 GEN_PATH = MKDOCS_PATH / "examples"
 VIZZU_LIB_PATH = REPO_PATH / "vizzu-lib"
 WEB_CONTENT_PATH = (
@@ -25,29 +26,29 @@ PRESET_EXAMPLES_PATH = WEB_CONTENT_PATH / "presets"
 SHOWCASES_PATH = REPO_PATH / "docs" / "showcases"
 JS_ASSETS_PATH = "assets/javascripts"
 
+sys.path.insert(0, str(TOOLS_PATH / "modules"))
+sys.path.insert(0, str(TOOLS_PATH / "ci"))
+sys.path.insert(0, str(MKDOCS_PATH))
 
-sys.path.insert(0, str(MKDOCS_PATH / "modules"))
-
-from context import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
+from chdir import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
     chdir,
-)
-from mkdocsconfig import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
-    MkdocsConfig,
 )
 from node import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
     Node,
-)
-from md import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
-    Md,
 )
 from vizzu import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
     Vizzu,
     VIZZU_SITE_URL,
 )
+from markdown_format import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
+    Markdown,
+)
+from config import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
+    MkdocsConfig,
+)
 
 
 class GenExamples:
-    """A class for generating examples."""
 
     # pylint: disable=too-many-instance-attributes
 
@@ -74,12 +75,6 @@ class GenExamples:
 
     @property
     def merge_subfolders(self) -> bool:
-        """
-        A property for merging subfolders.
-
-        Returns:
-            `merge_subfolders` value.
-        """
         return self._merge_subfolders
 
     @merge_subfolders.setter
@@ -88,12 +83,6 @@ class GenExamples:
 
     @property
     def video_thumbnails(self) -> bool:
-        """
-        A property for using video thumbnails.
-
-        Returns:
-            `video_thumbnails` value.
-        """
         return self._video_thumbnails
 
     @video_thumbnails.setter
@@ -102,12 +91,6 @@ class GenExamples:
 
     @property
     def filename_title(self) -> bool:
-        """
-        A property for using title from file names.
-
-        Returns:
-            `filename_title` value.
-        """
         return self._filename_title
 
     @filename_title.setter
@@ -116,13 +99,6 @@ class GenExamples:
 
     @property
     def blocked(self) -> List[str]:
-        """
-        A method for setting blocked examples.
-
-        Returns:
-            Blocked examples.
-        """
-
         return self._blocked
 
     @blocked.setter
@@ -354,7 +330,7 @@ class GenExamples:
         ]
         content = Node.node(True, GEN_PATH / "mjs2md.mjs", *params)
         content = Vizzu.set_version(content)
-        content = Md.format(content)
+        content = Markdown.format(content)
         with mkdocs_gen_files.open(
             f"{self._dst}/{dst}/{item.stem}.md", "w"
         ) as f_example:
@@ -368,7 +344,6 @@ class GenExamples:
         GenExamples._generate_example_data(datafile, dataname)
 
     def generate(self) -> None:
-        """A method for generating examples."""
 
         # pylint: disable=too-many-locals
 
@@ -412,11 +387,7 @@ class GenExamples:
 
 
 class GenShowcases(GenExamples):
-    """A class for generating showcases index page."""
-
     def generate(self) -> None:
-        """A method for overwriting GenExamples.generate method."""
-
         dst = "."
         depth = self._depth
         index = self._create_index(dst, depth, self._name)
@@ -440,11 +411,6 @@ class GenShowcases(GenExamples):
 
 
 def main() -> None:
-    """
-    The main method.
-    It generates the example gallery.
-    """
-
     with chdir(REPO_PATH):
         presets = GenExamples(
             "Preset charts",

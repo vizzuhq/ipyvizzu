@@ -1,4 +1,4 @@
-"""A module for generating the style reference."""
+# pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
 from pathlib import Path
 import sys
@@ -7,13 +7,13 @@ import mkdocs_gen_files
 
 
 REPO_PATH = Path(__file__).parent / ".." / ".." / ".."
-MKDOCS_PATH = REPO_PATH / "tools" / "mkdocs"
+TOOLS_PATH = REPO_PATH / "tools"
+MKDOCS_PATH = TOOLS_PATH / "docs"
 GEN_PATH = MKDOCS_PATH / "style"
 
+sys.path.insert(0, str(TOOLS_PATH / "modules"))
 
-sys.path.insert(0, str(MKDOCS_PATH / "modules"))
-
-from context import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
+from chdir import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
     chdir,
 )
 from node import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
@@ -25,19 +25,11 @@ from vizzu import (  # pylint: disable=import-error, wrong-import-position, wron
 
 
 class StyleReference:
-    """A class for generating the style reference."""
 
     # pylint: disable=too-few-public-methods
 
     @staticmethod
     def generate(dst: str) -> None:
-        """
-        A method for generating the style reference.
-
-        Args:
-            dst: Destination path.
-        """
-
         content = Node.node(
             True,
             GEN_PATH / "gen_style_reference.mjs",
@@ -48,11 +40,6 @@ class StyleReference:
 
 
 def main() -> None:
-    """
-    The main method.
-    It generates the style reference.
-    """
-
     with chdir(REPO_PATH):
         StyleReference.generate(dst="tutorial/style.md")
 

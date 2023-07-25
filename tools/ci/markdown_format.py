@@ -1,25 +1,14 @@
-"""A module for working with mdformat."""
+# pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
 import mdformat
 
 
-class Md:
-    """A class for working with mdformat."""
+class Markdown:
 
     # pylint: disable=too-few-public-methods
 
     @staticmethod
     def format(content: str) -> str:
-        """
-        A static method for formatting markdown content.
-
-        Args:
-            content: Markdown content.
-
-        Returns:
-            Formatted content.
-        """
-
         return mdformat.text(  # type: ignore
             content,
             options={"wrap": 80, "end-of-line": "keep", "line-length": 70},

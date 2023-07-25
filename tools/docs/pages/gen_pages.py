@@ -1,4 +1,4 @@
-"""A module for generating pages."""
+# pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
 import os
 from pathlib import Path
@@ -9,26 +9,28 @@ import mkdocs_gen_files  # type: ignore
 
 
 REPO_PATH = Path(__file__).parent / ".." / ".." / ".."
-MKDOCS_PATH = REPO_PATH / "tools" / "mkdocs"
+TOOLS_PATH = REPO_PATH / "tools"
+MKDOCS_PATH = TOOLS_PATH / "docs"
 
-sys.path.insert(0, str(MKDOCS_PATH / "modules"))
+sys.path.insert(0, str(TOOLS_PATH / "modules"))
+sys.path.insert(0, str(TOOLS_PATH / "ci"))
+sys.path.insert(0, str(MKDOCS_PATH))
 
-from context import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
+from chdir import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
     chdir,
-)
-from mkdocsconfig import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
-    MkdocsConfig,
-)
-from md import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
-    Md,
 )
 from vizzu import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
     Vizzu,
 )
+from markdown_format import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
+    Markdown,
+)
+from config import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
+    MkdocsConfig,
+)
 
 
 class IndexPages:
-    """A class for creating navigation index files."""
 
     # pylint: disable=too-few-public-methods
 
@@ -72,14 +74,6 @@ class IndexPages:
     def generate(
         nav_item: Union[list, dict, str], skip: Optional[List[str]] = None
     ) -> None:
-        """
-        A method for creating section indices for the navigation.
-
-        Args:
-            nav_item: Part of the navigation.
-            skip: List of index files to skip.
-        """
-
         if isinstance(nav_item, list):
             if (
                 nav_item
@@ -101,23 +95,11 @@ class IndexPages:
 
 
 class Page:
-    """A class for creating a page from a file outside the docs folder."""
 
     # pylint: disable=too-few-public-methods
 
     @staticmethod
     def generate(src: Path, dst: str, pos: str, site: str, keep: bool = False) -> None:
-        """
-        A method for generating a page.
-
-        Args:
-            src: Source path.
-            dst: Destination path.
-            pos: Destination relative pos to the index.
-            site: Site url.
-            keep: Place the original content into a pre tag.
-        """
-
         with open(src, "rt", encoding="utf8") as f_src:
             content = f_src.read()
 
@@ -135,19 +117,10 @@ class Page:
 
 
 class Docs:
-    """A class for creating docs pages."""
-
     # pylint: disable=too-few-public-methods
 
     @staticmethod
     def generate(skip: Optional[List[str]] = None) -> None:
-        """
-        A method for generating docs pages.
-
-        Args:
-            skip: List of file names to skip.
-        """
-
         docs_path = REPO_PATH / "docs"
         for path in list(docs_path.rglob("*.md")) + list(docs_path.rglob("*.js")):
             if skip and path.name in skip:
@@ -157,18 +130,13 @@ class Docs:
                 content = f_src.read()
                 if path.suffix == ".md":
                     content = Vizzu.set_version(content)
-                    content = Md.format(content)
+                    content = Markdown.format(content)
                     mkdocs_gen_files.set_edit_path(dst, dst)
                 with mkdocs_gen_files.open(dst, "w") as f_dst:
                     f_dst.write(content)
 
 
 def main() -> None:
-    """
-    The main method.
-    It prepares files for the documentation site.
-    """
-
     with chdir(REPO_PATH):
         config = MkdocsConfig.load(MKDOCS_PATH / "mkdocs.yml")
 

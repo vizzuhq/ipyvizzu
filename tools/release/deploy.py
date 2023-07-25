@@ -6,7 +6,7 @@ import sys
 
 
 REPO_PATH = Path(__file__).parent / ".." / ".."
-MKDOCS_PATH = REPO_PATH / "tools" / "mkdocs"
+MKDOCS_PATH = REPO_PATH / "tools" / "docs"
 
 
 sys.path.insert(0, str(MKDOCS_PATH / "modules"))
@@ -40,7 +40,7 @@ class Deploy:
         if Deploy.latest:
             params.append("latest")
         params.append("-F")
-        params.append("tools/mkdocs/mkdocs.yml")
+        params.append("tools/docs/mkdocs.yml")
 
         with Popen(
             params,

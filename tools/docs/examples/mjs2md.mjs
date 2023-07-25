@@ -36,12 +36,12 @@ csv_url: ${assetsPath}/assets/data/${dataFileName}.csv
     import pandas as pd
     from ipyvizzu import Chart, Data, Config, Style
 
-    data_frame = pd.read_csv(
+    df = pd.read_csv(
         'https://ipyvizzu.vizzuhq.com/latest/assets/data/${dataFileName}.csv',
         dtype={"Year": str, "Timeseries": str},
     )
     data = Data()
-    data.add_data_frame(data_frame)
+    data.add_data_frame(df)
 
     chart = Chart()
     chart.animate(data)

@@ -63,10 +63,10 @@ chart = Chart(
 # add data to Chart
 
 data = Data()
-data_frame = pd.read_csv(
+df = pd.read_csv(
     "https://ipyvizzu.vizzuhq.com/latest/showcases/titanic/titanic.csv"
 )
-data.add_data_frame(data_frame)
+data.add_data_frame(df)
 
 chart.animate(data)
 

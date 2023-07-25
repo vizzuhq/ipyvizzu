@@ -71,11 +71,11 @@ You can create the animation below with the following code snippet.
 import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
-data_frame = pd.read_csv(
+df = pd.read_csv(
     "https://ipyvizzu.vizzuhq.com/latest/showcases/titanic/titanic.csv"
 )
 data = Data()
-data.add_data_frame(data_frame)
+data.add_data_frame(df)
 
 chart = Chart(width="640px", height="360px")
 
