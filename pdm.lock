@@ -1140,7 +1140,7 @@ files = [
 
 [[package]]
 name = "jupyterlab-server"
-version = "2.23.0"
+version = "2.24.0"
 requires_python = ">=3.7"
 summary = "A set of server components for JupyterLab and JupyterLab like applications."
 dependencies = [
@@ -1153,8 +1153,8 @@ dependencies = [
     "requests>=2.28",
 ]
 files = [
-    {file = "jupyterlab_server-2.23.0-py3-none-any.whl", hash = "sha256:a5ea2c839336a8ba7c38c8e7b2f24cedf919f0d439f4d2e606d9322013a95788"},
-    {file = "jupyterlab_server-2.23.0.tar.gz", hash = "sha256:83c01aa4ad9451cd61b383e634d939ff713850f4640c0056b2cdb2b6211a74c7"},
+    {file = "jupyterlab_server-2.24.0-py3-none-any.whl", hash = "sha256:5f077e142bb8dc9b843d960f940c513581bceca3793a0d80f9c67d9522c4e876"},
+    {file = "jupyterlab_server-2.24.0.tar.gz", hash = "sha256:4e6f99e0a5579bbbc32e449c4dbb039561d4f1a7827d5733273ed56738f21f07"},
 ]
 
 [[package]]
@@ -2950,11 +2950,11 @@ files = [
 
 [[package]]
 name = "sqlglot"
-version = "17.7.0"
+version = "17.8.0"
 summary = "An easily customizable SQL parser and transpiler"
 files = [
-    {file = "sqlglot-17.7.0-py3-none-any.whl", hash = "sha256:bc31bcaf880bdf235909866f435d28648bef75eea36bc683bd38d2810b4160f1"},
-    {file = "sqlglot-17.7.0.tar.gz", hash = "sha256:ce401ea84c49ab4dc0bd5bb7f77ffe226ddbe7a2da92efb6811c2b277c092540"},
+    {file = "sqlglot-17.8.0-py3-none-any.whl", hash = "sha256:2b62a9e620fa39d4f237e8c53ada5d822f5f90fe76b581db8fe96c96b2c62ab9"},
+    {file = "sqlglot-17.8.0.tar.gz", hash = "sha256:482462f80f7a4b307c2089fde051daf58e4962784caff1a4641f4deebf954aac"},
 ]
 
 [[package]]
@@ -3220,17 +3220,17 @@ files = [
 
 [[package]]
 name = "virtualenv"
-version = "20.24.1"
+version = "20.24.2"
 requires_python = ">=3.7"
 summary = "Virtual Python Environment builder"
 dependencies = [
-    "distlib<1,>=0.3.6",
-    "filelock<4,>=3.12",
-    "platformdirs<4,>=3.5.1",
+    "distlib<1,>=0.3.7",
+    "filelock<4,>=3.12.2",
+    "platformdirs<4,>=3.9.1",
 ]
 files = [
-    {file = "virtualenv-20.24.1-py3-none-any.whl", hash = "sha256:01aacf8decd346cf9a865ae85c0cdc7f64c8caa07ff0d8b1dfc1733d10677442"},
-    {file = "virtualenv-20.24.1.tar.gz", hash = "sha256:2ef6a237c31629da6442b0bcaa3999748108c7166318d1f55cc9f8d7294e97bd"},
+    {file = "virtualenv-20.24.2-py3-none-any.whl", hash = "sha256:43a3052be36080548bdee0b42919c88072037d50d56c28bd3f853cbe92b953ff"},
+    {file = "virtualenv-20.24.2.tar.gz", hash = "sha256:fd8a78f46f6b99a67b7ec5cf73f92357891a7b3a40fd97637c27f854aae3b9e0"},
 ]
 
 [[package]]

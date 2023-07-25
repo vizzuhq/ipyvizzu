@@ -95,7 +95,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
                 duration: 2,
                 delay: 4,
               },
-            }
+            },
           );
         },
       ],
@@ -126,7 +126,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
             {
               duration: 1,
               easing: "linear",
-            }
+            },
           );
         },
       ],
@@ -165,7 +165,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
                 duration: 2,
                 delay: 4,
               },
-            }
+            },
           );
         },
       ],
@@ -195,7 +195,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
             },
             {
               duration: "500ms",
-            }
+            },
           );
         },
       ],

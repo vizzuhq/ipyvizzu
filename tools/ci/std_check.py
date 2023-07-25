@@ -1,4 +1,4 @@
-"""Run mdformat and check the output"""
+"""Communicate with process and check the output."""
 
 import sys
 import subprocess
@@ -7,7 +7,7 @@ import subprocess
 def main() -> None:
     """
     The main method.
-    Run mdformat and check the output.
+    Communicate with process and check the output.
     """
 
     with subprocess.Popen(
@@ -19,7 +19,7 @@ def main() -> None:
                 print(out.decode())
             if err:
                 print(err.decode())
-            raise RuntimeError("failed to run mdformat")
+            raise RuntimeError(f"failed to run {sys.argv[1]}")
 
 
 main()

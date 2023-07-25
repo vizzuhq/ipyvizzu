@@ -2,7 +2,7 @@ const csv2JsLoaded = import("../../assets/javascripts/csv2js.js");
 const vizzuLoaded = import("../../assets/javascripts/vizzu.js").then(
   (vizzuUrl) => {
     return import(vizzuUrl.default);
-  }
+  },
 );
 
 Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
@@ -44,7 +44,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         },
         {
           delay: 1,
-        }
+        },
       );
 
       chart.animate(
@@ -56,7 +56,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         },
         {
           delay: 1,
-        }
+        },
       );
 
       chart.animate(
@@ -67,7 +67,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         },
         {
           delay: 1,
-        }
+        },
       );
 
       chart.animate(
@@ -83,7 +83,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         },
         {
           delay: 1,
-        }
+        },
       );
 
       chart.animate(
@@ -96,7 +96,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         },
         {
           delay: 1,
-        }
+        },
       );
 
       chart.animate(
@@ -111,7 +111,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         },
         {
           delay: 1,
-        }
+        },
       );
     });
   });

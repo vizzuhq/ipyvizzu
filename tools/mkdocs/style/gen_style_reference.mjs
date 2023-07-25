@@ -20,12 +20,12 @@ function appendContent(obj, level) {
   for (const [key, value] of Object.entries(obj)) {
     if (typeof value === "object") {
       content += `<p class="collapsible-style"><button type="button">${tab.repeat(
-        level
+        level,
       )}+&nbsp;${key}</button></p>`;
       content += appendContent(value, level + 1);
     } else {
       content += `<p class="not-collapsible-style">${tab.repeat(
-        level
+        level,
       )}${key}: <code>${value}</code></p>`;
     }
   }
@@ -55,14 +55,14 @@ const pageModified = Promise.all([pageCreated, getStyleScriptLoaded]).then(
 import Vizzu from "${Vizzu}";
 ${getStyleScript}
 </script>`);
-  }
+  },
 );
 
 const selectorLoaded = Promise.all([pageCreated, pageModified]).then(
   (results) => {
     const page = results[0];
     return page.waitForSelector("p");
-  }
+  },
 );
 
 const element = Promise.all([pageCreated, selectorLoaded]).then((results) => {
@@ -75,7 +75,7 @@ const elementValue = Promise.all([browserLaunched, pageCreated, element]).then(
     const page = results[1];
     const element = results[2];
     return page.evaluate((el) => el.textContent, element);
-  }
+  },
 );
 
 Promise.all([browserLaunched, elementValue]).then((results) => {

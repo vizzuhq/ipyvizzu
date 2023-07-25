@@ -2,7 +2,7 @@ const csv2JsLoaded = import("../../assets/javascripts/csv2js.js");
 const vizzuLoaded = import("../../assets/javascripts/vizzu.js").then(
   (vizzuUrl) => {
     return import(vizzuUrl.default);
-  }
+  },
 );
 
 Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
@@ -70,7 +70,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
             plot: { marker: { maxLightness: 0, minLightness: 0.8 } },
           },
         },
-        { delay: 4 }
+        { delay: 4 },
       );
 
       chart.animate(
@@ -80,7 +80,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
             title: "Lost 3 times, retired once",
           },
         },
-        { delay: 4 }
+        { delay: 4 },
       );
 
       chart.animate(
@@ -90,7 +90,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
             plot: { marker: { maxLightness: null, minLightness: null } },
           },
         },
-        { delay: 4 }
+        { delay: 4 },
       );
 
       chart.animate({
@@ -110,7 +110,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
             title: "Won 4 titles without dropping a set",
           },
         },
-        { delay: 3 }
+        { delay: 3 },
       );
 
       chart.animate(
@@ -120,7 +120,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
             plot: { marker: { maxLightness: null, minLightness: null } },
           },
         },
-        { delay: 4 }
+        { delay: 4 },
       );
 
       chart.animate({
@@ -140,7 +140,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
             title: "Second on this list is Federer - with 6 encounters",
           },
         },
-        { delay: 4 }
+        { delay: 4 },
       );
 
       chart.animate(
@@ -150,7 +150,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
             title: "Rafa won all of his 14 finals",
           },
         },
-        { delay: 4 }
+        { delay: 4 },
       );
 
       chart.animate(
@@ -193,7 +193,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
             },
           },
         },
-        { delay: 3 }
+        { delay: 3 },
       );
 
       chart.animate(
@@ -213,14 +213,14 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
             y: { set: ["Player", "Tournament"] },
           },
         },
-        { duration: 0 }
+        { duration: 0 },
       );
 
       chart.animate(
         {
           config: { noop: "Level" },
         },
-        { duration: 0 }
+        { duration: 0 },
       );
 
       chart.animate({
@@ -262,7 +262,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
             title: "Winning the same ATP title - Rafa is 1st, 2nd, 3rd & 4th!",
           },
         },
-        { delay: 5 }
+        { delay: 5 },
       );
 
       chart.animate(
@@ -286,7 +286,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
             color: "Level",
           },
         },
-        { delay: 5 }
+        { delay: 5 },
       );
 
       chart.animate({

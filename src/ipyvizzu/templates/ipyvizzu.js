@@ -8,21 +8,21 @@ if (!window.IpyVizzu) {
         (evt) => {
           IpyVizzu.inhibitScroll = true;
         },
-        true
+        true,
       );
       document.addEventListener(
         "keydown",
         (evt) => {
           IpyVizzu.inhibitScroll = true;
         },
-        true
+        true,
       );
       document.addEventListener(
         "touchstart",
         (evt) => {
           IpyVizzu.inhibitScroll = true;
         },
-        true
+        true,
       );
 
       this.elements = {};
@@ -63,7 +63,7 @@ if (!window.IpyVizzu) {
       displayTarget,
       scrollEnabled,
       getChartTarget,
-      chartAnimOpts
+      chartAnimOpts,
     ) {
       if (IpyVizzu.nbconvert) IpyVizzu._hide(element);
       if (displayTarget === "end") this._moveHere(chartId, element);
@@ -165,7 +165,7 @@ if (!window.IpyVizzu) {
 
     static _hide(element) {
       document.getElementById(
-        element.selector.substring(1)
+        element.selector.substring(1),
       ).parentNode.style.display = "none";
     }
 
@@ -174,10 +174,10 @@ if (!window.IpyVizzu) {
         prevElement.parentNode.style.display = "none";
       }
       document.getElementById(
-        element.selector.substring(1)
+        element.selector.substring(1),
       ).parentNode.style.display = "flex";
       document.getElementById(
-        element.selector.substring(1)
+        element.selector.substring(1),
       ).parentNode.style.margin = "auto";
     }
   }

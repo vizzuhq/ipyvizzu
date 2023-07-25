@@ -57,7 +57,7 @@ ${this.description}
 
 <script src="./${path.basename(
       inputFileName,
-      path.extname(inputFileName)
+      path.extname(inputFileName),
     )}.js"></script>
 `;
   }
@@ -148,7 +148,7 @@ Promise.all([inputFileLoaded, dataFileLoaded]).then((results) => {
     data,
     assetsPath,
     dataFileName,
-    dataName
+    dataName,
   );
   for (const testStep of module.default) {
     testStep(chart);
