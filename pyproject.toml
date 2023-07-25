@@ -141,24 +141,27 @@ envlist = py{36,37,38,39,310,311}
 [testenv]
 deps =
     coverage
-    openpyxl
-commands =
-    python -m coverage run --data-file .tox/{envname}/.coverage --branch --source ipyvizzu -m unittest discover tests
+    openpyxl    
 
 [testenv:py{36}]
-commands_post =
-    python -m coverage report --data-file .tox/{envname}/.coverage -m --fail-under=100 --omit src/ipyvizzu/integrations/fugue.py
+setenv =
+    COVERAGE_FILE = .tox/py36/.coverage
+commands =
+    python -m coverage run --branch --source ipyvizzu -m unittest discover tests
+    python -m coverage report -m --fail-under=100 --omit src/ipyvizzu/integrations/fugue.py
 
 [testenv:py{37,38,39,311}]
 extras =
     fugue
-commands_post =
+commands =
+    python -m coverage run --data-file .tox/{envname}/.coverage --branch --source ipyvizzu -m unittest discover tests
     python -m coverage report --data-file .tox/{envname}/.coverage -m --fail-under=100
 
 [testenv:py{310}]
 extras =
     fugue
-commands_post =
+commands =
+    python -m coverage run --data-file .tox/{envname}/.coverage --branch --source ipyvizzu -m unittest discover tests
     python -m coverage report --data-file .tox/{envname}/.coverage -m --fail-under=100
     python -m coverage html --data-file .tox/{envname}/.coverage -d .tox/{envname}/coverage
 """
