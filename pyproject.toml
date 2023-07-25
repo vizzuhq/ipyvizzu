@@ -136,15 +136,6 @@ legacy_tox_ini = """
 [tox]
 envlist = py{36,37,38,39,310,311}
 
-[gh-actions]
-python =
-    3.6: py36
-    3.7: py37
-    3.8: py38
-    3.9: py39
-    3.10: py310
-    3.11: py310
-
 [testenv]
 deps =
     coverage
@@ -187,7 +178,6 @@ codequality = [
     "pylint ; python_version >= '3.10'",
     "mypy ; python_version >= '3.10'",
     "tox ; python_version >= '3.10'",
-    "tox-gh-actions ; python_version >= '3.10'",
 ]
 env = [
     "notebook ; python_version >= '3.10'",
