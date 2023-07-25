@@ -17,130 +17,149 @@ detailed description of how to do this in
 
 ### Development environment
 
-You can initialize the development environment of `ipyvizzu` with `Python`
-virtual env.
+For contributing to the project, it is recommended to use `Python` `3.10` as the
+primary programming language for most parts of the source code. However, a
+specific portion of the codebase is written in `JavaScript`. If you plan to
+contribute to this `JavaScript` part or the documentation, you will need
+`Node.js`, preferably version `18`.
 
-Run the `dev-py` make target to set up your environment.
+The following steps demonstrate how to set up the development environment on an
+`Ubuntu` operating system. However, the process can be adapted for other
+operating systems as well.
+
+To start using the `ipyvizzu` development environment, you need to create a
+virtual environment and install `pdm` within it.
 
 ```sh
-make dev-py
+python3.10 -m venv ".venv"
+source .venv/bin/activate
+pip install pdm
 ```
 
-**Note:** The `dev-py` make target is going to set up pre-commit and pre-push
-hooks into your local git repository. Pre-commit hook is going to format the
-code with `black` and pre-push hook is going to run the CI steps.
-
-Run the `clean` make target to clear your environment.
+Once set up, you can utilize the pre-defined `pdm` scripts. For example, you can
+initialize the entire development environment using the command `pdm run init`,
+or specific parts like `init_src_py`, `init_src`, `init_docs`, or `init_tools`.
 
 ```sh
-make clean
+pdm run init
+```
+
+The development requirements are installed based on the `pdm.lock` and
+`package-lock.json` files. To update the development requirements, you can use
+the command `pdm run lock`.
+
+**Note:** For better development practices, you can set up `pre-commit` and
+`pre-push` hooks in your local Git repository. The `pre-commit` hook will format
+the code automatically, and the `pre-push` hook will run the CI steps before
+pushing your changes.
+
+```sh
+pre-commit install --hook-type pre-commit --hook-type pre-push
 ```
 
 ### CI
 
-The CI steps check code formatting, run code analyses, check typing and run unit
-tests over the `ipyvizzu` project.
+The CI pipeline includes code formatting checks, code analysis, typing
+validation, and unit tests for the `ipyvizzu` project.
 
-The `check` make target collects the above tasks. Run the `check` make target to
-run the CI steps.
+To run the entire CI pipeline, execute the following `pdm` script:
 
 ```sh
-make check
+pdm run ci
 ```
+
+However, if you want to run the CI steps on specific parts of the project, you
+can use the following scripts: `ci_src_py`, `ci_src`, `ci_docs`, or `ci_tools`.
 
 #### Formatting
 
-The `ipyvizzu` project is formatted with `black`.
-
-Run the `format` make target to format your code.
+You can check the code's formatting using the `format` script:
 
 ```sh
-make format
+pdm run format
 ```
 
-Run the `check-format` target to check code formatting.
+If you need to fix any formatting issues, you can use the `fix_format` script:
 
 ```sh
-make check-format
+pdm run fix_format
 ```
+
+If you wish to format specific parts of the project, you can use the following
+scripts: `format_src_py`, `format_src`, `format_docs`, `format_tools`, or
+`fix_format_src_py`, `fix_format_src`, `fix_format_docs`, `fix_format_tools`.
 
 #### Code analyses
 
-The `ipyvizzu` project is analysed with `pylint`.
-
-Run the `check-lint` make target to run code analyses.
+To perform code analyses, you can use the `lint` script:
 
 ```sh
-make check-lint
+pdm run lint
 ```
+
+If you need to run code analyses for specific parts of the project, you can
+utilize the following scripts: `lint_src_py`, `lint_src`, `lint_docs`, or
+`lint_tools`.
 
 #### Typing
 
-The `ipyvizzu` project is using type hints.
-
-Run the `check-typing` make target to run check code typing.
+For type checking, you can use the `type` script:
 
 ```sh
-make check-typing
+pdm run type
 ```
+
+If you want to check specific parts of the project, you can use the following
+scripts: `type_src` or `type_tools`.
 
 #### Testing
 
-The `ipyvizzu` project is tested with `unittest` testing framework.
-
-Run the `test` make target to run the tests.
+The project is tested using the `unittest` testing framework and `tox`. To run
+the tests, you can use the `test` script:
 
 ```sh
-make test
+pdm run test
 ```
 
 ### Documentation
 
-Run the `doc` make target to build the documentation.
-
-Note: If you modify the documentation, you also need to configure the
-`JavaScript` development environment.
-
-```sh
-make dev-js
-
-make check-js
-
-make doc
-```
-
-Online version can be read at [ipyvizzu.com](https://ipyvizzu.vizzuhq.com).
-
-The preset, static and animated chart examples are generated from the
-[vizzu-lib](https://github.com/vizzuhq/vizzu-lib) repository. If you would like
-to build them too, run the following commands.
+**Note:** The preset, static, animated, and analytical operation examples are
+generated from the [vizzu-lib](https://github.com/vizzuhq/vizzu-lib) repository.
+If you wish to build them as well, run the following command before building the
+site.
 
 ```sh
 git clone --depth 1 https://github.com/vizzuhq/vizzu-lib.git
-
-make doc
 ```
+
+To build the documentation, you can use the `docs_build` script:
+
+```sh
+pdm run docs_build
+```
+
+You can read the online version at [ipyvizzu.com](https://ipyvizzu.vizzuhq.com).
 
 ### Release
 
 `ipyvizzu` is distributed on [pypi](https://pypi.org/project/ipyvizzu).
 **Note:** You need to be an administrator to release the project.
 
-If you want to release `ipyvizzu` follow the steps below.
+To release `ipyvizzu`, follow the steps below:
 
-- You should increase the version number in `setup.py`. The version bump should
-  be in a separated commit.
+- Increase the version number in `__version__.py`. The version bump should be in
+  a separate commit.
 
 - Generate the release notes and publish the new release on
   [Releases](https://github.com/vizzuhq/ipyvizzu/releases).
 
 **Note:** Publishing a new release will automatically trigger the `release`
-workflow which builds, checks and uploads the `ipyvizzu` package to
+workflow, which builds, checks, and uploads the `ipyvizzu` package to
 [pypi](https://pypi.org/project/ipyvizzu).
 
-You can build and check the package before a release with the `release` make
-target.
+Before making a release, you can build and check the package using the `release`
+script:
 
 ```sh
-make release
+pdm run release
 ```

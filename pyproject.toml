@@ -81,16 +81,16 @@ fix_format_src = {composite = ["fix_format_black src tests", "fix_format_prettie
 format_src = {composite = ["format_black src tests", "format_prettier src tests package.json"]}
 fix_format_docs = {composite = ["fix_format_mdformat docs README.md CONTRIBUTING.md CODE_OF_CONDUCT.md", "fix_format_prettier docs"]}
 format_docs = {composite = ["format_mdformat docs README.md CONTRIBUTING.md CODE_OF_CONDUCT.md", "format_prettier docs"]}
-fix_format_tools = {composite = ["fix_format_black tools", "fix_format_prettier tools .github .prettierrc.cjs .eslintrc.cjs"]}
-format_tools = {composite = ["format_black tools", "format_prettier tools .github .prettierrc.cjs .eslintrc.cjs"]}
+fix_format_tools = {composite = ["fix_format_black tools", "fix_format_prettier tools .github .pre-commit-config.yaml"]}
+format_tools = {composite = ["format_black tools", "format_prettier tools .github .pre-commit-config.yaml"]}
 
 fix_format = {composite = ["fix_format_src", "fix_format_docs", "fix_format_tools"]}
 format = {composite = ["format_src", "format_docs", "format_tools"]}
 
 
 lint_pylint = "pylint"
-fix_lint_eslint = "npx eslint --ext .js,.cjs,.mjs -c .eslintrc.cjs --fix"
-lint_eslint = "npx eslint --ext .js,.cjs,.mjs -c .eslintrc.cjs"
+fix_lint_eslint = "npx eslint --ext .js,.cjs,.mjs --fix"
+lint_eslint = "npx eslint --ext .js,.cjs,.mjs"
 
 lint_src_py = {composite = ["lint_pylint src tests"]}
 fix_lint_src = {composite = ["fix_lint_eslint src"]}
@@ -129,7 +129,7 @@ docs_deploy = {composite = ["init_pkg", "python ./tools/docs/deploy.py"]}
 
 set_version = "python ./tools/ci/version.py False"
 restore_version = "python ./tools/ci/version.py True"
-validate_release = "python -m twine check dist/*.tar.gz dist/*.whl"
+validate_release = "twine check dist/*.tar.gz dist/*.whl"
 build_release = {composite = ["set_version", "pdm build", "validate_release"]}
 
 release = {composite = ["build_release", "restore_version"]}
@@ -176,6 +176,7 @@ packagedeps = [
     "fugue >= 0.8.1 ; python_version >= '3.10'",
 ]
 codequality = [
+    "pre-commit ; python_version >= '3.10'",
     "black ; python_version >= '3.10'",
     "pylint ; python_version >= '3.10'",
     "mypy ; python_version >= '3.10'",

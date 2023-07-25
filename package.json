@@ -19,5 +19,19 @@
     "eslint-config-standard": "*",
     "eslint-config-prettier": "*",
     "puppeteer": "^19.7.0"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "endOfLine": "auto"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "jest": true
+    },
+    "extends": [
+      "standard",
+      "prettier"
+    ]
   }
 }
