@@ -164,7 +164,7 @@ jobs:
           path: ./.tox/py310/coverage
           key: coverage-${{ github.run_id }}
 
-  test_deadsnake:
+  test_depr:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
@@ -176,22 +176,18 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Cache dev-py environment
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: dev-py-depr-${{ hashFiles('pdm.lock') }}
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-
-      - name: Init dev-py environment
-        run: |
-          python3.10 -m venv ".venv"
-          source .venv/bin/activate
-          pip install pdm
-          pdm init_py
+          python-version: |
+            ${{ matrix.python-version }}
+            "3.10"
 
       - name: Test
         run: |
@@ -199,4 +195,4 @@ jobs:
           case "${{ matrix.python-version }}" in
             "3.6") python_test_env="py36";;
           esac
-          pdm run test
+          pdm run test -e "${python_test_env}"

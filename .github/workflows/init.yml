@@ -43,3 +43,33 @@ jobs:
         run: |
           source .venv/bin/activate
           pdm init_js
+
+  init_dev_depr:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Cache dev-py environment
+        id: cache_dev_py_depr
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: dev-py-depr-${{ hashFiles('pdm.lock') }}
+
+      - name: Set up Python
+        if: steps.cache_dev_py_depr.outputs.cache-hit != 'true'
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Init dev-py environment
+        if: steps.cache_dev_py_depr.outputs.cache-hit != 'true'
+        run: |
+          python3.10 -m venv ".venv"
+          source .venv/bin/activate
+          pip install pdm
+          pdm init_py
