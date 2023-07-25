@@ -44,6 +44,23 @@ jobs:
           source .venv/bin/activate
           pdm init_js
 
+  init_package:
+    runs-on: ubuntu-latest
+    needs: init_dev
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Cache dev-py environment
+        id: cache_dev_py
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: dev-py-${{ hashFiles('pdm.lock') }}
+
       - name: Build package
         run: |
           source .venv/bin/activate
