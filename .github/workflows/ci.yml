@@ -4,11 +4,8 @@ on:
   workflow_call:
 
 jobs:
-  check_ci_src:
+  check_src:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"]
 
     steps:
       - name: Checkout repo
@@ -27,11 +24,6 @@ jobs:
         with:
           path: node_modules
           key: dev-js-${{ hashFiles('package-lock.json') }}
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
 
       - name: Init
         run: |
@@ -53,18 +45,7 @@ jobs:
           source .venv/bin/activate
           pdm run type_src
 
-      - name: Test
-        run: |
-          source .venv/bin/activate
-          pdm run test
-
-      - name: Cache coverage
-        uses: actions/cache@v3
-        with:
-          path: ./.tox/py310/coverage
-          key: coverage-${{ github.run_id }}
-
-  check_ci_docs:
+  check_docs:
     runs-on: ubuntu-latest
 
     steps:
@@ -100,7 +81,7 @@ jobs:
           source .venv/bin/activate
           pdm run lint_docs
 
-  check_ci_tools:
+  check_tools:
     runs-on: ubuntu-latest
 
     steps:
@@ -140,3 +121,78 @@ jobs:
         run: |
           source .venv/bin/activate
           pdm run type_tools
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Cache dev-py environment
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: dev-py-${{ hashFiles('pdm.lock') }}
+
+      - name: Cache dev-js environment
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: dev-js-${{ hashFiles('package-lock.json') }}
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Test
+        run: |
+          source .venv/bin/activate
+          pdm run test
+
+      - name: Cache coverage
+        if: startsWith(matrix.python-version, '3.10')
+        uses: actions/cache@v3
+        with:
+          path: ./.tox/py310/coverage
+          key: coverage-${{ github.run_id }}
+
+  test_deadsnake:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python-version: ["3.6"]
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Cache dev-py environment
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: dev-py-${{ hashFiles('pdm.lock') }}
+
+      - name: Cache dev-js environment
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: dev-js-${{ hashFiles('package-lock.json') }}
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Test
+        run: |
+          source .venv/bin/activate
+          pdm run test
