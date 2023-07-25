@@ -54,8 +54,12 @@ the code automatically, and the `pre-push` hook will run the CI steps before
 pushing your changes.
 
 ```sh
-pre-commit install --hook-type pre-commit --hook-type pre-push
+pre-commit install --hook-type pre-commit --hook-type pre-push -c ./tools/ci/.pre-commit-ubuntu.yaml
 ```
+
+**Note:** The provided configuration file is tailored for `Ubuntu`. If you
+intend to use another operating system, you will need to create a custom
+configuration file suitable for that environment.
 
 ### CI
 

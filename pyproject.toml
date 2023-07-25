@@ -81,8 +81,8 @@ fix_format_src = {composite = ["fix_format_black src tests", "fix_format_prettie
 format_src = {composite = ["format_black src tests", "format_prettier src tests package.json"]}
 fix_format_docs = {composite = ["fix_format_mdformat docs README.md CONTRIBUTING.md CODE_OF_CONDUCT.md", "fix_format_prettier docs"]}
 format_docs = {composite = ["format_mdformat docs README.md CONTRIBUTING.md CODE_OF_CONDUCT.md", "format_prettier docs"]}
-fix_format_tools = {composite = ["fix_format_black tools", "fix_format_prettier tools .github .pre-commit-config.yaml"]}
-format_tools = {composite = ["format_black tools", "format_prettier tools .github .pre-commit-config.yaml"]}
+fix_format_tools = {composite = ["fix_format_black tools", "fix_format_prettier tools .github"]}
+format_tools = {composite = ["format_black tools", "format_prettier tools .github"]}
 
 fix_format = {composite = ["fix_format_src", "fix_format_docs", "fix_format_tools"]}
 format = {composite = ["format_src", "format_docs", "format_tools"]}

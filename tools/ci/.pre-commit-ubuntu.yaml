@@ -2,46 +2,41 @@ repos:
   - repo: local
     hooks:
       - id: format
-        stages: [commit]
         name: format
-        entry: pdm
-        args: ["run", "format"]
+        stages: [commit]
+        entry: .venv/bin/python
+        args: ["-m", "pdm", "run", "format"]
         language: system
-        types: [python]
         pass_filenames: false
 
       - id: fix_format
         stages: [push]
         name: fix_format
-        entry: pdm
-        args: ["run", "fix_format"]
+        entry: .venv/bin/python
+        args: ["-m", "pdm", "run", "fix_format"]
         language: system
-        types: [python]
         pass_filenames: false
 
       - id: lint
         stages: [push]
         name: lint
-        entry: pdm
-        args: ["run", "lint"]
+        entry: .venv/bin/python
+        args: ["-m", "pdm", "run", "lint"]
         language: system
-        types: [python]
         pass_filenames: false
 
       - id: type
         stages: [push]
         name: type
-        entry: pdm
-        args: ["run", "type"]
+        entry: .venv/bin/python
+        args: ["-m", "pdm", "run", "type"]
         language: system
-        types: [python]
         pass_filenames: false
 
       - id: test
         stages: [push]
         name: test
-        entry: pdm
-        args: ["run", "test"]
+        entry: .venv/bin/python
+        args: ["-m", "pdm", "run", "test"]
         language: system
-        types: [python]
         pass_filenames: false
