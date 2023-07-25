@@ -1,6 +1,7 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
 import re
+import sys
 from typing import Optional
 from unittest.mock import MagicMock
 
@@ -25,5 +26,10 @@ class Normalizer:
         if not end_index:
             end_index = len(output.call_args_list)
         for block in output.call_args_list[start_index:end_index]:
-            output_items.append(block.args[0])
+            if sys.version_info >= (3, 8):
+                args = block.args
+            else:
+                # TODO: remove once support for Python 3.7 is dropped
+                args, _ = block
+            output_items.append(args[0])
         return self.normalize_id("\n".join(output_items)).strip()

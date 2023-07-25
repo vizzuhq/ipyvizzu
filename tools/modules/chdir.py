@@ -6,10 +6,10 @@ import sys
 from typing import Union
 
 
-# TODO: remove once support for Python 3.10 is dropped
 if sys.version_info >= (3, 11):
     from contextlib import chdir  # pylint: disable=unused-import
 else:
+    # TODO: remove once support for Python 3.10 is dropped
     from contextlib import contextmanager
 
     @contextmanager
