@@ -6,7 +6,7 @@ groups = ["codequality", "docs", "env", "packagedeps", "packagetool"]
 cross_platform = true
 static_urls = false
 lock_version = "4.3"
-content_hash = "sha256:7cab2b745f1cacf4f00ad4bd716a12619e6ba1765b1624594e23ee7b478b01b1"
+content_hash = "sha256:99b34f1ea9ba1f5c29d143ae032050a3c9f6455f80e8ef11e5267da3d855ab90"
 
 [[package]]
 name = "adagio"
@@ -882,7 +882,7 @@ files = [
 
 [[package]]
 name = "ipykernel"
-version = "6.24.0"
+version = "6.25.0"
 requires_python = ">=3.8"
 summary = "IPython Kernel for Jupyter"
 dependencies = [
@@ -901,8 +901,8 @@ dependencies = [
     "traitlets>=5.4.0",
 ]
 files = [
-    {file = "ipykernel-6.24.0-py3-none-any.whl", hash = "sha256:2f5fffc7ad8f1fd5aadb4e171ba9129d9668dbafa374732cf9511ada52d6547f"},
-    {file = "ipykernel-6.24.0.tar.gz", hash = "sha256:29cea0a716b1176d002a61d0b0c851f34536495bc4ef7dd0222c88b41b816123"},
+    {file = "ipykernel-6.25.0-py3-none-any.whl", hash = "sha256:f0042e867ac3f6bca1679e6a88cbd6a58ed93a44f9d0866aecde6efe8de76659"},
+    {file = "ipykernel-6.25.0.tar.gz", hash = "sha256:e342ce84712861be4b248c4a73472be4702c1b0dd77448bfd6bcfb3af9d5ddf9"},
 ]
 
 [[package]]
@@ -2053,7 +2053,7 @@ files = [
 
 [[package]]
 name = "nbconvert"
-version = "7.7.2"
+version = "7.7.3"
 requires_python = ">=3.8"
 summary = "Converting Jupyter Notebooks"
 dependencies = [
@@ -2074,8 +2074,8 @@ dependencies = [
     "traitlets>=5.1",
 ]
 files = [
-    {file = "nbconvert-7.7.2-py3-none-any.whl", hash = "sha256:25e0cf2b663ee0cd5a90afb6b2f2940bf1abe5cc5bc995b88c8156ca65fa7ede"},
-    {file = "nbconvert-7.7.2.tar.gz", hash = "sha256:36d3e7bf32f0c075878176cdeeb645931c994cbed5b747bc7a570ba8cd2321f3"},
+    {file = "nbconvert-7.7.3-py3-none-any.whl", hash = "sha256:3022adadff3f86578a47fab7c2228bb3ca9c56a24345642a22f917f6168b48fc"},
+    {file = "nbconvert-7.7.3.tar.gz", hash = "sha256:4a5996bf5f3cd16aa0431897ba1aa4c64842c2079f434b3dc6b8c4b252ef3355"},
 ]
 
 [[package]]
@@ -3270,6 +3270,19 @@ dependencies = [
 files = [
     {file = "tox-4.6.4-py3-none-any.whl", hash = "sha256:1b8f8ae08d6a5475cad9d508236c51ea060620126fd7c3c513d0f5c7f29cc776"},
     {file = "tox-4.6.4.tar.gz", hash = "sha256:5e2ad8845764706170d3dcaac171704513cc8a725655219acb62fe4380bdadda"},
+]
+
+[[package]]
+name = "tox-gh-actions"
+version = "3.1.3"
+requires_python = ">=3.7"
+summary = "Seamless integration of tox into GitHub Actions"
+dependencies = [
+    "tox<5,>=4",
+]
+files = [
+    {file = "tox-gh-actions-3.1.3.tar.gz", hash = "sha256:ffd4151fe8b62c6f401a2fc5a01317835d7ab380923f6e0d063c300750308328"},
+    {file = "tox_gh_actions-3.1.3-py2.py3-none-any.whl", hash = "sha256:5954766fe2ed0e284f3cdc87535dfdf68d0f803f1011b17ff8cf52ed3156e6c1"},
 ]
 
 [[package]]
