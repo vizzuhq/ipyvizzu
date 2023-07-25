@@ -164,8 +164,11 @@ jobs:
           path: ./.tox/py310/coverage
           key: coverage-${{ github.run_id }}
 
-  test_depr_py36:
+  test_depr:
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python-version: ["3.6"]
 
     steps:
       - name: Checkout repo
@@ -177,7 +180,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .venv
-          key: dev-py-depr-py36-${{ hashFiles('pdm.lock') }}
+          key: dev-py-${{ matrix.python-version }}-${{ hashFiles('pdm.lock') }}
 
       - name: Cache package
         uses: actions/cache@v3
@@ -185,12 +188,15 @@ jobs:
           path: dist/
           key: package-${{ github.run_id }}
 
-      - name: Set up Python 3.6
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
-          python-version: 3.6
+          python-version: ${{ matrix.python-version }}
 
       - name: Test
         run: |
           source .venv/bin/activate
-          tox -e "py36" --installpkg dist/*.whl
+          case "${{ matrix.python-version }}" in
+            "3.6") python_test_env="py36";;
+          esac
+          tox -e "${python_test_env}" --installpkg dist/*.whl

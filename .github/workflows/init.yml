@@ -55,7 +55,7 @@ jobs:
           path: dist/
           key: package-${{ github.run_id }}
 
-  init_dev_depr_py36:
+  init_dev_py36:
     runs-on: ubuntu-20.04
 
     steps:
@@ -65,20 +65,20 @@ jobs:
           fetch-depth: 1
 
       - name: Cache dev-py environment
-        id: cache_dev_py_depr_py36
+        id: cache_dev_py36
         uses: actions/cache@v3
         with:
           path: .venv
-          key: dev-py-depr-py36-${{ hashFiles('pdm.lock') }}
+          key: dev-py-3.6-${{ hashFiles('pdm.lock') }}
 
       - name: Set up Python 3.6
-        if: steps.cache_dev_py_depr_py36.outputs.cache-hit != 'true'
+        if: steps.cache_dev_py36.outputs.cache-hit != 'true'
         uses: actions/setup-python@v4
         with:
           python-version: "3.6"
 
       - name: Init dev-py environment
-        if: steps.cache_dev_py_depr_py36.outputs.cache-hit != 'true'
+        if: steps.cache_dev_py36.outputs.cache-hit != 'true'
         run: |
           python3.6 -m venv ".venv"
           source .venv/bin/activate

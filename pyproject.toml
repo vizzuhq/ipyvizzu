@@ -146,6 +146,9 @@ deps =
 [testenv:py{36}]
 setenv =
     COVERAGE_FILE = .tox/py36/.coverage
+deps =
+    {[testenv]deps}
+    xlrd
 commands =
     python -m coverage run --branch --source ipyvizzu -m unittest discover tests
     python -m coverage report -m --fail-under=100 --omit src/ipyvizzu/integrations/fugue.py
