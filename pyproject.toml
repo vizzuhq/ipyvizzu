@@ -134,6 +134,7 @@ release = {composite = ["init_pkg", "build_release", "python ./tools/ci/version.
 [tool.tox]
 legacy_tox_ini = """
 [tox]
+isolated_build = True
 envlist = py{36,37,38,39,310,311}
 
 [testenv]
