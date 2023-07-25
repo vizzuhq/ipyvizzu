@@ -4,7 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  check_ci:
+  check_ci_src:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,32 +16,8 @@ jobs:
       - name: Cache dev-py environment
         uses: actions/cache@v3
         with:
-          path: .venv_ipyvizzu
-          key: dev-py-${{ hashFiles('dev-requirements.txt') }}
-
-      - name: Init dev-py environment
-        run: |
-          make check-dev-py
-          make dev-py
-          make install
-
-      - name: Check format
-        run: make check-format
-
-      - name: Check lint
-        run: make check-lint
-
-      - name: Check typing
-        run: make check-typing
-
-      - name: Run test
-        run: make test
-
-      - name: Cache coverage
-        uses: actions/cache@v3
-        with:
-          path: ./tests/coverage
-          key: coverage-${{ github.run_id }}
+          path: .venv
+          key: dev-py-${{ hashFiles('pdm.lock') }}
 
       - name: Cache dev-js environment
         uses: actions/cache@v3
@@ -49,13 +25,95 @@ jobs:
           path: node_modules
           key: dev-js-${{ hashFiles('package-lock.json') }}
 
-      - name: Init dev-js environment
+      - name: Format
         run: |
-          make check-dev-js
-          make dev-js
+          source .venv/bin/activate
+          pdm run format_src
 
-      - name: Check format-js
-        run: make check-format-js
+      - name: Lint
+        run: |
+          source .venv/bin/activate
+          pdm run lint_src
 
-      - name: Check lint-js
-        run: make check-lint-js
+      - name: Type
+        run: |
+          source .venv/bin/activate
+          pdm run type_src
+
+      - name: Test
+        run: |
+          source .venv/bin/activate
+          pdm run test
+
+      - name: Cache coverage
+        uses: actions/cache@v3
+        with:
+          path: ./.tox/py310/coverage
+          key: coverage-${{ github.run_id }}
+
+  check_ci_docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Cache dev-py environment
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: dev-py-${{ hashFiles('pdm.lock') }}
+
+      - name: Cache dev-js environment
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: dev-js-${{ hashFiles('package-lock.json') }}
+
+      - name: Format
+        run: |
+          source .venv/bin/activate
+          pdm run format_docs
+
+      - name: Lint
+        run: |
+          source .venv/bin/activate
+          pdm run lint_docs
+
+  check_ci_tools:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Cache dev-py environment
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: dev-py-${{ hashFiles('pdm.lock') }}
+
+      - name: Cache dev-js environment
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: dev-js-${{ hashFiles('package-lock.json') }}
+
+      - name: Format
+        run: |
+          source .venv/bin/activate
+          pdm run format_tools
+
+      - name: Lint
+        run: |
+          source .venv/bin/activate
+          pdm run lint_tools
+
+      - name: Type
+        run: |
+          source .venv/bin/activate
+          pdm run type_tools
