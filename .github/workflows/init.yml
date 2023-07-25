@@ -44,8 +44,8 @@ jobs:
           source .venv/bin/activate
           pdm init_js
 
-  init_dev_depr:
-    runs-on: ubuntu-18.04
+  init_dev_depr_py36:
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout repo
@@ -54,22 +54,21 @@ jobs:
           fetch-depth: 1
 
       - name: Cache dev-py environment
-        id: cache_dev_py_depr
+        id: cache_dev_py_depr_py36
         uses: actions/cache@v3
         with:
           path: .venv
-          key: dev-py-depr-${{ hashFiles('pdm.lock') }}
+          key: dev-py-depr-py36-${{ hashFiles('pdm.lock') }}
 
-      - name: Set up Python 3.10
-        if: steps.cache_dev_py_depr.outputs.cache-hit != 'true'
+      - name: Set up Python 3.6
+        if: steps.cache_dev_py_depr_py36.outputs.cache-hit != 'true'
         uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.6"
 
       - name: Init dev-py environment
-        if: steps.cache_dev_py_depr.outputs.cache-hit != 'true'
+        if: steps.cache_dev_py_depr_py36.outputs.cache-hit != 'true'
         run: |
-          python3.10 -m venv ".venv"
+          python3.6 -m venv ".venv"
           source .venv/bin/activate
-          pip install pdm
-          pdm init_py
+          pip install tox
