@@ -1,5 +1,6 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
+import sys
 import json
 import pathlib
 import unittest
@@ -34,6 +35,8 @@ class TestData(unittest.TestCase):
             data.build(),
         )
 
+    # TODO: remove decorator once support for Python 3.6 is dropped
+    @unittest.skipUnless(sys.version_info >= (3, 7), "requires Python 3.7")
     def test_data_frame_with_xlsx(self) -> None:
         with open(self.asset_dir / "data_frame_out.json", encoding="utf8") as fh_out:
             fc_out = json.load(fh_out)
