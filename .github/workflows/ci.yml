@@ -165,7 +165,7 @@ jobs:
           key: coverage-${{ github.run_id }}
 
   test_depr:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     strategy:
       matrix:
         python-version: ["3.6"]

@@ -45,7 +45,7 @@ jobs:
           pdm init_js
 
   init_dev_depr:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
 
     steps:
       - name: Checkout repo

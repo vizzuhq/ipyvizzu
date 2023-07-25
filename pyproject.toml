@@ -144,7 +144,6 @@ commands =
     python -m coverage run --data-file .tox/{envname}/.coverage --branch --source ipyvizzu -m unittest discover tests
 
 [testenv:py{36}]
-basepython = python3.6
 commands_post =
     python -m coverage report --data-file .tox/{envname}/.coverage -m --fail-under=100 --omit src/ipyvizzu/integrations/fugue.py
 
