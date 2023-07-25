@@ -1,4 +1,4 @@
-"""A module for getting vizzu-lib release tag."""
+# pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
 from pathlib import Path
 import re
@@ -6,11 +6,11 @@ import sys
 import requests
 
 REPO_PATH = Path(__file__).parent / ".." / ".."
-MKDOCS_PATH = REPO_PATH / "tools" / "docs"
+TOOLS_PATH = REPO_PATH / "tools"
 
-sys.path.insert(0, str(MKDOCS_PATH / "modules"))
+sys.path.insert(0, str(TOOLS_PATH / "modules"))
 
-from context import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
+from chdir import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
     chdir,
 )
 from vizzu import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
