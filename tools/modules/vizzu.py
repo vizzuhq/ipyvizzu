@@ -3,7 +3,7 @@
 from pathlib import Path
 import re
 
-from ipyvizzu import Chart
+import ipyvizzu
 
 
 REPO_PATH = Path(__file__).parent / ".." / ".."
@@ -43,7 +43,7 @@ class Vizzu:
         if VIZZU_VERSION:
             return VIZZU_VERSION
         if not Vizzu._vizzu_version:
-            cdn = Chart.VIZZU
+            cdn = ipyvizzu.Chart.VIZZU
             Vizzu._vizzu_version = re.search(r"vizzu@([\d.]+)/", cdn).group(1)  # type: ignore
         return Vizzu._vizzu_version
 
@@ -52,14 +52,8 @@ class Vizzu:
         if IPYVIZZU_VERSION:
             return IPYVIZZU_VERSION
         if not Vizzu._ipyvizzu_version:
-            with open(
-                REPO_PATH / "src" / "ipyvizzu" / "__version__.py",
-                "r",
-                encoding="utf8",
-            ) as f_version:
-                content = f_version.read()
-                version = re.search(r"__version__ = \"(\d+).(\d+).(\d+)\"", content)
-                Vizzu._ipyvizzu_version = f"{version.group(1)}.{version.group(2)}"  # type: ignore
+            version = ipyvizzu.__version__
+            Vizzu._ipyvizzu_version = re.search(r"(\d+.\d+).\d+", version).group(1)  # type: ignore
         return Vizzu._ipyvizzu_version
 
     @staticmethod

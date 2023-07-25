@@ -123,16 +123,13 @@ ci_tools = {composite = ["format_tools", "lint_tools", "type_tools"]}
 ci = {composite = ["ci_src", "ci_docs", "ci_tools"]}
 
 
-docs_build = "mkdocs build -f ./tools/docs/mkdocs.yml"
-docs_deploy = {composite = ["init_pkg", "python ./tools/docs/deploy.py"]}
+docs_build_wf ="mkdocs build -f ./tools/docs/mkdocs.yml"
+docs_build = {composite = ["init_pkg", "docs_build_wf"]}
+docs_deploy_wf ="python ./tools/docs/deploy.py"
+docs_deploy = {composite = ["init_pkg", "docs_deploy_wf"]}
 
-
-set_version = "python ./tools/ci/version.py False"
-restore_version = "python ./tools/ci/version.py True"
-validate_release = "twine check dist/*.tar.gz dist/*.whl"
-build_release = {composite = ["set_version", "pdm build", "validate_release"]}
-
-release = {composite = ["build_release", "restore_version"]}
+release_wf = {composite = ["python ./tools/ci/version.py False", "pdm build", "twine check dist/*.tar.gz dist/*.whl"]}
+release = {composite = ["init_pkg", "build_release", "python ./tools/ci/version.py True"]}
 
 [tool.tox]
 legacy_tox_ini = """
