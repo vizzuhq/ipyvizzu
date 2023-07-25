@@ -140,12 +140,6 @@ jobs:
           path: .venv
           key: dev-py-${{ hashFiles('pdm.lock') }}
 
-      - name: Cache dev-js environment
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: dev-js-${{ hashFiles('package-lock.json') }}
-
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
@@ -182,18 +176,6 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Cache dev-py environment
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: dev-py-${{ hashFiles('pdm.lock') }}
-
-      - name: Cache dev-js environment
-        uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: dev-js-${{ hashFiles('package-lock.json') }}
-
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
@@ -203,6 +185,13 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
+
+      - name: Init dev-py environment
+        run: |
+          python3.10 -m venv ".venv"
+          source .venv/bin/activate
+          pip install pdm
+          pdm init_py
 
       - name: Test
         run: |
