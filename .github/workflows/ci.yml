@@ -179,6 +179,12 @@ jobs:
           path: .venv
           key: dev-py-depr-py36-${{ hashFiles('pdm.lock') }}
 
+      - name: Cache package
+        uses: actions/cache@v3
+        with:
+          path: dist/
+          key: package-${{ github.run_id }}
+
       - name: Set up Python 3.6
         uses: actions/setup-python@v4
         with:
@@ -187,4 +193,4 @@ jobs:
       - name: Test
         run: |
           source .venv/bin/activate
-          tox -e "py36"
+          tox -e "py36" --installpkg dist/*.whl

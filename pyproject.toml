@@ -128,13 +128,14 @@ docs_build = {composite = ["init_pkg", "docs_build_wf"]}
 docs_deploy_wf ="python ./tools/docs/deploy.py"
 docs_deploy = {composite = ["init_pkg", "docs_deploy_wf"]}
 
-release_wf = {composite = ["python ./tools/ci/version.py False", "pdm build", "twine check dist/*.tar.gz dist/*.whl"]}
-release = {composite = ["init_pkg", "build_release", "python ./tools/ci/version.py True"]}
+
+build_package = {composite = ["python ./tools/ci/version.py False", "pdm build"]}
+check_package = "twine check dist/*.tar.gz dist/*.whl"
+release = {composite = ["init_pkg", "build_package", "check_package", "python ./tools/ci/version.py True"]}
 
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-isolated_build = True
 envlist = py{36,37,38,39,310,311}
 
 [testenv]

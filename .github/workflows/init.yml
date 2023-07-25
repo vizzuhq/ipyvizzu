@@ -44,6 +44,17 @@ jobs:
           source .venv/bin/activate
           pdm init_js
 
+      - name: Build package
+        run: |
+          source .venv/bin/activate
+          pdm build_package
+
+      - name: Cache package
+        uses: actions/cache@v3
+        with:
+          path: dist/
+          key: package-${{ github.run_id }}
+
   init_dev_depr_py36:
     runs-on: ubuntu-20.04
 
