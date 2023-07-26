@@ -36,7 +36,7 @@ class TestData(unittest.TestCase):
         )
 
     # TODO: remove decorator once support for Python 3.6 is dropped
-    @unittest.skipUnless(sys.version_info >= (3, 7), "requires Python 3.7")
+    @unittest.skipUnless(sys.version_info >= (3, 7), "at least Python 3.7 is required")
     def test_data_frame_with_xlsx(self) -> None:
         with open(self.asset_dir / "data_frame_out.json", encoding="utf8") as fh_out:
             fc_out = json.load(fh_out)
