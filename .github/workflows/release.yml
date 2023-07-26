@@ -6,42 +6,10 @@ on:
   workflow_call:
 
 jobs:
-  create_release:
-    if: ${{ !(github.event_name == 'release' && github.event.action == 'published') }}
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
-
-      - name: Cache dev-py environment
-        uses: actions/cache@v3
-        with:
-          path: .venv_ipyvizzu
-          key: dev-py-${{ hashFiles('dev-requirements.txt') }}
-
-      - name: Init dev-py environment
-        run: |
-          make check-dev-py
-          make dev-py
-          make install
-
-      - name: Build package
-        run: make release-wo-restore
-
-      - name: Cache release
-        uses: actions/cache@v3
-        with:
-          path: dist/
-          key: release-${{ github.run_id }}
-
   publish_release:
     if: ${{ (github.event_name == 'release' && github.event.action == 'published') }}
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout repo
@@ -52,14 +20,8 @@ jobs:
       - name: Cache dev-py environment
         uses: actions/cache@v3
         with:
-          path: .venv_ipyvizzu
-          key: dev-py-${{ hashFiles('dev-requirements.txt') }}
-
-      - name: Init dev-py environment
-        run: |
-          make check-dev-py
-          make dev-py
-          make install
+          path: .venv
+          key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
       - name: Get workflow ID
         id: workflow_id
@@ -81,14 +43,14 @@ jobs:
           run_id=$(echo $run_data | jq -r '.workflow_runs[0].id')
           echo "run_id=${run_id}" >> $GITHUB_OUTPUT
 
-      - name: Cache release
+      - name: Cache package
         uses: actions/cache@v3
         with:
           path: dist/
-          key: release-${{ steps.run_id.outputs.run_id }}
+          key: cache_package_${{ steps.run_id.outputs.run_id }}
 
       - name: Release package
-        run: ./.venv_ipyvizzu/bin/python -m twine upload -u "__token__" -p "${{ secrets.PYPI_API_TOKEN }}" dist/*.tar.gz  dist/*.whl
+        run: ./.venv/bin/python -m twine upload -u "__token__" -p "${{ secrets.PYPI_API_TOKEN }}" dist/*.tar.gz  dist/*.whl
 
       - name: Upload package
         run: |

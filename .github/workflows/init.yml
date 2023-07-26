@@ -60,11 +60,20 @@ jobs:
           path: .venv
           key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
-      - name: Init package
+      - name: Install package
         run: |
           source .venv/bin/activate
           pdm run pkg_install
+
+      - name: Build package
+        run: |
+          source .venv/bin/activate
           pdm run pkg_build
+
+      - name: Check package
+        run: |
+          source .venv/bin/activate
+          pdm run pkg_check
 
       - name: Cache package
         uses: actions/cache@v3
