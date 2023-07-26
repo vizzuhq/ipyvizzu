@@ -10,7 +10,7 @@ jobs:
   create_doc:
     if: ${{ !((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     env:
       PUPPETEER_CACHE_DIR: ${{ github.workspace }}/node_modules/.chromium
@@ -24,36 +24,31 @@ jobs:
       - name: Cache dev-py environment
         uses: actions/cache@v3
         with:
-          path: .venv_ipyvizzu
-          key: dev-py-${{ hashFiles('dev-requirements.txt') }}
-
-      - name: Init dev-py environment
-        run: |
-          make check-dev-py
-          make dev-py
-          make install
+          path: .venv
+          key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
       - name: Cache dev-js environment
         uses: actions/cache@v3
         with:
           path: node_modules
-          key: dev-js-${{ hashFiles('package-lock.json') }}
-
-      - name: Init dev-js environment
-        run: |
-          make check-dev-js
-          make dev-js
+          key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
 
       - name: Cache coverage
         uses: actions/cache@v3
         with:
-          path: ./tests/coverage
-          key: coverage-${{ github.run_id }}
+          path: ./.tox/py310/coverage
+          key: cache_coverage_${{ github.run_id }}
+
+      - name: Install package
+        run: |
+          source .venv/bin/activate
+          pdm run pkg_install
 
       - name: Get vizzu-lib tag
         id: vizzu_tag
         run: |
-          vizzu_tag=$(./.venv_ipyvizzu/bin/python ./tools/release/tag.py)
+          source .venv/bin/activate
+          vizzu_tag=$(./.venv/bin/python ./tools/ci/get_tag.py)
           echo "vizzu_tag=${vizzu_tag}" >> $GITHUB_OUTPUT
 
       - name: Checkout vizzu-lib
@@ -65,12 +60,14 @@ jobs:
           path: vizzu-lib
 
       - name: Build documentation
-        run: make doc
+        run: |
+          source .venv/bin/activate
+          pdm run docs_build_wo_install
 
   publish_doc:
     if: ${{ ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     env:
       PUPPETEER_CACHE_DIR: ${{ github.workspace }}/node_modules/.chromium
@@ -84,25 +81,14 @@ jobs:
       - name: Cache dev-py environment
         uses: actions/cache@v3
         with:
-          path: .venv_ipyvizzu
-          key: dev-py-${{ hashFiles('dev-requirements.txt') }}
-
-      - name: Init dev-py environment
-        run: |
-          make check-dev-py
-          make dev-py
-          make install
+          path: .venv
+          key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
       - name: Cache dev-js environment
         uses: actions/cache@v3
         with:
           path: node_modules
-          key: dev-js-${{ hashFiles('package-lock.json') }}
-
-      - name: Init dev-js environment
-        run: |
-          make check-dev-js
-          make dev-js
+          key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
 
       - name: Get workflow ID
         id: workflow_id
@@ -127,13 +113,19 @@ jobs:
       - name: Cache coverage
         uses: actions/cache@v3
         with:
-          path: ./tests/coverage
-          key: coverage-${{ steps.run_id.outputs.run_id }}
+          path: ./.tox/py310/coverage
+          key: cache_coverage_${{ github.run_id }}
+
+      - name: Install package
+        run: |
+          source .venv/bin/activate
+          pdm run pkg_install
 
       - name: Get vizzu-lib tag
         id: vizzu_tag
         run: |
-          vizzu_tag=$(./.venv_ipyvizzu/bin/python ./tools/release/tag.py)
+          source .venv/bin/activate
+          vizzu_tag=$(./.venv/bin/python ./tools/ci/get_tag.py)
           echo "vizzu_tag=${vizzu_tag}" >> $GITHUB_OUTPUT
 
       - name: Checkout vizzu-lib
@@ -154,6 +146,7 @@ jobs:
 
       - name: Deploy documentation
         run: |
+          source .venv/bin/activate
           git fetch origin gh-pages || echo "gh-pages does not exist"
-          make deploy
+          pdm run docs_deploy_wo_install
           git push origin gh-pages
