@@ -130,6 +130,12 @@ jobs:
           path: .venv
           key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
+      - name: Cache package
+        uses: actions/cache@v3
+        with:
+          path: dist/
+          key: cache_package_${{ github.run_id }}
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
