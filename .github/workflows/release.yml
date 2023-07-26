@@ -6,7 +6,7 @@ on:
   workflow_call:
 
 jobs:
-  publish_release:
+  publish_pkg:
     if: ${{ (github.event_name == 'release' && github.event.action == 'published') }}
 
     runs-on: ubuntu-22.04

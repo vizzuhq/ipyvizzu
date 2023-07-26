@@ -7,7 +7,7 @@ on:
   workflow_call:
 
 jobs:
-  create_doc:
+  build_docs:
     if: ${{ !((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
 
     runs-on: ubuntu-22.04
@@ -64,7 +64,7 @@ jobs:
           source .venv/bin/activate
           pdm run docs_build_wo_install
 
-  publish_doc:
+  publish_docs:
     if: ${{ ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
 
     runs-on: ubuntu-22.04

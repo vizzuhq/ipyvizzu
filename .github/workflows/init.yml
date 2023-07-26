@@ -44,7 +44,7 @@ jobs:
           source .venv/bin/activate
           pdm run init_js
 
-  init_package:
+  init_pkg:
     runs-on: ubuntu-22.04
     needs: init_dev_ubuntu22
 
