@@ -24,7 +24,7 @@ contribute to this `JavaScript` part or the documentation, you will need
 `Node.js`, preferably version `18`.
 
 The following steps demonstrate how to set up the development environment on an
-`Ubuntu` operating system. However, the process can be adapted for other
+`Ubuntu` `22.04` operating system. However, the process can be adapted for other
 operating systems as well.
 
 To start using the `ipyvizzu` development environment, you need to create a
@@ -44,22 +44,24 @@ or specific parts like `init_src_py`, `init_src`, `init_docs`, or `init_tools`.
 pdm run init
 ```
 
+**Note:** For all available `pdm` scripts, run `pdm run --list`.
+
 The development requirements are installed based on the `pdm.lock` and
 `package-lock.json` files. To update the development requirements, you can use
 the command `pdm run lock`.
 
-**Note:** For better development practices, you can set up `pre-commit` and
-`pre-push` hooks in your local Git repository. The `pre-commit` hook will format
-the code automatically, and the `pre-push` hook will run the CI steps before
-pushing your changes.
+For better development practices, you can set up `pre-commit` and `pre-push`
+hooks in your local `Git` repository. The `pre-commit` hook will format the code
+automatically, and the `pre-push` hook will run the CI steps before pushing your
+changes.
 
 ```sh
 pre-commit install --hook-type pre-commit --hook-type pre-push -c ./tools/ci/.pre-commit-ubuntu.yaml
 ```
 
-**Note:** The provided configuration file is tailored for `Ubuntu`. If you
-intend to use another operating system, you will need to create a custom
-configuration file suitable for that environment.
+**Note:** The provided `.pre-commit-ubuntu.yaml` configuration file is tailored
+for `Ubuntu` `22.04`. If you intend to use another operating system, you may
+need to create a custom configuration file suitable for that environment.
 
 ### CI
 
@@ -161,9 +163,9 @@ To release `ipyvizzu`, follow the steps below:
 workflow, which builds, checks, and uploads the `ipyvizzu` package to
 [pypi](https://pypi.org/project/ipyvizzu).
 
-Before making a release, you can build and check the package using the `release`
-script:
+Before making a release, you can build and check the package using the
+`pkg_release` script:
 
 ```sh
-pdm run release
+pdm run pkg_release
 ```

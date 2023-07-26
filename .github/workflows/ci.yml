@@ -5,7 +5,7 @@ on:
 
 jobs:
   check_src:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout repo
@@ -17,18 +17,13 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .venv
-          key: dev-py-${{ hashFiles('pdm.lock') }}
+          key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
       - name: Cache dev-js environment
         uses: actions/cache@v3
         with:
           path: node_modules
-          key: dev-js-${{ hashFiles('package-lock.json') }}
-
-      - name: Init
-        run: |
-          source .venv/bin/activate
-          pdm run init_pkg
+          key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
 
       - name: Format
         run: |
@@ -46,7 +41,7 @@ jobs:
           pdm run type_src
 
   check_docs:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout repo
@@ -58,18 +53,13 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .venv
-          key: dev-py-${{ hashFiles('pdm.lock') }}
+          key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
       - name: Cache dev-js environment
         uses: actions/cache@v3
         with:
           path: node_modules
-          key: dev-js-${{ hashFiles('package-lock.json') }}
-
-      - name: Init
-        run: |
-          source .venv/bin/activate
-          pdm run init_pkg
+          key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
 
       - name: Format
         run: |
@@ -82,7 +72,7 @@ jobs:
           pdm run lint_docs
 
   check_tools:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout repo
@@ -94,18 +84,18 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .venv
-          key: dev-py-${{ hashFiles('pdm.lock') }}
+          key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
       - name: Cache dev-js environment
         uses: actions/cache@v3
         with:
           path: node_modules
-          key: dev-js-${{ hashFiles('package-lock.json') }}
+          key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
 
-      - name: Init
+      - name: Install package
         run: |
           source .venv/bin/activate
-          pdm run init_pkg
+          pdm run pkg_install
 
       - name: Format
         run: |
@@ -122,8 +112,8 @@ jobs:
           source .venv/bin/activate
           pdm run type_tools
 
-  test:
-    runs-on: ubuntu-latest
+  test_ubuntu22:
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
@@ -138,7 +128,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .venv
-          key: dev-py-${{ hashFiles('pdm.lock') }}
+          key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -155,16 +145,16 @@ jobs:
             "3.10") python_test_env="py310";;
             "3.11") python_test_env="py311";;
           esac
-          pdm run test -e "${python_test_env}"
+          pdm run test -e "${python_test_env}" --installpkg dist/*.whl
 
       - name: Cache coverage
         if: startsWith(matrix.python-version, '3.10')
         uses: actions/cache@v3
         with:
           path: ./.tox/py310/coverage
-          key: coverage-${{ github.run_id }}
+          key: cache_coverage_${{ github.run_id }}
 
-  test_depr:
+  test_ubuntu20:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
@@ -180,23 +170,20 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .venv
-          key: dev-py-${{ matrix.python-version }}-${{ hashFiles('pdm.lock') }}
+          key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
       - name: Cache package
         uses: actions/cache@v3
         with:
           path: dist/
-          key: package-${{ github.run_id }}
+          key: cache_package_${{ github.run_id }}
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python 3.6
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.6"
 
       - name: Test
         run: |
           source .venv/bin/activate
-          case "${{ matrix.python-version }}" in
-            "3.6") python_test_env="py36";;
-          esac
-          tox -e "${python_test_env}" --installpkg dist/*.whl
+          tox -e py36 --installpkg dist/*.whl

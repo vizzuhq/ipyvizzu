@@ -49,17 +49,15 @@ Source = "https://github.com/vizzuhq/ipyvizzu"
 Tracker = "https://github.com/vizzuhq/ipyvizzu/issues"
 
 [tool.pdm.scripts]
-init_pkg = "pip install ."
 init_py = "pdm install"
-post_init_py = {composite = ["init_pkg"]}
 init_js = "npm install"
 
-init_src_py = {composite = ["init_py"]}
-init_src = {composite = ["init_py", "init_js"]}
-init_docs = {composite = ["init_py", "init_js"]}
-init_tools = {composite = ["init_py", "init_js"]}
+init_src_py = {composite = ["pkg_install", "init_py"]}
+init_src = {composite = ["init"]}
+init_docs = {composite = ["init"]}
+init_tools = {composite = ["init"]}
 
-init = {composite = ["init_py", "init_js"]}
+init = {composite = ["pkg_install", "init_py", "init_js"]}
 
 
 lock_py = "pdm lock --no-default -d"
@@ -123,15 +121,16 @@ ci_tools = {composite = ["format_tools", "lint_tools", "type_tools"]}
 ci = {composite = ["ci_src", "ci_docs", "ci_tools"]}
 
 
-docs_build_wf ="mkdocs build -f ./tools/docs/mkdocs.yml"
-docs_build = {composite = ["init_pkg", "docs_build_wf"]}
-docs_deploy_wf ="python ./tools/docs/deploy.py"
-docs_deploy = {composite = ["init_pkg", "docs_deploy_wf"]}
+docs_build_wo_install ="mkdocs build -f ./tools/docs/mkdocs.yml"
+docs_build = {composite = ["pkg_install", "docs_build_wo_install"]}
+docs_deploy_wo_install ="python ./tools/docs/deploy.py"
+docs_deploy = {composite = ["pkg_install", "docs_deploy_wo_install"]}
 
 
-build_package = {composite = ["python ./tools/ci/version.py False", "pdm build"]}
-check_package = "twine check dist/*.tar.gz dist/*.whl"
-release = {composite = ["init_pkg", "build_package", "check_package", "python ./tools/ci/version.py True"]}
+pkg_install = "pip install ."
+pkg_build = {composite = ["python ./tools/ci/version.py False", "pdm build"]}
+pkg_check = "twine check dist/*.tar.gz dist/*.whl"
+pkg_release = {composite = ["pkg_install", "pkg_build", "pkg_check", "python ./tools/ci/version.py True"]}
 
 [tool.tox]
 legacy_tox_ini = """

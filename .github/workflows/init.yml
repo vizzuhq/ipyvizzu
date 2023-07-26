@@ -4,8 +4,8 @@ on:
   workflow_call:
 
 jobs:
-  init_dev:
-    runs-on: ubuntu-latest
+  init_dev_ubuntu22:
+    runs-on: ubuntu-22.04
 
     env:
       PUPPETEER_CACHE_DIR: ${{ github.workspace }}/node_modules/.chromium
@@ -17,36 +17,36 @@ jobs:
           fetch-depth: 1
 
       - name: Cache dev-py environment
-        id: cache_dev_py
+        id: cache_dev_py_ubuntu22
         uses: actions/cache@v3
         with:
           path: .venv
-          key: dev-py-${{ hashFiles('pdm.lock') }}
+          key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
       - name: Init dev-py environment
-        if: steps.cache_dev_py.outputs.cache-hit != 'true'
+        if: steps.cache_dev_py_ubuntu22.outputs.cache-hit != 'true'
         run: |
           python3.10 -m venv ".venv"
           source .venv/bin/activate
           pip install pdm
-          pdm init_py
+          pdm run init_py
 
       - name: Cache dev-js environment
-        id: cache_dev_js
+        id: cache_dev_js_ubuntu22
         uses: actions/cache@v3
         with:
           path: node_modules
-          key: dev-js-${{ hashFiles('package-lock.json') }}
+          key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
 
       - name: Init dev-js environment
-        if: steps.cache_dev_js.outputs.cache-hit != 'true'
+        if: steps.cache_dev_js_ubuntu22.outputs.cache-hit != 'true'
         run: |
           source .venv/bin/activate
-          pdm init_js
+          pdm run init_js
 
   init_package:
-    runs-on: ubuntu-latest
-    needs: init_dev
+    runs-on: ubuntu-22.04
+    needs: init_dev_ubuntu22
 
     steps:
       - name: Checkout repo
@@ -55,24 +55,24 @@ jobs:
           fetch-depth: 1
 
       - name: Cache dev-py environment
-        id: cache_dev_py
         uses: actions/cache@v3
         with:
           path: .venv
-          key: dev-py-${{ hashFiles('pdm.lock') }}
+          key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
-      - name: Build package
+      - name: Init package
         run: |
           source .venv/bin/activate
-          pdm build_package
+          pdm run pkg_install
+          pdm run pkg_build
 
       - name: Cache package
         uses: actions/cache@v3
         with:
           path: dist/
-          key: package-${{ github.run_id }}
+          key: cache_package_${{ github.run_id }}
 
-  init_dev_py36:
+  init_dev_ubuntu20:
     runs-on: ubuntu-20.04
 
     steps:
@@ -82,20 +82,20 @@ jobs:
           fetch-depth: 1
 
       - name: Cache dev-py environment
-        id: cache_dev_py36
+        id: cache_dev_py_ubuntu20
         uses: actions/cache@v3
         with:
           path: .venv
-          key: dev-py-3.6-${{ hashFiles('pdm.lock') }}
+          key: cache_dev_py_ubuntu20_${{ hashFiles('pdm.lock') }}
 
       - name: Set up Python 3.6
-        if: steps.cache_dev_py36.outputs.cache-hit != 'true'
+        if: steps.cache_dev_py_ubuntu20.outputs.cache-hit != 'true'
         uses: actions/setup-python@v4
         with:
           python-version: "3.6"
 
       - name: Init dev-py environment
-        if: steps.cache_dev_py36.outputs.cache-hit != 'true'
+        if: steps.cache_dev_py_ubuntu20.outputs.cache-hit != 'true'
         run: |
           python3.6 -m venv ".venv"
           source .venv/bin/activate
