@@ -61,6 +61,8 @@ from .json import RawJavaScript, RawJavaScriptEncoder
 from .template import ChartProperty, DisplayTarget, DisplayTemplate
 from .event import EventHandler
 
+from .__version__ import __version__
+
 __all__ = [
     "Chart",
     "Data",

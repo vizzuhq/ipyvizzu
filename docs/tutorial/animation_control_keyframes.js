@@ -67,7 +67,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
             {
               playState: "paused",
               position: 0.5,
-            }
+            },
           );
           chart.activated.then((control) => control.play());
           return chart;

@@ -106,7 +106,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
             {
               data: expandedData,
             },
-            2
+            2,
           );
         },
       ],

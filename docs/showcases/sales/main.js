@@ -2,7 +2,7 @@ const csv2JsLoaded = import("../../assets/javascripts/csv2js.js");
 const vizzuLoaded = import("../../assets/javascripts/vizzu.js").then(
   (vizzuUrl) => {
     return import(vizzuUrl.default);
-  }
+  },
 );
 
 Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
@@ -39,7 +39,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
           },
           config: { title: "Sales of Shoes & Handbags" },
         },
-        { delay: 1 }
+        { delay: 1 },
       );
 
       chart.animate(
@@ -51,7 +51,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
           },
           config: { title: "Sales of Shoes, Handbags & Gloves" },
         },
-        { delay: 1 }
+        { delay: 1 },
       );
 
       chart.animate(
@@ -59,7 +59,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
           data: { filter: null },
           config: { title: "Sales of All Products" },
         },
-        { delay: 1 }
+        { delay: 1 },
       );
 
       chart.animate(
@@ -70,14 +70,14 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
             title: "Revenue of All Products",
           },
         },
-        { delay: 1 }
+        { delay: 1 },
       );
 
       chart.animate(
         {
           config: { x: ["Region", "Revenue [$]"], y: "Product" },
         },
-        { delay: 2 }
+        { delay: 2 },
       );
 
       chart.animate({
@@ -88,7 +88,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         {
           config: { coordSystem: "polar", sort: "byValue" },
         },
-        { delay: 1 }
+        { delay: 1 },
       );
     });
   });

@@ -4,8 +4,8 @@ on:
   workflow_call:
 
 jobs:
-  check_ci:
-    runs-on: ubuntu-latest
+  check_src:
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout repo
@@ -16,46 +16,180 @@ jobs:
       - name: Cache dev-py environment
         uses: actions/cache@v3
         with:
-          path: .venv_ipyvizzu
-          key: dev-py-${{ hashFiles('dev-requirements.txt') }}
-
-      - name: Init dev-py environment
-        run: |
-          make check-dev-py
-          make dev-py
-          make install
-
-      - name: Check format
-        run: make check-format
-
-      - name: Check lint
-        run: make check-lint
-
-      - name: Check typing
-        run: make check-typing
-
-      - name: Run test
-        run: make test
-
-      - name: Cache coverage
-        uses: actions/cache@v3
-        with:
-          path: ./tests/coverage
-          key: coverage-${{ github.run_id }}
+          path: .venv
+          key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
       - name: Cache dev-js environment
         uses: actions/cache@v3
         with:
           path: node_modules
-          key: dev-js-${{ hashFiles('package-lock.json') }}
+          key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
 
-      - name: Init dev-js environment
+      - name: Format
         run: |
-          make check-dev-js
-          make dev-js
+          source .venv/bin/activate
+          pdm run format_src
 
-      - name: Check format-js
-        run: make check-format-js
+      - name: Lint
+        run: |
+          source .venv/bin/activate
+          pdm run lint_src
 
-      - name: Check lint-js
-        run: make check-lint-js
+      - name: Type
+        run: |
+          source .venv/bin/activate
+          pdm run type_src
+
+  check_docs:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Cache dev-py environment
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
+
+      - name: Cache dev-js environment
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
+
+      - name: Format
+        run: |
+          source .venv/bin/activate
+          pdm run format_docs
+
+      - name: Lint
+        run: |
+          source .venv/bin/activate
+          pdm run lint_docs
+
+  check_tools:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Cache dev-py environment
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
+
+      - name: Cache dev-js environment
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
+
+      - name: Install package
+        run: |
+          source .venv/bin/activate
+          pdm run pkg_install
+
+      - name: Format
+        run: |
+          source .venv/bin/activate
+          pdm run format_tools
+
+      - name: Lint
+        run: |
+          source .venv/bin/activate
+          pdm run lint_tools
+
+      - name: Type
+        run: |
+          source .venv/bin/activate
+          pdm run type_tools
+
+  test_ubuntu22:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Cache dev-py environment
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
+
+      - name: Cache package
+        uses: actions/cache@v3
+        with:
+          path: dist/
+          key: cache_package_${{ github.run_id }}
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Test
+        run: |
+          source .venv/bin/activate
+          case "${{ matrix.python-version }}" in
+            "3.7") python_test_env="py37";;
+            "3.8") python_test_env="py38";;
+            "3.9") python_test_env="py39";;
+            "3.10") python_test_env="py310";;
+            "3.11") python_test_env="py311";;
+          esac
+          pdm run test -e "${python_test_env}" --installpkg dist/*.whl
+
+      - name: Cache coverage
+        if: startsWith(matrix.python-version, '3.10')
+        uses: actions/cache@v3
+        with:
+          path: ./.tox/py310/coverage
+          key: cache_coverage_${{ github.run_id }}
+
+  test_ubuntu20:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python-version: ["3.6"]
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Cache dev-py environment
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: cache_dev_py_ubuntu20_${{ hashFiles('pdm.lock') }}
+
+      - name: Cache package
+        uses: actions/cache@v3
+        with:
+          path: dist/
+          key: cache_package_${{ github.run_id }}
+
+      - name: Set up Python 3.6
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.6"
+
+      - name: Test
+        run: |
+          source .venv/bin/activate
+          tox -e py36 --installpkg dist/*.whl

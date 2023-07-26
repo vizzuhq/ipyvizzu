@@ -1,4 +1,4 @@
-"""ipyvizzu test modules."""
+# pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
 import sys
 

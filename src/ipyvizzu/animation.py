@@ -277,7 +277,7 @@ class Data(dict, AbstractAnimation):
         Example:
             Adding a data frame to a [Data][ipyvizzu.animation.Data] class instance:
 
-                data_frame = pd.DataFrame(
+                df = pd.DataFrame(
                     {
                         "Genres": ["Pop", "Rock", "Pop", "Rock"],
                         "Kinds": ["Hard", "Hard", "Experimental", "Experimental"],
@@ -285,7 +285,7 @@ class Data(dict, AbstractAnimation):
                     }
                 )
                 data = Data()
-                data.add_data_frame(data_frame)
+                data.add_data_frame(df)
         """
 
         if not isinstance(data_frame, type(None)):
@@ -339,13 +339,13 @@ class Data(dict, AbstractAnimation):
         Example:
             Adding a data frame's index to a [Data][ipyvizzu.animation.Data] class instance:
 
-                data_frame = pd.DataFrame(
+                df = pd.DataFrame(
                     {"Popularity": [114, 96]},
                     index=["x", "y"]
                 )
                 data = Data()
-                data.add_data_frame_index(data_frame, "DataFrameIndex")
-                data.add_data_frame(data_frame)
+                data.add_data_frame_index(df, "DataFrameIndex")
+                data.add_data_frame(df)
         """
 
         if data_frame is not None:

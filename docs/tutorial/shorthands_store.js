@@ -129,7 +129,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
                 color: { set: "Kinds" },
               },
             },
-            0
+            0,
           );
         },
         (chart) => {

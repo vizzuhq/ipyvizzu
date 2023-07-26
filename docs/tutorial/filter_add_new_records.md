@@ -21,11 +21,11 @@ from the chart.
     import pandas as pd
     from ipyvizzu import Chart, Data, Config
 
-    data_frame = pd.read_csv(
+    df = pd.read_csv(
         "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
     )
     data1 = Data()
-    data1.add_data_frame(data_frame)
+    data1.add_data_frame(df)
 
     chart = Chart()
 

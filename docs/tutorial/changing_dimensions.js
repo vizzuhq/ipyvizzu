@@ -75,7 +75,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
                 },
               },
             },
-            { regroupStrategy: "drilldown" }
+            { regroupStrategy: "drilldown" },
           );
         },
       ],
@@ -98,7 +98,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
                 },
               },
             },
-            { regroupStrategy: "fade" }
+            { regroupStrategy: "fade" },
           );
         },
       ],

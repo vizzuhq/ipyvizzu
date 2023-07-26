@@ -22,7 +22,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
               size: "Popularity",
               color: "Kinds",
               stackedBy: "Genres",
-            })
+            }),
           );
         },
       ],
@@ -43,7 +43,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
               radius: "Genres",
               stackedBy: "Kinds",
               sort: "byValue",
-            })
+            }),
           );
         },
       ],

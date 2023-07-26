@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     iframe.addEventListener("load", (event) => {
       changeTarget(
         iframe.contentWindow.document.getElementsByTagName("a"),
-        target
+        target,
       );
     });
   }

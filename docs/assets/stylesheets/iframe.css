@@ -11,7 +11,9 @@
   font-family: "Roboto Condensed";
   font-style: normal;
   font-weight: 400;
-  src: local("Roboto Condensed"), local("RobotoCondensed-Regular"),
+  src:
+    local("Roboto Condensed"),
+    local("RobotoCondensed-Regular"),
     url("roboto-condensed-v18-latin_latin-ext-regular.woff2") format("woff2"),
     /* Super Modern Browsers */
       url("roboto-condensed-v18-latin_latin-ext-regular.woff") format("woff"),

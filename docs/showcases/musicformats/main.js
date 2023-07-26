@@ -2,7 +2,7 @@ const csv2JsLoaded = import("../../assets/javascripts/csv2js.js");
 const vizzuLoaded = import("../../assets/javascripts/vizzu.js").then(
   (vizzuUrl) => {
     return import(vizzuUrl.default);
-  }
+  },
 );
 
 Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
@@ -73,7 +73,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
             show: { delay: 0 },
             hide: { delay: 0 },
             title: { duration: 0, delay: 0 },
-          }
+          },
         );
       }
 
@@ -85,7 +85,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         },
         {
           duration: 0.3,
-        }
+        },
       );
 
       chart.animate(
@@ -99,7 +99,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         },
         {
           duration: 2,
-        }
+        },
       );
 
       chart.animate(
@@ -109,7 +109,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         {
           delay: 0,
           duration: 2,
-        }
+        },
       );
 
       for (let i = 2019; i > 1972; i--) {
@@ -125,7 +125,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
           },
           {
             duration: 0.005,
-          }
+          },
         );
       }
 
@@ -140,7 +140,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         },
         {
           duration: 1.5,
-        }
+        },
       );
 
       chart.animate(
@@ -149,7 +149,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         },
         {
           duration: 0,
-        }
+        },
       );
 
       chart.animate(
@@ -158,7 +158,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         },
         {
           duration: 0.1,
-        }
+        },
       );
 
       chart.animate(
@@ -172,7 +172,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         },
         {
           duration: 1,
-        }
+        },
       );
 
       chart.animate(
@@ -206,7 +206,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         },
         {
           duration: 2,
-        }
+        },
       );
 
       chart.animate(
@@ -217,7 +217,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         },
         {
           duration: 1,
-        }
+        },
       );
 
       chart.animate(
@@ -236,7 +236,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         },
         {
           duration: 1,
-        }
+        },
       );
     });
   });
