@@ -28,7 +28,7 @@ jobs:
         run: |
           python3.10 -m venv ".venv"
           source .venv/bin/activate
-          pip install pdm
+          pip install pdm==2.8.0
           pdm run init_py
 
       - name: Cache dev-js environment

@@ -20,7 +20,6 @@ VIZZU_CDN_URL = "https://cdn.jsdelivr.net/npm/vizzu"
 
 
 class Vizzu:
-
     _ipyvizzu_version = ""
     _vizzu_version = ""
 

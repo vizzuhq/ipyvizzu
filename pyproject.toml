@@ -167,7 +167,7 @@ commands =
 
 [tool.pdm.dev-dependencies]
 packagetool = [
-    "pdm ; python_version >= '3.10'",
+    "pdm==2.8.0 ; python_version >= '3.10'",
     "twine ; python_version >= '3.10'"
 ]
 packagedeps = [

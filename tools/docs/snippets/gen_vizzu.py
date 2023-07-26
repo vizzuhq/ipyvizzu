@@ -21,7 +21,6 @@ from vizzu import (  # pylint: disable=import-error, wrong-import-position, wron
 
 
 class VizzuUrl:
-
     # pylint: disable=too-few-public-methods
 
     TEMPLATE = 'const vizzu = "{vizzu}";\n\nexport default vizzu;\n'

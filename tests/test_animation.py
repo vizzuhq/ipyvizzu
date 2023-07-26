@@ -54,7 +54,6 @@ class TestDataSchema(unittest.TestCase):
 
 
 class TestDataClassmethods(unittest.TestCase):
-
     asset_dir: pathlib.Path
 
     @classmethod
@@ -107,7 +106,6 @@ class TestDataClassmethods(unittest.TestCase):
 
 
 class TestData(unittest.TestCase):
-
     asset_dir: pathlib.Path
 
     @classmethod

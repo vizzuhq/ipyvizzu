@@ -31,7 +31,6 @@ from config import (  # pylint: disable=import-error, wrong-import-position, wro
 
 
 class IndexPages:
-
     # pylint: disable=too-few-public-methods
 
     @staticmethod
@@ -95,7 +94,6 @@ class IndexPages:
 
 
 class Page:
-
     # pylint: disable=too-few-public-methods
 
     @staticmethod

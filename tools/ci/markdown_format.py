@@ -4,7 +4,6 @@ import mdformat
 
 
 class Markdown:
-
     # pylint: disable=too-few-public-methods
 
     @staticmethod

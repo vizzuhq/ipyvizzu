@@ -7,7 +7,6 @@ import yaml
 
 
 class MkdocsConfig:
-
     # pylint: disable=too-few-public-methods
 
     @staticmethod

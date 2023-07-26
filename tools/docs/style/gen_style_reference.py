@@ -25,7 +25,6 @@ from vizzu import (  # pylint: disable=import-error, wrong-import-position, wron
 
 
 class StyleReference:
-
     # pylint: disable=too-few-public-methods
 
     @staticmethod

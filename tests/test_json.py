@@ -16,7 +16,6 @@ class TestRawJavaScriptEncoder(unittest.TestCase):
 
     def test_encoder_with_not_rawjavascript(self) -> None:
         class NotRawJavaScript:
-
             # pylint: disable=too-few-public-methods
 
             def __init__(self):

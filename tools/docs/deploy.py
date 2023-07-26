@@ -20,7 +20,6 @@ from vizzu import (  # pylint: disable=import-error, wrong-import-position, wron
 
 
 class Deploy:
-
     latest: bool = True
 
     @staticmethod

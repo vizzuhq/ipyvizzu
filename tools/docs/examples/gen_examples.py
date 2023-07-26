@@ -49,7 +49,6 @@ from config import (  # pylint: disable=import-error, wrong-import-position, wro
 
 
 class GenExamples:
-
     # pylint: disable=too-many-instance-attributes
 
     datafiles: Dict[str, bool] = {}
@@ -344,7 +343,6 @@ class GenExamples:
         GenExamples._generate_example_data(datafile, dataname)
 
     def generate(self) -> None:
-
         # pylint: disable=too-many-locals
 
         config = MkdocsConfig.load(MKDOCS_PATH / "mkdocs.yml")
