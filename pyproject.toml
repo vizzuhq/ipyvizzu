@@ -68,8 +68,8 @@ lock = {composite = ["lock_py", "lock_js"]}
 
 fix_format_black = "black"
 format_black = "black --check"
-fix_format_mdformat = "./tools/ci/std_check.py mdformat --wrap 80 --end-of-line keep --line-length 70"
-format_mdformat = "./tools/ci/std_check.py mdformat --wrap 80 --end-of-line keep --line-length 70 --check"
+fix_format_mdformat = "python ./tools/ci/std_check.py mdformat --wrap 80 --end-of-line keep --line-length 70"
+format_mdformat = "python ./tools/ci/std_check.py mdformat --wrap 80 --end-of-line keep --line-length 70 --check"
 fix_format_prettier = "npx prettier -w"
 format_prettier = "npx prettier -c" 
 
