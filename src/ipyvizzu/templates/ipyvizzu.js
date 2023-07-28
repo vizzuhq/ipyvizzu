@@ -208,7 +208,7 @@ class IpyVizzu {
           function () {
             (window.plausible.q = window.plausible.q || []).push(arguments);
           };
-        plausible("ipyvizzu", { props: { url: window.location.hostname } });
+        plausible("ipyvizzu", { props: { url: window?.location?.hostname } });
       `;
       script.id = scriptId;
       document.body.appendChild(script);
