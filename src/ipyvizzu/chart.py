@@ -12,6 +12,7 @@ from ipyvizzu.animationcontrol import AnimationControl
 from ipyvizzu.method import Animate, Feature, Store, EventOn, EventOff, Log
 from ipyvizzu.template import ChartProperty, DisplayTarget, DisplayTemplate
 from ipyvizzu.event import EventHandler
+from ipyvizzu.__version__ import __version__
 
 
 class Chart:
@@ -51,6 +52,7 @@ class Chart:
         self._showed: bool = False
 
         self._initialized: bool = False
+        self._analytics: bool = True
         self._scroll_into_view: bool = False
 
     @staticmethod
@@ -62,6 +64,28 @@ class Chart:
     @staticmethod
     def _register_pre_run_cell() -> None:
         display_javascript(DisplayTemplate.CLEAR_INHIBITSCROLL, raw=True)
+
+    @property
+    def analytics(self) -> bool:
+        """
+        A property for enabling or disabling the gathering of usage statistics.
+
+        Returns:
+            The value of the property (default `True`).
+        """
+
+        return self._analytics
+
+    @analytics.setter
+    def analytics(self, analytics: Optional[bool]):
+        self._analytics = bool(analytics)
+        if self._initialized:
+            self._set_analytics()
+
+    def _set_analytics(self) -> None:
+        self._display(
+            DisplayTemplate.SET_ANALYTICS.format(analytics=str(self._analytics).lower())
+        )
 
     @property
     def scroll_into_view(self) -> bool:
@@ -98,7 +122,9 @@ class Chart:
         if not self._initialized:
             self._initialized = True
             ipyvizzurawjs = pkgutil.get_data(__name__, "templates/ipyvizzu.js")
-            ipyvizzujs = ipyvizzurawjs.decode("utf-8")  # type: ignore
+            ipyvizzujs = ipyvizzurawjs.decode("utf-8").replace(  # type: ignore
+                '"__version__"', f'"{__version__}"'
+            )
             self._display(DisplayTemplate.IPYVIZZUJS.format(ipyvizzujs=ipyvizzujs))
 
             if self._display_target != DisplayTarget.MANUAL:
@@ -112,6 +138,8 @@ class Chart:
                     div_height=self._height,
                 )
             )
+
+            self._set_analytics()
 
     def animate(
         self,
