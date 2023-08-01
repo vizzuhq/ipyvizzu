@@ -4,7 +4,7 @@ import json
 import pathlib
 import unittest
 import jsonschema  # type: ignore
-import pandas as pd  # type: ignore
+import pandas as pd
 
 from tests import (
     PlainAnimation,
@@ -211,38 +211,38 @@ class TestData(unittest.TestCase):
             self.data.build(),
         )
 
-    def test_data_frame_with_not_df(self) -> None:
+    def test_add_df_with_none(self) -> None:
         data = Data()
         with self.assertRaises(TypeError):
-            data.add_data_frame("")
+            data.add_df("")
 
-    def test_data_frame_with_none(self) -> None:
+    def test_df_with_none(self) -> None:
         data = Data()
-        data.add_data_frame(None)
+        data.add_df(None)
         self.assertEqual(
             {"data": {}},
             data.build(),
         )
 
-    def test_data_frame(self) -> None:
-        with open(self.asset_dir / "data_frame_in.json", encoding="utf8") as fh_in:
+    def test_add_df_with_df(self) -> None:
+        with open(self.asset_dir / "df_in.json", encoding="utf8") as fh_in:
             fc_in = json.load(fh_in)
-        with open(self.asset_dir / "data_frame_out.json", encoding="utf8") as fh_out:
+        with open(self.asset_dir / "df_out.json", encoding="utf8") as fh_out:
             fc_out = json.load(fh_out)
 
         df = pd.DataFrame(fc_in)
         df = df.astype({"PopularityAsDimension": str})
-        self.data.add_data_frame(df)
+        self.data.add_df(df)
         self.assertEqual(
             fc_out,
             self.data.build(),
         )
 
-    def test_data_frame_na(self) -> None:
+    def test_add_df_with_df_contains_na(self) -> None:
         df = pd.read_csv(
-            self.asset_dir / "data_frame_na.csv", dtype={"PopularityAsDimension": str}
+            self.asset_dir / "df_na.csv", dtype={"PopularityAsDimension": str}
         )
-        self.data.add_data_frame(df)
+        self.data.add_df(df)
         self.assertEqual(
             {
                 "data": {
@@ -263,10 +263,10 @@ class TestData(unittest.TestCase):
             self.data.build(),
         )
 
-    def test_data_frame_with_pd_series(self) -> None:
+    def test_add_df_with_series(self) -> None:
         data = Data()
-        data.add_data_frame(pd.Series([1, 2], name="series1"))
-        data.add_data_frame(
+        data.add_df(pd.Series([1, 2], name="series1"))
+        data.add_df(
             pd.Series({"x": 3, "y": 4, "z": 5}, index=["x", "y"], name="series2")
         )
         self.assertEqual(
@@ -281,74 +281,40 @@ class TestData(unittest.TestCase):
             data.build(),
         )
 
-    def test_data_frame_index_with_not_df(self) -> None:
-        data = Data()
-        with self.assertRaises(TypeError):
-            data.add_data_frame_index(data_frame="", name="")
-
-    def test_data_frame_index_with_none_and_none(self) -> None:
-        data = Data()
-        data.add_data_frame_index(data_frame=None, name=None)
-        self.assertEqual(
-            {"data": {}},
-            data.build(),
-        )
-
-    def test_data_frame_index_with_df_and_none(self) -> None:
-        data = Data()
-        df = pd.DataFrame(
-            pd.Series({"x": 1, "y": 2, "z": 3}, index=["x", "y"], name="series")
-        )
-        data.add_data_frame_index(data_frame=df, name=None)
-        data.add_data_frame(df)
-        self.assertEqual(
-            {
-                "data": {
-                    "series": [
-                        {"name": "None", "type": "dimension", "values": ["x", "y"]},
-                        {"name": "series", "type": "measure", "values": [1.0, 2.0]},
-                    ]
-                }
-            },
-            data.build(),
-        )
-
-    def test_data_frame_index_with_df_and_index(self) -> None:
+    def test_add_df_with_df_and_with_include_index(self) -> None:
         data = Data()
         df = pd.DataFrame({"series": [1, 2, 3]}, index=["x", "y", "z"])
-        data.add_data_frame_index(data_frame=df, name="Index")
-        data.add_data_frame(df)
+        data.add_df(df, include_index="Index")
         self.assertEqual(
             {
                 "data": {
                     "series": [
-                        {
-                            "name": "Index",
-                            "type": "dimension",
-                            "values": ["x", "y", "z"],
-                        },
                         {
                             "name": "series",
                             "type": "measure",
                             "values": [1.0, 2.0, 3.0],
                         },
+                        {
+                            "name": "Index",
+                            "type": "dimension",
+                            "values": ["x", "y", "z"],
+                        },
                     ]
                 }
             },
             data.build(),
         )
 
-    def test_data_frame_index_with_pd_series(self) -> None:
+    def test_add_df_with_series_and_with_include_index(self) -> None:
         data = Data()
         df = pd.Series({"x": 1, "y": 2, "z": 3}, index=["x", "y"], name="series")
-        data.add_data_frame_index(data_frame=df, name="Index")
-        data.add_data_frame(df)
+        data.add_df(df, include_index="Index")
         self.assertEqual(
             {
                 "data": {
                     "series": [
-                        {"name": "Index", "type": "dimension", "values": ["x", "y"]},
                         {"name": "series", "type": "measure", "values": [1.0, 2.0]},
+                        {"name": "Index", "type": "dimension", "values": ["x", "y"]},
                     ]
                 }
             },

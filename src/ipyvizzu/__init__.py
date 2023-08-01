@@ -16,13 +16,13 @@ and similar environments with a simple `Python` syntax.
 `ipyvizzu` package imports the following objects in `__init__.py`:
 
 * [Chart][ipyvizzu.chart.Chart]
+* [InferType][ipyvizzu.data.infer_type.InferType]
 * [Data][ipyvizzu.animation.Data]
 * [Config][ipyvizzu.animation.Config]
 * [Style][ipyvizzu.animation.Style]
 * [Keyframe][ipyvizzu.animation.Keyframe]
 * [Snapshot][ipyvizzu.animation.Snapshot]
 * [Animation][ipyvizzu.animation.Animation]
-* [InferType][ipyvizzu.animation.InferType]
 * [AbstractAnimation][ipyvizzu.animation.AbstractAnimation]
 * [PlainAnimation][ipyvizzu.animation.PlainAnimation]
 * [AnimationMerger][ipyvizzu.animation.AnimationMerger]
@@ -43,10 +43,10 @@ and similar environments with a simple `Python` syntax.
 """
 
 from .chart import Chart
+from .data.infer_type import InferType
 from .animation import (
     AbstractAnimation,
     PlainAnimation,
-    InferType,
     Data,
     Config,
     Style,

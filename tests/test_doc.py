@@ -4,7 +4,7 @@ import sys
 import json
 import pathlib
 import unittest
-import pandas as pd  # type: ignore
+import pandas as pd
 
 from tests import Data
 
@@ -21,15 +21,15 @@ class TestData(unittest.TestCase):
     def setUp(self) -> None:
         self.data = Data()
 
-    def test_data_frame_with_csv(self) -> None:
-        with open(self.asset_dir / "data_frame_out.json", encoding="utf8") as fh_out:
+    def test_add_df_with_csv(self) -> None:
+        with open(self.asset_dir / "df_out.json", encoding="utf8") as fh_out:
             fc_out = json.load(fh_out)
             fc_out["data"]["series"] = fc_out["data"]["series"][:-1]
 
         df = pd.read_csv(self.doc_dir / "music_data.csv")
 
         data = Data()
-        data.add_data_frame(df)
+        data.add_df(df)
         self.assertEqual(
             fc_out,
             data.build(),
@@ -37,22 +37,22 @@ class TestData(unittest.TestCase):
 
     # TODO: remove decorator once support for Python 3.6 is dropped
     @unittest.skipUnless(sys.version_info >= (3, 7), "at least Python 3.7 is required")
-    def test_data_frame_with_xlsx(self) -> None:
-        with open(self.asset_dir / "data_frame_out.json", encoding="utf8") as fh_out:
+    def test_add_df_with_xlsx(self) -> None:
+        with open(self.asset_dir / "df_out.json", encoding="utf8") as fh_out:
             fc_out = json.load(fh_out)
             fc_out["data"]["series"] = fc_out["data"]["series"][:-1]
 
         df = pd.read_excel(self.doc_dir / "music_data.xlsx")
 
         data = Data()
-        data.add_data_frame(df)
+        data.add_df(df)
         self.assertEqual(
             fc_out,
             data.build(),
         )
 
-    def test_data_frame_with_googlesheet(self) -> None:
-        with open(self.asset_dir / "data_frame_out.json", encoding="utf8") as fh_out:
+    def test_add_df_with_googlesheet(self) -> None:
+        with open(self.asset_dir / "df_out.json", encoding="utf8") as fh_out:
             fc_out = json.load(fh_out)
             fc_out["data"]["series"] = fc_out["data"]["series"][:-1]
 
@@ -64,7 +64,7 @@ class TestData(unittest.TestCase):
         )
 
         data = Data()
-        data.add_data_frame(df)
+        data.add_df(df)
         self.assertEqual(
             fc_out,
             data.build(),
