@@ -1,15 +1,12 @@
 """A module for working with chart animations."""
 
 import abc
-from enum import Enum
 from os import PathLike
 import json
-from typing import Optional, Union, List, Any, Tuple
+from typing import Optional, Union, List, Dict, Any, Tuple
 import jsonschema  # type: ignore
 
-import pandas as pd  # type: ignore
-from pandas.api.types import is_numeric_dtype  # type: ignore
-
+from ipyvizzu.data.converters.pandas_converter import PandasDataFrameConverter
 from ipyvizzu.json import RawJavaScript, RawJavaScriptEncoder
 from ipyvizzu.schema import DATA_SCHEMA
 
@@ -57,16 +54,6 @@ class PlainAnimation(dict, AbstractAnimation):
         """
 
         return self
-
-
-class InferType(Enum):
-    """An enum class for storing data infer types."""
-
-    DIMENSION = "dimension"
-    """An enum key-value for storing dimension infer type."""
-
-    MEASURE = "measure"
-    """An enum key-value for storing measure infer type."""
 
 
 class Data(dict, AbstractAnimation):
@@ -211,6 +198,18 @@ class Data(dict, AbstractAnimation):
 
         self._add_named_value("series", name, values, **kwargs)
 
+    def add_series_list(self, series: List[Dict[str, Union[str, List[Any]]]]) -> None:
+        """
+        A method for adding list of series to an existing
+        [Data][ipyvizzu.animation.Data] class instance.
+
+        Args:
+            series: List of series.
+        """
+
+        if series:
+            self.setdefault("series", []).extend(series)
+
     def add_dimension(self, name: str, values: Optional[list] = None, **kwargs) -> None:
         """
         A method for adding a dimension to an existing
@@ -255,24 +254,26 @@ class Data(dict, AbstractAnimation):
 
         self._add_named_value("measures", name, values, **kwargs)
 
-    def add_data_frame(
+    def add_df(
         self,
-        data_frame: Union[pd.DataFrame, pd.Series],
+        df: Union["pd.DataFrame", "pd.Series"],  # type: ignore
         default_measure_value: Optional[Any] = 0,
         default_dimension_value: Optional[Any] = "",
+        include_index: Optional[str] = None,
     ) -> None:
         """
-        A method for adding data frame to an existing
+        Add a `pandas` `DataFrame` or `Series` to an existing
         [Data][ipyvizzu.animation.Data] class instance.
 
         Args:
-            data_frame: The pandas data frame object.
-            default_measure_value: The default measure value to fill the empty values.
-            default_dimension_value: The default dimension value to fill the empty values.
-
-        Raises:
-            TypeError: If `data_frame` is not instance of [pd.DataFrame][pandas.DataFrame]
-                or [pd.Series][pandas.Series].
+            df:
+                The `pandas` `DataFrame` or `Series` to add.
+            default_measure_value:
+                The default measure value to fill empty values. Defaults to 0.
+            default_dimension_value:
+                The default dimension value to fill empty values. Defaults to an empty string.
+            include_index:
+                Add the data frame's index as a column with the given name. Defaults to `None`.
 
         Example:
             Adding a data frame to a [Data][ipyvizzu.animation.Data] class instance:
@@ -285,81 +286,90 @@ class Data(dict, AbstractAnimation):
                     }
                 )
                 data = Data()
-                data.add_data_frame(df)
+                data.add_df(df)
         """
 
-        if not isinstance(data_frame, type(None)):
-            if isinstance(data_frame, pd.Series):
-                data_frame = pd.DataFrame(data_frame)
-            if not isinstance(data_frame, pd.DataFrame):
-                raise TypeError(
-                    "data_frame must be instance of pandas.DataFrame or pandas.Series"
-                )
-            for name in data_frame.columns:
-                values = []
-                if is_numeric_dtype(data_frame[name].dtype):
-                    infer_type = InferType.MEASURE
-                    values = (
-                        data_frame[name]
-                        .fillna(default_measure_value)
-                        .astype(float)
-                        .values.tolist()
-                    )
-                else:
-                    infer_type = InferType.DIMENSION
-                    values = (
-                        data_frame[name]
-                        .fillna(default_dimension_value)
-                        .astype(str)
-                        .values.tolist()
-                    )
-                self.add_series(
-                    name,
-                    values,
-                    type=infer_type.value,
-                )
+        converter = PandasDataFrameConverter(
+            df, default_measure_value, default_dimension_value, include_index
+        )
+        series_list = converter.get_series_list_from_columns()
+        self.add_series_list(series_list)
 
-    def add_data_frame_index(
+    def add_data_frame(
         self,
-        data_frame: Union[pd.DataFrame, pd.Series],
-        name: Optional[str],
+        data_frame: Union["pd.DataFrame", "pd.Series"],  # type: ignore
+        default_measure_value: Optional[Any] = 0,
+        default_dimension_value: Optional[Any] = "",
     ) -> None:
         """
-        A method for adding data frame's index to an existing
+        [Deprecated] Add a `pandas` `DataFrame` or `Series` to an existing
+        [Data][ipyvizzu.animation.Data] class instance.
+
+        This function is kept for backward compatibility
+        and calls the `add_df` method with the same arguments.
+
+        Args:
+            data_frame:
+                The `pandas` `DataFrame` or `Series` to add.
+            default_measure_value:
+                The default measure value to fill empty values. Defaults to 0.
+            default_dimension_value:
+                The default dimension value to fill empty values. Defaults to an empty string.
+        """
+        self.add_df(data_frame, default_measure_value, default_dimension_value)
+
+    def add_df_index(
+        self,
+        df: Union["pd.DataFrame", "pd.Series"],  # type: ignore
+        name: str,
+    ) -> None:
+        """
+        Add the index of a `pandas` `DataFrame` as a series to an existing
         [Data][ipyvizzu.animation.Data] class instance.
 
         Args:
-            data_frame: The pandas data frame object.
-            name: The name of the index series.
-
-        Raises:
-            TypeError: If `data_frame` is not instance of [pd.DataFrame][pandas.DataFrame]
-                or [pd.Series][pandas.Series].
+            df:
+                The `pandas` `DataFrame` or `Series` from which to extract the index.
+            name:
+                The name of the index series.
 
         Example:
-            Adding a data frame's index to a [Data][ipyvizzu.animation.Data] class instance:
+            Adding a data frame's index to a
+            [Data][ipyvizzu.animation.Data] class instance:
 
                 df = pd.DataFrame(
                     {"Popularity": [114, 96]},
                     index=["x", "y"]
                 )
                 data = Data()
-                data.add_data_frame_index(df, "DataFrameIndex")
-                data.add_data_frame(df)
+                data.add_df_index(df, "DataFrameIndex")
+                data.add_df(df)
         """
 
-        if data_frame is not None:
-            if isinstance(data_frame, pd.Series):
-                data_frame = pd.DataFrame(data_frame)
-            if not isinstance(data_frame, pd.DataFrame):
-                raise TypeError(
-                    "data_frame must be instance of pandas.DataFrame or pandas.Series"
-                )
-            self.add_series(
-                str(name),
-                [str(i) for i in data_frame.index],
-                type=InferType.DIMENSION.value,
-            )
+        converter = PandasDataFrameConverter(df, include_index=name)
+        index_series = converter.get_series_from_index()
+        if index_series:
+            self.add_series(**index_series)  # type: ignore
+
+    def add_data_frame_index(
+        self,
+        data_frame: Union["pd.DataFrame", "pd.Series"],  # type: ignore
+        name: str,
+    ) -> None:
+        """
+        [Deprecated] Add the index of a `pandas` `DataFrame` as a series to an existing
+        [Data][ipyvizzu.animation.Data] class instance.
+
+        This function is kept for backward compatibility
+        and calls the `add_df_index` method with the same arguments.
+
+        Args:
+            data_frame:
+                The `pandas` `DataFrame` or `Series` from which to extract the index.
+            name:
+                The name of the index series.
+        """
+        self.add_df_index(data_frame, name)
 
     def _add_named_value(
         self, dest: str, name: str, values: Optional[list] = None, **kwargs
