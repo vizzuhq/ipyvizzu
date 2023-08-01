@@ -172,6 +172,7 @@ packagedeps = [
     "IPython ; python_version >= '3.10'",
     "jsonschema ; python_version >= '3.10'",
     "pandas ; python_version >= '3.10'",
+    "pandas-stubs ; python_version >= '3.10'",
     "fugue >= 0.8.1 ; python_version >= '3.10'",
 ]
 codequality = [
