@@ -5,8 +5,7 @@ import io
 from contextlib import redirect_stdout
 import pathlib
 import unittest
-import pandas as pd  # type: ignore
-
+import pandas as pd
 
 from tests.normalizer import Normalizer
 

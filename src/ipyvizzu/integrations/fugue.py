@@ -17,7 +17,7 @@ Example:
 
 from typing import Any, Dict, Tuple
 
-import pandas as pd  # type: ignore
+import pandas as pd
 from fugue import DataFrames, Outputter  # type: ignore
 from fugue.exceptions import FugueWorkflowError  # type: ignore
 from fugue.extensions import namespace_candidate  # type: ignore
@@ -60,7 +60,7 @@ class _Visualize(Outputter):
 
     def _process_preset(self, df: pd.DataFrame) -> None:  # pylint: disable=invalid-name
         data = Data()
-        data.add_data_frame(df)
+        data.add_df(df)
         chart = Chart(display=DisplayTarget.END)
         chart.animate(data)
         chart.animate(self._func(dict(self.params)))
@@ -81,7 +81,7 @@ class _Visualize(Outputter):
         keys.sort()
         idx = pd.DataFrame({"_idx": range(len(keys)), key: keys})
         df = df.sort_values(key).merge(idx)
-        data.add_data_frame(df)
+        data.add_df(df)
         chart.animate(data)
 
         for i, key in enumerate(keys):

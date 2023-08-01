@@ -49,7 +49,7 @@ There are multiple ways you can add data to `ipyvizzu`.
 ### Using `pandas` DataFrame
 
 Use
-[`add_data_frame`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data.add_data_frame)
+[`add_df`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data.add_df)
 method for adding data frame to
 [`Data`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data).
 
@@ -105,7 +105,7 @@ data = {
 df = pd.DataFrame(data)
 
 data = Data()
-data.add_data_frame(df)
+data.add_df(df)
 ```
 
 !!! info
@@ -113,9 +113,24 @@ data.add_data_frame(df)
     and not numeric (dimension). A column's `dtype` specifies that the column is
     handled as a measure or as a dimension.
 
-It is also possible to add data frame index to
-[`Data`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data) with the
-[`add_data_frame_index`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data.add_data_frame_index)
+It is also possible to add the data frame's index as a series column while
+adding the data frame
+
+```python
+import pandas as pd
+from ipyvizzu import Data
+
+
+df = pd.DataFrame(
+    {"Popularity": [114, 96, 78]}, index=["x", "y", "z"]
+)
+
+data = Data()
+data.add_df(df, include_index="IndexColumnName")
+```
+
+or later with the
+[`add_df_index`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data.add_df_index)
 method.
 
 ```python
@@ -128,8 +143,8 @@ df = pd.DataFrame(
 )
 
 data = Data()
-data.add_data_frame(df)
-data.add_data_frame_index(df, "DataFrameIndex")
+data.add_df(df)
+data.add_df_index(df, name="IndexColumnName")
 ```
 
 #### Using csv
@@ -146,7 +161,7 @@ df = pd.read_csv(
 )
 
 data = Data()
-data.add_data_frame(df)
+data.add_df(df)
 ```
 
 #### Using Excel spreadsheet
@@ -163,7 +178,7 @@ df = pd.read_excel(
 )
 
 data = Data()
-data.add_data_frame(df)
+data.add_df(df)
 ```
 
 #### Using Google Sheets
@@ -181,7 +196,7 @@ df = pd.read_csv(
 )
 
 data = Data()
-data.add_data_frame(df)
+data.add_df(df)
 ```
 
 For example if the url is
@@ -204,7 +219,7 @@ df = pd.read_sql("SELECT * FROM mytable", conn)
 conn.close()
 
 data = Data()
-data.add_data_frame(df)
+data.add_df(df)
 ```
 
 !!! note
@@ -232,7 +247,7 @@ df = pd.read_sql("SELECT * FROM mytable", con=conn)
 conn.close()
 
 data = Data()
-data.add_data_frame(df)
+data.add_df(df)
 ```
 
 !!! note
@@ -261,7 +276,7 @@ df = pd.read_sql("SELECT * FROM mytable", con=conn)
 conn.close()
 
 data = Data()
-data.add_data_frame(df)
+data.add_df(df)
 ```
 
 !!! note
@@ -290,7 +305,7 @@ df = pd.read_sql("SELECT * FROM mytable", con=conn)
 conn.close()
 
 data = Data()
-data.add_data_frame(df)
+data.add_df(df)
 ```
 
 !!! note

@@ -30,7 +30,7 @@ whereas on a bar chart, horizontally.
         "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
     )
     data = Data()
-    data.add_data_frame(df)
+    data.add_df(df)
 
     chart = Chart()
 

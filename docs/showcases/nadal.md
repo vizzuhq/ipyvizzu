@@ -27,7 +27,7 @@ df = pd.read_csv(
     },
 )
 data = Data()
-data.add_data_frame(df)
+data.add_df(df)
 
 chart = Chart(display=DisplayTarget.END)
 chart.animate(data)

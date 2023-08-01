@@ -41,7 +41,7 @@ csv_url: ${assetsPath}/assets/data/${dataFileName}.csv
         dtype={"Year": str, "Timeseries": str},
     )
     data = Data()
-    data.add_data_frame(df)
+    data.add_df(df)
 
     chart = Chart()
     chart.animate(data)
