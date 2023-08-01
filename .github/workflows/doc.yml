@@ -62,7 +62,7 @@ jobs:
       - name: Build documentation
         run: |
           source .venv/bin/activate
-          pdm run docs_build_wo_install
+          pdm run docs_build
 
   publish_docs:
     if: ${{ ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
@@ -148,5 +148,5 @@ jobs:
         run: |
           source .venv/bin/activate
           git fetch origin gh-pages || echo "gh-pages does not exist"
-          pdm run docs_deploy_wo_install
+          pdm run docs_deploy
           git push origin gh-pages
