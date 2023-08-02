@@ -40,7 +40,7 @@ class PandasDataFrameConverter:
 
     def __init__(
         self,
-        df: Union["pd.DataFrame", "pd.Series", type(None)],  # type: ignore
+        df: Optional[Union["pd.DataFrame", "pd.Series"]],  # type: ignore
         default_measure_value: Optional[MeasureValue] = 0,
         default_dimension_value: Optional[DimensionValue] = "",
         include_index: Optional[str] = None,

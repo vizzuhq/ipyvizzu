@@ -270,7 +270,7 @@ class Data(dict, AbstractAnimation):
 
     def add_df(
         self,
-        df: Union["pd.DataFrame", "pd.Series", type(None)],  # type: ignore
+        df: Optional[Union["pd.DataFrame", "pd.Series"]],  # type: ignore
         default_measure_value: Optional[MeasureValue] = 0,
         default_dimension_value: Optional[DimensionValue] = "",
         include_index: Optional[str] = None,
@@ -311,7 +311,7 @@ class Data(dict, AbstractAnimation):
 
     def add_data_frame(
         self,
-        data_frame: Union["pd.DataFrame", "pd.Series", type(None)],  # type: ignore
+        data_frame: Optional[Union["pd.DataFrame", "pd.Series"]],  # type: ignore
         default_measure_value: Optional[MeasureValue] = 0,
         default_dimension_value: Optional[DimensionValue] = "",
     ) -> None:
@@ -334,7 +334,7 @@ class Data(dict, AbstractAnimation):
 
     def add_df_index(
         self,
-        df: Union["pd.DataFrame", "pd.Series", type(None)],  # type: ignore
+        df: Optional[Union["pd.DataFrame", "pd.Series"]],  # type: ignore
         name: str,
     ) -> None:
         """
@@ -367,7 +367,7 @@ class Data(dict, AbstractAnimation):
 
     def add_data_frame_index(
         self,
-        data_frame: Union["pd.DataFrame", "pd.Series", type(None)],  # type: ignore
+        data_frame: Optional[Union["pd.DataFrame", "pd.Series"]],  # type: ignore
         name: str,
     ) -> None:
         """
