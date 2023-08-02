@@ -11,11 +11,9 @@ MeasureValue = Union[int, float]
 
 NestedMeasureValues = Union[MeasureValue, List["NestedMeasureValues"]]
 
-Value = Union[DimensionValue, MeasureValue]
+RecordValue = Union[DimensionValue, MeasureValue]
 
-RecordValues = Union[DimensionValue, MeasureValue]
-
-Record = List[RecordValues]
+Record = List[RecordValue]
 
 SeriesValues = Union[Sequence[DimensionValue], Sequence[MeasureValue]]
 
