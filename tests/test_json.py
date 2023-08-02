@@ -3,7 +3,7 @@
 import json
 import unittest
 
-from tests import RawJavaScriptEncoder, RawJavaScript
+from ipyvizzu import RawJavaScriptEncoder, RawJavaScript
 
 
 class TestRawJavaScriptEncoder(unittest.TestCase):

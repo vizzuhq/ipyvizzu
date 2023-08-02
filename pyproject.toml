@@ -149,9 +149,10 @@ extras =
     pandas
 commands =
     python -m coverage run --branch --source ipyvizzu -m unittest discover tests
-    python -m coverage report -m --fail-under=100 --omit src/ipyvizzu/integrations/fugue.py
+    python -m coverage report -m --fail-under=100 --omit .tox/py36/lib/python3.6/site-packages/ipyvizzu/integrations/fugue.py
 
 [testenv:py{37,38,39,311}]
+package = editable
 extras =
     pandas
     fugue
@@ -160,6 +161,7 @@ commands =
     python -m coverage report --data-file .tox/{envname}/.coverage -m --fail-under=100
 
 [testenv:py{310}]
+package = editable
 extras =
     pandas
     fugue

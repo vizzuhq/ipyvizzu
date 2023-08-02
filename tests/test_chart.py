@@ -1,21 +1,22 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
 import abc
+from typing import Callable
 import unittest
 import unittest.mock
-from typing import Callable
 
-from tests.normalizer import Normalizer
-from tests import (
+from ipyvizzu import (
+    Animation,
     Chart,
     ChartProperty,
-    Data,
     Config,
+    Data,
+    EventHandler,
     Snapshot,
     Style,
-    EventHandler,
-    Animation,
 )
+
+from tests.normalizer import Normalizer
 
 
 class TestChart(unittest.TestCase, abc.ABC):

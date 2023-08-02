@@ -10,15 +10,15 @@ import pandas as pd
 
 from ipyvizzu.data.typing_alias import Record
 
-from tests import (
-    PlainAnimation,
-    Data,
-    Config,
-    Style,
-    Keyframe,
-    Snapshot,
+from ipyvizzu import (
     Animation,
     AnimationMerger,
+    Config,
+    Data,
+    Keyframe,
+    PlainAnimation,
+    Snapshot,
+    Style,
 )
 
 
