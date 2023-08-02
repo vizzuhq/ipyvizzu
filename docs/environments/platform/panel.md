@@ -35,7 +35,7 @@ Run the following command in your command line in order to install `ipyvizzu`
 details).
 
 ```sh
-pip install ipyvizzu panel
+pip install ipyvizzu pandas panel
 ```
 
 ## Sample
@@ -63,7 +63,7 @@ def create_chart():
     df = pd.read_csv(
         "https://ipyvizzu.vizzuhq.com/latest/showcases/titanic/titanic.csv"
     )
-    data.add_data_frame(df)
+    data.add_df(df)
 
     chart.animate(data)
 

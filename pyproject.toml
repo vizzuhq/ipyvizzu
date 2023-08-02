@@ -10,7 +10,6 @@ requires-python = ">=3.6"
 dependencies = [
     "IPython",
     "jsonschema",
-    "pandas",
 ]
 license = {text = "Apache-2.0"}
 classifiers = [
@@ -38,6 +37,9 @@ keywords = [
 ]
 
 [project.optional-dependencies]
+pandas = [
+    "pandas",
+]
 fugue = [
     "fugue >= 0.8.1 ; python_version >= '3.7'",
 ]
@@ -143,19 +145,25 @@ deps =
 [testenv:py{36}]
 setenv =
     COVERAGE_FILE = .tox/py36/.coverage
+extras =
+    pandas
 commands =
     python -m coverage run --branch --source ipyvizzu -m unittest discover tests
-    python -m coverage report -m --fail-under=100 --omit src/ipyvizzu/integrations/fugue.py
+    python -m coverage report -m --fail-under=100 --omit .tox/py36/lib/python3.6/site-packages/ipyvizzu/integrations/fugue.py
 
 [testenv:py{37,38,39,311}]
+package = editable
 extras =
+    pandas
     fugue
 commands =
     python -m coverage run --data-file .tox/{envname}/.coverage --branch --source ipyvizzu -m unittest discover tests
     python -m coverage report --data-file .tox/{envname}/.coverage -m --fail-under=100
 
 [testenv:py{310}]
+package = editable
 extras =
+    pandas
     fugue
 commands =
     python -m coverage run --data-file .tox/{envname}/.coverage --branch --source ipyvizzu -m unittest discover tests
@@ -172,6 +180,7 @@ packagedeps = [
     "IPython ; python_version >= '3.10'",
     "jsonschema ; python_version >= '3.10'",
     "pandas ; python_version >= '3.10'",
+    "pandas-stubs ; python_version >= '3.10'",
     "fugue >= 0.8.1 ; python_version >= '3.10'",
 ]
 codequality = [

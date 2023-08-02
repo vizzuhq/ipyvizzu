@@ -3,7 +3,8 @@
 import unittest
 import unittest.mock
 
-from tests import Style
+from ipyvizzu import Style
+
 from tests.test_chart import TestChart
 
 

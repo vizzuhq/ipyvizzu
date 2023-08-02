@@ -25,7 +25,7 @@ from the chart.
         "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
     )
     data1 = Data()
-    data1.add_data_frame(df)
+    data1.add_df(df)
 
     chart = Chart()
 

@@ -1,12 +1,12 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
-import sys
-import io
 from contextlib import redirect_stdout
+import io
 import pathlib
+import sys
 import unittest
-import pandas as pd  # type: ignore
 
+import pandas as pd
 
 from tests.normalizer import Normalizer
 

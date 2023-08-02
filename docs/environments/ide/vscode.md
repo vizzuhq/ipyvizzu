@@ -33,7 +33,7 @@ details.
 Run the following command in your command line
 
 ```sh
-pip install ipyvizzu
+pip install ipyvizzu pandas
 ```
 
 or place the following code into a notebook cell in order to install `ipyvizzu`
@@ -41,7 +41,7 @@ or place the following code into a notebook cell in order to install `ipyvizzu`
 details).
 
 ```
-!pip install ipyvizzu
+!pip install ipyvizzu pandas
 ```
 
 ## Sample
@@ -68,7 +68,7 @@ data = Data()
 df = pd.read_csv(
     "https://ipyvizzu.vizzuhq.com/latest/showcases/titanic/titanic.csv"
 )
-data.add_data_frame(df)
+data.add_df(df)
 
 chart.animate(data)
 

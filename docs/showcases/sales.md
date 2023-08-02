@@ -18,7 +18,7 @@ df = pd.read_csv(
     "https://ipyvizzu.vizzuhq.com/latest/showcases/sales/sales.csv"
 )
 data = Data()
-data.add_data_frame(df)
+data.add_df(df)
 
 chart = Chart()
 

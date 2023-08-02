@@ -40,7 +40,7 @@ Run the following command in your command line in order to install `ipyvizzu`
 details).
 
 ```sh
-pip install ipyvizzu streamlit
+pip install ipyvizzu pandas streamlit
 ```
 
 ## Sample
@@ -68,7 +68,7 @@ def create_chart():
     df = pd.read_csv(
         "https://ipyvizzu.vizzuhq.com/latest/showcases/titanic/titanic.csv"
     )
-    data.add_data_frame(df)
+    data.add_df(df)
 
     chart.animate(data)
 

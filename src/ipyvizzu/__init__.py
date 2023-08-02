@@ -12,6 +12,8 @@ and similar environments with a simple `Python` syntax.
 * [Json][ipyvizzu.json]
 * [Template][ipyvizzu.template]
 * [Schema][ipyvizzu.schema]
+* [Data][ipyvizzu.data]
+* [Integrations][ipyvizzu.integrations]
 
 `ipyvizzu` package imports the following objects in `__init__.py`:
 
@@ -22,11 +24,12 @@ and similar environments with a simple `Python` syntax.
 * [Keyframe][ipyvizzu.animation.Keyframe]
 * [Snapshot][ipyvizzu.animation.Snapshot]
 * [Animation][ipyvizzu.animation.Animation]
-* [InferType][ipyvizzu.animation.InferType]
 * [AbstractAnimation][ipyvizzu.animation.AbstractAnimation]
 * [PlainAnimation][ipyvizzu.animation.PlainAnimation]
 * [AnimationMerger][ipyvizzu.animation.AnimationMerger]
 * [AnimationControl][ipyvizzu.animationcontrol.AnimationControl]
+* [InferType][ipyvizzu.data.infer_type.InferType]
+* [PandasDataFrameConverter][ipyvizzu.data.converters.pandas_converter.PandasDataFrameConverter]
 * [Animate][ipyvizzu.method.Animate]
 * [Feature][ipyvizzu.method.Feature]
 * [Store][ipyvizzu.method.Store]
@@ -46,7 +49,6 @@ from .chart import Chart
 from .animation import (
     AbstractAnimation,
     PlainAnimation,
-    InferType,
     Data,
     Config,
     Style,
@@ -56,6 +58,8 @@ from .animation import (
     AnimationMerger,
 )
 from .animationcontrol import AnimationControl
+from .data.converters.pandas_converter import PandasDataFrameConverter
+from .data.infer_type import InferType
 from .method import Method, Animate, Feature, Store, EventOn, EventOff, Log
 from .json import RawJavaScript, RawJavaScriptEncoder
 from .template import ChartProperty, DisplayTarget, DisplayTemplate
@@ -71,7 +75,6 @@ __all__ = [
     "Keyframe",
     "Snapshot",
     "Animation",
-    "InferType",
     "AbstractAnimation",
     "PlainAnimation",
     "AnimationMerger",
@@ -82,6 +85,8 @@ __all__ = [
     "EventOff",
     "Log",
     "AnimationControl",
+    "PandasDataFrameConverter",
+    "InferType",
     "Method",
     "EventHandler",
     "RawJavaScript",

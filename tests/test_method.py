@@ -2,20 +2,20 @@
 
 import unittest
 
-from tests import (
-    Method,
+from ipyvizzu import (
     Animate,
-    Feature,
-    Store,
-    EventOn,
-    EventOff,
-    Log,
-    Config,
-    Style,
-    Snapshot,
     AnimationMerger,
-    EventHandler,
     ChartProperty,
+    Config,
+    EventHandler,
+    EventOff,
+    EventOn,
+    Feature,
+    Log,
+    Method,
+    Snapshot,
+    Store,
+    Style,
 )
 
 
