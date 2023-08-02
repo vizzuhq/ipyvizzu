@@ -167,8 +167,8 @@ extras =
     fugue
 commands =
     python -m coverage run --data-file .tox/{envname}/.coverage --branch --source ipyvizzu -m unittest discover tests
-    python -m coverage report --data-file .tox/{envname}/.coverage -m --fail-under=100
     python -m coverage html --data-file .tox/{envname}/.coverage -d .tox/{envname}/coverage
+    python -m coverage report --data-file .tox/{envname}/.coverage -m --fail-under=100
 """
 
 [tool.pdm.dev-dependencies]
