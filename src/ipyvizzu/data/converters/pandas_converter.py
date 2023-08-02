@@ -4,15 +4,16 @@ which allows converting a `pandas` `DataFrame` or `Series`
 into a list of dictionaries representing series.
 """
 
-from typing import Optional, List, Tuple, Union
+from types import ModuleType
+from typing import List, Optional, Tuple, Union
 
+from ipyvizzu.data.infer_type import InferType
 from ipyvizzu.data.typing_alias import (
     DimensionValue,
     MeasureValue,
     Series,
     SeriesValues,
 )
-from ipyvizzu.data.infer_type import InferType
 
 
 class PandasDataFrameConverter:
@@ -44,28 +45,30 @@ class PandasDataFrameConverter:
         default_dimension_value: Optional[DimensionValue] = "",
         include_index: Optional[str] = None,
     ) -> None:
+        self._pd = self._get_pandas()
         self._df = self._get_df(df)
         self._default_measure_value = default_measure_value
         self._default_dimension_value = default_dimension_value
         self._include_index = include_index
 
-    def _get_df(self, df: Union["pd.DataFrame", "pd.Series"]) -> "pd.DataFrame":  # type: ignore
+    def _get_pandas(self) -> ModuleType:
         try:
             import pandas as pd  # pylint: disable=import-outside-toplevel
 
-            if isinstance(df, pd.DataFrame):
-                return df
-            if isinstance(df, pd.Series):
-                return pd.DataFrame(df)
-            if df is None:
-                return pd.DataFrame()
-            raise TypeError(
-                "df must be an instance of pandas.DataFrame or pandas.Series"
-            )
+            return pd
         except ImportError as error:
             raise ImportError(
                 "pandas is not available. Please install pandas to use this feature."
             ) from error
+
+    def _get_df(self, df: Union["pd.DataFrame", "pd.Series"]) -> "pd.DataFrame":  # type: ignore
+        if isinstance(df, self._pd.DataFrame):
+            return df
+        if isinstance(df, self._pd.Series):
+            return self._pd.DataFrame(df)
+        if df is None:
+            return self._pd.DataFrame()
+        raise TypeError("df must be an instance of pandas.DataFrame or pandas.Series")
 
     def get_series_list_from_columns(self) -> List[Series]:
         """
@@ -108,18 +111,9 @@ class PandasDataFrameConverter:
     def _get_column_data(
         self, column: "pd.Series"  # type: ignore
     ) -> Tuple[SeriesValues, InferType]:
-        try:
-            from pandas.api.types import (  # pylint: disable=import-outside-toplevel
-                is_numeric_dtype,
-            )
-
-            if is_numeric_dtype(column.dtype):
-                return self._get_measure_column_data(column)
-            return self._get_dimension_column_data(column)
-        except ImportError as error:
-            raise ImportError(
-                "pandas is not available. Please install pandas to use this feature."
-            ) from error
+        if self._pd.api.types.is_numeric_dtype(column.dtype):
+            return self._get_measure_column_data(column)
+        return self._get_dimension_column_data(column)
 
     def _get_measure_column_data(
         self, column: "pd.Series"  # type: ignore

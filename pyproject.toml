@@ -10,7 +10,6 @@ requires-python = ">=3.6"
 dependencies = [
     "IPython",
     "jsonschema",
-    "pandas",
 ]
 license = {text = "Apache-2.0"}
 classifiers = [
@@ -38,6 +37,9 @@ keywords = [
 ]
 
 [project.optional-dependencies]
+pandas = [
+    "pandas ; python_version >= '3.6'",
+]
 fugue = [
     "fugue >= 0.8.1 ; python_version >= '3.7'",
 ]
@@ -143,12 +145,15 @@ deps =
 [testenv:py{36}]
 setenv =
     COVERAGE_FILE = .tox/py36/.coverage
+extras =
+    pandas
 commands =
     python -m coverage run --branch --source ipyvizzu -m unittest discover tests
     python -m coverage report -m --fail-under=100 --omit src/ipyvizzu/integrations/fugue.py
 
 [testenv:py{37,38,39,311}]
 extras =
+    pandas
     fugue
 commands =
     python -m coverage run --data-file .tox/{envname}/.coverage --branch --source ipyvizzu -m unittest discover tests
@@ -156,6 +161,7 @@ commands =
 
 [testenv:py{310}]
 extras =
+    pandas
     fugue
 commands =
     python -m coverage run --data-file .tox/{envname}/.coverage --branch --source ipyvizzu -m unittest discover tests
