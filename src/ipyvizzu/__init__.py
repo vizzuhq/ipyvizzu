@@ -12,6 +12,8 @@ and similar environments with a simple `Python` syntax.
 * [Json][ipyvizzu.json]
 * [Template][ipyvizzu.template]
 * [Schema][ipyvizzu.schema]
+* [Data][ipyvizzu.data]
+* [Integrations][ipyvizzu.integrations]
 
 `ipyvizzu` package imports the following objects in `__init__.py`:
 
