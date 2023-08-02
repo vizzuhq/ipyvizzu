@@ -56,7 +56,7 @@ class PandasDataFrameConverter:
             import pandas as pd  # pylint: disable=import-outside-toplevel
 
             return pd
-        except ImportError as error:
+        except ImportError as error:  # pragma: no cover
             raise ImportError(
                 "pandas is not available. Please install pandas to use this feature."
             ) from error
@@ -80,11 +80,11 @@ class PandasDataFrameConverter:
         """
 
         series_list = []
-        for name in self._df.columns:
-            series_list.append(self._get_series_from_column(name))
         index_series = self.get_series_from_index()
         if index_series:
             series_list.append(index_series)
+        for name in self._df.columns:
+            series_list.append(self._get_series_from_column(name))
         return series_list
 
     def get_series_from_index(self) -> Optional[Series]:
@@ -97,7 +97,7 @@ class PandasDataFrameConverter:
             Returns `None` if `include_index` is not provided.
         """
 
-        if not self._include_index:
+        if not self._include_index or self._df.index.empty:
             return None
         name = self._include_index
         values, infer_type = self._get_column_data(self._df.index)

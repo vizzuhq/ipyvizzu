@@ -1,11 +1,14 @@
 """A module for working with chart animations."""
 
 import abc
-from os import PathLike
 import json
+from os import PathLike
 from typing import List, Optional, Tuple, Union
+import warnings
+
 import jsonschema  # type: ignore
 
+from ipyvizzu.data.converters.pandas_converter import PandasDataFrameConverter
 from ipyvizzu.data.typing_alias import (
     DimensionValue,
     NestedMeasureValues,
@@ -14,7 +17,6 @@ from ipyvizzu.data.typing_alias import (
     Series,
     SeriesValues,
 )
-from ipyvizzu.data.converters.pandas_converter import PandasDataFrameConverter
 from ipyvizzu.json import RawJavaScript, RawJavaScriptEncoder
 from ipyvizzu.schema import DATA_SCHEMA
 
@@ -316,11 +318,13 @@ class Data(dict, AbstractAnimation):
         default_dimension_value: Optional[DimensionValue] = "",
     ) -> None:
         """
-        [Deprecated] Add a `pandas` `DataFrame` or `Series` to an existing
+        [Deprecated] This function is deprecated and will be removed in future versions.
+        Use [add_df][ipyvizzu.animation.Data.add_df] function instead.
+
+        Add a `pandas` `DataFrame` or `Series` to an existing
         [Data][ipyvizzu.animation.Data] class instance.
 
-        This function is kept for backward compatibility
-        and calls the `add_df` method with the same arguments.
+
 
         Args:
             data_frame:
@@ -330,12 +334,21 @@ class Data(dict, AbstractAnimation):
             default_dimension_value:
                 The default dimension value to fill empty values. Defaults to an empty string.
         """
+
+        # pylint: disable=line-too-long
+
+        reference = "https://ipyvizzu.vizzuhq.com/0.16/reference/ipyvizzu/animation/#ipyvizzu.animation.Data.add_df"
+        warnings.warn(
+            f"'add_data_frame' is deprecated and will be removed in future versions. Use 'add_df' instead - see {reference}",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         self.add_df(data_frame, default_measure_value, default_dimension_value)
 
     def add_df_index(
         self,
         df: Optional[Union["pd.DataFrame", "pd.Series"]],  # type: ignore
-        name: str,
+        column_name: str = "Index",
     ) -> None:
         """
         Add the index of a `pandas` `DataFrame` as a series to an existing
@@ -344,8 +357,8 @@ class Data(dict, AbstractAnimation):
         Args:
             df:
                 The `pandas` `DataFrame` or `Series` from which to extract the index.
-            name:
-                The name of the index series.
+            column_name:
+                Name for the index column to add as a series.
 
         Example:
             Adding a data frame's index to a
@@ -360,7 +373,7 @@ class Data(dict, AbstractAnimation):
                 data.add_df(df)
         """
 
-        converter = PandasDataFrameConverter(df, include_index=name)
+        converter = PandasDataFrameConverter(df, include_index=column_name)
         index_series = converter.get_series_from_index()
         if index_series:
             self.add_series(**index_series)  # type: ignore
@@ -371,11 +384,11 @@ class Data(dict, AbstractAnimation):
         name: str,
     ) -> None:
         """
-        [Deprecated] Add the index of a `pandas` `DataFrame` as a series to an existing
-        [Data][ipyvizzu.animation.Data] class instance.
+        [Deprecated] This function is deprecated and will be removed in future versions.
+        Use [add_df_index][ipyvizzu.animation.Data.add_df_index] function instead.
 
-        This function is kept for backward compatibility
-        and calls the `add_df_index` method with the same arguments.
+        Add the index of a `pandas` `DataFrame` as a series to an existing
+        [Data][ipyvizzu.animation.Data] class instance.
 
         Args:
             data_frame:
@@ -383,6 +396,15 @@ class Data(dict, AbstractAnimation):
             name:
                 The name of the index series.
         """
+
+        # pylint: disable=line-too-long
+
+        reference = "https://ipyvizzu.vizzuhq.com/0.16/reference/ipyvizzu/animation/#ipyvizzu.animation.Data.add_df_index"
+        warnings.warn(
+            f"'add_data_frame_index' is deprecated and will be removed in future versions. Use 'add_df_index' instead - see {reference}",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         self.add_df_index(data_frame, name)
 
     def _add_named_value(

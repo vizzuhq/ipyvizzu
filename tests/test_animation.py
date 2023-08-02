@@ -110,12 +110,6 @@ class TestDataClassmethods(unittest.TestCase):
 
 
 class TestData(unittest.TestCase):
-    asset_dir: pathlib.Path
-
-    @classmethod
-    def setUpClass(cls) -> None:
-        cls.asset_dir = pathlib.Path(__file__).parent / "assets"
-
     def setUp(self) -> None:
         self.data = Data()
 
@@ -215,12 +209,23 @@ class TestData(unittest.TestCase):
             self.data.build(),
         )
 
-    def test_add_df_with_none(self) -> None:
+
+class TestDataAddDf(unittest.TestCase):
+    asset_dir: pathlib.Path
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.asset_dir = pathlib.Path(__file__).parent / "assets"
+
+    def setUp(self) -> None:
+        self.data = Data()
+
+    def test_add_df_with_not_df(self) -> None:
         data = Data()
         with self.assertRaises(TypeError):
             data.add_df("")
 
-    def test_df_with_none(self) -> None:
+    def test_add_df_with_none(self) -> None:
         data = Data()
         data.add_df(None)
         self.assertEqual(
@@ -294,14 +299,14 @@ class TestData(unittest.TestCase):
                 "data": {
                     "series": [
                         {
-                            "name": "series",
-                            "type": "measure",
-                            "values": [1.0, 2.0, 3.0],
-                        },
-                        {
                             "name": "Index",
                             "type": "dimension",
                             "values": ["x", "y", "z"],
+                        },
+                        {
+                            "name": "series",
+                            "type": "measure",
+                            "values": [1.0, 2.0, 3.0],
                         },
                     ]
                 }
@@ -317,8 +322,133 @@ class TestData(unittest.TestCase):
             {
                 "data": {
                     "series": [
-                        {"name": "series", "type": "measure", "values": [1.0, 2.0]},
                         {"name": "Index", "type": "dimension", "values": ["x", "y"]},
+                        {"name": "series", "type": "measure", "values": [1.0, 2.0]},
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_add_df_index(self) -> None:
+        data = Data()
+        df = pd.Series({"x": 1, "y": 2, "z": 3}, index=["x", "y"], name="series")
+        data.add_df_index(df, column_name="Index")
+        data.add_df(df)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {"name": "Index", "type": "dimension", "values": ["x", "y"]},
+                        {"name": "series", "type": "measure", "values": [1.0, 2.0]},
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_add_df_index_with_none(self) -> None:
+        data = Data()
+        df = pd.DataFrame()
+        data.add_df_index(df, column_name="Index")
+        data.add_df(df)
+        self.assertEqual(
+            {"data": {}},
+            data.build(),
+        )
+
+
+class TestDataAddDataframe(unittest.TestCase):
+    asset_dir: pathlib.Path
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.asset_dir = pathlib.Path(__file__).parent / "assets"
+
+    def setUp(self) -> None:
+        self.data = Data()
+
+    def test_add_data_frame_with_not_df(self) -> None:
+        data = Data()
+        with self.assertRaises(TypeError):
+            data.add_data_frame("")
+
+    def test_add_data_frame_with_none(self) -> None:
+        data = Data()
+        data.add_data_frame(None)
+        self.assertEqual(
+            {"data": {}},
+            data.build(),
+        )
+
+    def test_add_data_frame_with_df(self) -> None:
+        with open(self.asset_dir / "df_in.json", encoding="utf8") as fh_in:
+            fc_in = json.load(fh_in)
+        with open(self.asset_dir / "df_out.json", encoding="utf8") as fh_out:
+            fc_out = json.load(fh_out)
+
+        df = pd.DataFrame(fc_in)
+        df = df.astype({"PopularityAsDimension": str})
+        self.data.add_data_frame(df)
+        self.assertEqual(
+            fc_out,
+            self.data.build(),
+        )
+
+    def test_add_data_frame_with_df_contains_na(self) -> None:
+        df = pd.read_csv(
+            self.asset_dir / "df_na.csv", dtype={"PopularityAsDimension": str}
+        )
+        self.data.add_data_frame(df)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {
+                            "name": "Popularity",
+                            "type": "measure",
+                            "values": [100.0, 0.0],
+                        },
+                        {
+                            "name": "PopularityAsDimension",
+                            "type": "dimension",
+                            "values": ["", "100"],
+                        },
+                    ]
+                }
+            },
+            self.data.build(),
+        )
+
+    def test_add_data_frame_with_series(self) -> None:
+        data = Data()
+        data.add_data_frame(pd.Series([1, 2], name="series1"))
+        data.add_data_frame(
+            pd.Series({"x": 3, "y": 4, "z": 5}, index=["x", "y"], name="series2")
+        )
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {"name": "series1", "type": "measure", "values": [1.0, 2.0]},
+                        {"name": "series2", "type": "measure", "values": [3.0, 4.0]},
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_add_data_frame_index(self) -> None:
+        data = Data()
+        df = pd.Series({"x": 1, "y": 2, "z": 3}, index=["x", "y"], name="series")
+        data.add_data_frame_index(df, name="Index")
+        data.add_data_frame(df)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {"name": "Index", "type": "dimension", "values": ["x", "y"]},
+                        {"name": "series", "type": "measure", "values": [1.0, 2.0]},
                     ]
                 }
             },
