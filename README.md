@@ -155,6 +155,14 @@ We welcome contributions to the project, visit our contributing
 - Drop us a line at hello@vizzuhq.com
 - Follow us on Twitter: [VizzuHQ](https://twitter.com/VizzuHQ)
 
+## Usage Statistics
+
+`ipyvizzu` collects aggregate usage statistics by default to follow the progress
+and overall trends of our library. We do not track, collect, or store any
+personal data or personally identifiable information. For more details, please
+visit
+[Analytics chapter](https://ipyvizzu.vizzuhq.com/latest/tutorial/chart_settings/#analytics).
+
 ## License
 
 Copyright © 2022-2023 [Vizzu Inc.](https://vizzuhq.com)

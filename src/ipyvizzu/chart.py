@@ -68,7 +68,15 @@ class Chart:
     @property
     def analytics(self) -> bool:
         """
-        A property for enabling or disabling the gathering of usage statistics.
+        A property for enabling/disabling the usage statistics feature.
+
+        The usage statistics feature allows aggregate usage data collection
+        using Plausible's algorithm.
+        Enabling this feature helps us follow the progress and overall trends of our library,
+        allowing us to focus our resources effectively and better serve our users.
+
+        We do not track, collect, or store any personal data or personally identifiable information.
+        All data is isolated to a single day, a single site, and a single device only.
 
         Returns:
             The value of the property (default `True`).

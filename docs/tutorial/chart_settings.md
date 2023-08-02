@@ -162,6 +162,31 @@ chart = Chart(vizzu="<url>/vizzu.min.js")
 
 ## Properties
 
+### Analytics
+
+The usage statistics feature in `ipyvizzu` allows aggregate usage data
+collection using [Plausible](https://plausible.io/)'s algorithm. Enabling this
+feature helps us follow the progress and overall trends of our library, allowing
+us to focus our resources effectively and better serve our users.
+
+We do not track, collect, or store any personal data or personally identifiable
+information. All data is isolated to a single day, a single site, and a single
+device only.
+
+Usage statistics feature is optional, and by default, it is enabled (default
+value: `True`). Users can choose to opt-out if they prefer not to participate in
+data collection. To disable usage statistics feature, set
+[analytics](../reference/ipyvizzu/chart.md#ipyvizzu.chart.Chart.analytics)
+property to `False`.
+
+```python
+from ipyvizzu import Chart
+
+
+chart = Chart()
+chart.analytics = False
+```
+
 ### Scroll into view
 
 When the scroll into view feature is turned on, `ipyvizzu` is able to
