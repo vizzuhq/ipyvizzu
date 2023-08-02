@@ -37,7 +37,7 @@ Run the following command in your command line in order to install `ipyvizzu`
 details).
 
 ```sh
-pip install ipyvizzu flask
+pip install ipyvizzu pandas flask
 ```
 
 ## Sample

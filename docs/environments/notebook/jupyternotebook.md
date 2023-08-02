@@ -33,7 +33,7 @@ details.
 Run the following command in your command line
 
 ```sh
-pip install ipyvizzu
+pip install ipyvizzu pandas
 ```
 
 or place the following code into a notebook cell in order to install `ipyvizzu`
@@ -41,7 +41,7 @@ or place the following code into a notebook cell in order to install `ipyvizzu`
 details).
 
 ```
-!pip install ipyvizzu
+!pip install ipyvizzu pandas
 ```
 
 ## Sample

@@ -35,7 +35,7 @@ Run the following command in your command line in order to install `ipyvizzu`
 details).
 
 ```sh
-pip install ipyvizzu panel
+pip install ipyvizzu pandas panel
 ```
 
 ## Sample

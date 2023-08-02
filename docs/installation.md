@@ -1,6 +1,6 @@
 # Installation
 
-`ipyvizzu` requires the `IPython`, `jsonschema` and `pandas` packages.
+`ipyvizzu` requires the `IPython` and `jsonschema` packages.
 
 !!! info
     `ipyvizzu` requires and downloads the
@@ -23,6 +23,14 @@ and this is how to upgrade it.
 ```sh
 pip install -U ipyvizzu
 ```
+
+!!! note
+    If you want to work with `pandas` `DataFrame` and `ipyvizzu`, you need to
+    install `pandas` or install it as an extra:
+
+    ```sh
+    pip install ipyvizzu[pandas]
+    ```
 
 You can use `ipyvizzu` in `Jupyter/IPython`, `Streamlit` or `Panel` (see
 [Environments chapter](environments/index.md) for more details).

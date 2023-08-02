@@ -35,7 +35,7 @@ Place the following code into a notebook cell in order to install `ipyvizzu`
 details).
 
 ```
-!pip install ipyvizzu
+!pip install ipyvizzu pandas
 ```
 
 ## Sample
