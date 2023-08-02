@@ -43,10 +43,10 @@ class DisplayTemplate:
     )
     """Call createChart JavaScript method."""
 
-    SET_ANALYTICS: str = (
-        "if (window.IpyVizzu) window.IpyVizzu.setAnalytics({analytics});"
+    CHANGE_ANALYTICS_TO: str = (
+        "if (window.IpyVizzu) window.IpyVizzu.changeAnalyticsTo({analytics});"
     )
-    """Call setAnalytics JavaScript method."""
+    """Call changeAnalyticsTo JavaScript method."""
 
     ANIMATE: str = (
         "window.ipyvizzu.animate(element, "

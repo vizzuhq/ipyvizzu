@@ -80,12 +80,7 @@ class Chart:
     def analytics(self, analytics: Optional[bool]):
         self._analytics = bool(analytics)
         if self._initialized:
-            self._set_analytics()
-
-    def _set_analytics(self) -> None:
-        self._display(
-            DisplayTemplate.SET_ANALYTICS.format(analytics=str(self._analytics).lower())
-        )
+            self._display_analytics()
 
     @property
     def scroll_into_view(self) -> bool:
@@ -121,25 +116,35 @@ class Chart:
 
         if not self._initialized:
             self._initialized = True
-            ipyvizzurawjs = pkgutil.get_data(__name__, "templates/ipyvizzu.js")
-            ipyvizzujs = ipyvizzurawjs.decode("utf-8").replace(  # type: ignore
-                '"__version__"', f'"{__version__}"'
-            )
-            self._display(DisplayTemplate.IPYVIZZUJS.format(ipyvizzujs=ipyvizzujs))
-
+            self._display_ipyvizzujs()
+            self._display_analytics()
             if self._display_target != DisplayTarget.MANUAL:
                 Chart._register_events()
+            self._display_chart()
 
-            self._display(
-                DisplayTemplate.INIT.format(
-                    chart_id=self._chart_id,
-                    vizzu=self._vizzu,
-                    div_width=self._width,
-                    div_height=self._height,
-                )
+    def _display_ipyvizzujs(self) -> None:
+        ipyvizzurawjs = pkgutil.get_data(__name__, "templates/ipyvizzu.js")
+        ipyvizzujs = ipyvizzurawjs.decode("utf-8").replace(  # type: ignore
+            '"__version__"', f'"{__version__}"'
+        )
+        self._display(DisplayTemplate.IPYVIZZUJS.format(ipyvizzujs=ipyvizzujs))
+
+    def _display_analytics(self) -> None:
+        self._display(
+            DisplayTemplate.CHANGE_ANALYTICS_TO.format(
+                analytics=str(self._analytics).lower()
             )
+        )
 
-            self._set_analytics()
+    def _display_chart(self) -> None:
+        self._display(
+            DisplayTemplate.INIT.format(
+                chart_id=self._chart_id,
+                vizzu=self._vizzu,
+                div_width=self._width,
+                div_height=self._height,
+            )
+        )
 
     def animate(
         self,

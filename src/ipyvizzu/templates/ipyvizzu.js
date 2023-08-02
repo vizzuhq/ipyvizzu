@@ -172,46 +172,27 @@ class IpyVizzu {
     ).parentNode.style.margin = "auto";
   }
 
-  static setAnalytics(analytics) {
+  static changeAnalyticsTo(analytics) {
     if (IpyVizzu.analytics !== analytics) {
       console.log("ipyvizzu gather usage stats:", analytics);
       IpyVizzu.analytics = analytics;
     }
     if (analytics) {
-      IpyVizzu._addAnalyticsHead();
-      IpyVizzu._addAnalyticsBody();
+      IpyVizzu._addHeadScript();
     } else {
       IpyVizzu._removeScript("ipyvizzu-analytics-head");
-      IpyVizzu._removeScript("ipyvizzu-analytics-body");
     }
   }
 
-  static _addAnalyticsHead() {
+  static _addHeadScript() {
     const scriptId = "ipyvizzu-analytics-head";
     if (!IpyVizzu._isScriptAppended(scriptId)) {
       const script = document.createElement("script");
       script.defer = true;
       script.src = "https://plausible.io/js/script.local.js";
-      script.dataset.domain = "usage.vizzuhq.com";
+      script.dataset.domain = "usage.ipyvizzu.com";
       script.id = scriptId;
       document.getElementsByTagName("head")[0].appendChild(script);
-    }
-  }
-
-  static _addAnalyticsBody() {
-    const scriptId = "ipyvizzu-analytics-body";
-    if (!IpyVizzu._isScriptAppended(scriptId)) {
-      const script = document.createElement("script");
-      script.innerHTML = `
-        window.plausible =
-          window.plausible ||
-          function () {
-            (window.plausible.q = window.plausible.q || []).push(arguments);
-          };
-        plausible("ipyvizzu", { props: { url: window?.location?.hostname } });
-      `;
-      script.id = scriptId;
-      document.body.appendChild(script);
     }
   }
 

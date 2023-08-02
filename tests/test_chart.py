@@ -40,21 +40,17 @@ class TestChart(unittest.TestCase, abc.ABC):
 
 
 class TestChartInit(TestChart):
-    analytics: str = "if (window.IpyVizzu) window.IpyVizzu.setAnalytics(true);"
-
     def test_init(self) -> None:
         with unittest.mock.patch(self.mock) as output:
             chart = Chart()
             chart.initializing()
             self.assertEqual(
-                self.normalizer.normalize_output(output, 1),
+                self.normalizer.normalize_output(output, 2),
                 "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
                 + "'https://cdn.jsdelivr.net/npm/vizzu@0.7/dist/vizzu.min.js', "
-                + "'800px', '480px');"
-                + "\n"
-                + TestChartInit.analytics,
+                + "'800px', '480px');",
             )
 
     def test_init_vizzu(self) -> None:
@@ -64,14 +60,12 @@ class TestChartInit(TestChart):
             )
             chart.initializing()
             self.assertEqual(
-                self.normalizer.normalize_output(output, 1),
+                self.normalizer.normalize_output(output, 2),
                 "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
                 + "'https://cdn.jsdelivr.net/npm/vizzu@0.4.1/dist/vizzu.min.js', "
-                + "'800px', '480px');"
-                + "\n"
-                + TestChartInit.analytics,
+                + "'800px', '480px');",
             )
 
     def test_init_div(self) -> None:
@@ -79,14 +73,12 @@ class TestChartInit(TestChart):
             chart = Chart(width="400px", height="240px")
             chart.initializing()
             self.assertEqual(
-                self.normalizer.normalize_output(output, 1),
+                self.normalizer.normalize_output(output, 2),
                 "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
                 + "'https://cdn.jsdelivr.net/npm/vizzu@0.7/dist/vizzu.min.js', "
-                + "'400px', '240px');"
-                + "\n"
-                + TestChartInit.analytics,
+                + "'400px', '240px');",
             )
 
     def test_init_display_invalid(self) -> None:
@@ -160,7 +152,7 @@ class TestChartInit(TestChart):
                 chart = Chart()
                 chart.initializing()
                 self.assertEqual(
-                    self.normalizer.normalize_output(output, 1, 2),
+                    self.normalizer.normalize_output(output, 2, 3),
                     "if (window.IpyVizzu) { window.IpyVizzu.clearInhibitScroll(element); }",
                 )
 
@@ -399,13 +391,12 @@ class TestChartAnalytics(TestChart):
             chart.initializing()
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
+                "if (window.IpyVizzu) window.IpyVizzu.changeAnalyticsTo(false);" + "\n"
                 "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
                 + "'https://cdn.jsdelivr.net/npm/vizzu@0.7/dist/vizzu.min.js', "
-                + "'800px', '480px');"
-                + "\n"
-                + "if (window.IpyVizzu) window.IpyVizzu.setAnalytics(false);",
+                + "'800px', '480px');",
             )
 
     def test_change_analytics_after_initializing(self) -> None:
@@ -416,17 +407,17 @@ class TestChartAnalytics(TestChart):
             chart.analytics = True
             self.assertEqual(
                 self.normalizer.normalize_output(output, 1),
-                "window.ipyvizzu.createChart("
+                "if (window.IpyVizzu) window.IpyVizzu.changeAnalyticsTo(true);"
+                + "\n"
+                + "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
                 + "'https://cdn.jsdelivr.net/npm/vizzu@0.7/dist/vizzu.min.js', "
                 + "'800px', '480px');"
                 + "\n"
-                + "if (window.IpyVizzu) window.IpyVizzu.setAnalytics(true);"
+                + "if (window.IpyVizzu) window.IpyVizzu.changeAnalyticsTo(false);"
                 + "\n"
-                + "if (window.IpyVizzu) window.IpyVizzu.setAnalytics(false);"
-                + "\n"
-                + "if (window.IpyVizzu) window.IpyVizzu.setAnalytics(true);",
+                + "if (window.IpyVizzu) window.IpyVizzu.changeAnalyticsTo(true);",
             )
 
 
