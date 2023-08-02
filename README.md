@@ -158,9 +158,11 @@ We welcome contributions to the project, visit our contributing
 ## Usage Statistics
 
 `ipyvizzu` collects aggregate usage statistics by default to follow the progress
-and overall trends of our library. We do not track, collect, or store any
-personal data or personally identifiable information. For more details, please
-visit
+and overall trends of our library. This feature is optional, and users can
+choose to opt-out. However, we do not track, collect, or store any personal data
+or personally identifiable information. Please note that even when this feature
+is enabled, publishing anything made with `ipyvizzu` remains GDPR compatible.
+For more details, please visit
 [Analytics chapter](https://ipyvizzu.vizzuhq.com/latest/tutorial/chart_settings/#analytics).
 
 ## License

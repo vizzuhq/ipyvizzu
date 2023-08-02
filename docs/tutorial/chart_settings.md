@@ -175,7 +175,10 @@ device only.
 
 Usage statistics feature is optional, and by default, it is enabled (default
 value: `True`). Users can choose to opt-out if they prefer not to participate in
-data collection. To disable usage statistics feature, set
+data collection. Please note that even when this feature is enabled, publishing
+anything made with `ipyvizzu` remains GDPR compatible.
+
+To disable usage statistics feature, set
 [analytics](../reference/ipyvizzu/chart.md#ipyvizzu.chart.Chart.analytics)
 property to `False`.
 

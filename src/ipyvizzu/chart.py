@@ -78,6 +78,9 @@ class Chart:
         We do not track, collect, or store any personal data or personally identifiable information.
         All data is isolated to a single day, a single site, and a single device only.
 
+        Please note that even when this feature is enabled,
+        publishing anything made with `ipyvizzu` remains GDPR compatible.
+
         Returns:
             The value of the property (default `True`).
         """
