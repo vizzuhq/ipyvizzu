@@ -45,7 +45,7 @@ class TestChartInit(TestChart):
             chart = Chart()
             chart.initializing()
             self.assertEqual(
-                self.normalizer.normalize_output(output, 1),
+                self.normalizer.normalize_output(output, 2),
                 "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
@@ -60,7 +60,7 @@ class TestChartInit(TestChart):
             )
             chart.initializing()
             self.assertEqual(
-                self.normalizer.normalize_output(output, 1),
+                self.normalizer.normalize_output(output, 2),
                 "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
@@ -73,7 +73,7 @@ class TestChartInit(TestChart):
             chart = Chart(width="400px", height="240px")
             chart.initializing()
             self.assertEqual(
-                self.normalizer.normalize_output(output, 1),
+                self.normalizer.normalize_output(output, 2),
                 "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
@@ -90,7 +90,7 @@ class TestChartInit(TestChart):
             chart = Chart(display="begin")
             chart.animate(Snapshot("abc1234"))
             self.assertEqual(
-                self.normalizer.normalize_output(output, 2),
+                self.normalizer.normalize_output(output, 3),
                 "window.ipyvizzu.animate(element, id, id, 'begin', false, "
                 + "lib => { return id }, "
                 + "undefined);",
@@ -101,7 +101,7 @@ class TestChartInit(TestChart):
             chart = Chart(display="actual")
             chart.animate(Snapshot("abc1234"))
             self.assertEqual(
-                self.normalizer.normalize_output(output, 2),
+                self.normalizer.normalize_output(output, 3),
                 "window.ipyvizzu.animate(element, id, id, 'actual', false, "
                 + "lib => { return id }, "
                 + "undefined);",
@@ -112,7 +112,7 @@ class TestChartInit(TestChart):
             chart = Chart(display="end")
             chart.animate(Snapshot("abc1234"))
             self.assertEqual(
-                self.normalizer.normalize_output(output, 2),
+                self.normalizer.normalize_output(output, 3),
                 "window.ipyvizzu.animate(element, id, id, 'end', false, "
                 + "lib => { return id }, "
                 + "undefined);",
@@ -152,7 +152,7 @@ class TestChartInit(TestChart):
                 chart = Chart()
                 chart.initializing()
                 self.assertEqual(
-                    self.normalizer.normalize_output(output, 1, 2),
+                    self.normalizer.normalize_output(output, 2, 3),
                     "if (window.IpyVizzu) { window.IpyVizzu.clearInhibitScroll(element); }",
                 )
 
@@ -374,6 +374,51 @@ class TestChartLogs(TestChart):
     def test_log_invalid(self) -> None:
         with self.assertRaises(AttributeError):
             self.chart.log(ChartProperty.INVALID)  # type: ignore  # pylint: disable=no-member
+
+
+class TestChartAnalytics(TestChart):
+    def test_analytics_default_value(self) -> None:
+        chart = Chart()
+        self.assertEqual(
+            chart.analytics,
+            True,
+        )
+
+    def test_change_analytics_before_initializing(self) -> None:
+        with unittest.mock.patch(self.mock) as output:
+            chart = Chart()
+            chart.analytics = False
+            chart.initializing()
+            self.assertEqual(
+                self.normalizer.normalize_output(output, 1),
+                "if (window.IpyVizzu) window.IpyVizzu.changeAnalyticsTo(false);" + "\n"
+                "window.ipyvizzu.createChart("
+                + "element, "
+                + "id, "
+                + "'https://cdn.jsdelivr.net/npm/vizzu@0.7/dist/vizzu.min.js', "
+                + "'800px', '480px');",
+            )
+
+    def test_change_analytics_after_initializing(self) -> None:
+        with unittest.mock.patch(self.mock) as output:
+            chart = Chart()
+            chart.initializing()
+            chart.analytics = False
+            chart.analytics = True
+            self.assertEqual(
+                self.normalizer.normalize_output(output, 1),
+                "if (window.IpyVizzu) window.IpyVizzu.changeAnalyticsTo(true);"
+                + "\n"
+                + "window.ipyvizzu.createChart("
+                + "element, "
+                + "id, "
+                + "'https://cdn.jsdelivr.net/npm/vizzu@0.7/dist/vizzu.min.js', "
+                + "'800px', '480px');"
+                + "\n"
+                + "if (window.IpyVizzu) window.IpyVizzu.changeAnalyticsTo(false);"
+                + "\n"
+                + "if (window.IpyVizzu) window.IpyVizzu.changeAnalyticsTo(true);",
+            )
 
 
 class TestChartDisplay(TestChart):

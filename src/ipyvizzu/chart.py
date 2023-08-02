@@ -12,6 +12,7 @@ from ipyvizzu.animationcontrol import AnimationControl
 from ipyvizzu.method import Animate, Feature, Store, EventOn, EventOff, Log
 from ipyvizzu.template import ChartProperty, DisplayTarget, DisplayTemplate
 from ipyvizzu.event import EventHandler
+from ipyvizzu.__version__ import __version__
 
 
 class Chart:
@@ -51,6 +52,7 @@ class Chart:
         self._showed: bool = False
 
         self._initialized: bool = False
+        self._analytics: bool = True
         self._scroll_into_view: bool = False
 
     @staticmethod
@@ -62,6 +64,34 @@ class Chart:
     @staticmethod
     def _register_pre_run_cell() -> None:
         display_javascript(DisplayTemplate.CLEAR_INHIBITSCROLL, raw=True)
+
+    @property
+    def analytics(self) -> bool:
+        """
+        A property for enabling/disabling the usage statistics feature.
+
+        The usage statistics feature allows aggregate usage data collection
+        using Plausible's algorithm.
+        Enabling this feature helps us follow the progress and overall trends of our library,
+        allowing us to focus our resources effectively and better serve our users.
+
+        We do not track, collect, or store any personal data or personally identifiable information.
+        All data is isolated to a single day, a single site, and a single device only.
+
+        Please note that even when this feature is enabled,
+        publishing anything made with `ipyvizzu` remains GDPR compatible.
+
+        Returns:
+            The value of the property (default `True`).
+        """
+
+        return self._analytics
+
+    @analytics.setter
+    def analytics(self, analytics: Optional[bool]):
+        self._analytics = bool(analytics)
+        if self._initialized:
+            self._display_analytics()
 
     @property
     def scroll_into_view(self) -> bool:
@@ -97,21 +127,35 @@ class Chart:
 
         if not self._initialized:
             self._initialized = True
-            ipyvizzurawjs = pkgutil.get_data(__name__, "templates/ipyvizzu.js")
-            ipyvizzujs = ipyvizzurawjs.decode("utf-8")  # type: ignore
-            self._display(DisplayTemplate.IPYVIZZUJS.format(ipyvizzujs=ipyvizzujs))
-
+            self._display_ipyvizzujs()
+            self._display_analytics()
             if self._display_target != DisplayTarget.MANUAL:
                 Chart._register_events()
+            self._display_chart()
 
-            self._display(
-                DisplayTemplate.INIT.format(
-                    chart_id=self._chart_id,
-                    vizzu=self._vizzu,
-                    div_width=self._width,
-                    div_height=self._height,
-                )
+    def _display_ipyvizzujs(self) -> None:
+        ipyvizzurawjs = pkgutil.get_data(__name__, "templates/ipyvizzu.js")
+        ipyvizzujs = ipyvizzurawjs.decode("utf-8").replace(  # type: ignore
+            '"__version__"', f'"{__version__}"'
+        )
+        self._display(DisplayTemplate.IPYVIZZUJS.format(ipyvizzujs=ipyvizzujs))
+
+    def _display_analytics(self) -> None:
+        self._display(
+            DisplayTemplate.CHANGE_ANALYTICS_TO.format(
+                analytics=str(self._analytics).lower()
             )
+        )
+
+    def _display_chart(self) -> None:
+        self._display(
+            DisplayTemplate.INIT.format(
+                chart_id=self._chart_id,
+                vizzu=self._vizzu,
+                div_width=self._width,
+                div_height=self._height,
+            )
+        )
 
     def animate(
         self,

@@ -214,11 +214,11 @@ class TestData(unittest.TestCase):
     def test_data_frame_with_not_df(self) -> None:
         data = Data()
         with self.assertRaises(TypeError):
-            data.add_data_frame("")
+            data.add_data_frame("")  # type: ignore
 
     def test_data_frame_with_none(self) -> None:
         data = Data()
-        data.add_data_frame(None)
+        data.add_data_frame(None)  # type: ignore
         self.assertEqual(
             {"data": {}},
             data.build(),
@@ -284,11 +284,11 @@ class TestData(unittest.TestCase):
     def test_data_frame_index_with_not_df(self) -> None:
         data = Data()
         with self.assertRaises(TypeError):
-            data.add_data_frame_index(data_frame="", name="")
+            data.add_data_frame_index(data_frame="", name="")  # type: ignore
 
     def test_data_frame_index_with_none_and_none(self) -> None:
         data = Data()
-        data.add_data_frame_index(data_frame=None, name=None)
+        data.add_data_frame_index(data_frame=None, name=None)  # type: ignore
         self.assertEqual(
             {"data": {}},
             data.build(),
