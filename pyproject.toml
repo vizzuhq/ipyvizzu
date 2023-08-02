@@ -38,7 +38,7 @@ keywords = [
 
 [project.optional-dependencies]
 pandas = [
-    "pandas ; python_version >= '3.6'",
+    "pandas",
 ]
 fugue = [
     "fugue >= 0.8.1 ; python_version >= '3.7'",
