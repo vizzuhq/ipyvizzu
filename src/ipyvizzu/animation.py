@@ -3,9 +3,17 @@
 import abc
 from os import PathLike
 import json
-from typing import Optional, Union, List, Dict, Any, Tuple
+from typing import List, Optional, Tuple, Union
 import jsonschema  # type: ignore
 
+from ipyvizzu.data.typing_alias import (
+    DimensionValue,
+    NestedMeasureValues,
+    MeasureValue,
+    Record,
+    Series,
+    SeriesValues,
+)
 from ipyvizzu.data.converters.pandas_converter import PandasDataFrameConverter
 from ipyvizzu.json import RawJavaScript, RawJavaScriptEncoder
 from ipyvizzu.schema import DATA_SCHEMA
@@ -122,7 +130,7 @@ class Data(dict, AbstractAnimation):
         with open(filename, "r", encoding="utf8") as file_desc:
             return cls(json.load(file_desc))
 
-    def add_record(self, record: list) -> None:
+    def add_record(self, record: Record) -> None:
         """
         A method for adding a record to an existing
         [Data][ipyvizzu.animation.Data] class instance.
@@ -140,7 +148,7 @@ class Data(dict, AbstractAnimation):
 
         self._add_value("records", record)
 
-    def add_records(self, records: List[list]) -> None:
+    def add_records(self, records: List[Record]) -> None:
         """
         A method for adding records to an existing
         [Data][ipyvizzu.animation.Data] class instance.
@@ -163,7 +171,9 @@ class Data(dict, AbstractAnimation):
 
         list(map(self.add_record, records))
 
-    def add_series(self, name: str, values: Optional[list] = None, **kwargs) -> None:
+    def add_series(
+        self, name: str, values: Optional[SeriesValues] = None, **kwargs
+    ) -> None:
         """
         A method for adding a series to an existing
         [Data][ipyvizzu.animation.Data] class instance.
@@ -198,7 +208,7 @@ class Data(dict, AbstractAnimation):
 
         self._add_named_value("series", name, values, **kwargs)
 
-    def add_series_list(self, series: List[Dict[str, Union[str, List[Any]]]]) -> None:
+    def add_series_list(self, series: List[Series]) -> None:
         """
         A method for adding list of series to an existing
         [Data][ipyvizzu.animation.Data] class instance.
@@ -210,7 +220,9 @@ class Data(dict, AbstractAnimation):
         if series:
             self.setdefault("series", []).extend(series)
 
-    def add_dimension(self, name: str, values: Optional[list] = None, **kwargs) -> None:
+    def add_dimension(
+        self, name: str, values: Optional[List[DimensionValue]] = None, **kwargs
+    ) -> None:
         """
         A method for adding a dimension to an existing
         [Data][ipyvizzu.animation.Data] class instance.
@@ -229,7 +241,9 @@ class Data(dict, AbstractAnimation):
 
         self._add_named_value("dimensions", name, values, **kwargs)
 
-    def add_measure(self, name: str, values: Optional[list] = None, **kwargs) -> None:
+    def add_measure(
+        self, name: str, values: Optional[NestedMeasureValues] = None, **kwargs
+    ) -> None:
         """
         A method for adding a measure to an existing
         [Data][ipyvizzu.animation.Data] class instance.
@@ -257,8 +271,8 @@ class Data(dict, AbstractAnimation):
     def add_df(
         self,
         df: Union["pd.DataFrame", "pd.Series"],  # type: ignore
-        default_measure_value: Optional[Any] = 0,
-        default_dimension_value: Optional[Any] = "",
+        default_measure_value: Optional[MeasureValue] = 0,
+        default_dimension_value: Optional[DimensionValue] = "",
         include_index: Optional[str] = None,
     ) -> None:
         """
@@ -298,8 +312,8 @@ class Data(dict, AbstractAnimation):
     def add_data_frame(
         self,
         data_frame: Union["pd.DataFrame", "pd.Series"],  # type: ignore
-        default_measure_value: Optional[Any] = 0,
-        default_dimension_value: Optional[Any] = "",
+        default_measure_value: Optional[MeasureValue] = 0,
+        default_dimension_value: Optional[DimensionValue] = "",
     ) -> None:
         """
         [Deprecated] Add a `pandas` `DataFrame` or `Series` to an existing
@@ -372,7 +386,16 @@ class Data(dict, AbstractAnimation):
         self.add_df_index(data_frame, name)
 
     def _add_named_value(
-        self, dest: str, name: str, values: Optional[list] = None, **kwargs
+        self,
+        dest: str,
+        name: str,
+        values: Optional[
+            Union[
+                SeriesValues,
+                NestedMeasureValues,
+            ]
+        ] = None,
+        **kwargs,
     ) -> None:
         value = {"name": name, **kwargs}
 

@@ -2,9 +2,13 @@
 
 import json
 import pathlib
+from typing import List
 import unittest
+
 import jsonschema  # type: ignore
 import pandas as pd
+
+from ipyvizzu.data.typing_alias import Record
 
 from tests import (
     PlainAnimation,
@@ -173,7 +177,7 @@ class TestData(unittest.TestCase):
         self.data.add_series("Genres", type="dimension")
         self.data.add_series("Kinds", type="dimension")
         self.data.add_series("Popularity", type="measure")
-        records = [["Rock", "Hard", 96], ["Pop", "Hard", 114]]
+        records: List[Record] = [["Rock", "Hard", 96], ["Pop", "Hard", 114]]
         self.data.add_records(records)
         self.assertEqual(
             {
