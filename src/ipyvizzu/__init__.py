@@ -27,7 +27,7 @@ and similar environments with a simple `Python` syntax.
 * [AnimationMerger][ipyvizzu.animation.AnimationMerger]
 * [AnimationControl][ipyvizzu.animationcontrol.AnimationControl]
 * [InferType][ipyvizzu.data.infer_type.InferType]
-* [PandasDataFrameConverter][data.converters.pandas_converter.PandasDataFrameConverter]
+* [PandasDataFrameConverter][ipyvizzu.data.converters.pandas_converter.PandasDataFrameConverter]
 * [Animate][ipyvizzu.method.Animate]
 * [Feature][ipyvizzu.method.Feature]
 * [Store][ipyvizzu.method.Store]

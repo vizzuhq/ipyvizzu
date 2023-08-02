@@ -56,7 +56,7 @@ class PandasDataFrameConverter:
             import pandas as pd  # pylint: disable=import-outside-toplevel
 
             return pd
-        except ImportError as error:  # pragma: no cover
+        except ImportError as error:
             raise ImportError(
                 "pandas is not available. Please install pandas to use this feature."
             ) from error

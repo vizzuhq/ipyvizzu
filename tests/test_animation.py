@@ -4,6 +4,7 @@ import json
 import pathlib
 from typing import List
 import unittest
+from unittest.mock import patch
 
 import jsonschema  # type: ignore
 import pandas as pd
@@ -356,6 +357,20 @@ class TestDataAddDf(unittest.TestCase):
             {"data": {}},
             data.build(),
         )
+
+    def test_add_df_if_pandas_not_installed(self) -> None:
+        with patch("builtins.__import__") as mock_import:
+
+            def import_replacement(name, *args, **kwargs):
+                if name == "pandas":
+                    raise ImportError("pandas is not available")
+                return mock_import(name, *args, **kwargs)
+
+            mock_import.side_effect = import_replacement
+
+            data = Data()
+            with self.assertRaises(ImportError):
+                data.add_df(None)
 
 
 class TestDataAddDataframe(unittest.TestCase):
