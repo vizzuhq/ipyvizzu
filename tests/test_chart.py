@@ -16,7 +16,7 @@ from ipyvizzu import (
     Style,
 )
 
-from tests.normalizer import Normalizer
+from tests.utils.normalizer import Normalizer
 
 
 class TestChart(unittest.TestCase, abc.ABC):
