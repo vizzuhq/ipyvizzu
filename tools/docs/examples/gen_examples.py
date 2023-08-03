@@ -20,7 +20,6 @@ WEB_CONTENT_PATH = (
 )
 TEST_DATA_PATH = VIZZU_LIB_PATH / "test" / "integration" / "test_data"
 STATIC_EXAMPLES_PATH = WEB_CONTENT_PATH / "static"
-ANIMATED_EXAMPLES_PATH = WEB_CONTENT_PATH / "animated"
 OPERATION_EXAMPLES_PATH = WEB_CONTENT_PATH / "analytical_operations"
 PRESET_EXAMPLES_PATH = WEB_CONTENT_PATH / "presets"
 SHOWCASES_PATH = REPO_PATH / "docs" / "showcases"
@@ -425,15 +424,6 @@ def main() -> None:
         )
         static.merge_subfolders = True
         static.generate()
-
-        animated = GenExamples(
-            "Animated charts",
-            ANIMATED_EXAMPLES_PATH,
-            "examples/animated",
-        )
-        animated.merge_subfolders = True
-        animated.video_thumbnails = True
-        animated.generate()
 
         operations = GenExamples(
             "Analytical Operations",
