@@ -8,7 +8,7 @@ import unittest
 
 import pandas as pd
 
-from tests.normalizer import Normalizer
+from tests.utils.normalizer import Normalizer
 
 
 if sys.version_info >= (3, 7):

@@ -119,6 +119,7 @@ nav:
       - Chart settings: tutorial/chart_settings.md
       - tutorial/data.md
       - Axes, title, tooltip: tutorial/axes_title_tooltip.md
+      - Aggregating data: tutorial/aggregating_data.md
       - tutorial/geometry.md
       - Channels & legend: tutorial/channels_legend.md
       - Group/stack: tutorial/group_stack.md

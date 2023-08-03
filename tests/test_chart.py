@@ -16,7 +16,7 @@ from ipyvizzu import (
     Style,
 )
 
-from tests.normalizer import Normalizer
+from tests.utils.normalizer import Normalizer
 
 
 class TestChart(unittest.TestCase, abc.ABC):
@@ -50,7 +50,7 @@ class TestChartInit(TestChart):
                 "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
-                + "'https://cdn.jsdelivr.net/npm/vizzu@0.7/dist/vizzu.min.js', "
+                + "'https://cdn.jsdelivr.net/npm/vizzu@0.8/dist/vizzu.min.js', "
                 + "'800px', '480px');",
             )
 
@@ -78,7 +78,7 @@ class TestChartInit(TestChart):
                 "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
-                + "'https://cdn.jsdelivr.net/npm/vizzu@0.7/dist/vizzu.min.js', "
+                + "'https://cdn.jsdelivr.net/npm/vizzu@0.8/dist/vizzu.min.js', "
                 + "'400px', '240px');",
             )
 
@@ -396,7 +396,7 @@ class TestChartAnalytics(TestChart):
                 "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
-                + "'https://cdn.jsdelivr.net/npm/vizzu@0.7/dist/vizzu.min.js', "
+                + "'https://cdn.jsdelivr.net/npm/vizzu@0.8/dist/vizzu.min.js', "
                 + "'800px', '480px');",
             )
 
@@ -413,7 +413,7 @@ class TestChartAnalytics(TestChart):
                 + "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
-                + "'https://cdn.jsdelivr.net/npm/vizzu@0.7/dist/vizzu.min.js', "
+                + "'https://cdn.jsdelivr.net/npm/vizzu@0.8/dist/vizzu.min.js', "
                 + "'800px', '480px');"
                 + "\n"
                 + "if (window.IpyVizzu) window.IpyVizzu.changeAnalyticsTo(false);"

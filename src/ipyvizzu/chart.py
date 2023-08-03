@@ -20,7 +20,7 @@ class Chart:
 
     # pylint: disable=too-many-instance-attributes
 
-    VIZZU: str = "https://cdn.jsdelivr.net/npm/vizzu@0.7/dist/vizzu.min.js"
+    VIZZU: str = "https://cdn.jsdelivr.net/npm/vizzu@0.8/dist/vizzu.min.js"
     """A variable for storing the default url of vizzu package."""
 
     def __init__(
@@ -171,7 +171,7 @@ class Chart:
                 [Config][ipyvizzu.animation.Config] and [Style][ipyvizzu.animation.Style].
             **options: Dictionary of animation options for example `duration=1`.
                 For information on all available animation options see the
-                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/vizzu.Anim.Options/#properties).
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/Anim.Options/#properties).
 
         Raises:
             ValueError: If `animations` is not set.
@@ -207,7 +207,7 @@ class Chart:
             name:
                 The name of the chart feature.
                 For information on all available features see the
-                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/modules/vizzu/#feature).
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/modules/#feature).
             enabled: The new state of the chart feature.
 
         Example:
@@ -256,7 +256,7 @@ class Chart:
             event:
                 The type of the event.
                 For information on all available events see the
-                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/modules/vizzu.Event/#type).
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/modules/Event/#type).
             handler: The JavaScript method of the event.
 
         Returns:
