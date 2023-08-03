@@ -5,9 +5,9 @@ import os
 
 
 class RaiseImportError:
+    @classmethod
     @contextmanager
-    @staticmethod
-    def module_name(module_name):
+    def module_name(cls, module_name):
         original_value = os.environ.get("RAISE_IMPORT_ERROR", None)
         os.environ["RAISE_IMPORT_ERROR"] = module_name
         try:
