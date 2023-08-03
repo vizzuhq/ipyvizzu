@@ -22,9 +22,6 @@ class RaiseImportError:
     def overwrite_imports():
         builtins = globals()["__builtins__"]
 
-        if not isinstance(builtins, dict):
-            builtins = {k: getattr(builtins, k) for k in dir(builtins)}
-
         def overwrite_import(original_import_builtin):
             def import_replacement(name, *args, **kwargs):
                 module_name = os.environ.get("RAISE_IMPORT_ERROR", None)
