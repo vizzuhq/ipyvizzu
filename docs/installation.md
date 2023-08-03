@@ -25,8 +25,10 @@ pip install -U ipyvizzu
 ```
 
 !!! note
-    If you want to work with `pandas` `DataFrame` and `ipyvizzu`, you need to
-    install `pandas` or install it as an extra:
+    `ipyvizzu` has some extra dependencies such as `pandas` and `fugue`.
+
+    For example if you would like to work with `pandas` `DataFrame` and
+    `ipyvizzu`, you can install `pandas` as an extra:
 
     ```sh
     pip install ipyvizzu[pandas]

@@ -147,6 +147,14 @@ data.add_df(df)
 data.add_df_index(df, name="IndexColumnName")
 ```
 
+!!! note
+    If you want to work with `pandas` `DataFrame` and `ipyvizzu`, you need to
+    install `pandas` or install it as an extra:
+
+    ```sh
+    pip install ipyvizzu[pandas]
+    ```
+
 #### Using csv
 
 Download `music_data.csv` [here](../assets/data/music_data.csv).
