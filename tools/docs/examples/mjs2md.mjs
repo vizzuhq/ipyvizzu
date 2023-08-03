@@ -1,5 +1,3 @@
-import path from "path";
-
 class PresetsMock {
   constructor() {
     return new Proxy(this, {
@@ -55,10 +53,7 @@ ${this.description}
     this.end = `
 \`\`\`
 
-<script src="./${path.basename(
-      inputFileName,
-      path.extname(inputFileName),
-    )}.js"></script>
+<script src="./main.js"></script>
 `;
   }
 

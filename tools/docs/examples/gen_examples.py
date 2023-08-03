@@ -68,7 +68,6 @@ class GenExamples:
 
         self._merge_subfolders = False
         self._video_thumbnails = False
-        self._filename_title = False
         self._blocked: List[str] = []
 
     @property
@@ -88,14 +87,6 @@ class GenExamples:
         self._video_thumbnails = value
 
     @property
-    def filename_title(self) -> bool:
-        return self._filename_title
-
-    @filename_title.setter
-    def filename_title(self, value: bool) -> None:
-        self._filename_title = value
-
-    @property
     def blocked(self) -> List[str]:
         return self._blocked
 
@@ -108,19 +99,30 @@ class GenExamples:
         with open(item, "r", encoding="utf8") as fh_item:
             return fh_item.read()
 
-    def _get_title(self, item: Path, content: str) -> str:
-        if self._filename_title:
-            title_parts = str(item.stem).split("_")
-            title = " ".join(title_parts[1:])
-            return title
-
-        titles = re.findall(GenExamples.title_re, content)
-        if not titles:
-            raise ValueError(f"failed to find title {item}")
-        title = titles[0]
-        if len(titles) > 1:
-            title = " to ".join([title, titles[-1]])
-            title = title.replace("Chart", "")
+    def _get_title(self, item: Path, sub: Optional[str] = None) -> str:
+        drop = ["Existingmeasure", "Newmeasure"]
+        conjunction = ["and", "from", "to", "with"]
+        title_parts = str(item.stem).split("_")
+        contains_conjunction = False
+        for index, title_part in enumerate(title_parts):
+            if title_part in conjunction:
+                contains_conjunction = True
+                continue
+            title_parts[index] = title_part.capitalize()
+        title_parts[0] = title_parts[0].capitalize()
+        if title_parts[0] in drop:
+            title_parts = title_parts[1:]
+        title = " ".join(title_parts)
+        if not contains_conjunction:
+            if title_parts[-1].isdigit():
+                title = " ".join(
+                    title_parts[1:-1] + [title_parts[0]] + [title_parts[-1]]
+                )
+            else:
+                title = " ".join(title_parts[1:] + [title_parts[0]])
+        if sub:
+            title = " ".join([title, sub.capitalize()])
+        title = title.replace("plot", " Plot")
         return title
 
     def _get_datafile(self, item: Path, content: str) -> str:
@@ -137,6 +139,12 @@ class GenExamples:
         dataname = "".join(datanames)
         dataname = dataname.strip()
         return dataname
+
+    def _get_sub(self, path: Path) -> Optional[str]:
+        sub = os.path.relpath(path.parent, self._src)
+        if self._merge_subfolders and sub != ".":
+            return sub
+        return None
 
     def _create_index(self, dst: str, depth: int, title: str) -> str:
         index = "/".join([self._dst, dst]) if dst != "." else self._dst
@@ -300,18 +308,25 @@ class GenExamples:
                 f_example.write(content)
 
     def _generate_example_js(  # pylint: disable=too-many-arguments
-        self, item: Path, dst: str, depth: int, datafile: str, dataname: str
+        self,
+        item: Path,
+        item_name: str,
+        dst: str,
+        depth: int,
+        datafile: str,
+        dataname: str,
     ) -> None:
         params = [str(item), "/".join([".."] * depth), datafile, dataname]
         content = Node.node(True, GEN_PATH / "mjs2js.mjs", *params)
         with mkdocs_gen_files.open(
-            f"{self._dst}/{dst}/{item.stem}/{item.stem}.js", "w"
+            f"{self._dst}/{dst}/{item_name}/main.js", "w"
         ) as f_example:
             f_example.write(content)
 
     def _generate_example_md(  # pylint: disable=too-many-arguments
         self,
         item: Path,
+        item_name: str,
         dst: str,
         depth: int,
         datafile: str,
@@ -330,15 +345,24 @@ class GenExamples:
         content = Vizzu.set_version(content)
         content = Markdown.format(content)
         with mkdocs_gen_files.open(
-            f"{self._dst}/{dst}/{item.stem}.md", "w"
+            f"{self._dst}/{dst}/{item_name}.md", "w"
         ) as f_example:
             f_example.write(content)
 
     def _generate_example(  # pylint: disable=too-many-arguments
-        self, item: Path, dst: str, depth: int, datafile: str, dataname: str, title: str
+        self,
+        item: Path,
+        item_name: str,
+        dst: str,
+        depth: int,
+        datafile: str,
+        dataname: str,
+        title: str,
     ) -> None:
-        self._generate_example_md(item, dst, depth, datafile, dataname, title)
-        self._generate_example_js(item, dst, depth, datafile, dataname)
+        self._generate_example_md(
+            item, item_name, dst, depth, datafile, dataname, title
+        )
+        self._generate_example_js(item, item_name, dst, depth, datafile, dataname)
         GenExamples._generate_example_data(datafile, dataname)
 
     def generate(self) -> None:
@@ -354,13 +378,17 @@ class GenExamples:
         for item in items:
             if item in self._blocked:
                 continue
+            item_name = item.stem
             dst = "."
             depth = self._depth
             sub_index = index
+            sub = self._get_sub(item)
+            if sub:
+                item_name += f"_{sub}"
             if self._merge_subfolders:
-                if item.stem in self._generated:
-                    raise ValueError(f"example already exists {item.stem}")
-                self._generated.append(item.stem)
+                if item_name in self._generated:
+                    raise ValueError(f"example already exists {item_name}")
+                self._generated.append(item_name)
             else:
                 dst = os.path.relpath(item.parent, self._src)
                 depth += dst.count("/")
@@ -377,9 +405,11 @@ class GenExamples:
             content = GenExamples._get_content(item)
             datafile = self._get_datafile(item, content)
             dataname = self._get_dataname(item, content)
-            title = self._get_title(item, content)
-            self._add_index_item(sub_index, title, item.stem)
-            self._generate_example(item, dst, depth, datafile, dataname, title)
+            title = self._get_title(item, sub)
+            self._add_index_item(sub_index, title, item_name)
+            self._generate_example(
+                item, item_name, dst, depth, datafile, dataname, title
+            )
         self._add_index_sub_menus(index, groups)
 
 
@@ -431,7 +461,6 @@ def main() -> None:
             "examples/analytical_operations",
         )
         operations.video_thumbnails = True
-        operations.filename_title = True
         operations.generate()
 
         real = GenShowcases(
