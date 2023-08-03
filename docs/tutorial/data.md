@@ -38,7 +38,7 @@ There are multiple ways you can add data to `ipyvizzu`.
 | Jazz   | Hard         | 78         |
 | Metal  | Hard         | 52         |
 | Pop    | Smooth       | 56         |
-| Rock   | Smooth       | 36         |
+| Rock   | Experimental | 36         |
 | Jazz   | Smooth       | 174        |
 | Metal  | Smooth       | 121        |
 | Pop    | Experimental | 127        |
@@ -79,7 +79,7 @@ data = {
         "Hard",
         "Hard",
         "Smooth",
-        "Smooth",
+        "Experimental",
         "Smooth",
         "Smooth",
         "Experimental",
@@ -356,7 +356,7 @@ data.add_series(
         "Hard",
         "Hard",
         "Smooth",
-        "Smooth",
+        "Experimental",
         "Smooth",
         "Smooth",
         "Experimental",
@@ -394,7 +394,7 @@ records = [
     ["Jazz", "Hard", 78],
     ["Metal", "Hard", 52],
     ["Pop", "Smooth", 56],
-    ["Rock", "Smooth", 36],
+    ["Rock", "Experimental", 36],
     ["Jazz", "Smooth", 174],
     ["Metal", "Smooth", 121],
     ["Pop", "Experimental", 127],
@@ -407,6 +407,11 @@ data.add_records(records)
 ```
 
 ### Using data cube form
+
+!!! note
+    In the example below, the record `Rock,Experimental,36` has been replaced
+    with `Rock,Smooth,36` in order to illustrate that only data with same
+    dimensions can be used in the data cube form.
 
 <table>
   <tbody><tr><th colspan="2" rowspan="2"></th><th colspan="4" style="text-align:center">Genres</th></tr>

@@ -27,7 +27,7 @@ const data = {
         "Hard",
         "Hard",
         "Smooth",
-        "Smooth",
+        "Experimental",
         "Smooth",
         "Smooth",
         "Experimental",
