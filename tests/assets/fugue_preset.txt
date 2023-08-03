@@ -1,4 +1,4 @@
 {'application/javascript': 'if (window.IpyVizzu) window.IpyVizzu.changeAnalyticsTo(true);'}
-{'application/javascript': "window.ipyvizzu.createChart(element, id, 'https://cdn.jsdelivr.net/npm/vizzu@0.7/dist/vizzu.min.js', '800px', '480px');"}
+{'application/javascript': "window.ipyvizzu.createChart(element, id, 'https://cdn.jsdelivr.net/npm/vizzu@0.8/dist/vizzu.min.js', '800px', '480px');"}
 {'application/javascript': 'window.ipyvizzu.animate(element, id, id, \'end\', false, lib => { return {"data": {"series": [{"name": "a", "values": ["a", "b", "c", "d", "e"], "type": "dimension"}, {"name": "b", "values": [0.0, 1.0, 2.0, 3.0, 4.0], "type": "measure"}]}} }, undefined);'}
 {'application/javascript': 'window.ipyvizzu.animate(element, id, id, \'end\', false, lib => { return {"config": lib.presets.bar({\'x\': \'a\', \'y\': \'b\'})} }, undefined);'}
