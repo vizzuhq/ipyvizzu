@@ -19,7 +19,7 @@ class NumpyArrayConverter(ToSeriesListConverter):
 
     def __init__(
         self,
-        np_array: Optional["np.array"],
+        np_array: Optional["np.array"],  # type: ignore
         column: Optional[NpArrayColumnNames] = None,
         dtype: Optional[NpArrayColumnDtypes] = None,
         default_measure_value: Optional[MeasureValue] = 0,
@@ -83,7 +83,7 @@ class NumpyArrayConverter(ToSeriesListConverter):
         return config
 
     def _convert_to_series_values_and_type(
-        self, obj: Tuple[int, "np.array"]
+        self, obj: Tuple[int, "np.array"]  # type: ignore
     ) -> Tuple[SeriesValues, InferType]:
         column = obj
         i = column[0]
@@ -93,14 +93,14 @@ class NumpyArrayConverter(ToSeriesListConverter):
             return self._convert_to_measure_values(array), InferType.MEASURE
         return self._convert_to_dimension_values(array), InferType.DIMENSION
 
-    def _convert_to_measure_values(self, obj: "np.array") -> List[MeasureValue]:
+    def _convert_to_measure_values(self, obj: "np.array") -> List[MeasureValue]:  # type: ignore
         array = obj
         array_float = array.astype(float)
         return self._np.nan_to_num(
             array_float, nan=self._default_measure_value
         ).tolist()
 
-    def _convert_to_dimension_values(self, obj: "np.array") -> List[DimensionValue]:
+    def _convert_to_dimension_values(self, obj: "np.array") -> List[DimensionValue]:  # type: ignore
         array = obj
         array_str = array.astype(str)
         replace_nan = "nan"

@@ -107,7 +107,7 @@ fix_lint = {composite = ["fix_lint_src", "fix_lint_docs", "fix_lint_tools"]}
 lint = {composite = ["lint_src", "lint_docs", "lint_tools"]}
 
 
-type_mypy = "mypy --ignore-missing-imports"
+type_mypy = "mypy"
 
 type_src = {composite = ["type_mypy src tests"]}
 type_tools = {composite = ["type_mypy tools"]}
