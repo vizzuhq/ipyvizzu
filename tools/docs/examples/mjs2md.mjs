@@ -35,7 +35,7 @@ csv_url: ${assetsPath}/assets/data/${dataFileName}.csv
     from ipyvizzu import Chart, Data, Config, Style
 
     df = pd.read_csv(
-        'https://ipyvizzu.vizzuhq.com/latest/assets/data/${dataFileName}.csv',
+        "https://ipyvizzu.vizzuhq.com/latest/assets/data/${dataFileName}.csv",
         dtype={"Year": str, "Timeseries": str},
     )
     data = Data()
@@ -98,14 +98,14 @@ ${this.description}
   }
 
   feature(name, enabled) {
-    this.code += `chart.feature('${name}', ${enabled})\n\n`;
+    this.code += `chart.feature("${name}", ${enabled})\n\n`;
   }
 
   on(eventName, handler) {
     const entire = handler.toString();
     const body = entire.slice(entire.indexOf("{") + 1, entire.lastIndexOf("}"));
     this.code += `method = """${body}"""\n`;
-    this.code += `handler = chart.on('${eventName}', method)\n\n`;
+    this.code += `handler = chart.on("${eventName}", method)\n\n`;
   }
 
   static get presets() {

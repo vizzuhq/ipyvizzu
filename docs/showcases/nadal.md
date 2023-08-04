@@ -5,7 +5,7 @@ csv_url: ./nadal.csv
 # Rafael Nadal's matches
 
 <div class="showcase">
-  <iframe  id="showcase" src='./main.html' width="100%" scrolling="no" frameborder="0"></iframe>
+  <iframe  id="showcase" src="./main.html" width="100%" scrolling="no" frameborder="0"></iframe>
 </div>
 <script src="../../assets/javascripts/iframe/autoheight.js"></script>
 <script src="../../assets/javascripts/iframe/click.js"></script>
@@ -33,7 +33,7 @@ chart = Chart(display=DisplayTarget.END)
 chart.animate(data)
 
 chart.animate(
-    data.filter('record.Year != "Total"'),
+    data.filter("record.Year != 'Total'"),
     Config(
         {
             "x": "Year",
@@ -169,7 +169,7 @@ chart.animate(
 )
 
 chart.animate(
-    data.filter('record.Year != "Total" && record.Round == "F"'),
+    data.filter("record.Year != 'Total' && record.Round == 'F'"),
     Config(
         {
             "y": {"set": "Round2", "range": {"max": 1, "min": -5}},
@@ -230,7 +230,7 @@ chart.animate(Config({"noop": "Level"}), duration=0)
 
 chart.animate(
     data.filter(
-        'record.Year == "Total" && record.Round == "GS" && record.Top == "1"'
+        "record.Year == 'Total' && record.Round == 'GS' && record.Top == '1'"
     ),
     Config(
         {
@@ -283,7 +283,7 @@ chart.animate(
 chart.animate(Config({"x": ["Count", "Total_GS"], "label": "Player"}))
 
 chart.animate(
-    data.filter('record.Year == "Total" && record.Round == "GS"'),
+    data.filter("record.Year == 'Total' && record.Round == 'GS'"),
     Config(
         {
             "y": {

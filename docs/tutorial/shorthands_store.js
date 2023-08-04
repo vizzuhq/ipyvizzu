@@ -142,11 +142,11 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
         (chart) => {
           return chart.animate({
             channels: {
-              // x: { attach: [ 'Kinds' ] },
+              // x: { attach: [ "Kinds" ] },
               x: {
                 attach: "Kinds",
               },
-              // y: { detach: [ 'Kinds' ] },
+              // y: { detach: [ "Kinds" ] },
               y: {
                 detach: "Kinds",
               },
