@@ -406,6 +406,24 @@ records = [
 data.add_records(records)
 ```
 
+Where records can be lists as shown above or dictionaries:
+
+```python
+records = [
+    {
+        "Genres": "Pop",
+        "Kinds": "Hard",
+        "Popularity": 114,
+    },
+    {
+        "Genres": "Rock",
+        "Kinds": "Hard",
+        "Popularity": 96,
+    },
+    # ...
+]
+```
+
 ### Using data cube form
 
 !!! note
