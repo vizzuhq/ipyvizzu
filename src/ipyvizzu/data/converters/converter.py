@@ -11,6 +11,8 @@ from ipyvizzu.data.typing_alias import (
 
 
 class ToSeriesListConverter(ABC):
+    # pylint: disable=too-few-public-methods
+
     @abstractmethod
     def get_series_list(self) -> List[Series]:
         """
@@ -23,20 +25,20 @@ class ToSeriesListConverter(ABC):
 
     @abstractmethod
     def _convert_to_series_values_and_type(
-        self, object: Any
+        self, obj: Any
     ) -> Tuple[SeriesValues, InferType]:
         """
         Convert object to SeriesValues and InferType.
         """
 
     @abstractmethod
-    def _convert_to_measure_values(self, object: Any) -> List[MeasureValue]:
+    def _convert_to_measure_values(self, obj: Any) -> List[MeasureValue]:
         """
         Convert object to a list of MeasureValue.
         """
 
     @abstractmethod
-    def _convert_to_dimension_values(self, object: Any) -> List[DimensionValue]:
+    def _convert_to_dimension_values(self, obj: Any) -> List[DimensionValue]:
         """
         Convert object to a list of DimensionValue.
         """

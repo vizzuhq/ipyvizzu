@@ -420,6 +420,8 @@ class Data(dict, AbstractAnimation):
         default_measure_value: Optional[MeasureValue] = 0,
         default_dimension_value: Optional[DimensionValue] = "",
     ) -> None:
+        # pylint: disable=too-many-arguments
+
         converter = NumpyArrayConverter(
             np_array, column, dtype, default_measure_value, default_dimension_value
         )

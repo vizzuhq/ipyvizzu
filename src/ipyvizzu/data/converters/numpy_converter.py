@@ -15,6 +15,8 @@ NpArrayColumnDtypes = Union[Type, Dict[int, Type]]
 
 
 class NumpyArrayConverter(ToSeriesListConverter):
+    # pylint: disable=too-few-public-methods
+
     def __init__(
         self,
         np_array: Optional["np.array"],
@@ -23,6 +25,8 @@ class NumpyArrayConverter(ToSeriesListConverter):
         default_measure_value: Optional[MeasureValue] = 0,
         default_dimension_value: Optional[DimensionValue] = "",
     ) -> None:
+        # pylint: disable=too-many-arguments
+
         self._np = self._get_numpy()
         self._np_array = np_array
         self._column = self._get_settings(column)
@@ -33,14 +37,13 @@ class NumpyArrayConverter(ToSeriesListConverter):
     def get_series_list(self) -> List[Series]:
         if isinstance(self._np_array, type(None)) or self._np_array.ndim == 0:  # type: ignore
             return []
-        elif self._np_array.ndim == 1:  # type: ignore
-            return self._get_series_list_from_1D_array()
-        elif self._np_array.ndim == 2:  # type: ignore
-            return self._get_series_list_from_2D_array()
-        else:
-            raise ValueError("arrays larger than 2D are not supported")
+        if self._np_array.ndim == 1:  # type: ignore
+            return self._get_series_list_from_array1dim()
+        if self._np_array.ndim == 2:  # type: ignore
+            return self._get_series_list_from_array2dim()
+        raise ValueError("arrays larger than 2D are not supported")
 
-    def _get_series_list_from_1D_array(self) -> List[Series]:
+    def _get_series_list_from_array1dim(self) -> List[Series]:
         i = 0
         name = self._column.get(i, i)
         values, infer_type = self._convert_to_series_values_and_type(
@@ -48,7 +51,7 @@ class NumpyArrayConverter(ToSeriesListConverter):
         )
         return [self._convert_to_series(name, values, infer_type)]
 
-    def _get_series_list_from_2D_array(self) -> List[Series]:
+    def _get_series_list_from_array2dim(self) -> List[Series]:
         series_list = []
         for i in range(self._np_array.shape[1]):  # type: ignore
             name = self._column.get(i, i)
@@ -80,8 +83,9 @@ class NumpyArrayConverter(ToSeriesListConverter):
         return config
 
     def _convert_to_series_values_and_type(
-        self, column: Tuple[int, "np.array"]
+        self, obj: Tuple[int, "np.array"]
     ) -> Tuple[SeriesValues, InferType]:
+        column = obj
         i = column[0]
         array = column[1]
         dtype = self._dtype.get(i, self._np_array.dtype)  # type: ignore
@@ -89,13 +93,15 @@ class NumpyArrayConverter(ToSeriesListConverter):
             return self._convert_to_measure_values(array), InferType.MEASURE
         return self._convert_to_dimension_values(array), InferType.DIMENSION
 
-    def _convert_to_measure_values(self, array: "np.array") -> List[MeasureValue]:
+    def _convert_to_measure_values(self, obj: "np.array") -> List[MeasureValue]:
+        array = obj
         array_float = array.astype(float)
         return self._np.nan_to_num(
             array_float, nan=self._default_measure_value
         ).tolist()
 
-    def _convert_to_dimension_values(self, array: "np.array") -> List[DimensionValue]:
+    def _convert_to_dimension_values(self, obj: "np.array") -> List[DimensionValue]:
+        array = obj
         array_str = array.astype(str)
         replace_nan = "nan"
         mask = array_str == replace_nan

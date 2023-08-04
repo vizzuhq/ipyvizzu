@@ -110,18 +110,21 @@ class PandasDataFrameConverter(ToSeriesListConverter):
         raise TypeError("df must be an instance of pandas.DataFrame or pandas.Series")
 
     def _convert_to_series_values_and_type(
-        self, column: "pd.Series"  # type: ignore
+        self, obj: "pd.Series"  # type: ignore
     ) -> Tuple[SeriesValues, InferType]:
+        column = obj
         if self._pd.api.types.is_numeric_dtype(column.dtype):
             return self._convert_to_measure_values(column), InferType.MEASURE
         return self._convert_to_dimension_values(column), InferType.DIMENSION
 
     def _convert_to_measure_values(
-        self, column: "pd.Series"  # type: ignore
+        self, obj: "pd.Series"  # type: ignore
     ) -> List[MeasureValue]:
+        column = obj
         return column.fillna(self._default_measure_value).astype(float).values.tolist()
 
     def _convert_to_dimension_values(
-        self, column: "pd.Series"  # type: ignore
+        self, obj: "pd.Series"  # type: ignore
     ) -> List[DimensionValue]:
+        column = obj
         return column.fillna(self._default_dimension_value).astype(str).values.tolist()
