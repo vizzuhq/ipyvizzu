@@ -133,11 +133,26 @@ class TestData(unittest.TestCase):
             self.data.dump(),
         )
 
-    def test_record(self) -> None:
+    def test_record_list(self) -> None:
         self.data.add_record(["Rock", "Hard", 96])
         self.data.add_record(["Pop", "Hard", 114])
         self.assertEqual(
             {"data": {"records": [["Rock", "Hard", 96], ["Pop", "Hard", 114]]}},
+            self.data.build(),
+        )
+
+    def test_record_dict(self) -> None:
+        self.data.add_record({"Genres": "Rock", "Kinds": "Hard", "Popularity": 96})
+        self.data.add_record({"Genres": "Pop", "Kinds": "Hard", "Popularity": 114})
+        self.assertEqual(
+            {
+                "data": {
+                    "records": [
+                        {"Genres": "Rock", "Kinds": "Hard", "Popularity": 96},
+                        {"Genres": "Pop", "Kinds": "Hard", "Popularity": 114},
+                    ]
+                }
+            },
             self.data.build(),
         )
 

@@ -61,7 +61,7 @@ columns’ height and lightness represent the same values. The legend for the
     This is an example when we explicitly instruct `ipyvizzu` to show the
     legend. By default `ipyvizzu` automatically shows/hides the legend when it's
     necessary. You can also turn it off with the `legend`: `None` command or set
-    back to automatic mode with `legend`: `'auto'`.
+    back to automatic mode with `legend`: `"auto"`.
 
 <div id="tutorial_02"></div>
 

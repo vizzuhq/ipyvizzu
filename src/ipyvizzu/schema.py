@@ -16,7 +16,10 @@ NAMED_SCHEMA: dict = {
 """Store the schema of the `series`, `dimensions` and `measures` data types."""
 
 
-RECORD_SCHEMA: dict = {"type": "array", "items": {"type": "array"}}
+RECORD_SCHEMA: dict = {
+    "type": "array",
+    "items": {"anyOf": [{"type": "array"}, {"type": "object"}]},
+}
 """Store the schema of the `records` data type."""
 
 

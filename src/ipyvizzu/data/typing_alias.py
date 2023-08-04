@@ -27,10 +27,11 @@ RecordValue = Union[DimensionValue, MeasureValue]
 Represents a value that can be either a DimensionValue or a MeasureValue.
 """
 
-Record = List[RecordValue]
+Record = Union[List[RecordValue], Dict[str, RecordValue]]
 """
-Represents a Record, which is a list of RecordValues.
-In other words, it's a list containing a mix of DimensionValues and MeasureValues.
+Represents a Record, which is a collection of RecordValues.
+A Record can be represented as either a list of RecordValues or a dictionary
+where keys are series names and values are the corresponding RecordValues.
 """
 
 SeriesValues = Union[Sequence[DimensionValue], Sequence[MeasureValue]]
