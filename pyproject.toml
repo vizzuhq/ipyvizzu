@@ -40,6 +40,9 @@ keywords = [
 pandas = [
     "pandas",
 ]
+numpy = [
+    "numpy",
+]
 fugue = [
     "fugue >= 0.8.1 ; python_version >= '3.7'",
 ]
@@ -104,7 +107,7 @@ fix_lint = {composite = ["fix_lint_src", "fix_lint_docs", "fix_lint_tools"]}
 lint = {composite = ["lint_src", "lint_docs", "lint_tools"]}
 
 
-type_mypy = "mypy"
+type_mypy = "mypy --ignore-missing-imports"
 
 type_src = {composite = ["type_mypy src tests"]}
 type_tools = {composite = ["type_mypy tools"]}
@@ -147,6 +150,7 @@ setenv =
     COVERAGE_FILE = .tox/py36/.coverage
 extras =
     pandas
+    numpy
 commands =
     python -m coverage run --branch --source ipyvizzu -m unittest discover tests
     python -m coverage report -m --fail-under=100 --omit .tox/py36/lib/python3.6/site-packages/ipyvizzu/integrations/fugue.py
@@ -155,6 +159,7 @@ commands =
 package = editable
 extras =
     pandas
+    numpy
     fugue
 commands =
     python -m coverage run --data-file .tox/{envname}/.coverage --branch --source ipyvizzu -m unittest discover tests
@@ -164,6 +169,7 @@ commands =
 package = editable
 extras =
     pandas
+    numpy
     fugue
 commands =
     python -m coverage run --data-file .tox/{envname}/.coverage --branch --source ipyvizzu -m unittest discover tests
@@ -181,6 +187,7 @@ packagedeps = [
     "jsonschema ; python_version >= '3.10'",
     "pandas ; python_version >= '3.10'",
     "pandas-stubs ; python_version >= '3.10'",
+    "numpy ; python_version >= '3.10'",
     "fugue >= 0.8.1 ; python_version >= '3.10'",
 ]
 codequality = [

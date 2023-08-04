@@ -6,7 +6,7 @@ groups = ["codequality", "docs", "env", "packagedeps", "packagetool"]
 cross_platform = true
 static_urls = false
 lock_version = "4.3"
-content_hash = "sha256:5be8b82d2ae3db81267ccff5423f8bfb8f5197cb0b3b4ce2dfca412dc96be7ea"
+content_hash = "sha256:43c5f7462c6a1e863dd6f0e35048919c3ea1e513fb3eaf08c2e6cfdf4a97e4b8"
 
 [[package]]
 name = "adagio"
@@ -548,15 +548,15 @@ files = [
 
 [[package]]
 name = "comm"
-version = "0.1.3"
+version = "0.1.4"
 requires_python = ">=3.6"
 summary = "Jupyter Python Comm implementation, for usage in ipykernel, xeus-python etc."
 dependencies = [
-    "traitlets>=5.3",
+    "traitlets>=4",
 ]
 files = [
-    {file = "comm-0.1.3-py3-none-any.whl", hash = "sha256:16613c6211e20223f215fc6d3b266a247b6e2641bf4e0a3ad34cb1aff2aa3f37"},
-    {file = "comm-0.1.3.tar.gz", hash = "sha256:a61efa9daffcfbe66fd643ba966f846a624e4e6d6767eda9cf6e993aadaab93e"},
+    {file = "comm-0.1.4-py3-none-any.whl", hash = "sha256:6d52794cba11b36ed9860999cd10fd02d6b2eac177068fdd585e1e2f8a96e67a"},
+    {file = "comm-0.1.4.tar.gz", hash = "sha256:354e40a59c9dd6db50c5cc6b4acc887d82e9603787f83b68c01a80a923984d15"},
 ]
 
 [[package]]
@@ -1045,7 +1045,7 @@ files = [
 
 [[package]]
 name = "jsonschema"
-version = "4.18.4"
+version = "4.18.6"
 requires_python = ">=3.8"
 summary = "An implementation of JSON Schema validation for Python"
 dependencies = [
@@ -1055,8 +1055,8 @@ dependencies = [
     "rpds-py>=0.7.1",
 ]
 files = [
-    {file = "jsonschema-4.18.4-py3-none-any.whl", hash = "sha256:971be834317c22daaa9132340a51c01b50910724082c2c1a2ac87eeec153a3fe"},
-    {file = "jsonschema-4.18.4.tar.gz", hash = "sha256:fb3642735399fa958c0d2aad7057901554596c63349f4f6b283c493cf692a25d"},
+    {file = "jsonschema-4.18.6-py3-none-any.whl", hash = "sha256:dc274409c36175aad949c68e5ead0853aaffbe8e88c830ae66bb3c7a1728ad2d"},
+    {file = "jsonschema-4.18.6.tar.gz", hash = "sha256:ce71d2f8c7983ef75a756e568317bf54bc531dc3ad7e66a128eae0d51623d8a3"},
 ]
 
 [[package]]
@@ -1074,7 +1074,7 @@ files = [
 
 [[package]]
 name = "jsonschema"
-version = "4.18.4"
+version = "4.18.6"
 extras = ["format-nongpl"]
 requires_python = ">=3.8"
 summary = "An implementation of JSON Schema validation for Python"
@@ -1083,15 +1083,15 @@ dependencies = [
     "idna",
     "isoduration",
     "jsonpointer>1.13",
-    "jsonschema==4.18.4",
+    "jsonschema==4.18.6",
     "rfc3339-validator",
     "rfc3986-validator>0.1.0",
     "uri-template",
     "webcolors>=1.11",
 ]
 files = [
-    {file = "jsonschema-4.18.4-py3-none-any.whl", hash = "sha256:971be834317c22daaa9132340a51c01b50910724082c2c1a2ac87eeec153a3fe"},
-    {file = "jsonschema-4.18.4.tar.gz", hash = "sha256:fb3642735399fa958c0d2aad7057901554596c63349f4f6b283c493cf692a25d"},
+    {file = "jsonschema-4.18.6-py3-none-any.whl", hash = "sha256:dc274409c36175aad949c68e5ead0853aaffbe8e88c830ae66bb3c7a1728ad2d"},
+    {file = "jsonschema-4.18.6.tar.gz", hash = "sha256:ce71d2f8c7983ef75a756e568317bf54bc531dc3ad7e66a128eae0d51623d8a3"},
 ]
 
 [[package]]
@@ -1205,7 +1205,7 @@ files = [
 
 [[package]]
 name = "jupyterlab"
-version = "4.0.3"
+version = "4.0.4"
 requires_python = ">=3.8"
 summary = "JupyterLab computational environment"
 dependencies = [
@@ -1223,8 +1223,8 @@ dependencies = [
     "traitlets",
 ]
 files = [
-    {file = "jupyterlab-4.0.3-py3-none-any.whl", hash = "sha256:d369944391b1d15f2d1f3cb965fb67352956279b2ae6f03ce7947a43940a8301"},
-    {file = "jupyterlab-4.0.3.tar.gz", hash = "sha256:e14d1ce46a613028111d0d476a1d7d6b094003b7462bac669f5b478317abcb39"},
+    {file = "jupyterlab-4.0.4-py3-none-any.whl", hash = "sha256:23eef35d22be8f2ad9b873ec41ceb2e8c3b0dc8ae740c0f973e2de09e587530f"},
+    {file = "jupyterlab-4.0.4.tar.gz", hash = "sha256:049449a56d93202ed204e0e86f96f5a3447a08cfc09fb012fd239e178651cb34"},
 ]
 
 [[package]]
@@ -1778,29 +1778,29 @@ files = [
 
 [[package]]
 name = "mkdocs-autorefs"
-version = "0.4.1"
-requires_python = ">=3.7"
+version = "0.5.0"
+requires_python = ">=3.8"
 summary = "Automatically link across pages in MkDocs."
 dependencies = [
     "Markdown>=3.3",
     "mkdocs>=1.1",
 ]
 files = [
-    {file = "mkdocs-autorefs-0.4.1.tar.gz", hash = "sha256:70748a7bd025f9ecd6d6feeba8ba63f8e891a1af55f48e366d6d6e78493aba84"},
-    {file = "mkdocs_autorefs-0.4.1-py3-none-any.whl", hash = "sha256:a2248a9501b29dc0cc8ba4c09f4f47ff121945f6ce33d760f145d6f89d313f5b"},
+    {file = "mkdocs_autorefs-0.5.0-py3-none-any.whl", hash = "sha256:7930fcb8ac1249f10e683967aeaddc0af49d90702af111a5e390e8b20b3d97ff"},
+    {file = "mkdocs_autorefs-0.5.0.tar.gz", hash = "sha256:9a5054a94c08d28855cfab967ada10ed5be76e2bfad642302a610b252c3274c0"},
 ]
 
 [[package]]
 name = "mkdocs-coverage"
-version = "0.2.7"
-requires_python = ">=3.7"
+version = "1.0.0"
+requires_python = ">=3.8"
 summary = "MkDocs plugin to integrate your coverage HTML report into your site."
 dependencies = [
     "mkdocs>=1.2",
 ]
 files = [
-    {file = "mkdocs_coverage-0.2.7-py3-none-any.whl", hash = "sha256:cfb11ab6c7d6c1e30495d0cbb78893937b0715387ea4862d269980300667b0e3"},
-    {file = "mkdocs_coverage-0.2.7.tar.gz", hash = "sha256:3616b2508f0197158e684cdb1a08e558c14d435ea3b79e34f71b2f024f6e022b"},
+    {file = "mkdocs_coverage-1.0.0-py3-none-any.whl", hash = "sha256:29e3c0fc89d1107ee22a0fbe1a9aa927550f97cf2e2682fcad5672ca3f2e14dd"},
+    {file = "mkdocs_coverage-1.0.0.tar.gz", hash = "sha256:3ebe0837c29458f64843c45cbb6618859634326867056d030621ab164649904c"},
 ]
 
 [[package]]
@@ -1920,12 +1920,12 @@ files = [
 
 [[package]]
 name = "more-itertools"
-version = "10.0.0"
+version = "10.1.0"
 requires_python = ">=3.8"
 summary = "More routines for operating on iterables, beyond itertools"
 files = [
-    {file = "more-itertools-10.0.0.tar.gz", hash = "sha256:cd65437d7c4b615ab81c0640c0480bc29a550ea032891977681efd28344d51e1"},
-    {file = "more_itertools-10.0.0-py3-none-any.whl", hash = "sha256:928d514ffd22b5b0a8fce326d57f423a55d2ff783b093bab217eda71e732330f"},
+    {file = "more-itertools-10.1.0.tar.gz", hash = "sha256:626c369fa0eb37bac0291bce8259b332fd59ac792fa5497b59837309cd5b114a"},
+    {file = "more_itertools-10.1.0-py3-none-any.whl", hash = "sha256:64e0735fcfdc6f3464ea133afe8ea4483b1c5fe3a3d69852e6503b43a0b222e6"},
 ]
 
 [[package]]
@@ -2131,7 +2131,7 @@ files = [
 
 [[package]]
 name = "notebook"
-version = "7.0.1"
+version = "7.0.2"
 requires_python = ">=3.8"
 summary = "Jupyter Notebook - A web-based notebook environment for interactive computing"
 dependencies = [
@@ -2142,8 +2142,8 @@ dependencies = [
     "tornado>=6.2.0",
 ]
 files = [
-    {file = "notebook-7.0.1-py3-none-any.whl", hash = "sha256:35327476042140e8739ff8fcfecdc915658ae72b4db72d6e3b537badcdbf9e35"},
-    {file = "notebook-7.0.1.tar.gz", hash = "sha256:2e16ad4e63ea89f7efbe212ee7c1693fcfa5ab55ffef75047530f74af4bd926c"},
+    {file = "notebook-7.0.2-py3-none-any.whl", hash = "sha256:c77b1499dc9b07ce4f4f26990dcb25b2107b434f2536766b51a72a4228d9a4b6"},
+    {file = "notebook-7.0.2.tar.gz", hash = "sha256:d70d6a07418c829bd5f54337ce993b7105261d9026f9d3fe68e9b8aa1a20da9a"},
 ]
 
 [[package]]
@@ -2842,7 +2842,7 @@ files = [
 
 [[package]]
 name = "referencing"
-version = "0.30.0"
+version = "0.30.1"
 requires_python = ">=3.8"
 summary = "JSON Referencing + Python"
 dependencies = [
@@ -2850,8 +2850,8 @@ dependencies = [
     "rpds-py>=0.7.0",
 ]
 files = [
-    {file = "referencing-0.30.0-py3-none-any.whl", hash = "sha256:c257b08a399b6c2f5a3510a50d28ab5dbc7bbde049bcaf954d43c446f83ab548"},
-    {file = "referencing-0.30.0.tar.gz", hash = "sha256:47237742e990457f7512c7d27486394a9aadaf876cbfaa4be65b27b4f4d47c6b"},
+    {file = "referencing-0.30.1-py3-none-any.whl", hash = "sha256:185d4a29f001c6e8ae4dad3861e61282a81cb01b9f0ef70a15450c45c6513a0d"},
+    {file = "referencing-0.30.1.tar.gz", hash = "sha256:9370c77ceefd39510d70948bbe7375ce2d0125b9c11fd380671d4de959a8e3ce"},
 ]
 
 [[package]]
@@ -3178,11 +3178,11 @@ files = [
 
 [[package]]
 name = "sqlglot"
-version = "17.9.0"
+version = "17.9.1"
 summary = "An easily customizable SQL parser and transpiler"
 files = [
-    {file = "sqlglot-17.9.0-py3-none-any.whl", hash = "sha256:92c2f4cfd8258805071733ac4a5e26086168a4180cb1d250809704161ad9620f"},
-    {file = "sqlglot-17.9.0.tar.gz", hash = "sha256:a7aa51f0ef7bf32f8a916f685150589b2ac314aeb20c704daad159ca48214f18"},
+    {file = "sqlglot-17.9.1-py3-none-any.whl", hash = "sha256:eac3243fdffdf96aeff16b6c4bb070e2d2c70d1e4ac865cb8bfa96b7cf3e6611"},
+    {file = "sqlglot-17.9.1.tar.gz", hash = "sha256:2a72ec4078f12debbb3e3aad9f5e1ac0591c9729f5b6becfdf45b64b48b41217"},
 ]
 
 [[package]]

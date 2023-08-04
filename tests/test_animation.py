@@ -6,6 +6,7 @@ from typing import List
 import unittest
 
 import jsonschema  # type: ignore
+import numpy as np
 import pandas as pd
 
 from ipyvizzu.data.typing_alias import Record
@@ -477,6 +478,141 @@ class TestDataAddDataframe(unittest.TestCase):
             },
             data.build(),
         )
+
+
+class TestDataAddNpArray(unittest.TestCase):
+    def test_add_np_array_empty(self) -> None:
+        np_array = np.empty([])
+        data = Data()
+        data.add_np_array(np_array)
+        self.assertEqual(
+            {"data": {}},
+            data.build(),
+        )
+
+    def test_add_np_array_1D(self) -> None:
+        np_array = np.array([127, 128, 129])
+        data = Data()
+        data.add_np_array(np_array)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {"name": "0", "type": "measure", "values": [127, 128, 129]},
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_add_np_array_1D_with_str_value(self) -> None:
+        np_array = np.array([127, "128", 129])
+        data = Data()
+        data.add_np_array(np_array)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {
+                            "name": "0",
+                            "type": "dimension",
+                            "values": ["127", "128", "129"],
+                        },
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_add_np_array_1D_with_str_and_na_value_and_column_and_dtype(self) -> None:
+        np_array = np.array([127, "128", np.nan])
+        data = Data()
+        data.add_np_array(np_array, column="First", dtype=int)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {
+                            "name": "First",
+                            "type": "measure",
+                            "values": [127, 128, 0],
+                        },
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_add_np_array_2D(self) -> None:
+        np_array = np.array([[127, 128, 129], [255, 256, 257], [511, 512, 513]])
+        data = Data()
+        data.add_np_array(np_array)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {"name": "0", "type": "measure", "values": [127, 255, 511]},
+                        {"name": "1", "type": "measure", "values": [128, 256, 512]},
+                        {"name": "2", "type": "measure", "values": [129, 257, 513]},
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_add_np_array_2D_with_str_and_na_value_and_column_and_dtype(self) -> None:
+        np_array = np.array([[127, "128", 129], [255, np.nan, 257], [511, 512, 513]])
+        data = Data()
+        data.add_np_array(np_array, column={0: "First"}, dtype={2: int})
+        self.maxDiff = None
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {
+                            "name": "First",
+                            "type": "dimension",
+                            "values": ["127", "255", "511"],
+                        },
+                        {
+                            "name": "1",
+                            "type": "dimension",
+                            "values": ["128", "", "512"],
+                        },
+                        {
+                            "name": "2",
+                            "type": "measure",
+                            "values": [129, 257, 513],
+                        },
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_add_np_array_2D_with_non_dict_column(self) -> None:
+        np_array = np.zeros((2, 2))
+        data = Data()
+        with self.assertRaises(ValueError):
+            data.add_np_array(np_array, column="First")
+
+    def test_add_np_array_2D_with_non_dict_dtype(self) -> None:
+        np_array = np.zeros((2, 2))
+        data = Data()
+        with self.assertRaises(ValueError):
+            data.add_np_array(np_array, dtype=str)
+
+    def test_add_np_array_3D(self) -> None:
+        np_array = np.zeros((3, 3, 3))
+        data = Data()
+        with self.assertRaises(ValueError):
+            data.add_np_array(np_array)
+
+    def test_add_df_if_numpy_not_installed(self) -> None:
+        with RaiseImportError.module_name("numpy"):
+            data = Data()
+            with self.assertRaises(ImportError):
+                data.add_np_array(None)
 
 
 class TestConfig(unittest.TestCase):

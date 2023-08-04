@@ -9,6 +9,11 @@ import warnings
 import jsonschema  # type: ignore
 
 from ipyvizzu.data.converters.pandas_converter import PandasDataFrameConverter
+from ipyvizzu.data.converters.numpy_converter import (
+    NpArrayColumnDtypes,
+    NpArrayColumnNames,
+    NumpyArrayConverter,
+)
 from ipyvizzu.data.typing_alias import (
     DimensionValue,
     NestedMeasureValues,
@@ -308,7 +313,7 @@ class Data(dict, AbstractAnimation):
         converter = PandasDataFrameConverter(
             df, default_measure_value, default_dimension_value, include_index
         )
-        series_list = converter.get_series_list_from_columns()
+        series_list = converter.get_series_list()
         self.add_series_list(series_list)
 
     def add_data_frame(
@@ -406,6 +411,20 @@ class Data(dict, AbstractAnimation):
             stacklevel=2,
         )
         self.add_df_index(data_frame, name)
+
+    def add_np_array(
+        self,
+        np_array: Optional["np.array"],
+        column: Optional[NpArrayColumnNames] = None,
+        dtype: Optional[NpArrayColumnDtypes] = None,
+        default_measure_value: Optional[MeasureValue] = 0,
+        default_dimension_value: Optional[DimensionValue] = "",
+    ) -> None:
+        converter = NumpyArrayConverter(
+            np_array, column, dtype, default_measure_value, default_dimension_value
+        )
+        series_list = converter.get_series_list()
+        self.add_series_list(series_list)
 
     def _add_named_value(
         self,
