@@ -137,7 +137,7 @@ class TestChartInit(TestChart):
             # pylint: disable=too-few-public-methods
 
             @staticmethod
-            def register(event: str, function: Callable) -> None:
+            def register(event: str, function: Callable[[], None]) -> None:
                 # pylint: disable=unused-argument
 
                 function()

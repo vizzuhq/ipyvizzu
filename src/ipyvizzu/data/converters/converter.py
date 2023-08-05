@@ -3,7 +3,7 @@ This module provides the `ToSeriesListConverter` abstract class.
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, List, Tuple
+from typing import Any, List, Tuple, Union
 
 from ipyvizzu.data.infer_type import InferType
 from ipyvizzu.data.type_alias import (
@@ -53,7 +53,7 @@ class ToSeriesListConverter(ABC):
         """
 
     def _convert_to_series(
-        self, name: str, values: SeriesValues, infer_type: InferType
+        self, name: Union[str, int], values: SeriesValues, infer_type: InferType
     ) -> Series:
         return {
             "name": str(name),

@@ -75,7 +75,7 @@ class Data(dict, AbstractAnimation):
     """
 
     @classmethod
-    def filter(cls, filter_expr: Optional[str] = None):  # -> Data:
+    def filter(cls, filter_expr: Optional[str] = None) -> "Data":
         """
         A class method for creating a [Data][ipyvizzu.animation.Data]
         class instance with a data filter.
@@ -119,7 +119,7 @@ class Data(dict, AbstractAnimation):
         self.update({"filter": filter_expr_raw_js})
 
     @classmethod
-    def from_json(cls, filename: Union[str, bytes, PathLike]):  # -> Data:
+    def from_json(cls, filename: Union[str, bytes, PathLike]) -> "Data":
         """
         A method for returning a [Data][ipyvizzu.animation.Data]
         class instance which has been created from a json file.
@@ -411,7 +411,7 @@ class Data(dict, AbstractAnimation):
 
     def add_np_array(
         self,
-        np_array: Optional["np.array"],
+        np_array: Optional["np.array"],  # type: ignore
         column_name: Optional[ColumnName] = None,
         column_dtype: Optional[ColumnDtype] = None,
         default_measure_value: Optional[MeasureValue] = 0,
@@ -469,7 +469,7 @@ class Data(dict, AbstractAnimation):
         value = {"name": name, **kwargs}
 
         if values is not None:
-            value["values"] = values  # type: ignore
+            value["values"] = values
 
         self._add_value(dest, value)
 
@@ -515,7 +515,7 @@ class Config(AbstractAnimation, metaclass=ConfigAttr):
     It can build config option of the chart.
     """
 
-    def __init__(self, data: Optional[dict]):
+    def __init__(self, data: Optional[Union[dict, RawJavaScript]]):
         """
         Config constructor.
 
@@ -659,11 +659,11 @@ class Animation(Snapshot):
 class AnimationMerger(AbstractAnimation):
     """A class for merging different types of animations."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """AnimationMerger constructor."""
 
-        self._dict = {}
-        self._list = []
+        self._dict: dict = {}
+        self._list: list = []
 
     @classmethod
     def merge_animations(

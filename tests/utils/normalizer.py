@@ -7,7 +7,7 @@ from unittest.mock import MagicMock
 
 
 class Normalizer:
-    def __init__(self):
+    def __init__(self) -> None:
         self.id1_pattern = re.compile(r"'[a-f0-9]{7}'", flags=re.MULTILINE)
         self.id2_pattern = re.compile(r"\\'[a-f0-9]{7}\\'", flags=re.MULTILINE)
         self.id3_pattern = re.compile(r"\"[a-f0-9]{7}\"", flags=re.MULTILINE)

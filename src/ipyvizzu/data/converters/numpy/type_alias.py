@@ -2,7 +2,7 @@
 This module provides typing aliases for numpy converter.
 """
 
-from typing import Dict, Type, Union
+from typing import Dict, Union
 
 
 Index = int
@@ -11,7 +11,7 @@ Index = int
 Name = str
 """Represents the name of a column."""
 
-DType = Type
+DType = type
 """Represents the dtype of a column."""
 
 ColumnName = Union[Name, Dict[Index, Name]]

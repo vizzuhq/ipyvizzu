@@ -88,7 +88,7 @@ class Chart:
         return self._analytics
 
     @analytics.setter
-    def analytics(self, analytics: Optional[bool]):
+    def analytics(self, analytics: Optional[bool]) -> None:
         self._analytics = bool(analytics)
         if self._initialized:
             self._display_analytics()
@@ -105,7 +105,7 @@ class Chart:
         return self._scroll_into_view
 
     @scroll_into_view.setter
-    def scroll_into_view(self, scroll_into_view: Optional[bool]):
+    def scroll_into_view(self, scroll_into_view: Optional[bool]) -> None:
         self._scroll_into_view = bool(scroll_into_view)
 
     @property

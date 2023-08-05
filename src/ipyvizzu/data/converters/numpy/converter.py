@@ -5,10 +5,16 @@ into a list of dictionaries representing series.
 """
 
 from types import ModuleType
-from typing import Dict, List, Optional, Tuple, Type, Union
+from typing import Dict, List, Optional, Tuple, Union
 
 from ipyvizzu.data.converters.converter import ToSeriesListConverter
-from ipyvizzu.data.converters.numpy.type_alias import ColumnName, ColumnDtype
+from ipyvizzu.data.converters.numpy.type_alias import (
+    ColumnName,
+    ColumnDtype,
+    DType,
+    Index,
+    Name,
+)
 from ipyvizzu.data.infer_type import InferType
 from ipyvizzu.data.type_alias import (
     DimensionValue,
@@ -56,9 +62,9 @@ class NumpyArrayConverter(ToSeriesListConverter):
         # pylint: disable=too-many-arguments
 
         self._np = self._get_numpy()
-        self._np_array = np_array
-        self._column_name = self._get_settings(column_name)
-        self._column_dtype = self._get_settings(column_dtype)
+        self._np_array = self._get_array(np_array)
+        self._column_name: Dict[Index, Name] = self._get_settings(column_name)
+        self._column_dtype: Dict[Index, DType] = self._get_settings(column_dtype)
         self._default_measure_value = default_measure_value
         self._default_dimension_value = default_dimension_value
 
@@ -71,11 +77,11 @@ class NumpyArrayConverter(ToSeriesListConverter):
             where each dictionary has `name`, `values` and `type` keys.
         """
 
-        if isinstance(self._np_array, type(None)) or self._np_array.ndim == 0:  # type: ignore
+        if self._np_array.ndim == 0:
             return []
-        if self._np_array.ndim == 1:  # type: ignore
+        if self._np_array.ndim == 1:
             return self._get_series_list_from_array1dim()
-        if self._np_array.ndim == 2:  # type: ignore
+        if self._np_array.ndim == 2:
             return self._get_series_list_from_array2dim()
         raise ValueError("arrays larger than 2D are not supported")
 
@@ -89,10 +95,10 @@ class NumpyArrayConverter(ToSeriesListConverter):
 
     def _get_series_list_from_array2dim(self) -> List[Series]:
         series_list = []
-        for i in range(self._np_array.shape[1]):  # type: ignore
+        for i in range(self._np_array.shape[1]):
             name = self._column_name.get(i, i)
             values, infer_type = self._convert_to_series_values_and_type(
-                (i, self._np_array[:, i])  # type: ignore
+                (i, self._np_array[:, i])
             )
             series_list.append(self._convert_to_series(name, values, infer_type))
         return series_list
@@ -107,9 +113,12 @@ class NumpyArrayConverter(ToSeriesListConverter):
                 "numpy is not available. Please install numpy to use this feature."
             ) from error
 
-    def _get_settings(
-        self, config: Optional[Union[ColumnName, ColumnDtype]]
-    ) -> Union[Dict[int, str], Dict[int, Type]]:
+    def _get_array(self, np_array: Optional["np.array"]) -> "np.array":  # type: ignore
+        if isinstance(np_array, type(None)):
+            return self._np.empty(())
+        return np_array
+
+    def _get_settings(self, config: Optional[Union[ColumnName, ColumnDtype]]):
         if isinstance(config, type(None)):
             return {}
         if not isinstance(config, dict):
@@ -124,7 +133,7 @@ class NumpyArrayConverter(ToSeriesListConverter):
         column = obj
         i = column[0]
         array = column[1]
-        dtype = self._column_dtype.get(i, self._np_array.dtype)  # type: ignore
+        dtype = self._column_dtype.get(i, self._np_array.dtype)
         if self._np.issubdtype(dtype, self._np.number):
             return self._convert_to_measure_values(array), InferType.MEASURE
         return self._convert_to_dimension_values(array), InferType.DIMENSION

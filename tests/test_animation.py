@@ -481,6 +481,14 @@ class TestDataAddDataframe(unittest.TestCase):
 
 
 class TestDataAddNpArray(unittest.TestCase):
+    def test_add_np_array_none(self) -> None:
+        data = Data()
+        data.add_np_array(None)
+        self.assertEqual(
+            {"data": {}},
+            data.build(),
+        )
+
     def test_add_np_array_empty(self) -> None:
         np_array = np.empty([])
         data = Data()
@@ -655,7 +663,7 @@ class TestKeyframe(unittest.TestCase):
         self,
     ) -> None:
         with self.assertRaises(ValueError):
-            Keyframe(Keyframe(Style(None)))  # type: ignore
+            Keyframe(Keyframe(Style(None)))
 
     def test_animation_and_snapshot_cannot_be_passed(
         self,

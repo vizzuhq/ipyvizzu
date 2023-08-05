@@ -12,7 +12,7 @@ from tests.utils.normalizer import Normalizer
 
 
 if sys.version_info >= (3, 7):
-    import fugue.api as fa  # type: ignore
+    import fugue.api as fa
     import ipyvizzu.integrations.fugue  # register the extension  # pylint: disable=unused-import
 else:
     # TODO: remove once support for Python 3.6 is dropped

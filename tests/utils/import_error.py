@@ -7,7 +7,7 @@ import os
 class RaiseImportError:
     @classmethod
     @contextmanager
-    def module_name(cls, module_name):
+    def module_name(cls, module_name: str):
         original_value = os.environ.get("RAISE_IMPORT_ERROR", None)
         os.environ["RAISE_IMPORT_ERROR"] = module_name
         try:
@@ -19,7 +19,7 @@ class RaiseImportError:
                 os.environ["RAISE_IMPORT_ERROR"] = original_value
 
     @staticmethod
-    def overwrite_imports():
+    def overwrite_imports() -> None:
         builtins = globals()["__builtins__"]
 
         def overwrite_import(original_import_builtin):

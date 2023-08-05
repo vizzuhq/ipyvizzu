@@ -1,7 +1,7 @@
 """A module for working JavaScript code in json convertible objects."""
 
 import json
-from typing import Optional
+from typing import Any, Optional
 import uuid
 
 
@@ -54,7 +54,7 @@ class RawJavaScriptEncoder(json.JSONEncoder):
         json.JSONEncoder.__init__(self, *args, **kwargs)
         self._raw_replacements = {}
 
-    def default(self, o):
+    def default(self, o: Any):
         """
         Overrides [JSONEncoder.default][json.JSONEncoder.default] method.
         It replaces [RawJavaScript][ipyvizzu.json.RawJavaScript] object with `uuid` and
@@ -67,7 +67,7 @@ class RawJavaScriptEncoder(json.JSONEncoder):
             return key
         return json.JSONEncoder.default(self, o)
 
-    def encode(self, o):
+    def encode(self, o: Any):
         """
         Overrides [JSONEncoder.encode][json.JSONEncoder.encode] method.
         It replaces `uuids` with raw JavaScript code without apostrophes.
