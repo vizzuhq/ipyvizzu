@@ -320,6 +320,58 @@ data.add_df(df)
     You'll need to adjust the SQL query and the database connection parameters
     to match your specific use case.
 
+### Using `numpy` Array
+
+Use
+[`add_np_array`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data.add_np_array)
+method for adding `numpy` Array to
+[`Data`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data).
+
+```python
+import numpy as np
+from ipyvizzu import Data
+
+
+numpy_array = np.array(
+    [
+        ["Pop", "Hard", 114],
+        ["Rock", "Hard", 96],
+        ["Jazz", "Hard", 78],
+        ["Metal", "Hard", 52],
+        ["Pop", "Smooth", 56],
+        ["Rock", "Experimental", 36],
+        ["Jazz", "Smooth", 174],
+        ["Metal", "Smooth", 121],
+        ["Pop", "Experimental", 127],
+        ["Rock", "Experimental", 83],
+        ["Jazz", "Experimental", 94],
+        ["Metal", "Experimental", 58],
+    ]
+)
+
+data = Data()
+data.add_np_array(
+    numpy_array,
+    column_name={0: "Genres", 1: "Kinds", 2: "Popularity"},
+    column_dtype={2: int},
+)
+```
+
+!!! info
+    - Arrays with dimensions higher than 2 are not supported.
+    - If `column_name` dictionary is not added, column indices will be used as
+      names.
+    - If `column_dtype` dictionary is not added, every column will use
+      `numpy_array.dtype`.
+
+!!! note
+    If you want to work with `numpy` Array and `ipyvizzu`, you need to install
+    `numpy` or install it as an extra:
+
+    ```sh
+    pip install ipyvizzu[numpy]
+    ```
+
 ### Specify data by series
 
 When you specify the data by series or by records, it has to be in first normal
