@@ -8,13 +8,10 @@ import warnings
 
 import jsonschema  # type: ignore
 
-from ipyvizzu.data.converters.pandas_converter import PandasDataFrameConverter
-from ipyvizzu.data.converters.numpy_converter import (
-    NpArrayColumnDtypes,
-    NpArrayColumnNames,
-    NumpyArrayConverter,
-)
-from ipyvizzu.data.typing_alias import (
+from ipyvizzu.data.converters.pandas.converter import PandasDataFrameConverter
+from ipyvizzu.data.converters.numpy.converter import NumpyArrayConverter
+from ipyvizzu.data.converters.numpy.type_alias import ColumnName, ColumnDtype
+from ipyvizzu.data.type_alias import (
     DimensionValue,
     NestedMeasureValues,
     MeasureValue,
@@ -415,15 +412,44 @@ class Data(dict, AbstractAnimation):
     def add_np_array(
         self,
         np_array: Optional["np.array"],
-        column: Optional[NpArrayColumnNames] = None,
-        dtype: Optional[NpArrayColumnDtypes] = None,
+        column_name: Optional[ColumnName] = None,
+        column_dtype: Optional[ColumnDtype] = None,
         default_measure_value: Optional[MeasureValue] = 0,
         default_dimension_value: Optional[DimensionValue] = "",
     ) -> None:
+        """
+        Add a `numpy` `array` to an existing
+        [Data][ipyvizzu.animation.Data] class instance.
+
+        Args:
+            np_array: The `numpy` `array` to add.
+            column_name:
+                The name of a column. By default, uses column indices. Can be set with an
+                Index:Name pair or, for single-dimensional arrays, with just the Name.
+            column_dtype:
+                The dtype of a column. By default, uses the np_array's dtype. Can be set
+                with an Index:DType pair or, for single-dimensional arrays, with just the DType.
+            default_measure_value:
+                Default value to use for missing measure values. Defaults to 0.
+            default_dimension_value:
+                Default value to use for missing dimension values. Defaults to an empty string.
+
+        Example:
+            Adding a data frame to a [Data][ipyvizzu.animation.Data] class instance:
+
+                np_array = np.zeros((3, 4))
+                data = Data()
+                data.add_np_array(np_array)
+        """
+
         # pylint: disable=too-many-arguments
 
         converter = NumpyArrayConverter(
-            np_array, column, dtype, default_measure_value, default_dimension_value
+            np_array,
+            column_name,
+            column_dtype,
+            default_measure_value,
+            default_dimension_value,
         )
         series_list = converter.get_series_list()
         self.add_series_list(series_list)

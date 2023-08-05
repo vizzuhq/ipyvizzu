@@ -9,7 +9,7 @@ import jsonschema  # type: ignore
 import numpy as np
 import pandas as pd
 
-from ipyvizzu.data.typing_alias import Record
+from ipyvizzu.data.type_alias import Record
 
 from ipyvizzu import (
     Animation,
@@ -524,10 +524,12 @@ class TestDataAddNpArray(unittest.TestCase):
             data.build(),
         )
 
-    def test_add_np_array1dim_with_str_and_na_value_and_column_and_dtype(self) -> None:
+    def test_add_np_array1dim_with_str_and_na_value_and_column_name_and_dtype(
+        self,
+    ) -> None:
         np_array = np.array([127, "128", np.nan])
         data = Data()
-        data.add_np_array(np_array, column="First", dtype=int)
+        data.add_np_array(np_array, column_name="First", column_dtype=int)
         self.assertEqual(
             {
                 "data": {
@@ -560,10 +562,12 @@ class TestDataAddNpArray(unittest.TestCase):
             data.build(),
         )
 
-    def test_add_np_array2dim_with_str_and_na_value_and_column_and_dtype(self) -> None:
+    def test_add_np_array2dim_with_str_and_na_value_and_column_name_and_dtype(
+        self,
+    ) -> None:
         np_array = np.array([[127, "128", 129], [255, np.nan, 257], [511, 512, 513]])
         data = Data()
-        data.add_np_array(np_array, column={0: "First"}, dtype={2: int})
+        data.add_np_array(np_array, column_name={0: "First"}, column_dtype={2: int})
         self.assertEqual(
             {
                 "data": {
@@ -589,17 +593,17 @@ class TestDataAddNpArray(unittest.TestCase):
             data.build(),
         )
 
-    def test_add_np_array2dim_with_non_dict_column(self) -> None:
+    def test_add_np_array2dim_with_non_dict_column_name(self) -> None:
         np_array = np.zeros((2, 2))
         data = Data()
         with self.assertRaises(ValueError):
-            data.add_np_array(np_array, column="First")
+            data.add_np_array(np_array, column_name="First")
 
-    def test_add_np_array2dim_with_non_dict_dtype(self) -> None:
+    def test_add_np_array2dim_with_non_dict_column_dtype(self) -> None:
         np_array = np.zeros((2, 2))
         data = Data()
         with self.assertRaises(ValueError):
-            data.add_np_array(np_array, dtype=str)
+            data.add_np_array(np_array, column_dtype=str)
 
     def test_add_np_array3dim(self) -> None:
         np_array = np.zeros((3, 3, 3))

@@ -1,8 +1,12 @@
+"""
+This module provides the `ToSeriesListConverter` abstract class.
+"""
+
 from abc import ABC, abstractmethod
 from typing import Any, List, Tuple
 
 from ipyvizzu.data.infer_type import InferType
-from ipyvizzu.data.typing_alias import (
+from ipyvizzu.data.type_alias import (
     DimensionValue,
     MeasureValue,
     Series,
@@ -11,6 +15,11 @@ from ipyvizzu.data.typing_alias import (
 
 
 class ToSeriesListConverter(ABC):
+    """
+    Converts data into a list of dictionaries representing series.
+    Each dictionary contains information about the series `name`, `values` and `type`.
+    """
+
     # pylint: disable=too-few-public-methods
 
     @abstractmethod

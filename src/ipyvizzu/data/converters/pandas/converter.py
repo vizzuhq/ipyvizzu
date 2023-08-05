@@ -9,7 +9,7 @@ from typing import List, Optional, Tuple, Union
 
 from ipyvizzu.data.converters.converter import ToSeriesListConverter
 from ipyvizzu.data.infer_type import InferType
-from ipyvizzu.data.typing_alias import (
+from ipyvizzu.data.type_alias import (
     DimensionValue,
     MeasureValue,
     Series,

@@ -29,7 +29,8 @@ and similar environments with a simple `Python` syntax.
 * [AnimationMerger][ipyvizzu.animation.AnimationMerger]
 * [AnimationControl][ipyvizzu.animationcontrol.AnimationControl]
 * [InferType][ipyvizzu.data.infer_type.InferType]
-* [PandasDataFrameConverter][ipyvizzu.data.converters.pandas_converter.PandasDataFrameConverter]
+* [NumpyArrayConverter][ipyvizzu.data.converters.numpy.converter.NumpyArrayConverter]
+* [PandasDataFrameConverter][ipyvizzu.data.converters.pandas.converter.PandasDataFrameConverter]
 * [Animate][ipyvizzu.method.Animate]
 * [Feature][ipyvizzu.method.Feature]
 * [Store][ipyvizzu.method.Store]
@@ -58,7 +59,8 @@ from .animation import (
     AnimationMerger,
 )
 from .animationcontrol import AnimationControl
-from .data.converters.pandas_converter import PandasDataFrameConverter
+from .data.converters.numpy.converter import NumpyArrayConverter
+from .data.converters.pandas.converter import PandasDataFrameConverter
 from .data.infer_type import InferType
 from .method import Method, Animate, Feature, Store, EventOn, EventOff, Log
 from .json import RawJavaScript, RawJavaScriptEncoder
@@ -85,6 +87,7 @@ __all__ = [
     "EventOff",
     "Log",
     "AnimationControl",
+    "NumpyArrayConverter",
     "PandasDataFrameConverter",
     "InferType",
     "Method",
