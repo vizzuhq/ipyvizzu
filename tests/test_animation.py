@@ -6,9 +6,10 @@ from typing import List
 import unittest
 
 import jsonschema  # type: ignore
+import numpy as np
 import pandas as pd
 
-from ipyvizzu.data.typing_alias import Record
+from ipyvizzu.data.type_alias import Record
 
 from ipyvizzu import (
     Animation,
@@ -479,6 +480,152 @@ class TestDataAddDataframe(unittest.TestCase):
         )
 
 
+class TestDataAddNpArray(unittest.TestCase):
+    def test_add_np_array_none(self) -> None:
+        data = Data()
+        data.add_np_array(None)
+        self.assertEqual(
+            {"data": {}},
+            data.build(),
+        )
+
+    def test_add_np_array_empty(self) -> None:
+        np_array = np.empty([])
+        data = Data()
+        data.add_np_array(np_array)
+        self.assertEqual(
+            {"data": {}},
+            data.build(),
+        )
+
+    def test_add_np_array1dim(self) -> None:
+        np_array = np.array([127, 128, 129])
+        data = Data()
+        data.add_np_array(np_array)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {"name": "0", "type": "measure", "values": [127, 128, 129]},
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_add_np_array1dim_with_str_value(self) -> None:
+        np_array = np.array([127, "128", 129])
+        data = Data()
+        data.add_np_array(np_array)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {
+                            "name": "0",
+                            "type": "dimension",
+                            "values": ["127", "128", "129"],
+                        },
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_add_np_array1dim_with_str_and_na_value_and_column_name_and_dtype(
+        self,
+    ) -> None:
+        np_array = np.array([127, "128", np.nan])
+        data = Data()
+        data.add_np_array(np_array, column_name="First", column_dtype=int)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {
+                            "name": "First",
+                            "type": "measure",
+                            "values": [127, 128, 0],
+                        },
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_add_np_array2dim(self) -> None:
+        np_array = np.array([[127, 128, 129], [255, 256, 257], [511, 512, 513]])
+        data = Data()
+        data.add_np_array(np_array)
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {"name": "0", "type": "measure", "values": [127, 255, 511]},
+                        {"name": "1", "type": "measure", "values": [128, 256, 512]},
+                        {"name": "2", "type": "measure", "values": [129, 257, 513]},
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_add_np_array2dim_with_str_and_na_value_and_column_name_and_dtype(
+        self,
+    ) -> None:
+        np_array = np.array([[127, "128", 129], [255, np.nan, 257], [511, 512, 513]])
+        data = Data()
+        data.add_np_array(np_array, column_name={0: "First"}, column_dtype={2: int})
+        self.assertEqual(
+            {
+                "data": {
+                    "series": [
+                        {
+                            "name": "First",
+                            "type": "dimension",
+                            "values": ["127", "255", "511"],
+                        },
+                        {
+                            "name": "1",
+                            "type": "dimension",
+                            "values": ["128", "", "512"],
+                        },
+                        {
+                            "name": "2",
+                            "type": "measure",
+                            "values": [129, 257, 513],
+                        },
+                    ]
+                }
+            },
+            data.build(),
+        )
+
+    def test_add_np_array2dim_with_non_dict_column_name(self) -> None:
+        np_array = np.zeros((2, 2))
+        data = Data()
+        with self.assertRaises(ValueError):
+            data.add_np_array(np_array, column_name="First")
+
+    def test_add_np_array2dim_with_non_dict_column_dtype(self) -> None:
+        np_array = np.zeros((2, 2))
+        data = Data()
+        with self.assertRaises(ValueError):
+            data.add_np_array(np_array, column_dtype=str)
+
+    def test_add_np_array3dim(self) -> None:
+        np_array = np.zeros((3, 3, 3))
+        data = Data()
+        with self.assertRaises(ValueError):
+            data.add_np_array(np_array)
+
+    def test_add_df_if_numpy_not_installed(self) -> None:
+        with RaiseImportError.module_name("numpy"):
+            data = Data()
+            with self.assertRaises(ImportError):
+                data.add_np_array(None)
+
+
 class TestConfig(unittest.TestCase):
     def test_config(self) -> None:
         animation = Config({"color": {"set": ["Genres"]}})
@@ -516,7 +663,7 @@ class TestKeyframe(unittest.TestCase):
         self,
     ) -> None:
         with self.assertRaises(ValueError):
-            Keyframe(Keyframe(Style(None)))  # type: ignore
+            Keyframe(Keyframe(Style(None)))
 
     def test_animation_and_snapshot_cannot_be_passed(
         self,
