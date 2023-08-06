@@ -9,8 +9,9 @@ from typing import Dict, List, Optional, Tuple, Union
 
 from ipyvizzu.data.converters.converter import ToSeriesListConverter
 from ipyvizzu.data.converters.numpy.type_alias import (
-    ColumnName,
+    ColumnConfig,
     ColumnDtype,
+    ColumnName,
     DType,
     Index,
     Name,
@@ -63,8 +64,8 @@ class NumpyArrayConverter(ToSeriesListConverter):
 
         self._np = self._get_numpy()
         self._np_array = self._get_array(np_array)
-        self._column_name: Dict[Index, Name] = self._get_settings(column_name)
-        self._column_dtype: Dict[Index, DType] = self._get_settings(column_dtype)
+        self._column_name: Dict[Index, Name] = self._get_columns_config(column_name)
+        self._column_dtype: Dict[Index, DType] = self._get_columns_config(column_dtype)
         self._default_measure_value = default_measure_value
         self._default_dimension_value = default_dimension_value
 
@@ -118,8 +119,11 @@ class NumpyArrayConverter(ToSeriesListConverter):
             return self._np.empty(())
         return np_array
 
-    def _get_settings(self, config: Optional[Union[ColumnName, ColumnDtype]]):
-        if isinstance(config, type(None)):
+    def _get_columns_config(
+        self,
+        config: Optional[Union[ColumnConfig, Dict[Index, ColumnConfig]]],
+    ) -> Dict[Index, ColumnConfig]:
+        if config is None:
             return {}
         if not isinstance(config, dict):
             if not self._np_array.ndim == 1:
