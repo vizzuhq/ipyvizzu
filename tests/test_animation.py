@@ -238,11 +238,6 @@ class TestDataAddDf(unittest.TestCase):
     def setUp(self) -> None:
         self.data = Data()
 
-    def test_add_df_with_not_df(self) -> None:
-        data = Data()
-        with self.assertRaises(TypeError):
-            data.add_df("")
-
     def test_add_df_with_none(self) -> None:
         data = Data()
         data.add_df(None)
@@ -379,7 +374,7 @@ class TestDataAddDf(unittest.TestCase):
         with RaiseImportError.module_name("pandas"):
             data = Data()
             with self.assertRaises(ImportError):
-                data.add_df(None)
+                data.add_df(pd.DataFrame())
 
 
 class TestDataAddDataframe(unittest.TestCase):
@@ -391,11 +386,6 @@ class TestDataAddDataframe(unittest.TestCase):
 
     def setUp(self) -> None:
         self.data = Data()
-
-    def test_add_data_frame_with_not_df(self) -> None:
-        data = Data()
-        with self.assertRaises(TypeError):
-            data.add_data_frame("")
 
     def test_add_data_frame_with_none(self) -> None:
         data = Data()
@@ -623,7 +613,7 @@ class TestDataAddNpArray(unittest.TestCase):
         with RaiseImportError.module_name("numpy"):
             data = Data()
             with self.assertRaises(ImportError):
-                data.add_np_array(None)
+                data.add_np_array(np.empty(()))
 
 
 class TestConfig(unittest.TestCase):

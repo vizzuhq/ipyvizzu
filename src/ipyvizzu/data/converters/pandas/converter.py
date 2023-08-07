@@ -7,7 +7,7 @@ into a list of dictionaries representing series.
 from types import ModuleType
 from typing import List, Optional, Tuple, Union
 
-from ipyvizzu.data.converters.converter import ToSeriesListConverter
+from ipyvizzu.data.converters.converter import DataFrameConverter
 from ipyvizzu.data.infer_type import InferType
 from ipyvizzu.data.type_alias import (
     DimensionValue,
@@ -17,7 +17,7 @@ from ipyvizzu.data.type_alias import (
 )
 
 
-class PandasDataFrameConverter(ToSeriesListConverter):
+class PandasDataFrameConverter(DataFrameConverter):
     """
     Converts a `pandas` `DataFrame` or `Series` into a list of dictionaries representing series.
     Each dictionary contains information about the series `name`, `values` and `type`.
@@ -41,7 +41,7 @@ class PandasDataFrameConverter(ToSeriesListConverter):
 
     def __init__(
         self,
-        df: Optional[Union["pd.DataFrame", "pd.Series"]],  # type: ignore
+        df: Union["pandas.DataFrame", "pandas.Series"],  # type: ignore
         default_measure_value: Optional[MeasureValue] = 0,
         default_dimension_value: Optional[DimensionValue] = "",
         include_index: Optional[str] = None,
@@ -61,15 +61,11 @@ class PandasDataFrameConverter(ToSeriesListConverter):
             where each dictionary has `name`, `values` and `type` keys.
         """
 
-        series_list = []
+        series_list = super().get_series_list()
         index_series = self.get_series_from_index()
-        if index_series:
-            series_list.append(index_series)
-        for name in self._df.columns:
-            series_list.append(self._get_series_from_column(name))
-        return series_list
+        return index_series + series_list
 
-    def get_series_from_index(self) -> Optional[Series]:
+    def get_series_from_index(self) -> List[Series]:
         """
         Convert the `DataFrame` index to a dictionary representing a series,
         if `include_index` is provided.
@@ -80,15 +76,12 @@ class PandasDataFrameConverter(ToSeriesListConverter):
         """
 
         if not self._include_index or self._df.index.empty:
-            return None
-        name = self._include_index
-        values, infer_type = self._convert_to_series_values_and_type(self._df.index)
-        return self._convert_to_series(name, values, infer_type)
-
-    def _get_series_from_column(self, column_name: str) -> Series:
-        column = self._df[column_name]
-        values, infer_type = self._convert_to_series_values_and_type(column)
-        return self._convert_to_series(column_name, values, infer_type)
+            return []
+        df = self._pd.DataFrame({self._include_index: self._df.index})
+        index_series_converter = PandasDataFrameConverter(
+            df, self._default_measure_value, self._default_dimension_value
+        )
+        return index_series_converter.get_series_list()
 
     def _get_pandas(self) -> ModuleType:
         try:
@@ -100,31 +93,33 @@ class PandasDataFrameConverter(ToSeriesListConverter):
                 "pandas is not available. Please install pandas to use this feature."
             ) from error
 
-    def _get_df(self, df: Union["pd.DataFrame", "pd.Series"]) -> "pd.DataFrame":  # type: ignore
-        if isinstance(df, self._pd.DataFrame):
-            return df
+    def _get_df(
+        self, df: Union["pandas.DataFrame", "pandas.Series"]  # type: ignore
+    ) -> "pandas.DataFrame":  # type: ignore
         if isinstance(df, self._pd.Series):
             return self._pd.DataFrame(df)
-        if isinstance(df, type(None)):
-            return self._pd.DataFrame()
-        raise TypeError("df must be an instance of pandas.DataFrame or pandas.Series")
+        return df
+
+    def _get_columns(self) -> List[str]:
+        return self._df.columns
 
     def _convert_to_series_values_and_type(
-        self, obj: "pd.Series"  # type: ignore
+        self, obj: str  # type: ignore
     ) -> Tuple[SeriesValues, InferType]:
-        column = obj
+        column_name = obj
+        column = self._df[column_name]
         if self._pd.api.types.is_numeric_dtype(column.dtype):
             return self._convert_to_measure_values(column), InferType.MEASURE
         return self._convert_to_dimension_values(column), InferType.DIMENSION
 
     def _convert_to_measure_values(
-        self, obj: "pd.Series"  # type: ignore
+        self, obj: "pandas.DataFrame"  # type: ignore
     ) -> List[MeasureValue]:
         column = obj
         return column.fillna(self._default_measure_value).astype(float).values.tolist()
 
     def _convert_to_dimension_values(
-        self, obj: "pd.Series"  # type: ignore
+        self, obj: "pandas.DataFrame"  # type: ignore
     ) -> List[DimensionValue]:
         column = obj
         return column.fillna(self._default_dimension_value).astype(str).values.tolist()

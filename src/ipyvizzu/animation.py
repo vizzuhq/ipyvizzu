@@ -8,8 +8,9 @@ import warnings
 
 import jsonschema  # type: ignore
 
-from ipyvizzu.data.converters.pandas.converter import PandasDataFrameConverter
 from ipyvizzu.data.converters.numpy.converter import NumpyArrayConverter
+from ipyvizzu.data.converters.pandas.converter import PandasDataFrameConverter
+from ipyvizzu.data.converters.spark.converter import SparkDataFrameConverter
 from ipyvizzu.data.converters.numpy.type_alias import ColumnName, ColumnDtype
 from ipyvizzu.data.type_alias import (
     DimensionValue,
@@ -274,7 +275,7 @@ class Data(dict, AbstractAnimation):
 
     def add_df(
         self,
-        df: Optional[Union["pd.DataFrame", "pd.Series"]],  # type: ignore
+        df: Optional[Union["pandas.DataFrame", "pandas.Series"]],  # type: ignore
         default_measure_value: Optional[MeasureValue] = 0,
         default_dimension_value: Optional[DimensionValue] = "",
         include_index: Optional[str] = None,
@@ -307,15 +308,16 @@ class Data(dict, AbstractAnimation):
                 data.add_df(df)
         """
 
-        converter = PandasDataFrameConverter(
-            df, default_measure_value, default_dimension_value, include_index
-        )
-        series_list = converter.get_series_list()
-        self.add_series_list(series_list)
+        if not isinstance(df, type(None)):
+            converter = PandasDataFrameConverter(
+                df, default_measure_value, default_dimension_value, include_index
+            )
+            series_list = converter.get_series_list()
+            self.add_series_list(series_list)
 
     def add_data_frame(
         self,
-        data_frame: Optional[Union["pd.DataFrame", "pd.Series"]],  # type: ignore
+        data_frame: Optional[Union["pandas.DataFrame", "pandas.Series"]],  # type: ignore
         default_measure_value: Optional[MeasureValue] = 0,
         default_dimension_value: Optional[DimensionValue] = "",
     ) -> None:
@@ -349,7 +351,7 @@ class Data(dict, AbstractAnimation):
 
     def add_df_index(
         self,
-        df: Optional[Union["pd.DataFrame", "pd.Series"]],  # type: ignore
+        df: Optional[Union["pandas.DataFrame", "pandas.Series"]],  # type: ignore
         column_name: str = "Index",
     ) -> None:
         """
@@ -375,14 +377,14 @@ class Data(dict, AbstractAnimation):
                 data.add_df(df)
         """
 
-        converter = PandasDataFrameConverter(df, include_index=column_name)
-        index_series = converter.get_series_from_index()
-        if index_series:
-            self.add_series(**index_series)  # type: ignore
+        if not isinstance(df, type(None)):
+            converter = PandasDataFrameConverter(df, include_index=column_name)
+            series_list = converter.get_series_from_index()
+            self.add_series_list(series_list)
 
     def add_data_frame_index(
         self,
-        data_frame: Optional[Union["pd.DataFrame", "pd.Series"]],  # type: ignore
+        data_frame: Optional[Union["pandas.DataFrame", "pandas.Series"]],  # type: ignore
         name: str,
     ) -> None:
         """
@@ -411,7 +413,7 @@ class Data(dict, AbstractAnimation):
 
     def add_np_array(
         self,
-        np_array: Optional["np.array"],  # type: ignore
+        np_array: Optional["numpy.array"],  # type: ignore
         column_name: Optional[ColumnName] = None,
         column_dtype: Optional[ColumnDtype] = None,
         default_measure_value: Optional[MeasureValue] = 0,
@@ -444,15 +446,42 @@ class Data(dict, AbstractAnimation):
 
         # pylint: disable=too-many-arguments
 
-        converter = NumpyArrayConverter(
-            np_array,
-            column_name,
-            column_dtype,
-            default_measure_value,
-            default_dimension_value,
-        )
-        series_list = converter.get_series_list()
-        self.add_series_list(series_list)
+        if not isinstance(np_array, type(None)):
+            converter = NumpyArrayConverter(
+                np_array,
+                column_name,
+                column_dtype,
+                default_measure_value,
+                default_dimension_value,
+            )
+            series_list = converter.get_series_list()
+            self.add_series_list(series_list)
+
+    def add_spark_df(
+        self,
+        df: Optional["pyspark.sql.DataFrame"],  # type: ignore
+        default_measure_value: Optional[MeasureValue] = 0,
+        default_dimension_value: Optional[DimensionValue] = "",
+    ) -> None:
+        """
+        Add a `pyspark` `DataFrame` to an existing
+        [Data][ipyvizzu.animation.Data] class instance.
+
+        Args:
+            df:
+                The `pyspark` `DataFrame` to add.
+            default_measure_value:
+                The default measure value to fill empty values. Defaults to 0.
+            default_dimension_value:
+                The default dimension value to fill empty values. Defaults to an empty string.
+        """
+
+        if not isinstance(df, type(None)):
+            converter = SparkDataFrameConverter(
+                df, default_measure_value, default_dimension_value
+            )
+            series_list = converter.get_series_list()
+            self.add_series_list(series_list)
 
     def _add_named_value(
         self,
