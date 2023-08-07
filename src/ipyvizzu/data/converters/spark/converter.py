@@ -69,9 +69,9 @@ class SparkDataFrameConverter(DataFrameConverter):
     ) -> Tuple[SeriesValues, InferType]:
         column_name = obj
         column = self._df.select(column_name)
-        IntegerType = self._pyspark.sql.types.IntegerType
-        DoubleType = self._pyspark.sql.types.DoubleType
-        if isinstance(column.schema[column_name].dataType, (IntegerType, DoubleType)):
+        integer_type = self._pyspark.sql.types.IntegerType
+        double_type = self._pyspark.sql.types.DoubleType
+        if isinstance(column.schema[column_name].dataType, (integer_type, double_type)):
             return self._convert_to_measure_values(column_name), InferType.MEASURE
         return self._convert_to_dimension_values(column_name), InferType.DIMENSION
 
