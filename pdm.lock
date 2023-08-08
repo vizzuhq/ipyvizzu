@@ -6,7 +6,7 @@ groups = ["codequality", "docs", "env", "packagedeps", "packagetool"]
 cross_platform = true
 static_urls = false
 lock_version = "4.3"
-content_hash = "sha256:43c5f7462c6a1e863dd6f0e35048919c3ea1e513fb3eaf08c2e6cfdf4a97e4b8"
+content_hash = "sha256:c2706560e8d9cdbd7f8d9bbebe96583a77ebc11aa2245d9c9c4ead82aed8e44b"
 
 [[package]]
 name = "adagio"
@@ -893,7 +893,7 @@ files = [
 
 [[package]]
 name = "ipykernel"
-version = "6.25.0"
+version = "6.25.1"
 requires_python = ">=3.8"
 summary = "IPython Kernel for Jupyter"
 dependencies = [
@@ -912,8 +912,8 @@ dependencies = [
     "traitlets>=5.4.0",
 ]
 files = [
-    {file = "ipykernel-6.25.0-py3-none-any.whl", hash = "sha256:f0042e867ac3f6bca1679e6a88cbd6a58ed93a44f9d0866aecde6efe8de76659"},
-    {file = "ipykernel-6.25.0.tar.gz", hash = "sha256:e342ce84712861be4b248c4a73472be4702c1b0dd77448bfd6bcfb3af9d5ddf9"},
+    {file = "ipykernel-6.25.1-py3-none-any.whl", hash = "sha256:c8a2430b357073b37c76c21c52184db42f6b4b0e438e1eb7df3c4440d120497c"},
+    {file = "ipykernel-6.25.1.tar.gz", hash = "sha256:050391364c0977e768e354bdb60cbbfbee7cbb943b1af1618382021136ffd42f"},
 ]
 
 [[package]]
@@ -1045,7 +1045,7 @@ files = [
 
 [[package]]
 name = "jsonschema"
-version = "4.18.6"
+version = "4.19.0"
 requires_python = ">=3.8"
 summary = "An implementation of JSON Schema validation for Python"
 dependencies = [
@@ -1055,8 +1055,8 @@ dependencies = [
     "rpds-py>=0.7.1",
 ]
 files = [
-    {file = "jsonschema-4.18.6-py3-none-any.whl", hash = "sha256:dc274409c36175aad949c68e5ead0853aaffbe8e88c830ae66bb3c7a1728ad2d"},
-    {file = "jsonschema-4.18.6.tar.gz", hash = "sha256:ce71d2f8c7983ef75a756e568317bf54bc531dc3ad7e66a128eae0d51623d8a3"},
+    {file = "jsonschema-4.19.0-py3-none-any.whl", hash = "sha256:043dc26a3845ff09d20e4420d6012a9c91c9aa8999fa184e7efcfeccb41e32cb"},
+    {file = "jsonschema-4.19.0.tar.gz", hash = "sha256:6e1e7569ac13be8139b2dd2c21a55d350066ee3f80df06c608b398cdc6f30e8f"},
 ]
 
 [[package]]
@@ -1074,7 +1074,7 @@ files = [
 
 [[package]]
 name = "jsonschema"
-version = "4.18.6"
+version = "4.19.0"
 extras = ["format-nongpl"]
 requires_python = ">=3.8"
 summary = "An implementation of JSON Schema validation for Python"
@@ -1083,15 +1083,15 @@ dependencies = [
     "idna",
     "isoduration",
     "jsonpointer>1.13",
-    "jsonschema==4.18.6",
+    "jsonschema==4.19.0",
     "rfc3339-validator",
     "rfc3986-validator>0.1.0",
     "uri-template",
     "webcolors>=1.11",
 ]
 files = [
-    {file = "jsonschema-4.18.6-py3-none-any.whl", hash = "sha256:dc274409c36175aad949c68e5ead0853aaffbe8e88c830ae66bb3c7a1728ad2d"},
-    {file = "jsonschema-4.18.6.tar.gz", hash = "sha256:ce71d2f8c7983ef75a756e568317bf54bc531dc3ad7e66a128eae0d51623d8a3"},
+    {file = "jsonschema-4.19.0-py3-none-any.whl", hash = "sha256:043dc26a3845ff09d20e4420d6012a9c91c9aa8999fa184e7efcfeccb41e32cb"},
+    {file = "jsonschema-4.19.0.tar.gz", hash = "sha256:6e1e7569ac13be8139b2dd2c21a55d350066ee3f80df06c608b398cdc6f30e8f"},
 ]
 
 [[package]]
@@ -1891,16 +1891,16 @@ files = [
 
 [[package]]
 name = "mkdocstrings-python"
-version = "1.2.1"
+version = "1.3.0"
 requires_python = ">=3.8"
 summary = "A Python handler for mkdocstrings."
 dependencies = [
-    "griffe>=0.30",
+    "griffe<0.33,>=0.30",
     "mkdocstrings>=0.20",
 ]
 files = [
-    {file = "mkdocstrings_python-1.2.1-py3-none-any.whl", hash = "sha256:7c08f33e9ba7b1655e9cf0608eba3ce7a9513bd8b42a68a8d24ffaf4a6a50cfc"},
-    {file = "mkdocstrings_python-1.2.1.tar.gz", hash = "sha256:ae40825b3b676a94626882901ed9c8fcf9a7f0330e466ffe37ce15c525987aa9"},
+    {file = "mkdocstrings_python-1.3.0-py3-none-any.whl", hash = "sha256:36c224c86ab77e90e0edfc9fea3307f7d0d245dd7c28f48bbb2203cf6e125530"},
+    {file = "mkdocstrings_python-1.3.0.tar.gz", hash = "sha256:f967f84bab530fcc13cc9c02eccf0c18bdb2c3bab5c55fa2045938681eec4fc4"},
 ]
 
 [[package]]
@@ -2194,12 +2194,12 @@ files = [
 
 [[package]]
 name = "overrides"
-version = "7.3.1"
+version = "7.4.0"
 requires_python = ">=3.6"
 summary = "A decorator to automatically detect mismatch when overriding a method."
 files = [
-    {file = "overrides-7.3.1-py3-none-any.whl", hash = "sha256:6187d8710a935d09b0bcef8238301d6ee2569d2ac1ae0ec39a8c7924e27f58ca"},
-    {file = "overrides-7.3.1.tar.gz", hash = "sha256:8b97c6c1e1681b78cbc9424b138d880f0803c2254c5ebaabdde57bb6c62093f2"},
+    {file = "overrides-7.4.0-py3-none-any.whl", hash = "sha256:3ad24583f86d6d7a49049695efe9933e67ba62f0c7625d53c59fa832ce4b8b7d"},
+    {file = "overrides-7.4.0.tar.gz", hash = "sha256:9502a3cca51f4fac40b5feca985b6703a5c1f6ad815588a7ca9e285b9dca6757"},
 ]
 
 [[package]]
@@ -2457,6 +2457,15 @@ files = [
 ]
 
 [[package]]
+name = "py4j"
+version = "0.10.9.7"
+summary = "Enables Python programs to dynamically access arbitrary Java objects"
+files = [
+    {file = "py4j-0.10.9.7-py2.py3-none-any.whl", hash = "sha256:85defdfd2b2376eb3abf5ca6474b51ab7e0de341c75a02f46dc9b5976f5a5c1b"},
+    {file = "py4j-0.10.9.7.tar.gz", hash = "sha256:0b6e5315bb3ada5cf62ac651d107bb2ebc02def3dee9d9548e3baac644ea8dbb"},
+]
+
+[[package]]
 name = "pyarrow"
 version = "12.0.1"
 requires_python = ">=3.7"
@@ -2504,12 +2513,12 @@ files = [
 
 [[package]]
 name = "pygments"
-version = "2.15.1"
+version = "2.16.1"
 requires_python = ">=3.7"
 summary = "Pygments is a syntax highlighting package written in Python."
 files = [
-    {file = "Pygments-2.15.1-py3-none-any.whl", hash = "sha256:db2db3deb4b4179f399a09054b023b6a586b76499d36965813c71aa8ed7b5fd1"},
-    {file = "Pygments-2.15.1.tar.gz", hash = "sha256:8ace4d3c1dd481894b2005f560ead0f9f19ee64fe983366be1a21e171d12775c"},
+    {file = "Pygments-2.16.1-py3-none-any.whl", hash = "sha256:13fc09fa63bc8d8671a6d247e1eb303c4b343eaee81d861f3404db2935653692"},
+    {file = "Pygments-2.16.1.tar.gz", hash = "sha256:1daff0494820c69bc8941e407aa20f577374ee88364ee10a98fdbe0aece96e29"},
 ]
 
 [[package]]
@@ -2572,6 +2581,18 @@ dependencies = [
 files = [
     {file = "pyproject_hooks-1.0.0-py3-none-any.whl", hash = "sha256:283c11acd6b928d2f6a7c73fa0d01cb2bdc5f07c57a2eeb6e83d5e56b97976f8"},
     {file = "pyproject_hooks-1.0.0.tar.gz", hash = "sha256:f271b298b97f5955d53fb12b72c1fb1948c22c1a6b70b315c54cedaca0264ef5"},
+]
+
+[[package]]
+name = "pyspark"
+version = "3.4.1"
+requires_python = ">=3.7"
+summary = "Apache Spark Python API"
+dependencies = [
+    "py4j==0.10.9.7",
+]
+files = [
+    {file = "pyspark-3.4.1.tar.gz", hash = "sha256:72cd66ab8cf61a75854e5a753f75bea35ee075c3a96f9de4e2a66d02ec7fc652"},
 ]
 
 [[package]]
@@ -2842,7 +2863,7 @@ files = [
 
 [[package]]
 name = "referencing"
-version = "0.30.1"
+version = "0.30.2"
 requires_python = ">=3.8"
 summary = "JSON Referencing + Python"
 dependencies = [
@@ -2850,8 +2871,8 @@ dependencies = [
     "rpds-py>=0.7.0",
 ]
 files = [
-    {file = "referencing-0.30.1-py3-none-any.whl", hash = "sha256:185d4a29f001c6e8ae4dad3861e61282a81cb01b9f0ef70a15450c45c6513a0d"},
-    {file = "referencing-0.30.1.tar.gz", hash = "sha256:9370c77ceefd39510d70948bbe7375ce2d0125b9c11fd380671d4de959a8e3ce"},
+    {file = "referencing-0.30.2-py3-none-any.whl", hash = "sha256:449b6669b6121a9e96a7f9e410b245d471e8d48964c67113ce9afe50c8dd7bdf"},
+    {file = "referencing-0.30.2.tar.gz", hash = "sha256:794ad8003c65938edcdbc027f1933215e0d0ccc0291e3ce20a4d87432b59efc0"},
 ]
 
 [[package]]
@@ -3178,11 +3199,11 @@ files = [
 
 [[package]]
 name = "sqlglot"
-version = "17.9.1"
+version = "17.10.0"
 summary = "An easily customizable SQL parser and transpiler"
 files = [
-    {file = "sqlglot-17.9.1-py3-none-any.whl", hash = "sha256:eac3243fdffdf96aeff16b6c4bb070e2d2c70d1e4ac865cb8bfa96b7cf3e6611"},
-    {file = "sqlglot-17.9.1.tar.gz", hash = "sha256:2a72ec4078f12debbb3e3aad9f5e1ac0591c9729f5b6becfdf45b64b48b41217"},
+    {file = "sqlglot-17.10.0-py3-none-any.whl", hash = "sha256:ebfae3f15ac619d097b02d932972c4ff29cd221ecd77ec1f24f3006bd9743238"},
+    {file = "sqlglot-17.10.0.tar.gz", hash = "sha256:658029557cc224303c0da57ebd50b05102795b56efe3c8e70ff7674804e5ec49"},
 ]
 
 [[package]]
