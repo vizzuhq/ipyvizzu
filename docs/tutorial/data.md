@@ -144,7 +144,7 @@ df = pd.DataFrame(
 
 data = Data()
 data.add_df(df)
-data.add_df_index(df, name="IndexColumnName")
+data.add_df_index(df, column_name="IndexColumnName")
 ```
 
 !!! note

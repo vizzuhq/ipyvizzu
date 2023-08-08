@@ -32,7 +32,7 @@ class PandasDataFrameConverter(DataFrameConverter):
             Default value to use for missing dimension values. Defaults to an empty string.
         max_rows: The maximum number of rows to include in the converted series list.
             If the `df` contains more rows,
-            a random sample of the given number of rows will be taken.
+            a random sample of the given number of rows (approximately) will be taken.
         include_index:
             Name for the index column to include as a series.
             If provided, the index column will be added. Defaults to None.
@@ -57,7 +57,7 @@ class PandasDataFrameConverter(DataFrameConverter):
         super().__init__(default_measure_value, default_dimension_value, max_rows)
         self._pd = self._get_pandas()
         self._df = self._preprocess_df(
-            self._pd.DataFrame(df) if isinstance(df, self._pd.Series) else df
+            self._preprocess_series(df) if isinstance(df, self._pd.Series) else df
         )
         self._include_index = include_index
 
@@ -102,11 +102,16 @@ class PandasDataFrameConverter(DataFrameConverter):
                 "pandas is not available. Please install pandas to use this feature."
             ) from error
 
+    def _preprocess_series(self, series: "pandas.Series") -> "pandas.Dataframe":  # type: ignore
+        if series.empty:
+            return self._pd.DataFrame()
+        return self._pd.DataFrame(series)
+
     @staticmethod
     def _get_sampled_df(
         df: "pandas.DataFrame", fraction: float  # type: ignore
     ) -> "pandas.DataFrame":  # type: ignore
-        return df.sample(withReplacement=False, fraction=fraction, seed=42)
+        return df.sample(replace=False, frac=fraction, random_state=42)
 
     @staticmethod
     def _get_row_number(df: "pandas.DataFrame") -> int:  # type: ignore

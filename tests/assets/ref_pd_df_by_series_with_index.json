@@ -1,0 +1,68 @@
+{
+  "data": {
+    "series": [
+      {
+        "name": "Index",
+        "type": "dimension",
+        "values": [
+          "101",
+          "102",
+          "103",
+          "104",
+          "105",
+          "106",
+          "107",
+          "108",
+          "109",
+          "110",
+          "111",
+          "112"
+        ]
+      },
+      {
+        "name": "Genres",
+        "type": "dimension",
+        "values": [
+          "Pop",
+          "Rock",
+          "Jazz",
+          "Metal",
+          "Pop",
+          "Rock",
+          "Jazz",
+          "Metal",
+          "Pop",
+          "Rock",
+          "Jazz",
+          "Metal"
+        ]
+      },
+      {
+        "name": "Kinds",
+        "type": "dimension",
+        "values": [
+          "Hard",
+          "Hard",
+          "Hard",
+          "Hard",
+          "Smooth",
+          "Experimental",
+          "Smooth",
+          "Smooth",
+          "Experimental",
+          "Experimental",
+          "Experimental",
+          "Experimental"
+        ]
+      },
+      {
+        "name": "Popularity",
+        "type": "measure",
+        "values": [
+          114.0, 96.0, 78.0, 52.0, 56.0, 36.0, 174.0, 121.0, 127.0, 83.0, 94.0,
+          58.0
+        ]
+      }
+    ]
+  }
+}

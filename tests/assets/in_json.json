@@ -1,0 +1,14 @@
+{
+  "series": [
+    {
+      "name": "DimensionSeries",
+      "type": "dimension",
+      "values": ["1", "2"]
+    },
+    {
+      "name": "MeasureSeries",
+      "type": "measure",
+      "values": [3.0, 4.0]
+    }
+  ]
+}

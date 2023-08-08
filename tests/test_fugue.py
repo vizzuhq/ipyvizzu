@@ -23,7 +23,7 @@ class TestFugue(unittest.TestCase):
     # TODO: remove decorator once support for Python 3.6 is dropped
     @unittest.skipUnless(sys.version_info >= (3, 7), "at least Python 3.7 is required")
     def test_fugue_extension_preset(self) -> None:
-        ref = pathlib.Path(__file__).parent / "assets" / "fugue_preset.txt"
+        ref = pathlib.Path(__file__).parent / "assets" / "ref_fugue_preset.txt"
         with open(ref, "r", encoding="utf8") as f_ref:
             ref_content = f_ref.read()
         df = pd.DataFrame({"a": list("abcde"), "b": range(5)})
@@ -45,7 +45,7 @@ class TestFugue(unittest.TestCase):
     # TODO: remove decorator once support for Python 3.6 is dropped
     @unittest.skipUnless(sys.version_info >= (3, 7), "at least Python 3.7 is required")
     def test_fugue_extension_timeline(self) -> None:
-        ref = pathlib.Path(__file__).parent / "assets" / "fugue_timeline.txt"
+        ref = pathlib.Path(__file__).parent / "assets" / "ref_fugue_timeline.txt"
         with open(ref, "r", encoding="utf8") as f_ref:
             ref_content = f_ref.read()
         df = pd.DataFrame({"a": list("abcde"), "b": range(5), "c": [1, 1, 2, 2, 3]})

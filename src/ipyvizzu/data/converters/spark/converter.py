@@ -31,7 +31,7 @@ class SparkDataFrameConverter(DataFrameConverter):
             Default value to use for missing dimension values. Defaults to an empty string.
         max_rows: The maximum number of rows to include in the converted series list.
             If the `df` contains more rows,
-            a random sample of the given number of rows will be taken.
+            a random sample of the given number of rows (approximately) will be taken.
 
     Example:
         Get series list from `DataFrame` columns:

@@ -1,5 +1,5 @@
 """
-This module provides default values for data frame converters.
+This module provides default values for data frame converter.
 """
 
 MAX_ROWS: int = 10000

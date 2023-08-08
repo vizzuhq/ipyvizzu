@@ -1,0 +1,21 @@
+{
+  "data": {
+    "series": [
+      {
+        "name": "Genres",
+        "values": ["Jazz", "Rock"],
+        "type": "dimension"
+      },
+      {
+        "name": "Kinds",
+        "values": ["Experimental", "Experimental"],
+        "type": "dimension"
+      },
+      {
+        "name": "Popularity",
+        "values": [94.0, 83.0],
+        "type": "measure"
+      }
+    ]
+  }
+}

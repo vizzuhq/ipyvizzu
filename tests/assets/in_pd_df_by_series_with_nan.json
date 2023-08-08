@@ -1,0 +1,31 @@
+{
+  "Genres": [
+    "Pop",
+    "Rock",
+    "Jazz",
+    "Metal",
+    "Pop",
+    "Rock",
+    "Jazz",
+    "Metal",
+    "Pop",
+    "Rock",
+    null,
+    "Metal"
+  ],
+  "Kinds": [
+    "Hard",
+    "Hard",
+    "Hard",
+    "Hard",
+    "Smooth",
+    "Experimental",
+    "Smooth",
+    "Smooth",
+    "Experimental",
+    "Experimental",
+    "Experimental",
+    "Experimental"
+  ],
+  "Popularity": [114, 96, 78, 52, 56, 36, 174, 121, 127, 83, null, 58]
+}
