@@ -7,7 +7,9 @@ into a list of dictionaries representing series.
 from types import ModuleType
 from typing import List, Optional, Tuple, Union
 
-from ipyvizzu.data.converters.converter import DataFrameConverter
+from ipyvizzu.data.converters.defaults import NAN_DIMENSION, NAN_MEASURE
+from ipyvizzu.data.converters.df.defaults import MAX_ROWS
+from ipyvizzu.data.converters.df.converter import DataFrameConverter
 from ipyvizzu.data.infer_type import InferType
 from ipyvizzu.data.type_alias import (
     DimensionValue,
@@ -42,14 +44,16 @@ class PandasDataFrameConverter(DataFrameConverter):
     def __init__(
         self,
         df: Union["pandas.DataFrame", "pandas.Series"],  # type: ignore
-        default_measure_value: Optional[MeasureValue] = 0,
-        default_dimension_value: Optional[DimensionValue] = "",
+        default_measure_value: MeasureValue = NAN_MEASURE,
+        default_dimension_value: DimensionValue = NAN_DIMENSION,
+        max_rows: int = MAX_ROWS,
         include_index: Optional[str] = None,
     ) -> None:
+        # pylint: disable=too-many-arguments
+
+        super().__init__(default_measure_value, default_dimension_value, max_rows)
         self._pd = self._get_pandas()
         self._df = self._get_df(df)
-        self._default_measure_value = default_measure_value
-        self._default_dimension_value = default_dimension_value
         self._include_index = include_index
 
     def get_series_list(self) -> List[Series]:

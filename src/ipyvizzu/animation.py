@@ -8,6 +8,8 @@ import warnings
 
 import jsonschema  # type: ignore
 
+from ipyvizzu.data.converters.defaults import NAN_DIMENSION, NAN_MEASURE
+from ipyvizzu.data.converters.df.defaults import MAX_ROWS
 from ipyvizzu.data.converters.numpy.converter import NumpyArrayConverter
 from ipyvizzu.data.converters.pandas.converter import PandasDataFrameConverter
 from ipyvizzu.data.converters.spark.converter import SparkDataFrameConverter
@@ -276,8 +278,9 @@ class Data(dict, AbstractAnimation):
     def add_df(
         self,
         df: Optional[Union["pandas.DataFrame", "pandas.Series"]],  # type: ignore
-        default_measure_value: Optional[MeasureValue] = 0,
-        default_dimension_value: Optional[DimensionValue] = "",
+        default_measure_value: MeasureValue = NAN_MEASURE,
+        default_dimension_value: DimensionValue = NAN_DIMENSION,
+        max_rows: int = MAX_ROWS,
         include_index: Optional[str] = None,
     ) -> None:
         """
@@ -308,9 +311,15 @@ class Data(dict, AbstractAnimation):
                 data.add_df(df)
         """
 
+        # pylint: disable=too-many-arguments
+
         if not isinstance(df, type(None)):
             converter = PandasDataFrameConverter(
-                df, default_measure_value, default_dimension_value, include_index
+                df,
+                default_measure_value,
+                default_dimension_value,
+                max_rows,
+                include_index,
             )
             series_list = converter.get_series_list()
             self.add_series_list(series_list)
@@ -318,8 +327,8 @@ class Data(dict, AbstractAnimation):
     def add_data_frame(
         self,
         data_frame: Optional[Union["pandas.DataFrame", "pandas.Series"]],  # type: ignore
-        default_measure_value: Optional[MeasureValue] = 0,
-        default_dimension_value: Optional[DimensionValue] = "",
+        default_measure_value: MeasureValue = NAN_MEASURE,
+        default_dimension_value: DimensionValue = NAN_DIMENSION,
     ) -> None:
         """
         [Deprecated] This function is deprecated and will be removed in future versions.
@@ -416,8 +425,8 @@ class Data(dict, AbstractAnimation):
         np_array: Optional["numpy.array"],  # type: ignore
         column_name: Optional[ColumnName] = None,
         column_dtype: Optional[ColumnDtype] = None,
-        default_measure_value: Optional[MeasureValue] = 0,
-        default_dimension_value: Optional[DimensionValue] = "",
+        default_measure_value: MeasureValue = NAN_MEASURE,
+        default_dimension_value: DimensionValue = NAN_DIMENSION,
     ) -> None:
         """
         Add a `numpy` `array` to an existing
@@ -460,8 +469,9 @@ class Data(dict, AbstractAnimation):
     def add_spark_df(
         self,
         df: Optional["pyspark.sql.DataFrame"],  # type: ignore
-        default_measure_value: Optional[MeasureValue] = 0,
-        default_dimension_value: Optional[DimensionValue] = "",
+        default_measure_value: MeasureValue = NAN_MEASURE,
+        default_dimension_value: DimensionValue = NAN_DIMENSION,
+        max_rows: int = MAX_ROWS,
     ) -> None:
         """
         Add a `pyspark` `DataFrame` to an existing
@@ -478,7 +488,7 @@ class Data(dict, AbstractAnimation):
 
         if not isinstance(df, type(None)):
             converter = SparkDataFrameConverter(
-                df, default_measure_value, default_dimension_value
+                df, default_measure_value, default_dimension_value, max_rows
             )
             series_list = converter.get_series_list()
             self.add_series_list(series_list)

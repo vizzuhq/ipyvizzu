@@ -7,6 +7,7 @@ into a list of dictionaries representing series.
 from types import ModuleType
 from typing import Dict, List, Optional, Tuple, Union
 
+from ipyvizzu.data.converters.defaults import NAN_DIMENSION, NAN_MEASURE
 from ipyvizzu.data.converters.converter import ToSeriesListConverter
 from ipyvizzu.data.converters.numpy.type_alias import (
     ColumnConfig,
@@ -57,17 +58,16 @@ class NumpyArrayConverter(ToSeriesListConverter):
         np_array: "numpy.array",  # type: ignore
         column_name: Optional[ColumnName] = None,
         column_dtype: Optional[ColumnDtype] = None,
-        default_measure_value: Optional[MeasureValue] = 0,
-        default_dimension_value: Optional[DimensionValue] = "",
+        default_measure_value: MeasureValue = NAN_MEASURE,
+        default_dimension_value: DimensionValue = NAN_DIMENSION,
     ) -> None:
         # pylint: disable=too-many-arguments
 
+        super().__init__(default_measure_value, default_dimension_value)
         self._np = self._get_numpy()
         self._np_array = np_array
         self._column_name: Dict[Index, Name] = self._get_columns_config(column_name)
         self._column_dtype: Dict[Index, DType] = self._get_columns_config(column_dtype)
-        self._default_measure_value = default_measure_value
-        self._default_dimension_value = default_dimension_value
 
     def get_series_list(self) -> List[Series]:
         """
