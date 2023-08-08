@@ -97,8 +97,10 @@ class SparkDataFrameConverter(DataFrameConverter):
                 col(column_name)
             ),
         )
-        df = df.withColumn(column_name, col(column_name).cast("float"))
-        return df.select(column_name).rdd.flatMap(lambda x: x).collect()
+        df_cast = df.withColumn(column_name, col(column_name).cast("float"))
+        df_rdd = df_cast.select(column_name).rdd
+        df_flat = df_rdd.flatMap(lambda x: x)  # pragma: no cover
+        return df_flat.collect()
 
     def _convert_to_dimension_values(self, obj: str) -> List[DimensionValue]:
         column_name = obj
@@ -110,5 +112,7 @@ class SparkDataFrameConverter(DataFrameConverter):
                 col(column_name)
             ),
         )
-        df = df.withColumn(column_name, col(column_name).cast("string"))
-        return df.select(column_name).rdd.flatMap(lambda x: x).collect()
+        df_cast = df.withColumn(column_name, col(column_name).cast("string"))
+        df_rdd = df_cast.select(column_name).rdd
+        df_flat = df_rdd.flatMap(lambda x: x)  # pragma: no cover
+        return df_flat.collect()
