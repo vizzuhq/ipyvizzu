@@ -40,6 +40,9 @@ keywords = [
 pandas = [
     "pandas",
 ]
+pyspark = [
+    "pyspark",
+]
 numpy = [
     "numpy",
 ]
@@ -143,13 +146,14 @@ envlist = py{36,37,38,39,310,311}
 [testenv]
 deps =
     coverage
-    openpyxl    
+    openpyxl
 
 [testenv:py{36}]
 setenv =
     COVERAGE_FILE = .tox/py36/.coverage
 extras =
     pandas
+    pyspark
     numpy
 commands =
     python -m coverage run --branch --source ipyvizzu -m unittest discover tests
@@ -159,6 +163,7 @@ commands =
 package = editable
 extras =
     pandas
+    pyspark
     numpy
     fugue
 commands =
@@ -169,6 +174,7 @@ commands =
 package = editable
 extras =
     pandas
+    pyspark
     numpy
     fugue
 commands =
