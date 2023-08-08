@@ -294,6 +294,9 @@ class Data(dict, AbstractAnimation):
                 The default measure value to fill empty values. Defaults to 0.
             default_dimension_value:
                 The default dimension value to fill empty values. Defaults to an empty string.
+            max_rows: The maximum number of rows to include in the converted series list.
+                If the `df` contains more rows,
+                a random sample of the given number of rows will be taken.
             include_index:
                 Add the data frame's index as a column with the given name. Defaults to `None`.
 
@@ -484,6 +487,9 @@ class Data(dict, AbstractAnimation):
                 The default measure value to fill empty values. Defaults to 0.
             default_dimension_value:
                 The default dimension value to fill empty values. Defaults to an empty string.
+            max_rows: The maximum number of rows to include in the converted series list.
+                If the `df` contains more rows,
+                a random sample of the given number of rows will be taken.
         """
 
         if not isinstance(df, type(None)):

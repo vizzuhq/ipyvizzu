@@ -29,9 +29,9 @@ class SparkDataFrameConverter(DataFrameConverter):
             Default value to use for missing measure values. Defaults to 0.
         default_dimension_value:
             Default value to use for missing dimension values. Defaults to an empty string.
-        include_index:
-            Name for the index column to include as a series.
-            If provided, the index column will be added. Defaults to None.
+        max_rows: The maximum number of rows to include in the converted series list.
+            If the `df` contains more rows,
+            a random sample of the given number of rows will be taken.
 
     Example:
         Get series list from `DataFrame` columns:
@@ -51,7 +51,7 @@ class SparkDataFrameConverter(DataFrameConverter):
     ) -> None:
         super().__init__(default_measure_value, default_dimension_value, max_rows)
         self._pyspark = self._get_pyspark()
-        self._df = df
+        self._df = self._preprocess_df(df)
 
     def _get_pyspark(self) -> ModuleType:
         try:
@@ -62,6 +62,16 @@ class SparkDataFrameConverter(DataFrameConverter):
             raise ImportError(
                 "pyspark is not available. Please install pyspark to use this feature."
             ) from error
+
+    @staticmethod
+    def _get_sampled_df(
+        df: "pyspark.sql.DataFrame", fraction: float  # type: ignore
+    ) -> "pyspark.sql.DataFrame":  # type: ignore
+        return df.sample(withReplacement=False, fraction=fraction, seed=42)
+
+    @staticmethod
+    def _get_row_number(df: "pyspark.sql.DataFrame") -> int:  # type: ignore
+        return df.count()
 
     def _get_columns(self) -> List[str]:
         return self._df.columns

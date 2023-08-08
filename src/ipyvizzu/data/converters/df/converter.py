@@ -6,6 +6,7 @@ from abc import abstractmethod
 from typing import List
 
 from ipyvizzu.data.converters.converter import ToSeriesListConverter
+from ipyvizzu.data.converters.df.type_alias import DataFrame
 from ipyvizzu.data.type_alias import (
     DimensionValue,
     MeasureValue,
@@ -48,8 +49,28 @@ class DataFrameConverter(ToSeriesListConverter):
         values, infer_type = self._convert_to_series_values_and_type(column_name)
         return self._convert_to_series(column_name, values, infer_type)
 
+    def _preprocess_df(self, df: DataFrame) -> DataFrame:
+        rows = self._get_row_number(df)
+        if rows > self._max_rows:
+            return self._get_sampled_df(df, min(self._max_rows / rows, 1.0))
+        return df
+
+    @staticmethod
+    @abstractmethod
+    def _get_row_number(df: DataFrame) -> int:
+        """
+        Return row number of a data frame.
+        """
+
+    @staticmethod
+    @abstractmethod
+    def _get_sampled_df(df: DataFrame, fraction: float) -> DataFrame:
+        """
+        Return a sampled data frame by fraction.
+        """
+
     @abstractmethod
     def _get_columns(self) -> List[str]:
         """
-        Return column names of data frame.
+        Return column names of the data frame.
         """
