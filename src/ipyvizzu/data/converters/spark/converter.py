@@ -51,7 +51,7 @@ class SparkDataFrameConverter(DataFrameConverter):
     ) -> None:
         super().__init__(default_measure_value, default_dimension_value, max_rows)
         self._pyspark = self._get_pyspark()
-        self._df = self._get_sampled_df(df.cache())
+        self._df = self._get_sampled_df(df)
 
     def _get_pyspark(self) -> ModuleType:
         try:
@@ -66,11 +66,11 @@ class SparkDataFrameConverter(DataFrameConverter):
     def _get_sampled_df(
         self, df: "pyspark.sql.DataFrame"  # type: ignore
     ) -> "pyspark.sql.DataFrame":  # type: ignore
+        df = df.cache()
         row_number = df.count()
         if row_number > self._max_rows:
             fraction = self._max_rows / row_number
             sample_df = df.sample(withReplacement=False, fraction=fraction, seed=42)
-            sample_df.cache()
             return sample_df.limit(self._max_rows)
         return df
 
