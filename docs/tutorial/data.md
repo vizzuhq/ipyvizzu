@@ -50,7 +50,7 @@ There are multiple ways you can add data to `ipyvizzu`.
 
 Use
 [`add_df`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data.add_df)
-method for adding data frame to
+method for adding `pandas` DataFrame to
 [`Data`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data).
 
 ```python
@@ -143,12 +143,12 @@ df = pd.DataFrame(
 )
 
 data = Data()
-data.add_df(df)
 data.add_df_index(df, column_name="IndexColumnName")
+data.add_df(df)
 ```
 
 !!! note
-    If you want to work with `pandas` `DataFrame` and `ipyvizzu`, you need to
+    If you want to work with `pandas` DataFrame and `ipyvizzu`, you need to
     install `pandas` or install it as an extra:
 
     ```sh
@@ -319,6 +319,60 @@ data.add_df(df)
 !!! note
     You'll need to adjust the SQL query and the database connection parameters
     to match your specific use case.
+
+### Using `pyspark` DataFrame
+
+Use
+[`add_spark_df`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data.add_spark_df)
+method for adding `pyspark` DataFrame to
+[`Data`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data).
+
+```python
+from pyspark.sql import SparkSession
+from pyspark.sql.types import (
+    StructType,
+    StructField,
+    StringType,
+    IntegerType,
+)
+from ipyvizzu import Data
+
+
+spark = SparkSession.builder.appName("ipyvizzu").getOrCreate()
+spark_schema = StructType(
+    [
+        StructField("Genres", StringType(), True),
+        StructField("Kinds", StringType(), True),
+        StructField("Popularity", IntegerType(), True),
+    ]
+)
+spark_data = [
+    ("Pop", "Hard", 114),
+    ("Rock", "Hard", 96),
+    ("Jazz", "Hard", 78),
+    ("Metal", "Hard", 52),
+    ("Pop", "Smooth", 56),
+    ("Rock", "Experimental", 36),
+    ("Jazz", "Smooth", 174),
+    ("Metal", "Smooth", 121),
+    ("Pop", "Experimental", 127),
+    ("Rock", "Experimental", 83),
+    ("Jazz", "Experimental", 94),
+    ("Metal", "Experimental", 58),
+]
+df = spark.createDataFrame(spark_data, spark_schema)
+
+data = Data()
+data.add_spark_df(df)
+```
+
+!!! note
+    If you want to work with `pyspark` DataFrame and `ipyvizzu`, you need to
+    install `pyspark` or install it as an extra:
+
+    ```sh
+    pip install ipyvizzu[pyspark]
+    ```
 
 ### Using `numpy` Array
 
