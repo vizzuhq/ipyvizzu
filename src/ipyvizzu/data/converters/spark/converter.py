@@ -51,7 +51,7 @@ class SparkDataFrameConverter(DataFrameConverter):
     ) -> None:
         super().__init__(default_measure_value, default_dimension_value, max_rows)
         self._pyspark = self._get_pyspark()
-        self._df = self._preprocess_df(df)
+        self._df = self._get_sampled_df(df)
 
     def _get_pyspark(self) -> ModuleType:
         try:
@@ -63,15 +63,17 @@ class SparkDataFrameConverter(DataFrameConverter):
                 "pyspark is not available. Please install pyspark to use this feature."
             ) from error
 
-    @staticmethod
     def _get_sampled_df(
-        df: "pyspark.sql.DataFrame", fraction: float  # type: ignore
+        self, df: "pyspark.sql.DataFrame"  # type: ignore
     ) -> "pyspark.sql.DataFrame":  # type: ignore
-        return df.sample(withReplacement=False, fraction=fraction, seed=42)
-
-    @staticmethod
-    def _get_row_number(df: "pyspark.sql.DataFrame") -> int:  # type: ignore
-        return df.count()
+        row_number = df.count()
+        if row_number > self._max_rows:
+            step_size = max(1, row_number // self._max_rows)
+            sample_df = df.sample(
+                withReplacement=False, fraction=1.0 / step_size, seed=42
+            )
+            return sample_df
+        return df
 
     def _get_columns(self) -> List[str]:
         return self._df.columns
@@ -97,8 +99,11 @@ class SparkDataFrameConverter(DataFrameConverter):
                 col(column_name)
             ),
         )
-        df_cast = df.withColumn(column_name, col(column_name).cast("float"))
-        df_rdd = df_cast.select(column_name).rdd
+        df_rdd = (
+            df.withColumn(column_name, col(column_name).cast("float"))
+            .select(column_name)
+            .rdd
+        )
         df_flat = df_rdd.flatMap(lambda x: x)  # pragma: no cover
         return df_flat.collect()
 
@@ -112,7 +117,10 @@ class SparkDataFrameConverter(DataFrameConverter):
                 col(column_name)
             ),
         )
-        df_cast = df.withColumn(column_name, col(column_name).cast("string"))
-        df_rdd = df_cast.select(column_name).rdd
+        df_rdd = (
+            df.withColumn(column_name, col(column_name).cast("string"))
+            .select(column_name)
+            .rdd
+        )
         df_flat = df_rdd.flatMap(lambda x: x)  # pragma: no cover
         return df_flat.collect()

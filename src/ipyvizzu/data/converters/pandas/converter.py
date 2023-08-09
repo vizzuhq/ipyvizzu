@@ -56,8 +56,8 @@ class PandasDataFrameConverter(DataFrameConverter):
 
         super().__init__(default_measure_value, default_dimension_value, max_rows)
         self._pd = self._get_pandas()
-        self._df = self._preprocess_df(
-            self._preprocess_series(df) if isinstance(df, self._pd.Series) else df
+        self._df = self._get_sampled_df(
+            self._convert_to_df(df) if isinstance(df, self._pd.Series) else df
         )
         self._include_index = include_index
 
@@ -102,20 +102,21 @@ class PandasDataFrameConverter(DataFrameConverter):
                 "pandas is not available. Please install pandas to use this feature."
             ) from error
 
-    def _preprocess_series(self, series: "pandas.Series") -> "pandas.Dataframe":  # type: ignore
+    def _convert_to_df(self, series: "pandas.Series") -> "pandas.Dataframe":  # type: ignore
         if series.empty:
             return self._pd.DataFrame()
         return self._pd.DataFrame(series)
 
-    @staticmethod
-    def _get_sampled_df(
-        df: "pandas.DataFrame", fraction: float  # type: ignore
-    ) -> "pandas.DataFrame":  # type: ignore
-        return df.sample(replace=False, frac=fraction, random_state=42)
-
-    @staticmethod
-    def _get_row_number(df: "pandas.DataFrame") -> int:  # type: ignore
-        return len(df)
+    def _get_sampled_df(self, df: "pandas.DataFrame") -> "pandas.DataFrame":  # type: ignore
+        row_number = len(df)
+        if row_number > self._max_rows:
+            sampled_df = df.sample(
+                replace=False,
+                frac=min(self._max_rows / row_number, 1.0),
+                random_state=42,
+            )
+            return sampled_df
+        return df
 
     def _get_columns(self) -> List[str]:
         return self._df.columns

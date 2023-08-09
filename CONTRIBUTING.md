@@ -127,14 +127,6 @@ the tests, you can use the `test` script:
 pdm run test
 ```
 
-!!! note
-    If you want to run `pyspark` related tests, you need to set up `JAVA`. For
-    example on an `Ubuntu` `22.04` operating system:
-
-    ```sh
-    sudo apt-get update && sudo apt-get install -y default-jdk
-    ```
-
 ### Documentation
 
 **Note:** The preset, static, animated, and analytical operation examples are

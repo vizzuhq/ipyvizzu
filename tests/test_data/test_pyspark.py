@@ -98,12 +98,12 @@ class TestDataSpark(DataWithAssets):
                         {
                             "name": "DimensionSeries",
                             "type": "dimension",
-                            "values": ["2", "4"],
+                            "values": ["2", "3", "4"],
                         },
                         {
                             "name": "MeasureSeries",
                             "type": "measure",
-                            "values": [4.0, 6.0],
+                            "values": [4.0, 5.0, 6.0],
                         },
                     ]
                 }

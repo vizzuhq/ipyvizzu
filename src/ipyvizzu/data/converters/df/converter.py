@@ -49,24 +49,10 @@ class DataFrameConverter(ToSeriesListConverter):
         values, infer_type = self._convert_to_series_values_and_type(column_name)
         return self._convert_to_series(column_name, values, infer_type)
 
-    def _preprocess_df(self, df: DataFrame) -> DataFrame:
-        rows = self._get_row_number(df)
-        if rows > self._max_rows:
-            return self._get_sampled_df(df, min(self._max_rows / rows, 1.0))
-        return df
-
-    @staticmethod
     @abstractmethod
-    def _get_row_number(df: DataFrame) -> int:
+    def _get_sampled_df(self, df: DataFrame) -> DataFrame:
         """
-        Return row number of a data frame.
-        """
-
-    @staticmethod
-    @abstractmethod
-    def _get_sampled_df(df: DataFrame, fraction: float) -> DataFrame:
-        """
-        Return a sampled data frame by fraction.
+        Returns a sampled data frame for the maximum number of rows.
         """
 
     @abstractmethod
