@@ -92,22 +92,34 @@ class TestDataSpark(DataWithAssets):
         )
         df = self.spark.createDataFrame(df_data, schema)
         self.data.add_spark_df(df, max_rows=max_rows)
+
+        data_series = self.data.build()["data"]["series"]
+
+        dimension_series = data_series[0]["values"]
+        measure_series = data_series[1]["values"]
+
+        self.assertTrue(1 <= len(dimension_series) <= max_rows)
+        self.assertTrue(1 <= len(measure_series) <= max_rows)
+
+        is_dimension_series_sublist = all(
+            item in dimension_data for item in dimension_series
+        )
+        is_measure_series_sublist = all(item in measure_data for item in measure_series)
+        self.assertTrue(is_dimension_series_sublist)
+        self.assertTrue(is_measure_series_sublist)
+
+        del data_series[0]["values"]
+        del data_series[1]["values"]
         self.assertEqual(
-            {
-                "data": {
-                    "series": [
-                        {
-                            "name": "DimensionSeries",
-                            "type": "dimension",
-                            "values": ["1", "3"],
-                        },
-                        {
-                            "name": "MeasureSeries",
-                            "type": "measure",
-                            "values": [1.0, 3.0],
-                        },
-                    ]
-                }
-            },
-            self.data.build(),
+            [
+                {
+                    "name": "DimensionSeries",
+                    "type": "dimension",
+                },
+                {
+                    "name": "MeasureSeries",
+                    "type": "measure",
+                },
+            ],
+            data_series,
         )

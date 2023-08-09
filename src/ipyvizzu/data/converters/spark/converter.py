@@ -66,7 +66,6 @@ class SparkDataFrameConverter(DataFrameConverter):
     def _get_sampled_df(
         self, df: "pyspark.sql.DataFrame"  # type: ignore
     ) -> "pyspark.sql.DataFrame":  # type: ignore
-        df = df.cache()
         row_number = df.count()
         if row_number > self._max_rows:
             fraction = self._max_rows / row_number
