@@ -32,7 +32,7 @@ class PandasDataFrameConverter(DataFrameConverter):
             Default value to use for missing dimension values. Defaults to an empty string.
         max_rows: The maximum number of rows to include in the converted series list.
             If the `df` contains more rows,
-            a random sample of the given number of rows (approximately) will be taken.
+            a random sample of the given number of rows will be taken.
         include_index:
             Name for the index column to include as a series.
             If provided, the index column will be added. Defaults to None.
@@ -110,9 +110,10 @@ class PandasDataFrameConverter(DataFrameConverter):
     def _get_sampled_df(self, df: "pandas.DataFrame") -> "pandas.DataFrame":  # type: ignore
         row_number = len(df)
         if row_number > self._max_rows:
+            frac = self._max_rows / row_number
             sampled_df = df.sample(
                 replace=False,
-                frac=min(self._max_rows / row_number, 1.0),
+                frac=frac,
                 random_state=42,
             )
             return sampled_df

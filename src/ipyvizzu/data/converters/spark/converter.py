@@ -68,11 +68,9 @@ class SparkDataFrameConverter(DataFrameConverter):
     ) -> "pyspark.sql.DataFrame":  # type: ignore
         row_number = df.count()
         if row_number > self._max_rows:
-            step_size = max(1, row_number // self._max_rows)
-            sample_df = df.sample(
-                withReplacement=False, fraction=1.0 / step_size, seed=42
-            )
-            return sample_df
+            fraction = self._max_rows / row_number
+            sample_df = df.sample(withReplacement=False, fraction=fraction, seed=42)
+            return sample_df.limit(self._max_rows)
         return df
 
     def _get_columns(self) -> List[str]:

@@ -296,7 +296,7 @@ class Data(dict, AbstractAnimation):
                 The default dimension value to fill empty values. Defaults to an empty string.
             max_rows: The maximum number of rows to include in the converted series list.
                 If the `df` contains more rows,
-                a random sample of the given number of rows (approximately) will be taken.
+                a random sample of the given number of rows will be taken.
             include_index:
                 Add the data frame's index as a column with the given name. Defaults to `None`.
 

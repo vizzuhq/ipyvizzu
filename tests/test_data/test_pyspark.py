@@ -76,37 +76,50 @@ class TestDataSpark(DataWithAssets):
         )
 
     def test_add_spark_df_with_df_and_max_rows(self) -> None:
+        max_rows = 2
+
+        dimension_data = ["0", "1", "2", "3", "4"]
+        measure_data = [0, 1, 2, 3, 4]
+        df_data = []
+        for i, dimension_value in enumerate(dimension_data):
+            measure_value = measure_data[i]
+            df_data.append((dimension_value, measure_value))
         schema = StructType(
             [
                 StructField("DimensionSeries", StringType(), True),
                 StructField("MeasureSeries", IntegerType(), True),
             ]
         )
-        df_data = [
-            ("1", 3),
-            ("2", 4),
-            ("3", 5),
-            ("4", 6),
-            ("5", 7),
-        ]
         df = self.spark.createDataFrame(df_data, schema)
-        self.data.add_spark_df(df, max_rows=2)
+        self.data.add_spark_df(df, max_rows=max_rows)
+
+        data_series = self.data.build()["data"]["series"]
+
+        dimension_series = data_series[0]["values"]
+        measure_series = data_series[1]["values"]
+
+        self.assertTrue(1 <= len(dimension_series) <= max_rows)
+        self.assertTrue(1 <= len(measure_series) <= max_rows)
+
+        is_dimension_series_sublist = all(
+            item in dimension_data for item in dimension_series
+        )
+        is_measure_series_sublist = all(item in measure_data for item in measure_series)
+        self.assertTrue(is_dimension_series_sublist)
+        self.assertTrue(is_measure_series_sublist)
+
+        del data_series[0]["values"]
+        del data_series[1]["values"]
         self.assertEqual(
-            {
-                "data": {
-                    "series": [
-                        {
-                            "name": "DimensionSeries",
-                            "type": "dimension",
-                            "values": ["2", "3", "4"],
-                        },
-                        {
-                            "name": "MeasureSeries",
-                            "type": "measure",
-                            "values": [4.0, 5.0, 6.0],
-                        },
-                    ]
-                }
-            },
-            self.data.build(),
+            [
+                {
+                    "name": "DimensionSeries",
+                    "type": "dimension",
+                },
+                {
+                    "name": "MeasureSeries",
+                    "type": "measure",
+                },
+            ],
+            data_series,
         )
