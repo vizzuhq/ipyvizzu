@@ -102,8 +102,7 @@ class SparkDataFrameConverter(DataFrameConverter):
             .select(column_name)
             .rdd
         )
-        df_flat = df_rdd.flatMap(lambda x: x)  # pragma: no cover
-        return df_flat.collect()
+        return df_rdd.flatMap(list).collect()
 
     def _convert_to_dimension_values(self, obj: str) -> List[DimensionValue]:
         column_name = obj
@@ -120,5 +119,4 @@ class SparkDataFrameConverter(DataFrameConverter):
             .select(column_name)
             .rdd
         )
-        df_flat = df_rdd.flatMap(lambda x: x)  # pragma: no cover
-        return df_flat.collect()
+        return df_rdd.flatMap(list).collect()
