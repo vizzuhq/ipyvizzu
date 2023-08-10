@@ -63,6 +63,11 @@ class SparkDataFrameConverter(DataFrameConverter):
                 "pyspark is not available. Please install pyspark to use this feature."
             ) from error
 
+    def _get_pyspark_functions(self) -> ModuleType:
+        from pyspark.sql import functions  # pylint: disable=import-outside-toplevel
+
+        return functions
+
     def _get_sampled_df(
         self, df: "pyspark.sql.DataFrame"  # type: ignore
     ) -> "pyspark.sql.DataFrame":  # type: ignore
@@ -89,16 +94,15 @@ class SparkDataFrameConverter(DataFrameConverter):
 
     def _convert_to_measure_values(self, obj: str) -> List[MeasureValue]:
         column_name = obj
-        when = self._pyspark.sql.functions.when
-        col = self._pyspark.sql.functions.col
+        functions = self._get_pyspark_functions()
         df = self._df.withColumn(
             column_name,
-            when(col(column_name).isNull(), self._default_measure_value).otherwise(
-                col(column_name)
-            ),
+            functions.when(
+                functions.col(column_name).isNull(), self._default_measure_value
+            ).otherwise(functions.col(column_name)),
         )
         df_rdd = (
-            df.withColumn(column_name, col(column_name).cast("float"))
+            df.withColumn(column_name, functions.col(column_name).cast("float"))
             .select(column_name)
             .rdd
         )
@@ -106,16 +110,15 @@ class SparkDataFrameConverter(DataFrameConverter):
 
     def _convert_to_dimension_values(self, obj: str) -> List[DimensionValue]:
         column_name = obj
-        when = self._pyspark.sql.functions.when
-        col = self._pyspark.sql.functions.col
+        functions = self._get_pyspark_functions()
         df = self._df.withColumn(
             column_name,
-            when(col(column_name).isNull(), self._default_dimension_value).otherwise(
-                col(column_name)
-            ),
+            functions.when(
+                functions.col(column_name).isNull(), self._default_dimension_value
+            ).otherwise(functions.col(column_name)),
         )
         df_rdd = (
-            df.withColumn(column_name, col(column_name).cast("string"))
+            df.withColumn(column_name, functions.col(column_name).cast("string"))
             .select(column_name)
             .rdd
         )
