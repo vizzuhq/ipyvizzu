@@ -50,23 +50,19 @@ class SparkDataFrameConverter(DataFrameConverter):
         max_rows: int = MAX_ROWS,
     ) -> None:
         super().__init__(default_measure_value, default_dimension_value, max_rows)
-        self._pyspark = self._get_pyspark()
+        self._pyspark, self._pyspark_func = self._get_pyspark()
         self._df = self._get_sampled_df(df)
 
-    def _get_pyspark(self) -> ModuleType:
+    def _get_pyspark(self) -> Tuple[ModuleType, ModuleType]:
         try:
             import pyspark  # pylint: disable=import-outside-toplevel
+            from pyspark.sql import functions  # pylint: disable=import-outside-toplevel
 
-            return pyspark
+            return pyspark, functions
         except ImportError as error:
             raise ImportError(
                 "pyspark is not available. Please install pyspark to use this feature."
             ) from error
-
-    def _get_pyspark_functions(self) -> ModuleType:
-        from pyspark.sql import functions  # pylint: disable=import-outside-toplevel
-
-        return functions
 
     def _get_sampled_df(
         self, df: "pyspark.sql.DataFrame"  # type: ignore
@@ -94,15 +90,15 @@ class SparkDataFrameConverter(DataFrameConverter):
 
     def _convert_to_measure_values(self, obj: str) -> List[MeasureValue]:
         column_name = obj
-        functions = self._get_pyspark_functions()
+        func = self._pyspark_func
         df = self._df.withColumn(
             column_name,
-            functions.when(
-                functions.col(column_name).isNull(), self._default_measure_value
-            ).otherwise(functions.col(column_name)),
+            func.when(
+                func.col(column_name).isNull(), self._default_measure_value
+            ).otherwise(func.col(column_name)),
         )
         df_rdd = (
-            df.withColumn(column_name, functions.col(column_name).cast("float"))
+            df.withColumn(column_name, func.col(column_name).cast("float"))
             .select(column_name)
             .rdd
         )
@@ -110,15 +106,15 @@ class SparkDataFrameConverter(DataFrameConverter):
 
     def _convert_to_dimension_values(self, obj: str) -> List[DimensionValue]:
         column_name = obj
-        functions = self._get_pyspark_functions()
+        func = self._pyspark_func
         df = self._df.withColumn(
             column_name,
-            functions.when(
-                functions.col(column_name).isNull(), self._default_dimension_value
-            ).otherwise(functions.col(column_name)),
+            func.when(
+                func.col(column_name).isNull(), self._default_dimension_value
+            ).otherwise(func.col(column_name)),
         )
         df_rdd = (
-            df.withColumn(column_name, functions.col(column_name).cast("string"))
+            df.withColumn(column_name, func.col(column_name).cast("string"))
             .select(column_name)
             .rdd
         )
