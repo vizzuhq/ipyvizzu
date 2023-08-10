@@ -142,7 +142,7 @@ envlist = py{36,37,38,39,310,311}
 
 [testenv]
 deps =
-    coverage
+    coverage[toml]
     openpyxl    
 
 [testenv:py{36}]
@@ -244,3 +244,6 @@ path = "src/ipyvizzu/__version__.py"
 [tool.pylint.messages-control]
 disable = ["fixme"]
 good-names= ["i", "df"]
+
+[tool.coverage.paths]
+source = ["src/", ".tox/py*/lib/python*/site-packages/"]
