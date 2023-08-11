@@ -36,7 +36,7 @@ jobs:
       - name: Cache coverage
         uses: actions/cache@v3
         with:
-          path: ./.tox/py310/coverage
+          path: .coverage/html
           key: cache_coverage_${{ github.run_id }}
 
       - name: Install package
@@ -113,7 +113,7 @@ jobs:
       - name: Cache coverage
         uses: actions/cache@v3
         with:
-          path: ./.tox/py310/coverage
+          path: .coverage/html
           key: cache_coverage_${{ github.run_id }}
 
       - name: Install package

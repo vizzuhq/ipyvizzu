@@ -107,7 +107,7 @@ plugins:
         - style/gen_style_reference.py
   - coverage:
       page_name: coverage
-      html_report_dir: .tox/py310/coverage
+      html_report_dir: .coverage/html
   - literate-nav:
       implicit_index: true
 

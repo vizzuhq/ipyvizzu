@@ -12,6 +12,7 @@ vizzu-lib
 .venv
 .pdm-python
 .tox
+.coverage
 
 site
 .chromium
