@@ -153,7 +153,7 @@ extras =
 commands =
     python -m coverage run --branch --source ipyvizzu -m unittest discover tests
     python -m coverage report -m
-    python -c "import os; pyenv='{envname}'; os.rename(f'.coverage/env/.coverage.{pyenv}', f'.coverage/env/.coverage.3.{pyenv[3:]}')"
+    python -c "import os; pyenv='{envname}'; os.rename('.coverage/env/.coverage.' + pyenv, '.coverage/env/.coverage.3.' + pyenv[3:])"
 
 [testenv:py{37,38,39,310,311}]
 package = editable
