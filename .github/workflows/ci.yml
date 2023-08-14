@@ -147,12 +147,11 @@ jobs:
           esac
           pdm run test -e "${python_test_env}"
 
-      - name: Cache coverage
-        if: startsWith(matrix.python-version, '3.10')
+      - name: Cache coverage ${{ matrix.python-version }}
         uses: actions/cache@v3
         with:
-          path: ./.tox/py310/coverage
-          key: cache_coverage_${{ github.run_id }}
+          path: .coverage/env/.coverage.${{ matrix.python-version }}
+          key: cache_coverage_${{ matrix.python-version }}_${{ github.run_id }}
 
   test_ubuntu20:
     runs-on: ubuntu-20.04
@@ -187,3 +186,72 @@ jobs:
         run: |
           source .venv/bin/activate
           tox -e py36 --installpkg dist/*.whl
+
+      - name: Cache coverage ${{ matrix.python-version }}
+        uses: actions/cache@v3
+        with:
+          path: .coverage/env/.coverage.${{ matrix.python-version }}
+          key: cache_coverage_${{ matrix.python-version }}_${{ github.run_id }}
+
+  test_coverage:
+    runs-on: ubuntu-22.04
+    needs: [test_ubuntu20, test_ubuntu22]
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Cache dev-py environment
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
+
+      - name: Cache coverage 3.6
+        uses: actions/cache@v3
+        with:
+          path: .coverage/env/.coverage.3.6
+          key: cache_coverage_3.6_${{ github.run_id }}
+
+      - name: Cache coverage 3.7
+        uses: actions/cache@v3
+        with:
+          path: .coverage/env/.coverage.3.7
+          key: cache_coverage_3.7_${{ github.run_id }}
+
+      - name: Cache coverage 3.8
+        uses: actions/cache@v3
+        with:
+          path: .coverage/env/.coverage.3.8
+          key: cache_coverage_3.8_${{ github.run_id }}
+
+      - name: Cache coverage 3.9
+        uses: actions/cache@v3
+        with:
+          path: .coverage/env/.coverage.3.9
+          key: cache_coverage_3.9_${{ github.run_id }}
+
+      - name: Cache coverage 3.10
+        uses: actions/cache@v3
+        with:
+          path: .coverage/env/.coverage.3.10
+          key: cache_coverage_3.10_${{ github.run_id }}
+
+      - name: Cache coverage 3.11
+        uses: actions/cache@v3
+        with:
+          path: .coverage/env/.coverage.3.11
+          key: cache_coverage_3.11_${{ github.run_id }}
+
+      - name: Report coverage
+        run: |
+          source .venv/bin/activate
+          tox -e coverage
+
+      - name: Cache coverage
+        uses: actions/cache@v3
+        with:
+          path: .coverage/html
+          key: cache_coverage_${{ github.run_id }}
