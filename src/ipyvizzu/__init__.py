@@ -46,7 +46,6 @@ and similar environments with a simple `Python` syntax.
 * [DisplayTemplate][ipyvizzu.template.DisplayTemplate]
 """
 
-import sys
 import warnings
 
 from .chart import Chart
@@ -70,7 +69,7 @@ from .json import RawJavaScript, RawJavaScriptEncoder
 from .template import ChartProperty, DisplayTarget, DisplayTemplate
 from .event import EventHandler
 
-from .__version__ import __version__
+from .__version__ import __version__, PYENV
 
 __all__ = [
     "Chart",
@@ -103,10 +102,8 @@ __all__ = [
 ]
 
 
-if sys.version_info >= (3, 7):
-    pass
-else:
-    # TODO: remove once support for Python 3.6 is dropped
+# TODO: remove once support for Python 3.6 is dropped
+if PYENV < (3, 7):
     warnings.warn(
         "Python 3.6 support will be dropped in future versions.",
         FutureWarning,

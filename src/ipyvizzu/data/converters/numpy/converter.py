@@ -7,6 +7,7 @@ into a list of dictionaries representing series.
 from types import ModuleType
 from typing import Dict, List, Optional, Tuple, Union
 
+from ipyvizzu.data.converters.defaults import NAN_DIMENSION, NAN_MEASURE
 from ipyvizzu.data.converters.converter import ToSeriesListConverter
 from ipyvizzu.data.converters.numpy.type_alias import (
     ColumnConfig,
@@ -54,20 +55,19 @@ class NumpyArrayConverter(ToSeriesListConverter):
 
     def __init__(
         self,
-        np_array: Optional["np.array"],  # type: ignore
+        np_array: "numpy.array",  # type: ignore
         column_name: Optional[ColumnName] = None,
         column_dtype: Optional[ColumnDtype] = None,
-        default_measure_value: Optional[MeasureValue] = 0,
-        default_dimension_value: Optional[DimensionValue] = "",
+        default_measure_value: MeasureValue = NAN_MEASURE,
+        default_dimension_value: DimensionValue = NAN_DIMENSION,
     ) -> None:
         # pylint: disable=too-many-arguments
 
+        super().__init__(default_measure_value, default_dimension_value)
         self._np = self._get_numpy()
-        self._np_array = self._get_array(np_array)
+        self._np_array = np_array
         self._column_name: Dict[Index, Name] = self._get_columns_config(column_name)
         self._column_dtype: Dict[Index, DType] = self._get_columns_config(column_dtype)
-        self._default_measure_value = default_measure_value
-        self._default_dimension_value = default_dimension_value
 
     def get_series_list(self) -> List[Series]:
         """
@@ -114,11 +114,6 @@ class NumpyArrayConverter(ToSeriesListConverter):
                 "numpy is not available. Please install numpy to use this feature."
             ) from error
 
-    def _get_array(self, np_array: Optional["np.array"]) -> "np.array":  # type: ignore
-        if isinstance(np_array, type(None)):
-            return self._np.empty(())
-        return np_array
-
     def _get_columns_config(
         self,
         config: Optional[Union[ColumnConfig, Dict[Index, ColumnConfig]]],
@@ -132,7 +127,7 @@ class NumpyArrayConverter(ToSeriesListConverter):
         return config
 
     def _convert_to_series_values_and_type(
-        self, obj: Tuple[int, "np.array"]  # type: ignore
+        self, obj: Tuple[int, "numpy.array"]  # type: ignore
     ) -> Tuple[SeriesValues, InferType]:
         column = obj
         i = column[0]
@@ -142,14 +137,18 @@ class NumpyArrayConverter(ToSeriesListConverter):
             return self._convert_to_measure_values(array), InferType.MEASURE
         return self._convert_to_dimension_values(array), InferType.DIMENSION
 
-    def _convert_to_measure_values(self, obj: "np.array") -> List[MeasureValue]:  # type: ignore
+    def _convert_to_measure_values(
+        self, obj: "numpy.array"  # type: ignore
+    ) -> List[MeasureValue]:
         array = obj
         array_float = array.astype(float)
         return self._np.nan_to_num(
             array_float, nan=self._default_measure_value
         ).tolist()
 
-    def _convert_to_dimension_values(self, obj: "np.array") -> List[DimensionValue]:  # type: ignore
+    def _convert_to_dimension_values(
+        self, obj: "numpy.array"  # type: ignore
+    ) -> List[DimensionValue]:
         array = obj
         array_str = array.astype(str)
         replace_nan = "nan"

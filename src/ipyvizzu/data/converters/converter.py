@@ -22,6 +22,14 @@ class ToSeriesListConverter(ABC):
 
     # pylint: disable=too-few-public-methods
 
+    def __init__(
+        self,
+        default_measure_value: MeasureValue,
+        default_dimension_value: DimensionValue,
+    ) -> None:
+        self._default_measure_value = default_measure_value
+        self._default_dimension_value = default_dimension_value
+
     @abstractmethod
     def get_series_list(self) -> List[Series]:
         """

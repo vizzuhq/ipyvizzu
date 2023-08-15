@@ -1,0 +1,26 @@
+{
+  "data": {
+    "series": [
+      {
+        "name": "DimensionIndex",
+        "type": "dimension",
+        "values": ["x1", "x2"]
+      },
+      {
+        "name": "DimensionSeries",
+        "type": "dimension",
+        "values": ["1", "2"]
+      },
+      {
+        "name": "MeasureIndex",
+        "type": "dimension",
+        "values": ["y1", "y2"]
+      },
+      {
+        "name": "MeasureSeries",
+        "type": "measure",
+        "values": [3.0, 4.0]
+      }
+    ]
+  }
+}

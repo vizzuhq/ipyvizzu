@@ -8,6 +8,7 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.6"
 dependencies = [
+    "typing_extensions ; python_version < '3.8'",
     "IPython",
     "jsonschema",
 ]
@@ -39,6 +40,9 @@ keywords = [
 [project.optional-dependencies]
 pandas = [
     "pandas",
+]
+pyspark = [
+    "pyspark",
 ]
 numpy = [
     "numpy",
@@ -149,6 +153,7 @@ deps =
     coverage[toml]
 extras =
     pandas
+    pyspark
     numpy
 commands =
     python -m coverage run --branch --source ipyvizzu -m unittest discover tests
@@ -182,6 +187,7 @@ packagedeps = [
     "jsonschema ; python_version >= '3.10'",
     "pandas ; python_version >= '3.10'",
     "pandas-stubs ; python_version >= '3.10'",
+    "pyspark ; python_version >= '3.10'",
     "numpy ; python_version >= '3.10'",
     "fugue >= 0.8.1 ; python_version >= '3.10'",
 ]

@@ -1,0 +1,16 @@
+{
+  "data": {
+    "series": [
+      {
+        "name": "DimensionIndex",
+        "type": "dimension",
+        "values": ["x1", "x2"]
+      },
+      {
+        "name": "MeasureIndex",
+        "type": "dimension",
+        "values": ["y1", "y2"]
+      }
+    ]
+  }
+}

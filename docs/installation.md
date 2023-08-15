@@ -25,11 +25,11 @@ pip install -U ipyvizzu
 ```
 
 !!! note
-    `ipyvizzu` has some extra dependencies such as `pandas`, `numpy` and
-    `fugue`.
+    `ipyvizzu` can be used with some extra dependencies such as `pandas`,
+    `pyspark`, `numpy` and `fugue`.
 
     For example if you would like to work with `pandas` `DataFrame` and
-    `ipyvizzu`, you can install `pandas` as an extra:
+    `ipyvizzu`, you should install `pandas` as an extra:
 
     ```sh
     pip install ipyvizzu[pandas]
