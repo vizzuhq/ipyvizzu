@@ -88,13 +88,78 @@ bottom right corner of the chart.
 ```python
 logo_draw_handler = "event.preventDefault();"
 
-logo_draw = logo_chart.on("logo-draw", logo_draw_handler)
+logo_draw = chart.on("logo-draw", logo_draw_handler)
 ```
 
 Unregistering the previously registered handler.
 
 ```python
 chart.off(logo_draw)
+```
+
+You can also add a background image to the chart using the `preventDefault`
+method.
+
+<div id="tutorial_04"></div>
+
+```python
+bgimage_draw_handler = """
+const bgImage = new Image();
+bgImage.src = "https://vizzuhq.com/images/logo/logo.svg";
+
+// Get the dimensions of the chart canvas
+const vizzuCanvasWidth = event.renderingContext.canvas.width;
+const vizzuCanvasHeight = event.renderingContext.canvas.height;
+
+// Calculate the aspect ratios of the image and the canvas
+const imageAspectRatio = bgImage.width / bgImage.height;
+const canvasAspectRatio = vizzuCanvasWidth / vizzuCanvasHeight;
+
+// Calculate the dimensions and position of the image on the canvas
+let imageWidth;
+let imageHeight;
+if (imageAspectRatio > canvasAspectRatio) {
+    imageWidth = vizzuCanvasWidth;
+    imageHeight = vizzuCanvasWidth / imageAspectRatio;
+} else {
+    imageHeight = vizzuCanvasHeight;
+    imageWidth = vizzuCanvasHeight * imageAspectRatio;
+}
+const xOffset = (vizzuCanvasWidth - imageWidth) / 2;
+const yOffset = (vizzuCanvasHeight - imageHeight) / 2;
+
+// Draw the background image on the canvas
+event.renderingContext.drawImage(
+    bgImage,
+    xOffset,
+    yOffset,
+    imageWidth,
+    imageHeight
+);
+event.preventDefault();
+"""
+
+bgimage_draw = chart.on("background-draw", bgimage_draw_handler)
+```
+
+??? info "Info - How to make interlacing transparent"
+    ```python
+    chart.animate(
+        Style(
+            {
+                "plot": {
+                    "xAxis": {"interlacing": {"color": "#ffffff00"}},
+                    "yAxis": {"interlacing": {"color": "#ffffff00"}},
+                },
+            }
+        ),
+    )
+    ```
+
+Unregistering the previously registered handler.
+
+```python
+chart.off(bgimage_draw)
 ```
 
 <script src="../events.js"></script>
