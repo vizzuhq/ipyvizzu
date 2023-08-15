@@ -114,7 +114,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .coverage/html
-          key: cache_coverage_${{ github.run_id }}
+          key: cache_coverage_${{ steps.run_id.outputs.run_id }}
 
       - name: Install package
         run: |
