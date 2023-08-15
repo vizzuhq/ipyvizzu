@@ -5071,10 +5071,13 @@ chart = Chart()
 chart.animate(data)</code></pre>
 </details>
 <pre class="highlight"><code class="language-python">chart.animate(
-    Config.column(
+    Config(
         {
-            "x": "Joy factors",
-            "y": "Value 2 (+)",
+            "channels": {
+                "x": "Joy factors",
+                "y": "Value 2 (+)",
+                "label": "Value 2 (+)",
+            },
             "title": "Column Chart",
         }
     )
