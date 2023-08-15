@@ -135,7 +135,7 @@ class TestSparkDf(DataWithAssets):
         super().tearDownClass()
         cls.spark.stop()
 
-    def test_add_spark_df(self) -> None:
+    def test_add_df(self) -> None:
         spark_schema = StructType(
             [
                 StructField("Genres", StringType(), True),
@@ -158,7 +158,7 @@ class TestSparkDf(DataWithAssets):
             ("Metal", "Experimental", 58),
         ]
         df = self.spark.createDataFrame(spark_data, spark_schema)
-        self.data.add_spark_df(df)
+        self.data.add_df(df)
         self.assertEqual(
             self.ref_pd_df_by_series,
             self.data.build(),

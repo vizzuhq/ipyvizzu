@@ -103,9 +103,7 @@ __all__ = [
 ]
 
 
-if sys.version_info >= (3, 7):
-    pass
-else:
+if sys.version_info < (3, 7):
     # TODO: remove once support for Python 3.6 is dropped
     warnings.warn(
         "Python 3.6 support will be dropped in future versions.",

@@ -3,17 +3,16 @@
 import abc
 import json
 from os import PathLike
-from typing import List, Optional, Tuple, Union
+from typing import List, Optional, Tuple, Type, Union
 import warnings
 
 import jsonschema  # type: ignore
 
 from ipyvizzu.data.converters.defaults import NAN_DIMENSION, NAN_MEASURE
 from ipyvizzu.data.converters.df.defaults import MAX_ROWS
-from ipyvizzu.data.converters.numpy.converter import NumpyArrayConverter
-from ipyvizzu.data.converters.pandas.converter import PandasDataFrameConverter
-from ipyvizzu.data.converters.spark.converter import SparkDataFrameConverter
-from ipyvizzu.data.converters.numpy.type_alias import ColumnName, ColumnDtype
+from ipyvizzu.data.converters.numpy import ColumnDtype, ColumnName, NumpyArrayConverter
+from ipyvizzu.data.converters.pandas import PandasDataFrameConverter
+from ipyvizzu.data.converters.spark import SparkDataFrame, SparkDataFrameConverter
 from ipyvizzu.data.type_alias import (
     DimensionValue,
     NestedMeasureValues,
@@ -277,28 +276,35 @@ class Data(dict, AbstractAnimation):
 
     def add_df(
         self,
-        df: Optional[Union["pandas.DataFrame", "pandas.Series"]],  # type: ignore
+        df: Optional[  # type: ignore
+            Union[
+                "pandas.DataFrame",
+                "pandas.Series",
+                "pyspark.sql.DataFrame",
+            ]
+        ],
         default_measure_value: MeasureValue = NAN_MEASURE,
         default_dimension_value: DimensionValue = NAN_DIMENSION,
         max_rows: int = MAX_ROWS,
         include_index: Optional[str] = None,
     ) -> None:
         """
-        Add a `pandas` `DataFrame` or `Series` to an existing
-        [Data][ipyvizzu.animation.Data] class instance.
+        Add a `pandas` `DataFrame`, `Series` or a `pyspark` `DataFrame`
+        to an existing [Data][ipyvizzu.animation.Data] class instance.
 
         Args:
             df:
-                The `pandas` `DataFrame` or `Series` to add.
+                The `pandas` `DataFrame`, `Series` or the `pyspark` `DataFrame`to add.
             default_measure_value:
                 The default measure value to fill empty values. Defaults to 0.
             default_dimension_value:
                 The default dimension value to fill empty values. Defaults to an empty string.
             max_rows: The maximum number of rows to include in the converted series list.
                 If the `df` contains more rows,
-                a random sample of the given number of rows will be taken.
+                a random sample of the given number of rows (approximately) will be taken.
             include_index:
                 Add the data frame's index as a column with the given name. Defaults to `None`.
+                (Cannot be used with `pyspark` `DataFrame`.)
 
         Example:
             Adding a data frame to a [Data][ipyvizzu.animation.Data] class instance:
@@ -317,13 +323,25 @@ class Data(dict, AbstractAnimation):
         # pylint: disable=too-many-arguments
 
         if not isinstance(df, type(None)):
-            converter = PandasDataFrameConverter(
-                df,
-                default_measure_value,
-                default_dimension_value,
-                max_rows,
-                include_index,
-            )
+            arguments = {
+                "df": df,
+                "default_measure_value": default_measure_value,
+                "default_dimension_value": default_dimension_value,
+                "max_rows": max_rows,
+                "include_index": include_index,
+            }
+            Converter: Union[
+                Type[PandasDataFrameConverter], Type[SparkDataFrameConverter]
+            ] = PandasDataFrameConverter
+            if isinstance(df, SparkDataFrame):
+                Converter = SparkDataFrameConverter
+                if arguments["include_index"] is not None:
+                    raise ValueError(
+                        "`include_index` cannot be used with `pyspark` `DataFrame`"
+                    )
+                del arguments["include_index"]
+
+            converter = Converter(**arguments)  # type: ignore
             series_list = converter.get_series_list()
             self.add_series_list(series_list)
 
@@ -465,36 +483,6 @@ class Data(dict, AbstractAnimation):
                 column_dtype,
                 default_measure_value,
                 default_dimension_value,
-            )
-            series_list = converter.get_series_list()
-            self.add_series_list(series_list)
-
-    def add_spark_df(
-        self,
-        df: Optional["pyspark.sql.DataFrame"],  # type: ignore
-        default_measure_value: MeasureValue = NAN_MEASURE,
-        default_dimension_value: DimensionValue = NAN_DIMENSION,
-        max_rows: int = MAX_ROWS,
-    ) -> None:
-        """
-        Add a `pyspark` `DataFrame` to an existing
-        [Data][ipyvizzu.animation.Data] class instance.
-
-        Args:
-            df:
-                The `pyspark` `DataFrame` to add.
-            default_measure_value:
-                The default measure value to fill empty values. Defaults to 0.
-            default_dimension_value:
-                The default dimension value to fill empty values. Defaults to an empty string.
-            max_rows: The maximum number of rows to include in the converted series list.
-                If the `df` contains more rows,
-                a random sample of the given number of rows (approximately) will be taken.
-        """
-
-        if not isinstance(df, type(None)):
-            converter = SparkDataFrameConverter(
-                df, default_measure_value, default_dimension_value, max_rows
             )
             series_list = converter.get_series_list()
             self.add_series_list(series_list)

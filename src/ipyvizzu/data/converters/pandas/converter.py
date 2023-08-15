@@ -10,6 +10,7 @@ from typing import List, Optional, Tuple, Union
 from ipyvizzu.data.converters.defaults import NAN_DIMENSION, NAN_MEASURE
 from ipyvizzu.data.converters.df.defaults import MAX_ROWS
 from ipyvizzu.data.converters.df.converter import DataFrameConverter
+from ipyvizzu.data.converters.pandas.protocol import PandasSeries
 from ipyvizzu.data.infer_type import InferType
 from ipyvizzu.data.type_alias import (
     DimensionValue,
@@ -57,7 +58,7 @@ class PandasDataFrameConverter(DataFrameConverter):
         super().__init__(default_measure_value, default_dimension_value, max_rows)
         self._pd = self._get_pandas()
         self._df = self._get_sampled_df(
-            self._convert_to_df(df) if isinstance(df, self._pd.Series) else df
+            self._convert_to_df(df) if isinstance(df, PandasSeries) else df
         )
         self._include_index = include_index
 

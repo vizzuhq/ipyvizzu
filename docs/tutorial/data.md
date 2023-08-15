@@ -323,7 +323,7 @@ data.add_df(df)
 ### Using `pyspark` DataFrame
 
 Use
-[`add_spark_df`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data.add_spark_df)
+[`add_df`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data.add_df)
 method for adding `pyspark` DataFrame to
 [`Data`](../reference/ipyvizzu/animation.md#ipyvizzu.animation.Data).
 
@@ -363,7 +363,7 @@ spark_data = [
 df = spark.createDataFrame(spark_data, spark_schema)
 
 data = Data()
-data.add_spark_df(df)
+data.add_df(df)
 ```
 
 !!! note

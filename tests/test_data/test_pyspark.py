@@ -20,26 +20,26 @@ class TestDataSpark(DataWithAssets):
         super().tearDownClass()
         cls.spark.stop()
 
-    def test_add_spark_df_if_pyspark_not_installed(self) -> None:
+    def test_add_df_if_pyspark_not_installed(self) -> None:
         with RaiseImportError.module_name("pyspark"):
             with self.assertRaises(ImportError):
-                self.data.add_spark_df(self.spark.createDataFrame([], StructType([])))
+                self.data.add_df(self.spark.createDataFrame([], StructType([])))
 
-    def test_add_spark_df_with_none(self) -> None:
-        self.data.add_spark_df(None)
+    def test_add_df_with_none(self) -> None:
+        self.data.add_df(None)
         self.assertEqual(
             {"data": {}},
             self.data.build(),
         )
 
-    def test_add_spark_df_with_empty_df(self) -> None:
-        self.data.add_spark_df(self.spark.createDataFrame([], StructType([])))
+    def test_add_df_with_empty_df(self) -> None:
+        self.data.add_df(self.spark.createDataFrame([], StructType([])))
         self.assertEqual(
             {"data": {}},
             self.data.build(),
         )
 
-    def test_add_spark_df_with_df(self) -> None:
+    def test_add_df_with_df(self) -> None:
         schema = StructType(
             [
                 StructField("DimensionSeries", StringType(), True),
@@ -51,13 +51,13 @@ class TestDataSpark(DataWithAssets):
             ("2", 4),
         ]
         df = self.spark.createDataFrame(df_data, schema)
-        self.data.add_spark_df(df)
+        self.data.add_df(df)
         self.assertEqual(
             self.ref_pd_series,
             self.data.build(),
         )
 
-    def test_add_spark_df_with_df_contains_na(self) -> None:
+    def test_add_df_with_df_contains_na(self) -> None:
         schema = StructType(
             [
                 StructField("DimensionSeries", StringType(), True),
@@ -69,13 +69,18 @@ class TestDataSpark(DataWithAssets):
             (None, None),
         ]
         df = self.spark.createDataFrame(df_data, schema)
-        self.data.add_spark_df(df)
+        self.data.add_df(df)
         self.assertEqual(
             self.ref_pd_series_with_nan,
             self.data.build(),
         )
 
-    def test_add_spark_df_with_df_and_max_rows(self) -> None:
+    def test_add_df_with_df_and_with_include_index(self) -> None:
+        df = self.spark.createDataFrame([], StructType([]))
+        with self.assertRaises(ValueError):
+            self.data.add_df(df, include_index="Index")
+
+    def test_add_df_with_df_and_max_rows(self) -> None:
         max_rows = 2
 
         dimension_data = ["0", "1", "2", "3", "4"]
@@ -91,7 +96,7 @@ class TestDataSpark(DataWithAssets):
             ]
         )
         df = self.spark.createDataFrame(df_data, schema)
-        self.data.add_spark_df(df, max_rows=max_rows)
+        self.data.add_df(df, max_rows=max_rows)
 
         data_series = self.data.build()["data"]["series"]
 
