@@ -57,6 +57,17 @@ Documentation = "https://ipyvizzu.vizzuhq.com"
 Source = "https://github.com/vizzuhq/ipyvizzu"
 Tracker = "https://github.com/vizzuhq/ipyvizzu/issues"
 
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm.package-dir]
+ipyvizzu = "src/ipyvizzu"
+
+[tool.pdm.version]
+source = "file"
+path = "src/ipyvizzu/__version__.py"
+
 [tool.pdm.scripts]
 init_py = "pdm install"
 init_js = "npm install"
@@ -230,17 +241,6 @@ docs = [
     "mkdocs-coverage ; python_version >= '3.10'",
     "mike @ git+https://github.com/jimporter/mike.git@master",
 ]
-
-[build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
-
-[tool.pdm.package-dir]
-ipyvizzu = "src/ipyvizzu"
-
-[tool.pdm.version]
-source = "file"
-path = "src/ipyvizzu/__version__.py"
 
 [tool.pylint.messages-control]
 disable = ["fixme"]
