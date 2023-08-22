@@ -5535,7 +5535,7 @@ series_list = converter.get_series_list()</code></pre>
 
     def _get_sampled_df(self, df: "pandas.DataFrame") -&gt; "pandas.DataFrame":  # type: ignore
         row_number = len(df)
-        if row_number &gt; self._max_rows:
+        if self._is_max_rows_exceeded(row_number):
             frac = self._max_rows / row_number
             sampled_df = df.sample(
                 replace=False,

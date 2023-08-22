@@ -5480,6 +5480,17 @@ df = pd.DataFrame(data)
 
 data = Data()
 data.add_df(df)</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is a <code>max_rows</code> limit of <code>100k</code> for dataframes to prevent potential
+browser memory issues. If your dataframe surpasses this limit, it will be
+randomly sampled down. The default value can be adjusted via the <code>max_rows</code>
+parameter of the <code>add_df</code> function.</p>
+<pre class="highlight"><code class="language-python">df = pd.DataFrame(data)
+
+data = Data()
+data.add_df(df, max_rows=110000)</code></pre>
+</div>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
 <p><code>ipyvizzu</code> makes a difference between two types of data, numeric (measure)

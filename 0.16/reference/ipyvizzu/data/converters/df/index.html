@@ -5038,16 +5038,16 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ipyvizzu.data.converters.df.type_alias" class="md-nav__link">
-    type_alias
+  <a href="#ipyvizzu.data.converters.df.defaults" class="md-nav__link">
+    defaults
   </a>
   
-    <nav class="md-nav" aria-label="type_alias">
+    <nav class="md-nav" aria-label="defaults">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ipyvizzu.data.converters.df.type_alias.DataFrame" class="md-nav__link">
-    DataFrame
+  <a href="#ipyvizzu.data.converters.df.defaults.MAX_ROWS" class="md-nav__link">
+    MAX_ROWS
   </a>
   
 </li>
@@ -5091,16 +5091,16 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ipyvizzu.data.converters.df.defaults" class="md-nav__link">
-    defaults
+  <a href="#ipyvizzu.data.converters.df.type_alias" class="md-nav__link">
+    type_alias
   </a>
   
-    <nav class="md-nav" aria-label="defaults">
+    <nav class="md-nav" aria-label="type_alias">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ipyvizzu.data.converters.df.defaults.MAX_ROWS" class="md-nav__link">
-    MAX_ROWS
+  <a href="#ipyvizzu.data.converters.df.type_alias.DataFrame" class="md-nav__link">
+    DataFrame
   </a>
   
 </li>
@@ -5168,15 +5168,15 @@
 
 
 
-<h3 id="ipyvizzu.data.converters.df.type_alias" class="doc doc-heading">
-            <code>ipyvizzu.data.converters.df.type_alias</code>
+<h3 id="ipyvizzu.data.converters.df.defaults" class="doc doc-heading">
+            <code>ipyvizzu.data.converters.df.defaults</code>
 
 
 </h3>
 
   <div class="doc doc-contents ">
   
-      <p>This module provides typing aliases for data frame converter.</p>
+      <p>This module provides default values for data frame converter.</p>
 
   
 
@@ -5192,8 +5192,8 @@
 
 
 
-<h4 id="ipyvizzu.data.converters.df.type_alias.DataFrame" class="doc doc-heading">
-<code class="highlight language-python">DataFrame = TypeVar('DataFrame', Any, Any)</code>
+<h4 id="ipyvizzu.data.converters.df.defaults.MAX_ROWS" class="doc doc-heading">
+<code class="highlight language-python">MAX_ROWS: int = 100000</code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
@@ -5204,7 +5204,7 @@
 
   <div class="doc doc-contents ">
   
-      <p>Represents a data frame.</p>
+      <p>Default maximum number of rows.</p>
   </div>
 
 </div>
@@ -5299,6 +5299,17 @@ Each dictionary contains information about the series <code>name</code>, <code>v
     def _get_series_from_column(self, column_name: str) -&gt; Series:
         values, infer_type = self._convert_to_series_values_and_type(column_name)
         return self._convert_to_series(column_name, values, infer_type)
+
+    def _is_max_rows_exceeded(self, row_number: int) -&gt; bool:
+        if row_number &gt; self._max_rows:
+            warnings.warn(
+                "The number of rows of the dataframe exceeds the set `max_rows`, "
+                f"the dataframe is randomly sampled to the set value ({self._max_rows}).",
+                UserWarning,
+                stacklevel=2,
+            )
+            return True
+        return False
 
     @abstractmethod
     def _get_sampled_df(self, df: DataFrame) -&gt; DataFrame:
@@ -5415,15 +5426,15 @@ Each dictionary contains information about the series <code>name</code>, <code>v
 
 
 
-<h3 id="ipyvizzu.data.converters.df.defaults" class="doc doc-heading">
-            <code>ipyvizzu.data.converters.df.defaults</code>
+<h3 id="ipyvizzu.data.converters.df.type_alias" class="doc doc-heading">
+            <code>ipyvizzu.data.converters.df.type_alias</code>
 
 
 </h3>
 
   <div class="doc doc-contents ">
   
-      <p>This module provides default values for data frame converter.</p>
+      <p>This module provides typing aliases for data frame converter.</p>
 
   
 
@@ -5439,8 +5450,8 @@ Each dictionary contains information about the series <code>name</code>, <code>v
 
 
 
-<h4 id="ipyvizzu.data.converters.df.defaults.MAX_ROWS" class="doc doc-heading">
-<code class="highlight language-python">MAX_ROWS: int = 10000</code>
+<h4 id="ipyvizzu.data.converters.df.type_alias.DataFrame" class="doc doc-heading">
+<code class="highlight language-python">DataFrame = TypeVar('DataFrame', Any, Any)</code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
@@ -5451,7 +5462,7 @@ Each dictionary contains information about the series <code>name</code>, <code>v
 
   <div class="doc doc-contents ">
   
-      <p>Default maximum number of rows.</p>
+      <p>Represents a data frame.</p>
   </div>
 
 </div>

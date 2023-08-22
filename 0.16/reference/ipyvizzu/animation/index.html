@@ -6329,7 +6329,8 @@ It can build data option of the chart.</p>
                 The default measure value to fill empty values. Defaults to 0.
             default_dimension_value:
                 The default dimension value to fill empty values. Defaults to an empty string.
-            max_rows: The maximum number of rows to include in the converted series list.
+            max_rows:
+                The maximum number of rows to include in the converted series list.
                 If the `df` contains more rows,
                 a random sample of the given number of rows (approximately) will be taken.
             include_index:
@@ -6407,12 +6408,18 @@ It can build data option of the chart.</p>
             DeprecationWarning,
             stacklevel=2,
         )
-        self.add_df(data_frame, default_measure_value, default_dimension_value)
+        self.add_df(
+            data_frame,
+            default_measure_value,
+            default_dimension_value,
+            max_rows=sys.maxsize,
+        )
 
     def add_df_index(
         self,
         df: Optional[Union["pandas.DataFrame", "pandas.Series"]],  # type: ignore
         column_name: str = "Index",
+        max_rows: int = MAX_ROWS,
     ) -&gt; None:
         """
         Add the index of a `pandas` `DataFrame` as a series to an existing
@@ -6423,6 +6430,10 @@ It can build data option of the chart.</p>
                 The `pandas` `DataFrame` or `Series` from which to extract the index.
             column_name:
                 Name for the index column to add as a series.
+            max_rows:
+                The maximum number of rows to include in the converted series list.
+                If the `df` contains more rows,
+                a random sample of the given number of rows (approximately) will be taken.
 
         Example:
             Adding a data frame's index to a
@@ -6438,7 +6449,9 @@ It can build data option of the chart.</p>
         """
 
         if not isinstance(df, type(None)):
-            converter = PandasDataFrameConverter(df, include_index=column_name)
+            converter = PandasDataFrameConverter(
+                df, max_rows=max_rows, include_index=column_name
+            )
             series_list = converter.get_series_from_index()
             self.add_series_list(series_list)
 
@@ -6469,7 +6482,7 @@ It can build data option of the chart.</p>
             DeprecationWarning,
             stacklevel=2,
         )
-        self.add_df_index(data_frame, name)
+        self.add_df_index(data_frame, column_name=name, max_rows=sys.maxsize)
 
     def add_np_array(
         self,
@@ -7579,7 +7592,8 @@ data.add_df(df)</code></pre>
             The default measure value to fill empty values. Defaults to 0.
         default_dimension_value:
             The default dimension value to fill empty values. Defaults to an empty string.
-        max_rows: The maximum number of rows to include in the converted series list.
+        max_rows:
+            The maximum number of rows to include in the converted series list.
             If the `df` contains more rows,
             a random sample of the given number of rows (approximately) will be taken.
         include_index:
@@ -7739,7 +7753,12 @@ Use <a class="autorefs autorefs-internal" href="#ipyvizzu.animation.Data.add_df"
         DeprecationWarning,
         stacklevel=2,
     )
-    self.add_df(data_frame, default_measure_value, default_dimension_value)</code></pre>
+    self.add_df(
+        data_frame,
+        default_measure_value,
+        default_dimension_value,
+        max_rows=sys.maxsize,
+    )</code></pre>
           </details>
   </div>
 
@@ -7751,7 +7770,7 @@ Use <a class="autorefs autorefs-internal" href="#ipyvizzu.animation.Data.add_df"
 
 
 <h4 id="ipyvizzu.animation.Data.add_df_index" class="doc doc-heading">
-<code class="highlight language-python">add_df_index(df, column_name='Index')</code>
+<code class="highlight language-python">add_df_index(df, column_name='Index', max_rows=MAX_ROWS)</code>
 
 </h4>
 
@@ -7802,6 +7821,22 @@ Use <a class="autorefs autorefs-internal" href="#ipyvizzu.animation.Data.add_df"
                 <code>&#39;Index&#39;</code>
           </td>
         </tr>
+        <tr>
+          <td><code>max_rows</code></td>
+          <td>
+                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The maximum number of rows to include in the converted series list.
+If the <code>df</code> contains more rows,
+a random sample of the given number of rows (approximately) will be taken.</p>
+            </div>
+          </td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="ipyvizzu.data.converters.df.defaults.MAX_ROWS" href="../data/converters/df/defaults/#ipyvizzu.data.converters.df.defaults.MAX_ROWS">MAX_ROWS</a></code>
+          </td>
+        </tr>
     </tbody>
   </table>
 
@@ -7823,6 +7858,7 @@ data.add_df(df)</code></pre>
     self,
     df: Optional[Union["pandas.DataFrame", "pandas.Series"]],  # type: ignore
     column_name: str = "Index",
+    max_rows: int = MAX_ROWS,
 ) -&gt; None:
     """
     Add the index of a `pandas` `DataFrame` as a series to an existing
@@ -7833,6 +7869,10 @@ data.add_df(df)</code></pre>
             The `pandas` `DataFrame` or `Series` from which to extract the index.
         column_name:
             Name for the index column to add as a series.
+        max_rows:
+            The maximum number of rows to include in the converted series list.
+            If the `df` contains more rows,
+            a random sample of the given number of rows (approximately) will be taken.
 
     Example:
         Adding a data frame's index to a
@@ -7848,7 +7888,9 @@ data.add_df(df)</code></pre>
     """
 
     if not isinstance(df, type(None)):
-        converter = PandasDataFrameConverter(df, include_index=column_name)
+        converter = PandasDataFrameConverter(
+            df, max_rows=max_rows, include_index=column_name
+        )
         series_list = converter.get_series_from_index()
         self.add_series_list(series_list)</code></pre>
           </details>
@@ -7947,7 +7989,7 @@ Use <a class="autorefs autorefs-internal" href="#ipyvizzu.animation.Data.add_df_
         DeprecationWarning,
         stacklevel=2,
     )
-    self.add_df_index(data_frame, name)</code></pre>
+    self.add_df_index(data_frame, column_name=name, max_rows=sys.maxsize)</code></pre>
           </details>
   </div>
 
