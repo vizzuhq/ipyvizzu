@@ -68,7 +68,7 @@ class SparkDataFrameConverter(DataFrameConverter):
         self, df: "pyspark.sql.DataFrame"  # type: ignore
     ) -> "pyspark.sql.DataFrame":  # type: ignore
         row_number = df.count()
-        if row_number > self._max_rows:
+        if self._is_max_rows_exceeded(row_number):
             fraction = self._max_rows / row_number
             sample_df = df.sample(withReplacement=False, fraction=fraction, seed=42)
             return sample_df.limit(self._max_rows)
