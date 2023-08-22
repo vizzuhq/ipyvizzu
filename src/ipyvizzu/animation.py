@@ -3,6 +3,7 @@
 import abc
 import json
 from os import PathLike
+import sys
 from typing import List, Optional, Tuple, Type, Union
 import warnings
 
@@ -378,7 +379,12 @@ class Data(dict, AbstractAnimation):
             DeprecationWarning,
             stacklevel=2,
         )
-        self.add_df(data_frame, default_measure_value, default_dimension_value)
+        self.add_df(
+            data_frame,
+            default_measure_value,
+            default_dimension_value,
+            max_rows=sys.maxsize,
+        )
 
     def add_df_index(
         self,
@@ -447,7 +453,7 @@ class Data(dict, AbstractAnimation):
             DeprecationWarning,
             stacklevel=2,
         )
-        self.add_df_index(data_frame, name)
+        self.add_df_index(data_frame, column_name=name, max_rows=sys.maxsize)
 
     def add_np_array(
         self,
