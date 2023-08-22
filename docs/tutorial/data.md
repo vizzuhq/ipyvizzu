@@ -108,6 +108,19 @@ data = Data()
 data.add_df(df)
 ```
 
+!!! note
+    There is a `max_rows` limit of `100k` for dataframes to prevent potential
+    browser memory issues. If your dataframe surpasses this limit, it will be
+    randomly sampled down. The default value can be adjusted via the `max_rows`
+    parameter of the `add_df` function.
+
+    ```python
+    df = pd.DataFrame(data)
+
+    data = Data()
+    data.add_df(df, max_rows=110000)
+    ```
+
 !!! info
     `ipyvizzu` makes a difference between two types of data, numeric (measure)
     and not numeric (dimension). A column's `dtype` specifies that the column is
