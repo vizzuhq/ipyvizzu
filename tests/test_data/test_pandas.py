@@ -171,6 +171,14 @@ class TestDfIndex(DataWithAssets):
             self.data.build(),
         )
 
+    def test_add_df_index_with_df_and_max_rows(self) -> None:
+        df = self.in_pd_df_by_series_with_index
+        self.data.add_df_index(df, max_rows=2)
+        self.assertEqual(
+            self.ref_pd_df_by_series_only_index_max_rows,
+            self.data.build(),
+        )
+
 
 class TestDataFrameIndex(DataWithAssets):
     def test_add_data_frame_index_with_none(self) -> None:

@@ -22,6 +22,7 @@ class DataWithAssets(unittest.TestCase):
     in_pd_df_by_series_with_index: pd.DataFrame
     ref_pd_df_by_series_with_index: dict
     ref_pd_df_by_series_only_index: dict
+    ref_pd_df_by_series_only_index_max_rows: dict
     ref_pd_df_by_series_max_rows: dict
 
     in_pd_series_dimension: pd.Series
@@ -111,6 +112,16 @@ class DataWithAssets(unittest.TestCase):
             cls.ref_pd_df_by_series_only_index["data"][
                 "series"
             ] = cls.ref_pd_df_by_series_only_index["data"]["series"][:1]
+
+            cls.ref_pd_df_by_series_only_index_max_rows = copy.deepcopy(
+                cls.ref_pd_df_by_series_only_index
+            )
+            cls.ref_pd_df_by_series_only_index_max_rows["data"]["series"][0][
+                "values"
+            ] = [
+                "111",
+                "110",
+            ]
 
     @classmethod
     def set_up_pd_series(cls) -> None:
