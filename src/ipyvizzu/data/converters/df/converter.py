@@ -4,6 +4,7 @@ This module provides the `DataFrameConverter` abstract class.
 
 from abc import abstractmethod
 from typing import List
+import warnings
 
 from ipyvizzu.data.converters.converter import ToSeriesListConverter
 from ipyvizzu.data.converters.df.type_alias import DataFrame
@@ -48,6 +49,17 @@ class DataFrameConverter(ToSeriesListConverter):
     def _get_series_from_column(self, column_name: str) -> Series:
         values, infer_type = self._convert_to_series_values_and_type(column_name)
         return self._convert_to_series(column_name, values, infer_type)
+
+    def _is_max_rows_exceeded(self, row_number: int) -> bool:
+        if row_number > self._max_rows:
+            warnings.warn(
+                "The number of rows of the dataframe exceeds the set `max_rows`, "
+                f"the dataframe is randomly sampled to the set value ({self._max_rows}).",
+                UserWarning,
+                stacklevel=2,
+            )
+            return True
+        return False
 
     @abstractmethod
     def _get_sampled_df(self, df: DataFrame) -> DataFrame:

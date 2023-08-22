@@ -110,7 +110,7 @@ class PandasDataFrameConverter(DataFrameConverter):
 
     def _get_sampled_df(self, df: "pandas.DataFrame") -> "pandas.DataFrame":  # type: ignore
         row_number = len(df)
-        if row_number > self._max_rows:
+        if self._is_max_rows_exceeded(row_number):
             frac = self._max_rows / row_number
             sampled_df = df.sample(
                 replace=False,
