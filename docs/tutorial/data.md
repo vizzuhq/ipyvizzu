@@ -120,7 +120,7 @@ data.add_df(df)
     data = Data()
     data.add_df(df, max_rows=110000)
     ```
-    
+
 !!! info
     `ipyvizzu` makes a difference between two types of data, numeric (measure)
     and not numeric (dimension). A column's `dtype` specifies that the column is
