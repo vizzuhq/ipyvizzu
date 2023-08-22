@@ -299,7 +299,8 @@ class Data(dict, AbstractAnimation):
                 The default measure value to fill empty values. Defaults to 0.
             default_dimension_value:
                 The default dimension value to fill empty values. Defaults to an empty string.
-            max_rows: The maximum number of rows to include in the converted series list.
+            max_rows:
+                The maximum number of rows to include in the converted series list.
                 If the `df` contains more rows,
                 a random sample of the given number of rows (approximately) will be taken.
             include_index:
@@ -383,6 +384,7 @@ class Data(dict, AbstractAnimation):
         self,
         df: Optional[Union["pandas.DataFrame", "pandas.Series"]],  # type: ignore
         column_name: str = "Index",
+        max_rows: int = MAX_ROWS,
     ) -> None:
         """
         Add the index of a `pandas` `DataFrame` as a series to an existing
@@ -393,6 +395,10 @@ class Data(dict, AbstractAnimation):
                 The `pandas` `DataFrame` or `Series` from which to extract the index.
             column_name:
                 Name for the index column to add as a series.
+            max_rows:
+                The maximum number of rows to include in the converted series list.
+                If the `df` contains more rows,
+                a random sample of the given number of rows (approximately) will be taken.
 
         Example:
             Adding a data frame's index to a
@@ -408,7 +414,9 @@ class Data(dict, AbstractAnimation):
         """
 
         if not isinstance(df, type(None)):
-            converter = PandasDataFrameConverter(df, include_index=column_name)
+            converter = PandasDataFrameConverter(
+                df, max_rows=max_rows, include_index=column_name
+            )
             series_list = converter.get_series_from_index()
             self.add_series_list(series_list)
 
