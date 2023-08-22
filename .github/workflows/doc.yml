@@ -95,7 +95,7 @@ jobs:
         run: |
           workflow_data=$(curl -s -X GET \
             -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Authorization: Bearer ${{ secrets.VIZZUHQ_GITHUB_API }}" \
             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows")
           workflow_id=$(echo $workflow_data | jq -r '.workflows[] | select(.name == "CI-CD") | .id')
           echo "workflow_id=${workflow_id}" >> $GITHUB_OUTPUT
@@ -105,7 +105,7 @@ jobs:
         run: |
           run_data=$(curl -s -X GET \
             -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Authorization: Bearer ${{ secrets.VIZZUHQ_GITHUB_API }}" \
             "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/${{ steps.workflow_id.outputs.workflow_id }}/runs?branch=main")
           run_id=$(echo $run_data | jq -r '.workflow_runs[0].id')
           echo "run_id=${run_id}" >> $GITHUB_OUTPUT
