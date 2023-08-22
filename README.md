@@ -8,6 +8,7 @@
     · <a href="https://ipyvizzu.vizzuhq.com/latest/examples/">Examples</a>
     · <a href="https://ipyvizzu.vizzuhq.com/latest/reference/ipyvizzu/">Code reference</a>
     · <a href="https://github.com/vizzuhq/ipyvizzu">Repository</a>
+    · <a href="https://blog.vizzuhq.com">Blog</a>
   </p>
 </p>
 
