@@ -6,7 +6,7 @@ import numpy as np
 
 from ipyvizzu import Data
 
-from tests.utils.import_error import RaiseImportError
+from tests.utils.import_modifiers import RaiseImportError
 
 
 class TestDataNpArray(unittest.TestCase):
