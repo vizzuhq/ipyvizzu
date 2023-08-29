@@ -3,7 +3,7 @@
 import pandas as pd
 
 from tests.test_data import DataWithAssets
-from tests.utils.import_error import RaiseImportError
+from tests.utils.import_modifiers import RaiseImportError
 
 
 class TestDf(DataWithAssets):

@@ -2,12 +2,13 @@
 
 from contextlib import contextmanager
 import os
+from typing import Iterator
 
 
 class RaiseImportError:
     @classmethod
     @contextmanager
-    def module_name(cls, module_name: str):
+    def module_name(cls, module_name: str) -> Iterator[None]:
         original_value = os.environ.get("RAISE_IMPORT_ERROR", None)
         os.environ["RAISE_IMPORT_ERROR"] = module_name
         try:
