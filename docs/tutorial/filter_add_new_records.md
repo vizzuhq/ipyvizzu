@@ -37,9 +37,9 @@ from the chart.
                 "channels": {
                     "y": {"set": ["Popularity", "Kinds"]},
                     "x": {"set": ["Genres"]},
-                    "label": {"attach": ["Popularity"]},
+                    "color": {"set": ["Kinds"]},
+                    "label": {"set": ["Popularity"]},
                 },
-                "color": {"attach": ["Kinds"]},
             }
         )
     )
