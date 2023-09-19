@@ -35,9 +35,9 @@ still on the `color` channel.
                 "channels": {
                     "y": {"set": ["Kinds", "Popularity"]},
                     "x": {"set": ["Genres"]},
-                    "label": {"attach": ["Popularity"]},
+                    "color": {"set": ["Kinds"]},
+                    "label": {"set": ["Popularity"]},
                 },
-                "color": {"set": ["Kinds"]},
             }
         )
     )

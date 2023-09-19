@@ -176,6 +176,7 @@ package = editable
 deps =
     {[testenv]deps}
     openpyxl
+    packaging
 extras =
     {[testenv]extras}
     fugue
