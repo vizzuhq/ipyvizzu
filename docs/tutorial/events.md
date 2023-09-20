@@ -106,7 +106,7 @@ method.
 bgimage_draw_handler = """
 if (!window.bgImage) {
     window.bgImage = new Image();
-    // base64 converted image
+    /* base64 converted image */
     window.bgImage.src = 'data:image/gif;base64,R0lGODlhAwACAPIAAJLf6q/i7M/r8un0+PT6+/n8/QAAAAAAACH5BAQAAAAALAAAAAADAAIAAAMEWBMkkAA7';
 }
 event.renderingContext.drawImage(window.bgImage, 0, 0,
