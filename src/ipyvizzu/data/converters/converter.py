@@ -61,10 +61,11 @@ class ToSeriesListConverter(ABC):
         """
 
     def _convert_to_series(
-        self, name: Union[str, int], values: SeriesValues, infer_type: InferType
+        self, name: Union[str, int], values: SeriesValues, infer_type: InferType, unit = None
     ) -> Series:
         return {
             "name": str(name),
             "values": values,
             "type": infer_type.value,
+            "unit": unit,
         }

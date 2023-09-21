@@ -288,6 +288,7 @@ class Data(dict, AbstractAnimation):
         default_dimension_value: DimensionValue = NAN_DIMENSION,
         max_rows: int = MAX_ROWS,
         include_index: Optional[str] = None,
+        units = None,
     ) -> None:
         """
         Add a `pandas` `DataFrame`, `Series` or a `pyspark` `DataFrame`
@@ -331,6 +332,7 @@ class Data(dict, AbstractAnimation):
                 "default_dimension_value": default_dimension_value,
                 "max_rows": max_rows,
                 "include_index": include_index,
+                "units": units,
             }
             Converter: Union[
                 Type[PandasDataFrameConverter], Type[SparkDataFrameConverter]
