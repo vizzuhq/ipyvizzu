@@ -288,7 +288,7 @@ class Data(dict, AbstractAnimation):
         default_dimension_value: DimensionValue = NAN_DIMENSION,
         max_rows: int = MAX_ROWS,
         include_index: Optional[str] = None,
-        units = None,
+        units = {},
     ) -> None:
         """
         Add a `pandas` `DataFrame`, `Series` or a `pyspark` `DataFrame`
