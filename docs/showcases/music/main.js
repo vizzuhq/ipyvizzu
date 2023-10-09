@@ -1,9 +1,7 @@
 const csv2JsLoaded = import('../../assets/javascripts/csv2js.js')
-const vizzuLoaded = import('../../assets/javascripts/vizzu.js').then(
-  (vizzuUrl) => {
-    return import(vizzuUrl.default)
-  }
-)
+const vizzuLoaded = import('../../assets/javascripts/vizzu.js').then((vizzuUrl) => {
+  return import(vizzuUrl.default)
+})
 
 Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
   const Csv2Js = results[0].default

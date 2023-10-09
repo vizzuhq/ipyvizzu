@@ -33,8 +33,7 @@ class Csv2Js {
           const series = {
             name: key,
             type:
-              dimensions.includes(key) ||
-              (detectedDimensions[key] && !measures.includes(key))
+              dimensions.includes(key) || (detectedDimensions[key] && !measures.includes(key))
                 ? 'dimension'
                 : 'measure'
           }

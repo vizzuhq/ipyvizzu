@@ -47,36 +47,30 @@ const getStyleScriptLoaded = fs.readFile(`${genPath}/get_style_reference.mjs`, {
   encoding: 'utf8'
 })
 
-const pageModified = Promise.all([pageCreated, getStyleScriptLoaded]).then(
-  (results) => {
-    const page = results[0]
-    const getStyleScript = results[1]
-    return page.goto(`data:text/html,<script id="style" type="module">
+const pageModified = Promise.all([pageCreated, getStyleScriptLoaded]).then((results) => {
+  const page = results[0]
+  const getStyleScript = results[1]
+  return page.goto(`data:text/html,<script id="style" type="module">
 import Vizzu from "${Vizzu}";
 ${getStyleScript}
 </script>`)
-  }
-)
+})
 
-const selectorLoaded = Promise.all([pageCreated, pageModified]).then(
-  (results) => {
-    const page = results[0]
-    return page.waitForSelector('p')
-  }
-)
+const selectorLoaded = Promise.all([pageCreated, pageModified]).then((results) => {
+  const page = results[0]
+  return page.waitForSelector('p')
+})
 
 const element = Promise.all([pageCreated, selectorLoaded]).then((results) => {
   const page = results[0]
   return page.$('p')
 })
 
-const elementValue = Promise.all([browserLaunched, pageCreated, element]).then(
-  (results) => {
-    const page = results[1]
-    const element = results[2]
-    return page.evaluate((el) => el.textContent, element)
-  }
-)
+const elementValue = Promise.all([browserLaunched, pageCreated, element]).then((results) => {
+  const page = results[1]
+  const element = results[2]
+  return page.evaluate((el) => el.textContent, element)
+})
 
 Promise.all([browserLaunched, elementValue]).then((results) => {
   const browser = results[0]

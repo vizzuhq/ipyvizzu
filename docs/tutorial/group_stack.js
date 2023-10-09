@@ -41,8 +41,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
         (chart) => {
           return chart.animate({
             config: {
-              title:
-                '...then you can add it to another channel = group elements'
+              title: '...then you can add it to another channel = group elements'
             }
           })
         },

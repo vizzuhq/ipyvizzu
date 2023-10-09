@@ -11,8 +11,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
   }
 
   const labelDrawHandler = (event) => {
-    event.renderingContext.fillStyle =
-      event.data.text === 'Jazz' ? 'red' : 'gray'
+    event.renderingContext.fillStyle = event.data.text === 'Jazz' ? 'red' : 'gray'
   }
 
   const logoDrawHandler = (event) => {
@@ -24,13 +23,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
     'data:image/gif;base64,R0lGODlhAwACAPIAAJLf6q/i7M/r8un0+PT6+/n8/QAAAAAAACH5BAQAAAAALAAAAAADAAIAAAMEWBMkkAA7'
 
   const backgroundImageHandler = (event) => {
-    event.renderingContext.drawImage(
-      image,
-      0,
-      0,
-      event.data.rect.size.x,
-      event.data.rect.size.y
-    )
+    event.renderingContext.drawImage(image, 0, 0, event.data.rect.size.x, event.data.rect.size.y)
     event.preventDefault()
   }
 

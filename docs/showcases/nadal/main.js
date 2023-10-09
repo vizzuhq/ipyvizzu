@@ -1,9 +1,7 @@
 const csv2JsLoaded = import('../../assets/javascripts/csv2js.js')
-const vizzuLoaded = import('../../assets/javascripts/vizzu.js').then(
-  (vizzuUrl) => {
-    return import(vizzuUrl.default)
-  }
-)
+const vizzuLoaded = import('../../assets/javascripts/vizzu.js').then((vizzuUrl) => {
+  return import(vizzuUrl.default)
+})
 
 Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
   const Csv2Js = results[0].default
@@ -47,8 +45,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
               borderWidth: 3,
               borderOpacity: 0,
               colorPalette: '#1EB55FFF #AD0000FF #AEAEAEFF',
-              colorGradient:
-                '#AEAEAEFF 0.000000, #AD0000FF 0.500000, #1EB55FFF 1.000000'
+              colorGradient: '#AEAEAEFF 0.000000, #AD0000FF 0.500000, #1EB55FFF 1.000000'
             },
             paddingLeft: 20,
             paddingBottom: '3.5em',
@@ -172,8 +169,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
             plot: {
               marker: {
                 borderWidth: 0,
-                colorPalette:
-                  '#C6652A #CDA02E #47B0FF #329564 #5C88F2 #91A9B5 #DBC4B1',
+                colorPalette: '#C6652A #CDA02E #47B0FF #329564 #5C88F2 #91A9B5 #DBC4B1',
                 maxLightness: null,
                 minLightness: null,
                 label: {
@@ -226,11 +222,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
       chart.animate({
         data: {
           filter: (record) => {
-            return (
-              record.Year === 'Total' &&
-              record.Round === 'GS' &&
-              record.Top === '1'
-            )
+            return record.Year === 'Total' && record.Round === 'GS' && record.Top === '1'
           }
         },
         config: {
@@ -269,11 +261,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
         {
           data: {
             filter: (record) => {
-              return (
-                record.Year === 'Total' &&
-                record.Round === 'GS' &&
-                record.Top === '1'
-              )
+              return record.Year === 'Total' && record.Round === 'GS' && record.Top === '1'
             }
           },
           config: {

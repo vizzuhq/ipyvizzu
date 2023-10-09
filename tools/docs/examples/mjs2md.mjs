@@ -62,17 +62,12 @@ ${this.description}
 
     if (chart.data && chart.data.filter) {
       if (JSON.stringify(chart.data) !== JSON.stringify(this.data)) {
-        const fnCode = chart.data.filter
-          .toString()
-          .replace(/\s*record\s*=>\s*/, '')
+        const fnCode = chart.data.filter.toString().replace(/\s*record\s*=>\s*/, '')
         params.push(`data.filter("""\n${fnCode.replace(/^\s*/gm, '')}\n""")`)
       }
     }
     if (chart.config) {
-      if (
-        typeof chart.config === 'string' &&
-        chart.config.startsWith('Config.')
-      ) {
+      if (typeof chart.config === 'string' && chart.config.startsWith('Config.')) {
         params.push(chart.config)
       } else {
         params.push('Config(' + JSON.stringify(chart.config, null, 2) + ')')
@@ -137,14 +132,7 @@ Promise.all([inputFileLoaded, dataFileLoaded]).then((results) => {
     title = module.title
   }
   const data = results[1][dataName]
-  const chart = new VizzuMock(
-    title,
-    description,
-    data,
-    assetsPath,
-    dataFileName,
-    dataName
-  )
+  const chart = new VizzuMock(title, description, data, assetsPath, dataFileName, dataName)
   for (const testStep of module.default) {
     testStep(chart)
   }

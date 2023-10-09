@@ -44,9 +44,7 @@ class IpyVizzu {
 
   createChart(element, chartId, vizzulib, divWidth, divHeight) {
     this.elements[chartId] = document.createElement('div')
-    this.elements[
-      chartId
-    ].style.cssText = `width: ${divWidth}; height: ${divHeight};`
+    this.elements[chartId].style.cssText = `width: ${divWidth}; height: ${divHeight};`
     this.loaded[chartId] = import(vizzulib)
     this.charts[chartId] = this.loaded[chartId].then((Vizzu) => {
       this.libs[chartId] = Vizzu.default
@@ -56,15 +54,7 @@ class IpyVizzu {
     this._moveHere(chartId, element)
   }
 
-  animate(
-    element,
-    chartId,
-    animId,
-    displayTarget,
-    scrollEnabled,
-    getChartTarget,
-    chartAnimOpts
-  ) {
+  animate(element, chartId, animId, displayTarget, scrollEnabled, getChartTarget, chartAnimOpts) {
     if (displayTarget === 'end') this._moveHere(chartId, element)
     this.controls[chartId] = this.charts[chartId]
     this.charts[chartId] = this.charts[chartId].then((chart) => {
@@ -155,21 +145,15 @@ class IpyVizzu {
   }
 
   static _hide(element) {
-    document.getElementById(
-      element.selector.substring(1)
-    ).parentNode.style.display = 'none'
+    document.getElementById(element.selector.substring(1)).parentNode.style.display = 'none'
   }
 
   static _display(prevElement, element) {
     if (prevElement.parentNode) {
       prevElement.parentNode.style.display = 'none'
     }
-    document.getElementById(
-      element.selector.substring(1)
-    ).parentNode.style.display = 'flex'
-    document.getElementById(
-      element.selector.substring(1)
-    ).parentNode.style.margin = 'auto'
+    document.getElementById(element.selector.substring(1)).parentNode.style.display = 'flex'
+    document.getElementById(element.selector.substring(1)).parentNode.style.margin = 'auto'
   }
 
   static changeAnalyticsTo(analytics) {

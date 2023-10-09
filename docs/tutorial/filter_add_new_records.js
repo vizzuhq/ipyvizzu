@@ -25,16 +25,14 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
         (chart) => {
           return chart.animate({
             data: {
-              filter: (record) =>
-                record.Genres === 'Pop' || record.Genres === 'Metal'
+              filter: (record) => record.Genres === 'Pop' || record.Genres === 'Metal'
             }
           })
         }
       ]
     },
     {
-      initDataFilter: (record) =>
-        record.Genres === 'Pop' || record.Genres === 'Metal',
+      initDataFilter: (record) => record.Genres === 'Pop' || record.Genres === 'Metal',
       anims: [
         (chart) => {
           return chart.animate({
@@ -47,8 +45,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
           return chart.animate({
             data: {
               filter: (record) =>
-                (record.Genres === 'Pop' || record.Genres === 'Metal') &&
-                record.Kinds === 'Smooth'
+                (record.Genres === 'Pop' || record.Genres === 'Metal') && record.Kinds === 'Smooth'
             }
           })
         }
@@ -56,8 +53,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
     },
     {
       initDataFilter: (record) =>
-        (record.Genres === 'Pop' || record.Genres === 'Metal') &&
-        record.Kinds === 'Smooth',
+        (record.Genres === 'Pop' || record.Genres === 'Metal') && record.Kinds === 'Smooth',
       anims: [
         (chart) => {
           return chart.animate({

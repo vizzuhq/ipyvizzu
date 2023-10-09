@@ -12,8 +12,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
         (chart) => {
           return chart.animate({
             config: {
-              title:
-                'Jumping from 0% to 50% progress at the begining of the animation',
+              title: 'Jumping from 0% to 50% progress at the begining of the animation',
               channels: {
                 y: { set: ['Popularity', 'Kinds'] },
                 x: { set: 'Genres' },

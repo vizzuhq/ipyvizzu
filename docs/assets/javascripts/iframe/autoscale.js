@@ -9,9 +9,7 @@ if (parent) {
     const scale = availableWidth / 1280
     const translateY = (100 * (scale - 1)) / 2
     const translateX = (100 * (parent.clientWidth / 1280 - 1)) / 2
-    const transform = `translate(${translateX}%, ${translateY}%) scale(${
-      scale - 0.01
-    })`
+    const transform = `translate(${translateX}%, ${translateY}%) scale(${scale - 0.01})`
     zoomElement.style.transform = transform
     zoomElement.style.height = `${720 * scale}px`
     if (window.autoAdjustHeight) {
