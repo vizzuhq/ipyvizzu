@@ -142,7 +142,7 @@ jobs:
           git config --global user.email "${{ env.GIT_USER_EMAIL }}"
         env:
           GIT_USER_NAME: David Vegh
-          GIT_USER_EMAIL: david.andras.vegh+github@gmail.com
+          GIT_USER_EMAIL: veghdev@gmail.com
 
       - name: Deploy documentation
         run: |
