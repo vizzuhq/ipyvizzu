@@ -21,8 +21,11 @@
     "puppeteer": "^19.7.0"
   },
   "prettier": {
+    "semi": false,
+    "tabWidth": 2,
+    "singleQuote": true,
     "printWidth": 80,
-    "endOfLine": "auto"
+    "trailingComma": "none"
   },
   "eslintConfig": {
     "env": {
@@ -32,6 +35,9 @@
     "extends": [
       "standard",
       "prettier"
-    ]
+    ],
+    "parserOptions": {
+      "ecmaVersion": "latest"
+    }
   }
 }
