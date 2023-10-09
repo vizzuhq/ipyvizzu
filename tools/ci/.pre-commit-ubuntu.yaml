@@ -5,7 +5,7 @@ repos:
         name: format
         stages: [commit]
         entry: .venv/bin/python
-        args: ["-m", "pdm", "run", "format"]
+        args: ['-m', 'pdm', 'run', 'format']
         language: system
         pass_filenames: false
 
@@ -13,7 +13,7 @@ repos:
         name: format
         stages: [push]
         entry: .venv/bin/python
-        args: ["-m", "pdm", "run", "format"]
+        args: ['-m', 'pdm', 'run', 'format']
         language: system
         pass_filenames: false
 
@@ -21,7 +21,7 @@ repos:
         name: lint
         stages: [push]
         entry: .venv/bin/python
-        args: ["-m", "pdm", "run", "lint"]
+        args: ['-m', 'pdm', 'run', 'lint']
         language: system
         pass_filenames: false
 
@@ -29,7 +29,7 @@ repos:
         name: type
         stages: [push]
         entry: .venv/bin/python
-        args: ["-m", "pdm", "run", "type"]
+        args: ['-m', 'pdm', 'run', 'type']
         language: system
         pass_filenames: false
 
@@ -37,6 +37,6 @@ repos:
         name: test
         stages: [push]
         entry: .venv/bin/python
-        args: ["-m", "pdm", "run", "test"]
+        args: ['-m', 'pdm', 'run', 'test']
         language: system
         pass_filenames: false
