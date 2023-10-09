@@ -54,7 +54,6 @@ class GenExamples:
 
     datafile_re = re.compile(r"test_data\/(\w*).mjs")
     dataname_re = re.compile(r"import\s*\{\s*(.*)\s*}")
-    title_re = re.compile(r'title\:\s"(.*)"')
 
     def __init__(self, name: str, src: Path, dst: str) -> None:
         self._name = name

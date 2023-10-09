@@ -101,7 +101,7 @@ jobs:
         if: steps.cache_dev_py_ubuntu20.outputs.cache-hit != 'true'
         uses: actions/setup-python@v4
         with:
-          python-version: "3.6"
+          python-version: '3.6'
 
       - name: Init dev-py environment
         if: steps.cache_dev_py_ubuntu20.outputs.cache-hit != 'true'

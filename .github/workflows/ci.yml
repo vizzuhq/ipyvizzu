@@ -116,7 +116,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        python-version: ['3.7', '3.8', '3.9', '3.10', '3.11']
 
     steps:
       - name: Checkout repo
@@ -157,7 +157,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        python-version: ["3.6"]
+        python-version: ['3.6']
 
     steps:
       - name: Checkout repo
@@ -180,7 +180,7 @@ jobs:
       - name: Set up Python 3.6
         uses: actions/setup-python@v4
         with:
-          python-version: "3.6"
+          python-version: '3.6'
 
       - name: Test
         run: |
