@@ -136,7 +136,7 @@ class Chart:
     def _display_ipyvizzujs(self) -> None:
         ipyvizzurawjs = pkgutil.get_data(__name__, "templates/ipyvizzu.js")
         ipyvizzujs = ipyvizzurawjs.decode("utf-8").replace(  # type: ignore
-            '"__version__"', f'"{__version__}"'
+            "'__version__'", f"'{__version__}'"
         )
         self._display(DisplayTemplate.IPYVIZZUJS.format(ipyvizzujs=ipyvizzujs))
 
