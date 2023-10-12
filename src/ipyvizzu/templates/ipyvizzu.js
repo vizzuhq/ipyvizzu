@@ -1,4 +1,4 @@
-class IpyVizzu {
+var Ipyvizzu = class IpyVizzu {
   static version = '__version__'
   static analytics = undefined
   static inhibitScroll = false
