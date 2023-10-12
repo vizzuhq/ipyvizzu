@@ -67,17 +67,11 @@
   content="ipyvizzu - Build animated charts in Jupyter Notebook and similar environments with a simple Python syntax"
 />
 <meta property="og:url" content="https://ipyvizzu.vizzuhq.com/latest/reference/ipyvizzu/data/converters/pandas/" />
-<meta
-  property="og:image"
-  content="https://vizzuhq.com/images/logo/vizzu-twitter.png"
-/>
+<meta property="og:image" content="https://vizzuhq.com/images/logo/vizzu-twitter.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta
-  property="og:video"
-  content="https://vizzuhq.com/images/logo/social-image-big.mp4"
-/>
+<meta property="og:video" content="https://vizzuhq.com/images/logo/social-image-big.mp4" />
 <meta name="twitter:title" content="ipyvizzu" />
 <meta
   name="twitter:description"
@@ -86,10 +80,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@VizzuHQ" />
 <meta name="twitter:creator" content="@VizzuHQ" />
-<meta
-  name="twitter:image"
-  content="https://vizzuhq.com/images/logo/vizzu-twitter.png"
-/>
+<meta name="twitter:image" content="https://vizzuhq.com/images/logo/vizzu-twitter.png" />
 
   </head>
   
@@ -5038,6 +5029,33 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#ipyvizzu.data.converters.pandas.protocol" class="md-nav__link">
+    protocol
+  </a>
+  
+    <nav class="md-nav" aria-label="protocol">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ipyvizzu.data.converters.pandas.protocol.PandasDataFrame" class="md-nav__link">
+    PandasDataFrame
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ipyvizzu.data.converters.pandas.protocol.PandasSeries" class="md-nav__link">
+    PandasSeries
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ipyvizzu.data.converters.pandas.converter" class="md-nav__link">
     converter
   </a>
@@ -5069,33 +5087,6 @@
         
       </ul>
     </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ipyvizzu.data.converters.pandas.protocol" class="md-nav__link">
-    protocol
-  </a>
-  
-    <nav class="md-nav" aria-label="protocol">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ipyvizzu.data.converters.pandas.protocol.PandasDataFrame" class="md-nav__link">
-    PandasDataFrame
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ipyvizzu.data.converters.pandas.protocol.PandasSeries" class="md-nav__link">
-    PandasSeries
-  </a>
   
 </li>
         
@@ -5157,6 +5148,150 @@
 
 
 
+
+<div class="doc doc-object doc-module">
+
+
+
+<h3 id="ipyvizzu.data.converters.pandas.protocol" class="doc doc-heading">
+            <code>ipyvizzu.data.converters.pandas.protocol</code>
+
+
+</h3>
+
+  <div class="doc doc-contents ">
+  
+      <p>This module provides protocol classes for pandas data frame converter.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h4 id="ipyvizzu.data.converters.pandas.protocol.PandasDataFrame" class="doc doc-heading">
+          <code>PandasDataFrame</code>
+
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="typing_extensions.Protocol">Protocol</span></code></p>
+
+  
+      <p>Represents a pandas DataFrame Protocol.</p>
+
+            <details class="quote">
+              <summary>Source code in <code>src/ipyvizzu/data/converters/pandas/protocol.py</code></summary>
+              <pre class="highlight"><code class="language-python">@runtime_checkable
+class PandasDataFrame(Protocol):
+    """
+    Represents a pandas DataFrame Protocol.
+    """
+
+    # pylint: disable=too-few-public-methods
+
+    index: Any
+    columns: Sequence[str]
+    sample: Callable[..., Any]
+    __len__: Callable[[], int]
+    __getitem__: Callable[[Any], Any]</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h4 id="ipyvizzu.data.converters.pandas.protocol.PandasSeries" class="doc doc-heading">
+          <code>PandasSeries</code>
+
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="typing_extensions.Protocol">Protocol</span></code></p>
+
+  
+      <p>Represents a pandas Series Protocol.</p>
+
+            <details class="quote">
+              <summary>Source code in <code>src/ipyvizzu/data/converters/pandas/protocol.py</code></summary>
+              <pre class="highlight"><code class="language-python">@runtime_checkable
+class PandasSeries(Protocol):
+    """
+    Represents a pandas Series Protocol.
+    """
+
+    # pylint: disable=too-few-public-methods
+
+    index: Any
+    values: Any
+    dtype: Any
+    __len__: Callable[[], int]
+    __getitem__: Callable[[Any], Any]</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
 
 <div class="doc doc-object doc-module">
 
@@ -5579,150 +5714,6 @@ if <code>include_index</code> is provided.</p>
   </div>
 
 </div>
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-module">
-
-
-
-<h3 id="ipyvizzu.data.converters.pandas.protocol" class="doc doc-heading">
-            <code>ipyvizzu.data.converters.pandas.protocol</code>
-
-
-</h3>
-
-  <div class="doc doc-contents ">
-  
-      <p>This module provides protocol classes for pandas data frame converter.</p>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-class">
-
-
-
-<h4 id="ipyvizzu.data.converters.pandas.protocol.PandasDataFrame" class="doc doc-heading">
-          <code>PandasDataFrame</code>
-
-
-</h4>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="typing_extensions.Protocol">Protocol</span></code></p>
-
-  
-      <p>Represents a pandas DataFrame Protocol.</p>
-
-            <details class="quote">
-              <summary>Source code in <code>src/ipyvizzu/data/converters/pandas/protocol.py</code></summary>
-              <pre class="highlight"><code class="language-python">@runtime_checkable
-class PandasDataFrame(Protocol):
-    """
-    Represents a pandas DataFrame Protocol.
-    """
-
-    # pylint: disable=too-few-public-methods
-
-    index: Any
-    columns: Sequence[str]
-    sample: Callable[..., Any]
-    __len__: Callable[[], int]
-    __getitem__: Callable[[Any], Any]</code></pre>
-            </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-<h4 id="ipyvizzu.data.converters.pandas.protocol.PandasSeries" class="doc doc-heading">
-          <code>PandasSeries</code>
-
-
-</h4>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="typing_extensions.Protocol">Protocol</span></code></p>
-
-  
-      <p>Represents a pandas Series Protocol.</p>
-
-            <details class="quote">
-              <summary>Source code in <code>src/ipyvizzu/data/converters/pandas/protocol.py</code></summary>
-              <pre class="highlight"><code class="language-python">@runtime_checkable
-class PandasSeries(Protocol):
-    """
-    Represents a pandas Series Protocol.
-    """
-
-    # pylint: disable=too-few-public-methods
-
-    index: Any
-    values: Any
-    dtype: Any
-    __len__: Callable[[], int]
-    __getitem__: Callable[[Any], Any]</code></pre>
-            </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
 
 
 

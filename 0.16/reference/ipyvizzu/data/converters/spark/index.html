@@ -67,17 +67,11 @@
   content="ipyvizzu - Build animated charts in Jupyter Notebook and similar environments with a simple Python syntax"
 />
 <meta property="og:url" content="https://ipyvizzu.vizzuhq.com/latest/reference/ipyvizzu/data/converters/spark/" />
-<meta
-  property="og:image"
-  content="https://vizzuhq.com/images/logo/vizzu-twitter.png"
-/>
+<meta property="og:image" content="https://vizzuhq.com/images/logo/vizzu-twitter.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta
-  property="og:video"
-  content="https://vizzuhq.com/images/logo/social-image-big.mp4"
-/>
+<meta property="og:video" content="https://vizzuhq.com/images/logo/social-image-big.mp4" />
 <meta name="twitter:title" content="ipyvizzu" />
 <meta
   name="twitter:description"
@@ -86,10 +80,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@VizzuHQ" />
 <meta name="twitter:creator" content="@VizzuHQ" />
-<meta
-  name="twitter:image"
-  content="https://vizzuhq.com/images/logo/vizzu-twitter.png"
-/>
+<meta name="twitter:image" content="https://vizzuhq.com/images/logo/vizzu-twitter.png" />
 
   </head>
   
@@ -5038,26 +5029,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#ipyvizzu.data.converters.spark.converter" class="md-nav__link">
-    converter
-  </a>
-  
-    <nav class="md-nav" aria-label="converter">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ipyvizzu.data.converters.spark.converter.SparkDataFrameConverter" class="md-nav__link">
-    SparkDataFrameConverter
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#ipyvizzu.data.converters.spark.protocol" class="md-nav__link">
     protocol
   </a>
@@ -5068,6 +5039,26 @@
           <li class="md-nav__item">
   <a href="#ipyvizzu.data.converters.spark.protocol.SparkDataFrame" class="md-nav__link">
     SparkDataFrame
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ipyvizzu.data.converters.spark.converter" class="md-nav__link">
+    converter
+  </a>
+  
+    <nav class="md-nav" aria-label="converter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ipyvizzu.data.converters.spark.converter.SparkDataFrameConverter" class="md-nav__link">
+    SparkDataFrameConverter
   </a>
   
 </li>
@@ -5130,6 +5121,97 @@
 
 
 
+
+<div class="doc doc-object doc-module">
+
+
+
+<h3 id="ipyvizzu.data.converters.spark.protocol" class="doc doc-heading">
+            <code>ipyvizzu.data.converters.spark.protocol</code>
+
+
+</h3>
+
+  <div class="doc doc-contents ">
+  
+      <p>This module provides protocol classes for pandas data frame converter.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h4 id="ipyvizzu.data.converters.spark.protocol.SparkDataFrame" class="doc doc-heading">
+          <code>SparkDataFrame</code>
+
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="typing_extensions.Protocol">Protocol</span></code></p>
+
+  
+      <p>Represents a pyspark DataFrame Protocol.</p>
+
+            <details class="quote">
+              <summary>Source code in <code>src/ipyvizzu/data/converters/spark/protocol.py</code></summary>
+              <pre class="highlight"><code class="language-python">@runtime_checkable
+class SparkDataFrame(Protocol):
+    """
+    Represents a pyspark DataFrame Protocol.
+    """
+
+    # pylint: disable=too-few-public-methods
+
+    columns: Sequence[str]
+    count: Callable[..., int]
+    sample: Callable[..., Any]
+    limit: Callable[..., Any]
+    select: Callable[..., Any]
+    withColumn: Callable[..., Any]
+    rdd: Any</code></pre>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
 
 <div class="doc doc-object doc-module">
 
@@ -5360,97 +5442,6 @@ series_list = converter.get_series_list()</code></pre>
             .rdd
         )
         return df_rdd.flatMap(list).collect()</code></pre>
-            </details>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-
-
-
-  </div>
-
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-module">
-
-
-
-<h3 id="ipyvizzu.data.converters.spark.protocol" class="doc doc-heading">
-            <code>ipyvizzu.data.converters.spark.protocol</code>
-
-
-</h3>
-
-  <div class="doc doc-contents ">
-  
-      <p>This module provides protocol classes for pandas data frame converter.</p>
-
-  
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-class">
-
-
-
-<h4 id="ipyvizzu.data.converters.spark.protocol.SparkDataFrame" class="doc doc-heading">
-          <code>SparkDataFrame</code>
-
-
-</h4>
-
-
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><span title="typing_extensions.Protocol">Protocol</span></code></p>
-
-  
-      <p>Represents a pyspark DataFrame Protocol.</p>
-
-            <details class="quote">
-              <summary>Source code in <code>src/ipyvizzu/data/converters/spark/protocol.py</code></summary>
-              <pre class="highlight"><code class="language-python">@runtime_checkable
-class SparkDataFrame(Protocol):
-    """
-    Represents a pyspark DataFrame Protocol.
-    """
-
-    # pylint: disable=too-few-public-methods
-
-    columns: Sequence[str]
-    count: Callable[..., int]
-    sample: Callable[..., Any]
-    limit: Callable[..., Any]
-    select: Callable[..., Any]
-    withColumn: Callable[..., Any]
-    rdd: Any</code></pre>
             </details>
 
   
