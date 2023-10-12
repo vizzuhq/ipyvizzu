@@ -1,9 +1,9 @@
-if ('__version__' !== window.IpyVizzu?.version) {
+if (window.IpyVizzu?.version !== '__version__') {
   class IpyVizzu {
     static version = '__version__'
     static analytics = undefined
     static inhibitScroll = false
-  
+
     constructor() {
       document.addEventListener(
         'wheel',
@@ -26,23 +26,23 @@ if ('__version__' !== window.IpyVizzu?.version) {
         },
         true
       )
-  
+
       this.elements = {}
       this.charts = {}
       this.controls = {}
-  
+
       this.storage = {}
       this.displays = {}
-  
+
       this.events = {}
       this.loaded = {}
       this.libs = {}
     }
-  
+
     static clearInhibitScroll(element) {
       IpyVizzu.inhibitScroll = false
     }
-  
+
     createChart(element, chartId, vizzulib, divWidth, divHeight) {
       this.elements[chartId] = document.createElement('div')
       this.elements[chartId].style.cssText = `width: ${divWidth}; height: ${divHeight};`
@@ -54,7 +54,7 @@ if ('__version__' !== window.IpyVizzu?.version) {
       })
       this._moveHere(chartId, element)
     }
-  
+
     animate(element, chartId, animId, displayTarget, scrollEnabled, getChartTarget, chartAnimOpts) {
       if (displayTarget === 'end') this._moveHere(chartId, element)
       this.controls[chartId] = this.charts[chartId]
@@ -77,21 +77,21 @@ if ('__version__' !== window.IpyVizzu?.version) {
         return chart
       })
     }
-  
+
     store(element, chartId, id) {
       this.charts[chartId] = this.charts[chartId].then((chart) => {
         this.storage[id] = chart.store()
         return chart
       })
     }
-  
+
     feature(element, chartId, name, enabled) {
       this.charts[chartId] = this.charts[chartId].then((chart) => {
         chart.feature(name, enabled)
         return chart
       })
     }
-  
+
     setEvent(element, chartId, id, event, handler) {
       this.charts[chartId] = this.charts[chartId].then((chart) => {
         this.events[id] = handler
@@ -99,21 +99,21 @@ if ('__version__' !== window.IpyVizzu?.version) {
         return chart
       })
     }
-  
+
     clearEvent(element, chartId, id, event) {
       this.charts[chartId] = this.charts[chartId].then((chart) => {
         chart.off(event, this.events[id])
         return chart
       })
     }
-  
+
     log(element, chartId, chartProperty) {
       this.charts[chartId] = this.charts[chartId].then((chart) => {
         console.log(chart[chartProperty])
         return chart
       })
     }
-  
+
     control(element, method, prevId, lastId, ...params) {
       this.controls[prevId].then(() => {
         this.controls[lastId].activated.then((control) => {
@@ -131,11 +131,11 @@ if ('__version__' !== window.IpyVizzu?.version) {
         })
       })
     }
-  
+
     _moveHere(chartId, element) {
       element.append(this.elements[chartId])
     }
-  
+
     _scroll(chartId, enabled) {
       if (!IpyVizzu.inhibitScroll && enabled) {
         this.elements[chartId].scrollIntoView({
@@ -144,11 +144,11 @@ if ('__version__' !== window.IpyVizzu?.version) {
         })
       }
     }
-  
+
     static _hide(element) {
       document.getElementById(element.selector.substring(1)).parentNode.style.display = 'none'
     }
-  
+
     static _display(prevElement, element) {
       if (prevElement.parentNode) {
         prevElement.parentNode.style.display = 'none'
@@ -156,7 +156,7 @@ if ('__version__' !== window.IpyVizzu?.version) {
       document.getElementById(element.selector.substring(1)).parentNode.style.display = 'flex'
       document.getElementById(element.selector.substring(1)).parentNode.style.margin = 'auto'
     }
-  
+
     static changeAnalyticsTo(analytics) {
       if (IpyVizzu.analytics !== analytics) {
         console.log('ipyvizzu gather usage stats:', analytics)
@@ -168,7 +168,7 @@ if ('__version__' !== window.IpyVizzu?.version) {
         IpyVizzu._removeScript('ipyvizzu-analytics-head')
       }
     }
-  
+
     static _addHeadScript() {
       const scriptId = 'ipyvizzu-analytics-head'
       if (!IpyVizzu._isScriptAppended(scriptId)) {
@@ -180,17 +180,17 @@ if ('__version__' !== window.IpyVizzu?.version) {
         document.getElementsByTagName('head')[0].appendChild(script)
       }
     }
-  
+
     static _isScriptAppended(id) {
       return document.querySelector(`script[id="${id}"]`) !== null
     }
-  
+
     static _removeScript(id) {
       const script = document.getElementById(id)
       if (script) script.remove()
     }
   }
-  
+
   window.IpyVizzu = IpyVizzu
   console.log(`ipyvizzu ${IpyVizzu.version}`)
   window.ipyvizzu = new window.IpyVizzu()
