@@ -1,58 +1,58 @@
 name: Release
 
 on:
-  release:
-    types: [published]
-  workflow_call:
+    release:
+        types: [published]
+    workflow_call:
 
 jobs:
-  publish_pkg:
-    if: ${{ (github.event_name == 'release' && github.event.action == 'published') }}
+    publish_pkg:
+        if: ${{ (github.event_name == 'release' && github.event.action == 'published') }}
 
-    runs-on: ubuntu-22.04
+        runs-on: ubuntu-22.04
 
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 1
 
-      - name: Cache dev-py environment
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
+            - name: Cache dev-py environment
+              uses: actions/cache@v3
+              with:
+                  path: .venv
+                  key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
-      - name: Get workflow ID
-        id: workflow_id
-        run: |
-          workflow_data=$(curl -s -X GET \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: Bearer ${{ secrets.VIZZUHQ_GITHUB_API }}" \
-            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows")
-          workflow_id=$(echo $workflow_data | jq -r '.workflows[] | select(.name == "CI-CD") | .id')
-          echo "workflow_id=${workflow_id}" >> $GITHUB_OUTPUT
+            - name: Get workflow ID
+              id: workflow_id
+              run: |
+                  workflow_data=$(curl -s -X GET \
+                    -H "Accept: application/vnd.github.v3+json" \
+                    -H "Authorization: Bearer ${{ secrets.VIZZUHQ_GITHUB_API }}" \
+                    "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows")
+                  workflow_id=$(echo $workflow_data | jq -r '.workflows[] | select(.name == "CI-CD") | .id')
+                  echo "workflow_id=${workflow_id}" >> $GITHUB_OUTPUT
 
-      - name: Get run ID
-        id: run_id
-        run: |
-          run_data=$(curl -s -X GET \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: Bearer ${{ secrets.VIZZUHQ_GITHUB_API }}" \
-            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/${{ steps.workflow_id.outputs.workflow_id }}/runs?branch=main")
-          run_id=$(echo $run_data | jq -r '.workflow_runs[0].id')
-          echo "run_id=${run_id}" >> $GITHUB_OUTPUT
+            - name: Get run ID
+              id: run_id
+              run: |
+                  run_data=$(curl -s -X GET \
+                    -H "Accept: application/vnd.github.v3+json" \
+                    -H "Authorization: Bearer ${{ secrets.VIZZUHQ_GITHUB_API }}" \
+                    "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/${{ steps.workflow_id.outputs.workflow_id }}/runs?branch=main")
+                  run_id=$(echo $run_data | jq -r '.workflow_runs[0].id')
+                  echo "run_id=${run_id}" >> $GITHUB_OUTPUT
 
-      - name: Cache package
-        uses: actions/cache@v3
-        with:
-          path: dist/
-          key: cache_package_${{ steps.run_id.outputs.run_id }}
+            - name: Cache package
+              uses: actions/cache@v3
+              with:
+                  path: dist/
+                  key: cache_package_${{ steps.run_id.outputs.run_id }}
 
-      - name: Release package
-        run: ./.venv/bin/python -m twine upload -u "__token__" -p "${{ secrets.PYPI_API_TOKEN }}" dist/*.tar.gz  dist/*.whl
+            - name: Release package
+              run: ./.venv/bin/python -m twine upload -u "__token__" -p "${{ secrets.PYPI_API_TOKEN }}" dist/*.tar.gz  dist/*.whl
 
-      - name: Upload package
-        run: |
-          echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
-          gh release upload ${{ github.event.release.tag_name }} dist/*.tar.gz  dist/*.whl --clobber
+            - name: Upload package
+              run: |
+                  echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+                  gh release upload ${{ github.event.release.tag_name }} dist/*.tar.gz  dist/*.whl --clobber

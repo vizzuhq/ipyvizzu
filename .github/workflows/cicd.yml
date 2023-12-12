@@ -1,24 +1,24 @@
 name: CI-CD
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
 
 jobs:
-  init:
-    uses: ./.github/workflows/init.yml
+    init:
+        uses: ./.github/workflows/init.yml
 
-  ci:
-    uses: ./.github/workflows/ci.yml
-    needs: init
+    ci:
+        uses: ./.github/workflows/ci.yml
+        needs: init
 
-  doc:
-    uses: ./.github/workflows/doc.yml
-    needs: ci
+    doc:
+        uses: ./.github/workflows/doc.yml
+        needs: ci
 
-  release:
-    uses: ./.github/workflows/release.yml
-    secrets: inherit
-    needs: doc
+    release:
+        uses: ./.github/workflows/release.yml
+        secrets: inherit
+        needs: doc
