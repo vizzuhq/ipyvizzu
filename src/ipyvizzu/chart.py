@@ -62,7 +62,9 @@ class Chart:
             ipy.events.register("pre_run_cell", Chart._register_pre_run_cell)
 
     @staticmethod
-    def _register_pre_run_cell() -> None:
+    def _register_pre_run_cell(
+        *args, **kwargs  # pylint: disable=unused-argument
+    ) -> None:
         display_javascript(DisplayTemplate.CLEAR_INHIBITSCROLL, raw=True)
 
     @property
