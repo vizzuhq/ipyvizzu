@@ -35,7 +35,7 @@ csv_url: ${assetsPath}/assets/data/${dataFileName}.csv
     from ipyvizzu import Chart, Data, Config, Style
 
     df = pd.read_csv(
-        "https://ipyvizzu.vizzuhq.com/latest/assets/data/${dataFileName}.csv",
+        "https://xIPYVIZZU_MINOR_VERSIONx/assets/data/${dataFileName}.csv",
         dtype={"Year": str, "Timeseries": str},
     )
     data = Data()

@@ -12,32 +12,7 @@ Switching the geometry to area.
 
 <div id="tutorial_01"></div>
 
-??? info "Info - How to setup Chart"
-    ```python
-    import pandas as pd
-    from ipyvizzu import Chart, Data, Config
-
-    df = pd.read_csv(
-        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
-    )
-    data = Data()
-    data.add_df(df)
-
-    chart = Chart()
-
-    chart.animate(data)
-
-    chart.animate(
-        Config(
-            {
-                "channels": {
-                    "y": {"set": ["Popularity"]},
-                    "x": {"set": ["Genres"]},
-                },
-            }
-        )
-    )
-    ```
+{% include-markdown "tutorial/assets/setup/setup_b.md" %}
 
 ```python
 chart.animate(Config({"geometry": "area"}))

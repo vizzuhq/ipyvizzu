@@ -9,11 +9,12 @@ dist
 
 vizzu-lib
 
-.venv
+.venv*
 .pdm-python
 .tox
 .coverage
 
+placeholder-plugin.yaml
 site
 .chromium
 node_modules

@@ -7,11 +7,11 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 	const mdchart = new MdChart(data, './vizzu.js', 'tutorial')
 
 	const clickHandler = (event) => {
-		alert(JSON.stringify(event.data)) // eslint-disable-line no-alert
+		alert(JSON.stringify(event.target)) // eslint-disable-line no-alert
 	}
 
 	const labelDrawHandler = (event) => {
-		event.renderingContext.fillStyle = event.data.text === 'Jazz' ? 'red' : 'gray'
+		event.renderingContext.fillStyle = event.target.value === 'Jazz' ? 'red' : 'gray'
 	}
 
 	const logoDrawHandler = (event) => {
@@ -27,8 +27,8 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 			image,
 			0,
 			0,
-			event.data.rect.size.x,
-			event.data.rect.size.y
+			event.detail.rect.size.x,
+			event.detail.rect.size.y
 		)
 		event.preventDefault()
 	}
@@ -58,7 +58,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				},
 				(chart) => {
 					chart.on('click', clickHandler)
-					chart.render.updateFrame(true)
+					chart.feature.rendering.update()
 					return chart
 				}
 			]
@@ -81,7 +81,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				},
 				(chart) => {
 					chart.on('plot-axis-label-draw', labelDrawHandler)
-					chart.render.updateFrame(true)
+					chart.feature.rendering.update()
 					return chart
 				}
 			]
@@ -104,7 +104,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				},
 				(chart) => {
 					chart.on('logo-draw', logoDrawHandler)
-					chart.render.updateFrame(true)
+					chart.feature.rendering.update()
 					return chart
 				}
 			]
@@ -128,7 +128,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					const registerHandler = () => {
 						chart.on('background-draw', backgroundImageHandler)
-						chart.render.updateFrame(true)
+						chart.feature.rendering.update()
 					}
 					if (!image.complete) image.onload = registerHandler
 					else registerHandler()

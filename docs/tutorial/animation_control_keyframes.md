@@ -5,40 +5,13 @@ csv_url: ../../assets/data/music_data.csv
 # Animation control & keyframes
 
 Using the `control` property provided by the chart you can play, pause, stop,
-seek or reverse the animations.
+seek, speed up or reverse the animations.
 
 In this step, we seek forward to `50%` of progress after the animation starts.
 
 <div id="tutorial_01"></div>
 
-??? info "Info - How to setup Chart"
-    ```python
-    import pandas as pd
-    from ipyvizzu import Chart, Data, Config, Keyframe
-
-    df = pd.read_csv(
-        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
-    )
-    data = Data()
-    data.add_df(df)
-
-    chart = Chart()
-
-    chart.animate(data)
-
-    chart.animate(
-        Config(
-            {
-                "channels": {
-                    "y": {"set": ["Popularity", "Kinds"]},
-                    "x": {"set": ["Genres"]},
-                    "color": {"set": ["Kinds"]},
-                    "label": {"set": ["Popularity"]},
-                },
-            }
-        )
-    )
-    ```
+{% include-markdown "tutorial/assets/setup/setup_c.md" %}
 
 ```python
 chart.animate(

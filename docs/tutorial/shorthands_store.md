@@ -13,35 +13,7 @@ that state or animation once again.
 
 <div id="tutorial_01"></div>
 
-??? info "Info - How to setup Chart"
-    ```python
-    import pandas as pd
-    from ipyvizzu import Chart, Data, Config, Style
-
-    df = pd.read_csv(
-        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
-    )
-    data = Data()
-    data.add_df(df)
-
-    chart = Chart()
-
-    chart.animate(data)
-
-    chart.animate(
-        Config(
-            {
-                "title": "Store function",
-                "channels": {
-                    "y": {"set": ["Popularity", "Kinds"]},
-                    "x": {"set": ["Genres"]},
-                    "color": {"set": ["Kinds"]},
-                    "label": {"set": ["Popularity"]},
-                },
-            }
-        )
-    )
-    ```
+{% include-markdown "tutorial/assets/setup/setup_c.md" %}
 
 ```python
 chart.animate(
@@ -136,6 +108,12 @@ chart.animate(
         }
     )
 )
+```
+
+Shorthands feature can be switched off if not needed:
+
+```python
+chart.feature("shorthands", False)
 ```
 
 This is how you can reuse a previously stored animation.

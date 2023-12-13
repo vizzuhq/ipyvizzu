@@ -16,34 +16,7 @@ from the chart.
 
 <div id="tutorial_01"></div>
 
-??? info "Info - How to setup Chart"
-    ```python
-    import pandas as pd
-    from ipyvizzu import Chart, Data, Config
-
-    df = pd.read_csv(
-        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
-    )
-    data1 = Data()
-    data1.add_df(df)
-
-    chart = Chart()
-
-    chart.animate(data1)
-
-    chart.animate(
-        Config(
-            {
-                "channels": {
-                    "y": {"set": ["Popularity", "Kinds"]},
-                    "x": {"set": ["Genres"]},
-                    "color": {"set": ["Kinds"]},
-                    "label": {"set": ["Popularity"]},
-                },
-            }
-        )
-    )
-    ```
+{% include-markdown "tutorial/assets/setup/setup_c.md" %}
 
 ```python
 filter1 = Data.filter(
