@@ -65,7 +65,7 @@ chart = Chart(
 
 data = Data()
 df = pd.read_csv(
-    "https://ipyvizzu.vizzuhq.com/latest/showcases/titanic/titanic.csv"
+    "https://ipyvizzu.vizzuhq.com/xIPYVIZZU_MINOR_VERSIONx/showcases/titanic/titanic.csv"
 )
 data.add_df(df)
 chart.animate(data)

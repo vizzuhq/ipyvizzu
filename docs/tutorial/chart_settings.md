@@ -137,9 +137,9 @@ chart.show()
 ### Vizzu library
 
 `ipyvizzu` requires and automatically downloads the
-[Vizzu](https://lib.vizzuhq.com/latest/) JavaScript/C++ library from
-[jsDelivr CDN](https://www.jsdelivr.com/package/npm/vizzu), but you can also use
-a self-hosted version.
+[Vizzu](https://lib.vizzuhq.com/xLIB_MINOR_VERSIONx/) JavaScript/C++ library
+from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/vizzu), but you can
+also use a self-hosted version.
 
 !!! info
     `vizzu` constructor argument is optional, the default value is

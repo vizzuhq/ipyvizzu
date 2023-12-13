@@ -5,7 +5,7 @@ csv_url: ../../assets/data/music_data.csv
 # Events
 
 You can register handlers for various events. There are pointer events (`click`,
-`pointeron`), animation events (`begin`, `update`, `complete`), and rendering
+`pointermove`), animation events (`begin`, `update`, `complete`), and rendering
 events that are called before rendering the chart elements. Handlers can be
 registered/unregistered with the `on`, `off` method pair.
 
@@ -15,41 +15,14 @@ registered/unregistered with the `on`, `off` method pair.
     below.
 
 We are registering a handler for the `click` event which will show an alert
-block with information about the clicked marker.
+block with information about the clicked chart element.
 
 <div id="tutorial_01"></div>
 
-??? info "Info - How to setup Chart"
-    ```python
-    import pandas as pd
-    from ipyvizzu import Chart, Data, Config
-
-    df = pd.read_csv(
-        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
-    )
-    data = Data()
-    data.add_df(df)
-
-    chart = Chart()
-
-    chart.animate(data)
-
-    chart.animate(
-        Config(
-            {
-                "channels": {
-                    "y": {"set": ["Popularity", "Kinds"]},
-                    "x": {"set": ["Genres"]},
-                    "color": {"set": ["Kinds"]},
-                    "label": {"set": ["Popularity"]},
-                },
-            }
-        )
-    )
-    ```
+{% include-markdown "tutorial/assets/setup/setup_c.md" %}
 
 ```python
-click_handler = "alert(JSON.stringify(event.data));"
+click_handler = "alert(JSON.stringify(event.target));"
 
 click = chart.on("click", click_handler)
 ```
@@ -67,7 +40,7 @@ Here we override the axis label color for `Jazz` to red and all others to gray.
 ```python
 label_draw_handler = (
     "event.renderingContext.fillStyle ="
-    + " (event.data.text === 'Jazz') ? 'red' : 'gray';"
+    + " (event.target.value === 'Jazz') ? 'red' : 'gray';"
 )
 
 label_draw = chart.on("plot-axis-label-draw", label_draw_handler)
@@ -110,7 +83,7 @@ if (!window.bgImage) {
     window.bgImage.src = 'data:image/gif;base64,R0lGODlhAwACAPIAAJLf6q/i7M/r8un0+PT6+/n8/QAAAAAAACH5BAQAAAAALAAAAAADAAIAAAMEWBMkkAA7';
 }
 event.renderingContext.drawImage(window.bgImage, 0, 0,
-    event.data.rect.size.x, event.data.rect.size.y);
+    event.detail.rect.size.x, event.detail.rect.size.y);
 event.preventDefault();
 """
 

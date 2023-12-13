@@ -15,21 +15,7 @@ the measure (`Popularity`) to the y-axis using the set property.
 
 <div id="tutorial_01"></div>
 
-??? info "Info - How to setup Chart"
-    ```python
-    import pandas as pd
-    from ipyvizzu import Chart, ChartProperty, Data, Config
-
-    df = pd.read_csv(
-        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
-    )
-    data = Data()
-    data.add_df(df)
-
-    chart = Chart()
-
-    chart.animate(data)
-    ```
+{% include-markdown "tutorial/assets/setup/setup_a.md" %}
 
 ```python
 chart.animate(
@@ -93,7 +79,7 @@ browser console.
 chart.log(ChartProperty.CONFIG)
 ```
 
-Setting the chart title with the title command.
+Setting the chart title with the title property.
 
 <div id="tutorial_04"></div>
 

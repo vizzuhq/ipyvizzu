@@ -1,0 +1,3 @@
+```python
+chart.animate(data)
+```

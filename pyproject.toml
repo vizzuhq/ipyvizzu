@@ -142,8 +142,8 @@ fix-lint-tools = {composite = ["fix-lint-tools-js"]}
 fix-lint-tools-js = {composite = ["fix-lint-eslint tools"]}
 fix-lint-eslint = "npx eslint --ext .js,.cjs,.mjs --fix"
 
-build-docs = "mkdocs build -f ./tools/docs/mkdocs.yml"
-deploy-docs = "python ./tools/docs/deploy.py"
+build-docs = {composite = ["python tools/docs/placeholder.py", "mkdocs build -f ./tools/docs/mkdocs.yml"]}
+deploy-docs = {composite = ["python tools/docs/placeholder.py", "python ./tools/docs/deploy.py"]}
 
 deploy = "pip install -e ."
 build = {composite = ["python ./tools/ci/version.py False", "pdm build", "twine check dist/*.tar.gz dist/*.whl"]}
@@ -238,6 +238,9 @@ docs = [
     "mkdocstrings[python] ; python_version >= '3.10'",
     "mkdocs-gen-files ; python_version >= '3.10'",
     "mkdocs-coverage ; python_version >= '3.10'",
+    "mkdocs-placeholder-plugin>=0.4.1 ; python_version >= '3.10'",
+    "mkdocs-include-markdown-plugin ; python_version >= '3.10'",
+    "mkdocs-exclude; python_version >= '3.10'",
     "mike ; python_version >= '3.10'",
 ]
 

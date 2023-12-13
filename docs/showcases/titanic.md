@@ -15,7 +15,7 @@ import pandas as pd
 from ipyvizzu import Chart, Data, Config
 
 df = pd.read_csv(
-    "https://ipyvizzu.vizzuhq.com/latest/showcases/titanic/titanic.csv"
+    "https://ipyvizzu.vizzuhq.com/xIPYVIZZU_MINOR_VERSIONx/showcases/titanic/titanic.csv"
 )
 data = Data()
 data.add_df(df)

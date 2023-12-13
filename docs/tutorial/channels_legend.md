@@ -19,32 +19,7 @@ you can set them differently with the `Style` object introduced in the
 
 <div id="tutorial_01"></div>
 
-??? info "Info - How to setup Chart"
-    ```python
-    import pandas as pd
-    from ipyvizzu import Chart, Data, Config
-
-    df = pd.read_csv(
-        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
-    )
-    data = Data()
-    data.add_df(df)
-
-    chart = Chart()
-
-    chart.animate(data)
-
-    chart.animate(
-        Config(
-            {
-                "channels": {
-                    "y": {"set": ["Popularity"]},
-                    "x": {"set": ["Genres"]},
-                },
-            }
-        )
-    )
-    ```
+{% include-markdown "tutorial/assets/setup/setup_b.md" %}
 
 ```python
 chart.animate(
@@ -60,7 +35,7 @@ columns’ height and lightness represent the same values. The legend for the
 !!! info
     This is an example when we explicitly instruct `ipyvizzu` to show the
     legend. By default `ipyvizzu` automatically shows/hides the legend when it's
-    necessary. You can also turn it off with the `legend`: `None` command or set
+    necessary. You can also turn it off with the `legend`: `None` setting or set
     back to automatic mode with `legend`: `"auto"`.
 
 <div id="tutorial_02"></div>

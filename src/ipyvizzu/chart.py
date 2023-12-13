@@ -20,7 +20,7 @@ class Chart:
 
     # pylint: disable=too-many-instance-attributes
 
-    VIZZU: str = "https://cdn.jsdelivr.net/npm/vizzu@0.8/dist/vizzu.min.js"
+    VIZZU: str = "https://cdn.jsdelivr.net/npm/vizzu@0.9/dist/vizzu.min.js"
     """A variable for storing the default url of vizzu package."""
 
     def __init__(

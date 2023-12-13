@@ -5,12 +5,10 @@ csv_url: ../../assets/data/music_data.csv
 # Color palette & fonts
 
 This and the next chapter provide a quick intro to the styling of the charts.
-You can either use the `Style` object like in the following examples or use
+You can either use the `style` property like in the following examples or use
 `CSS`. By using `CSS`, it's easier to set the same style for multiple charts on
-one page or re-use style settings.
-
-If you use `CSS`, don't change the set parameters later on via the `Style`
-object.
+one page or re-use style settings. `CSS` parameter usage is disabled by default
+and can be enabled by `chart.feature("cssProperties", True)`.
 
 The font sizes automatically adjust to the chart size to help readability, and
 can also be set separately or for specific groups.
@@ -23,34 +21,7 @@ you should add
 
 <div id="tutorial_01"></div>
 
-??? info "Info - How to setup Chart"
-    ```python
-    import pandas as pd
-    from ipyvizzu import Chart, Data, Config, Style, ChartProperty
-
-    df = pd.read_csv(
-        "https://ipyvizzu.vizzuhq.com/latest/assets/data/music_data.csv"
-    )
-    data = Data()
-    data.add_df(df)
-
-    chart = Chart()
-
-    chart.animate(data)
-
-    chart.animate(
-        Config(
-            {
-                "channels": {
-                    "y": {"set": ["Popularity", "Kinds"]},
-                    "x": {"set": ["Genres"]},
-                    "color": {"set": ["Kinds"]},
-                    "label": {"set": ["Popularity"]},
-                },
-            }
-        )
-    )
-    ```
+{% include-markdown "tutorial/assets/setup/setup_c.md" %}
 
 ```python
 chart.animate(
@@ -109,7 +80,6 @@ chart.animate(Style(None))
 ```
 
 For information on all available style parameters see the [Style](./style.md)
-chapter or the
-[Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/Styles.Chart/#properties).
+chapter.
 
 <script src="../color_palette_fonts.js"></script>

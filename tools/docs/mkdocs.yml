@@ -75,11 +75,16 @@ markdown_extensions:
     - pymdownx.superfences
 
 plugins:
+    - exclude:
+          glob:
+              - tutorial/assets/**
     - mike:
           version_selector: true
           alias_type: symlink
           canonical_version: latest
           redirect_template: ./tools/docs/overrides/mike/redirect.html
+    - include-markdown
+    - placeholder
     - search
     - section-index
     - autorefs
@@ -123,6 +128,7 @@ nav:
           - tutorial/geometry.md
           - Channels & legend: tutorial/channels_legend.md
           - Group/stack: tutorial/group_stack.md
+          - tutorial/stacking_explanation.md
           - tutorial/sorting.md
           - Align & range: tutorial/align_range.md
           - Changing dimensions: tutorial/changing_dimensions.md
