@@ -240,6 +240,7 @@ docs = [
     "mkdocs-coverage ; python_version >= '3.10'",
     "mkdocs-placeholder-plugin>=0.4.1 ; python_version >= '3.10'",
     "mkdocs-include-markdown-plugin ; python_version >= '3.10'",
+    "mkdocs-exclude; python_version >= '3.10'",
     "mike ; python_version >= '3.10'",
 ]
 

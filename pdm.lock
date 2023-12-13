@@ -6,7 +6,7 @@ groups = ["codequality", "docs", "env", "packagedeps", "packagetool"]
 cross_platform = true
 static_urls = false
 lock_version = "4.3"
-content_hash = "sha256:4cc426f4faed80c5204ab42053f54138c2d44e1335e9dcd2037c91eea917b094"
+content_hash = "sha256:58f3f246c02e512c647be031e08c7e41478899cd2a6ce82ec48206472deb496b"
 
 [[package]]
 name = "adagio"
@@ -1890,6 +1890,17 @@ dependencies = [
 files = [
     {file = "mkdocs_coverage-1.0.0-py3-none-any.whl", hash = "sha256:29e3c0fc89d1107ee22a0fbe1a9aa927550f97cf2e2682fcad5672ca3f2e14dd"},
     {file = "mkdocs_coverage-1.0.0.tar.gz", hash = "sha256:3ebe0837c29458f64843c45cbb6618859634326867056d030621ab164649904c"},
+]
+
+[[package]]
+name = "mkdocs-exclude"
+version = "1.0.2"
+summary = "A mkdocs plugin that lets you exclude files or trees."
+dependencies = [
+    "mkdocs",
+]
+files = [
+    {file = "mkdocs-exclude-1.0.2.tar.gz", hash = "sha256:ba6fab3c80ddbe3fd31d3e579861fd3124513708271180a5f81846da8c7e2a51"},
 ]
 
 [[package]]

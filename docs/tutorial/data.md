@@ -178,7 +178,7 @@ from ipyvizzu import Data
 
 
 df = pd.read_csv(
-    "https://xIPYVIZZU_MINOR_VERSIONx/assets/data/music_data.csv"
+    "https://ipyvizzu.vizzuhq.com/xIPYVIZZU_MINOR_VERSIONx/assets/data/music_data.csv"
 )
 
 data = Data()
@@ -195,7 +195,7 @@ from ipyvizzu import Data
 
 
 df = pd.read_excel(
-    "https://xIPYVIZZU_MINOR_VERSIONx/assets/data/music_data.xlsx"
+    "https://ipyvizzu.vizzuhq.com/xIPYVIZZU_MINOR_VERSIONx/assets/data/music_data.xlsx"
 )
 
 data = Data()
