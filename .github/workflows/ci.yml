@@ -28,17 +28,17 @@ jobs:
             - name: Format
               run: |
                   source .venv/bin/activate
-                  pdm run format_src
+                  pdm run format-src
 
             - name: Lint
               run: |
                   source .venv/bin/activate
-                  pdm run lint_src
+                  pdm run lint-src
 
             - name: Type
               run: |
                   source .venv/bin/activate
-                  pdm run type_src
+                  pdm run type-src
 
     check_docs:
         runs-on: ubuntu-22.04
@@ -64,12 +64,12 @@ jobs:
             - name: Format
               run: |
                   source .venv/bin/activate
-                  pdm run format_docs
+                  pdm run format-docs
 
             - name: Lint
               run: |
                   source .venv/bin/activate
-                  pdm run lint_docs
+                  pdm run lint-docs
 
     check_tools:
         runs-on: ubuntu-22.04
@@ -92,25 +92,25 @@ jobs:
                   path: node_modules
                   key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
 
-            - name: Install package
+            - name: Deploy package
               run: |
                   source .venv/bin/activate
-                  pdm run pkg_install
+                  pdm run deploy
 
             - name: Format
               run: |
                   source .venv/bin/activate
-                  pdm run format_tools
+                  pdm run format-tools
 
             - name: Lint
               run: |
                   source .venv/bin/activate
-                  pdm run lint_tools
+                  pdm run lint-tools
 
             - name: Type
               run: |
                   source .venv/bin/activate
-                  pdm run type_tools
+                  pdm run type-tools
 
     test_ubuntu22:
         runs-on: ubuntu-22.04
