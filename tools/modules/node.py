@@ -6,18 +6,12 @@ from typing import Union
 
 
 class Node:
+    # pylint: disable=too-few-public-methods
+
     @staticmethod
     def node(strict: bool, script: Union[str, Path], *params: str) -> str:
-        return Node.run(strict, "node", script, *params)
-
-    @staticmethod
-    def npx(strict: bool, script: Union[str, Path], *params: str) -> str:
-        return Node.run(strict, "npx", script, *params)
-
-    @staticmethod
-    def run(strict: bool, exe: str, script: Union[str, Path], *params: str) -> str:
         with Popen(
-            [exe, script, *params],
+            ["yarn", "node", script, *params],
             stdin=PIPE,
             stdout=PIPE,
             stderr=PIPE,

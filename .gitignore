@@ -17,3 +17,5 @@ vizzu-lib
 site
 .chromium
 node_modules
+.yarn
+.pnp*

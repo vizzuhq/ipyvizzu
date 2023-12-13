@@ -41,19 +41,26 @@ source .venv/bin/activate
 pip install pdm==2.8.0
 ```
 
-Once set up, you can utilize the pre-defined `pdm` scripts. For example, you can
-initialize the entire development environment using the command `pdm run init`,
-or specific parts like `init_src_py`, `init_src`, `init_docs`, or `init_tools`.
+Once set up, you can install development dependencies:
 
 ```sh
-pdm run init
+pdm install
 ```
 
-**Note:** For all available `pdm` scripts, run `pdm run --list`.
+For contributing to the documentation you need to set up `yarn` and install
+`npm` development dependencies:
+
+```sh
+npm install --global yarn
+corepack enable
+yarn install
+```
 
 The development requirements are installed based on the `pdm.lock` and
-`package-lock.json` files. To update the development requirements, you can use
-the command `pdm run lock`.
+`yarn.lock` files. To update the development requirements, you can use the
+command `pdm run lock`.
+
+**Note:** For all available `pdm` scripts, run `pdm run --list`.
 
 For better development practices, you can set up `pre-commit` and `pre-push`
 hooks in your local `Git` repository. The `pre-commit` hook will format the code
@@ -80,7 +87,7 @@ pdm run ci
 ```
 
 However, if you want to run the CI steps on specific parts of the project, you
-can use the following scripts: `ci_src_py`, `ci_src`, `ci_docs`, or `ci_tools`.
+can use the following scripts: `ci-src-py`, `ci-src`, `ci-docs`, or `ci-tools`.
 
 #### Formatting
 
@@ -90,15 +97,15 @@ You can check the code's formatting using the `format` script:
 pdm run format
 ```
 
-If you need to fix any formatting issues, you can use the `fix_format` script:
+If you need to fix any formatting issues, you can use the `fix-format` script:
 
 ```sh
-pdm run fix_format
+pdm run fix-format
 ```
 
 If you wish to format specific parts of the project, you can use the following
-scripts: `format_src_py`, `format_src`, `format_docs`, `format_tools`, or
-`fix_format_src_py`, `fix_format_src`, `fix_format_docs`, `fix_format_tools`.
+scripts: `format-src-py`, `format-src`, `format-docs`, `format-tools`, or
+`fix-format-src-py`, `fix-format-src`, `fix-format-docs`, `fix-format-tools`.
 
 #### Code analyses
 
@@ -109,8 +116,8 @@ pdm run lint
 ```
 
 If you need to run code analyses for specific parts of the project, you can
-utilize the following scripts: `lint_src_py`, `lint_src`, `lint_docs`, or
-`lint_tools`.
+utilize the following scripts: `lint-src-py`, `lint-src`, `lint-docs`, or
+`lint-tools`.
 
 #### Typing
 
@@ -121,7 +128,7 @@ pdm run type
 ```
 
 If you want to check specific parts of the project, you can use the following
-scripts: `type_src` or `type_tools`.
+scripts: `type-src` or `type-tools`.
 
 #### Testing
 
@@ -143,10 +150,10 @@ site.
 git clone --depth 1 https://github.com/vizzuhq/vizzu-lib.git
 ```
 
-To build the documentation, you can use the `docs_build` script:
+To build the documentation, you can use the `build-docs` script:
 
 ```sh
-pdm run docs_build
+pdm run build-docs
 ```
 
 You can read the online version at [ipyvizzu.com](https://ipyvizzu.vizzuhq.com).
@@ -168,9 +175,9 @@ To release `ipyvizzu`, follow the steps below:
 workflow, which builds, checks, and uploads the `ipyvizzu` package to
 [pypi](https://pypi.org/project/ipyvizzu).
 
-Before making a release, you can build and check the package using the
-`pkg_release` script:
+Before making a release, you can build and check the package using the `release`
+script:
 
 ```sh
-pdm run pkg_release
+pdm run release
 ```

@@ -13,32 +13,41 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
+            - name: Cache venv
               uses: actions/cache@v3
               with:
                   path: .venv
                   key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
-            - name: Cache dev-js environment
-              uses: actions/cache@v3
+            - name: Set up Corepack
+              run: |
+                  corepack enable
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
               with:
-                  path: node_modules
-                  key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
+                  node-version: '18'
+                  cache: 'yarn'
+                  cache-dependency-path: 'yarn.lock'
+
+            - name: Set up yarn
+              run: |
+                  yarn --immutable
 
             - name: Format
               run: |
                   source .venv/bin/activate
-                  pdm run format_src
+                  pdm run format-src
 
             - name: Lint
               run: |
                   source .venv/bin/activate
-                  pdm run lint_src
+                  pdm run lint-src
 
             - name: Type
               run: |
                   source .venv/bin/activate
-                  pdm run type_src
+                  pdm run type-src
 
     check_docs:
         runs-on: ubuntu-22.04
@@ -49,27 +58,36 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
+            - name: Cache venv
               uses: actions/cache@v3
               with:
                   path: .venv
                   key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
-            - name: Cache dev-js environment
-              uses: actions/cache@v3
+            - name: Set up Corepack
+              run: |
+                  corepack enable
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
               with:
-                  path: node_modules
-                  key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
+                  node-version: '18'
+                  cache: 'yarn'
+                  cache-dependency-path: 'yarn.lock'
+
+            - name: Set up yarn
+              run: |
+                  yarn --immutable
 
             - name: Format
               run: |
                   source .venv/bin/activate
-                  pdm run format_docs
+                  pdm run format-docs
 
             - name: Lint
               run: |
                   source .venv/bin/activate
-                  pdm run lint_docs
+                  pdm run lint-docs
 
     check_tools:
         runs-on: ubuntu-22.04
@@ -80,37 +98,46 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
+            - name: Cache venv
               uses: actions/cache@v3
               with:
                   path: .venv
                   key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
-            - name: Cache dev-js environment
-              uses: actions/cache@v3
-              with:
-                  path: node_modules
-                  key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
+            - name: Set up Corepack
+              run: |
+                  corepack enable
 
-            - name: Install package
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '18'
+                  cache: 'yarn'
+                  cache-dependency-path: 'yarn.lock'
+
+            - name: Set up yarn
+              run: |
+                  yarn --immutable
+
+            - name: Deploy package
               run: |
                   source .venv/bin/activate
-                  pdm run pkg_install
+                  pdm run deploy
 
             - name: Format
               run: |
                   source .venv/bin/activate
-                  pdm run format_tools
+                  pdm run format-tools
 
             - name: Lint
               run: |
                   source .venv/bin/activate
-                  pdm run lint_tools
+                  pdm run lint-tools
 
             - name: Type
               run: |
                   source .venv/bin/activate
-                  pdm run type_tools
+                  pdm run type-tools
 
     test_ubuntu22:
         runs-on: ubuntu-22.04
@@ -124,7 +151,7 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
+            - name: Cache venv
               uses: actions/cache@v3
               with:
                   path: .venv
@@ -165,7 +192,7 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
+            - name: Cache venv
               uses: actions/cache@v3
               with:
                   path: .venv
@@ -203,7 +230,7 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
+            - name: Cache venv
               uses: actions/cache@v3
               with:
                   path: .venv

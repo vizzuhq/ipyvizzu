@@ -1,6 +1,6 @@
 {
-	"name": "ipyvizzu-dev",
-	"description": "ipyvizzu development",
+	"private": true,
+	"packageManager": "yarn@4.0.2",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
@@ -12,15 +12,19 @@
 	"url": "https://github.com/vizzuhq/ipyvizzu/issues",
 	"author": "Vizzu Inc.",
 	"license": "Apache-2.0",
-	"dependencies": {
+	"devDependencies": {
 		"@vizzu/eslint-config": "^0.2.0",
 		"@vizzu/prettier-config": "^0.1.0",
+		"eslint": "^8.55.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-config-standard": "^17.1.0",
+		"eslint-plugin-import": "^2.29.0",
+		"eslint-plugin-n": "^16.4.0",
+		"eslint-plugin-promise": "^6.1.1",
 		"npm-run-all": "^4.1.5",
 		"prettier": "^3.1.1",
-		"eslint": "^8.55.0",
-		"eslint-config-standard": "^17.1.0",
-		"eslint-config-prettier": "^9.1.0",
-		"puppeteer": "^21.3.7"
+		"puppeteer": "^21.3.7",
+		"yarn": "^1.22.21"
 	},
 	"prettier": "@vizzu/prettier-config",
 	"eslintConfig": {

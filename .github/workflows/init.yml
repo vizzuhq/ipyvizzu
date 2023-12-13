@@ -16,33 +16,20 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
+            - name: Cache venv
               id: cache_dev_py_ubuntu22
               uses: actions/cache@v3
               with:
                   path: .venv
                   key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
-            - name: Init dev-py environment
+            - name: Set up venv
               if: steps.cache_dev_py_ubuntu22.outputs.cache-hit != 'true'
               run: |
                   python3.10 -m venv ".venv"
                   source .venv/bin/activate
                   pip install pdm==2.8.0
-                  pdm run init_py
-
-            - name: Cache dev-js environment
-              id: cache_dev_js_ubuntu22
-              uses: actions/cache@v3
-              with:
-                  path: node_modules
-                  key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
-
-            - name: Init dev-js environment
-              if: steps.cache_dev_js_ubuntu22.outputs.cache-hit != 'true'
-              run: |
-                  source .venv/bin/activate
-                  pdm run init_js
+                  pdm install
 
     init_pkg:
         runs-on: ubuntu-22.04
@@ -54,26 +41,21 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
+            - name: Cache venv
               uses: actions/cache@v3
               with:
                   path: .venv
                   key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
 
-            - name: Install package
+            - name: Deploy package
               run: |
                   source .venv/bin/activate
-                  pdm run pkg_install
+                  pdm run deploy
 
             - name: Build package
               run: |
                   source .venv/bin/activate
-                  pdm run pkg_build
-
-            - name: Check package
-              run: |
-                  source .venv/bin/activate
-                  pdm run pkg_check
+                  pdm run build
 
             - name: Cache package
               uses: actions/cache@v3
@@ -90,7 +72,7 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
+            - name: Cache venv
               id: cache_dev_py_ubuntu20
               uses: actions/cache@v3
               with:
@@ -103,7 +85,7 @@ jobs:
               with:
                   python-version: '3.6'
 
-            - name: Init dev-py environment
+            - name: Set up venv
               if: steps.cache_dev_py_ubuntu20.outputs.cache-hit != 'true'
               run: |
                   python3.6 -m venv ".venv"

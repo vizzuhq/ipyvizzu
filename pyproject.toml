@@ -69,86 +69,85 @@ source = "file"
 path = "src/ipyvizzu/__version__.py"
 
 [tool.pdm.scripts]
-init_py = "pdm install"
-init_js = "npm install"
+lock = {composite = ["lock-py", "lock-js"]}
+lock-py = "pdm lock --no-default -d"
+lock-js = "yarn up"
 
-init_src_py = {composite = ["init_py", "pkg_install"]}
-init_src = {composite = ["init"]}
-init_docs = {composite = ["init"]}
-init_tools = {composite = ["init"]}
+format = {composite = ["format-src", "format-docs", "format-tools"]}
+format-src = {composite = ["format-src-py", "format-src-js"]}
+format-src-py = {composite = ["format-black src tests"]}
+format-src-js = {composite = ["format-prettier src tests"]}
+format-docs = {composite = ["format-docs-py", "format-docs-js"]}
+format-docs-py = {composite = ["format-mdformat docs README.md CONTRIBUTING.md CODE_OF_CONDUCT.md"]}
+format-docs-js = {composite = ["format-prettier docs"]}
+format-tools = {composite = ["format-tools-py", "format-tools-js"]}
+format-tools-py = {composite = ["format-black tools"]}
+format-tools-js = {composite = ["format-prettier package.json tools .github"]}
+format-black = "black --diff --check"
+format-mdformat = "python ./tools/ci/std_check.py mdformat --wrap 80 --end-of-line keep --line-length 70 --check"
+format-prettier = "yarn prettier -c" 
 
-init = {composite = ["init_py", "pkg_install", "init_js"]}
+lint = {composite = ["lint-src", "lint-docs", "lint-tools"]}
+lint-src = {composite = ["lint-src-py", "lint-src-js"]}
+lint-src-py = {composite = ["lint-pylint src tests"]}
+lint-src-js = {composite = ["lint-eslint src"]}
+lint-docs = {composite = ["lint-docs-js"]}
+lint-docs-js = {composite = ["lint-eslint docs"]}
+lint-tools = {composite = ["lint-tools-py", "lint-tools-js"]}
+lint-tools-py = {composite = ["lint-pylint tools"]}
+lint-tools-js = {composite = ["lint-eslint tools"]}
+lint-pylint = "pylint"
+lint-eslint = "yarn eslint --ext .js,.cjs,.mjs"
 
-
-lock_py = "pdm lock --no-default -d"
-lock_js = "npm update"
-
-lock = {composite = ["lock_py", "lock_js"]}
-
-
-fix_format_black = "black"
-format_black = "black --diff --check"
-fix_format_mdformat = "python ./tools/ci/std_check.py mdformat --wrap 80 --end-of-line keep --line-length 70"
-format_mdformat = "python ./tools/ci/std_check.py mdformat --wrap 80 --end-of-line keep --line-length 70 --check"
-fix_format_prettier = "npx prettier -w"
-format_prettier = "npx prettier -c" 
-
-fix_format_src_py = {composite = ["fix_format_black src tests"]}
-format_src_py = {composite = ["format_black src tests"]}
-fix_format_src = {composite = ["fix_format_black src tests", "fix_format_prettier src tests"]}
-format_src = {composite = ["format_black src tests", "format_prettier src tests"]}
-fix_format_docs = {composite = ["fix_format_mdformat docs README.md CONTRIBUTING.md CODE_OF_CONDUCT.md", "fix_format_prettier docs"]}
-format_docs = {composite = ["format_mdformat docs README.md CONTRIBUTING.md CODE_OF_CONDUCT.md", "format_prettier docs"]}
-fix_format_tools = {composite = ["fix_format_black tools", "fix_format_prettier package.json tools .github"]}
-format_tools = {composite = ["format_black tools", "format_prettier package.json tools .github"]}
-
-fix_format = {composite = ["fix_format_src", "fix_format_docs", "fix_format_tools"]}
-format = {composite = ["format_src", "format_docs", "format_tools"]}
-
-
-lint_pylint = "pylint"
-fix_lint_eslint = "npx eslint --ext .js,.cjs,.mjs --fix"
-lint_eslint = "npx eslint --ext .js,.cjs,.mjs"
-
-lint_src_py = {composite = ["lint_pylint src tests"]}
-fix_lint_src = {composite = ["fix_lint_eslint src"]}
-lint_src = {composite = ["lint_pylint src tests", "lint_eslint src"]}
-fix_lint_docs = {composite = ["fix_lint_eslint docs"]}
-lint_docs = {composite = ["lint_eslint docs"]}
-fix_lint_tools = {composite = ["fix_lint_eslint tools"]}
-lint_tools = {composite = ["lint_pylint tools", "lint_eslint tools"]}
-
-fix_lint = {composite = ["fix_lint_src", "fix_lint_docs", "fix_lint_tools"]}
-lint = {composite = ["lint_src", "lint_docs", "lint_tools"]}
-
-
-type_mypy = "mypy"
-
-type_src = {composite = ["type_mypy src tests"]}
-type_tools = {composite = ["type_mypy tools"]}
-
-type = {composite = ["type_src", "type_tools"]}
-
+type = {composite = ["type-src", "type-tools"]}
+type-src = {composite = ["type-src-py"]}
+type-src-py = {composite = ["type-mypy src tests"]}
+type-tools = {composite = ["type-tools-py"]}
+type-tools-py = {composite = ["type-mypy tools"]}
+type-mypy = "mypy"
 
 test = "tox"
 
+ci = {composite = ["ci-src", "ci-docs", "ci-tools"]}
+ci-src = {composite = ["ci-src-py", "ci-src-js"]}
+ci-src-py = {composite = ["format-src-py ", "lint-src-py ", "type-src-py", "test"]}
+ci-src-js = {composite = ["format-src-js ", "lint-src-js "]}
+ci-docs = {composite = ["ci-docs-py", "ci-docs-js"]}
+ci-docs-py = {composite = ["format-docs-py "]}
+ci-docs-js = {composite = ["format-docs-js ", "lint-docs-js "]}
+ci-tools = {composite = ["ci-tools-py", "ci-tools-js"]}
+ci-tools-py = {composite = ["format-tools-py", "lint-tools-py", "type-tools-py"]}
+ci-tools-js = {composite = ["format-tools-js ", "lint-tools-js "]}
 
-ci_src_py = {composite = ["format_src_py ", "lint_src_py ", "type_src_py ", "test"]}
-ci_src = {composite = ["format_src", "lint_src", "type_src", "test"]}
-ci_docs = {composite = ["format_docs", "lint_docs"]}
-ci_tools = {composite = ["format_tools", "lint_tools", "type_tools"]}
+fix-format = {composite = ["fix-format-src", "fix-format-docs", "fix-format-tools"]}
+fix-format-src = {composite = ["fix-format-src-py", "fix-format-src-js"]}
+fix-format-src-py = {composite = ["fix-format-black src tests"]}
+fix-format-src-js = {composite = ["fix-format-prettier src tests"]}
+fix-format-docs = {composite = ["fix-format-docs-py", "fix-format-docs-js"]}
+fix-format-docs-py = {composite = ["fix-format-mdformat docs README.md CONTRIBUTING.md CODE_OF_CONDUCT.md"]}
+fix-format-docs-js = {composite = ["fix-format-prettier docs"]}
+fix-format-tools = {composite = ["fix-format-tools-py", "fix-format-tools-js"]}
+fix-format-tools-py = {composite = ["fix-format-black tools"]}
+fix-format-tools-js = {composite = ["fix-format-prettier package.json tools .github"]}
+fix-format-black = "black"
+fix-format-mdformat = "python ./tools/ci/std_check.py mdformat --wrap 80 --end-of-line keep --line-length 70"
+fix-format-prettier = "yarn prettier -w"
 
-ci = {composite = ["ci_src", "ci_docs", "ci_tools"]}
+fix-lint = {composite = ["fix-lint-src", "fix-lint-docs", "fix-lint-tools"]}
+fix-lint-src = {composite = ["fix-lint-src-js"]}
+fix-lint-src-js = {composite = ["fix-lint-eslint src"]}
+fix-lint-docs = {composite = ["fix-lint-docs-js"]}
+fix-lint-docs-js = {composite = ["fix-lint-eslint docs"]}
+fix-lint-tools = {composite = ["fix-lint-tools-js"]}
+fix-lint-tools-js = {composite = ["fix-lint-eslint tools"]}
+fix-lint-eslint = "yarn eslint --ext .js,.cjs,.mjs --fix"
 
+build-docs = "mkdocs build -f ./tools/docs/mkdocs.yml"
+deploy-docs = "python ./tools/docs/deploy.py"
 
-docs_build = "mkdocs build -f ./tools/docs/mkdocs.yml"
-docs_deploy = "python ./tools/docs/deploy.py"
-
-
-pkg_install = "pip install -e ."
-pkg_build = {composite = ["python ./tools/ci/version.py False", "pdm build"]}
-pkg_check = "twine check dist/*.tar.gz dist/*.whl"
-pkg_release = {composite = ["pkg_build", "pkg_check", "python ./tools/ci/version.py True"]}
+deploy = "pip install -e ."
+build = {composite = ["python ./tools/ci/version.py False", "pdm build", "twine check dist/*.tar.gz dist/*.whl"]}
+release = {composite = ["build", "python ./tools/ci/version.py True"]}
 
 [tool.tox]
 legacy_tox_ini = """
