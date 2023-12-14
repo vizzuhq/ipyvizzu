@@ -13,17 +13,17 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
+            - name: Cache venv
               uses: actions/cache@v3
               with:
                   path: .venv
-                  key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
+                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
 
-            - name: Cache dev-js environment
+            - name: Cache node modules
               uses: actions/cache@v3
               with:
                   path: node_modules
-                  key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
+                  key: node_modules_ubuntu22_${{ hashFiles('package-lock.json') }}
 
             - name: Format
               run: |
@@ -49,17 +49,17 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
+            - name: Cache venv
               uses: actions/cache@v3
               with:
                   path: .venv
-                  key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
+                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
 
-            - name: Cache dev-js environment
+            - name: Cache node modules
               uses: actions/cache@v3
               with:
                   path: node_modules
-                  key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
+                  key: node_modules_ubuntu22_${{ hashFiles('package-lock.json') }}
 
             - name: Format
               run: |
@@ -80,17 +80,17 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
+            - name: Cache venv
               uses: actions/cache@v3
               with:
                   path: .venv
-                  key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
+                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
 
-            - name: Cache dev-js environment
+            - name: Cache node modules
               uses: actions/cache@v3
               with:
                   path: node_modules
-                  key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
+                  key: node_modules_ubuntu22_${{ hashFiles('package-lock.json') }}
 
             - name: Deploy package
               run: |
@@ -112,6 +112,46 @@ jobs:
                   source .venv/bin/activate
                   pdm run type-tools
 
+    test_ubuntu20:
+        runs-on: ubuntu-20.04
+        strategy:
+            matrix:
+                python-version: ['3.6']
+
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 1
+
+            - name: Cache venv
+              uses: actions/cache@v3
+              with:
+                  path: .venv
+                  key: venv_ubuntu20_${{ hashFiles('pdm.lock') }}
+
+            - name: Cache package
+              uses: actions/cache@v3
+              with:
+                  path: dist/
+                  key: package_${{ github.run_id }}
+
+            - name: Set up Python 3.6
+              uses: actions/setup-python@v4
+              with:
+                  python-version: '3.6'
+
+            - name: Test
+              run: |
+                  source .venv/bin/activate
+                  tox -e py36 --installpkg dist/*.whl
+
+            - name: Cache coverage ${{ matrix.python-version }}
+              uses: actions/cache@v3
+              with:
+                  path: .coverage/env/.coverage.${{ matrix.python-version }}
+                  key: coverage_${{ matrix.python-version }}_${{ github.run_id }}
+
     test_ubuntu22:
         runs-on: ubuntu-22.04
         strategy:
@@ -124,11 +164,11 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
+            - name: Cache venv
               uses: actions/cache@v3
               with:
                   path: .venv
-                  key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
+                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
 
             - name: Set up Python ${{ matrix.python-version }}
               uses: actions/setup-python@v4
@@ -151,47 +191,7 @@ jobs:
               uses: actions/cache@v3
               with:
                   path: .coverage/env/.coverage.${{ matrix.python-version }}
-                  key: cache_coverage_${{ matrix.python-version }}_${{ github.run_id }}
-
-    test_ubuntu20:
-        runs-on: ubuntu-20.04
-        strategy:
-            matrix:
-                python-version: ['3.6']
-
-        steps:
-            - name: Checkout repo
-              uses: actions/checkout@v3
-              with:
-                  fetch-depth: 1
-
-            - name: Cache dev-py environment
-              uses: actions/cache@v3
-              with:
-                  path: .venv
-                  key: cache_dev_py_ubuntu20_${{ hashFiles('pdm.lock') }}
-
-            - name: Cache package
-              uses: actions/cache@v3
-              with:
-                  path: dist/
-                  key: cache_package_${{ github.run_id }}
-
-            - name: Set up Python 3.6
-              uses: actions/setup-python@v4
-              with:
-                  python-version: '3.6'
-
-            - name: Test
-              run: |
-                  source .venv/bin/activate
-                  tox -e py36 --installpkg dist/*.whl
-
-            - name: Cache coverage ${{ matrix.python-version }}
-              uses: actions/cache@v3
-              with:
-                  path: .coverage/env/.coverage.${{ matrix.python-version }}
-                  key: cache_coverage_${{ matrix.python-version }}_${{ github.run_id }}
+                  key: coverage_${{ matrix.python-version }}_${{ github.run_id }}
 
     test_coverage:
         runs-on: ubuntu-22.04
@@ -203,47 +203,47 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
+            - name: Cache venv
               uses: actions/cache@v3
               with:
                   path: .venv
-                  key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
+                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
 
             - name: Cache coverage 3.6
               uses: actions/cache@v3
               with:
                   path: .coverage/env/.coverage.3.6
-                  key: cache_coverage_3.6_${{ github.run_id }}
+                  key: coverage_3.6_${{ github.run_id }}
 
             - name: Cache coverage 3.7
               uses: actions/cache@v3
               with:
                   path: .coverage/env/.coverage.3.7
-                  key: cache_coverage_3.7_${{ github.run_id }}
+                  key: coverage_3.7_${{ github.run_id }}
 
             - name: Cache coverage 3.8
               uses: actions/cache@v3
               with:
                   path: .coverage/env/.coverage.3.8
-                  key: cache_coverage_3.8_${{ github.run_id }}
+                  key: coverage_3.8_${{ github.run_id }}
 
             - name: Cache coverage 3.9
               uses: actions/cache@v3
               with:
                   path: .coverage/env/.coverage.3.9
-                  key: cache_coverage_3.9_${{ github.run_id }}
+                  key: coverage_3.9_${{ github.run_id }}
 
             - name: Cache coverage 3.10
               uses: actions/cache@v3
               with:
                   path: .coverage/env/.coverage.3.10
-                  key: cache_coverage_3.10_${{ github.run_id }}
+                  key: coverage_3.10_${{ github.run_id }}
 
             - name: Cache coverage 3.11
               uses: actions/cache@v3
               with:
                   path: .coverage/env/.coverage.3.11
-                  key: cache_coverage_3.11_${{ github.run_id }}
+                  key: coverage_3.11_${{ github.run_id }}
 
             - name: Report coverage
               run: |
@@ -254,4 +254,4 @@ jobs:
               uses: actions/cache@v3
               with:
                   path: .coverage/html
-                  key: cache_coverage_${{ github.run_id }}
+                  key: coverage_${{ github.run_id }}

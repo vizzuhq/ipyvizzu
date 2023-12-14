@@ -1,4 +1,4 @@
-name: Documentation
+name: Doc
 
 on:
     workflow_dispatch:
@@ -7,7 +7,7 @@ on:
     workflow_call:
 
 jobs:
-    build_docs:
+    build:
         if: ${{ !((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
 
         runs-on: ubuntu-22.04
@@ -21,23 +21,23 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
+            - name: Cache venv
               uses: actions/cache@v3
               with:
                   path: .venv
-                  key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
+                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
 
-            - name: Cache dev-js environment
+            - name: Cache node modules
               uses: actions/cache@v3
               with:
                   path: node_modules
-                  key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
+                  key: node_modules_ubuntu22_${{ hashFiles('package-lock.json') }}
 
             - name: Cache coverage
               uses: actions/cache@v3
               with:
                   path: .coverage/html
-                  key: cache_coverage_${{ github.run_id }}
+                  key: coverage_${{ github.run_id }}
 
             - name: Deploy package
               run: |
@@ -64,7 +64,7 @@ jobs:
                   source .venv/bin/activate
                   pdm run build-docs
 
-    publish_docs:
+    deploy:
         if: ${{ ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
 
         runs-on: ubuntu-22.04
@@ -78,17 +78,17 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
+            - name: Cache venv
               uses: actions/cache@v3
               with:
                   path: .venv
-                  key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
+                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
 
-            - name: Cache dev-js environment
+            - name: Cache node modules
               uses: actions/cache@v3
               with:
                   path: node_modules
-                  key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
+                  key: node_modules_ubuntu22_${{ hashFiles('package-lock.json') }}
 
             - name: Get workflow ID
               id: workflow_id
@@ -114,7 +114,7 @@ jobs:
               uses: actions/cache@v3
               with:
                   path: .coverage/html
-                  key: cache_coverage_${{ steps.run_id.outputs.run_id }}
+                  key: coverage_${{ steps.run_id.outputs.run_id }}
 
             - name: Deploy package
               run: |
@@ -138,11 +138,8 @@ jobs:
 
             - name: Configure Git
               run: |
-                  git config --global user.name "${{ env.GIT_USER_NAME }}"
-                  git config --global user.email "${{ env.GIT_USER_EMAIL }}"
-              env:
-                  GIT_USER_NAME: David Vegh
-                  GIT_USER_EMAIL: veghdev@gmail.com
+                  git config --global user.name "${{ secrets.VIZZUHQ_GITHUB_USER }}"
+                  git config --global user.email "${{ secrets.VIZZUHQ_GITHUB_EMAIL }}"
 
             - name: Deploy documentation
               run: |

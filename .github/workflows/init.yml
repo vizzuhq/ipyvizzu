@@ -4,7 +4,36 @@ on:
     workflow_call:
 
 jobs:
-    init_dev_ubuntu22:
+    init_ubuntu20:
+        runs-on: ubuntu-20.04
+
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 1
+
+            - name: Cache venv
+              id: venv_ubuntu20
+              uses: actions/cache@v3
+              with:
+                  path: .venv
+                  key: venv_ubuntu20_${{ hashFiles('pdm.lock') }}
+
+            - name: Set up Python 3.6
+              if: steps.venv_ubuntu20.outputs.cache-hit != 'true'
+              uses: actions/setup-python@v4
+              with:
+                  python-version: '3.6'
+
+            - name: Set up venv
+              if: steps.venv_ubuntu20.outputs.cache-hit != 'true'
+              run: |
+                  python3.6 -m venv ".venv"
+                  source .venv/bin/activate
+                  pip install tox
+
+    init_ubuntu22:
         runs-on: ubuntu-22.04
 
         env:
@@ -16,37 +45,37 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
-              id: cache_dev_py_ubuntu22
+            - name: Cache venv
+              id: venv_ubuntu22
               uses: actions/cache@v3
               with:
                   path: .venv
-                  key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
+                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
 
-            - name: Init dev-py environment
-              if: steps.cache_dev_py_ubuntu22.outputs.cache-hit != 'true'
+            - name: Set up venv
+              if: steps.venv_ubuntu22.outputs.cache-hit != 'true'
               run: |
                   python3.10 -m venv ".venv"
                   source .venv/bin/activate
                   pip install pdm==2.8.0
                   pdm install
 
-            - name: Cache dev-js environment
-              id: cache_dev_js_ubuntu22
+            - name: Cache node modules
+              id: node_modules_ubuntu22
               uses: actions/cache@v3
               with:
                   path: node_modules
-                  key: cache_dev_js_ubuntu22_${{ hashFiles('package-lock.json') }}
+                  key: node_modules_ubuntu22_${{ hashFiles('package-lock.json') }}
 
-            - name: Init dev-js environment
-              if: steps.cache_dev_js_ubuntu22.outputs.cache-hit != 'true'
+            - name: Set up ode modules
+              if: steps.node_modules_ubuntu22.outputs.cache-hit != 'true'
               run: |
                   source .venv/bin/activate
                   npm install
 
     init_pkg:
         runs-on: ubuntu-22.04
-        needs: init_dev_ubuntu22
+        needs: init_ubuntu22
 
         steps:
             - name: Checkout repo
@@ -54,11 +83,11 @@ jobs:
               with:
                   fetch-depth: 1
 
-            - name: Cache dev-py environment
+            - name: Cache venv
               uses: actions/cache@v3
               with:
                   path: .venv
-                  key: cache_dev_py_ubuntu22_${{ hashFiles('pdm.lock') }}
+                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
 
             - name: Deploy package
               run: |
@@ -74,33 +103,4 @@ jobs:
               uses: actions/cache@v3
               with:
                   path: dist/
-                  key: cache_package_${{ github.run_id }}
-
-    init_dev_ubuntu20:
-        runs-on: ubuntu-20.04
-
-        steps:
-            - name: Checkout repo
-              uses: actions/checkout@v3
-              with:
-                  fetch-depth: 1
-
-            - name: Cache dev-py environment
-              id: cache_dev_py_ubuntu20
-              uses: actions/cache@v3
-              with:
-                  path: .venv
-                  key: cache_dev_py_ubuntu20_${{ hashFiles('pdm.lock') }}
-
-            - name: Set up Python 3.6
-              if: steps.cache_dev_py_ubuntu20.outputs.cache-hit != 'true'
-              uses: actions/setup-python@v4
-              with:
-                  python-version: '3.6'
-
-            - name: Init dev-py environment
-              if: steps.cache_dev_py_ubuntu20.outputs.cache-hit != 'true'
-              run: |
-                  python3.6 -m venv ".venv"
-                  source .venv/bin/activate
-                  pip install tox
+                  key: package_${{ github.run_id }}

@@ -169,8 +169,8 @@ To release `ipyvizzu`, follow the steps below:
 - Generate the release notes and publish the new release on
   [Releases](https://github.com/vizzuhq/ipyvizzu/releases).
 
-**Note:** Publishing a new release will automatically trigger the `release`
-workflow, which builds, checks, and uploads the `ipyvizzu` package to
+**Note:** Publishing a new release will automatically trigger the `cd` workflow,
+which builds, checks, and uploads the `ipyvizzu` package to
 [pypi](https://pypi.org/project/ipyvizzu).
 
 Before making a release, you can build and check the package using the `release`
