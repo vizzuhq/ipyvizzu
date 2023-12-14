@@ -119,6 +119,8 @@ ci-tools = {composite = ["ci-tools-py", "ci-tools-js"]}
 ci-tools-py = {composite = ["format-tools-py", "lint-tools-py", "type-tools-py"]}
 ci-tools-js = {composite = ["format-tools-js ", "lint-tools-js "]}
 
+fix = {composite = ["fix-format", "fix-lint"]}
+
 fix-format = {composite = ["fix-format-src", "fix-format-docs", "fix-format-tools"]}
 fix-format-src = {composite = ["fix-format-src-py", "fix-format-src-js"]}
 fix-format-src-py = {composite = ["fix-format-black src tests"]}
