@@ -67,7 +67,7 @@ jobs:
                   path: node_modules
                   key: node_modules_ubuntu22_${{ hashFiles('package-lock.json') }}
 
-            - name: Set up ode modules
+            - name: Set up node modules
               if: steps.node_modules_ubuntu22.outputs.cache-hit != 'true'
               run: |
                   source .venv/bin/activate
