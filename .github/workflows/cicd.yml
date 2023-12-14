@@ -18,7 +18,7 @@ jobs:
         uses: ./.github/workflows/doc.yml
         needs: ci
 
-    release:
-        uses: ./.github/workflows/release.yml
+    cd:
+        uses: ./.github/workflows/cd.yml
         secrets: inherit
         needs: doc
