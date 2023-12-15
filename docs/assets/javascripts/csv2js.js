@@ -1,13 +1,19 @@
 import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7/+esm'
 
 class Csv2Js {
-	static csv(csv, dimensions, measures) {
+	static csv(csv, options) {
 		return new Promise((resolve, reject) => {
-			if (!dimensions) {
-				dimensions = []
+			if (!options) {
+				options = {}
 			}
-			if (!measures) {
-				measures = []
+			if (!options.dimensions) {
+				options.dimensions = []
+			}
+			if (!options.measures) {
+				options.measures = []
+			}
+			if (!options.units) {
+				options.units = {}
 			}
 			const detectedDimensions = {}
 			const data = { series: [], records: [] }
@@ -33,10 +39,13 @@ class Csv2Js {
 					const series = {
 						name: key,
 						type:
-							dimensions.includes(key) ||
-							(detectedDimensions[key] && !measures.includes(key))
+							options.dimensions.includes(key) ||
+							(detectedDimensions[key] && !options.measures.includes(key))
 								? 'dimension'
 								: 'measure'
+					}
+					if (options.units[key]) {
+						series.unit = options.units[key]
 					}
 					data.series.push(series)
 				}

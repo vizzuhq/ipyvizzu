@@ -13,9 +13,11 @@ from ipyvizzu.data.converters.numpy.type_alias import (
     ColumnConfig,
     ColumnDtype,
     ColumnName,
+    ColumnUnit,
     DType,
     Index,
     Name,
+    Unit,
 )
 from ipyvizzu.data.infer_type import InferType
 from ipyvizzu.data.type_alias import (
@@ -58,6 +60,7 @@ class NumpyArrayConverter(ToSeriesListConverter):
         np_array: "numpy.array",  # type: ignore
         column_name: Optional[ColumnName] = None,
         column_dtype: Optional[ColumnDtype] = None,
+        column_unit: Optional[ColumnUnit] = None,
         default_measure_value: MeasureValue = NAN_MEASURE,
         default_dimension_value: DimensionValue = NAN_DIMENSION,
     ) -> None:
@@ -68,6 +71,7 @@ class NumpyArrayConverter(ToSeriesListConverter):
         self._np_array = np_array
         self._column_name: Dict[Index, Name] = self._get_columns_config(column_name)
         self._column_dtype: Dict[Index, DType] = self._get_columns_config(column_dtype)
+        self._column_unit: Dict[Index, Unit] = self._get_columns_config(column_unit)
 
     def get_series_list(self) -> List[Series]:
         """
@@ -89,19 +93,21 @@ class NumpyArrayConverter(ToSeriesListConverter):
     def _get_series_list_from_array1dim(self) -> List[Series]:
         i = 0
         name = self._column_name.get(i, i)
+        unit = self._column_unit.get(i, None)
         values, infer_type = self._convert_to_series_values_and_type(
             (i, self._np_array)
         )
-        return [self._convert_to_series(name, values, infer_type)]
+        return [self._convert_to_series(name, values, infer_type, unit)]
 
     def _get_series_list_from_array2dim(self) -> List[Series]:
         series_list = []
         for i in range(self._np_array.shape[1]):
             name = self._column_name.get(i, i)
+            unit = self._column_unit.get(i, None)
             values, infer_type = self._convert_to_series_values_and_type(
                 (i, self._np_array[:, i])
             )
-            series_list.append(self._convert_to_series(name, values, infer_type))
+            series_list.append(self._convert_to_series(name, values, infer_type, unit))
         return series_list
 
     def _get_numpy(self) -> ModuleType:

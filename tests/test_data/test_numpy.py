@@ -65,11 +65,13 @@ class TestDataNpArray(unittest.TestCase):
             self.data.build(),
         )
 
-    def test_add_np_array1dim_with_str_and_na_value_and_column_name_and_dtype(
+    def test_add_np_array1dim_with_str_and_na_value_and_column_name_and_dtype_and_unit(
         self,
     ) -> None:
         np_array = np.array([127, "128", np.nan])
-        self.data.add_np_array(np_array, column_name="First", column_dtype=int)
+        self.data.add_np_array(
+            np_array, column_name="First", column_dtype=int, column_unit="Unit"
+        )
         self.assertEqual(
             {
                 "data": {
@@ -78,6 +80,7 @@ class TestDataNpArray(unittest.TestCase):
                             "name": "First",
                             "type": "measure",
                             "values": [127, 128, 0],
+                            "unit": "Unit",
                         },
                     ]
                 }
@@ -101,12 +104,15 @@ class TestDataNpArray(unittest.TestCase):
             self.data.build(),
         )
 
-    def test_add_np_array2dim_with_str_and_na_value_and_column_name_and_dtype(
+    def test_add_np_array2dim_with_str_and_na_value_and_column_name_and_dtype_and_unit(
         self,
     ) -> None:
         np_array = np.array([[127, "128", 129], [255, np.nan, 257], [511, 512, 513]])
         self.data.add_np_array(
-            np_array, column_name={0: "First"}, column_dtype={2: int}
+            np_array,
+            column_name={0: "First"},
+            column_dtype={2: int},
+            column_unit={2: "Unit"},
         )
         self.assertEqual(
             {
@@ -126,6 +132,7 @@ class TestDataNpArray(unittest.TestCase):
                             "name": "2",
                             "type": "measure",
                             "values": [129, 257, 513],
+                            "unit": "Unit",
                         },
                     ]
                 }

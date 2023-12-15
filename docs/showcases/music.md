@@ -19,7 +19,7 @@ df = pd.read_csv(
     dtype={"Year": str},
 )
 data = Data()
-data.add_df(df)
+data.add_df(df, units={"Revenue": "m$"})
 
 chart = Chart()
 
@@ -29,7 +29,7 @@ chart.animate(
     Config(
         {
             "x": "Year",
-            "y": ["Format", "Revenue [m$]"],
+            "y": ["Format", "Revenue"],
             "color": "Format",
             "geometry": "area",
             "align": "center",
@@ -92,7 +92,7 @@ chart.animate(
     Config(
         {
             "x": "Year",
-            "y": "Revenue [m$]",
+            "y": "Revenue",
             "noop": "Format",
             "align": "none",
             "geometry": "line",

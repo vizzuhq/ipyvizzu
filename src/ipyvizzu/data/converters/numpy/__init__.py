@@ -10,4 +10,5 @@ from ipyvizzu.data.converters.numpy.type_alias import (
     ColumnName,
     ColumnDtype,
     ColumnConfig,
+    ColumnUnit,
 )

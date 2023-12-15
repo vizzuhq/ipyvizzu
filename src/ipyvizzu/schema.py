@@ -9,6 +9,7 @@ NAMED_SCHEMA: dict = {
             "name": {"type": "string"},
             "values": {"type": "array", "optional": True},
             "type": {"type": "string", "optional": True},
+            "unit": {"type": "string", "optional": True},
         },
         "required": ["name"],
     },

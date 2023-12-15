@@ -7,15 +7,9 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 	const Csv2Js = results[0].default
 	const Vizzu = results[1].default
 
-	const dataLoaded = Csv2Js.csv('./nadal.csv', [
-		'Year',
-		'Round',
-		'Round2',
-		'Order_GS',
-		'Order_all',
-		'Total_GS',
-		'Top'
-	])
+	const dataLoaded = Csv2Js.csv('./nadal.csv', {
+		dimensions: ['Year', 'Round', 'Round2', 'Order_GS', 'Order_all', 'Total_GS', 'Top']
+	})
 
 	dataLoaded.then((data) => {
 		new Vizzu('testVizzuCanvas', { data }).initializing.then((chart) => {

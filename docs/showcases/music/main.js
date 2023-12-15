@@ -7,7 +7,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 	const Csv2Js = results[0].default
 	const Vizzu = results[1].default
 
-	const dataLoaded = Csv2Js.csv('./music.csv', ['Year'])
+	const dataLoaded = Csv2Js.csv('./music.csv', { dimensions: ['Year'], units: { Revenue: 'm$' } })
 
 	dataLoaded.then((data) => {
 		new Vizzu('testVizzuCanvas', { data }).initializing.then((chart) => {
@@ -15,7 +15,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 				config: {
 					title: 'Music Revenue by Format 1973-2020',
 					x: 'Year',
-					y: ['Format', 'Revenue [m$]'],
+					y: ['Format', 'Revenue'],
 					color: 'Format',
 					geometry: 'area',
 					align: 'center'
@@ -101,7 +101,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 				{
 					config: {
 						x: 'Year',
-						y: 'Revenue [m$]',
+						y: 'Revenue',
 						noop: 'Format',
 						align: 'none',
 						geometry: 'line'

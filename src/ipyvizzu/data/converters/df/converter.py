@@ -3,7 +3,7 @@ This module provides the `DataFrameConverter` abstract class.
 """
 
 from abc import abstractmethod
-from typing import List
+from typing import Dict, List, Optional
 import warnings
 
 from ipyvizzu.data.converters.converter import ToSeriesListConverter
@@ -28,9 +28,11 @@ class DataFrameConverter(ToSeriesListConverter):
         default_measure_value: MeasureValue,
         default_dimension_value: DimensionValue,
         max_rows: int,
+        units: Optional[Dict[str, str]] = None,
     ) -> None:
         super().__init__(default_measure_value, default_dimension_value)
         self._max_rows = max_rows
+        self._units = units or {}
 
     def get_series_list(self) -> List[Series]:
         """
@@ -48,7 +50,8 @@ class DataFrameConverter(ToSeriesListConverter):
 
     def _get_series_from_column(self, column_name: str) -> Series:
         values, infer_type = self._convert_to_series_values_and_type(column_name)
-        return self._convert_to_series(column_name, values, infer_type)
+        unit = self._units.get(column_name, None)
+        return self._convert_to_series(column_name, values, infer_type, unit)
 
     def _is_max_rows_exceeded(self, row_number: int) -> bool:
         if row_number > self._max_rows:
