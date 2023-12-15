@@ -1,5 +1,6 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
+import copy
 import pandas as pd
 
 from tests.test_data import DataWithAssets
@@ -55,6 +56,16 @@ class TestDf(DataWithAssets):
         self.data.add_df(df, max_rows=2)
         self.assertEqual(
             self.ref_pd_df_by_series_max_rows,
+            self.data.build(),
+        )
+
+    def test_add_df_with_df_and_with_units(self) -> None:
+        df = self.in_pd_df_by_series
+        self.data.add_df(df, units={"Popularity": "songs"})
+        ref = copy.deepcopy(self.ref_pd_df_by_series)
+        ref["data"]["series"][-1]["unit"] = "songs"  # type: ignore
+        self.assertEqual(
+            ref,
             self.data.build(),
         )
 

@@ -7,7 +7,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 	const Csv2Js = results[0].default
 	const Vizzu = results[1].default
 
-	const dataLoaded = Csv2Js.csv('./sales.csv')
+	const dataLoaded = Csv2Js.csv('./sales.csv', { units: { Revenue: '$' } })
 
 	dataLoaded.then((data) => {
 		new Vizzu('testVizzuCanvas', { data }).initializing.then((chart) => {
@@ -61,8 +61,8 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 			chart.animate(
 				{
 					config: {
-						y: ['Revenue [$]', 'Product'],
-						label: 'Revenue [$]',
+						y: ['Revenue', 'Product'],
+						label: 'Revenue',
 						title: 'Revenue of All Products'
 					}
 				},
@@ -71,13 +71,13 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 
 			chart.animate(
 				{
-					config: { x: ['Region', 'Revenue [$]'], y: 'Product' }
+					config: { x: ['Region', 'Revenue'], y: 'Product' }
 				},
 				{ delay: 2 }
 			)
 
 			chart.animate({
-				config: { x: 'Revenue [$]', y: 'Product' }
+				config: { x: 'Revenue', y: 'Product' }
 			})
 
 			chart.animate(

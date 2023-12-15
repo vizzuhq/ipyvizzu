@@ -1,5 +1,7 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
+import copy
+
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType
 
@@ -127,4 +129,24 @@ class TestDataSpark(DataWithAssets):
                 },
             ],
             data_series,
+        )
+
+    def test_add_df_with_df_and_with_units(self) -> None:
+        schema = StructType(
+            [
+                StructField("DimensionSeries", StringType(), True),
+                StructField("MeasureSeries", IntegerType(), True),
+            ]
+        )
+        df_data = [
+            ("1", 3),
+            ("2", 4),
+        ]
+        df = self.spark.createDataFrame(df_data, schema)
+        self.data.add_df(df, units={"MeasureSeries": "Unit"})
+        ref = copy.deepcopy(self.ref_pd_series)
+        ref["data"]["series"][-1]["unit"] = "Unit"  # type: ignore
+        self.assertEqual(
+            ref,
+            self.data.build(),
         )

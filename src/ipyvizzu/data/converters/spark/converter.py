@@ -5,7 +5,7 @@ into a list of dictionaries representing series.
 """
 
 from types import ModuleType
-from typing import List, Tuple
+from typing import Dict, List, Optional, Tuple
 
 from ipyvizzu.data.converters.defaults import NAN_DIMENSION, NAN_MEASURE
 from ipyvizzu.data.converters.df.defaults import MAX_ROWS
@@ -48,8 +48,13 @@ class SparkDataFrameConverter(DataFrameConverter):
         default_measure_value: MeasureValue = NAN_MEASURE,
         default_dimension_value: DimensionValue = NAN_DIMENSION,
         max_rows: int = MAX_ROWS,
+        units: Optional[Dict[str, str]] = None,
     ) -> None:
-        super().__init__(default_measure_value, default_dimension_value, max_rows)
+        # pylint: disable=too-many-arguments
+
+        super().__init__(
+            default_measure_value, default_dimension_value, max_rows, units
+        )
         self._pyspark, self._pyspark_func = self._get_pyspark()
         self._df = self._get_sampled_df(df)
 

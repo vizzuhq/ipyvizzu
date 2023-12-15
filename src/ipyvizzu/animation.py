@@ -4,14 +4,19 @@ import abc
 import json
 from os import PathLike
 import sys
-from typing import List, Optional, Tuple, Type, Union
+from typing import Dict, List, Optional, Tuple, Type, Union
 import warnings
 
 import jsonschema  # type: ignore
 
 from ipyvizzu.data.converters.defaults import NAN_DIMENSION, NAN_MEASURE
 from ipyvizzu.data.converters.df.defaults import MAX_ROWS
-from ipyvizzu.data.converters.numpy import ColumnDtype, ColumnName, NumpyArrayConverter
+from ipyvizzu.data.converters.numpy import (
+    ColumnDtype,
+    ColumnName,
+    ColumnUnit,
+    NumpyArrayConverter,
+)
 from ipyvizzu.data.converters.pandas import PandasDataFrameConverter
 from ipyvizzu.data.converters.spark import SparkDataFrame, SparkDataFrameConverter
 from ipyvizzu.data.type_alias import (
@@ -288,6 +293,7 @@ class Data(dict, AbstractAnimation):
         default_dimension_value: DimensionValue = NAN_DIMENSION,
         max_rows: int = MAX_ROWS,
         include_index: Optional[str] = None,
+        units: Optional[Dict[str, str]] = None,
     ) -> None:
         """
         Add a `pandas` `DataFrame`, `Series` or a `pyspark` `DataFrame`
@@ -307,6 +313,8 @@ class Data(dict, AbstractAnimation):
             include_index:
                 Add the data frame's index as a column with the given name. Defaults to `None`.
                 (Cannot be used with `pyspark` `DataFrame`.)
+            units:
+                A dictionary of column names and units. Defaults to `None`.
 
         Example:
             Adding a data frame to a [Data][ipyvizzu.animation.Data] class instance:
@@ -331,6 +339,7 @@ class Data(dict, AbstractAnimation):
                 "default_dimension_value": default_dimension_value,
                 "max_rows": max_rows,
                 "include_index": include_index,
+                "units": units,
             }
             Converter: Union[
                 Type[PandasDataFrameConverter], Type[SparkDataFrameConverter]
@@ -460,6 +469,7 @@ class Data(dict, AbstractAnimation):
         np_array: Optional["numpy.array"],  # type: ignore
         column_name: Optional[ColumnName] = None,
         column_dtype: Optional[ColumnDtype] = None,
+        column_unit: Optional[ColumnUnit] = None,
         default_measure_value: MeasureValue = NAN_MEASURE,
         default_dimension_value: DimensionValue = NAN_DIMENSION,
     ) -> None:
@@ -479,6 +489,8 @@ class Data(dict, AbstractAnimation):
                 Default value to use for missing measure values. Defaults to 0.
             default_dimension_value:
                 Default value to use for missing dimension values. Defaults to an empty string.
+            column_unit:
+                The unit of a column. Defaults to `None`.
 
         Example:
             Adding a data frame to a [Data][ipyvizzu.animation.Data] class instance:
@@ -495,6 +507,7 @@ class Data(dict, AbstractAnimation):
                 np_array,
                 column_name,
                 column_dtype,
+                column_unit,
                 default_measure_value,
                 default_dimension_value,
             )

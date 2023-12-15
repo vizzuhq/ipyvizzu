@@ -5,7 +5,7 @@ into a list of dictionaries representing series.
 """
 
 from types import ModuleType
-from typing import List, Optional, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union
 
 from ipyvizzu.data.converters.defaults import NAN_DIMENSION, NAN_MEASURE
 from ipyvizzu.data.converters.df.defaults import MAX_ROWS
@@ -52,10 +52,13 @@ class PandasDataFrameConverter(DataFrameConverter):
         default_dimension_value: DimensionValue = NAN_DIMENSION,
         max_rows: int = MAX_ROWS,
         include_index: Optional[str] = None,
+        units: Optional[Dict[str, str]] = None,
     ) -> None:
         # pylint: disable=too-many-arguments
 
-        super().__init__(default_measure_value, default_dimension_value, max_rows)
+        super().__init__(
+            default_measure_value, default_dimension_value, max_rows, units
+        )
         self._pd = self._get_pandas()
         self._df = self._get_sampled_df(
             self._convert_to_df(df) if isinstance(df, PandasSeries) else df

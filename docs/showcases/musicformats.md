@@ -19,15 +19,15 @@ df = pd.read_csv(
     dtype={"Year": str},
 )
 data = Data()
-data.add_df(df)
+data.add_df(df, units={"Revenue": "m$"})
 
 config = {
     "channels": {
         "y": {
             "set": ["Format"],
         },
-        "x": {"set": ["Revenue [m$]"]},
-        "label": {"set": ["Revenue [m$]"]},
+        "x": {"set": ["Revenue"]},
+        "label": {"set": ["Revenue"]},
         "color": {"set": ["Format"]},
     },
     "sort": "byValue",
@@ -116,7 +116,7 @@ chart.animate(
 )
 
 chart.animate(
-    Config({"channels": {"label": {"set": ["Revenue [m$]"]}}}),
+    Config({"channels": {"label": {"set": ["Revenue"]}}}),
     duration=0.1,
 )
 
@@ -125,7 +125,7 @@ chart.animate(
         {
             "channels": {
                 "x": {"attach": ["Year"]},
-                "label": {"detach": ["Revenue [m$]"]},
+                "label": {"detach": ["Revenue"]},
             }
         }
     ),
@@ -138,7 +138,7 @@ chart.animate(
             "channels": {
                 "x": {"set": ["Year"]},
                 "y": {
-                    "set": ["Revenue [m$]", "Format"],
+                    "set": ["Revenue", "Format"],
                     "range": {"min": None, "max": None},
                 },
                 "color": {"set": ["Format"]},

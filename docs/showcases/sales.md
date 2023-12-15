@@ -18,7 +18,7 @@ df = pd.read_csv(
     "https://ipyvizzu.vizzuhq.com/xIPYVIZZU_MINOR_VERSIONx/showcases/sales/sales.csv"
 )
 data = Data()
-data.add_df(df)
+data.add_df(df, units={"Revenue": "$"})
 
 chart = Chart()
 
@@ -60,8 +60,8 @@ chart.animate(
 chart.animate(
     Config(
         {
-            "y": ["Revenue [$]", "Product"],
-            "label": "Revenue [$]",
+            "y": ["Revenue", "Product"],
+            "label": "Revenue",
             "title": "Revenue of All Products",
         }
     ),
@@ -69,10 +69,10 @@ chart.animate(
 )
 
 chart.animate(
-    Config({"x": ["Region", "Revenue [$]"], "y": "Product"}), delay=2
+    Config({"x": ["Region", "Revenue"], "y": "Product"}), delay=2
 )
 
-chart.animate(Config({"x": "Revenue [$]", "y": "Product"}))
+chart.animate(Config({"x": "Revenue", "y": "Product"}))
 
 chart.animate(
     Config({"coordSystem": "polar", "sort": "byValue"}), delay=1

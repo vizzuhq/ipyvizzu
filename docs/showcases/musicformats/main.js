@@ -7,7 +7,10 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 	const Csv2Js = results[0].default
 	const Vizzu = results[1].default
 
-	const dataLoaded = Csv2Js.csv('./musicformats.csv', ['Year'])
+	const dataLoaded = Csv2Js.csv('./musicformats.csv', {
+		dimensions: ['Year'],
+		units: { Revenue: 'm$' }
+	})
 
 	dataLoaded.then((data) => {
 		new Vizzu('testVizzuCanvas', { data }).initializing.then((chart) => {
@@ -16,8 +19,8 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 					y: {
 						set: ['Format']
 					},
-					x: { set: ['Revenue [m$]'] },
-					label: { set: ['Revenue [m$]'] },
+					x: { set: ['Revenue'] },
+					label: { set: ['Revenue'] },
 					color: { set: ['Format'] }
 				},
 				sort: 'byValue',
@@ -152,7 +155,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 
 			chart.animate(
 				{
-					config: { channels: { label: { set: ['Revenue [m$]'] } } }
+					config: { channels: { label: { set: ['Revenue'] } } }
 				},
 				{
 					duration: 0.1
@@ -164,7 +167,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 					config: {
 						channels: {
 							x: { attach: ['Year'] },
-							label: { detach: ['Revenue [m$]'] }
+							label: { detach: ['Revenue'] }
 						}
 					}
 				},
@@ -179,7 +182,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 						channels: {
 							x: { set: ['Year'] },
 							y: {
-								set: ['Revenue [m$]', 'Format'],
+								set: ['Revenue', 'Format'],
 								range: { min: null, max: null }
 							},
 							color: { set: ['Format'] }
