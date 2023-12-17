@@ -43,7 +43,6 @@ chart.animate(
                 "range": {"min": -1, "max": 1},
             },
             "size": None,
-            "orientation": "horizontal",
             "geometry": "rectangle",
             "title": "Rafael Nadal's matches at the Roland Garros",
             "legend": "size",

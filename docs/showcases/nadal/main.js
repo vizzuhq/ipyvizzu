@@ -24,7 +24,6 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 					y: 'Round2',
 					color: { set: 'Result_Num', range: { min: -1, max: 1 } },
 					size: null,
-					orientation: 'horizontal',
 					geometry: 'rectangle',
 					title: "Rafael Nadal's matches at the Roland Garros",
 					legend: 'size'
