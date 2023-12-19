@@ -101,7 +101,9 @@ class Plugin(Method):
 
         self._data = {
             "plugin": Plugin.resolve_url(plugin),
-            "options": json.dumps(options, cls=RawJavaScriptEncoder),
+            "options": {}
+            if options is None
+            else json.dumps(options, cls=RawJavaScriptEncoder),
             "name": name,
             "enabled": json.dumps(enabled),
         }
