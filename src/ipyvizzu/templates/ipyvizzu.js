@@ -61,7 +61,7 @@ if (window.IpyVizzu?.version !== '__version__') {
 					.then((pluginModule) => {
 						const Plugin = pluginModule[name]
 						if (enabled) {
-							chart.feature(new Plugin(options), enabled)
+							chart.feature(new Plugin(options), true)
 						} else {
 							chart.feature(new Plugin(options).meta.name, false)
 						}
