@@ -57,11 +57,16 @@ if (window.IpyVizzu?.version !== '__version__') {
 
 		plugin(element, chartId, plugin, options, name, enabled) {
 			this.charts[chartId] = this.charts[chartId].then((chart) => {
-				return import(plugin).then((pluginModule) => {
-					const Plugin = pluginModule[name]
-					chart.feature(new Plugin(options), enabled)
-					return chart
-				})
+				return import(plugin)
+					.then((pluginModule) => {
+						const Plugin = pluginModule[name]
+						chart.feature(new Plugin(options), enabled)
+						return chart
+					})
+					.catch((error) => {
+						console.error('Error importing plugin:', plugin, error)
+						return chart
+					})
 			})
 		}
 
