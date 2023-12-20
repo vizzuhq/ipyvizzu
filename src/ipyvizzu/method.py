@@ -1,8 +1,8 @@
 """A module for working with template methods."""
 
 import json
+import re
 from typing import Optional
-from urllib.parse import urlparse
 
 from ipyvizzu.animation import AbstractAnimation, PlainAnimation
 from ipyvizzu.event import EventHandler
@@ -88,6 +88,8 @@ class Plugin(Method):
     It stores and dumps `plugin`, `options` and `name` parameters.
     """
 
+    URL = re.compile(r"https?://\S+")
+
     def __init__(self, plugin: str, options: Optional[dict], name: str, enabled: bool):
         """
         Plugin constructor.
@@ -126,11 +128,7 @@ class Plugin(Method):
 
     @staticmethod
     def _is_url(plugin: str) -> bool:
-        try:
-            urlparse(plugin)
-            return True
-        except ValueError:
-            return False
+        return bool(re.match(Plugin.URL, plugin))
 
     @staticmethod
     def _get_url(plugin: str) -> str:
