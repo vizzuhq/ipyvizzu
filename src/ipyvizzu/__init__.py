@@ -69,7 +69,7 @@ from .json import RawJavaScript, RawJavaScriptEncoder
 from .template import ChartProperty, DisplayTarget, DisplayTemplate
 from .event import EventHandler
 
-from .__version__ import __version__, PYENV
+from .__version__ import __version__, __version_info__, PYENV
 
 __all__ = [
     "Chart",
