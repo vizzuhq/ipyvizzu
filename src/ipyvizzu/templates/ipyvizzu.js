@@ -37,6 +37,7 @@ if (window.IpyVizzu?.version !== '__version__') {
 			this.events = {}
 			this.loaded = {}
 			this.libs = {}
+			this.plugins = {}
 		}
 
 		static clearInhibitScroll(element) {
@@ -57,20 +58,25 @@ if (window.IpyVizzu?.version !== '__version__') {
 
 		plugin(element, chartId, plugin, options, name, enabled) {
 			this.charts[chartId] = this.charts[chartId].then((chart) => {
-				return import(plugin)
-					.then((pluginModule) => {
-						const plugin = new pluginModule[name](options)
-						if (enabled) {
-							chart.feature(plugin, true)
-						} else {
-							chart.feature(plugin.meta.name, false)
-						}
-						return chart
-					})
-					.catch((error) => {
+				if (!this.plugins[plugin]) {
+					this.plugins[plugin] = import(plugin).catch((error) => {
 						console.error('Error importing plugin:', plugin, error)
-						return chart
+						return null
 					})
+				}
+
+				return this.plugins[plugin].then((pluginModule) => {
+					if (pluginModule) {
+						const pluginInstance = new pluginModule[name](options)
+						if (enabled) {
+							chart.feature(pluginInstance, true)
+						} else {
+							chart.feature(pluginInstance.meta.name, false)
+						}
+					}
+
+					return chart
+				})
 			})
 		}
 
