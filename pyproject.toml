@@ -97,7 +97,7 @@ lint-tools = {composite = ["lint-tools-py", "lint-tools-js"]}
 lint-tools-py = {composite = ["lint-pylint tools"]}
 lint-tools-js = {composite = ["lint-eslint tools"]}
 lint-pylint = "pylint"
-lint-eslint = "npx eslint --ext .js,.cjs,.mjs"
+lint-eslint = "npx eslint"
 
 type = {composite = ["type-src", "type-tools"]}
 type-src = {composite = ["type-src-py"]}
@@ -110,14 +110,14 @@ test = "tox"
 
 ci = {composite = ["ci-src", "ci-docs", "ci-tools"]}
 ci-src = {composite = ["ci-src-py", "ci-src-js"]}
-ci-src-py = {composite = ["format-src-py ", "lint-src-py ", "type-src-py", "test"]}
-ci-src-js = {composite = ["format-src-js ", "lint-src-js "]}
+ci-src-py = {composite = ["format-src-py", "lint-src-py", "type-src-py", "test"]}
+ci-src-js = {composite = ["format-src-js", "lint-src-js"]}
 ci-docs = {composite = ["ci-docs-py", "ci-docs-js"]}
-ci-docs-py = {composite = ["format-docs-py "]}
-ci-docs-js = {composite = ["format-docs-js ", "lint-docs-js "]}
+ci-docs-py = {composite = ["format-docs-py"]}
+ci-docs-js = {composite = ["format-docs-js", "lint-docs-js"]}
 ci-tools = {composite = ["ci-tools-py", "ci-tools-js"]}
 ci-tools-py = {composite = ["format-tools-py", "lint-tools-py", "type-tools-py"]}
-ci-tools-js = {composite = ["format-tools-js ", "lint-tools-js "]}
+ci-tools-js = {composite = ["format-tools-js ", "lint-tools-js"]}
 
 fix = {composite = ["fix-format", "fix-lint"]}
 
@@ -142,7 +142,7 @@ fix-lint-docs = {composite = ["fix-lint-docs-js"]}
 fix-lint-docs-js = {composite = ["fix-lint-eslint docs"]}
 fix-lint-tools = {composite = ["fix-lint-tools-js"]}
 fix-lint-tools-js = {composite = ["fix-lint-eslint tools"]}
-fix-lint-eslint = "npx eslint --ext .js,.cjs,.mjs --fix"
+fix-lint-eslint = "npx eslint --fix"
 
 build-docs = {composite = ["python tools/docs/placeholder.py", "mkdocs build -f ./tools/docs/mkdocs.yml"]}
 deploy-docs = {composite = ["python tools/docs/placeholder.py", "python ./tools/docs/deploy.py"]}
