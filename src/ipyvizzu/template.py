@@ -2,6 +2,12 @@
 
 from enum import Enum
 
+VIZZU_VERSION: str = "0.9"
+"""A variable for storing the default version of the `vizzu` package."""
+
+VIZZU: str = f"https://cdn.jsdelivr.net/npm/vizzu@{VIZZU_VERSION}/dist/vizzu.min.js"
+"""A variable for storing the default url of the `vizzu` package."""
+
 
 class ChartProperty(Enum):
     """An enum class for storing chart properties."""
@@ -59,6 +65,12 @@ class DisplayTemplate:
         "window.ipyvizzu.feature(element, '{chart_id}', '{name}', {enabled});"
     )
     """Call feature JavaScript method."""
+
+    PLUGIN: str = (
+        "window.ipyvizzu.plugin(element, "
+        + "'{chart_id}', '{plugin}', {options}, '{name}', {enabled});"
+    )
+    """Call plugin JavaScript method."""
 
     STORE: str = "window.ipyvizzu.store(element, '{chart_id}', '{id}');"
     """Call store JavaScript method."""

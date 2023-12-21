@@ -5,11 +5,15 @@ from typing import Optional
 
 from ipyvizzu.animation import AbstractAnimation, PlainAnimation
 from ipyvizzu.event import EventHandler
-from ipyvizzu.template import ChartProperty
+from ipyvizzu.json import RawJavaScriptEncoder
+from ipyvizzu.template import ChartProperty, VIZZU_VERSION
 
 
 class Method:
-    """A class for storing and dumping any kind of data."""
+    """
+    A class for dumping chart independent parameters to
+    [DisplayTemplate.STORE][ipyvizzu.template.DisplayTemplate] template.
+    """
 
     # pylint: disable=too-few-public-methods
 
@@ -28,8 +32,7 @@ class Method:
 
 class Animate(Method):
     """
-    A class for dumping chart independent parameters to
-    [DisplayTemplate.ANIMATE][ipyvizzu.template.DisplayTemplate] template.
+    It stores and dumps `chart_target` and `chart_anim_opts` parameters.
     """
 
     # pylint: disable=too-few-public-methods
@@ -41,8 +44,6 @@ class Animate(Method):
     ):
         """
         Animate constructor.
-
-        It stores and dumps `chart_target` and `chart_anim_opts` parameters.
 
         Args:
             chart_target:
@@ -64,8 +65,7 @@ class Animate(Method):
 
 class Feature(Method):
     """
-    A class for dumping chart independent parameters to
-    [DisplayTemplate.FEATURE][ipyvizzu.template.DisplayTemplate] template.
+    It stores and dumps `name` and `enabled` parameters.
     """
 
     # pylint: disable=too-few-public-methods
@@ -73,8 +73,6 @@ class Feature(Method):
     def __init__(self, name: str, enabled: bool):
         """
         Feature constructor.
-
-        It stores and dumps `name` and `enabled` parameters.
 
         Args:
             name: The name of a chart feature.
@@ -84,10 +82,61 @@ class Feature(Method):
         self._data = {"name": name, "enabled": json.dumps(enabled)}
 
 
+class Plugin(Method):
+    """
+    It stores and dumps `plugin`, `options` and `name` parameters.
+    """
+
+    def __init__(self, plugin: str, options: Optional[dict], name: str, enabled: bool):
+        """
+        Plugin constructor.
+
+        Args:
+            plugin: The package name or the url of the plugin.
+            options: The plugin constructor options.
+            name: The name of the plugin (default `default`).
+            enabled: The state of the plugin (default `True`).
+        """
+
+        self._data = {
+            "plugin": Plugin.resolve_url(plugin),
+            "options": {}
+            if options is None
+            else json.dumps(options, cls=RawJavaScriptEncoder),
+            "name": name,
+            "enabled": json.dumps(enabled),
+        }
+
+    @staticmethod
+    def resolve_url(plugin: str) -> str:
+        """
+        A static method for resolving the url of the plugin.
+
+        Args:
+            plugin: The package name or the url of the plugin.
+
+        Returns:
+            The url of the plugin.
+        """
+
+        if Plugin._is_url(plugin):
+            return plugin
+        return Plugin._get_url(plugin)
+
+    @staticmethod
+    def _is_url(plugin: str) -> bool:
+        return "/" in plugin
+
+    @staticmethod
+    def _get_url(plugin: str) -> str:
+        jsdelivr = "https://cdn.jsdelivr.net/npm/@vizzu"
+        tag = f"vizzu-{VIZZU_VERSION}"
+        return f"{jsdelivr}/{plugin}@{tag}/dist/mjs/index.min.js"
+
+
 class Store(Method):
     """
-    A class for dumping chart independent parameters to
-    [DisplayTemplate.STORE][ipyvizzu.template.DisplayTemplate] template.
+    It stores and dumps `snapshot_id` parameter.
     """
 
     # pylint: disable=too-few-public-methods
@@ -95,8 +144,6 @@ class Store(Method):
     def __init__(self, snapshot_id: str):
         """
         Store constructor.
-
-        It stores and dumps `snapshot_id` parameter.
 
         Args:
             snapshot_id: The id of snapshot object.
@@ -107,8 +154,7 @@ class Store(Method):
 
 class EventOn(Method):
     """
-    A class for dumping chart independent parameters to
-    [DisplayTemplate.SET_EVENT][ipyvizzu.template.DisplayTemplate] template.
+    It stores and dumps the `id`, the `event` and the `handler` of the event handler object.
     """
 
     # pylint: disable=too-few-public-methods
@@ -116,8 +162,6 @@ class EventOn(Method):
     def __init__(self, event_handler: EventHandler):
         """
         EventOn constructor.
-
-        It stores and dumps the `id`, the `event` and the `handler` of the event handler object.
 
         Args:
             event_handler: An event handler object.
@@ -132,8 +176,7 @@ class EventOn(Method):
 
 class EventOff(Method):
     """
-    A class for dumping chart independent parameters to
-    [DisplayTemplate.CLEAR_EVENT][ipyvizzu.template.DisplayTemplate] template.
+    It stores and dumps the `id` and the `event` of the event handler object.
     """
 
     # pylint: disable=too-few-public-methods
@@ -141,8 +184,6 @@ class EventOff(Method):
     def __init__(self, event_handler: EventHandler):
         """
         EventOff constructor.
-
-        It stores and dumps the `id` and the `event` of the event handler object.
 
         Args:
             event_handler: An event handler object.
@@ -153,8 +194,7 @@ class EventOff(Method):
 
 class Log(Method):
     """
-    A class for dumping chart independent parameters to
-    [DisplayTemplate.LOG][ipyvizzu.template.DisplayTemplate] template.
+    It stores and dumps the value of the chart property object.
     """
 
     # pylint: disable=too-few-public-methods
@@ -162,8 +202,6 @@ class Log(Method):
     def __init__(self, chart_property: ChartProperty):
         """
         Log constructor.
-
-        It stores and dumps the value of the chart property object.
 
         Args:
             chart_property:

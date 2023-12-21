@@ -158,7 +158,7 @@ class TestChartInit(TestChart):
                 )
 
 
-class TestChartMethods(TestChart):
+class TestChartAnimateMethod(TestChart):
     def test_animate_chart_target_has_to_be_passed(self) -> None:
         with self.assertRaises(ValueError):
             self.chart.animate()
@@ -312,6 +312,54 @@ class TestChartMethods(TestChart):
                 + "undefined);",
             )
 
+
+class TestChartPluginMethod(TestChart):
+    URL = "https://cdn.jsdelivr.net/npm/@vizzu/marker-dropshadow@vizzu-0.9/dist/mjs/index.min.js"
+
+    def test_plugin_with_package_name(self) -> None:
+        with unittest.mock.patch(self.mock) as output:
+            self.chart.plugin("marker-dropshadow")
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                f"window.ipyvizzu.plugin(element, id, '{self.URL}', {{}}, 'default', true);",
+            )
+
+    def test_plugin_with_package_url(self) -> None:
+        with unittest.mock.patch(self.mock) as output:
+            self.chart.plugin(self.URL)
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                f"window.ipyvizzu.plugin(element, id, '{self.URL}', {{}}, 'default', true);",
+            )
+
+    def test_plugin_with_options(self) -> None:
+        with unittest.mock.patch(self.mock) as output:
+            self.chart.plugin("marker-dropshadow", options={"debug": True})
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                "window.ipyvizzu.plugin(element, id, "
+                + f"'{self.URL}', {{\"debug\": true}}, 'default', true);",
+            )
+
+    def test_plugin_with_name(self) -> None:
+        with unittest.mock.patch(self.mock) as output:
+            name = "MarkerDropshadow"
+            self.chart.plugin("marker-dropshadow", name=name)
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                f"window.ipyvizzu.plugin(element, id, '{self.URL}', {{}}, '{name}', true);",
+            )
+
+    def test_plugin_with_enabled(self) -> None:
+        with unittest.mock.patch(self.mock) as output:
+            self.chart.plugin("marker-dropshadow", enabled=False)
+            self.assertEqual(
+                self.normalizer.normalize_output(output),
+                f"window.ipyvizzu.plugin(element, id, '{self.URL}', {{}}, 'default', false);",
+            )
+
+
+class TestChartFeatureMethod(TestChart):
     def test_feature(self) -> None:
         with unittest.mock.patch(self.mock) as output:
             self.chart.feature("tooltip", True)
@@ -320,6 +368,8 @@ class TestChartMethods(TestChart):
                 "window.ipyvizzu.feature(element, id, 'tooltip', true);",
             )
 
+
+class TestChartStoreMethod(TestChart):
     def test_store(self) -> None:
         with unittest.mock.patch(self.mock) as output:
             self.chart.store()
@@ -329,7 +379,7 @@ class TestChartMethods(TestChart):
             )
 
 
-class TestChartEvents(TestChart):
+class TestChartEventMethods(TestChart):
     def test_on(self) -> None:
         with unittest.mock.patch(self.mock) as output:
             handler_method = """event.renderingContext.fillStyle =
@@ -355,7 +405,7 @@ class TestChartEvents(TestChart):
             )
 
 
-class TestChartLogs(TestChart):
+class TestChartLogMethod(TestChart):
     def test_log_config(self) -> None:
         with unittest.mock.patch(self.mock) as output:
             self.chart.log(ChartProperty.CONFIG)

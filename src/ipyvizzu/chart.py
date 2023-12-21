@@ -9,8 +9,13 @@ from IPython import get_ipython  # type: ignore
 
 from ipyvizzu.animation import AbstractAnimation, Snapshot, AnimationMerger
 from ipyvizzu.animationcontrol import AnimationControl
-from ipyvizzu.method import Animate, Feature, Store, EventOn, EventOff, Log
-from ipyvizzu.template import ChartProperty, DisplayTarget, DisplayTemplate
+from ipyvizzu.method import Animate, Feature, Plugin, Store, EventOn, EventOff, Log
+from ipyvizzu.template import (
+    ChartProperty,
+    DisplayTarget,
+    DisplayTemplate,
+    VIZZU as VIZZU_URL,
+)
 from ipyvizzu.event import EventHandler
 from ipyvizzu.__version__ import __version__
 
@@ -20,8 +25,8 @@ class Chart:
 
     # pylint: disable=too-many-instance-attributes
 
-    VIZZU: str = "https://cdn.jsdelivr.net/npm/vizzu@0.9/dist/vizzu.min.js"
-    """A variable for storing the default url of vizzu package."""
+    VIZZU: str = VIZZU_URL
+    """A variable for storing the default url of the `vizzu` package."""
 
     def __init__(
         self,
@@ -222,6 +227,30 @@ class Chart:
             DisplayTemplate.FEATURE.format(
                 chart_id=self._chart_id,
                 **Feature(name, enabled).dump(),
+            )
+        )
+
+    def plugin(
+        self,
+        plugin: str,
+        options: Optional[dict] = None,
+        name: str = "default",
+        enabled: bool = True,
+    ) -> None:
+        """
+        A method for register/unregister plugins of the chart.
+
+        Args:
+            plugin: The package name or the url of the plugin.
+            options: The plugin constructor options.
+            name: The name of the plugin (default `default`).
+            enabled: The state of the plugin (default `True`).
+        """
+
+        self._display(
+            DisplayTemplate.PLUGIN.format(
+                chart_id=self._chart_id,
+                **Plugin(plugin, options, name, enabled).dump(),
             )
         )
 
