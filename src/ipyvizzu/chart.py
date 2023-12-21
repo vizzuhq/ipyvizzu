@@ -178,7 +178,7 @@ class Chart:
                 [Config][ipyvizzu.animation.Config] and [Style][ipyvizzu.animation.Style].
             **options: Dictionary of animation options for example `duration=1`.
                 For information on all available animation options see the
-                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/Anim.Options/#properties).
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/types_anim.Options/).
 
         Raises:
             ValueError: If `animations` is not set.
@@ -214,7 +214,7 @@ class Chart:
             name:
                 The name of the chart feature.
                 For information on all available features see the
-                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/modules/#feature).
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/modules/vizzu/#feature).
             enabled: The new state of the chart feature.
 
         Example:
@@ -287,7 +287,7 @@ class Chart:
             event:
                 The type of the event.
                 For information on all available events see the
-                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/modules/Event/#type).
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/modules/events/).
             handler: The JavaScript method of the event.
 
         Returns:

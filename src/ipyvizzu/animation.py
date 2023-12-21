@@ -382,7 +382,7 @@ class Data(dict, AbstractAnimation):
 
         # pylint: disable=line-too-long
 
-        reference = "https://ipyvizzu.vizzuhq.com/0.16/reference/ipyvizzu/animation/#ipyvizzu.animation.Data.add_df"
+        reference = "https://ipyvizzu.vizzuhq.com/0.17/reference/ipyvizzu/animation/#ipyvizzu.animation.Data.add_df"
         warnings.warn(
             f"'add_data_frame' is deprecated and will be removed in future versions. Use 'add_df' instead - see {reference}",
             DeprecationWarning,
@@ -456,7 +456,7 @@ class Data(dict, AbstractAnimation):
 
         # pylint: disable=line-too-long
 
-        reference = "https://ipyvizzu.vizzuhq.com/0.16/reference/ipyvizzu/animation/#ipyvizzu.animation.Data.add_df_index"
+        reference = "https://ipyvizzu.vizzuhq.com/0.17/reference/ipyvizzu/animation/#ipyvizzu.animation.Data.add_df_index"
         warnings.warn(
             f"'add_data_frame_index' is deprecated and will be removed in future versions. Use 'add_df_index' instead - see {reference}",
             DeprecationWarning,
@@ -556,7 +556,7 @@ class ConfigAttr(type):
     if the `__getattr__` method called.
 
     For information on all available chart presets see the
-    [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/modules/Presets/#interfaces).
+    [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/modules/types_presets/).
     """
 
     @classmethod
@@ -583,7 +583,7 @@ class Config(AbstractAnimation, metaclass=ConfigAttr):
             data:
                 A config animation dictionary.
                 For information on all available config parameters see the
-                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/Config.Chart/#properties).
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/types_config.Chart/).
         """  # pylint: disable=line-too-long
 
         self._data = data
@@ -615,7 +615,7 @@ class Style(AbstractAnimation):
                 A style animation dictionary.
                 For information on all available style parameters see the [Style][styling-properties]
                 chapter or the
-                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/Styles.Chart/#properties).
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/types_styles.Chart/).
         """  # pylint: disable=line-too-long
 
         self._data = data
@@ -652,7 +652,7 @@ class Keyframe(AbstractAnimation):
                 [Config][ipyvizzu.animation.Config] and [Style][ipyvizzu.animation.Style].
             **options: Dictionary of animation options for example `duration=1`.
                 For information on all available animation options see the
-                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/Anim.Options/#properties).
+                [Vizzu Code reference](https://lib.vizzuhq.com/latest/reference/interfaces/types_anim.Options/).
 
         Raises:
             ValueError: If `animations` is not set.
