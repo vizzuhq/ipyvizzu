@@ -225,7 +225,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 				config: {
 					y: {
 						set: ['Player', 'Tournament', 'Level'],
-						range: { max: null, min: null }
+						range: { max: 'auto', min: 'auto' }
 					},
 					title: 'Rafa won the same Grand Slam title the most times',
 					color: 'Level',
@@ -268,7 +268,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 					config: {
 						y: {
 							set: ['Player', 'Tournament', 'Level'],
-							range: { max: null, min: null }
+							range: { max: 'auto', min: 'auto' }
 						},
 						x: ['Count'],
 						title: '',
@@ -289,7 +289,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 					}
 				},
 				config: {
-					y: { set: ['Player'], range: { max: null, min: null } },
+					y: { set: ['Player'], range: { max: 'auto', min: 'auto' } },
 					x: ['Count', 'Tournament', 'Level', 'Total_GS'],
 					title: 'Rafa also leads in the number of total Grand Slams won'
 				}
