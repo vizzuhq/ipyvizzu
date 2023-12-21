@@ -45,6 +45,7 @@ Once set up, you can install development dependencies:
 
 ```sh
 pdm install
+pdm run deploy
 ```
 
 For contributing to the documentation you need to install `npm` development
