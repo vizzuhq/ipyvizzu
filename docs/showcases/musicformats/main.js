@@ -183,7 +183,7 @@ Promise.all([csv2JsLoaded, vizzuLoaded]).then((results) => {
 							x: { set: ['Year'] },
 							y: {
 								set: ['Revenue', 'Format'],
-								range: { min: null, max: null }
+								range: { min: 'auto', max: 'auto' }
 							},
 							color: { set: ['Format'] }
 						},
