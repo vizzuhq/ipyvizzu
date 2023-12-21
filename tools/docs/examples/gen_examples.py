@@ -15,10 +15,8 @@ TOOLS_PATH = REPO_PATH / "tools"
 MKDOCS_PATH = TOOLS_PATH / "docs"
 GEN_PATH = MKDOCS_PATH / "examples"
 VIZZU_LIB_PATH = REPO_PATH / "vizzu-lib"
-WEB_CONTENT_PATH = (
-    VIZZU_LIB_PATH / "test" / "integration" / "test_cases" / "web_content"
-)
-TEST_DATA_PATH = VIZZU_LIB_PATH / "test" / "integration" / "test_data"
+WEB_CONTENT_PATH = VIZZU_LIB_PATH / "test" / "e2e" / "test_cases" / "web_content"
+TEST_DATA_PATH = VIZZU_LIB_PATH / "test" / "e2e" / "test_data"
 STATIC_EXAMPLES_PATH = WEB_CONTENT_PATH / "static"
 OPERATION_EXAMPLES_PATH = WEB_CONTENT_PATH / "analytical_operations"
 PRESET_EXAMPLES_PATH = WEB_CONTENT_PATH / "presets"
