@@ -24,8 +24,17 @@
 	},
 	"prettier": "@vizzu/prettier-config",
 	"eslintConfig": {
-		"extends": [
-			"@vizzu/eslint-config/standard"
+		"overrides": [
+			{
+				"files": [
+					"*.js",
+					"*.mjs",
+					"*.cjs"
+				],
+				"extends": [
+					"@vizzu/eslint-config/standard"
+				]
+			}
 		]
 	}
 }
