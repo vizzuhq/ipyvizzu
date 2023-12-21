@@ -10,7 +10,12 @@ from IPython import get_ipython  # type: ignore
 from ipyvizzu.animation import AbstractAnimation, Snapshot, AnimationMerger
 from ipyvizzu.animationcontrol import AnimationControl
 from ipyvizzu.method import Animate, Feature, Plugin, Store, EventOn, EventOff, Log
-from ipyvizzu.template import ChartProperty, DisplayTarget, DisplayTemplate, VIZZU
+from ipyvizzu.template import (
+    ChartProperty,
+    DisplayTarget,
+    DisplayTemplate,
+    VIZZU as VIZZU_URL,
+)
 from ipyvizzu.event import EventHandler
 from ipyvizzu.__version__ import __version__
 
@@ -20,7 +25,7 @@ class Chart:
 
     # pylint: disable=too-many-instance-attributes
 
-    VIZZU: str = VIZZU
+    VIZZU: str = VIZZU_URL
     """A variable for storing the default url of the `vizzu` package."""
 
     def __init__(
