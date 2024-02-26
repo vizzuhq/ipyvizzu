@@ -15,8 +15,12 @@ class Js2csv {
 		const line = []
 		const record = {}
 		for (const j in this.data.series) {
-			record[this.data.series[j].name] = this.data.series[j].values[i]
-			line.push(this.data.series[j].values[i])
+			let value = this.data.series[j].values[i]
+			if (typeof value === 'string' && value.includes(',')) {
+				value = `"${value}"`
+			}
+			record[this.data.series[j].name] = value
+			line.push(value)
 		}
 		if (this.data.filter) {
 			if (!this.data.filter(record)) {
@@ -27,10 +31,15 @@ class Js2csv {
 	}
 
 	getRecordLine(i) {
-		const line = this.data.records[i]
+		const line = []
 		const record = {}
 		for (const j in this.data.series) {
-			record[this.data.series[j].name] = this.data.records[i][j]
+			let value = this.data.records[i][j]
+			if (typeof value === 'string' && value.includes(',')) {
+				value = `"${value}"`
+			}
+			record[this.data.series[j].name] = value
+			line.push(value)
 		}
 		if (this.data.filter) {
 			if (!this.data.filter(record)) {
