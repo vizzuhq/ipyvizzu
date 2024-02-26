@@ -1,6 +1,5 @@
 """A module for storing the data schema."""
 
-
 NAMED_SCHEMA: dict = {
     "type": "array",
     "items": {

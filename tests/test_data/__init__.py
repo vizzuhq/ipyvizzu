@@ -52,9 +52,9 @@ class DataWithAssets(unittest.TestCase):
             cls.in_pd_df_by_series = pd.DataFrame(in_pd_df_by_series)
 
             in_pd_df_by_series_with_duplicated_popularity = in_pd_df_by_series
-            in_pd_df_by_series_with_duplicated_popularity[
-                "PopularityAsDimension"
-            ] = in_pd_df_by_series_with_duplicated_popularity["Popularity"]
+            in_pd_df_by_series_with_duplicated_popularity["PopularityAsDimension"] = (
+                in_pd_df_by_series_with_duplicated_popularity["Popularity"]
+            )
             in_pd_df_by_series_with_duplicated_popularity = pd.DataFrame(
                 in_pd_df_by_series_with_duplicated_popularity
             )
@@ -109,9 +109,9 @@ class DataWithAssets(unittest.TestCase):
             cls.ref_pd_df_by_series_only_index = copy.deepcopy(
                 ref_pd_df_by_series_with_index
             )
-            cls.ref_pd_df_by_series_only_index["data"][
-                "series"
-            ] = cls.ref_pd_df_by_series_only_index["data"]["series"][:1]
+            cls.ref_pd_df_by_series_only_index["data"]["series"] = (
+                cls.ref_pd_df_by_series_only_index["data"]["series"][:1]
+            )
 
             cls.ref_pd_df_by_series_only_index_max_rows = copy.deepcopy(
                 cls.ref_pd_df_by_series_only_index
