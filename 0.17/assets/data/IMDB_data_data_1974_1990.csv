@@ -5,10 +5,10 @@ Index,Year,IMDb Rating,Title
 1,1975,8.3,Monty Python and the Holy Grail
 2,1975,7.9,Ziemia obiecana
 3,1975,8,Jaws
-4,1975,8.7,One Flew Over the Cuckoo,s Nest
+4,1975,8.7,"One Flew Over the Cuckoo,s Nest"
 5,1975,7.4,The Rocky Horror Picture Show
-1,1976,7.7,Les 12 travaux d,Astérix
-2,1976,7.3,L,aile ou la cuisse
+1,1976,7.7,"Les 12 travaux d,Astérix"
+2,1976,7.3,"L,aile ou la cuisse"
 3,1976,7.5,Le jouet
 4,1976,7.6,The Omen
 5,1976,8.3,Taxi Driver
@@ -32,7 +32,7 @@ Index,Year,IMDb Rating,Title
 6,1979,8.1,Life of Brian
 7,1979,6.3,Moonraker
 8,1979,7.6,Nosferatu: Phantom der Nacht
-1,1980,6.7,L,avare
+1,1980,6.7,"L,avare"
 2,1980,5.1,Saturn 3
 3,1980,7.8,Airplane!
 4,1980,8.7,Star Wars: Episode V - The Empire Strikes Back
@@ -58,13 +58,13 @@ Index,Year,IMDb Rating,Title
 10,1982,7.4,Tootsie
 11,1982,6.8,TRON
 1,1983,3.6,Jaws 3-D
-2,1983,8.1,Mickey,s Christmas Carol
+2,1983,8.1,"Mickey,s Christmas Carol"
 3,1983,7.6,The Meaning of Life
-4,1983,7.4,National Lampoon,s Vacation
+4,1983,7.4,"National Lampoon,s Vacation"
 5,1983,8.3,Star Wars: Episode VI - Return of the Jedi
 6,1983,8.3,Scarface
 7,1983,7.5,Trading Places
-8,1983,5.5,Roman Za,ir
+8,1983,5.5,"Roman Za,ir"
 1,1984,7.3,Beverly Hills Cop
 2,1984,7.8,Ghostbusters
 3,1984,7.3,Gremlins
@@ -74,7 +74,7 @@ Index,Year,IMDb Rating,Title
 7,1984,6.6,Revenge of the Nerds
 8,1984,6.9,Romancing the Stone
 9,1984,7.7,Seksmisja
-10,1984,5.9,Silent Night, Deadly Night
+10,1984,5.9,"Silent Night, Deadly Night"
 11,1984,8,The Terminator
 12,1984,7.2,Top Secret!
 13,1984,7.4,Die unendliche Geschichte
@@ -85,11 +85,11 @@ Index,Year,IMDb Rating,Title
 5,1985,7.8,The Goonies
 6,1985,6.3,Mad Max Beyond Thunderdome
 7,1985,5.7,The Man with One Red Shoe
-8,1985,6.2,National Lampoon,s European Vacation
+8,1985,6.2,"National Lampoon,s European Vacation"
 9,1985,5.7,Police Academy 2: Their First Assignment
 10,1985,6.5,Rambo: First Blood Part II
 11,1985,5.9,The Stuff
-12,1985,7.5,Vabank II, czyli riposta
+12,1985,7.5,"Vabank II, czyli riposta"
 1,1986,4.8,Neon Maniacs
 2,1986,8.4,Aliens
 3,1986,7.1,Astérix chez les Bretons
@@ -109,7 +109,7 @@ Index,Year,IMDb Rating,Title
 4,1987,6.9,Dirty Dancing
 5,1987,6.4,Dolls
 6,1987,8.3,Full Metal Jacket
-7,1987,7.3,Good Morning, Vietnam
+7,1987,7.3,"Good Morning, Vietnam"
 8,1987,7.6,Lethal Weapon
 9,1987,3.6,Mutant Hunt
 10,1987,4.9,Police Academy 4: Citizens on Patrol
@@ -133,20 +133,20 @@ Index,Year,IMDb Rating,Title
 1,1989,6.7,All Dogs Go to Heaven
 2,1989,7.8,Back to the Future Part II
 3,1989,7.6,Batman
-4,1989,6.9,Bill & Ted,s Excellent Adventure
+4,1989,6.9,"Bill & Ted,s Excellent Adventure"
 5,1989,8.1,Dead Poets Society
-6,1989,6.4,Galimatias, czyli kogel-mogel II
+6,1989,6.4,"Galimatias, czyli kogel-mogel II"
 7,1989,6.5,Ghostbusters II
-8,1989,6.3,Honey, I Shrunk the Kids
+8,1989,6.3,"Honey, I Shrunk the Kids"
 9,1989,8.2,Indiana Jones and the Last Crusade
 10,1989,5.1,The Karate Kid Part III
 11,1989,7.2,Lethal Weapon 2
-12,1989,5.8,Look Who,s Talking
-13,1989,7.6,National Lampoon,s Christmas Vacation
+12,1989,5.8,"Look Who,s Talking"
+13,1989,7.6,"National Lampoon,s Christmas Vacation"
 14,1989,5.7,Puppetmaster
-15,1989,6.8,See No Evil, Hear No Evil
+15,1989,6.8,"See No Evil, Hear No Evil"
 16,1989,6.3,Bride of Re-Animator
-1,1990,4.6,Look Who,s Talking Too
+1,1990,4.6,"Look Who,s Talking Too"
 2,1990,7.8,Misery
 3,1990,7.3,Nikita
 4,1990,5.3,Problem Child
