@@ -3,10 +3,18 @@ class Js2csv {
 		this.data = data
 	}
 
+	addApostrophesIfContainsComma(value) {
+		if (typeof value === 'string' && value.includes(',')) {
+			return `"${value}"`
+		}
+		return value
+	}
+
 	getHeaderLine() {
 		const header = []
 		for (const series in this.data.series) {
-			header.push(this.data.series[series].name)
+			const value = this.addApostrophesIfContainsComma(this.data.series[series].name)
+			header.push(value)
 		}
 		return header.join(',') + '\n'
 	}
@@ -15,10 +23,7 @@ class Js2csv {
 		const line = []
 		const record = {}
 		for (const j in this.data.series) {
-			let value = this.data.series[j].values[i]
-			if (typeof value === 'string' && value.includes(',')) {
-				value = `"${value}"`
-			}
+			const value = this.addApostrophesIfContainsComma(this.data.series[j].values[i])
 			record[this.data.series[j].name] = value
 			line.push(value)
 		}
@@ -34,10 +39,7 @@ class Js2csv {
 		const line = []
 		const record = {}
 		for (const j in this.data.series) {
-			let value = this.data.records[i][j]
-			if (typeof value === 'string' && value.includes(',')) {
-				value = `"${value}"`
-			}
+			const value = this.addApostrophesIfContainsComma(this.data.records[i][j])
 			record[this.data.series[j].name] = value
 			line.push(value)
 		}
