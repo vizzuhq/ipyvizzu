@@ -57,9 +57,11 @@ class Animate(Method):
 
         self._data = {
             "chart_target": chart_target.dump(),
-            "chart_anim_opts": PlainAnimation(chart_anim_opts).dump()
-            if chart_anim_opts
-            else "undefined",
+            "chart_anim_opts": (
+                PlainAnimation(chart_anim_opts).dump()
+                if chart_anim_opts
+                else "undefined"
+            ),
         }
 
 
@@ -100,9 +102,9 @@ class Plugin(Method):
 
         self._data = {
             "plugin": Plugin.resolve_url(plugin),
-            "options": {}
-            if options is None
-            else json.dumps(options, cls=RawJavaScriptEncoder),
+            "options": (
+                {} if options is None else json.dumps(options, cls=RawJavaScriptEncoder)
+            ),
             "name": name,
             "enabled": json.dumps(enabled),
         }
