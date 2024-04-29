@@ -20,8 +20,8 @@ from vizzu import (  # pylint: disable=import-error, wrong-import-position, wron
 
 
 PLACEHOLDER = """placeholders:
-  IPYVIZZU_MINOR_VERSION: {}
-  LIB_MINOR_VERSION: {}
+  IPYVIZZU_MINOR_VERSION: "{}"
+  LIB_MINOR_VERSION: "{}"
 settings:
   auto_placeholder_tables: false
 """
