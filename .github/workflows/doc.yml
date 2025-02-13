@@ -10,31 +10,41 @@ jobs:
     build:
         if: ${{ !((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
 
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-24.04
 
         env:
             PUPPETEER_CACHE_DIR: ${{ github.workspace }}/node_modules/.chromium
 
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 1
 
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: '3.13'
+
             - name: Cache venv
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: .venv
-                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
+                  key: venv_ubuntu24_${{ hashFiles('pdm.lock') }}
 
-            - name: Cache node modules
-              uses: actions/cache@v3
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
               with:
-                  path: node_modules
-                  key: node_modules_ubuntu22_${{ hashFiles('package-lock.json') }}
+                  node-version: '22'
+                  cache: 'npm'
+                  cache-dependency-path: 'package-lock.json'
+
+            - name: Set up npm
+              run: |
+                  npm ci
 
             - name: Cache coverage
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: .coverage/html
                   key: coverage_${{ github.run_id }}
@@ -52,7 +62,7 @@ jobs:
                   echo "vizzu_tag=${vizzu_tag}" >> $GITHUB_OUTPUT
 
             - name: Checkout vizzu-lib
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   repository: vizzuhq/vizzu-lib
                   fetch-depth: 1
@@ -67,28 +77,38 @@ jobs:
     deploy:
         if: ${{ ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
 
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-24.04
 
         env:
             PUPPETEER_CACHE_DIR: ${{ github.workspace }}/node_modules/.chromium
 
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 1
 
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: '3.13'
+
             - name: Cache venv
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: .venv
-                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
+                  key: venv_ubuntu24_${{ hashFiles('pdm.lock') }}
 
-            - name: Cache node modules
-              uses: actions/cache@v3
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
               with:
-                  path: node_modules
-                  key: node_modules_ubuntu22_${{ hashFiles('package-lock.json') }}
+                  node-version: '22'
+                  cache: 'npm'
+                  cache-dependency-path: 'package-lock.json'
+
+            - name: Set up npm
+              run: |
+                  npm ci
 
             - name: Get workflow ID
               id: workflow_id
@@ -111,7 +131,7 @@ jobs:
                   echo "run_id=${run_id}" >> $GITHUB_OUTPUT
 
             - name: Cache coverage
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: .coverage/html
                   key: coverage_${{ steps.run_id.outputs.run_id }}
@@ -129,7 +149,7 @@ jobs:
                   echo "vizzu_tag=${vizzu_tag}" >> $GITHUB_OUTPUT
 
             - name: Checkout vizzu-lib
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   repository: vizzuhq/vizzu-lib
                   fetch-depth: 1

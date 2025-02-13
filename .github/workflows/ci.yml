@@ -5,25 +5,35 @@ on:
 
 jobs:
     check_src:
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-24.04
 
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 1
 
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: '3.13'
+
             - name: Cache venv
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: .venv
-                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
+                  key: venv_ubuntu24_${{ hashFiles('pdm.lock') }}
 
-            - name: Cache node modules
-              uses: actions/cache@v3
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
               with:
-                  path: node_modules
-                  key: node_modules_ubuntu22_${{ hashFiles('package-lock.json') }}
+                  node-version: '22'
+                  cache: 'npm'
+                  cache-dependency-path: 'package-lock.json'
+
+            - name: Set up npm
+              run: |
+                  npm ci
 
             - name: Format
               run: |
@@ -41,25 +51,35 @@ jobs:
                   pdm run type-src
 
     check_docs:
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-24.04
 
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 1
 
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: '3.13'
+
             - name: Cache venv
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: .venv
-                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
+                  key: venv_ubuntu24_${{ hashFiles('pdm.lock') }}
 
-            - name: Cache node modules
-              uses: actions/cache@v3
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
               with:
-                  path: node_modules
-                  key: node_modules_ubuntu22_${{ hashFiles('package-lock.json') }}
+                  node-version: '22'
+                  cache: 'npm'
+                  cache-dependency-path: 'package-lock.json'
+
+            - name: Set up npm
+              run: |
+                  npm ci
 
             - name: Format
               run: |
@@ -72,25 +92,35 @@ jobs:
                   pdm run lint-docs
 
     check_tools:
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-24.04
 
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 1
 
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: '3.13'
+
             - name: Cache venv
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: .venv
-                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
+                  key: venv_ubuntu24_${{ hashFiles('pdm.lock') }}
 
-            - name: Cache node modules
-              uses: actions/cache@v3
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
               with:
-                  path: node_modules
-                  key: node_modules_ubuntu22_${{ hashFiles('package-lock.json') }}
+                  node-version: '22'
+                  cache: 'npm'
+                  cache-dependency-path: 'package-lock.json'
+
+            - name: Set up npm
+              run: |
+                  npm ci
 
             - name: Deploy package
               run: |
@@ -112,68 +142,28 @@ jobs:
                   source .venv/bin/activate
                   pdm run type-tools
 
-    test_ubuntu20:
-        runs-on: ubuntu-20.04
+    test_ubuntu24:
+        runs-on: ubuntu-24.04
         strategy:
             matrix:
-                python-version: ['3.6']
+                python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
 
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 1
-
-            - name: Cache venv
-              uses: actions/cache@v3
-              with:
-                  path: .venv
-                  key: venv_ubuntu20_${{ hashFiles('pdm.lock') }}
-
-            - name: Cache package
-              uses: actions/cache@v3
-              with:
-                  path: dist/
-                  key: package_${{ github.run_id }}
-
-            - name: Set up Python 3.6
-              uses: actions/setup-python@v4
-              with:
-                  python-version: '3.6'
-
-            - name: Test
-              run: |
-                  source .venv/bin/activate
-                  tox -e py36 --installpkg dist/*.whl
-
-            - name: Cache coverage ${{ matrix.python-version }}
-              uses: actions/cache@v3
-              with:
-                  path: .coverage/env/.coverage.${{ matrix.python-version }}
-                  key: coverage_${{ matrix.python-version }}_${{ github.run_id }}
-
-    test_ubuntu22:
-        runs-on: ubuntu-22.04
-        strategy:
-            matrix:
-                python-version: ['3.7', '3.8', '3.9', '3.10', '3.11']
-
-        steps:
-            - name: Checkout repo
-              uses: actions/checkout@v3
-              with:
-                  fetch-depth: 1
-
-            - name: Cache venv
-              uses: actions/cache@v3
-              with:
-                  path: .venv
-                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
 
             - name: Set up Python ${{ matrix.python-version }}
-              uses: actions/setup-python@v4
+              uses: actions/setup-python@v5
               with:
                   python-version: ${{ matrix.python-version }}
+
+            - name: Cache venv
+              uses: actions/cache@v4
+              with:
+                  path: .venv
+                  key: venv_ubuntu24_${{ hashFiles('pdm.lock') }}
 
             - name: Test
               run: |
@@ -188,62 +178,61 @@ jobs:
                   pdm run test -e "${python_test_env}"
 
             - name: Cache coverage ${{ matrix.python-version }}
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: .coverage/env/.coverage.${{ matrix.python-version }}
                   key: coverage_${{ matrix.python-version }}_${{ github.run_id }}
 
     test_coverage:
-        runs-on: ubuntu-22.04
-        needs: [test_ubuntu20, test_ubuntu22]
+        runs-on: ubuntu-24.04
+        needs: [test_ubuntu24]
 
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 1
 
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: '3.13'
+
             - name: Cache venv
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: .venv
-                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
-
-            - name: Cache coverage 3.6
-              uses: actions/cache@v3
-              with:
-                  path: .coverage/env/.coverage.3.6
-                  key: coverage_3.6_${{ github.run_id }}
-
-            - name: Cache coverage 3.7
-              uses: actions/cache@v3
-              with:
-                  path: .coverage/env/.coverage.3.7
-                  key: coverage_3.7_${{ github.run_id }}
-
-            - name: Cache coverage 3.8
-              uses: actions/cache@v3
-              with:
-                  path: .coverage/env/.coverage.3.8
-                  key: coverage_3.8_${{ github.run_id }}
+                  key: venv_ubuntu24_${{ hashFiles('pdm.lock') }}
 
             - name: Cache coverage 3.9
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: .coverage/env/.coverage.3.9
                   key: coverage_3.9_${{ github.run_id }}
 
             - name: Cache coverage 3.10
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: .coverage/env/.coverage.3.10
                   key: coverage_3.10_${{ github.run_id }}
 
             - name: Cache coverage 3.11
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: .coverage/env/.coverage.3.11
                   key: coverage_3.11_${{ github.run_id }}
+
+            - name: Cache coverage 3.12
+              uses: actions/cache@v4
+              with:
+                  path: .coverage/env/.coverage.3.12
+                  key: coverage_3.12_${{ github.run_id }}
+
+            - name: Cache coverage 3.13
+              uses: actions/cache@v4
+              with:
+                  path: .coverage/env/.coverage.3.13
+                  key: coverage_3.13_${{ github.run_id }}
 
             - name: Report coverage
               run: |
@@ -251,7 +240,7 @@ jobs:
                   tox -e coverage
 
             - name: Cache coverage
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: .coverage/html
                   key: coverage_${{ github.run_id }}

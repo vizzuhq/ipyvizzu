@@ -153,7 +153,7 @@ We welcome contributions to the project, visit our contributing
 
 - Join our Slack if you have any questions or comments:
   [vizzu-community.slack.com](https://join.slack.com/t/vizzu-community/shared_invite/zt-w2nqhq44-2CCWL4o7qn2Ns1EFSf9kEg)
-- Drop us a line at hello@vizzuhq.com
+- Drop us a line at hello@vizzu.io
 - Follow us on Twitter: [VizzuHQ](https://twitter.com/VizzuHQ)
 
 ## Usage Statistics
@@ -168,7 +168,7 @@ For more details, please visit
 
 ## License
 
-Copyright © 2022-2023 [Vizzu Inc.](https://vizzuhq.com)
+Copyright © 2022-2025 [Vizzu Inc.](https://vizzuhq.com)
 
 Released under the
 [Apache 2.0 License](https://ipyvizzu.vizzuhq.com/latest/LICENSE/).
