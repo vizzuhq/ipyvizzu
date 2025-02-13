@@ -18,5 +18,5 @@ class InferType(Enum):
             Measures can only be numerical.
     """
 
-    DIMENSION: str = "dimension"
-    MEASURE: str = "measure"
+    DIMENSION = "dimension"
+    MEASURE = "measure"
