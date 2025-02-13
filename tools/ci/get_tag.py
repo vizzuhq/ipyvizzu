@@ -21,10 +21,11 @@ REPO = "vizzu-lib"
 
 if __name__ == "__main__":
     with chdir(REPO_PATH):
-        vizzu_version = Vizzu.get_vizzu_version()
-        api_url = f"https://api.github.com/repos/{OWNER}/{REPO}/tags"
+        API_URL = f"https://api.github.com/repos/{OWNER}/{REPO}/tags"
 
-        response = requests.get(api_url, timeout=10)
+        vizzu_version = Vizzu.get_vizzu_version()
+
+        response = requests.get(API_URL, timeout=10)
         response.raise_for_status()
 
         tags = response.json()
@@ -38,5 +39,6 @@ if __name__ == "__main__":
             if re.search(rf"^v{re.escape(vizzu_version)}\.(\d+)", tag["name"])
         ]
         latest_patch_version = max(patch_versions)
-        checkout_ref = f"v{vizzu_version}.{latest_patch_version}"
-        print(checkout_ref)
+
+        CHECKOUT_REF = f"v{vizzu_version}.{latest_patch_version}"
+        print(CHECKOUT_REF)

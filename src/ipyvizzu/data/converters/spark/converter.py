@@ -50,7 +50,7 @@ class SparkDataFrameConverter(DataFrameConverter):
         max_rows: int = MAX_ROWS,
         units: Optional[Dict[str, str]] = None,
     ) -> None:
-        # pylint: disable=too-many-arguments
+        # pylint: disable=too-many-arguments,too-many-positional-arguments
 
         super().__init__(
             default_measure_value, default_dimension_value, max_rows, units

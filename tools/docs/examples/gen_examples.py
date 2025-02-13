@@ -156,7 +156,7 @@ class GenExamples:
 
         return index
 
-    def _add_index_item(  # pylint: disable=too-many-arguments
+    def _add_index_item(  # pylint: disable=too-many-arguments,too-many-positional-arguments
         self,
         index: str,
         title: str,
@@ -210,7 +210,7 @@ class GenExamples:
                 + f"(./{href}.md)\n"
             )
 
-    def _add_video(  # pylint: disable=too-many-arguments
+    def _add_video(  # pylint: disable=too-many-arguments,too-many-positional-arguments
         self, index: str, title: str, href: str, thumbnail: str, figcaption: bool
     ) -> None:
         url = f"{VIZZU_SITE_URL}/{Vizzu.get_vizzu_version()}/{index}"
@@ -302,7 +302,7 @@ class GenExamples:
             with mkdocs_gen_files.open(f"assets/data/{datakey}.csv", "w") as f_example:
                 f_example.write(content)
 
-    def _generate_example_js(  # pylint: disable=too-many-arguments
+    def _generate_example_js(  # pylint: disable=too-many-arguments,too-many-positional-arguments
         self,
         item: Path,
         item_name: str,
@@ -318,7 +318,7 @@ class GenExamples:
         ) as f_example:
             f_example.write(content)
 
-    def _generate_example_md(  # pylint: disable=too-many-arguments
+    def _generate_example_md(  # pylint: disable=too-many-arguments,too-many-positional-arguments
         self,
         item: Path,
         item_name: str,
@@ -344,7 +344,7 @@ class GenExamples:
         ) as f_example:
             f_example.write(content)
 
-    def _generate_example(  # pylint: disable=too-many-arguments
+    def _generate_example(  # pylint: disable=too-many-arguments,too-many-positional-arguments
         self,
         item: Path,
         item_name: str,

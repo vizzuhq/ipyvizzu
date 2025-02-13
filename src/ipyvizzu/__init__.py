@@ -100,12 +100,3 @@ __all__ = [
     "DisplayTarget",
     "DisplayTemplate",
 ]
-
-
-# TODO: remove once support for Python 3.6 is dropped
-if PYENV < (3, 7):
-    warnings.warn(
-        "Python 3.6 support will be dropped in future versions.",
-        FutureWarning,
-        stacklevel=2,
-    )
