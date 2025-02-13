@@ -10,9 +10,9 @@ events that are called before rendering the chart elements. Handlers can be
 registered/unregistered with the `on`, `off` method pair.
 
 !!! note
-    Currently `on` method only accept handler's `JavaScript` expression as
-    string. The event can be accessed via the `event` object, see the examples
-    below.
+
+    Currently `on` method only accept handler's `JavaScript` expression as string.
+    The event can be accessed via the `event` object, see the examples below.
 
 We are registering a handler for the `click` event which will show an alert
 block with information about the clicked chart element.
@@ -93,8 +93,9 @@ chart.animate(Config({"title": "Add background image"}))
 ```
 
 !!! note
-    Place the `chart.on` call before the `chart.animate` call from where you
-    want to replace the background image.
+
+    Place the `chart.on` call before the `chart.animate` call from where you want to
+    replace the background image.
 
 Unregistering the previously registered handler.
 

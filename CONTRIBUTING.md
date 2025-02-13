@@ -165,10 +165,10 @@ You can read the online version at [ipyvizzu.com](https://ipyvizzu.vizzuhq.com).
 To release `ipyvizzu`, follow the steps below:
 
 - Increase the version number in `__version__.py`. The version bump should be in
-  a separate commit.
+    a separate commit.
 
 - Generate the release notes and publish the new release on
-  [Releases](https://github.com/vizzuhq/ipyvizzu/releases).
+    [Releases](https://github.com/vizzuhq/ipyvizzu/releases).
 
 **Note:** Publishing a new release will automatically trigger the `cd` workflow,
 which builds, checks, and uploads the `ipyvizzu` package to

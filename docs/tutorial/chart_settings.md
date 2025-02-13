@@ -12,8 +12,9 @@ The size of the chart can be changed with `width` and `height`
 arguments.
 
 !!! info
-    `width` and `height` constructor arguments are optional, the default values
-    are `800px` and `480px`. You can set them to any valid cssText value.
+
+    `width` and `height` constructor arguments are optional, the default values are
+    `800px` and `480px`. You can set them to any valid cssText value.
 
 ```python
 from ipyvizzu import Chart
@@ -30,10 +31,12 @@ within the notebook and this behavior can be changed with the `display`
 argument.
 
 !!! info
+
     `display` constructor argument is optional, the default value is
     [DisplayTarget.ACTUAL](../reference/ipyvizzu/template.md#ipyvizzu.template.DisplayTarget).
 
 !!! note
+
     Not all options work in all environments, check the
     [Environments chapter](../environments/index.md) for more details.
 
@@ -81,15 +84,16 @@ chart = Chart(display=DisplayTarget.END)
 ```
 
 !!! tip
-    By combining the above display options with the
-    [store](./shorthands_store.md) function you can replay the original
-    animation when you replay a cell. Another way to replay animations is to use
-    our new extension
-    [ipyvizzu-story](https://vizzuhq.github.io/ipyvizzu-story/) that enables you
-    to build, present and share animated data stories in data science notebooks
-    with a very similar syntax to `ipyvizzu`'s.
+
+    By combining the above display options with the [store](./shorthands_store.md)
+    function you can replay the original animation when you replay a cell. Another
+    way to replay animations is to use our new extension
+    [ipyvizzu-story](https://vizzuhq.github.io/ipyvizzu-story/) that enables you to
+    build, present and share animated data stories in data science notebooks with a
+    very similar syntax to `ipyvizzu`'s.
 
 !!! info
+
     `DisplayTarget.ACTUAL`, `DisplayTarget.BEGIN` and `DisplayTarget.END` use
     `IPython.display.display_javascript` function.
 
@@ -99,10 +103,11 @@ Chart is displayed only when a display function is called if `display` is set to
 `DisplayTarget.MANUAL`.
 
 !!! note
+
     Even though it runs in more environments, the disadvantage of using `MANUAL`
     [DisplayTarget](../reference/ipyvizzu/template.md#ipyvizzu.template.DisplayTarget)
-    is that the chart cannot be modified after calling a display function,
-    without all the cells modifying the chart being rerun.
+    is that the chart cannot be modified after calling a display function, without
+    all the cells modifying the chart being rerun.
 
 One of the display functions is the `_repr_html_` method which is supported in
 most environments.
@@ -131,6 +136,7 @@ chart.show()
 ```
 
 !!! info
+
     `DisplayTarget.MANUAL` with the `show` method uses
     `IPython.display.display_javascript` function.
 
@@ -142,6 +148,7 @@ from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/vizzu), but you can
 also use a self-hosted version.
 
 !!! info
+
     `vizzu` constructor argument is optional, the default value is
     [Chart.VIZZU](../reference/ipyvizzu/chart.md#ipyvizzu.chart.Chart.VIZZU)
 
@@ -199,9 +206,11 @@ If manual scrolling is detected while auto-scrolling, `ipyvizzu` will stop
 auto-scroll until the notebook is replayed again.
 
 !!! info
+
     Scroll into view feature is optional, the default value is `False` .
 
 !!! note
+
     Scroll into view feature does not work in all environments, check the
     [Environments chapter](../environments/index.md) for more details.
 

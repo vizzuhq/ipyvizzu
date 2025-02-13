@@ -25,6 +25,7 @@ There are multiple ways you can add data to `ipyvizzu`.
 - Using JSON
 
 ??? tip
+
     You should set the data in the first animate call.
 
     ```python
@@ -109,6 +110,7 @@ data.add_df(df)
 ```
 
 !!! note
+
     There is a `max_rows` limit of `100k` for dataframes to prevent potential
     browser memory issues. If your dataframe surpasses this limit, it will be
     randomly sampled down. The default value can be adjusted via the `max_rows`
@@ -122,9 +124,10 @@ data.add_df(df)
     ```
 
 !!! info
-    `ipyvizzu` makes a difference between two types of data, numeric (measure)
-    and not numeric (dimension). A column's `dtype` specifies that the column is
-    handled as a measure or as a dimension.
+
+    `ipyvizzu` makes a difference between two types of data, numeric (measure) and
+    not numeric (dimension). A column's `dtype` specifies that the column is handled
+    as a measure or as a dimension.
 
 It is also possible to add the data frame's index as a series column while
 adding the data frame
@@ -161,8 +164,9 @@ data.add_df(df)
 ```
 
 !!! note
-    If you want to work with `pandas` DataFrame and `ipyvizzu`, you need to
-    install `pandas` or install it as an extra:
+
+    If you want to work with `pandas` DataFrame and `ipyvizzu`, you need to install
+    `pandas` or install it as an extra:
 
     ```sh
     pip install ipyvizzu[pandas]
@@ -244,8 +248,9 @@ data.add_df(df)
 ```
 
 !!! note
-    You'll need to adjust the SQL query and the database connection parameters
-    to match your specific use case.
+
+    You'll need to adjust the SQL query and the database connection parameters to
+    match your specific use case.
 
 #### Using MySQL
 
@@ -272,8 +277,9 @@ data.add_df(df)
 ```
 
 !!! note
-    You'll need to adjust the SQL query and the database connection parameters
-    to match your specific use case.
+
+    You'll need to adjust the SQL query and the database connection parameters to
+    match your specific use case.
 
 #### Using PostgreSQL
 
@@ -301,8 +307,9 @@ data.add_df(df)
 ```
 
 !!! note
-    You'll need to adjust the SQL query and the database connection parameters
-    to match your specific use case.
+
+    You'll need to adjust the SQL query and the database connection parameters to
+    match your specific use case.
 
 #### Using Microsoft SQL Server
 
@@ -330,8 +337,9 @@ data.add_df(df)
 ```
 
 !!! note
-    You'll need to adjust the SQL query and the database connection parameters
-    to match your specific use case.
+
+    You'll need to adjust the SQL query and the database connection parameters to
+    match your specific use case.
 
 ### Using `pyspark` DataFrame
 
@@ -380,8 +388,9 @@ data.add_df(df)
 ```
 
 !!! note
-    If you want to work with `pyspark` DataFrame and `ipyvizzu`, you need to
-    install `pyspark` or install it as an extra:
+
+    If you want to work with `pyspark` DataFrame and `ipyvizzu`, you need to install
+    `pyspark` or install it as an extra:
 
     ```sh
     pip install ipyvizzu[pyspark]
@@ -425,13 +434,15 @@ data.add_np_array(
 ```
 
 !!! info
+
     - Arrays with dimensions higher than 2 are not supported.
     - If `column_name` dictionary is not added, column indices will be used as
-      names.
+        names.
     - If `column_dtype` dictionary is not added, every column will use
-      `numpy_array.dtype`.
+        `numpy_array.dtype`.
 
 !!! note
+
     If you want to work with `numpy` Array and `ipyvizzu`, you need to install
     `numpy` or install it as an extra:
 
@@ -546,9 +557,10 @@ records = [
 ### Using data cube form
 
 !!! note
-    In the example below, the record `Rock,Experimental,36` has been replaced
-    with `Rock,Smooth,36` in order to illustrate that only data with same
-    dimensions can be used in the data cube form.
+
+    In the example below, the record `Rock,Experimental,36` has been replaced with
+    `Rock,Smooth,36` in order to illustrate that only data with same dimensions can
+    be used in the data cube form.
 
 <table>
   <tbody><tr><th colspan="2" rowspan="2"></th><th colspan="4" style="text-align:center">Genres</th></tr>

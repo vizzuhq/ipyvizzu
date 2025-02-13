@@ -3,10 +3,11 @@
 `ipyvizzu` requires the `IPython` and `jsonschema` packages.
 
 !!! info
+
     `ipyvizzu` requires and downloads the
     [Vizzu](https://github.com/vizzuhq/vizzu-lib) `JavaScript`/`C++`
-    [library](https://www.jsdelivr.com/package/npm/vizzu) from `jsDelivr CDN`,
-    but you can also use a different or self-hosted version of it. Check
+    [library](https://www.jsdelivr.com/package/npm/vizzu) from `jsDelivr CDN`, but
+    you can also use a different or self-hosted version of it. Check
     [Chart settings chapter](./tutorial/chart_settings.md) for more details.
 
 ## pypi
@@ -25,11 +26,12 @@ pip install -U ipyvizzu
 ```
 
 !!! note
-    `ipyvizzu` can be used with some extra dependencies such as `pandas`,
-    `pyspark`, `numpy` and `fugue`.
 
-    For example if you would like to work with `pandas` `DataFrame` and
-    `ipyvizzu`, you should install `pandas` as an extra:
+    `ipyvizzu` can be used with some extra dependencies such as `pandas`, `pyspark`,
+    `numpy` and `fugue`.
+
+    For example if you would like to work with `pandas` `DataFrame` and `ipyvizzu`,
+    you should install `pandas` as an extra:
 
     ```sh
     pip install ipyvizzu[pandas]

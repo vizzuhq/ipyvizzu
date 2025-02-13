@@ -47,9 +47,9 @@ Main features:
 - Designed with animation in focus;
 - Defaults based on data visualization guidelines;
 - Works with `Pandas` dataframe, while also `JSON` and inline data input is
-  available;
+    available;
 - Auto scrolling feature to keep the actual chart in position while executing
-  multiple cells.
+    multiple cells.
 
 ## Installation
 
@@ -117,32 +117,32 @@ details and a step-by-step tutorial into `ipyvizzu` or check out our
 more details.
 
 - Notebooks
-  - [Jupyter Notebook](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/jupyternotebook/)
-  - [Colab](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/colab/)
-  - [Databricks](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/databricks/)
-  - [DataCamp](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/datacamp/)
-  - [Deepnote](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/deepnote/)
-  - [JupyterLab](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/jupyterlab/)
-  - [JupyterLite](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/jupyterlite/)
-  - [Kaggle](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/kaggle/)
-  - [Noteable](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/noteable/)
+    - [Jupyter Notebook](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/jupyternotebook/)
+    - [Colab](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/colab/)
+    - [Databricks](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/databricks/)
+    - [DataCamp](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/datacamp/)
+    - [Deepnote](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/deepnote/)
+    - [JupyterLab](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/jupyterlab/)
+    - [JupyterLite](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/jupyterlite/)
+    - [Kaggle](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/kaggle/)
+    - [Noteable](https://ipyvizzu.vizzuhq.com/latest/environments/notebook/noteable/)
 - App platforms
-  - [Streamlit](https://ipyvizzu.vizzuhq.com/latest/environments/platform/streamlit/)
-  - [Flask](https://ipyvizzu.vizzuhq.com/latest/environments/platform/flask/)
-  - [Panel](https://ipyvizzu.vizzuhq.com/latest/environments/platform/panel/)
-  - [Mercury](https://ipyvizzu.vizzuhq.com/latest/environments/platform/mercury/)
-  - [Voilà](https://ipyvizzu.vizzuhq.com/latest/environments/platform/voila/)
+    - [Streamlit](https://ipyvizzu.vizzuhq.com/latest/environments/platform/streamlit/)
+    - [Flask](https://ipyvizzu.vizzuhq.com/latest/environments/platform/flask/)
+    - [Panel](https://ipyvizzu.vizzuhq.com/latest/environments/platform/panel/)
+    - [Mercury](https://ipyvizzu.vizzuhq.com/latest/environments/platform/mercury/)
+    - [Voilà](https://ipyvizzu.vizzuhq.com/latest/environments/platform/voila/)
 - BI tools
-  - [Mode](https://ipyvizzu.vizzuhq.com/latest/environments/bi/mode/)
+    - [Mode](https://ipyvizzu.vizzuhq.com/latest/environments/bi/mode/)
 - IDEs
-  - [PyCharm](https://ipyvizzu.vizzuhq.com/latest/environments/ide/pycharm/)
-  - [VSCode Python](https://ipyvizzu.vizzuhq.com/latest/environments/ide/vscode/)
+    - [PyCharm](https://ipyvizzu.vizzuhq.com/latest/environments/ide/pycharm/)
+    - [VSCode Python](https://ipyvizzu.vizzuhq.com/latest/environments/ide/vscode/)
 
 ## Extensions
 
 - [ipyvizzu-story](https://ipyvizzu-story.vizzuhq.com/) adds presentation
-  controls to present data stories live or to share them as an interactive HTML
-  file.
+    controls to present data stories live or to share them as an interactive
+    HTML file.
 
 ## Contributing
 
@@ -152,8 +152,11 @@ We welcome contributions to the project, visit our contributing
 ## Contact
 
 - Join our Slack if you have any questions or comments:
-  [vizzu-community.slack.com](https://join.slack.com/t/vizzu-community/shared_invite/zt-w2nqhq44-2CCWL4o7qn2Ns1EFSf9kEg)
+    [vizzu-community.slack.com](https://join.slack.com/t/vizzu-community/shared_invite/zt-w2nqhq44-2CCWL4o7qn2Ns1EFSf9kEg)
+    
+
 - Drop us a line at hello@vizzu.io
+
 - Follow us on Twitter: [VizzuHQ](https://twitter.com/VizzuHQ)
 
 ## Usage Statistics

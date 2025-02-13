@@ -11,22 +11,22 @@ green check.
 - [x] Change the url of `Vizzu` (`vizzu`)
 - [x] Change the width of the `Chart` (`width`)
 - [x] Change the height of the `Chart` (`height`) DisplayUse scroll into view
-  (`scroll_into_view`=`True`)
+    (`scroll_into_view`=`True`)
 
 Display features:
 
 - [ ] Display all animations after `_repr_html_` method called
-  (`display`=`DisplayTarget.MANUAL`)
+    (`display`=`DisplayTarget.MANUAL`)
 - [x] Display all animations after `show` method called
-  (`display`=`DisplayTarget.MANUAL`)
+    (`display`=`DisplayTarget.MANUAL`)
 - [x] Automatically display all animations after the first cell
-  (`display`=`DisplayTarget.BEGIN`)
+    (`display`=`DisplayTarget.BEGIN`)
 - [x] Automatically display all animations after the currently running cell
-  (`display`=`DisplayTarget.ACTUAL`)
+    (`display`=`DisplayTarget.ACTUAL`)
 - [x] Automatically display all animations after the last running cell
-  (`display`=`DisplayTarget.END`)
+    (`display`=`DisplayTarget.END`)
 - [ ] Rerun any cell without rerun the first cell
-  (`display`!=`DisplayTarget.MANUAL`)
+    (`display`!=`DisplayTarget.MANUAL`)
 
 Check [Chart settings chapter](../../tutorial/chart_settings.md) for more
 details.

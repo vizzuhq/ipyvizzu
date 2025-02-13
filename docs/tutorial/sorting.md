@@ -79,6 +79,7 @@ When switching the order of dimensions on the x-axis `ipyvizzu` will rearrange
 the elements according to this new logic.
 
 !!! note
+
     The legend is automatically removed during the animation.
 
 <div id="tutorial_05"></div>
