@@ -157,11 +157,21 @@ envlist =
     py{39,310,311,312,313}
     coverage
 
-[testenv:py{39,310,311,312,313}]
+[testenv]
 setenv =
     COVERAGE_FILE = .coverage/env/.coverage.{envname}
 deps =
     coverage[toml]
+
+commands =
+    python -m coverage run --branch --source ipyvizzu -m unittest discover tests
+    python -m coverage report -m
+    python -c "import os; pyenv='{envname}'; os.rename('.coverage/env/.coverage.' + pyenv, '.coverage/env/.coverage.3.' + pyenv[3:])"
+
+[testenv:py{39,310,311,312,313}]
+package = editable
+deps =
+    {[testenv]deps}
     openpyxl
     packaging
 extras =
@@ -169,10 +179,6 @@ extras =
     pyspark
     numpy
     fugue
-commands =
-    python -m coverage run --branch --source ipyvizzu -m unittest discover tests
-    python -m coverage report -m
-    python -c "import os; pyenv='{envname}'; os.rename('.coverage/env/.coverage.' + pyenv, '.coverage/env/.coverage.3.' + pyenv[3:])"
 
 [testenv:coverage]
 skip_install = True
