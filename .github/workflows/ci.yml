@@ -169,11 +169,11 @@ jobs:
               run: |
                   source .venv/bin/activate
                   case "${{ matrix.python-version }}" in
-                    "3.7") python_test_env="py37";;
-                    "3.8") python_test_env="py38";;
                     "3.9") python_test_env="py39";;
                     "3.10") python_test_env="py310";;
                     "3.11") python_test_env="py311";;
+                    "3.12") python_test_env="py312";;
+                    "3.13") python_test_env="py313";;
                   esac
                   pdm run test -e "${python_test_env}"
 

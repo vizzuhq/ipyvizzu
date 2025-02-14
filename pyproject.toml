@@ -47,7 +47,7 @@ numpy = [
     "numpy",
 ]
 fugue = [
-    "fugue",
+    "fugue[sql]",
 ]
 
 [project.urls]
@@ -157,29 +157,22 @@ envlist =
     py{39,310,311,312,313}
     coverage
 
-[testenv]
+[testenv:py{39,310,311,312,313}]
 setenv =
     COVERAGE_FILE = .coverage/env/.coverage.{envname}
 deps =
     coverage[toml]
+    openpyxl
+    packaging
 extras =
     pandas
     pyspark
-    numpy >= 2.1.0"
+    numpy
+    fugue
 commands =
     python -m coverage run --branch --source ipyvizzu -m unittest discover tests
     python -m coverage report -m
     python -c "import os; pyenv='{envname}'; os.rename('.coverage/env/.coverage.' + pyenv, '.coverage/env/.coverage.3.' + pyenv[3:])"
-
-[testenv:py{39,310,311,312,313}]
-package = editable
-deps =
-    {[testenv]deps}
-    openpyxl
-    packaging
-extras =
-    {[testenv]extras}
-    fugue
 
 [testenv:coverage]
 skip_install = True
@@ -200,7 +193,7 @@ packagedeps = [
     "pandas-stubs ; python_version >= '3.13'",
     "pyspark ; python_version >= '3.13'",
     "numpy ; python_version >= '3.13'",
-    "fugue ; python_version >= '3.13'",
+    "fugue[sql] ; python_version >= '3.13'",
 ]
 codequality = [
     "pre-commit ; python_version >= '3.13'",
