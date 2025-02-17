@@ -86,7 +86,8 @@ plugins:
     - placeholder
     - search
     - section-index
-    - autorefs
+    - autorefs:
+          resolve_closest: true
     - mkdocstrings:
           enable_inventory: true
           handlers:
@@ -110,7 +111,7 @@ plugins:
               - reference/gen_reference.py
               - style/gen_style_reference.py
     - coverage:
-          page_name: coverage
+          page_path: coverage
           html_report_dir: .coverage/html
     - literate-nav:
           implicit_index: true
