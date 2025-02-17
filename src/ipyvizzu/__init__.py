@@ -46,8 +46,6 @@ and similar environments with a simple `Python` syntax.
 * [DisplayTemplate][ipyvizzu.template.DisplayTemplate]
 """
 
-import warnings
-
 from .chart import Chart
 from .animation import (
     AbstractAnimation,
