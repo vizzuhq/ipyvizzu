@@ -1,5 +1,6 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
+from contextlib import chdir
 import json
 from pathlib import Path
 import sys
@@ -10,9 +11,6 @@ TOOLS_PATH = REPO_PATH / "tools"
 
 sys.path.insert(0, str(TOOLS_PATH / "modules"))
 
-from chdir import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
-    chdir,
-)
 from vizzu import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
     Vizzu,
 )

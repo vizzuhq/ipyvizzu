@@ -1,14 +1,11 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
 from pathlib import Path
-import unittest
 
 import numpy as np
 import pandas as pd
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType
-
-from ipyvizzu.__version__ import PYENV
 
 from tests.test_data import DataWithAssets
 
@@ -70,8 +67,6 @@ class TestDf(DataWithAssets):
             self.data.build(),
         )
 
-    # TODO: remove decorator once support for Python 3.6 is dropped
-    @unittest.skipUnless(PYENV >= (3, 7), "at least Python 3.7 is required")
     def test_with_xlsx(self) -> None:
         df = pd.read_excel(self.docs_dir / "music_data.xlsx")
         self.data.add_df(df)

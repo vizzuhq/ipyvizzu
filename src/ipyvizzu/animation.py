@@ -295,6 +295,7 @@ class Data(dict, AbstractAnimation):
         include_index: Optional[str] = None,
         units: Optional[Dict[str, str]] = None,
     ) -> None:
+        # pylint: disable=too-many-positional-arguments
         """
         Add a `pandas` `DataFrame`, `Series` or a `pyspark` `DataFrame`
         to an existing [Data][ipyvizzu.animation.Data] class instance.
@@ -473,6 +474,7 @@ class Data(dict, AbstractAnimation):
         default_measure_value: MeasureValue = NAN_MEASURE,
         default_dimension_value: DimensionValue = NAN_DIMENSION,
     ) -> None:
+        # pylint: disable=too-many-positional-arguments
         """
         Add a `numpy` `array` to an existing
         [Data][ipyvizzu.animation.Data] class instance.

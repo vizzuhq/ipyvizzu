@@ -4,90 +4,47 @@ on:
     workflow_call:
 
 jobs:
-    init_ubuntu20:
-        runs-on: ubuntu-20.04
-
-        steps:
-            - name: Checkout repo
-              uses: actions/checkout@v3
-              with:
-                  fetch-depth: 1
-
-            - name: Cache venv
-              id: venv_ubuntu20
-              uses: actions/cache@v3
-              with:
-                  path: .venv
-                  key: venv_ubuntu20_${{ hashFiles('pdm.lock') }}
-
-            - name: Set up Python 3.6
-              if: steps.venv_ubuntu20.outputs.cache-hit != 'true'
-              uses: actions/setup-python@v4
-              with:
-                  python-version: '3.6'
-
-            - name: Set up venv
-              if: steps.venv_ubuntu20.outputs.cache-hit != 'true'
-              run: |
-                  python3.6 -m venv ".venv"
-                  source .venv/bin/activate
-                  pip install tox
-
-    init_ubuntu22:
-        runs-on: ubuntu-22.04
+    init_ubuntu24:
+        runs-on: ubuntu-24.04
 
         env:
             PUPPETEER_CACHE_DIR: ${{ github.workspace }}/node_modules/.chromium
 
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 1
 
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: '3.13'
+
             - name: Cache venv
-              id: venv_ubuntu22
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: .venv
-                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
+                  key: venv_ubuntu24_${{ hashFiles('pdm.lock') }}
 
             - name: Set up venv
-              if: steps.venv_ubuntu22.outputs.cache-hit != 'true'
+              if: steps.venv_ubuntu24.outputs.cache-hit != 'true'
               run: |
-                  python3.10 -m venv ".venv"
+                  python3.13 -m venv ".venv"
                   source .venv/bin/activate
-                  pip install pdm==2.8.0
+                  pip install pdm==2.22.3
                   pdm install
 
-            - name: Cache node modules
-              id: node_modules_ubuntu22
-              uses: actions/cache@v3
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
               with:
-                  path: node_modules
-                  key: node_modules_ubuntu22_${{ hashFiles('package-lock.json') }}
+                  node-version: '22'
+                  cache: 'npm'
+                  cache-dependency-path: 'package-lock.json'
 
-            - name: Set up node modules
-              if: steps.node_modules_ubuntu22.outputs.cache-hit != 'true'
+            - name: Set up npm
               run: |
-                  source .venv/bin/activate
-                  npm install
-
-    init_pkg:
-        runs-on: ubuntu-22.04
-        needs: init_ubuntu22
-
-        steps:
-            - name: Checkout repo
-              uses: actions/checkout@v3
-              with:
-                  fetch-depth: 1
-
-            - name: Cache venv
-              uses: actions/cache@v3
-              with:
-                  path: .venv
-                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
+                  npm ci
 
             - name: Deploy package
               run: |
@@ -100,7 +57,7 @@ jobs:
                   pdm run build
 
             - name: Cache package
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: dist/
                   key: package_${{ github.run_id }}

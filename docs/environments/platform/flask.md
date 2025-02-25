@@ -13,17 +13,17 @@ check.
 Display features:
 
 - [ ] Display all animations after `_repr_html_` method called
-  (`display`=`DisplayTarget.MANUAL`) \*
+    (`display`=`DisplayTarget.MANUAL`) \*
 - [ ] Display all animations after `show` method called
-  (`display`=`DisplayTarget.MANUAL`)
+    (`display`=`DisplayTarget.MANUAL`)
 - [ ] Automatically display all animations after the first cell
-  (`display`=`DisplayTarget.BEGIN`)
+    (`display`=`DisplayTarget.BEGIN`)
 - [ ] Automatically display all animations after the currently running cell
-  (`display`=`DisplayTarget.ACTUAL`)
+    (`display`=`DisplayTarget.ACTUAL`)
 - [ ] Automatically display all animations after the last running cell
-  (`display`=`DisplayTarget.END`)
+    (`display`=`DisplayTarget.END`)
 - [ ] Rerun any cell without rerun the first cell
-  (`display`!=`DisplayTarget.MANUAL`)
+    (`display`!=`DisplayTarget.MANUAL`)
 
 Check [Chart settings chapter](../../tutorial/chart_settings.md) for more
 details.
@@ -125,7 +125,6 @@ following content
   </div>
  </body>
 </html>
-
 ```
 
 and run the following command in your command line in order to try it.

@@ -34,7 +34,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					})
 				},
 				(chart) => {
-					console.log(chart.style) // eslint-disable-line no-console
+					console.log(chart.style)
 					return chart
 				}
 			]

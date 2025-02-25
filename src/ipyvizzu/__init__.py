@@ -46,8 +46,6 @@ and similar environments with a simple `Python` syntax.
 * [DisplayTemplate][ipyvizzu.template.DisplayTemplate]
 """
 
-import warnings
-
 from .chart import Chart
 from .animation import (
     AbstractAnimation,
@@ -100,12 +98,3 @@ __all__ = [
     "DisplayTarget",
     "DisplayTemplate",
 ]
-
-
-# TODO: remove once support for Python 3.6 is dropped
-if PYENV < (3, 7):
-    warnings.warn(
-        "Python 3.6 support will be dropped in future versions.",
-        FutureWarning,
-        stacklevel=2,
-    )

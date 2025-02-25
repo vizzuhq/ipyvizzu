@@ -9,19 +9,24 @@ jobs:
     publish:
         if: ${{ (github.event_name == 'release' && github.event.action == 'published') }}
 
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-24.04
 
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
               with:
                   fetch-depth: 1
 
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: '3.13'
+
             - name: Cache venv
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: .venv
-                  key: venv_ubuntu22_${{ hashFiles('pdm.lock') }}
+                  key: venv_ubuntu24_${{ hashFiles('pdm.lock') }}
 
             - name: Get workflow ID
               id: workflow_id
@@ -44,7 +49,7 @@ jobs:
                   echo "run_id=${run_id}" >> $GITHUB_OUTPUT
 
             - name: Cache package
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: dist/
                   key: package_${{ steps.run_id.outputs.run_id }}

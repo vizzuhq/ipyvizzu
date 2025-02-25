@@ -7,20 +7,14 @@ import unittest
 
 import pandas as pd
 
-from ipyvizzu.__version__ import PYENV
+import fugue.api as fa
 
 from tests.utils.normalizer import Normalizer
 
-
-# TODO: remove once support for Python 3.6 is dropped
-if PYENV >= (3, 7):
-    import fugue.api as fa
-    import ipyvizzu.integrations.fugue  # register the extension  # pylint: disable=unused-import
+import ipyvizzu.integrations.fugue  # register the extension  # pylint: disable=unused-import
 
 
 class TestFugue(unittest.TestCase):
-    # TODO: remove decorator once support for Python 3.6 is dropped
-    @unittest.skipUnless(PYENV >= (3, 7), "at least Python 3.7 is required")
     def test_fugue_extension_preset(self) -> None:
         ref = pathlib.Path(__file__).parent / "assets" / "ref_fugue_preset.txt"
         with open(ref, "r", encoding="utf8") as f_ref:
@@ -41,8 +35,6 @@ class TestFugue(unittest.TestCase):
             ref_content,
         )
 
-    # TODO: remove decorator once support for Python 3.6 is dropped
-    @unittest.skipUnless(PYENV >= (3, 7), "at least Python 3.7 is required")
     def test_fugue_extension_timeline(self) -> None:
         ref = pathlib.Path(__file__).parent / "assets" / "ref_fugue_timeline.txt"
         with open(ref, "r", encoding="utf8") as f_ref:

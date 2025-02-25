@@ -64,7 +64,7 @@ class NumpyArrayConverter(ToSeriesListConverter):
         default_measure_value: MeasureValue = NAN_MEASURE,
         default_dimension_value: DimensionValue = NAN_DIMENSION,
     ) -> None:
-        # pylint: disable=too-many-arguments
+        # pylint: disable=too-many-arguments,too-many-positional-arguments
 
         super().__init__(default_measure_value, default_dimension_value)
         self._np = self._get_numpy()

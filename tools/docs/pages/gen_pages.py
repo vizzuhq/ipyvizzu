@@ -1,5 +1,6 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
 
+from contextlib import chdir
 import os
 from pathlib import Path
 from typing import Union, Optional, List
@@ -16,9 +17,6 @@ sys.path.insert(0, str(TOOLS_PATH / "modules"))
 sys.path.insert(0, str(TOOLS_PATH / "ci"))
 sys.path.insert(0, str(MKDOCS_PATH))
 
-from chdir import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
-    chdir,
-)
 from vizzu import (  # pylint: disable=import-error, wrong-import-position, wrong-import-order
     Vizzu,
 )

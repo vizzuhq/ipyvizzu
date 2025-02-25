@@ -35,7 +35,7 @@ There are three types of non-keyword arguments:
 
 - `data`: this is where you add the data that you want to visualize
 - `config`: this is where you can add or remove series to the chart and set
-  general settings like the chart title, the geometry, the alignment etc.
+    general settings like the chart title, the geometry, the alignment etc.
 - `style`: this is where you can set how your chart looks
 
 ## Installation
@@ -49,9 +49,10 @@ Visit [Installation chapter](../installation.md) for more options and details.
 ## Usage
 
 !!! note
-    `ipyvizzu` generates `JavaScript` code, then the `vizzu` calls are evaluated
-    by the browser. Therefore if a blank space appears where the chart should
-    be, check the console log of your browser. `vizzu` reports its errors there.
-    If you get a `vizzu` error in your browser console that is not
-    straightforward to understand, please clean your browser cache first,
-    because it might be caused by an older version being stored in your browser.
+
+    `ipyvizzu` generates `JavaScript` code, then the `vizzu` calls are evaluated by
+    the browser. Therefore if a blank space appears where the chart should be, check
+    the console log of your browser. `vizzu` reports its errors there. If you get a
+    `vizzu` error in your browser console that is not straightforward to understand,
+    please clean your browser cache first, because it might be caused by an older
+    version being stored in your browser.

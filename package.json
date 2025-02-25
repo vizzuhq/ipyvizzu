@@ -13,28 +13,12 @@
 	"author": "Vizzu Inc.",
 	"license": "Apache-2.0",
 	"devDependencies": {
-		"@vizzu/eslint-config": "^0.2.0",
+		"@vizzu/eslint-config": "^1.0.0",
 		"@vizzu/prettier-config": "^0.1.0",
 		"npm-run-all": "^4.1.5",
-		"prettier": "^3.1.1",
-		"eslint": "^8.55.0",
-		"eslint-config-standard": "^17.1.0",
-		"eslint-config-prettier": "^9.1.0",
-		"puppeteer": "^21.3.7"
+		"prettier": "^3.5.1",
+		"eslint": "^9.20.1",
+		"puppeteer": "^24.2.0"
 	},
-	"prettier": "@vizzu/prettier-config",
-	"eslintConfig": {
-		"overrides": [
-			{
-				"files": [
-					"*.js",
-					"*.mjs",
-					"*.cjs"
-				],
-				"extends": [
-					"@vizzu/eslint-config/standard"
-				]
-			}
-		]
-	}
+	"prettier": "@vizzu/prettier-config"
 }

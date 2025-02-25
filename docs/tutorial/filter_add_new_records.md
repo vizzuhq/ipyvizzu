@@ -6,9 +6,10 @@ records to the data on the chart which makes it easy to work with real-time
 sources.
 
 !!! note
-    Currently `filter` and `set_filter` methods only accept JavaScript
-    expression as string. The data fields can be accessed via the `record`
-    object, see the examples below.
+
+    Currently `filter` and `set_filter` methods only accept JavaScript expression as
+    string. The data fields can be accessed via the `record` object, see the
+    examples below.
 
 We add two items from the `Genres` dimension - using the `||` operator - to the
 filter, so the chart elements that belong to the other two items will vanish
@@ -67,9 +68,10 @@ chart.animate(data2)
 ```
 
 !!! info
-    Combining this option with the [store](./shorthands_store.md) function makes
-    it easy to update previously configured states with fresh data since this
-    function saves the config and style parameters of the chart into a variable
-    but not the data.
+
+    Combining this option with the [store](./shorthands_store.md) function makes it
+    easy to update previously configured states with fresh data since this function
+    saves the config and style parameters of the chart into a variable but not the
+    data.
 
 <script src="../filter_add_new_records.js"></script>
