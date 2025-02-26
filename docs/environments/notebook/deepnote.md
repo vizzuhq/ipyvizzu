@@ -30,7 +30,7 @@ details.
 
 ## Live example
 
-[![View in Deepnote](https://deepnote.com/static/buttons/view-in-deepnote.svg)](https://deepnote.com/workspace/david-andras-vegh-bc03-79fd3a98-abaf-40c0-8b52-9f3e438a73fc/project/ipyvizzu-demo-dff3c2c3-f212-434e-8fa1-23d843c52fe3/%2Fipyvizzu_demo.ipynb)
+[![View in Deepnote](https://deepnote.com/static/buttons/view-in-deepnote.svg)](https://deepnote.com/workspace/david-andras-vegh-bc03-79fd3a98-abaf-40c0-8b52-9f3e438a73fc/project/ipyvizzu-demo-dff3c2c3-f212-434e-8fa1-23d843c52fe3/notebook/ipyvizzudemo-e73770f198a3488daec9eeb876f04a42?utm_source=share-modal&utm_medium=product-shared-content&utm_campaign=notebook&utm_content=dff3c2c3-f212-434e-8fa1-23d843c52fe3)
 
 ## Installation
 
