@@ -383,7 +383,7 @@ class Data(dict, AbstractAnimation):
 
         # pylint: disable=line-too-long
 
-        reference = "https://ipyvizzu.vizzuhq.com/0.17/reference/ipyvizzu/animation/#ipyvizzu.animation.Data.add_df"
+        reference = "https://ipyvizzu.vizzuhq.com/0.18/reference/ipyvizzu/animation/#ipyvizzu.animation.Data.add_df"
         warnings.warn(
             f"'add_data_frame' is deprecated and will be removed in future versions. Use 'add_df' instead - see {reference}",
             DeprecationWarning,
@@ -457,7 +457,7 @@ class Data(dict, AbstractAnimation):
 
         # pylint: disable=line-too-long
 
-        reference = "https://ipyvizzu.vizzuhq.com/0.17/reference/ipyvizzu/animation/#ipyvizzu.animation.Data.add_df_index"
+        reference = "https://ipyvizzu.vizzuhq.com/0.18/reference/ipyvizzu/animation/#ipyvizzu.animation.Data.add_df_index"
         warnings.warn(
             f"'add_data_frame_index' is deprecated and will be removed in future versions. Use 'add_df_index' instead - see {reference}",
             DeprecationWarning,
