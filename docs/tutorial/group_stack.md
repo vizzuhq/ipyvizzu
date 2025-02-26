@@ -74,8 +74,8 @@ chart.animate(
     Config(
         {
             "channels": {
-                "y": {"attach": "Kinds"},
                 "x": {"detach": "Kinds"},
+                "y": {"attach": "Kinds"},
             },
         }
     )

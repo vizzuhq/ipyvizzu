@@ -28,7 +28,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					return chart.animate({
 						config: {
-							title: 'Sum of Popularity by Genre'
+							title: 'Sum of Popularity by Genres'
 						}
 					})
 				},
@@ -48,7 +48,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					return chart.animate({
 						config: {
-							title: 'Minimum of Popularity by Genre'
+							title: 'Minimum of Popularity by Genres'
 						}
 					})
 				},
@@ -68,7 +68,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					return chart.animate({
 						config: {
-							title: 'Maximum of Popularity by Genre'
+							title: 'Maximum of Popularity by Genres'
 						}
 					})
 				},
@@ -88,7 +88,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					return chart.animate({
 						config: {
-							title: 'Mean of Popularity by Genre'
+							title: 'Mean of Popularity by Genres'
 						}
 					})
 				},
@@ -108,7 +108,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					return chart.animate({
 						config: {
-							title: 'Count of items by Genre'
+							title: 'Count of items by Genres'
 						}
 					})
 				},
@@ -128,7 +128,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					return chart.animate({
 						config: {
-							title: 'Distinct Kinds by Genre'
+							title: 'Distinct Kinds by Genres'
 						}
 					})
 				},
@@ -148,7 +148,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					return chart.animate({
 						config: {
-							title: 'Sum of Popularity by Genre'
+							title: 'Sum of Popularity by Genres'
 						}
 					})
 				},

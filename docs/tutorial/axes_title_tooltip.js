@@ -13,8 +13,8 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								y: { set: 'Popularity' },
-								x: { set: 'Genres' }
+								y: { set: ['Popularity'] },
+								x: { set: ['Genres'] }
 							}
 						}
 					})
@@ -41,8 +41,8 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								y: { detach: 'Popularity' },
-								x: { attach: 'Popularity' }
+								y: { detach: ['Popularity'] },
+								x: { attach: ['Popularity'] }
 							}
 						}
 					})
@@ -56,7 +56,23 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart
 				},
 				(chart) => {
-					return chart.animate({ title: 'My first chart' })
+					return chart.animate({
+						config: {
+							title: 'My first chart'
+						}
+					})
+				}
+			]
+		},
+		{
+			anims: [
+				(chart) => {
+					return chart.animate({
+						config: {
+							subtitle: 'with fancy animations',
+							caption: 'Source: Vizzu tutorial'
+						}
+					})
 				}
 			]
 		},

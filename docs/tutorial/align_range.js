@@ -48,7 +48,12 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					return chart.animate({
 						config: {
-							align: 'stretch'
+							align: 'stretch',
+							channels: {
+								y: {
+									labels: true
+								}
+							}
 						}
 					})
 				}
@@ -66,12 +71,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					return chart.animate({
 						config: {
-							align: 'none',
-							channels: {
-								y: {
-									labels: true
-								}
-							}
+							align: 'none'
 						}
 					})
 				}

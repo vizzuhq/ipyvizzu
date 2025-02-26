@@ -14,8 +14,8 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 						config: {
 							title: 'Creating a stacked chart',
 							channels: {
-								y: { set: 'Popularity' },
-								x: { set: 'Genres' }
+								x: { set: ['Genres'] },
+								y: { set: ['Popularity'] }
 							}
 						}
 					})
@@ -25,10 +25,10 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 						config: {
 							channels: {
 								y: {
-									attach: 'Kinds'
+									attach: ['Kinds']
 								},
 								color: {
-									attach: 'Kinds'
+									attach: ['Kinds']
 								}
 							}
 						}
@@ -49,8 +49,8 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								y: { detach: 'Kinds' },
-								x: { attach: 'Kinds' }
+								y: { detach: ['Kinds'] },
+								x: { attach: ['Kinds'] }
 							}
 						}
 					})
@@ -90,8 +90,8 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								x: { detach: 'Kinds' },
-								y: { attach: 'Kinds' }
+								x: { detach: ['Kinds'] },
+								y: { attach: ['Kinds'] }
 							}
 						}
 					})
