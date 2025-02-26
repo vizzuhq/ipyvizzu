@@ -30,6 +30,25 @@ chart.animate(
 )
 ```
 
+We will reference the data series by names for clarity throughout the tutorial.
+However, you can also use data series descriptor objects as well. That way you
+can define aggregators to the series. For more information about aggregators,
+see the [Aggregating data](./aggregating_data.md) chapter. The previous example
+can be rewritten using data series descriptor objects as follows:
+
+```python
+chart.animate(
+    Config(
+        {
+            "channels": {
+                "y": {"set": [{"name": "Popularity"}]},
+                "x": {"set": [{"name": "Genres"}]},
+            }
+        }
+    )
+)
+```
+
 In the next step, the chart is rearranged by putting both series on the y-axis
 using once again the set property, resulting in a single column chart.
 `ipyvizzu` automatically animates between the initial state and this one.
@@ -41,8 +60,8 @@ chart.animate(
     Config(
         {
             "channels": {
-                "y": {"set": ["Popularity", "Genres"]},
                 "x": {"set": None},
+                "y": {"set": ["Genres", "Popularity"]},
             }
         }
     )
@@ -87,11 +106,26 @@ Setting the chart title with the title property.
 chart.animate(Config({"title": "My first chart"}))
 ```
 
+Subtitle and caption textual element options are available for your charts.
+
+<div id="tutorial_05"></div>
+
+```python
+chart.animate(
+    Config(
+        {
+            "subtitle": "with fancy animations",
+            "caption": "Source: Vizzu tutorial",
+        }
+    )
+)
+```
+
 Switching on the tooltips that appear on the chart elements when the user hovers
 over them with their mouse by adding the (`"tooltip"`, `True`) parameters to the
 `chart.feature` method.
 
-<div id="tutorial_05"></div>
+<div id="tutorial_06"></div>
 
 ```python
 chart.feature("tooltip", True)

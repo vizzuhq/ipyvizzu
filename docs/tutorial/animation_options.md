@@ -57,8 +57,8 @@ chart.animate(
     Config(
         {
             "channels": {
-                "y": {"detach": ["Kinds"]},
                 "x": {"attach": ["Kinds"]},
+                "y": {"detach": ["Kinds"]},
             }
         }
     ),
@@ -98,8 +98,8 @@ chart.animate(
     Config(
         {
             "channels": {
-                "y": {"detach": ["Kinds"]},
                 "x": {"attach": ["Kinds"]},
+                "y": {"detach": ["Kinds"]},
             }
         }
     ),

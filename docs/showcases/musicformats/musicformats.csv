@@ -37,6 +37,8 @@ Year,Format,Revenue
 1982,Tapes,97
 1982,Cassette,3713
 1982,Vinyl,5922
+1982,CD,0
+1983,Tapes,0
 1983,CD,45
 1983,Cassette,4706
 1983,Vinyl,5089
@@ -55,6 +57,7 @@ Year,Format,Revenue
 1988,Vinyl,1559
 1988,CD,4594
 1988,Cassette,7531
+1988,DVD,0
 1989,DVD,241
 1989,Vinyl,703
 1989,CD,5401
@@ -115,6 +118,9 @@ Year,Format,Revenue
 2003,Cassette,152
 2003,DVD,574
 2003,CD,15888
+2003,Streaming,0
+2003,Download,0
+2004,Other,0
 2004,Streaming,10
 2004,Cassette,33
 2004,Vinyl,54
@@ -149,6 +155,7 @@ Year,Format,Revenue
 2008,Other,1178
 2008,Download,2054
 2008,CD,6585
+2009,Cassette,0
 2009,Vinyl,80
 2009,DVD,255
 2009,Streaming,436

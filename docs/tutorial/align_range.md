@@ -39,7 +39,9 @@ scale will also switch from values to percentages when used.
 <div id="tutorial_02"></div>
 
 ```python
-chart.animate(Config({"align": "stretch"}))
+chart.animate(
+    Config({"align": "stretch", "channels": {"y": {"labels": True}}})
+)
 ```
 
 Getting back to the default alignment.
@@ -47,9 +49,7 @@ Getting back to the default alignment.
 <div id="tutorial_03"></div>
 
 ```python
-chart.animate(
-    Config({"align": "none", "channels": {"y": {"labels": True}}})
-)
+chart.animate(Config({"align": "none"}))
 ```
 
 You can set the range of an axis by setting the minimum and maximum values of

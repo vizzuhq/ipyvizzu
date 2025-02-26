@@ -2,7 +2,7 @@
 
 from enum import Enum
 
-VIZZU_VERSION: str = "0.9"
+VIZZU_VERSION: str = "0.16"
 """A variable for storing the default version of the `vizzu` package."""
 
 VIZZU: str = f"https://cdn.jsdelivr.net/npm/vizzu@{VIZZU_VERSION}/dist/vizzu.min.js"

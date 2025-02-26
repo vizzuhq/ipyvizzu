@@ -15,9 +15,9 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 							title: 'Align: center',
 							channels: {
 								y: { set: ['Popularity', 'Kinds'] },
-								x: { set: 'Genres' },
-								color: { set: 'Kinds' },
-								label: { set: 'Popularity' }
+								x: { set: ['Genres'] },
+								color: { set: ['Kinds'] },
+								label: { set: ['Popularity'] }
 							}
 						}
 					})
@@ -48,7 +48,12 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					return chart.animate({
 						config: {
-							align: 'stretch'
+							align: 'stretch',
+							channels: {
+								y: {
+									labels: true
+								}
+							}
 						}
 					})
 				}
@@ -66,12 +71,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					return chart.animate({
 						config: {
-							align: 'none',
-							channels: {
-								y: {
-									labels: true
-								}
-							}
+							align: 'none'
 						}
 					})
 				}

@@ -50,7 +50,7 @@ class TestChartInit(TestChart):
                 "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
-                + "'https://cdn.jsdelivr.net/npm/vizzu@0.9/dist/vizzu.min.js', "
+                + "'https://cdn.jsdelivr.net/npm/vizzu@0.16/dist/vizzu.min.js', "
                 + "'800px', '480px');",
             )
 
@@ -78,7 +78,7 @@ class TestChartInit(TestChart):
                 "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
-                + "'https://cdn.jsdelivr.net/npm/vizzu@0.9/dist/vizzu.min.js', "
+                + "'https://cdn.jsdelivr.net/npm/vizzu@0.16/dist/vizzu.min.js', "
                 + "'400px', '240px');",
             )
 
@@ -314,7 +314,7 @@ class TestChartAnimateMethod(TestChart):
 
 
 class TestChartPluginMethod(TestChart):
-    URL = "https://cdn.jsdelivr.net/npm/@vizzu/marker-dropshadow@vizzu-0.9/dist/mjs/index.min.js"
+    URL = "https://cdn.jsdelivr.net/npm/@vizzu/marker-dropshadow@vizzu-0.16/dist/mjs/index.min.js"
 
     def test_plugin_with_package_name(self) -> None:
         with unittest.mock.patch(self.mock) as output:
@@ -446,7 +446,7 @@ class TestChartAnalytics(TestChart):
                 "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
-                + "'https://cdn.jsdelivr.net/npm/vizzu@0.9/dist/vizzu.min.js', "
+                + "'https://cdn.jsdelivr.net/npm/vizzu@0.16/dist/vizzu.min.js', "
                 + "'800px', '480px');",
             )
 
@@ -463,7 +463,7 @@ class TestChartAnalytics(TestChart):
                 + "window.ipyvizzu.createChart("
                 + "element, "
                 + "id, "
-                + "'https://cdn.jsdelivr.net/npm/vizzu@0.9/dist/vizzu.min.js', "
+                + "'https://cdn.jsdelivr.net/npm/vizzu@0.16/dist/vizzu.min.js', "
                 + "'800px', '480px');"
                 + "\n"
                 + "if (window.IpyVizzu) window.IpyVizzu.changeAnalyticsTo(false);"

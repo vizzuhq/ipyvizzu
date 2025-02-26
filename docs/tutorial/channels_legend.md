@@ -67,7 +67,10 @@ color. If a measure is put on the `color` channel, a color range will be used.
 chart.animate(
     Config(
         {
-            "channels": {"color": {"attach": ["Genres"]}},
+            "channels": {
+                "lightness": {"set": None},
+                "color": {"attach": ["Genres"]},
+            },
             "legend": "color",
         }
     )

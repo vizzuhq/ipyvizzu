@@ -1,8 +1,4 @@
 const mdChartLoaded = import('../assets/javascripts/mdchart.js')
-const animOptions = {
-	duration: 2,
-	delay: 3
-}
 
 Promise.all([mdChartLoaded]).then((results) => {
 	const MdChart = results[0].default
@@ -48,7 +44,10 @@ Promise.all([mdChartLoaded]).then((results) => {
 								legend: null
 							}
 						},
-						{ ...animOptions, delay: 0 }
+						{
+							duration: 2,
+							delay: 0
+						}
 					),
 				(chart) =>
 					chart.animate(
@@ -78,7 +77,10 @@ Promise.all([mdChartLoaded]).then((results) => {
 								}
 							}
 						},
-						animOptions
+						{
+							duration: 2,
+							delay: 3
+						}
 					),
 				(chart) =>
 					chart.animate(
@@ -108,7 +110,10 @@ Promise.all([mdChartLoaded]).then((results) => {
 								}
 							}
 						},
-						animOptions
+						{
+							duration: 2,
+							delay: 3
+						}
 					),
 				(chart) =>
 					chart.animate(
@@ -139,7 +144,10 @@ Promise.all([mdChartLoaded]).then((results) => {
 								legend: null
 							}
 						},
-						animOptions
+						{
+							duration: 2,
+							delay: 3
+						}
 					)
 			]
 		}

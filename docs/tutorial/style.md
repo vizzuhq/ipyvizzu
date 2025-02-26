@@ -4,7 +4,7 @@
 the look and feel of your animated charts. The styling properties are organized
 into a hierarchical structure. Font styles, when set on a higher level of this
 hierarchy, will be inherited on all lower levels. You can use absolute sizing
-(`px`) and relative (`%`, `em`).
+(`px`, `pt`) and relative (`%`, `em`, `vw`).
 
 Similarly to all other parameters of the animate method, `ipyizzu` will animate
 the changes in the styling of the charts. This provides an excellent opportunity

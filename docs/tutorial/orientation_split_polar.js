@@ -15,9 +15,9 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 							title: 'Switch the orientation = arrange by other axis',
 							channels: {
 								y: { set: ['Popularity', 'Kinds'] },
-								x: { set: 'Genres' },
-								color: { set: 'Kinds' },
-								label: { set: 'Popularity' }
+								x: { set: ['Genres'] },
+								color: { set: ['Kinds'] },
+								label: { set: ['Popularity'] }
 							}
 						}
 					})
@@ -27,10 +27,10 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 						config: {
 							channels: {
 								y: {
-									detach: 'Popularity'
+									detach: ['Popularity']
 								},
 								x: {
-									attach: 'Popularity'
+									attach: ['Popularity']
 								}
 							}
 						}
@@ -88,7 +88,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 						config: {
 							channels: {
 								x: {
-									detach: 'Genres'
+									detach: ['Genres']
 								}
 							}
 						}

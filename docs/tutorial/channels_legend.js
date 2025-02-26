@@ -14,8 +14,8 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 						config: {
 							title: 'Label',
 							channels: {
-								y: { set: 'Popularity' },
-								x: { set: 'Genres' }
+								x: { set: ['Genres'] },
+								y: { set: ['Popularity'] }
 							}
 						}
 					})
@@ -25,7 +25,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 						config: {
 							channels: {
 								label: {
-									attach: 'Popularity'
+									attach: ['Popularity']
 								}
 							}
 						}
@@ -47,7 +47,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 						config: {
 							channels: {
 								lightness: {
-									attach: 'Popularity'
+									attach: ['Popularity']
 								}
 							},
 							legend: 'lightness'
@@ -73,7 +73,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 									set: null
 								},
 								color: {
-									attach: 'Genres'
+									attach: ['Genres']
 								}
 							},
 							legend: 'color'
@@ -96,7 +96,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 						config: {
 							channels: {
 								size: {
-									set: 'Popularity'
+									set: ['Popularity']
 								}
 							},
 							geometry: 'circle'

@@ -20,7 +20,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								y: { set: 'Popularity' }
+								y: { set: ['Popularity'] }
 							}
 						}
 					})
@@ -28,7 +28,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					return chart.animate({
 						config: {
-							title: 'Sum of Popularity by Genre'
+							title: 'Sum of Popularity by Genres'
 						}
 					})
 				},
@@ -36,27 +36,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								x: { set: 'Genres' }
-							}
-						}
-					})
-				}
-			]
-		},
-		{
-			anims: [
-				(chart) => {
-					return chart.animate({
-						config: {
-							title: 'Minimum of Popularity by Genre'
-						}
-					})
-				},
-				(chart) => {
-					return chart.animate({
-						config: {
-							channels: {
-								y: { set: 'min(Popularity)' }
+								x: { set: ['Genres'] }
 							}
 						}
 					})
@@ -68,7 +48,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					return chart.animate({
 						config: {
-							title: 'Maximum of Popularity by Genre'
+							title: 'Minimum of Popularity by Genres'
 						}
 					})
 				},
@@ -76,7 +56,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								y: { set: 'max(Popularity)' }
+								y: { set: ['min(Popularity)'] }
 							}
 						}
 					})
@@ -88,7 +68,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					return chart.animate({
 						config: {
-							title: 'Mean of Popularity by Genre'
+							title: 'Maximum of Popularity by Genres'
 						}
 					})
 				},
@@ -96,7 +76,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								y: { set: 'mean(Popularity)' }
+								y: { set: ['max(Popularity)'] }
 							}
 						}
 					})
@@ -108,7 +88,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					return chart.animate({
 						config: {
-							title: 'Count of items by Genre'
+							title: 'Mean of Popularity by Genres'
 						}
 					})
 				},
@@ -116,7 +96,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								y: { set: 'count()' }
+								y: { set: ['mean(Popularity)'] }
 							}
 						}
 					})
@@ -128,7 +108,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					return chart.animate({
 						config: {
-							title: 'Distinct Kinds by Genre'
+							title: 'Count of items by Genres'
 						}
 					})
 				},
@@ -136,7 +116,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								y: { set: 'distinct(Kinds)' }
+								y: { set: ['count()'] }
 							}
 						}
 					})
@@ -148,7 +128,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 				(chart) => {
 					return chart.animate({
 						config: {
-							title: 'Sum of Popularity by Genre'
+							title: 'Distinct Kinds by Genres'
 						}
 					})
 				},
@@ -156,7 +136,27 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								y: { set: 'sum(Popularity)' }
+								y: { set: ['distinct(Kinds)'] }
+							}
+						}
+					})
+				}
+			]
+		},
+		{
+			anims: [
+				(chart) => {
+					return chart.animate({
+						config: {
+							title: 'Sum of Popularity by Genres'
+						}
+					})
+				},
+				(chart) => {
+					return chart.animate({
+						config: {
+							channels: {
+								y: { set: ['sum(Popularity)'] }
 							}
 						}
 					})
