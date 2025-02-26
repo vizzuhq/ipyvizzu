@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Condensed&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+@font-face {
+	font-family: 'Roboto Condensed';
+	font-style: normal;
+	font-weight: 400;
+	src:
+		local('Roboto Condensed'),
+		local('RobotoCondensed-Regular'),
+		url('roboto-condensed-v18-latin_latin-ext-regular.woff2') format('woff2'),
+		/* Super Modern Browsers */ url('roboto-condensed-v18-latin_latin-ext-regular.woff')
+			format('woff'),
+		/* Modern Browsers */ url('roboto-condensed-v18-latin_latin-ext-regular.ttf')
+			format('truetype'); /* Legacy iOS */
+}
+
+#testVizzuCanvas {
+	width: 1280px;
+	height: 720px;
+	border: 1px solid #e0e0e0;
+}
+
+a {
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 1.5em;
+	font-family: Roboto;
+	color: #4171cd;
+	text-decoration: none;
+}
