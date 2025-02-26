@@ -44,8 +44,8 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								y: { detach: 'Kinds' },
-								x: { attach: 'Kinds' }
+								x: { attach: 'Kinds' },
+								y: { detach: 'Kinds' }
 							},
 							align: 'none'
 						}
@@ -106,7 +106,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						style: {
 							'plot.xAxis.label.fontSize': '150%',
-							'title.backgroundColor': '#A0A0A0'
+							'plot.backgroundColor': '#A0A0A0'
 						}
 					})
 				}
@@ -122,11 +122,11 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 								title: 'Store function',
 								align: 'stretch',
 								channels: {
-									y: { set: ['Popularity', 'Kinds'] },
-									x: { set: ['Genres'] },
-									label: { attach: ['Popularity'] }
+									y: ['Popularity', 'Kinds'],
+									x: ['Genres'],
+									label: ['Popularity']
 								},
-								color: { set: ['Kinds'] }
+								color: ['Kinds']
 							}
 						},
 						0
@@ -165,11 +165,11 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 							title: 'Store function',
 							align: 'stretch',
 							channels: {
-								y: { set: ['Popularity', 'Kinds'] },
-								x: { set: ['Genres'] },
-								label: { attach: ['Popularity'] }
+								y: ['Popularity', 'Kinds'],
+								x: ['Genres'],
+								label: ['Popularity']
 							},
-							color: { set: ['Kinds'] }
+							color: ['Kinds']
 						}
 					})
 				}
