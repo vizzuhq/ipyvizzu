@@ -15,9 +15,9 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 							title: 'Store function',
 							channels: {
 								y: { set: ['Popularity', 'Kinds'] },
-								x: { set: 'Genres' },
-								color: { set: 'Kinds' },
-								label: { set: 'Popularity' }
+								x: { set: ['Genres'] },
+								color: { set: ['Kinds'] },
+								label: { set: ['Popularity'] }
 							}
 						}
 					})
@@ -123,10 +123,10 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 								align: 'stretch',
 								channels: {
 									y: { set: ['Popularity', 'Kinds'] },
-									x: { set: 'Genres' },
-									label: { attach: 'Popularity' }
+									x: { set: ['Genres'] },
+									label: { attach: ['Popularity'] }
 								},
-								color: { set: 'Kinds' }
+								color: { set: ['Kinds'] }
 							}
 						},
 						0
@@ -166,10 +166,10 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 							align: 'stretch',
 							channels: {
 								y: { set: ['Popularity', 'Kinds'] },
-								x: { set: 'Genres' },
-								label: { attach: 'Popularity' }
+								x: { set: ['Genres'] },
+								label: { attach: ['Popularity'] }
 							},
-							color: { set: 'Kinds' }
+							color: { set: ['Kinds'] }
 						}
 					})
 				}

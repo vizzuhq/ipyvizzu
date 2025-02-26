@@ -15,9 +15,9 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 							title: 'Switch to ascending order...',
 							channels: {
 								y: { set: ['Popularity', 'Kinds'] },
-								x: { set: 'Genres' },
-								color: { set: 'Kinds' },
-								label: { set: 'Popularity' }
+								x: { set: ['Genres'] },
+								color: { set: ['Kinds'] },
+								label: { set: ['Popularity'] }
 							}
 						}
 					})
@@ -82,7 +82,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 						config: {
 							channels: {
 								y: {
-									detach: 'Kinds'
+									detach: ['Kinds']
 								},
 								x: {
 									set: ['Genres', 'Kinds']

@@ -15,9 +15,9 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 							title: 'Jumping from 0% to 50% progress at the begining of the animation',
 							channels: {
 								y: { set: ['Popularity', 'Kinds'] },
-								x: { set: 'Genres' },
-								color: { set: 'Kinds' },
-								label: { set: 'Popularity' }
+								x: { set: ['Genres'] },
+								color: { set: ['Kinds'] },
+								label: { set: ['Popularity'] }
 							}
 						}
 					})
@@ -27,10 +27,10 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 						config: {
 							channels: {
 								x: {
-									attach: 'Kinds'
+									attach: ['Kinds']
 								},
 								y: {
-									detach: 'Kinds'
+									detach: ['Kinds']
 								}
 							}
 						}

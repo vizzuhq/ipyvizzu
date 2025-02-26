@@ -15,9 +15,9 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 							title: 'Default options - step 1',
 							channels: {
 								y: { set: ['Popularity', 'Kinds'] },
-								x: { set: 'Genres' },
-								color: { set: 'Kinds' },
-								label: { set: 'Popularity' }
+								x: { set: ['Genres'] },
+								color: { set: ['Kinds'] },
+								label: { set: ['Popularity'] }
 							}
 						}
 					})
@@ -27,10 +27,10 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 						config: {
 							channels: {
 								y: {
-									detach: 'Kinds'
+									detach: ['Kinds']
 								},
 								x: {
-									attach: 'Kinds'
+									attach: ['Kinds']
 								}
 							}
 						}
@@ -52,10 +52,10 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 						config: {
 							channels: {
 								x: {
-									detach: 'Kinds'
+									detach: ['Kinds']
 								},
 								y: {
-									attach: 'Kinds'
+									attach: ['Kinds']
 								}
 							}
 						}
@@ -78,10 +78,10 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 							config: {
 								channels: {
 									x: {
-										attach: 'Kinds'
+										attach: ['Kinds']
 									},
 									y: {
-										detach: 'Kinds'
+										detach: ['Kinds']
 									}
 								}
 							}
@@ -115,10 +115,10 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 							config: {
 								channels: {
 									x: {
-										detach: 'Kinds'
+										detach: ['Kinds']
 									},
 									y: {
-										attach: 'Kinds'
+										attach: ['Kinds']
 									}
 								}
 							}
@@ -146,10 +146,10 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 							config: {
 								channels: {
 									x: {
-										attach: 'Kinds'
+										attach: ['Kinds']
 									},
 									y: {
-										detach: 'Kinds'
+										detach: ['Kinds']
 									}
 								}
 							}
@@ -185,10 +185,10 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 							config: {
 								channels: {
 									x: {
-										detach: 'Kinds'
+										detach: ['Kinds']
 									},
 									y: {
-										attach: 'Kinds'
+										attach: ['Kinds']
 									}
 								}
 							}

@@ -15,9 +15,9 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 							title: 'Align: center',
 							channels: {
 								y: { set: ['Popularity', 'Kinds'] },
-								x: { set: 'Genres' },
-								color: { set: 'Kinds' },
-								label: { set: 'Popularity' }
+								x: { set: ['Genres'] },
+								color: { set: ['Kinds'] },
+								label: { set: ['Popularity'] }
 							}
 						}
 					})

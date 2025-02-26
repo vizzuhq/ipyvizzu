@@ -14,8 +14,8 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 						config: {
 							title: 'Geometry: area',
 							channels: {
-								x: { set: 'Genres' },
-								y: { set: 'Popularity' }
+								x: { set: ['Genres'] },
+								y: { set: ['Popularity'] }
 							}
 						}
 					})

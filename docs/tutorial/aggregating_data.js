@@ -20,7 +20,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								y: { set: 'Popularity' }
+								y: { set: ['Popularity'] }
 							}
 						}
 					})
@@ -36,7 +36,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								x: { set: 'Genres' }
+								x: { set: ['Genres'] }
 							}
 						}
 					})
@@ -56,7 +56,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								y: { set: 'min(Popularity)' }
+								y: { set: ['min(Popularity)'] }
 							}
 						}
 					})
@@ -76,7 +76,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								y: { set: 'max(Popularity)' }
+								y: { set: ['max(Popularity)'] }
 							}
 						}
 					})
@@ -96,7 +96,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								y: { set: 'mean(Popularity)' }
+								y: { set: ['mean(Popularity)'] }
 							}
 						}
 					})
@@ -116,7 +116,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								y: { set: 'count()' }
+								y: { set: ['count()'] }
 							}
 						}
 					})
@@ -136,7 +136,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								y: { set: 'distinct(Kinds)' }
+								y: { set: ['distinct(Kinds)'] }
 							}
 						}
 					})
@@ -156,7 +156,7 @@ Promise.all([dataLoaded, mdChartLoaded]).then((results) => {
 					return chart.animate({
 						config: {
 							channels: {
-								y: { set: 'sum(Popularity)' }
+								y: { set: ['sum(Popularity)'] }
 							}
 						}
 					})
